@@ -1,4 +1,4 @@
-"""Azure Service Fabric command line module"""
+"""Azure Service Fabric module that can be installed using setuptools"""
 #!/usr/bin/env python
 #
 # Copyright (c) Microsoft Corporation. All rights reserved.
@@ -16,15 +16,28 @@ def read(fname):
 
 setup(
     name='servicefabric_cli',
-    version='0.0.1',
+    version='1.0.0.dev1',
     description='Azure Service Fabric command line',
+    long_description=read('README.rst'),
     url='https://github.com/Azure/service-fabric-cli',
     author='Microsoft Corporation',
     author_email='sfpythoncli@microsoft.com',
     license='MIT',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Environment :: Console',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Software Development :: User Interfaces'
+    ],
+    keywords='servicefabric azure',
+    python_requires='>=3',
     packages=[
         'azure.servicefabric.cli',
         'tests'
     ],
-    long_description=read('README')
+    install_requires=[
+    ],
 )
