@@ -1,3 +1,1 @@
-
-def joke():
-    return 'derp...'
+from .command_line import launch
