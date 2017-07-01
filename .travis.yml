@@ -4,5 +4,10 @@ python:
 install:
   - pip install ./src/
   - pip install -r requirements.txt
-script:
-  - nosetests -v
+jobs:
+  include:
+    - stage: test
+      script: nosetests -v
+      script: "python $(which pylint) ./src/azure/servicefabric/ --msg-template='{path}({line}): [{msg_id}{obj}] {msg}'"
+    - stage: deplo
+      script: echo 'dummy deploy'
