@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+env27/
 build/
 develop-eggs/
 dist/
@@ -45,6 +46,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.noseids
 
 # Translations
 *.mo
@@ -99,3 +101,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# VS Code
+.vscode/
