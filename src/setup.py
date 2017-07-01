@@ -1,4 +1,4 @@
-"""Azure Service Fabric module that can be installed using setuptools"""
+"""Azure Service Fabric CLI module that can be installed using setuptools"""
 #!/usr/bin/env python
 #
 # Copyright (c) Microsoft Corporation. All rights reserved.

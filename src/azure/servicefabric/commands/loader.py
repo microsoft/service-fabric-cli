@@ -1,12 +1,16 @@
-#!/usr/bin/env python
+"""Command groups for the Service Fabric CLI.
 
-""" User registers commands with CommandGroups """
+Contains the definitions for all of the commands currently available when using
+the command line.
+
+The actual implementation of commands is kept seperate. This module is only
+responsible for dispatching the correct functions for each command
+"""
 
 import os
 import sys
 from collections import OrderedDict
 
-from knack import CLI
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.arguments import ArgumentsContext
 from knack.help import CLIHelp
@@ -37,26 +41,13 @@ def abc_list_command_handler():
 def hello_command_handler(myarg=None, abc=None):
     return ['hello', 'world', myarg, abc]
 
-WELCOME_MESSAGE = r"""
-   _____ _      _____ 
-  / ____| |    |_   _|
- | |    | |      | |  
- | |    | |      | |  
- | |____| |____ _| |_ 
-  \_____|______|_____|
-                      
-                      
-Welcome to the cool new CLI!
-"""
 
-class MyCLIHelp(CLIHelp):
+class SFCommandHelp(CLIHelp):
 
     def __init__(self, ctx=None):
-        super(MyCLIHelp, self).__init__(ctx=ctx,
-                                        privacy_statement='My privacy statement.',
-                                        welcome_message=WELCOME_MESSAGE)
+        super(SFCommandHelp, self).__init__(ctx=ctx)
 
-class MyCommandsLoader(CLICommandsLoader):
+class SFCommandLoader(CLICommandsLoader):
 
     def load_command_table(self, args):
         with CommandSuperGroup(__name__, self, '__main__#{}') as sg:
@@ -71,9 +62,3 @@ class MyCommandsLoader(CLICommandsLoader):
         with ArgumentsContext(self, 'hello world') as ac:
             ac.argument('myarg', type=int, default=100)
         super(MyCommandsLoader, self).load_arguments(command)
-
-name = 'exapp4'
-
-mycli = CLI(cli_name=name, config_dir=os.path.join('~', '.{}'.format(name)), config_env_var_prefix=name, commands_loader_cls=MyCommandsLoader, help_cls=MyCLIHelp)
-exit_code = mycli.invoke(sys.argv[1:])
-sys.exit(exit_code)
