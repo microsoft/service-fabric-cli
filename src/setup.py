@@ -35,12 +35,13 @@ setup(
     keywords='servicefabric azure',
     python_requires='>=3',
     packages=[
-        'azure.servicefabric.cli'
+        'azure.servicefabric.commands',
+        'azure.servicefabric.commands.tests'
     ],
     install_requires=[
         'knack'
     ],
     entry_points={
-        'console_scripts': ['sf=azure.servicefabric.cli.command_line:launch']
+        'console_scripts': ['sf=azure.servicefabric.commands:launch']
     }
 )

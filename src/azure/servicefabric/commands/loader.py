@@ -61,4 +61,4 @@ class SFCommandLoader(CLICommandsLoader):
     def load_arguments(self, command):
         with ArgumentsContext(self, 'hello world') as ac:
             ac.argument('myarg', type=int, default=100)
-        super(MyCommandsLoader, self).load_arguments(command)
+        super(SFCommandLoader, self).load_arguments(command)

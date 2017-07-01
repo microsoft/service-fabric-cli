@@ -3,6 +3,7 @@
 Handles creating and launching a CLI to handle a user command."""
 
 import os
+import sys
 
 from knack import CLI
 from .loader import SFCommandLoader, SFCommandHelp
