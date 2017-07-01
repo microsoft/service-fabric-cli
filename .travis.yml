@@ -6,7 +6,9 @@ install:
   - pip install -r requirements.txt
 jobs:
   include:
-    - script: nosetests -v
-    - script: "python $(which pylint) ./src/azure/servicefabric/ --msg-template='{path}({line}): [{msg_id}{obj}] {msg}'"
+    - stage: unit tests
+      script: nosetests -v
+    - stage: unit tests
+      script: "python $(which pylint) ./src/azure/servicefabric/ --msg-template='{path}({line}): [{msg_id}{obj}] {msg}'"
     - stage: deploy
       script: echo 'dummy deploy'
