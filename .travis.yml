@@ -9,7 +9,7 @@ git:
 jobs:
   include:
     - stage: unit tests
-      script: nosetests -v --cover-min-percentage=50 --with-coverage --cover-package=azure.servicefabric.commands --cover-inclusive 
+      script: nosetests -v --with-coverage --cover-package=azure.servicefabric.commands --cover-inclusive 
     - stage: unit tests
       script: "python $(which pylint) ./src/azure/servicefabric/ --msg-template='{path}({line}): [{msg_id}{obj}] {msg}'"
     - stage: deploy

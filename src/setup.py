@@ -1,4 +1,4 @@
-"""Azure Service Fabric CLI module that can be installed using setuptools"""
+"""Azure Service Fabric CLI package that can be installed using setuptools"""
 #!/usr/bin/env python
 #
 # Copyright (c) Microsoft Corporation. All rights reserved.
@@ -39,7 +39,8 @@ setup(
         'azure.servicefabric.commands.tests'
     ],
     install_requires=[
-        'knack'
+        'knack',
+        'azure-servicefabric==5.6.130'
     ],
     entry_points={
         'console_scripts': ['sf=azure.servicefabric.commands:launch']

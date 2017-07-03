@@ -1,55 +1,34 @@
-"""Command groups for the Service Fabric CLI.
+"""Command and help loader for the Service Fabric CLI.
 
-Contains the definitions for all of the commands currently available when using
-the command line.
-
-The actual implementation of commands is kept seperate. This module is only
-responsible for dispatching the correct functions for each command
+Commands are stored as one to one mappings between command line syntax and
+python function.
 """
 
-import os
-import sys
 from collections import OrderedDict
 
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.arguments import ArgumentsContext
 from knack.help import CLIHelp
 
-from knack.help_files import helps
-
-helps['abc'] = """
-    type: group
-    short-summary: Manage the alphabet of words.
-"""
-
-helps['abc list'] = """
-    type: command
-    short-summary: List the alphabet.
-    examples:
-        - name: It's pretty straightforward.
-          text: exapp4 abc list
-"""
-
-def a_test_command_handler():
-    return [{'a': 1, 'b': 1234}, {'a': 3, 'b': 4}]
-
-
-def abc_list_command_handler():
-    import string
-    return list(string.ascii_lowercase)
-
-def hello_command_handler(myarg=None, abc=None):
-    return ['hello', 'world', myarg, abc]
+# Need to import so global help dict gets updated
+import azure.servicefabric.commands.helps  # pylint: disable=unused-import
 
 
 class SFCommandHelp(CLIHelp):
+    """Service Fabric CLI help loader"""
 
     def __init__(self, ctx=None):
-        super(SFCommandHelp, self).__init__(ctx=ctx)
+        header_msg = 'Service Fabric Command Line'
+
+        super(SFCommandHelp, self).__init__(ctx=ctx,
+                                            welcome_message=header_msg)
 
 class SFCommandLoader(CLICommandsLoader):
+    """Service Fabric CLI command loader, containing command mappings"""
 
     def load_command_table(self, args):
+
+
         with CommandSuperGroup(__name__, self, '__main__#{}') as sg:
             with sg.group('hello') as g:
                 g.command('world', 'hello_command_handler', confirmation=True)
