@@ -5,7 +5,7 @@ Handles creating and launching a CLI to handle a user command."""
 import sys
 
 from knack import CLI
-from sf_cli.commands import (SFCommandLoader, SFCommandHelp, SF_CLI_CONFIG_DIR,
+from sfcli.commands import (SFCommandLoader, SFCommandHelp, SF_CLI_CONFIG_DIR,
                              SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME)
 # Need to import so global help dict gets updated
 import sf_cli.helps  # pylint: disable=unused-import
