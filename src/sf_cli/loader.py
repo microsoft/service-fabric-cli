@@ -4,14 +4,14 @@ Commands are stored as one to one mappings between command line syntax and
 python function.
 """
 
-from collections import OrderedDict
-
 from knack.commands import CLICommandsLoader, CommandSuperGroup
-from knack.arguments import ArgumentsContext
 from knack.help import CLIHelp
 
 # Need to import so global help dict gets updated
 import azure.servicefabric.commands.helps  # pylint: disable=unused-import
+
+from .client import SFApiClient
+from .command_line import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX
 
 
 class SFCommandHelp(CLIHelp):
@@ -27,17 +27,17 @@ class SFCommandLoader(CLICommandsLoader):
     """Service Fabric CLI command loader, containing command mappings"""
 
     def load_command_table(self, args):
+        """Load all Service Fabric commands"""
 
+        client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
 
-        with CommandSuperGroup(__name__, self, '__main__#{}') as sg:
-            with sg.group('hello') as g:
-                g.command('world', 'hello_command_handler', confirmation=True)
-            with sg.group('abc') as g:
-                g.command('list', 'abc_list_command_handler')
-                g.command('show', 'a_test_command_handler')
-        return OrderedDict(self.command_table)
+        # Generate client
+        sf_c = SFApiClient(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
+
+        with CommandSuperGroup(__name__, self, client_func_path,
+                               client_factory=sf_c.client) as super_group:
+            with super_group.group('cluster') as group:
+                group.command('health', 'get_cluster_health')
 
     def load_arguments(self, command):
-        with ArgumentsContext(self, 'hello world') as ac:
-            ac.argument('myarg', type=int, default=100)
-        super(SFCommandLoader, self).load_arguments(command)
+        """Load global arguments for commands"""

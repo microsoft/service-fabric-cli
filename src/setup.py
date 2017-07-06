@@ -15,7 +15,7 @@ def read(fname):
 
 
 setup(
-    name='servicefabric_cli',
+    name='sf-cli',
     version='1.0.0.dev1',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
@@ -35,14 +35,15 @@ setup(
     keywords='servicefabric azure',
     python_requires='>=3',
     packages=[
-        'azure.servicefabric.commands',
-        'azure.servicefabric.commands.tests'
+        'sf_cli',
+        'sf_cli.tests'
     ],
     install_requires=[
         'knack',
+        'msrest',
         'azure-servicefabric==5.6.130'
     ],
     entry_points={
-        'console_scripts': ['sf=azure.servicefabric.commands:launch']
+        'console_scripts': ['sf=sf_cli:launch']
     }
 )
