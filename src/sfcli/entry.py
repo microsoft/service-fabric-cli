@@ -2,16 +2,13 @@
 
 Handles creating and launching a CLI to handle a user command."""
 
-import os
 import sys
 
 from knack import CLI
-from .loader import SFCommandLoader, SFCommandHelp
-
-SF_CLI_NAME = 'Azure Service Fabric CLI'
-SF_CLI_SHORT_NAME = 'sfcli'
-SF_CLI_CONFIG_DIR = os.path.join('~', '.{}'.format(SF_CLI_SHORT_NAME))
-SF_CLI_ENV_VAR_PREFIX = SF_CLI_SHORT_NAME
+from sf_cli.commands import (SFCommandLoader, SFCommandHelp, SF_CLI_CONFIG_DIR,
+                             SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME)
+# Need to import so global help dict gets updated
+import sf_cli.helps  # pylint: disable=unused-import
 
 def launch():
     """Entry point for Service Fabric CLI.

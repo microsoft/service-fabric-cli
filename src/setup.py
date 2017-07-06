@@ -35,8 +35,8 @@ setup(
     keywords='servicefabric azure',
     python_requires='>=3',
     packages=[
-        'sf_cli',
-        'sf_cli.tests'
+        'sfcli',
+        'sfcli.tests'
     ],
     install_requires=[
         'knack',

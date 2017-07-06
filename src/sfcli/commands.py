@@ -4,15 +4,17 @@ Commands are stored as one to one mappings between command line syntax and
 python function.
 """
 
+import os
+
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
+from sfcli.apiclient import SFApiClient
 
-# Need to import so global help dict gets updated
-import azure.servicefabric.commands.helps  # pylint: disable=unused-import
-
-from .client import SFApiClient
-from .command_line import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX
-
+# Default names
+SF_CLI_NAME = 'Azure Service Fabric CLI'
+SF_CLI_SHORT_NAME = 'sfcli'
+SF_CLI_CONFIG_DIR = os.path.join('~', '.{}'.format(SF_CLI_SHORT_NAME))
+SF_CLI_ENV_VAR_PREFIX = SF_CLI_SHORT_NAME
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
