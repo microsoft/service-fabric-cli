@@ -6,9 +6,9 @@ import sys
 
 from knack import CLI
 from sfcli.commands import (SFCommandLoader, SFCommandHelp, SF_CLI_CONFIG_DIR,
-                             SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME)
+                            SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME)
 # Need to import so global help dict gets updated
-import sf_cli.helps  # pylint: disable=unused-import
+import sfcli.helps  # pylint: disable=unused-import
 
 def launch():
     """Entry point for Service Fabric CLI.

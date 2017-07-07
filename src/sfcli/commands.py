@@ -6,6 +6,7 @@ python function.
 
 import os
 
+from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
 from sfcli.apiclient import SFApiClient
@@ -37,9 +38,10 @@ class SFCommandLoader(CLICommandsLoader):
         sf_c = SFApiClient(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
 
         with CommandSuperGroup(__name__, self, client_func_path,
-                               client_factory=sf_c.client) as super_group:
+                               client_factory=sf_c.client()) as super_group:
             with super_group.group('cluster') as group:
                 group.command('health', 'get_cluster_health')
+        return OrderedDict(self.command_table)
 
     def load_arguments(self, command):
         """Load global arguments for commands"""

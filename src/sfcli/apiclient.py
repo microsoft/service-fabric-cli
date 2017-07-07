@@ -5,7 +5,7 @@ from knack.util import CLIError
 from azure.servicefabric.service_fabric_client_ap_is import (
     ServiceFabricClientAPIs
 )
-from sf_cli.auth import ClientCertAuthentication
+from sfcli.auth import ClientCertAuthentication
 
 class SFApiClient(object):
     """Configure and generate a Service Fabric client for interacting with
