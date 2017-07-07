@@ -9,9 +9,9 @@ git:
 jobs:
   include:
     - stage: unit tests
-      script: nosetests -v --with-coverage --cover-package=azure.servicefabric.commands --cover-inclusive 
+      script: scripts/run_tests.sh
     - stage: unit tests
-      script: "python $(which pylint) ./src/azure/servicefabric/ --msg-template='{path}({line}): [{msg_id}{obj}] {msg}'"
+      script: scripts/run_pylint.sh
     - stage: deploy
       script: echo 'dummy deploy'
 notifications:
