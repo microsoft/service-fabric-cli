@@ -41,6 +41,7 @@ setup(
     install_requires=[
         'knack',
         'msrest',
+        'requests'
         'azure-servicefabric==5.6.130'
     ],
     entry_points={
