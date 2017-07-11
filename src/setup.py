@@ -45,6 +45,6 @@ setup(
         'azure-servicefabric==5.6.130'
     ],
     entry_points={
-        'console_scripts': ['sf=sfcli:launch']
+        'console_scripts': ['sfctl=sfcli:launch']
     }
 )

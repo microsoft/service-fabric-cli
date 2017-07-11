@@ -11,23 +11,6 @@ import requests
 def create_compose_application(client, compose_file, application_id,
                                repo_user=None, encrypted=False,
                                repo_pass=None, timeout=60):
-    """
-    Creates a Service Fabric application from a Compose file
-
-    :param str application_id: The id of application to create from
-    Compose file. This is typically the full id of the application
-    including "fabric:" URI scheme
-
-    :param str compose_file: Path to the Compose file to use
-
-    :param str repo_user: Container repository user name if needed for
-    authentication
-
-    :param bool encrypted: Use an encrypted password rather than prompting
-    for a plaintext one
-
-    :param str repo_pass: Encrypted container repository password
-    """
     from azure.servicefabric.models.create_compose_application_description import CreateComposeApplicationDescription #pylint: disable=line-too-long
     from azure.servicefabric.models.repository_credential import (
         RepositoryCredential
@@ -279,3 +262,86 @@ def sf_create_app(client,  # pylint: disable=too-many-locals,too-many-arguments
                                       app_params, app_cap_desc)
 
     client.create_application(app_desc, timeout)
+
+def sf_upgrade_app(  # pylint: disable=too-many-arguments,too-many-locals
+        client, app_id, app_version, parameters, mode="UnmonitoredAuto",
+        replica_set_check_timeout=None, force_restart=None,
+        failure_action=None, health_check_wait_duration="0",
+        upgade_timeout="P10675199DT02H48M05.4775807S",
+        service_health_policy=None, timeout=60):
+    """
+
+    Validates the supplied application upgrade parameters and starts upgrading
+    the application if the parameters are valid. Please note that upgrade
+    description replaces the existing application description. This means that
+    if the parameters are not specified, the existing parameters on the
+    :param str app_id: The identity of the application. This is typically the
+    full name of the application without the 'fabric:' URI scheme.
+
+    :param str app_version: The target application type version (found in the
+    application manifest) for the application upgrade.
+
+    :param str parameters: A JSON encoded list of application parameter
+    overrides to be applied when upgrading the application.
+
+    :param str mode: The mode used to monitor health during a rolling upgrade.
+
+    :param int replica_set_check_timeout: The maximum amount of time to block
+    processing of an upgrade domain and prevent loss of availability when
+    there are unexpected issues. Measured in seconds.
+
+    :param bool force_restart: Forcefully restart processes during upgrade even
+    when the code version has not changed.
+
+    :param str failure_action: The action to perform when a Monitored upgrade
+    encounters monitoring policy or health policy violations.
+
+    :param str health_check_wait_duration: The amount of time to wait after
+    completing an upgrade domain before applying health policies. Measured in
+    milliseconds.
+
+    :param str health_check_stable_duration: The amount of time that the
+    application or cluster must remain healthy before the upgrade proceeds
+    to the next upgrade domain. Measured in milliseconds.
+    evaluations whn the application or cluster is unhealthy before the failure
+    complete before FailureAction is executed. Measured in milliseconds.
+
+    has to complete before FailureAction is executed. Measured in milliseconds.
+
+    :param bool warning_as_error: Treat health evaluation warnings with the
+    same severity as errors.
+
+    health policy used by default to evaluate the health of a service type.
+
+    :param str service_health_policy: JSON encoded map with service type health
+    policy per service type name. The map is empty be default.
+    """
+    from azure.servicefabric.models.application_upgrade_description import (
+        ApplicationUpgradeDescription
+    )
+    from azure.servicefabric.models.monitoring_policy_description import (
+        MonitoringPolicyDescription
+    )
+    from azure.servicefabric.models.application_health_policy import (
+        ApplicationHealthPolicy
+    )
+
+    monitoring_policy = MonitoringPolicyDescription(
+        failure_action, health_check_wait_duration,
+ )
+    if app_params is None:
+        app_params = []
+    def_shp = parse_default_service_health_policy(default_service_health_policy)
+
+    map_shp = parse_service_health_policy_map(service_health_policy)
+
+    app_health_policy = ApplicationHealthPolicy(warning_as_error,
+                                         "Rolling", mode,
+                                         replica_set_check_timeout,
+                                         force_restart, monitoring_policy,
+                                         app_health_policy)
+
+    client.start_application_upgrade(app_id, desc, timeout)
+    # TODO consider additional parameter validation here rather than allowing
+    # the gateway to reject it and return failure response
+
