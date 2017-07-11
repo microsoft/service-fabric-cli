@@ -31,15 +31,18 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('cluster') as group:
                 group.command('health', 'get_cluster_health')
-        
 
         # Custom commands
 
-        custom_app_path = 'sfcli.custom_app#{}'
-        with CommandSuperGroup(__name__, self, custom_app_path,
+        with CommandSuperGroup(__name__, self, 'sfcli.custom_app#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('compose') as group:
                 group.command('create', 'create_compose_application')
+
+        with CommandSuperGroup(__name__, self, 'sfcli.custom_cluster#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('cluster') as group:
+                group.command('select', 'select')
 
         return OrderedDict(self.command_table)
 

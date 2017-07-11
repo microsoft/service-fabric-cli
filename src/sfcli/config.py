@@ -4,10 +4,9 @@ import os
 from knack.config import CLIConfig
 
 # Default names
-SF_CLI_NAME = 'Azure Service Fabric CLI'
-SF_CLI_SHORT_NAME = 'sfcli'
-SF_CLI_CONFIG_DIR = os.path.join('~', '.{}'.format(SF_CLI_SHORT_NAME))
-SF_CLI_ENV_VAR_PREFIX = SF_CLI_SHORT_NAME
+SF_CLI_NAME = 'sfctl'
+SF_CLI_CONFIG_DIR = os.path.join('~', '.{}'.format(SF_CLI_NAME))
+SF_CLI_ENV_VAR_PREFIX = SF_CLI_NAME
 
 def get_config_value(name, fallback=None):
     """Gets a config by name.

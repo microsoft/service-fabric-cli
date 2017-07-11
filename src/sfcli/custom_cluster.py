@@ -3,10 +3,14 @@
 from knack.util import CLIError
 
 def select_args_verify(endpoint, cert, key, pem, ca, no_verify):
-    if not (endpoint.lower().startswith("http") or endpoint.lower().startswith("https")):
+    """Verify arguments for select command"""
+
+    if not (endpoint.lower().startswith("http") or
+            endpoint.lower().startswith("https")):
         raise CLIError("Endpoint must be HTTP or HTTPS")
 
-    usage = "Valid syntax : --endpoint [ [ --key --cert | --pem ] [ --ca | --no-verify ] ]"
+    usage = ("Valid syntax : --endpoint [ [ --key --cert | --pem ] "
+             "[ --ca | --no-verify ] ]")
 
     if ca and not (pem or all([key, cert])):
         raise CLIError(usage)

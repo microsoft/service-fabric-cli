@@ -1,7 +1,12 @@
+"""Commands for managing the health of service fabric entities"""
+from knack.util import CLIError
 
+def parse_def_service_health_policy(policy):
+    """Parse default service health policy from string"""
 
-def parse_default_service_health_policy(policy):
-    from azure.servicefabric.models.service_type_health_policy import ServiceTypeHealthPolicy
+    from azure.servicefabric.models.service_type_health_policy import (
+        ServiceTypeHealthPolicy
+    )
 
     if policy is None:
         return None
@@ -13,7 +18,8 @@ def parse_default_service_health_policy(policy):
 
 
 def parse_service_health_policy_map(formatted_policy):
-    from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem
+    """Parse a service health policy mapping from a string"""
+    from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem  # pylint: disable=line-too-long
 
     if formatted_policy is None:
         return None
@@ -22,31 +28,35 @@ def parse_service_health_policy_map(formatted_policy):
     for st_desc in formatted_policy:
         st_name = st_desc.get("Key", None)
         if st_name is None:
-            raise CLIError("Could not find service type name in service health policy map")
+            raise CLIError("Could not find service type name in service health"
+                           " policy map")
         st_policy = st_desc.get("Value", None)
         if st_policy is None:
-            raise CLIError("Could not find service type policy in service health policy map")
-        p = parse_default_service_health_policy(st_policy)
-        std_list_item = ServiceTypeHealthPolicyMapItem(st_name, p)
+            raise CLIError("Could not find service type policy in service "
+                           "health policy map")
+        poli = parse_def_service_health_policy(st_policy)
+        std_list_item = ServiceTypeHealthPolicyMapItem(st_name, poli)
 
         map_shp.append(std_list_item)
     return map_shp
 
 def parse_app_health_map(formatted_map):
-    from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem
+    """Parse an application health policy mapping from a string"""
+    from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem # pylint: disable=line-too-long
 
     if not formatted_map:
         return None
 
     health_map = []
-    for m in formatted_map:
-        name = m.get("key", None)
-        percent_unhealthy = m.get("value", None)
+    for i in formatted_map:
+        name = i.get("key", None)
+        percent_unhealthy = i.get("value", None)
         if name is None:
-            raise CLIError("Cannot find application type health policy map name")
+            raise CLIError("Cannot find application type health policy map "
+                           "name")
         if percent_unhealthy is None:
-            raise CLIError("Cannot find application type health policy map unhealthy percent")
-        r = ApplicationTypeHealthPolicyMapItem(name, percent_unhealthy)
-        health_map.append(r)
+            raise CLIError("Cannot find application type health policy map "
+                           "unhealthy percent")
+        map_item = ApplicationTypeHealthPolicyMapItem(name, percent_unhealthy)
+        health_map.append(map_item)
     return health_map
-

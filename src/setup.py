@@ -39,9 +39,9 @@ setup(
         'sfcli.tests'
     ],
     install_requires=[
-        'knack',
+        'knack==0.1.1',
         'msrest',
-        'requests'
+        'requests',
         'azure-servicefabric==5.6.130'
     ],
     entry_points={
