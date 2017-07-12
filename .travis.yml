@@ -4,16 +4,18 @@ python:
   - 2.7
 git:
   depth: 3
-install:
-  - pip install ./src/
 jobs:
   include:
     - stage: unit tests
       python: 2.7
-      script: scripts/run_tests.sh
+      script:
+        - pip install ./src/ 
+        - scripts/run_tests.sh
     - stage: unit tests
       python: 3.6
-      script: scripts/run_tests.sh
+      script:
+        - pip install ./src/ 
+        - scripts/run_tests.sh
     - stage: unit tests
       script: scripts/run_pylint.sh
     - stage: deploy
