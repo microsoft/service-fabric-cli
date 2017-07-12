@@ -27,7 +27,7 @@ def select_arg_verify(endpoint, cert, key, pem, ca, no_verify):
     if pem and any([cert, key]):
         raise CLIError(usage)
 
-def sf_select(endpoint, cert=None,
+def select(endpoint, cert=None,
               key=None, pem=None, ca=None, no_verify=False):
     """
     Connects to a Service Fabric cluster endpoint.
@@ -46,29 +46,12 @@ def sf_select(endpoint, cert=None,
     HTTPS, note: this is an insecure option and should not be used for
     production environments
     """
-    from azure.cli.core._config import set_global_config_value
+    from sfcli.config import (set_ca_cert, set_cert, set_cluster_endpoint,
+                              set_no_verify)
 
-    sf_select_verify(endpoint, cert, key, pem, ca, no_verify)
+    select_arg_verify(endpoint, cert, key, pem, ca, no_verify)
 
-    if pem:
-        set_global_config_value("servicefabric", "pem_path", pem)
-        set_global_config_value("servicefabric", "security", "pem")
-    elif cert:
-        set_global_config_value("servicefabric", "cert_path", cert)
-        set_global_config_value("servicefabric", "key_path", key)
-        set_global_config_value("servicefabric", "security", "cert")
-    else:
-        set_global_config_value("servicefabric", "security", "none")
-
-    if ca:
-        set_global_config_value("servicefabric", "use_ca", "True")
-        set_global_config_value("servicefabric", "ca_path", ca)
-    else:
-        set_global_config_value("servicefabric", "use_ca", "False")
-
-    if no_verify:
-        set_global_config_value("servicefabric", "no_verify", "True")
-    else:
-        set_global_config_value("servicefabric", "no_verify", "False")
-
-    set_global_config_value("servicefabric", "endpoint", endpoint)
+    set_ca_cert(ca)
+    set_cert(pem, cert, key)
+    set_no_verify(no_verify)
+    set_cluster_endpoint(endpoint)
