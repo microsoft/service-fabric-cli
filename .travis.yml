@@ -1,15 +1,18 @@
 language: python
 python:
-  - "3.6"
-  - "2.7"
-install:
-  - pip install ./src/
-  - pip install -r requirements.txt
+  - 3.6
+  - 2.7
 git:
   depth: 3
+install:
+  - pip install ./src/
 jobs:
   include:
     - stage: unit tests
+      python: 2.7
+      script: scripts/run_tests.sh
+    - stage: unit tests
+      python: 3.6
       script: scripts/run_tests.sh
     - stage: unit tests
       script: scripts/run_pylint.sh
