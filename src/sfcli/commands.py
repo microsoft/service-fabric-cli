@@ -7,9 +7,10 @@ python function.
 from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
+from knack.arguments import ArgumentsContext
 from sfcli.apiclient import create as client_create
 # Need to import so global help dict gets updated
-import sfcli.helps.compose
+import sfcli.helps.app
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -38,6 +39,10 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('compose') as group:
                 group.command('create', 'create_compose_application')
+            with super_group.group('application') as group:
+                group.command('upload', 'upload')
+                group.command('create', 'create')
+                group.command('upgrade', 'upgrade')
 
         with CommandSuperGroup(__name__, self, 'sfcli.custom_cluster#{}',
                                client_factory=client_create) as super_group:
@@ -47,4 +52,10 @@ class SFCommandLoader(CLICommandsLoader):
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):
-        """Load global arguments for commands"""
+        """Load specialized arguments for commands"""
+
+        with ArgumentsContext(self, '') as arg_context:
+            arg_context.argument('timeout', type=int, default=60,
+                                 options_list=('-t', '--timeout'),
+                                 help='Server timeout in seconds')
+        super(SFCommandLoader, self).load_arguments(command)
