@@ -1,10 +1,12 @@
-def sf_start_chaos(
+"""Custom commands for the Service Fabric chaos test service"""
+
+def start( #pylint: disable=too-many-arguments,too-many-locals
         client, time_to_run="4294967295", max_cluster_stabilization=60,
         max_concurrent_faults=1, disable_move_replica_faults=False,
         wait_time_between_faults=20,
         wait_time_between_iterations=30, warning_as_error=False,
         max_percent_unhealthy_nodes=0,
-        max_percent_unhealthy_applications=0,
+        max_percent_unhealthy_apps=0,
         app_type_health_policy_map=None, timeout=60):
     """
     If Chaos is not already running in the cluster, starts running Chaos with
@@ -27,7 +29,7 @@ def sf_start_chaos(
     :param int max_percent_unhealthy_nodes: When evaluating cluster health
     during Chaos, the maximum allowed percentage of unhealthy nodes before
     reporting an error.
-    :param int max_percent_unhealthy_applications: When evaluating cluster
+    :param int max_percent_unhealthy_apps: When evaluating cluster
     health during Chaos, the maximum allowed percentage of unhealthy
     applications before reporting an error.
     :param str app_type_health_policy_map: JSON encoded list with max
@@ -36,14 +38,19 @@ def sf_start_chaos(
     integer that represents the MaxPercentUnhealthyApplications percentage
     used to evaluate the applications of the specified application type.
     """
-    from azure.servicefabric.models.chaos_parameters import ChaosParameters
-    from azure.servicefabric.models.cluster_health_policy import ClusterHealthPolicy
+    from azure.servicefabric.models.chaos_parameters import (
+        ChaosParameters
+    )
+    from azure.servicefabric.models.cluster_health_policy import (
+        ClusterHealthPolicy
+    )
+    from sfcli.custom_health import parse_app_health_map
 
     health_map = parse_app_health_map(app_type_health_policy_map)
 
     health_policy = ClusterHealthPolicy(warning_as_error,
                                         max_percent_unhealthy_nodes,
-                                        max_percent_unhealthy_applications,
+                                        max_percent_unhealthy_apps,
                                         health_map)
 
     # Does not support Chaos Context currently
@@ -56,4 +63,3 @@ def sf_start_chaos(
                                    None)
 
     client.start_chaos(chaos_params, timeout)
-
