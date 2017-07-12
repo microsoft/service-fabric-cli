@@ -4,19 +4,17 @@ python:
   - 2.7
 git:
   depth: 3
+install:
+  - pip install ./src/
+  - pip install -r requirements.txt
+script: scripts/run_tests.sh
 jobs:
   include:
-    - stage: unit tests
+    - stage: linting
       python: 2.7
-      script:
-        - pip install ./src/ 
-        - scripts/run_tests.sh
-    - stage: unit tests
+      script: scripts/run_pylint.sh
+    - stage: linting
       python: 3.6
-      script:
-        - pip install ./src/ 
-        - scripts/run_tests.sh
-    - stage: unit tests
       script: scripts/run_pylint.sh
     - stage: deploy
       script: echo 'dummy deploy'
