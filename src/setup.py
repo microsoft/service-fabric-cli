@@ -28,9 +28,8 @@ setup(
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3 :: Only',
-        'Topic :: Software Development :: User Interfaces'
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
     ],
     keywords='servicefabric azure',
     python_requires='>=3',

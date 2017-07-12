@@ -10,7 +10,6 @@ def sup_correlation_scheme(correlated_service, correlation):
     else:
         return None
 
-
 def sup_load_metrics(formatted_metrics):
     from azure.servicefabric.models.service_load_metric_description import ServiceLoadMetricDescription
 
@@ -30,7 +29,6 @@ def sup_load_metrics(formatted_metrics):
             r.append(l_desc)
 
     return r
-
 
 def sup_placement_policies(formatted_placement_policies):
     from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import (
@@ -91,7 +89,6 @@ def sup_stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
         f += 4
     return f
 
-
 def sup_service_update_flags(
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
@@ -138,7 +135,6 @@ def validate_service_create_params(stateful, stateless, singleton_scheme, int_sc
     if stateless and any([target_rep_set_size, min_rep_set_size]):
         raise CLIError("Cannot specify replica set sizes for statless services")
 
-
 def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, int_scheme_low,
                            int_scheme_high, int_scheme_count, singleton_scheme):
     from azure.servicefabric.models.named_partition_scheme_description import NamedPartitionSchemeDescription
@@ -167,7 +163,6 @@ def validate_activation_mode(activation_mode):
     if activation_mode not in [None, "SharedProcess", "ExclusiveProcess"]:
         raise CLIError("Invalid activate mode specified")
 
-
 def sf_create_service(  # pylint: disable=too-many-arguments, too-many-locals
         client, app_id, name, service_type, stateful=False, stateless=False,
         singleton_scheme=False, named_scheme=False, int_scheme=False,
@@ -181,95 +176,67 @@ def sf_create_service(  # pylint: disable=too-many-arguments, too-many-locals
         instance_count=None, timeout=60):
     """
     Creates the specified Service Fabric service from the description.
-
-
     :param str app_id: The identity of the parent application. This is
     typically the full id of the application without the 'fabric:' URI scheme.
-
     :param str name: Name of the service. This should be a child of the
     application id. This is the full name including the `fabric:` URI.
     For example service `fabric:/A/B` is a child of application
     `fabric:/A`.
-
     :param str service_type: Name of the service type.
-
     :param bool stateful: Indicates the service is a stateful service.
-
     :param bool stateless: Indicates the service is a stateless service.
-
     :param bool singleton_scheme: Indicates the service should have a single
     partition or be a non-partitioned service.
-
     :param bool named_scheme: Indicates the service should have multiple named
     partitions.
-
     :param list of str named_scheme_list: JSON encoded list of names to
     partition the service across, if using the named partition scheme
-
     :param bool int_scheme: Indicates the service should be uniformly
     partitioned across a range of unsigned integers.
-
     :param str int_scheme_low: The start of the key integer range, if using an
     uniform integer partition scheme.
-
     :param str int_scheme_high: The end of the key integer range, if using an
     uniform integer partition scheme.
-
     :param str int_scheme_count: The number of partitions inside the integer
     key range to create, if using an uniform integer partition scheme.
-
     :param str constraints: The placement constraints as a string. Placement
     constraints are boolean expressions on node properties and allow for
     restricting a service to particular nodes based on the service
     requirements. For example, to place a service on nodes where NodeType
     is blue specify the following:"NodeColor == blue".
-
     :param str correlation: Correlate the service with an existing service
     using an alignment affinity. Possible values include: 'Invalid',
     'Affinity', 'AlignedAffinity', 'NonAlignedAffinity'.
-
     :param str load_metrics: JSON encoded list of metrics used when load
     balancing services across nodes.
-
     :param str placement_policy_list: JSON encoded list of placement policies
     for the service, and any associated domain names. Policies can be one or
     more of: `NonPartiallyPlaceService`, `PreferPrimaryDomain`,
     `RequireDomain`, `RequireDomainDistribution`.
-
     :param str correlated_service: Name of the target service to correlate
     with.
-
     :param str move_cost: Specifies the move cost for the service. Possible
     values are: 'Zero', 'Low', 'Medium', 'High'.
-
     :param str activation_mode: The activation mode for the service package.
     Possible values include: 'SharedProcess', 'ExclusiveProcess'.
-
     :param str dns_name: The DNS name of the service to be created. The Service
     Fabric DNS system service must be enabled for this setting.
-
     :param int target_replica_set_size: The target replica set size as a
     number. This applies to stateful services only.
-
     :param int min_replica_set_size: The minimum replica set size as a number.
     This applies to stateful services only.
-
     :param int replica_restart_wait: The duration, in seconds, between when a
     replica goes down and when a new replica is created. This applies to
     stateful services only.
-
     :param int quorum_loss_wait: The maximum duration, in seconds, for which a
     partition is allowed to be in a state of quorum loss. This applies to
     stateful services only.
-
     :param int stand_by_replica_keep: The maximum duration, in seconds,  for
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
-
     :param bool no_persisted_state: If true, this indicates the service has no
     persistent state stored on the local disk, or it only stores state in
     memory.
-
     :param int instance_count: The instance count. This applies to stateless
     services only.
     """
@@ -329,7 +296,6 @@ def sf_create_service(  # pylint: disable=too-many-arguments, too-many-locals
 
     client.create_service(app_id, svc_desc, timeout)
 
-
 def validate_update_service_params(stateless, stateful, target_rep_set_size, min_rep_set_size,
                                    rep_restart_wait, quorum_loss_wait, stand_by_replica_keep,
                                    instance_count):
@@ -351,7 +317,6 @@ def validate_update_service_params(stateless, stateful, target_rep_set_size, min
         if instance_count is not None:
             raise CLIError("Cannot specify an instance count for a stateful service")
 
-
 def sf_update_service(client, service_id,
                       stateless=False, stateful=False,
                       constraints=None,
@@ -366,56 +331,40 @@ def sf_update_service(client, service_id,
                       timeout=60):
     """
     Updates the specified service using the given update description.
-
-
     :param str service_id: Target service to update. This is typically the full
     id of the service without the 'fabric:' URI scheme.
-
     :param bool stateless: Indicates the target service is a stateless service.
-
     :param bool stateful: Indicates the target service is a stateful service.
-
     :param str constraints: The placement constraints as a string. Placement
     constraints are boolean expressions on node properties and allow for
     restricting a service to particular nodes based on the service
     requirements. For example, to place a service on nodes where NodeType is
     blue specify the following: "NodeColor == blue".
-
     :param str correlation: Correlate the service with an existing service
     using an alignment affinity. Possible values include: 'Invalid',
     'Affinity', 'AlignedAffinity', 'NonAlignedAffinity'.
-
     :param str correlated_service: Name of the target service to correlate
     with.
-
     :param str load_metrics: JSON encoded list of metrics
     used when load balancing across nodes.
-
     :param str placement_policy_list: JSON encoded list of placement policies
     for the service, and any associated domain names. Policies can be one or
     more of: `NonPartiallyPlaceService`, `PreferPrimaryDomain`,
     `RequireDomain`, `RequireDomainDistribution`.
-
     :param str move_cost: Specifies the move cost for the service. Possible
     values are: 'Zero', 'Low', 'Medium', 'High'.
-
     :param int instance_count: The instance count. This applies to stateless
     services only.
-
     :param int target_replica_set_size: The target replica set size as a
     number. This applies to stateful services only.
-
     :param int min_replica_set_size: The minimum replica set size as a number.
     This applies to stateful services only.
-
     :param str replica_restart_wait: The duration, in seconds, between when a
     replica goes down and when a new replica is created. This applies to
     stateful services only.
-
     :param str quorum_loss_wait: The maximum duration, in seconds, for which a
     partition is allowed to be in a state of quorum loss. This applies to
     stateful services only.
-
     :param str stand_by_replica_keep: The maximum duration, in seconds,  for
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
@@ -461,7 +410,6 @@ def sf_update_service(client, service_id,
 
     client.update_service(service_id, update_desc, timeout)
 
-
 def parse_package_sharing_policies(formatted_policies):
     from azure.servicefabric.models.package_sharing_policy_info import PackageSharingPolicyInfo
 
@@ -487,18 +435,13 @@ def sf_service_package_upload(client, node_name,
     """
     Downloads packages associated with specified service manifest to the image
     cache on specified node.
-
     :param str node_name: The name of the node.
-
     :param str service_manifest_name: The name of service manifest associated
     with the packages that will be downloaded.
-
     :param str app_type_name: The name of the application manifest for
     the corresponding requested service manifest.
-
     :param str app_type_version: The version of the application
     manifest for the corresponding requested service manifest.
-
     :param str share_policy: JSON encoded list of sharing policies. Each
     sharing policy element is composed of a 'name' and 'scope'. The name
     corresponds to the name of the code, configuration, or data package that
@@ -516,4 +459,3 @@ def sf_service_package_upload(client, node_name,
                                                  app_type_version,
                                                  node_name, list_psps)
     client.deployed_service_package_to_node(node_name, desc, timeout)
-
