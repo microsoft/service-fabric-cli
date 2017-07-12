@@ -54,6 +54,19 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('chaos') as group:
                 group.command('start', 'start')
 
+        with CommandSuperGroup(__name__, self, 'sfcli.custom_health#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('application') as group:
+                group.command('report-health', 'report_app_health')
+            with super_group.group('service') as group:
+                group.command('report-health', 'report_svc_health')
+            with super_group.group('partition') as group:
+                group.command('report-health', 'report_partition_health')
+            with super_group.group('replica') as group:
+                group.command('report-health', 'report_replica_health')
+            with super_group.group('node') as group:
+                group.command('report-health', 'report_node_health')
+
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):

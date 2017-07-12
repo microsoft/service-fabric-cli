@@ -1,57 +1,71 @@
-def parse_default_service_health_policy(policy):
-    from azure.servicefabric.models.service_type_health_policy import ServiceTypeHealthPolicy
+"""Commands related to Service Fabric health entities and operations"""
+
+from knack.util import CLIError
+
+def parse_service_health_policy(policy):
+    """Parse a health service policy from string"""
+    from azure.servicefabric.models.service_type_health_policy import (
+        ServiceTypeHealthPolicy
+    )
 
     if policy is None:
         return None
 
-    uphp = policy.get("max_percent_unhealthy_partitions_per_service", 0)
-    rhp = policy.get("max_percent_unhealthy_replicas_per_partition", 0)
-    ushp = policy.get("max_percent_unhealthy_services", 0)
+    uphp = policy.get('max_percent_unhealthy_partitions_per_service', 0)
+    rhp = policy.get('max_percent_unhealthy_replicas_per_partition', 0)
+    ushp = policy.get('max_percent_unhealthy_services', 0)
     return ServiceTypeHealthPolicy(uphp, rhp, ushp)
 
 def parse_service_health_policy_map(formatted_policy):
-    from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem
+    """Parse a service health policy map from a string"""
+
+    from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem  #pylint: disable=line-too-long
 
     if formatted_policy is None:
         return None
 
     map_shp = []
     for st_desc in formatted_policy:
-        st_name = st_desc.get("Key", None)
+        st_name = st_desc.get('Key', None)
         if st_name is None:
-            raise CLIError("Could not find service type name in service health policy map")
-        st_policy = st_desc.get("Value", None)
+            raise CLIError('Could not find service type name in service '
+                           'health policy map')
+        st_policy = st_desc.get('Value', None)
         if st_policy is None:
-            raise CLIError("Could not find service type policy in service health policy map")
-        p = parse_default_service_health_policy(st_policy)
-        std_list_item = ServiceTypeHealthPolicyMapItem(st_name, p)
+            raise CLIError('Could not find service type policy in service '
+                           'health policy map')
+        service_p = parse_service_health_policy(st_policy)
+        std_list_item = ServiceTypeHealthPolicyMapItem(st_name, service_p)
 
         map_shp.append(std_list_item)
     return map_shp
 
 def parse_app_health_map(formatted_map):
-    from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem
+    """Parse application health map from string"""
+
+    from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem #pylint: disable=line-too-long
 
     if not formatted_map:
         return None
 
     health_map = []
     for m in formatted_map:
-        name = m.get("key", None)
-        percent_unhealthy = m.get("value", None)
+        name = m.get('key', None)
+        percent_unhealthy = m.get('value', None)
         if name is None:
-            raise CLIError("Cannot find application type health policy map name")
+            raise CLIError('Cannot find application type health policy map '
+                           'name')
         if percent_unhealthy is None:
-            raise CLIError("Cannot find application type health policy map unhealthy percent")
-        r = ApplicationTypeHealthPolicyMapItem(name, percent_unhealthy)
-        health_map.append(r)
+            raise CLIError('Cannot find application type health policy map '
+                           'unhealthy percent')
+        map_item = ApplicationTypeHealthPolicyMapItem(name, percent_unhealthy)
+        health_map.append(map_item)
     return health_map
 
-def sf_report_app_health(client, application_id,
-                         source_id, health_property,
-                         health_state, ttl=None, description=None,
-                         sequence_number=None, remove_when_expired=None,
-                         timeout=60):
+def report_app_health(client, application_id,
+                      source_id, health_property, health_state, ttl=None,
+                      description=None, sequence_number=None,
+                      remove_when_expired=None, timeout=60):
     """
     Sends a health report on the Service Fabric application.
     Reports health state of the specified Service Fabric application. The
@@ -116,10 +130,10 @@ def sf_report_app_health(client, application_id,
     client.report_application_health(application_id, info, timeout)
 
 
-def sf_report_svc_health(client, service_id,
-                         source_id, health_property, health_state,
-                         ttl=None, description=None, sequence_number=None,
-                         remove_when_expired=None, timeout=60):
+def report_svc_health(client, service_id, source_id, health_property,
+                      health_state, ttl=None, description=None,
+                      sequence_number=None, remove_when_expired=None,
+                      timeout=60):
     """
     Sends a health report on the Service Fabric service.
     Reports health state of the specified Service Fabric service. The
@@ -175,8 +189,6 @@ def sf_report_svc_health(client, service_id,
     expires. This flags the entity as being in Error health state.
     """
 
-    # TODO Move common HealthInformation params to _params
-
     from azure.servicefabric.models.health_information import HealthInformation
 
     info = HealthInformation(source_id, health_property, health_state, ttl,
@@ -185,10 +197,10 @@ def sf_report_svc_health(client, service_id,
     client.report_service_health(service_id, info, timeout)
 
 
-def sf_report_partition_health(
-        client, partition_id, source_id, health_property, health_state, ttl=None,
-        description=None, sequence_number=None, remove_when_expired=None,
-        timeout=60):
+def report_partition_health(client, partition_id, source_id, health_property,
+                            health_state, ttl=None, description=None,
+                            sequence_number=None, remove_when_expired=None,
+                            timeout=60):
     """
     Sends a health report on the Service Fabric partition.
     Reports health state of the specified Service Fabric partition. The
@@ -243,8 +255,6 @@ def sf_report_partition_health(
     expires. This flags the entity as being in Error health state.
     """
 
-    # TODO Move common HealthInformation params to _params
-
     from azure.servicefabric.models.health_information import HealthInformation
 
     info = HealthInformation(source_id, health_property, health_state, ttl,
@@ -252,10 +262,11 @@ def sf_report_partition_health(
     client.report_partition_health(partition_id, info, timeout)
 
 
-def sf_report_replica_health(
-        client, partition_id, replica_id, source_id, health_state, health_property,
-        service_kind="Stateful", ttl=None, description=None,
-        sequence_number=None, remove_when_expired=None, timeout=60):
+def report_replica_health(client, partition_id, replica_id, source_id,
+                          health_state, health_property,
+                          service_kind="Stateful", ttl=None, description=None,
+                          sequence_number=None, remove_when_expired=None,
+                          timeout=60):
     """
     Sends a health report on the Service Fabric replica.
     Reports health state of the specified Service Fabric replica. The
@@ -314,8 +325,6 @@ def sf_report_replica_health(
     expires. This flags the entity as being in Error health state.
     """
 
-    # TODO Move common HealthInformation params to _params
-
     from azure.servicefabric.models.health_information import HealthInformation
 
     info = HealthInformation(source_id, health_property, health_state, ttl,
@@ -325,10 +334,10 @@ def sf_report_replica_health(
                                  service_kind, timeout)
 
 
-def sf_report_node_health(client, node_name,
-                          source_id, health_property, health_state,
-                          ttl=None, description=None, sequence_number=None,
-                          remove_when_expired=None, timeout=60):
+def report_node_health(client, node_name, source_id, health_property,
+                       health_state, ttl=None, description=None,
+                       sequence_number=None, remove_when_expired=None,
+                       timeout=60):
     """
     Sends a health report on the Service Fabric node.
     Reports health state of the specified Service Fabric node. The report
@@ -382,8 +391,6 @@ def sf_report_node_health(client, node_name,
     can't report, the entity is evaluated at error when the health report
     expires. This flags the entity as being in Error health state.
     """
-
-    # TODO Move common HealthInformation params to _params
 
     from azure.servicefabric.models.health_information import HealthInformation
 
