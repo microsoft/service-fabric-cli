@@ -67,6 +67,13 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('node') as group:
                 group.command('report-health', 'report_node_health')
 
+        with CommandSuperGroup(__name__, self, 'sfcli.custom_service#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('service') as group:
+                group.command('create', 'create')
+                group.command('update', 'update')
+                group.command('package-upload', 'package_upload')
+
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):

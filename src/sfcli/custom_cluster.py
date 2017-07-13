@@ -27,8 +27,7 @@ def select_arg_verify(endpoint, cert, key, pem, ca, no_verify):
     if pem and any([cert, key]):
         raise CLIError(usage)
 
-def select(endpoint, cert=None,
-              key=None, pem=None, ca=None, no_verify=False):
+def select(endpoint, cert=None, key=None, pem=None, ca=None, no_verify=False):
     """
     Connects to a Service Fabric cluster endpoint.
     If connecting to secure cluster specify a cert (.crt) and key file (.key)

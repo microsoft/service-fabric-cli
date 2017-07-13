@@ -83,7 +83,7 @@ def set_cert(pem=None, cert=None, key=None):
 
     if any([cert, key]) and pem:
         raise ValueError('Cannot specify both pem and cert or key')
-    
+
     if any([cert, key]) and not all([cert, key]):
         raise ValueError('Must specify both cert and key')
 
