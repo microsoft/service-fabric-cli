@@ -329,7 +329,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals
         ApplicationHealthPolicy
     )
     from sfcli.custom_health import (parse_service_health_policy_map,
-                                     parse_default_service_health_policy)
+                                     parse_service_health_policy)
 
     monitoring_policy = MonitoringPolicyDescription(
         failure_action, health_check_wait_duration,
@@ -342,9 +342,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals
     if app_params is None:
         app_params = []
 
-    def_shp = parse_default_service_health_policy(
-        default_service_health_policy
-    )
+    def_shp = parse_service_health_policy(default_service_health_policy)
 
     map_shp = parse_service_health_policy_map(service_health_policy)
 

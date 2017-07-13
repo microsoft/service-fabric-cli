@@ -8,5 +8,5 @@ class ServiceFabricCLITest(TestCase):
 
     def null_test(self):
         """Dummy test method"""
-        self.addCleanup(None)
+        self.assertEqual(True, True)
         assert True
