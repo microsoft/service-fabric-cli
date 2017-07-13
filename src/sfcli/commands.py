@@ -24,7 +24,7 @@ class SFCommandHelp(CLIHelp):
 class SFCommandLoader(CLICommandsLoader):
     """Service Fabric CLI command loader, containing command mappings"""
 
-    def load_command_table(self, args):
+    def load_command_table(self, args): #pylint: disable=too-many-statements
         """Load all Service Fabric commands"""
 
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
@@ -43,7 +43,7 @@ class SFCommandLoader(CLICommandsLoader):
                 )
                 group.command('upgrade-status', 'get_cluster_upgrade_progress')
                 group.command('recover-system', 'recover_system_partitions')
-                group.command('operation', 'get_fault_operation_list')
+                group.command('operationgit ', 'get_fault_operation_list')
                 group.command('operation-cancel', 'cancel_operation')
 
             with super_group.group('node') as group:
@@ -124,7 +124,7 @@ class SFCommandLoader(CLICommandsLoader):
                     'code-package-list',
                     'get_deployed_code_package_info_list'
                 )
-            
+
             with super_group.group('partition') as group:
                 group.command('list', 'get_partition_info_list')
                 group.command('info', 'get_partition_info')
