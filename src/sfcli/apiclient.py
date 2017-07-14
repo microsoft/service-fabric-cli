@@ -8,7 +8,7 @@ from sfcli.auth import ClientCertAuthentication
 from sfcli.config import (ca_cert_info, cert_info, client_endpoint,
                           no_verify_setting)
 
-def create():
+def create(_):
     """Create a client for Service Fabric APIs."""
 
     cert = cert_info()

@@ -47,10 +47,21 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, no_verify=False):
     """
     from sfcli.config import (set_ca_cert, set_cert, set_cluster_endpoint,
                               set_no_verify)
+    from msrest import ServiceClient, Configuration
+    from sfcli.auth import ClientCertAuthentication
 
     select_arg_verify(endpoint, cert, key, pem, ca, no_verify)
+
+    rest_client = ServiceClient(
+        ClientCertAuthentication(cert, ca, no_verify),
+        Configuration(endpoint)
+    )
+
+    # Make sure basic GET request succeeds
+    rest_client.send(rest_client.get('/')).raise_for_status()
 
     set_ca_cert(ca)
     set_cert(pem, cert, key)
     set_no_verify(no_verify)
     set_cluster_endpoint(endpoint)
+
