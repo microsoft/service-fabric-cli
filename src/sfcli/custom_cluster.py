@@ -64,4 +64,3 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, no_verify=False):
     set_cert(pem, cert, key)
     set_no_verify(no_verify)
     set_cluster_endpoint(endpoint)
-

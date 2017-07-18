@@ -7,7 +7,6 @@ python function.
 from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
-from knack.arguments import ArgumentsContext
 from sfcli.apiclient import create as client_create
 # Need to import so global help dict gets updated
 import sfcli.helps.app # pylint: disable=unused-import
@@ -190,7 +189,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('upgrade', 'upgrade')
 
         # Need an empty client for the select operation
-        with CommandSuperGroup(__name__, self, 
+        with CommandSuperGroup(__name__, self,
                                'sfcli.custom_cluster#{}') as super_group:
             with super_group.group('cluster') as group:
                 group.command('select', 'select')
@@ -224,9 +223,8 @@ class SFCommandLoader(CLICommandsLoader):
 
     def load_arguments(self, command):
         """Load specialized arguments for commands"""
+        from sfcli.params import custom_arguments
 
-        with ArgumentsContext(self, '') as arg_context:
-            arg_context.argument('timeout', type=int, default=60,
-                                 options_list=('-t', '--timeout'),
-                                 help='Server timeout in seconds')
+        custom_arguments(self, command)
+
         super(SFCommandLoader, self).load_arguments(command)

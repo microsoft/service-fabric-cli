@@ -41,6 +41,8 @@ pip install -r requirements.txt
 Pull requests are gated on passing unit tests and linting, to run either of
 these checks locally run the following commands:
 
+### MacOS
+
 ```bash
 ./scripts/run_pylint.sh
 ./scripts/run_tests.sh
