@@ -21,13 +21,18 @@ class AppTests(unittest.TestCase):
     def app_path_file_error_test(self):
         """App path raise ValueError on non directory arguments"""
         import tempfile
+        import os
 
-        test_file = tempfile.TemporaryFile()
+        (test_fd, test_path) = tempfile.mkstemp()
 
-        self.addCleanup(test_file.close)
+        def cleanup():
+            os.close(test_fd)
+            os.remove(test_path)
+
+        self.addCleanup(cleanup)
 
         with self.assertRaises(ValueError):
-            sf_c.validate_app_path(test_file.name)
+            sf_c.validate_app_path(test_path)
 
     def parse_app_params_none_test(self):
         """Parse app params returns None with None args"""
