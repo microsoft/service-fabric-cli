@@ -26,6 +26,7 @@ class AppTests(unittest.TestCase):
         (test_fd, test_path) = tempfile.mkstemp()
 
         def cleanup():
+            """Cleanup test files created"""
             os.close(test_fd)
             os.remove(test_path)
 
