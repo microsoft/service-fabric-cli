@@ -33,7 +33,7 @@ class AppTests(unittest.TestCase):
         """Parse app params returns None with None args"""
         self.assertIs(sf_c.parse_app_params(None), None)
 
-    def parse_app_params_returns_empty_test(self):
+    def parse_app_params_empty_test(self):
         """Parse app params returns empty list with empty args"""
         self.assertEqual(sf_c.parse_app_params(""), [])
 
