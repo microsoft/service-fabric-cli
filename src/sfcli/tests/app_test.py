@@ -16,7 +16,7 @@ class AppTests(unittest.TestCase):
         self.addCleanup(lambda: shutil.rmtree(test_dir))
 
         res = sf_c.validate_app_path(test_dir)
-        self.assertEquals(os.path.abspath(res), res)
+        self.assertEqual(os.path.abspath(res), res)
 
     def app_path_file_error_test(self):
         """App path raise ValueError on non directory arguments"""
