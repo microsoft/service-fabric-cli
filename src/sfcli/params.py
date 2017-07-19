@@ -28,3 +28,7 @@ def custom_arguments(self, _):
 
     with ArgumentsContext(self, 'chaos start') as arg_context:
         arg_context.argument('app_type_health_policy_map', type=json_encoded)
+
+    with ArgumentsContext(self, 'service create') as arg_context:
+        arg_context.argument('load_metrics', type=json_encoded)
+        arg_context.argument('placement_policy_list', type=json_encoded)

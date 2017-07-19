@@ -186,6 +186,9 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,
         raise CLIError('Must specify the full integer range and partition '
                        'count when using an uniform integer partition scheme')
 
+    if not sum([named_scheme, int_scheme, singleton_scheme]) == 1:
+        raise CLIError('Specify exactly one partition scheme')
+
     if named_scheme:
         return NamedPartitionSchemeDescription(len(named_scheme_list),
                                                named_scheme_list)
