@@ -1,11 +1,9 @@
-# Service Fabric CLI (sfctl) Tooling
+# Service Fabric CLI (sfctl)
 
 Command line interface for interacting with Azure Service Fabric clusters and
 their related entities.
 
 ## Installation
-
-__Not working until publish and public, use dev setup__
 
 ```bash
 pip install sf-cli

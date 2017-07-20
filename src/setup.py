@@ -16,7 +16,7 @@ def read(fname):
 
 setup(
     name='sf-cli',
-    version='1.0.0.dev1',
+    version='unreleased',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
     url='https://github.com/Azure/service-fabric-cli',
@@ -24,12 +24,14 @@ setup(
     author_email='sfpythoncli@microsoft.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.6'
     ],
     keywords='servicefabric azure',
     python_requires='>=2.7,!=3.5,!=3.4,!=3.3,!=3.2,!=3.1,!=3.0,<3.7',
@@ -39,11 +41,12 @@ setup(
     ],
     install_requires=[
         'knack==0.1.1',
-        'msrest',
-        'requests',
+        'msrest=~0.4',
+        'requests=~2.18',
         'azure-servicefabric==5.6.130'
     ],
     entry_points={
         'console_scripts': ['sfctl=sfcli:launch']
     }
 )
+ 

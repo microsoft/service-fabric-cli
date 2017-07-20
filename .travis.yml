@@ -16,8 +16,3 @@ jobs:
     - stage: linting
       python: 3.6
       script: scripts/run_pylint.sh
-    - stage: deploy
-      script: echo 'dummy deploy'
-notifications:
-  webhooks: 
-    - https://outlook.office.com/webhook/1e1dbc37-5538-4490-bb5c-b706d06f8e65@72f988bf-86f1-41af-91ab-2d7cd011db47/TravisCI/0b27c06d0c824086ba6ae527b3e21013/7bb0840b-4e9b-4ab2-a7c7-3e3d79349686
