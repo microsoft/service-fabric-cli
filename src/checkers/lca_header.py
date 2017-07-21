@@ -35,14 +35,14 @@ class LCAHeaderChecker(BaseChecker):
                            'All rights reserved.')
 
         with node.stream() as stream:
-            for (lineno, line) in enumerate(stream):
+            for line in stream:
                 if line.lstrip().startswith('#'):
                     if legal_copyright in line:
                         return
                 elif not line.lstrip():
                     continue
                 else:
-                    self.add_message('missing-ms-header', line=lineno)
+                    self.add_message('missing-ms-header', line=0)
                     return
 
 def register(linter):
