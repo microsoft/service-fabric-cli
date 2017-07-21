@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for
+# license information.
+# -----------------------------------------------------------------------------
+
 """Commands related to Service Fabric health entities and operations"""
 
 from knack.util import CLIError

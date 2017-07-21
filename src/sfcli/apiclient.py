@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for
+# license information.
+# -----------------------------------------------------------------------------
+
 """Azure Service Fabric API client factory"""
 
 from knack.util import CLIError

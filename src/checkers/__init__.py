@@ -4,7 +4,9 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Help files for Service Fabric command line"""
+"""Custom PyLint checkers for source"""
 
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
+
+from checkers.lca_header import register

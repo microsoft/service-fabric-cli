@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for
+# license information.
+# -----------------------------------------------------------------------------
+
 """Custom health command related tests"""
 import unittest
 import sfcli.custom_health as sf_c

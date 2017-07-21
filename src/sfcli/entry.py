@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for
+# license information.
+# -----------------------------------------------------------------------------
+
 """Entry or launch point for Service Fabric CLI.
 
 Handles creating and launching a CLI to handle a user command."""
