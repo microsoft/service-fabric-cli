@@ -7,8 +7,22 @@ git:
 install:
   - pip install -e ./src/
   - pip install -r requirements.txt
-env:
-  - PYLINT_TARGET=./src/checkers
-  - PYLINT_TARGET=./src/sfcli
-  - UNIT_TEST=true
-script: scripts/verify.sh
+script: scripts/verify.sh test
+jobs:
+  include:
+    - stage: linting
+      python: 2.7
+      env: PYLINT_TARGET=./src/checkers
+      script: scripts/verify.sh
+    - stage: linting
+      python: 3.6
+      env: PYLINT_TARGET=./src/checkers
+      script: scripts/verify.sh
+    - stage: linting
+      python: 2.7
+      env: PYLINT_TARGET=./src/sfcli
+      script: scripts/verify.sh
+    - stage: linting
+      python: 3.6
+      env: PYLINT_TARGET=./src/sfcli
+      script: scripts/verify.sh
