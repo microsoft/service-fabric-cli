@@ -18,7 +18,13 @@ if [[ $1 == "local" ]]
 elif [[ $1 == "test" ]]
     then
         launch_unit_tests
-elif [[ $PYLINT_TARGET ]]
+elif [[ $1 == "lint" ]]
     then
-        launch_pylint $PYLINT_TARGET
+        echo "Linting CLI..."
+        launch_pylint ./src/sfcli
+        r1=$?
+        echo "Linting Checker..."
+        launch_pylint ./src/checkers
+        r2=$?
+        exit $((r1 + r2))
 fi

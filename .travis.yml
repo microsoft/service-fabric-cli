@@ -12,17 +12,8 @@ jobs:
   include:
     - stage: linting
       python: 2.7
-      env: PYLINT_TARGET=./src/checkers
-      script: scripts/verify.sh
+      script: scripts/verify.sh lint
     - stage: linting
       python: 3.6
-      env: PYLINT_TARGET=./src/checkers
-      script: scripts/verify.sh
-    - stage: linting
-      python: 2.7
-      env: PYLINT_TARGET=./src/sfcli
-      script: scripts/verify.sh
-    - stage: linting
-      python: 3.6
-      env: PYLINT_TARGET=./src/sfcli
-      script: scripts/verify.sh
+      script: scripts/verify.sh lint
+
