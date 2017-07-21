@@ -36,6 +36,9 @@ class LCAHeaderChecker(BaseChecker):
 
         with node.stream() as stream:
             for line in stream:
+                if isinstance(line, bytes):
+                    # Assume UTF-8 for simplicity
+                    line = line.decode('utf-8')
                 if line.lstrip().startswith('#'):
                     if legal_copyright in line:
                         return
