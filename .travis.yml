@@ -16,3 +16,10 @@ jobs:
     - stage: linting
       python: 3.6
       script: scripts/run_pylint.sh
+    - stage: linting
+      python: 2.7
+      script: scripts/run_pylint_checker.sh
+    - stage: linting
+      python: 3.6
+      script: scripts/run_pylint_checker.sh
+
