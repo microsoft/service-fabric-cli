@@ -7,19 +7,8 @@ git:
 install:
   - pip install -e ./src/
   - pip install -r requirements.txt
-script: scripts/run_tests.sh
-jobs:
-  include:
-    - stage: linting
-      python: 2.7
-      script: scripts/run_pylint.sh
-    - stage: linting
-      python: 3.6
-      script: scripts/run_pylint.sh
-    - stage: linting
-      python: 2.7
-      script: scripts/run_pylint_checker.sh
-    - stage: linting
-      python: 3.6
-      script: scripts/run_pylint_checker.sh
-
+env:
+  - PYLINT_TARGET=./src/checkers
+  - PYLINT_TARGET=./src/sfcli
+  - UNIT_TEST=true
+script: scripts/verify.sh
