@@ -10,8 +10,8 @@ from knack.util import CLIError
 from azure.servicefabric.service_fabric_client_ap_is import (
     ServiceFabricClientAPIs
 )
-from sfcli.auth import ClientCertAuthentication
-from sfcli.config import (ca_cert_info, cert_info, client_endpoint,
+from sfctl.auth import ClientCertAuthentication
+from sfctl.config import (ca_cert_info, cert_info, client_endpoint,
                           no_verify_setting)
 
 def create(_):

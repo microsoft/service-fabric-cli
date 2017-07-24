@@ -50,7 +50,7 @@ def start( #pylint: disable=too-many-arguments,too-many-locals
     from azure.servicefabric.models.cluster_health_policy import (
         ClusterHealthPolicy
     )
-    from sfcli.custom_health import parse_app_health_map
+    from sfctl.custom_health import parse_app_health_map
 
     health_map = parse_app_health_map(app_type_health_policy_map)
 

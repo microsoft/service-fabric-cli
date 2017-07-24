@@ -13,7 +13,7 @@ python function.
 from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
-from sfcli.apiclient import create as client_create
+from sfctl.apiclient import create as client_create
 # Need to import so global help dict gets updated
 import sfcli.helps.app # pylint: disable=unused-import
 import sfcli.helps.main # pylint: disable=unused-import
@@ -229,7 +229,7 @@ class SFCommandLoader(CLICommandsLoader):
 
     def load_arguments(self, command):
         """Load specialized arguments for commands"""
-        from sfcli.params import custom_arguments
+        from sfctl.params import custom_arguments
 
         custom_arguments(self, command)
 
