@@ -15,8 +15,8 @@ from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
 from sfctl.apiclient import create as client_create
 # Need to import so global help dict gets updated
-import sfcli.helps.app # pylint: disable=unused-import
-import sfcli.helps.main # pylint: disable=unused-import
+import sfctl.helps.app # pylint: disable=unused-import
+import sfctl.helps.main # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
