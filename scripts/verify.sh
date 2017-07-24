@@ -21,7 +21,7 @@ elif [[ $1 == "test" ]]
 elif [[ $1 == "lint" ]]
     then
         echo "Linting CLI..."
-        launch_pylint ./src/sfcli
+        launch_pylint ./src/sfctl
         r1=$?
         echo "Linting Checker..."
         launch_pylint ./src/checkers
