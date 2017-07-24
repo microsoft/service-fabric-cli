@@ -9,12 +9,12 @@ function launch_pylint()
 
 function launch_unit_tests()
 {
-    nosetests -v --with-coverage --cover-package=sfcli --cover-inclusive
+    nosetests -v --with-coverage --cover-package=sfctl --cover-inclusive
 }
 
 if [[ $1 == "local" ]]
     then
-        launch_unit_tests && launch_pylint ./src/sfcli && launch_pylint ./src/checkers
+        launch_unit_tests && launch_pylint ./src/sfctl && launch_pylint ./src/checkers
 elif [[ $1 == "test" ]]
     then
         launch_unit_tests

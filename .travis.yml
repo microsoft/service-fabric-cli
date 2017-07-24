@@ -16,4 +16,3 @@ jobs:
     - stage: linting
       python: 3.6
       script: scripts/verify.sh lint
-
