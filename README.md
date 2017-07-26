@@ -6,11 +6,7 @@ their related entities.
 ## Installation
 
 ```bash
-<<<<<<< HEAD
 pip install sfctl
-=======
-pip install sf-cli
->>>>>>> master
 ```
 
 ### Launching
