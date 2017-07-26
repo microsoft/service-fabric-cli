@@ -18,6 +18,7 @@
         "repo",
         "sfcli",
         "sfctl",
+        "testsdk",
         "unprovision",
         "unprovisioned",
         "uphp",

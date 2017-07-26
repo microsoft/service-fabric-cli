@@ -6,11 +6,9 @@
 
 """Full command and scenario tests"""
 
-import os
-from unittest import skip, skipUnless
+from unittest import skipUnless
 from mock import patch
-from knack.testsdk import (ScenarioTest, JMESPathCheck, NoneCheck, 
-                           JMESPathCheckExists)
+from knack.testsdk import (ScenarioTest, JMESPathCheck, NoneCheck)
 from sfctl.entry import cli
 from sfctl.tests.helpers import (ENDPOINT, MOCK_CONFIG)
 
