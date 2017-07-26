@@ -32,6 +32,15 @@ def custom_arguments(self, _):
                              type=json_encoded)
         arg_context.argument('service_health_policy', type=json_encoded)
 
+    with ArgumentsContext(self, 'service create') as arg_context:
+        arg_context.argument('instance_count', type=int)
+        arg_context.argument('target_replica_set_size', type=int)
+        arg_context.argument('min_replica_set_size', type=int)
+        arg_context.argument('replica_restart_wait_duration_seconds', type=int)
+        arg_context.argument('quorum_loss_wait_duration_seconds', type=int)
+        arg_context.argument('stand_by_replica_keep_duration_seconds',
+                             type=int)
+
     with ArgumentsContext(self, 'chaos start') as arg_context:
         arg_context.argument('app_type_health_policy_map', type=json_encoded)
 
