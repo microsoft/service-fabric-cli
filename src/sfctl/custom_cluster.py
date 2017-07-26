@@ -58,8 +58,14 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, no_verify=False):
 
     select_arg_verify(endpoint, cert, key, pem, ca, no_verify)
 
+    client_cert = None
+    if pem:
+        client_cert = pem
+    elif cert:
+        client_cert = (cert, key)
+
     rest_client = ServiceClient(
-        ClientCertAuthentication(cert, ca, no_verify),
+        ClientCertAuthentication(client_cert, ca, no_verify),
         Configuration(endpoint)
     )
 
