@@ -26,7 +26,7 @@ def mock_config_values(section, name, fallback):
 MOCK_CONFIG.return_value.get.side_effect = mock_config_values
 
 # XMLNS for fabric manifests
-default_namespace = {'fabric': 'http://schemas.microsoft.com/2011/01/fabric'}
+XML_NS = {'fabric': 'http://schemas.microsoft.com/2011/01/fabric'}
 
 def parse_app_version(xml_file):
     """Parse application type version from application manifest"""
@@ -48,11 +48,11 @@ def find_service_manifest(xml_file):
     """Find the path to the first service manifest for an application"""
     root = ET.parse(xml_file).getroot()
 
-    import_elem = root.find('fabric:ServiceManifestImport', default_namespace)
+    import_elem = root.find('fabric:ServiceManifestImport', XML_NS)
     if import_elem is None:
         raise ValueError('Could not find service manifest import section')
 
-    ref_elem = import_elem.find('fabric:ServiceManifestRef', default_namespace)
+    ref_elem = import_elem.find('fabric:ServiceManifestRef', XML_NS)
     if ref_elem is None:
         raise ValueError('Could not find service manifest reference section')
 
@@ -66,7 +66,7 @@ def parse_service_type(xml_file):
     """Determines the first avaliable service type and the associated
     type name"""
     root = ET.parse(xml_file).getroot()
-    service_type = root.find('fabric:ServiceTypes', default_namespace)
+    service_type = root.find('fabric:ServiceTypes', XML_NS)
     if service_type is None:
         raise ValueError('Could not find service types in service manifest')
     service_type_kind = None
