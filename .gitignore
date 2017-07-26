@@ -107,3 +107,6 @@ ENV/
 
 # OS Files
 .DS_Store
+
+# Ignore recordings to keep tests local
+recordings

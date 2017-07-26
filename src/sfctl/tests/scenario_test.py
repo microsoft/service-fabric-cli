@@ -7,25 +7,12 @@
 """Full command and scenario tests"""
 
 import os
-from unittest import skip
-from mock import patch, MagicMock
-from knack.testsdk import ScenarioTest, JMESPathCheck, NoneCheck
+from unittest import skip, skipUnless
+from mock import patch
+from knack.testsdk import (ScenarioTest, JMESPathCheck, NoneCheck, 
+                           JMESPathCheckExists)
 from sfctl.entry import cli
-
-
-ENDPOINT = os.environ.get('SF_TEST_ENDPOINT', 'http://localhost:19080')
-
-MOCK_CLASS = MagicMock()
-def mock_config_values(section, name, fallback):
-    """Validate and mock config returns"""
-    if section != 'servicefabric':
-        raise ValueError('Cannot retrieve non service fabric config value')
-    if name == 'endpoint':
-        return ENDPOINT
-    if name == 'security':
-        return 'none'
-    return fallback
-MOCK_CLASS.return_value.get.side_effect = mock_config_values
+from sfctl.tests.helpers import (ENDPOINT, MOCK_CONFIG)
 
 class ServiceFabricScenarioTests(ScenarioTest):
     """Scenario tests for Service Fabric commands"""
@@ -34,18 +21,18 @@ class ServiceFabricScenarioTests(ScenarioTest):
         cli_env = cli()
         super(ServiceFabricScenarioTests, self).__init__(cli_env, method_name)
 
-    @skip('Long scenario test only')
-    @patch('sfctl.config.CLIConfig', new=MOCK_CLASS)
+    @skipUnless(ENDPOINT, 'Requires live cluster')
+    @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def cluster_select_no_security_test(self):
         """Select a cluster with no security"""
         self.cmd('cluster select --endpoint {0}'.format(ENDPOINT),
-                 checks=NoneCheck())
+                 checks=[NoneCheck()])
 
-    @skip('Long scenario test only')
-    @patch('sfctl.config.CLIConfig', new=MOCK_CLASS)
+    @skipUnless(ENDPOINT, 'Requires live cluster')
+    @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def cluster_health_normal_test(self):
         """Get normal cluster health"""
-        self.cmd('cluster health', checks=JMESPathCheck(
+        self.cmd('cluster health', checks=[JMESPathCheck(
             'applicationHealthStates[0].name',
             'fabric:/System'
-        ))
+        )])

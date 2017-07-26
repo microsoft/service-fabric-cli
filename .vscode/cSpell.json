@@ -6,22 +6,24 @@
     "language": "en",
     // words - list of words to be always considered correct
     "words": [
-        "pylint",
-        "sfcli",
-        "repo",
-        "urlunparse",
+        "JMES",
+        "Stateful",
+        "Unmonitored",
         "isdir",
         "isfile",
+        "opencode",
         "params",
-        "Unmonitored",
-        "Stateful",
-        "uphp",
-        "ushp",
         "psps",
+        "pylint",
+        "repo",
+        "sfcli",
         "sfctl",
         "unprovision",
-        "virtualenv",
-        "opencode"
+        "unprovisioned",
+        "uphp",
+        "urlunparse",
+        "ushp",
+        "virtualenv"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

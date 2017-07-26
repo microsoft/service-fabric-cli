@@ -190,15 +190,18 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('compose') as group:
                 group.command('create', 'create_compose_application')
             with super_group.group('application') as group:
-                group.command('upload', 'upload')
                 group.command('create', 'create')
                 group.command('upgrade', 'upgrade')
 
-        # Need an empty client for the select operation
+        # Need an empty client for the select and upload operations
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_cluster#{}') as super_group:
             with super_group.group('cluster') as group:
                 group.command('select', 'select')
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_app#{}') as super_group:
+            with super_group.group('application') as group:
+                group.command('upload', 'upload')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_chaos#{}',
                                client_factory=client_create) as super_group:

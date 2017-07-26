@@ -52,6 +52,9 @@ locally run the following commands:
 ./scripts/verify.sh local
 ```
 
+For more detailed testing information, see the
+[testing article](docs/testing.md).
+
 ## VS Code
 
 If using VS Code as your primary editor it is recommended you install two
