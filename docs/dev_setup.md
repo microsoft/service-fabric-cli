@@ -28,6 +28,7 @@ virtualenv -p python2 env27/
 . ./env27/bin/activate
 ```
 
+<<<<<<< HEAD
 Then install the required packages and a local symbolic link of the `sfctl`
 package:
 
@@ -44,11 +45,30 @@ tested
 
 Pull requests are gated on passing unit tests and linting, to run these checks
 locally run the following commands:
+=======
+Then install the required packages and a local symbolic link of the `sf-cli`
+package:
+
+```bash
+pip install -e ./src/
+pip install -r requirements.txt
+```
+
+## Testing
+
+Pull requests are gated on passing unit tests and linting, to run either of
+these checks locally run the following commands:
+>>>>>>> master
 
 ### MacOS
 
 ```bash
+<<<<<<< HEAD
 ./scripts/verify.sh local
+=======
+./scripts/run_pylint.sh
+./scripts/run_tests.sh
+>>>>>>> master
 ```
 
 ## VS Code
