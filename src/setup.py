@@ -46,6 +46,16 @@ setup(
         'requests',
         'azure-servicefabric==5.6.130'
     ],
+    extras_require={
+        'test': [
+            'coverage',
+            'nose',
+            'pylint',
+            'coverage',
+            'vcrpy',
+            'mock'
+        ]
+    },
     entry_points={
         'console_scripts': ['sfctl=sfctl:launch']
     }

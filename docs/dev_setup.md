@@ -28,24 +28,27 @@ virtualenv -p python2 env27/
 . ./env27/bin/activate
 ```
 
-Then install the required packages and a local symbolic link of the `sf-cli`
+Then install the required packages and a local symbolic link of the `sfctl`
 package:
 
 ```bash
-pip install -e ./src/
-pip install -r requirements.txt
+pip install -e ./src[test]
 ```
+
+### Windows and Linux
+
+Similar commands work for other OS environments, but have not been officially
+tested
 
 ## Testing
 
-Pull requests are gated on passing unit tests and linting, to run either of
-these checks locally run the following commands:
+Pull requests are gated on passing unit tests and linting, to run these checks
+locally run the following commands:
 
 ### MacOS
 
 ```bash
-./scripts/run_pylint.sh
-./scripts/run_tests.sh
+./scripts/verify.sh local
 ```
 
 ## VS Code
