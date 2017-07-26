@@ -32,7 +32,8 @@ Then install the required packages and a local symbolic link of the `sfctl`
 package:
 
 ```bash
-pip install -e ./src[test]
+pip install -e ./src
+pip install -r requirements.txt
 ```
 
 ### Windows and Linux

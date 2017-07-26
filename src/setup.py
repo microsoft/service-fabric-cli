@@ -51,7 +51,6 @@ setup(
             'coverage',
             'nose',
             'pylint',
-            'coverage',
             'vcrpy',
             'mock'
         ]
