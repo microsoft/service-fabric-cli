@@ -7,8 +7,7 @@
 """Full command and scenario tests"""
 
 import os
-from unittest.mock import patch
-from unittest.mock import MagicMock
+from unittest.mock import patch, MagicMock
 from unittest import skip
 from knack.testsdk import ScenarioTest, JMESPathCheck, NoneCheck
 from sfctl.entry import cli
