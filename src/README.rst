@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
-----------
+1.0.0
+-----
 
 - Initial release.
