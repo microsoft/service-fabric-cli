@@ -16,7 +16,7 @@ def read(fname):
 
 
 setup(
-    name='sf-cli',
+    name='sfctl',
     version='unreleased',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
@@ -37,8 +37,8 @@ setup(
     keywords='servicefabric azure',
     python_requires='>=2.7,!=3.5,!=3.4,!=3.3,!=3.2,!=3.1,!=3.0,<3.7',
     packages=[
-        'sfcli',
-        'sfcli.tests'
+        'sfctl',
+        'sfctl.tests'
     ],
     install_requires=[
         'knack==0.1.1',
@@ -46,8 +46,17 @@ setup(
         'requests',
         'azure-servicefabric==5.6.130'
     ],
+    extras_require={
+        'test': [
+            'coverage',
+            'nose',
+            'pylint',
+            'vcrpy',
+            'mock'
+        ]
+    },
     entry_points={
-        'console_scripts': ['sfctl=sfcli:launch']
+        'console_scripts': ['sfctl=sfctl:launch']
     }
 )
  

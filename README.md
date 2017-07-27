@@ -6,7 +6,7 @@ their related entities.
 ## Installation
 
 ```bash
-pip install sf-cli
+pip install sfctl
 ```
 
 ### Launching
@@ -24,6 +24,10 @@ sfctl -h
 ## Developer Setup
 
 See [dev setup doc](docs/dev_setup.md).
+
+### Validation
+
+See [testing doc](docs/testing.md).
 
 ## Contributing
 

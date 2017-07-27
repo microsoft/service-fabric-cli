@@ -6,7 +6,7 @@
 
 """Custom health command related tests"""
 import unittest
-import sfcli.custom_health as sf_c
+import sfctl.custom_health as sf_c
 
 #pylint: disable=invalid-name
 

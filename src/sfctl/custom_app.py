@@ -77,7 +77,7 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     :param str path: The path to your local application package
     :param bool show_progress: Show file upload progress
     """
-    from sfcli.config import (client_endpoint, no_verify_setting, ca_cert_info,
+    from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
@@ -334,7 +334,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals
     from azure.servicefabric.models.application_health_policy import (
         ApplicationHealthPolicy
     )
-    from sfcli.custom_health import (parse_service_health_policy_map,
+    from sfctl.custom_health import (parse_service_health_policy_map,
                                      parse_service_health_policy)
 
     monitoring_policy = MonitoringPolicyDescription(

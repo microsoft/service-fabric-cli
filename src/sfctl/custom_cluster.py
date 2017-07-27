@@ -51,15 +51,21 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, no_verify=False):
     HTTPS, note: this is an insecure option and should not be used for
     production environments
     """
-    from sfcli.config import (set_ca_cert, set_cert, set_cluster_endpoint,
+    from sfctl.config import (set_ca_cert, set_cert, set_cluster_endpoint,
                               set_no_verify)
     from msrest import ServiceClient, Configuration
-    from sfcli.auth import ClientCertAuthentication
+    from sfctl.auth import ClientCertAuthentication
 
     select_arg_verify(endpoint, cert, key, pem, ca, no_verify)
 
+    client_cert = None
+    if pem:
+        client_cert = pem
+    elif cert:
+        client_cert = (cert, key)
+
     rest_client = ServiceClient(
-        ClientCertAuthentication(cert, ca, no_verify),
+        ClientCertAuthentication(client_cert, ca, no_verify),
         Configuration(endpoint)
     )
 

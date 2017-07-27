@@ -7,7 +7,7 @@
 """Custom app command tests"""
 
 import unittest
-import sfcli.custom_app as sf_c
+import sfctl.custom_app as sf_c
 
 class AppTests(unittest.TestCase):
     """App tests"""

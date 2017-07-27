@@ -12,8 +12,16 @@ import sys
 
 from knack import CLI
 
-from sfcli.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
-from sfcli.commands import SFCommandLoader, SFCommandHelp
+from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
+from sfctl.commands import SFCommandLoader, SFCommandHelp
+
+def cli():
+    """Create CLI environment"""
+    return CLI(cli_name=SF_CLI_NAME,
+               config_dir=SF_CLI_CONFIG_DIR,
+               config_env_var_prefix=SF_CLI_ENV_VAR_PREFIX,
+               commands_loader_cls=SFCommandLoader,
+               help_cls=SFCommandHelp)
 
 def launch():
     """Entry point for Service Fabric CLI.
@@ -21,10 +29,5 @@ def launch():
     Configures and invokes CLI with arguments passed during the time the python
     session is launched"""
 
-    cli_env = CLI(cli_name=SF_CLI_NAME,
-                  config_dir=SF_CLI_CONFIG_DIR,
-                  config_env_var_prefix=SF_CLI_ENV_VAR_PREFIX,
-                  commands_loader_cls=SFCommandLoader,
-                  help_cls=SFCommandHelp)
-
+    cli_env = cli()
     return cli_env.invoke(sys.argv[1:])

@@ -13,10 +13,10 @@ python function.
 from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
-from sfcli.apiclient import create as client_create
+from sfctl.apiclient import create as client_create
 # Need to import so global help dict gets updated
-import sfcli.helps.app # pylint: disable=unused-import
-import sfcli.helps.main # pylint: disable=unused-import
+import sfctl.helps.app # pylint: disable=unused-import
+import sfctl.helps.main # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -185,27 +185,30 @@ class SFCommandLoader(CLICommandsLoader):
 
         # Custom commands
 
-        with CommandSuperGroup(__name__, self, 'sfcli.custom_app#{}',
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_app#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('compose') as group:
                 group.command('create', 'create_compose_application')
             with super_group.group('application') as group:
-                group.command('upload', 'upload')
                 group.command('create', 'create')
                 group.command('upgrade', 'upgrade')
 
-        # Need an empty client for the select operation
+        # Need an empty client for the select and upload operations
         with CommandSuperGroup(__name__, self,
-                               'sfcli.custom_cluster#{}') as super_group:
+                               'sfctl.custom_cluster#{}') as super_group:
             with super_group.group('cluster') as group:
                 group.command('select', 'select')
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_app#{}') as super_group:
+            with super_group.group('application') as group:
+                group.command('upload', 'upload')
 
-        with CommandSuperGroup(__name__, self, 'sfcli.custom_chaos#{}',
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_chaos#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('chaos') as group:
                 group.command('start', 'start')
 
-        with CommandSuperGroup(__name__, self, 'sfcli.custom_health#{}',
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_health#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:
                 group.command('report-health', 'report_app_health')
@@ -218,7 +221,7 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('node') as group:
                 group.command('report-health', 'report_node_health')
 
-        with CommandSuperGroup(__name__, self, 'sfcli.custom_service#{}',
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_service#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('service') as group:
                 group.command('create', 'create')
@@ -229,7 +232,7 @@ class SFCommandLoader(CLICommandsLoader):
 
     def load_arguments(self, command):
         """Load specialized arguments for commands"""
-        from sfcli.params import custom_arguments
+        from sfctl.params import custom_arguments
 
         custom_arguments(self, command)
 
