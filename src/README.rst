@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+1.0.1
+-----
+
+- Fixed missing include module.
+
 1.0.0
 -----
 
