@@ -19,7 +19,7 @@ Change Log
 1.0.1
 -----
 
-- Fixed missing include module.
+- Fixed missing helps module.
 
 1.0.0
 -----
