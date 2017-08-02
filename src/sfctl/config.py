@@ -7,7 +7,6 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
-
 from knack.config import CLIConfig
 
 # Default names

@@ -7,7 +7,6 @@
 """Cluster level Service Fabric commands"""
 
 import adal
-
 from knack.util import CLIError
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
