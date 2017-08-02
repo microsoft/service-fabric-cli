@@ -32,3 +32,24 @@ class ClientCertAuthentication(Authentication):
             session.verify = False
 
         return session
+
+class AdalAuthentication(Authentication):
+    """Azure Active Directory authentication for Service Fabric clusters"""
+    access_token = None
+
+    def __init__(self, token, no_verify=False):
+        self.access_token = token
+        self.no_verify = no_verify
+
+    def signed_session(self):
+        """Create requests session with AAD auth headers
+
+        :rtype: requests.Session.
+        """
+        session = super(AdalAuthentication, self).signed_session()
+        if self.no_verify:
+            session.verify = False
+
+        header = "{} {}".format("Bearer", self.access_token)
+        session.headers['Authorization'] = header
+        return session

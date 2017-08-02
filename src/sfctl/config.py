@@ -7,6 +7,7 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
+
 from knack.config import CLIConfig
 
 # Default names
@@ -70,21 +71,22 @@ def set_ca_cert(ca_path=None):
     else:
         set_config_value('use_ca', 'false')
 
-def cert_info():
+def cert_info(security_type):
     """Path to certificate related files, either a single file path or a
     tuple. In the case of no security, returns None."""
 
-    security_type = get_config_value('security', fallback=None)
     if security_type == 'pem':
         return get_config_value('pem_path', fallback=None)
     if security_type == 'cert':
         cert_path = get_config_value('cert_path', fallback=None)
         key_path = get_config_value('key_path', fallback=None)
         return cert_path, key_path
+    if security_type == 'aad':
+        return get_config_value('bearer', fallback=None)
 
     return None
 
-def set_cert(pem=None, cert=None, key=None):
+def set_auth(pem=None, cert=None, key=None, access_token=None):
     """Set certificate usage paths"""
 
     if any([cert, key]) and pem:
@@ -100,5 +102,8 @@ def set_cert(pem=None, cert=None, key=None):
         set_config_value('security', 'cert')
         set_config_value('cert_path', cert)
         set_config_value('key_path', key)
+    elif access_token:
+        set_config_value('security', 'aad')
+        set_config_value('bearer', access_token)
     else:
         set_config_value('security', 'none')
