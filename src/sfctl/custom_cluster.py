@@ -31,7 +31,7 @@ def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
     if any([cert, key]) and not all([cert, key]):
         raise CLIError(usage)
 
-    if (aad is True) and any([pem, cert, key]):
+    if aad and any([pem, cert, key]):
         raise CLIError(usage)
 
     if pem and any([cert, key]):
@@ -53,7 +53,7 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     :param str pem: Path to client certificate, as a .pem file
     :param str ca: Path to CA certs directory to treat as valid or CA bundle
     file
-    :param bool aad: Indicate using Azure Active Directory authentication
+    :param bool aad: Use Azure Active Directory for authentication
     :param bool no_verify: Disable verification for certificates when using
     HTTPS, note: this is an insecure option and should not be used for
     production environments
@@ -68,16 +68,8 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
 
     access_token = None
     if aad:
-        endpoint_backup = client_endpoint()
-        noverify_backup = no_verify_setting()
-        set_cluster_endpoint(endpoint)
-        set_no_verify(no_verify)
 
-        access_token = sf_get_aad_token()
-
-        set_cluster_endpoint(endpoint_backup)
-        set_no_verify(noverify_backup)
-
+        access_token = sf_get_aad_token(endpoint, no_verify)
         rest_client = ServiceClient(
             AdalAuthentication(access_token, no_verify),
             Configuration(endpoint)
@@ -105,16 +97,21 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     set_ca_cert(ca)
     set_auth(pem, cert, key, access_token)
 
-def sf_get_aad_token():
+def sf_get_aad_token(endpoint, no_verify):
     """Get AAD token"""
-    from sfctl.config import set_config_value
-    from sfctl.apiclient import create
+    from azure.servicefabric.service_fabric_client_ap_is import (
+        ServiceFabricClientAPIs
+    )
+    from sfctl.auth import ClientCertAuthentication
+    from sfctl.config import (aad_bearer, client_endpoint,
+                              set_config_value, no_verify_setting)
     from datetime import datetime
     from datetime import timedelta
 
-    set_config_value('security', 'none')
-    sf_client = create(None)
-    aad_metadata = sf_client.get_aad_metadata()
+    auth = ClientCertAuthentication(None, None, no_verify)
+
+    client = ServiceFabricClientAPIs(auth, base_url=endpoint)
+    aad_metadata = client.get_aad_metadata()
 
     if aad_metadata.type != "aad":
         raise CLIError("Not AAD cluster")

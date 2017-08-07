@@ -39,6 +39,11 @@ def client_endpoint():
 
     return get_config_value('endpoint', None)
 
+def security_type():
+    """security type client is set."""
+
+    return get_config_value('security', None)
+
 def set_cluster_endpoint(endpoint):
     """Configure cluster endpoint"""
     set_config_value('endpoint', endpoint)
@@ -70,20 +75,23 @@ def set_ca_cert(ca_path=None):
     else:
         set_config_value('use_ca', 'false')
 
-def cert_info(security_type):
+def cert_info():
     """Path to certificate related files, either a single file path or a
     tuple. In the case of no security, returns None."""
 
-    if security_type == 'pem':
+    sec_type = security_type()
+    if sec_type == 'pem':
         return get_config_value('pem_path', fallback=None)
-    if security_type == 'cert':
+    if sec_type == 'cert':
         cert_path = get_config_value('cert_path', fallback=None)
         key_path = get_config_value('key_path', fallback=None)
         return cert_path, key_path
-    if security_type == 'aad':
-        return get_config_value('bearer', fallback=None)
 
     return None
+
+def aad_bearer():
+    """AAD bearer header."""
+    return get_config_value('bearer', fallback=None)
 
 def set_auth(pem=None, cert=None, key=None, access_token=None):
     """Set certificate usage paths"""

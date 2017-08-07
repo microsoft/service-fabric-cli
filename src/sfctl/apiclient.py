@@ -11,25 +11,26 @@ from azure.servicefabric.service_fabric_client_ap_is import (
     ServiceFabricClientAPIs
 )
 from sfctl.auth import (ClientCertAuthentication, AdalAuthentication)
-from sfctl.config import (get_config_value, ca_cert_info, cert_info,
+from sfctl.config import (security_type, ca_cert_info, cert_info,
+                          aad_bearer,
                           client_endpoint, no_verify_setting)
 
 def create(_):
     """Create a client for Service Fabric APIs."""
 
-    security_type = get_config_value('security', fallback=None)
-    cert = cert_info(security_type)
-
-    ca_cert = ca_cert_info()
-    no_verify = no_verify_setting()
     endpoint = client_endpoint()
 
     if not endpoint:
         raise CLIError("Connection endpoint not found")
 
-    if security_type == 'aad':
-        auth = AdalAuthentication(cert, no_verify)
+    no_verify = no_verify_setting()
+
+    if security_type() == 'aad':
+        bearer = aad_bearer()
+        auth = AdalAuthentication(bearer, no_verify)
     else:
+        cert = cert_info()
+        ca_cert = ca_cert_info()
         auth = ClientCertAuthentication(cert, ca_cert, no_verify)
 
     return ServiceFabricClientAPIs(auth, base_url=endpoint)
