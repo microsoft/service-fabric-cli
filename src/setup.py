@@ -53,11 +53,12 @@ setup(
             'nose',
             'pylint',
             'vcrpy',
-            'mock'
+            'mock',
+            'jsonpickle'
         ]
     },
     entry_points={
         'console_scripts': ['sfctl=sfctl:launch']
     }
 )
- 
+

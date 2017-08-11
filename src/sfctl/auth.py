@@ -6,6 +6,7 @@
 
 """Client certificate authentication for Service Fabric API clients"""
 
+import adal
 from msrest.authentication import Authentication
 
 # pylint: disable=too-few-public-methods
@@ -35,10 +36,8 @@ class ClientCertAuthentication(Authentication):
 
 class AdalAuthentication(Authentication):
     """Azure Active Directory authentication for Service Fabric clusters"""
-    access_token = None
 
-    def __init__(self, token, no_verify=False):
-        self.access_token = token
+    def __init__(self, no_verify=False):
         self.no_verify = no_verify
 
     def signed_session(self):
@@ -46,10 +45,18 @@ class AdalAuthentication(Authentication):
 
         :rtype: requests.Session.
         """
+        from sfctl.config import (aad_metadata, aad_cache)
+
         session = super(AdalAuthentication, self).signed_session()
         if self.no_verify:
             session.verify = False
 
-        header = "{} {}".format("Bearer", self.access_token)
+        authority_uri, cluster_id, client_id = aad_metadata()
+        existing_token, existing_cache = aad_cache()
+        context = adal.AuthenticationContext(authority_uri,
+                                             cache=existing_cache)
+        new_token = context.acquire_token(cluster_id,
+                                          existing_token['userId'], client_id)
+        header = "{} {}".format("Bearer", new_token['accessToken'])
         session.headers['Authorization'] = header
         return session

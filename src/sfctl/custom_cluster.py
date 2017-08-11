@@ -58,20 +58,19 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     HTTPS, note: this is an insecure option and should not be used for
     production environments
     """
-    from sfctl.config import (set_ca_cert, set_auth,
-                              set_cluster_endpoint, client_endpoint,
-                              set_no_verify, no_verify_setting)
+    from sfctl.config import (set_ca_cert, set_auth, set_aad_cache,
+                              set_cluster_endpoint,
+                              set_no_verify)
     from msrest import ServiceClient, Configuration
     from sfctl.auth import ClientCertAuthentication, AdalAuthentication
 
     select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify)
 
-    access_token = None
     if aad:
-
-        access_token = sf_get_aad_token(endpoint, no_verify)
+        new_token, new_cache = get_aad_token(endpoint, no_verify)
+        set_aad_cache(new_token, new_cache)
         rest_client = ServiceClient(
-            AdalAuthentication(access_token, no_verify),
+            AdalAuthentication(no_verify),
             Configuration(endpoint)
         )
 
@@ -95,18 +94,16 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     set_cluster_endpoint(endpoint)
     set_no_verify(no_verify)
     set_ca_cert(ca)
-    set_auth(pem, cert, key, access_token)
+    set_auth(pem, cert, key, aad)
 
-def sf_get_aad_token(endpoint, no_verify):
+def get_aad_token(endpoint, no_verify):
+    #pylint: disable-msg=R0914
     """Get AAD token"""
     from azure.servicefabric.service_fabric_client_ap_is import (
         ServiceFabricClientAPIs
     )
     from sfctl.auth import ClientCertAuthentication
-    from sfctl.config import (aad_bearer, client_endpoint,
-                              set_config_value, no_verify_setting)
-    from datetime import datetime
-    from datetime import timedelta
+    from sfctl.config import set_aad_metadata
 
     auth = ClientCertAuthentication(None, None, no_verify)
 
@@ -119,15 +116,17 @@ def sf_get_aad_token(endpoint, no_verify):
     aad_resource = aad_metadata.metadata
 
     tenant_id = aad_resource.tenant
-    context = adal.AuthenticationContext(aad_resource.login + '/' + tenant_id,
+    authority_uri = aad_resource.login + '/' + tenant_id
+    context = adal.AuthenticationContext(authority_uri,
                                          api_version=None)
     cluster_id = aad_resource.cluster
     client_id = aad_resource.client
+
+    set_aad_metadata(authority_uri, cluster_id, client_id)
 
     code = context.acquire_user_code(cluster_id, client_id)
     print(code['message'])
     token = context.acquire_token_with_device_code(
         cluster_id, code, client_id)
-    print("Succeed! Token expires at: " +
-          (str)(datetime.now() + timedelta(0, token['expiresIn'])))
-    return token['accessToken']
+    print("Succeed!")
+    return token, context.cache

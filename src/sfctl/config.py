@@ -7,6 +7,7 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
+import jsonpickle
 from knack.config import CLIConfig
 
 # Default names
@@ -40,7 +41,7 @@ def client_endpoint():
     return get_config_value('endpoint', None)
 
 def security_type():
-    """security type client is set."""
+    """The selected security type of client."""
 
     return get_config_value('security', None)
 
@@ -89,11 +90,29 @@ def cert_info():
 
     return None
 
-def aad_bearer():
-    """AAD bearer header."""
-    return get_config_value('bearer', fallback=None)
+def aad_cache():
+    """AAD token cache."""
+    return jsonpickle.decode(get_config_value('aad_token', fallback=None)), \
+           jsonpickle.decode(get_config_value('aad_cache', fallback=None))
 
-def set_auth(pem=None, cert=None, key=None, access_token=None):
+def set_aad_cache(token, cache):
+    """Set AAD token cache."""
+    set_config_value('aad_token', jsonpickle.encode(token))
+    set_config_value('aad_cache', jsonpickle.encode(cache))
+
+def aad_metadata():
+    """AAD metadata."""
+    return get_config_value('authority_uri', fallback=None), \
+           get_config_value('aad_resource', fallback=None), \
+           get_config_value('aad_client', fallback=None)
+
+def set_aad_metadata(uri, resource, client):
+    """Set AAD metadata."""
+    set_config_value('authority_uri', uri)
+    set_config_value('aad_resource', resource)
+    set_config_value('aad_client', client)
+
+def set_auth(pem=None, cert=None, key=None, aad=False):
     """Set certificate usage paths"""
 
     if any([cert, key]) and pem:
@@ -109,8 +128,7 @@ def set_auth(pem=None, cert=None, key=None, access_token=None):
         set_config_value('security', 'cert')
         set_config_value('cert_path', cert)
         set_config_value('key_path', key)
-    elif access_token:
+    elif aad:
         set_config_value('security', 'aad')
-        set_config_value('bearer', access_token)
     else:
         set_config_value('security', 'none')

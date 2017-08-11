@@ -12,7 +12,6 @@ from azure.servicefabric.service_fabric_client_ap_is import (
 )
 from sfctl.auth import (ClientCertAuthentication, AdalAuthentication)
 from sfctl.config import (security_type, ca_cert_info, cert_info,
-                          aad_bearer,
                           client_endpoint, no_verify_setting)
 
 def create(_):
@@ -26,8 +25,7 @@ def create(_):
     no_verify = no_verify_setting()
 
     if security_type() == 'aad':
-        bearer = aad_bearer()
-        auth = AdalAuthentication(bearer, no_verify)
+        auth = AdalAuthentication(no_verify)
     else:
         cert = cert_info()
         ca_cert = ca_cert_info()
