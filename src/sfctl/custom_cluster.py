@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 # -----------------------------------------------------------------------------
+from __future__ import print_function
 
 """Cluster level Service Fabric commands"""
 
@@ -39,7 +40,7 @@ def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
 
 def select(endpoint, cert=None, key=None, pem=None, ca=None,
            aad=False, no_verify=False):
-    #pylint: disable-msg=R0914
+    #pylint: disable-msg=too-many-locals
     """
     Connects to a Service Fabric cluster endpoint.
     If connecting to secure cluster specify a cert (.crt) and key file (.key)
@@ -97,7 +98,7 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     set_auth(pem, cert, key, aad)
 
 def get_aad_token(endpoint, no_verify):
-    #pylint: disable-msg=R0914
+    #pylint: disable-msg=too-many-locals
     """Get AAD token"""
     from azure.servicefabric.service_fabric_client_ap_is import (
         ServiceFabricClientAPIs
