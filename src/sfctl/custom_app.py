@@ -80,7 +80,7 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     from getpass import getpass
- 
+
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
     except ImportError:
@@ -102,10 +102,10 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
         cert_pass = getpass('Certificate passphrase, if any: ')
 
         # Patch in password
-        class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member
+        class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member,too-few-public-methods
             """Password context for SSL context"""
             def __init__(self, method):
-                super(PasswordContext, self).__init__(method)
+                super(PasswordContext, self).__init_(method)
                 def password_cb(maxlen, prompt_twice, userdata):
                     """Password retrieval callback"""
                     return cert_pass if len(cert_pass) < maxlen else ''
@@ -156,7 +156,7 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
             for f in files:
                 url_path = (
                     os.path.normpath(os.path.join('ImageStore', basename,
-                                                rel_path, f))
+                                                  rel_path, f))
                 ).replace('\\', '/')
                 fp_norm = os.path.normpath(os.path.join(root, f))
                 with open(fp_norm, 'rb') as file_opened:
@@ -183,7 +183,7 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
                     ))
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
-                                            rel_path, '_.dir'))
+                                              rel_path, '_.dir'))
             ).replace('\\', '/')
             url_parsed = list(urlparse(endpoint))
             url_parsed[2] = url_path
@@ -191,7 +191,8 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
             url = urlunparse(url_parsed)
             sesh.put(url)
             current_files_count += 1
-            print_progress(0, os.path.normpath(os.path.join(rel_path, '_.dir')))
+            print_progress(0,
+                           os.path.normpath(os.path.join(rel_path, '_.dir')))
 
         if show_progress:
             print('[{}/{}] files, [{}/{}] bytes sent'.format(

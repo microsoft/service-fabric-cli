@@ -17,6 +17,7 @@
         "pylint",
         "pyopenssl",
         "repo",
+        "sesh",
         "sfcli",
         "sfctl",
         "testsdk",
