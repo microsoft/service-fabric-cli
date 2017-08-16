@@ -79,6 +79,8 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     """
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
+    from getpass import getpass
+ 
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
     except ImportError:
@@ -91,6 +93,27 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
 
     endpoint = client_endpoint()
     cert = cert_info()
+
+    if cert:
+        # As a workaround we prompt for password input here, then store the
+        # password in memory. This is required as Service Fabric appears to
+        # terminate connections early, thus requiring multiple password inputs
+        # otherwise
+        cert_pass = getpass('Certificate passphrase, if any: ')
+
+        # Patch in password
+        class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member
+            """Password context for SSL context"""
+            def __init__(self, method):
+                super(PasswordContext, self).__init__(method)
+                def password_cb(maxlen, prompt_twice, userdata):
+                    """Password retrieval callback"""
+                    return cert_pass if len(cert_pass) < maxlen else ''
+                self.set_passwd_cb(password_cb)
+
+        # Monkey-patch the subclass into OpenSSL.SSL so it is used in place of
+        # the stock version
+        requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context = PasswordContext #pylint: disable=line-too-long,no-member
 
     ca_cert = True
     if no_verify_setting():
