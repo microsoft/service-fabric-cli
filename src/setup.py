@@ -45,7 +45,8 @@ setup(
         'knack==0.1.1',
         'msrest',
         'requests',
-        'azure-servicefabric==5.6.130'
+        'azure-servicefabric==5.6.130',
+        'pyopenssl'
     ],
     extras_require={
         'test': [
