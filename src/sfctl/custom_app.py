@@ -93,23 +93,25 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
 
     endpoint = client_endpoint()
     cert = cert_info()
-
     if cert:
         # As a workaround we prompt for password input here, then store the
         # password in memory. This is required as Service Fabric appears to
         # terminate connections early, thus requiring multiple password inputs
         # otherwise
-        cert_pass = getpass('Certificate passphrase, if any: ')
-
-        # Patch in password
         class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member,too-few-public-methods
-            """Password context for SSL context"""
+            """Custom password context for handling x509 passphrases"""
             def __init__(self, method):
-                super(PasswordContext, self).__init_(method)
-                def password_cb(maxlen, prompt_twice, userdata):
-                    """Password retrieval callback"""
-                    return cert_pass if len(cert_pass) < maxlen else ''
-                self.set_passwd_cb(password_cb)
+                super(PasswordContext, self).__init__(method)
+                self.passphrase = None
+
+                def passwd_cb(maxlen, prompt_twice, userdata):
+                    """Password retrival callback"""
+                    if self.passphrase is None:
+                        self.passphrase = getpass('Enter cert pass phrase: ')
+                    if len(self.passphrase) < maxlen:
+                        return self.passphrase
+                    return ''
+                self.set_passwd_cb(passwd_cb)
 
         # Monkey-patch the subclass into OpenSSL.SSL so it is used in place of
         # the stock version

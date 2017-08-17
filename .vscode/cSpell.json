@@ -13,6 +13,7 @@
         "isfile",
         "opencode",
         "params",
+        "passwd",
         "psps",
         "pylint",
         "pyopenssl",
