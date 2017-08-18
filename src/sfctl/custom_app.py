@@ -108,6 +108,8 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
                     """Password retrival callback"""
                     if self.passphrase is None:
                         self.passphrase = getpass('Enter cert pass phrase: ')
+                        if not isinstance(self.passphrase, bytes):
+                            self.passphrase = str.encode(self.passphrase)
                     if len(self.passphrase) < maxlen:
                         return self.passphrase
                     return ''
@@ -178,7 +180,9 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
 
                     fc_iter = file_chunk(file_opened, os.path.normpath(
                         os.path.join(rel_path, f)), print_progress)
-                    sesh.put(url, data=fc_iter)
+                    response = sesh.put(url, data=fc_iter)
+                    response.raise_for_status()
+                    print('Upload complete')
                     current_files_count += 1
                     print_progress(0, os.path.normpath(
                         os.path.join(rel_path, f)
