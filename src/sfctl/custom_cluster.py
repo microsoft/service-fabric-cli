@@ -3,12 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 # -----------------------------------------------------------------------------
-from __future__ import print_function
 
 """Cluster level Service Fabric commands"""
 
-import adal
+from __future__ import print_function
 from knack.util import CLIError
+
+import adal
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
     """Verify arguments for select command"""
