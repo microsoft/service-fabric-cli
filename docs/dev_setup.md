@@ -12,7 +12,7 @@ Install the following:
 
 From the root of your cloned repo, run the following commands
 
-### MacOS
+### MacOS Install
 
 For python 3.6:
 
@@ -46,7 +46,7 @@ tested
 Pull requests are gated on passing unit tests and linting, to run these checks
 locally run the following commands:
 
-### MacOS
+### MacOS Testing
 
 ```bash
 ./scripts/verify.sh local

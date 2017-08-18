@@ -79,6 +79,8 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     """
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
+    from getpass import getpass
+
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
     except ImportError:
@@ -91,9 +93,29 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
 
     endpoint = client_endpoint()
     cert = cert_info()
+    if cert:
+        # As a workaround we prompt for password input here, then store the
+        # password in memory. This is required as Service Fabric appears to
+        # terminate connections early, thus requiring multiple password inputs
+        # otherwise
+        class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member,too-few-public-methods
+            """Custom password context for handling x509 passphrases"""
+            def __init__(self, method):
+                super(PasswordContext, self).__init__(method)
+                self.passphrase = None
 
-    if all([no_verify_setting(), ca_cert_info()]):
-        raise CLIError('Cannot specify both CA cert info and no verify')
+                def passwd_cb(maxlen, prompt_twice, userdata):
+                    """Password retrival callback"""
+                    if self.passphrase is None:
+                        self.passphrase = getpass('Enter cert pass phrase: ')
+                    if len(self.passphrase) < maxlen:
+                        return self.passphrase
+                    return ''
+                self.set_passwd_cb(passwd_cb)
+
+        # Monkey-patch the subclass into OpenSSL.SSL so it is used in place of
+        # the stock version
+        requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context = PasswordContext #pylint: disable=line-too-long,no-member
 
     ca_cert = True
     if no_verify_setting():
@@ -101,78 +123,85 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     elif ca_cert_info():
         ca_cert = ca_cert_info()
 
-    total_files_count = 0
-    current_files_count = 0
-    total_files_size = 0
-    current_files_size = {'size': 0}
+    if all([no_verify_setting(), ca_cert_info()]):
+        raise CLIError('Cannot specify both CA cert info and no verify')
 
-    for root, _, files in os.walk(abspath):
-        total_files_count += (len(files) + 1)
-        for f in files:
-            t_stat = os.stat(os.path.join(root, f))
-            total_files_size += t_stat.st_size
+    with requests.Session() as sesh:
+        sesh.verify = ca_cert
+        sesh.cert = cert
 
-    def print_progress(size, rel_file_path):
-        """Display progress for uploading"""
-        current_files_size['size'] += size
-        if show_progress:
-            print(
-                '[{}/{}] files, [{}/{}] bytes, {}'.format(
-                    current_files_count,
-                    total_files_count,
-                    current_files_size["size"],
-                    total_files_size,
-                    rel_file_path), file=sys.stderr)
+        total_files_count = 0
+        current_files_count = 0
+        total_files_size = 0
+        current_files_size = {'size': 0}
 
-    for root, _, files in os.walk(abspath):
-        rel_path = os.path.normpath(os.path.relpath(root, abspath))
-        for f in files:
+        for root, _, files in os.walk(abspath):
+            total_files_count += (len(files) + 1)
+            for f in files:
+                t_stat = os.stat(os.path.join(root, f))
+                total_files_size += t_stat.st_size
+
+        def print_progress(size, rel_file_path):
+            """Display progress for uploading"""
+            current_files_size['size'] += size
+            if show_progress:
+                print(
+                    '[{}/{}] files, [{}/{}] bytes, {}'.format(
+                        current_files_count,
+                        total_files_count,
+                        current_files_size["size"],
+                        total_files_size,
+                        rel_file_path), file=sys.stderr)
+
+        for root, _, files in os.walk(abspath):
+            rel_path = os.path.normpath(os.path.relpath(root, abspath))
+            for f in files:
+                url_path = (
+                    os.path.normpath(os.path.join('ImageStore', basename,
+                                                  rel_path, f))
+                ).replace('\\', '/')
+                fp_norm = os.path.normpath(os.path.join(root, f))
+                with open(fp_norm, 'rb') as file_opened:
+                    url_parsed = list(urlparse(endpoint))
+                    url_parsed[2] = url_path
+                    url_parsed[4] = urlencode(
+                        {'api-version': '3.0-preview'})
+                    url = urlunparse(url_parsed)
+
+                    def file_chunk(target_file, rel_path, print_progress):
+                        """Yield partial chunks of file contents"""
+                        chunk = True
+                        while chunk:
+                            chunk = target_file.read(100000)
+                            print_progress(len(chunk), rel_path)
+                            yield chunk
+
+                    fc_iter = file_chunk(file_opened, os.path.normpath(
+                        os.path.join(rel_path, f)), print_progress)
+                    sesh.put(url, data=fc_iter)
+                    current_files_count += 1
+                    print_progress(0, os.path.normpath(
+                        os.path.join(rel_path, f)
+                    ))
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
-                                              rel_path, f))
+                                              rel_path, '_.dir'))
             ).replace('\\', '/')
-            fp_norm = os.path.normpath(os.path.join(root, f))
-            with open(fp_norm, 'rb') as file_opened:
-                url_parsed = list(urlparse(endpoint))
-                url_parsed[2] = url_path
-                url_parsed[4] = urlencode(
-                    {'api-version': '3.0-preview'})
-                url = urlunparse(url_parsed)
+            url_parsed = list(urlparse(endpoint))
+            url_parsed[2] = url_path
+            url_parsed[4] = urlencode({'api-version': '3.0-preview'})
+            url = urlunparse(url_parsed)
+            sesh.put(url)
+            current_files_count += 1
+            print_progress(0,
+                           os.path.normpath(os.path.join(rel_path, '_.dir')))
 
-                def file_chunk(target_file, rel_path, print_progress):
-                    """Yield partial chunks of file contents"""
-                    chunk = True
-                    while chunk:
-                        chunk = target_file.read(100000)
-                        print_progress(len(chunk), rel_path)
-                        yield chunk
-
-                fc_iter = file_chunk(file_opened, os.path.normpath(
-                    os.path.join(rel_path, f)), print_progress)
-                requests.put(url, data=fc_iter, cert=cert,
-                             verify=ca_cert)
-                current_files_count += 1
-                print_progress(0, os.path.normpath(
-                    os.path.join(rel_path, f)
-                ))
-        url_path = (
-            os.path.normpath(os.path.join('ImageStore', basename,
-                                          rel_path, '_.dir'))
-        ).replace('\\', '/')
-        url_parsed = list(urlparse(endpoint))
-        url_parsed[2] = url_path
-        url_parsed[4] = urlencode({'api-version': '3.0-preview'})
-        url = urlunparse(url_parsed)
-        requests.put(url, cert=cert, verify=ca_cert)
-        current_files_count += 1
-        print_progress(0, os.path.normpath(os.path.join(rel_path, '_.dir')))
-
-    if show_progress:
-        print('[{}/{}] files, [{}/{}] bytes sent'.format(
-            current_files_count,
-            total_files_count,
-            current_files_size['size'],
-            total_files_size), file=sys.stderr)
+        if show_progress:
+            print('[{}/{}] files, [{}/{}] bytes sent'.format(
+                current_files_count,
+                total_files_count,
+                current_files_size['size'],
+                total_files_size), file=sys.stderr)
 
 def parse_app_params(formatted_params):
     """Parse application parameters from string"""
