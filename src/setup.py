@@ -46,7 +46,8 @@ setup(
         'msrest',
         'requests',
         'azure-servicefabric==5.6.130',
-        'pyopenssl'
+        'pyopenssl',
+        'jsonpickle'
     ],
     extras_require={
         'test': [
@@ -54,8 +55,7 @@ setup(
             'nose',
             'pylint',
             'vcrpy',
-            'mock',
-            'jsonpickle'
+            'mock'
         ]
     },
     entry_points={
