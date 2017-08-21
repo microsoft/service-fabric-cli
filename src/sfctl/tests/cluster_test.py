@@ -17,22 +17,28 @@ class ClusterTests(unittest.TestCase):
         """Select with CA certs but not client certs returns error"""
         with self.assertRaises(CLIError):
             sf_c.select_arg_verify('http://test.com:190800', None, None, None,
-                                   'ca_bundle', False)
+                                   'ca_bundle', False, False)
 
     def select_missing_key_args_test(self):
         """Select with only cert file but not key returns error"""
         with self.assertRaises(CLIError):
             sf_c.select_arg_verify('http://test.com:190800', 'test.crt', None,
-                                   None, None, False)
+                                   None, None, False, False)
 
     def select_verify_missing_cert_test(self):
         """Select with no-verify but no cert returns error"""
         with self.assertRaises(CLIError):
             sf_c.select_arg_verify('http://test.com:190800', None, None, None,
-                                   None, True)
+                                   None, False, True)
 
     def select_two_cert_args_test(self):
         """Select with both cert and pem returns error"""
         with self.assertRaises(CLIError):
             sf_c.select_arg_verify('http://test.com:190800', 'test.crt',
-                                   'test.key', 'test.pem', None, False)
+                                   'test.key', 'test.pem', None, False, False)
+
+    def select_cert_and_aad_test(self):
+        """Select with both cert and aad returns error"""
+        with self.assertRaises(CLIError):
+            sf_c.select_arg_verify('http://test.com:190800', 'test.crt',
+                                   'test.key', None, None, True, False)
