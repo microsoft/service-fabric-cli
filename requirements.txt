@@ -3,3 +3,4 @@ nose
 pylint
 vcrpy
 mock
+jsonpickle

@@ -7,6 +7,7 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
+import jsonpickle
 from knack.config import CLIConfig
 
 # Default names
@@ -38,6 +39,11 @@ def client_endpoint():
     """Cluster HTTP gateway endpoint address and port, represented as a URL."""
 
     return get_config_value('endpoint', None)
+
+def security_type():
+    """The selected security type of client."""
+
+    return get_config_value('security', None)
 
 def set_cluster_endpoint(endpoint):
     """Configure cluster endpoint"""
@@ -74,17 +80,39 @@ def cert_info():
     """Path to certificate related files, either a single file path or a
     tuple. In the case of no security, returns None."""
 
-    security_type = get_config_value('security', fallback=None)
-    if security_type == 'pem':
+    sec_type = security_type()
+    if sec_type == 'pem':
         return get_config_value('pem_path', fallback=None)
-    if security_type == 'cert':
+    if sec_type == 'cert':
         cert_path = get_config_value('cert_path', fallback=None)
         key_path = get_config_value('key_path', fallback=None)
         return cert_path, key_path
 
     return None
 
-def set_cert(pem=None, cert=None, key=None):
+def aad_cache():
+    """AAD token cache."""
+    return jsonpickle.decode(get_config_value('aad_token', fallback=None)), \
+           jsonpickle.decode(get_config_value('aad_cache', fallback=None))
+
+def set_aad_cache(token, cache):
+    """Set AAD token cache."""
+    set_config_value('aad_token', jsonpickle.encode(token))
+    set_config_value('aad_cache', jsonpickle.encode(cache))
+
+def aad_metadata():
+    """AAD metadata."""
+    return get_config_value('authority_uri', fallback=None), \
+           get_config_value('aad_resource', fallback=None), \
+           get_config_value('aad_client', fallback=None)
+
+def set_aad_metadata(uri, resource, client):
+    """Set AAD metadata."""
+    set_config_value('authority_uri', uri)
+    set_config_value('aad_resource', resource)
+    set_config_value('aad_client', client)
+
+def set_auth(pem=None, cert=None, key=None, aad=False):
     """Set certificate usage paths"""
 
     if any([cert, key]) and pem:
@@ -100,5 +128,7 @@ def set_cert(pem=None, cert=None, key=None):
         set_config_value('security', 'cert')
         set_config_value('cert_path', cert)
         set_config_value('key_path', key)
+    elif aad:
+        set_config_value('security', 'aad')
     else:
         set_config_value('security', 'none')
