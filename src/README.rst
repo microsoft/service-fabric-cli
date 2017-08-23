@@ -16,6 +16,12 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+1.1.0
+-----
+
+- Added support for authenticating (#10)
+- Improved application upload performance (#11)
+
 1.0.1
 -----
 
