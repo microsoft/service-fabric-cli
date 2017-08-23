@@ -183,7 +183,6 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
                     # Cannot check this response until issue 15 gets fixed,
                     # successful file uploads result in a 400 error response
                     sesh.put(url, data=fc_iter)
-                    print('Upload complete')
                     current_files_count += 1
                     print_progress(0, os.path.normpath(
                         os.path.join(rel_path, f)
