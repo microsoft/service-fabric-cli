@@ -19,7 +19,7 @@ Change Log
 1.1.0
 -----
 
-- Added support for authenticating (#10)
+- Added support for authenticating to clusters with AAD (#10)
 - Improved application upload performance (#11)
 
 1.0.1
