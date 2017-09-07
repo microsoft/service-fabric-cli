@@ -23,7 +23,7 @@ sfctl -h
 
 ## Developer Help and Documentation
 
-Please see the
+See the
 [corresponding Wiki](https://github.com/Azure/service-fabric-cli/wiki) for
 more information.
 
