@@ -8,20 +8,23 @@ Install the following:
 - Pip package manager
 - Virtualenv (`pip install virtualenv`)
 
+For more information on these, refer to the public documentation on
+[Python](https://www.python.org/downloads/) or
+[Pip](https://pip.pypa.io/en/stable/installing/)
+
 ## Install module locally
 
-From the root of your cloned repo, run the following commands
+From the root of your cloned repo, you'll want to generate a virutal
+environment with a specific version of python.
 
-### MacOS Install
-
-For python 3.6:
+For python 3.6, run the following commands:
 
 ```bash
 virtualenv -p python3 env/
 . ./env/bin/activate
 ```
 
-For python 2.7:
+For python 2.7, run the following commands:
 
 ```bash
 virtualenv -p python2 env27/
@@ -36,26 +39,7 @@ pip install -e ./src
 pip install -r requirements.txt
 ```
 
-### Windows and Linux
-
-Similar commands work for other OS environments, but have not been officially
-tested
-
-## Testing
-
-Pull requests are gated on passing unit tests and linting, to run these checks
-locally run the following commands:
-
-### MacOS Testing
-
-```bash
-./scripts/verify.sh local
-```
-
-For more detailed testing information, see the
-[testing article](docs/testing.md).
-
-## VS Code
+## VS Code Extensions
 
 If using VS Code as your primary editor it is recommended you install two
 extensions (`ext install <name>`):
@@ -68,3 +52,21 @@ There is a project dictionary committed, keep this up to date.
 For different virtual environments it is also important to update the workspace
 Python interpreter. This can be done by running the `Python: Select Workspace
 Interpreter` command.
+
+## Testing
+
+Pull requests are gated on passing unit tests and linting, to run these checks
+locally run the following commands:
+
+```bash
+./scripts/verify.sh local
+```
+
+For more detailed testing information, see the
+[testing article](docs/testing.md).
+
+## Requirements
+
+Before submitting any pull requests for merging, please be sure to review
+the requirements and suggestions outlined in the
+[contributing guidelines](docs/coding_requirements.md) documentation.
