@@ -21,24 +21,11 @@ For more information, specify the `-h` flag:
 sfctl -h
 ```
 
-## Guides and How-To
+## Developer Help and Documentation
 
-Follow these tips and instructions when contributing to this repository.
-
-### Development cycle
-
-- [Developer setup](docs/dev_setup.md)
-- [Detailed testing guide](docs/testing.md)
-- [Contributing guidelines](docs/coding_requirements.md)
-
-### Working on commands
-
-- [Updating Service Fabric Python SDK](docs/updating_sdk.md)
-- [Command mappings and logic](/docs/command_logic.md)
-- [Adding a new custom command](/docs/custom_commands.md)
-- [Adding a new standard command](/docs/standard_commands.md)
-- [Adding non-string command arguments](/docs/params.md)
-- [Adding command group or command help](/docs/command_helps.md)g
+Please see the
+[corresponding Wiki](https://github.com/Azure/service-fabric-cli/wiki) for
+more information.
 
 ## Contributing
 
