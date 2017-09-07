@@ -38,7 +38,7 @@ Follow these tips and instructions when contributing to this repository.
 - [Adding a new custom command](/docs/custom_commands.md)
 - [Adding a new standard command](/docs/standard_commands.md)
 - [Adding non-string command arguments](/docs/params.md)
-- [Adding command group or command help](/docs/command_helps.md)
+- [Adding command group or command help](/docs/command_helps.md)g
 
 ## Contributing
 
