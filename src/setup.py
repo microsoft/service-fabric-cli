@@ -44,7 +44,7 @@ setup(
     install_requires=[
         'knack==0.1.1',
         'msrest',
-        'requests',
+        'requests~=2.14',
         'sfctl-azure-servicefabric==6.0.0rc1',
         'pyopenssl',
         'jsonpickle'
