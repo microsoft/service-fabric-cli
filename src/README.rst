@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+1.2.0rc1
+--------
+
+- Updating to Service Fabric 6.0 SDK release candidate 
+
 1.1.0
 -----
 
