@@ -13,7 +13,7 @@ def json_encoded(arg_str):
 
     return json.loads(arg_str)
 
-def custom_arguments(self, _):
+def custom_arguments(self, _): #pylint: disable=too-many-statements
     """Load specialized arguments for commands"""
 
     # Global argument
