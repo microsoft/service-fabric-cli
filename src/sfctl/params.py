@@ -47,3 +47,58 @@ def custom_arguments(self, _):
     with ArgumentsContext(self, 'service create') as arg_context:
         arg_context.argument('load_metrics', type=json_encoded)
         arg_context.argument('placement_policy_list', type=json_encoded)
+
+    with ArgumentsContext(self, 'cluster health') as arg_context:
+        arg_context.argument('nodes_health_state_filter', type=int)
+        arg_context.argument('applications_health_state_filter', type=int)
+        arg_context.argument('events_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'node health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'application health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+        arg_context.argument('deployed_applications_health_state_filter',
+                             type=int)
+        arg_context.argument('services_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'application deployed-health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+        arg_context.argument('deployed_service_packages_health_state_filter',
+                             type=int)
+
+    with ArgumentsContext(self, 'service health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+        arg_context.argument('partitions_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'service resolve') as arg_context:
+        arg_context.argument('partition_key_type', type=int)
+
+    with ArgumentsContext(self, 'partition health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+        arg_context.argument('replicas_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'replica health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'service package-health') as arg_context:
+        arg_context.argument('events_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'partition quorum-loss') as arg_context:
+        arg_context.argument('quorum_loss_duration', type=int)
+
+    with ArgumentsContext(self, 'node transition') as arg_context:
+        arg_context.argument('stop_duration_in_seconds', type=int)
+
+    with ArgumentsContext(self, 'cluster operation-list') as arg_context:
+        arg_context.argument('type_filter', type=int)
+        arg_context.argument('state_filter', type=int)
+
+    with ArgumentsContext(self, 'application type-list') as arg_context:
+        arg_context.argument('max_results', type=int)
+
+    with ArgumentsContext(self, 'application type') as arg_context:
+        arg_context.argument('max_results', type=int)
+
+    with ArgumentsContext(self, 'compose list') as arg_context:
+        arg_context.argument('max_results', type=int)
