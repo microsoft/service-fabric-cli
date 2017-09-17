@@ -49,7 +49,7 @@ class SFCommandLoader(CLICommandsLoader):
                 )
                 group.command('upgrade-status', 'get_cluster_upgrade_progress')
                 group.command('recover-system', 'recover_system_partitions')
-                group.command('operationgit ', 'get_fault_operation_list')
+                group.command('operation-list', 'get_fault_operation_list')
                 group.command('operation-cancel', 'cancel_operation')
 
             with super_group.group('node') as group:

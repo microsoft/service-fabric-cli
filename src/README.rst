@@ -21,6 +21,7 @@ Change Log
 
 - Updating to Service Fabric 6.0 SDK release candidate
 - Added support and testing for Python 3.5, for ease of install on Ubuntu
+- Fixing number parsing in command arguments
 
 1.1.0
 -----
