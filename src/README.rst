@@ -16,12 +16,13 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-1.2.0rc1
+1.2.0rc2
 --------
 
 - Updating to Service Fabric 6.0 SDK release candidate
 - Added support and testing for Python 3.5, for ease of install on Ubuntu
 - Fixing number parsing in command arguments
+- Moving to different versions of pyopenssl and msrest
 
 1.1.0
 -----
