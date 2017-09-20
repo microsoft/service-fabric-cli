@@ -93,32 +93,6 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
 
     endpoint = client_endpoint()
     cert = cert_info()
-    if cert:
-        # As a workaround we prompt for password input here, then store the
-        # password in memory. This is required as Service Fabric appears to
-        # terminate connections early, thus requiring multiple password inputs
-        # otherwise
-        class PasswordContext(requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context): #pylint: disable=line-too-long,no-member,too-few-public-methods
-            """Custom password context for handling x509 passphrases"""
-            def __init__(self, method):
-                super(PasswordContext, self).__init__(method)
-                self.passphrase = None
-
-                def passwd_cb(maxlen, prompt_twice, userdata):
-                    """Password retrival callback"""
-                    if self.passphrase is None:
-                        self.passphrase = getpass('Enter cert pass phrase: ')
-                        if not isinstance(self.passphrase, bytes):
-                            self.passphrase = str.encode(self.passphrase)
-                    if len(self.passphrase) < maxlen:
-                        return self.passphrase
-                    return ''
-                self.set_passwd_cb(passwd_cb)
-
-        # Monkey-patch the subclass into OpenSSL.SSL so it is used in place of
-        # the stock version
-        requests.packages.urllib3.contrib.pyopenssl.OpenSSL.SSL.Context = PasswordContext #pylint: disable=line-too-long,no-member
-
     ca_cert = True
     if no_verify_setting():
         ca_cert = False
@@ -159,7 +133,7 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
                     url_parsed[4] = urlencode(
                         {'api-version': '3.0-preview'})
                     url = urlunparse(url_parsed)
-                    res = sesh.put(url, files={'file': file_opened})
+                    res = sesh.put(url, data=file_opened)
                     res.raise_for_status()
                     current_files_count += 1
                     print_progress(current_files_count, total_files_count,

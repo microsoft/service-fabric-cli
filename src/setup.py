@@ -47,7 +47,6 @@ setup(
         'msrest>=0.4.4',
         'requests',
         'sfctl-azure-servicefabric==6.0.0rc1',
-        'pyopenssl>=16.2',
         'jsonpickle'
     ],
     extras_require={
