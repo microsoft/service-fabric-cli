@@ -23,6 +23,7 @@ Change Log
 - Added support and testing for Python 3.5, for ease of install on Ubuntu
 - Fixing number parsing in command arguments
 - Moving to different versions of pyopenssl and msrest
+- Improvement in application upload stability and performance
 
 1.1.0
 -----
