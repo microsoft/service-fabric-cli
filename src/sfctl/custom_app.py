@@ -79,7 +79,6 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     """
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
-    from getpass import getpass
 
     try:
         from urllib.parse import urlparse, urlencode, urlunparse

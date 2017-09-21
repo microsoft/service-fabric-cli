@@ -62,4 +62,3 @@ setup(
         'console_scripts': ['sfctl=sfctl:launch']
     }
 )
-
