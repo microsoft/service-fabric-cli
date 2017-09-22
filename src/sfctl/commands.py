@@ -229,6 +229,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('package-deploy', 'package_upload')
 
         return OrderedDict(self.command_table)
+        'test edder'
 
     def load_arguments(self, command):
         """Load specialized arguments for commands"""
