@@ -92,8 +92,8 @@ class AppTests(unittest.TestCase):
         """Parse fileshare path from the image store connection string"""
         test_string = r'file:C:\test_store'
         expected_string = r'C:\test_store'
-        self.assertEquals(sf_c.path_from_imagestore_string(test_string),
-                          expected_string)
+        self.assertEqual(sf_c.path_from_imagestore_string(test_string),
+                         expected_string)
 
     def upload_to_fileshare_test(self): #pylint: disable=no-self-use
         """Upload copies files to non-native store correctly with no
