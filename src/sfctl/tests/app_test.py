@@ -93,7 +93,7 @@ class AppTests(unittest.TestCase):
         test_string = r'file:C:\test_store'
         expected_string = r'C:\test_store'
         self.assertEquals(sf_c.path_from_imagestore_string(test_string),
-                      expected_string)
+                          expected_string)
 
     def upload_to_fileshare_test(self):
         """Upload copies files correctly with no progress"""
