@@ -24,6 +24,7 @@ Change Log
 - Fixing number parsing in command arguments
 - Moving to different versions of pyopenssl and msrest
 - Improvement in application upload stability and performance
+- Add support for file share upload based on image store connection string
 
 1.1.0
 -----

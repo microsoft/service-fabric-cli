@@ -7,14 +7,15 @@
 """Custom app command tests"""
 
 import unittest
+import os
 import sfctl.custom_app as sf_c
+from mock import patch, MagicMock
 
 class AppTests(unittest.TestCase):
     """App tests"""
 
     def app_path_absolute_test(self):
         """App path returns absolute path always"""
-        import os
         import tempfile
         import shutil
 
@@ -27,7 +28,6 @@ class AppTests(unittest.TestCase):
     def app_path_file_error_test(self):
         """App path raise ValueError on non directory arguments"""
         import tempfile
-        import os
 
         (test_fd, test_path) = tempfile.mkstemp()
 
@@ -87,3 +87,27 @@ class AppTests(unittest.TestCase):
         self.assertEqual(res.maximum_capacity, '3')
         self.assertEqual(res.reservation_capacity, '2')
         self.assertEqual(res.total_application_capacity, '2')
+
+    def parse_fileshare_path_test(self):
+        """Parse fileshare path from the image store connection string"""
+        test_string = r'file:C:\test_store'
+        expected_string = r'C:\test_store'
+        self.assertEqual(sf_c.path_from_imagestore_string(test_string),
+                         expected_string)
+
+    def upload_to_fileshare_test(self): #pylint: disable=no-self-use
+        """Upload copies files to non-native store correctly with no
+        progress"""
+        import shutil
+        import tempfile
+        temp_file = tempfile.NamedTemporaryFile(dir=tempfile.mkdtemp())
+        temp_src_dir = os.path.dirname(temp_file.name)
+        temp_dst_dir = tempfile.mkdtemp()
+        shutil_mock = MagicMock()
+        shutil_mock.copyfile.return_value = None
+        with patch('sfctl.custom_app.shutil', new=shutil_mock):
+            sf_c.upload_to_fileshare(temp_src_dir, temp_dst_dir, False)
+            shutil_mock.copyfile.assert_called_once()
+        temp_file.close()
+        shutil.rmtree(os.path.dirname(temp_file.name))
+        shutil.rmtree(temp_dst_dir)

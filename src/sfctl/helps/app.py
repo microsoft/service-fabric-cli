@@ -20,9 +20,9 @@ helps['compose create'] = """
 helps['application upload'] = """
     type: command
     short-summary: Copy a Service Fabric application package to the image 
-                   store.
+                   store
     long-summary: Optionally display upload progress for each file in the
-                  package. Upload progress is sent to `stderr`.
+                  package. Upload progress is sent to `stderr`
     parameters:
         - name: --path
           type: string
@@ -30,4 +30,8 @@ helps['application upload'] = """
         - name: --show-progress
           type: bool
           short-summary: Show file upload progress for large packages
+        - name: --imagestore-string
+          type: string
+          short-summary: Destination image store to upload the application
+            package to
 """
