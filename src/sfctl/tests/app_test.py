@@ -163,6 +163,6 @@ class AppTests(unittest.TestCase):
             for _, _, files in os.walk(fileshare_dir):
                 fileshare_files_count += (len(files) + 1)
             #account for _.dir in the dest directory
-            self.assertEqual(src_files_count + 1, fileshare_files_count)
+            self.assertGreater(fileshare_files_count, src_files_count)
         finally:
             shutil.rmtree(fileshare_dir)
