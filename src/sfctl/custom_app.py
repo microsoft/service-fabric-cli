@@ -136,6 +136,7 @@ def get_file_share(sesh, endpoint):
     """
     imagestore_connstr = get_imagestore_connection_string(
         sesh, endpoint)
+    imagestore_connstr = 'file:C:\\temp\\sfdevcluster\\ImageStoreShare'
     return parse_file_share_path(imagestore_connstr)
 
 def upload_to_fileshare(source, dest, show_progress):
@@ -267,7 +268,9 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
         #If so upload to the fileshare provided
         fileshare_path = get_file_share(sesh, endpoint)
         if fileshare_path:
-            upload_to_fileshare(abspath, fileshare_path, show_progress)
+            upload_to_fileshare(abspath,
+                                os.path.join(fileshare_path, basename),
+                                show_progress)
         else:
             upload_to_cluster(sesh, endpoint, abspath, basename, show_progress)
 
