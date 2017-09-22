@@ -18,6 +18,7 @@
         "pylint",
         "pyopenssl",
         "repo",
+        "rmtree",
         "sesh",
         "sfcli",
         "sfctl",

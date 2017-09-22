@@ -95,8 +95,9 @@ class AppTests(unittest.TestCase):
         self.assertEquals(sf_c.path_from_imagestore_string(test_string),
                           expected_string)
 
-    def upload_to_fileshare_test(self):
-        """Upload copies files correctly with no progress"""
+    def upload_to_fileshare_test(self): #pylint: disable=no-self-use
+        """Upload copies files to non-native store correctly with no
+        progress"""
         import shutil
         import tempfile
         temp_file = tempfile.NamedTemporaryFile(dir=tempfile.mkdtemp())
