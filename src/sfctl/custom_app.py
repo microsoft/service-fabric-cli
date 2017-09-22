@@ -136,7 +136,6 @@ def get_file_share(sesh, endpoint):
     """
     imagestore_connstr = get_imagestore_connection_string(
         sesh, endpoint)
-    imagestore_connstr = 'file:C:\\temp\\sfdevcluster\\ImageStoreShare'
     return parse_file_share_path(imagestore_connstr)
 
 def upload_to_fileshare(source, dest, show_progress):
