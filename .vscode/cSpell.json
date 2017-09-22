@@ -21,6 +21,7 @@
         "sesh",
         "sfcli",
         "sfctl",
+        "shutil",
         "testsdk",
         "unprovision",
         "unprovisioned",

@@ -9,13 +9,13 @@
 import unittest
 import os
 import sfctl.custom_app as sf_c
+from mock import patch, MagicMock
 
 class AppTests(unittest.TestCase):
     """App tests"""
 
     def app_path_absolute_test(self):
         """App path returns absolute path always"""
-        import os
         import tempfile
         import shutil
 
@@ -28,7 +28,6 @@ class AppTests(unittest.TestCase):
     def app_path_file_error_test(self):
         """App path raise ValueError on non directory arguments"""
         import tempfile
-        import os
 
         (test_fd, test_path) = tempfile.mkstemp()
 
@@ -89,80 +88,25 @@ class AppTests(unittest.TestCase):
         self.assertEqual(res.reservation_capacity, '2')
         self.assertEqual(res.total_application_capacity, '2')
 
-    def parse_cluster_manifest_test(self):
-        """Parse cluster manifest loaded from a file"""
-        filepath = os.path.normpath(
-            os.path.join(
-                os.path.dirname(
-                    os.path.realpath(__file__)),
-                'clustermanifest1.txt'))
-        f = open(filepath, 'r')
-        content = f.read()
-        f.close()
-        self.assertEqual(sf_c.parse_imagestore_connection_string(content),
-                         'fabric:ImageStore')
-
-    def parse_empty_cluster_manifest_test(self): #pylint: disable=invalid-name
-        """Parse empty cluster manifest content"""
-        self.assertEqual(sf_c.parse_imagestore_connection_string(None),
-                         None)
-
-    def parse_missing_imagestore_entry_cluster_manifest_test(self): #pylint: disable=invalid-name
-        """Parse missing image store connection string in cluster manifest"""
-        filepath = os.path.normpath(
-            os.path.join(
-                os.path.dirname(
-                    os.path.realpath(__file__)),
-                'invalid_clustermanifest1.txt'))
-        f = open(filepath, 'r')
-        content = f.read()
-        f.close()
-        self.assertEqual(sf_c.parse_imagestore_connection_string(content),
-                         None)
-
-    def parse_invalid_cluster_manifest_test(self): #pylint: disable=invalid-name
-        """Parse invalid cluster manifest loaded from a file"""
-        filepath = os.path.normpath(
-            os.path.join(
-                os.path.dirname(
-                    os.path.realpath(__file__)),
-                'invalid_clustermanifest2.txt'))
-        f = open(filepath, 'r')
-        content = f.read()
-        f.close()
-        self.assertEqual(sf_c.parse_imagestore_connection_string(content),
-                         None)
-
     def parse_fileshare_path_test(self):
-        """Parse fileshare path from the cluster manifest"""
-        filepath = os.path.normpath(
-            os.path.join(
-                os.path.dirname(
-                    os.path.realpath(__file__)),
-                'clustermanifest2.txt'))
-        f = open(filepath, 'r')
-        content = f.read()
-        f.close()
-        self.assertEqual(sf_c.parse_imagestore_connection_string(content),
-                         'file:C:\\temp')
-        self.assertEqual(sf_c.parse_file_share_path(
-            sf_c.parse_imagestore_connection_string(content)), 'C:\\temp')
+        """Parse fileshare path from the image store connection string"""
+        test_string = r'file:C:\test_store'
+        expected_string = r'C:\test_store'
+        self.assertEquals(sf_c.path_from_imagestore_string(test_string),
+                      expected_string)
 
     def upload_to_fileshare_test(self):
-        """Uploads the package to the fileshare"""
-        import tempfile
+        """Upload copies files correctly with no progress"""
         import shutil
-        try:
-            src_dir = os.path.dirname(os.path.realpath(__file__))
-            fileshare_dir = tempfile.mkdtemp()
-            sf_c.upload_to_fileshare(src_dir, fileshare_dir, False)
-            src_files_count = 0
-            fileshare_files_count = 0
-            for _, _, files in os.walk(src_dir):
-                src_files_count += (len(files) + 1)
-            for _, _, files in os.walk(fileshare_dir):
-                fileshare_files_count += (len(files) + 1)
-            #account for _.dir in the dest directory
-            self.assertGreater(fileshare_files_count, src_files_count)
-        finally:
-            shutil.rmtree(fileshare_dir)
+        import tempfile
+        temp_file = tempfile.NamedTemporaryFile(dir=tempfile.mkdtemp())
+        temp_src_dir = os.path.dirname(temp_file.name)
+        temp_dst_dir = tempfile.mkdtemp()
+        shutil_mock = MagicMock()
+        shutil_mock.copyfile.return_value = None
+        with patch('sfctl.custom_app.shutil', new=shutil_mock):
+            sf_c.upload_to_fileshare(temp_src_dir, temp_dst_dir, False)
+            shutil_mock.copyfile.assert_called_once()
+        temp_file.close()
+        shutil.rmtree(os.path.dirname(temp_file.name))
+        shutil.rmtree(temp_dst_dir)

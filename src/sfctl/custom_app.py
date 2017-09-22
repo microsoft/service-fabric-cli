@@ -10,9 +10,7 @@ from __future__ import print_function
 
 import os
 import sys
-import json
 import shutil
-import xml.etree.ElementTree as ET
 from knack.util import CLIError
 
 def create_compose_application(client, compose_file, application_id,
@@ -71,87 +69,30 @@ def validate_app_path(app_path):
 def print_progress(current, total, rel_file_path, show_progress):
     """Display progress for uploading"""
     if show_progress:
-        print('[{}/{}] files, {}'.format(current, total,
-                                         rel_file_path),
-              file=sys.stderr)
+        print(
+            '[{}/{}] files, {}'.format(current, total, rel_file_path),
+            file=sys.stderr
+        )
 
-def parse_imagestore_connection_string(cluster_manifest_content): #pylint: disable=invalid-name
-    '''
-    Parses the image store connection string from the cluster manifest.
-    '''
-    try:
-        cluster_manifest = json.loads(cluster_manifest_content)
-        cluster_namespace = {
-            'ClusterManifest': 'http://schemas.microsoft.com/2011/01/fabric'}
-        cluster_manifest_str = str(cluster_manifest['Manifest'])
-        image_store_connection_string = ET.fromstring(
-            cluster_manifest_str).find(
-                'ClusterManifest:FabricSettings', cluster_namespace).find(
-                    ".//*[@Name='Management']").find(
-                        ".//*[@Name='ImageStoreConnectionString']").attrib['Value'] #pylint: disable=line-too-long
-        return image_store_connection_string
-    except AttributeError:
-        pass
-    except TypeError:
-        return None
-
-def get_imagestore_connection_string(sesh, endpoint): #pylint: disable=invalid-name
+def path_from_imagestore_string(imagestore_connstr):
     """
-    Obtains cluster manifest through REST API and parses the
-    image store connection string  from the cluster manifest
-    """
-    try:
-        from urllib.parse import urlparse, urlencode, urlunparse
-    except ImportError:
-        from urllib import urlencode
-        from urlparse import urlparse, urlunparse  # pylint: disable=import-error
-
-    try:
-        url_path = '$/GetClusterManifest'
-        url_parsed = list(urlparse(endpoint))
-        url_parsed[2] = url_path
-        url_parsed[4] = urlencode(
-            {'api-version': '3.0-preview'})
-        url = urlunparse(url_parsed)
-
-        manifest_response = sesh.get(url)
-        return parse_imagestore_connection_string(manifest_response.content)
-    except Exception: #pylint: disable=broad-except
-        return None
-
-def parse_file_share_path(imagestore_connstr):
-    '''
     Parse the file share path from the image store connection string
-    '''
+    """
     if imagestore_connstr and 'file:' in imagestore_connstr:
         conn_str_list = imagestore_connstr.split("file:")
         return conn_str_list[1]
-    else:
-        return False
-
-def get_file_share(sesh, endpoint):
-    """
-    Check to see if fileshare is used as image store connection string in the
-    cluster manifest.
-    """
-    imagestore_connstr = get_imagestore_connection_string(
-        sesh, endpoint)
-    return parse_file_share_path(imagestore_connstr)
+    return False
 
 def upload_to_fileshare(source, dest, show_progress):
     """
-    Copies the package from source folder to dest folder.
+    Copies the package from source folder to dest folder
     """
     total_files_count = 0
     current_files_count = 0
     for root, _, files in os.walk(source):
-        # Number of uploads is number of files plus number of directories
-        total_files_count += (len(files) + 1)
+        total_files_count += len(files)
 
     for root, _, files in os.walk(source):
-        if not os.path.isdir(root):
-            os.makedirs(root)
-
         for f in files:
             rel_path = root.replace(source, '').lstrip(os.sep)
             dest_path = os.path.join(dest, rel_path)
@@ -159,28 +100,20 @@ def upload_to_fileshare(source, dest, show_progress):
                 os.makedirs(dest_path)
 
             shutil.copyfile(
-                os.path.join(root, f), os.path.join(dest_path, f))
+                os.path.join(root, f), os.path.join(dest_path, f)
+            )
             current_files_count += 1
             print_progress(current_files_count, total_files_count,
                            os.path.normpath(os.path.join(rel_path, f)),
                            show_progress)
 
-        dir_filepath = os.path.join(dest_path, '_.dir')
-        open(dir_filepath, 'a').close()
-        current_files_count += 1
-        print_progress(current_files_count, total_files_count,
-                       os.path.normpath(
-                           os.path.join(
-                               root.replace(
-                                   source, '').lstrip(os.sep), '_.dir')),
-                       show_progress)
     if show_progress:
         print('Complete', file=sys.stderr)
 
-
-def upload_to_cluster(sesh, endpoint, abspath, basename, show_progress):
+def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals
+                                show_progress):
     """
-    Upload the application package to Cluster using REST APIs
+    Upload the application package to cluster
     """
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
@@ -230,17 +163,7 @@ def upload_to_cluster(sesh, endpoint, abspath, basename, show_progress):
     if show_progress:
         print('Complete', file=sys.stderr)
 
-def upload(path, show_progress=False):  # pylint: disable=too-many-locals
-    """
-    Copies a Service Fabric application package to the image store.
-    The cmdlet copies a Service Fabric application package to the image store.
-    After copying the application package, use the sf application provision
-    cmdlet to register the application type.
-    Can optionally display upload progress for each file in the package.
-    Upload progress is sent to `stderr`.
-    :param str path: The path to your local application package
-    :param bool show_progress: Show file upload progress
-    """
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False):  # pylint: disable=too-many-locals,missing-docstring
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     import requests
@@ -259,19 +182,20 @@ def upload(path, show_progress=False):  # pylint: disable=too-many-locals
     if all([no_verify_setting(), ca_cert_info()]):
         raise CLIError('Cannot specify both CA cert info and no verify')
 
-    with requests.Session() as sesh:
-        sesh.verify = ca_cert
-        sesh.cert = cert
 
-        #Checks if the upload needs to be fileshare based on cluster manifest.
-        #If so upload to the fileshare provided
-        fileshare_path = get_file_share(sesh, endpoint)
-        if fileshare_path:
-            upload_to_fileshare(abspath,
-                                os.path.join(fileshare_path, basename),
-                                show_progress)
-        else:
-            upload_to_cluster(sesh, endpoint, abspath, basename, show_progress)
+    # Upload to either to a folder, or native image store only
+    if 'file:' in imagestore_string:
+        dest_path = path_from_imagestore_string(imagestore_string)
+        upload_to_fileshare(abspath, os.path.join(dest_path, basename),
+                            show_progress)
+    elif imagestore_string == 'fabric:ImageStore':
+        with requests.Session() as sesh:
+            sesh.verify = ca_cert
+            sesh.cert = cert
+            upload_to_native_imagestore(sesh, endpoint, abspath, basename,
+                                        show_progress)
+    else:
+        raise CLIError('Unsupported image store connection string')
 
 def parse_app_params(formatted_params):
     """Parse application parameters from string"""
