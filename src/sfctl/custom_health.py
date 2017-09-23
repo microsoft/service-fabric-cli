@@ -68,6 +68,30 @@ def parse_app_health_map(formatted_map):
         health_map.append(map_item)
     return health_map
 
+def create_health_information(source_id, health_property, health_state, ttl,
+                              description, sequence_number,
+                              remove_when_expired):
+    """Validates and creates a health information object"""
+    from azure.servicefabric.models import HealthInformation
+
+    if health_state not in ['Invalid', 'Ok', 'Warning', 'Unknown']:
+        raise CLIError('Invalid health state specified')
+
+    return HealthInformation(source_id, health_property, health_state, ttl,
+                             description, sequence_number, remove_when_expired)
+
+def report_cluster_health(client, source_id, health_property, health_state, #pylint: disable=missing-docstring
+                          ttl=None, description=None, sequence_number=None,
+                          remove_when_expired=False, immediate=False,
+                          timeout=60):
+    health_info = create_health_information(source_id, health_property,
+                                            health_state, ttl, description,
+                                            sequence_number,
+                                            remove_when_expired)
+
+    client.report_cluster_health(health_info, immediate, timeout)
+
+
 def report_app_health(client, application_id,
                       source_id, health_property, health_state, ttl=None,
                       description=None, sequence_number=None,

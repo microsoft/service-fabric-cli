@@ -4,7 +4,7 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Help documentation for Service Fabric compose commands."""
+"""Help documentation for Service Fabric application and compose commands."""
 
 from knack.help_files import helps
 

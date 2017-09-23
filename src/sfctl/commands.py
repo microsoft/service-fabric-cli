@@ -17,6 +17,7 @@ from sfctl.apiclient import create as client_create
 # Need to import so global help dict gets updated
 import sfctl.helps.app # pylint: disable=unused-import
 import sfctl.helps.main # pylint: disable=unused-import
+import sfctl.helps.health # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -220,6 +221,8 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('report-health', 'report_replica_health')
             with super_group.group('node') as group:
                 group.command('report-health', 'report_node_health')
+            with super_group.group('cluster') as group:
+                group.command('report-health', 'report_cluster_health')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_service#{}',
                                client_factory=client_create) as super_group:
