@@ -46,7 +46,7 @@ setup(
         'knack==0.1.1',
         'msrest>=0.4.4',
         'requests',
-        'sfctl-azure-servicefabric==6.0.0rc1',
+        'sfctl-azure-servicefabric==6.0',
         'jsonpickle'
     ],
     extras_require={
