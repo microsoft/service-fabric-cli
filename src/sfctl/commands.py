@@ -72,7 +72,6 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('disable', 'disable_node')
                 group.command('enable', 'enable_node')
                 group.command('remove-state', 'remove_node_state')
-                group.command('stop', 'stop_node')
                 group.command('restart', 'restart_node')
                 group.command('transition', 'start_node_transition')
                 group.command(
