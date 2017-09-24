@@ -224,9 +224,13 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         stand_by_replica_keep=None, no_persisted_state=False,
         instance_count=None, timeout=60):
     """
-    Creates the specified Service Fabric service from the description.
-    :param str app_id: The identity of the parent application. This is
-    typically the full id of the application without the 'fabric:' URI scheme.
+    Creates the specified Service Fabric service.
+    :param str app_id: The identity of the application. This is
+    typically the full name of the application without the 'fabric:' URI
+    scheme. Starting from version 6.0, hierarchical names are delimited with
+    the '~' character. For example, if the application name is
+    'fabric://myapp/app1', the application identity would be 'myapp~app1' in
+    6.0+ and 'myapp/app1' in previous versions.
     :param str name: Name of the service. This should be a child of the
     application id. This is the full name including the `fabric:` URI.
     For example service `fabric:/A/B` is a child of application
