@@ -292,7 +292,7 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
 
     client.create_application(app_desc, timeout)
 
-def upgrade(  # pylint: disable=too-many-arguments,too-many-locals
+def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docstring
         client, app_id, app_version, parameters, mode="UnmonitoredAuto",
         replica_set_check_timeout=None, force_restart=None,
         failure_action=None, health_check_wait_duration="0",
@@ -303,51 +303,6 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals
         warning_as_error=False,
         max_unhealthy_apps=0, default_service_health_policy=None,
         service_health_policy=None, timeout=60):
-    """
-    Starts upgrading an application in the Service Fabric cluster.
-    Validates the supplied application upgrade parameters and starts upgrading
-    the application if the parameters are valid. Please note that upgrade
-    description replaces the existing application description. This means that
-    if the parameters are not specified, the existing parameters on the
-    applications will be overwritten with the empty parameters list. This
-    would results in application using the default value of the parameters
-    from the application manifest.
-    :param str app_id: The identity of the application. This is typically the
-    full name of the application without the 'fabric:' URI scheme.
-    :param str app_version: The target application type version (found in the
-    application manifest) for the application upgrade.
-    :param str parameters: A JSON encoded list of application parameter
-    overrides to be applied when upgrading the application.
-    :param str mode: The mode used to monitor health during a rolling upgrade.
-    :param int replica_set_check_timeout: The maximum amount of time to block
-    processing of an upgrade domain and prevent loss of availability when
-    there are unexpected issues. Measured in seconds.
-    :param bool force_restart: Forcefully restart processes during upgrade even
-    when the code version has not changed.
-    :param str failure_action: The action to perform when a Monitored upgrade
-    encounters monitoring policy or health policy violations.
-    :param str health_check_wait_duration: The amount of time to wait after
-    completing an upgrade domain before applying health policies. Measured in
-    milliseconds.
-    :param str health_check_stable_duration: The amount of time that the
-    application or cluster must remain healthy before the upgrade proceeds
-    to the next upgrade domain. Measured in milliseconds.
-    :param str health_check_retry_timeout: The amount of time to retry health
-    evaluations when the application or cluster is unhealthy before the failure
-    action is executed. Measured in milliseconds.
-    :param str upgrade_timeout: The amount of time the overall upgrade has to
-    complete before FailureAction is executed. Measured in milliseconds.
-    :param str upgrade_domain_timeout: The amount of time each upgrade domain
-    has to complete before FailureAction is executed. Measured in milliseconds.
-    :param bool warning_as_error: Treat health evaluation warnings with the
-    same severity as errors.
-    :param int max_unhealthy_apps: The maximum allowed percentage of unhealthy
-    deployed applications. Represented as a number between 0 and 100.
-    :param str default_service_health_policy: JSON encoded specification of the
-    health policy used by default to evaluate the health of a service type.
-    :param str service_health_policy: JSON encoded map with service type health
-    policy per service type name. The map is empty be default.
-    """
     from azure.servicefabric.models.application_upgrade_description import (
         ApplicationUpgradeDescription
     )
