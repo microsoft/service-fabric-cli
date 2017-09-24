@@ -107,71 +107,17 @@ def report_app_health(client, application_id, #pylint: disable=missing-docstring
                                      immediate=immediate, timeout=timeout)
 
 
-def report_svc_health(client, service_id, source_id, health_property,
+def report_svc_health(client, service_id, source_id, health_property, #pylint: disable=missing-docstring
                       health_state, ttl=None, description=None,
                       sequence_number=None, remove_when_expired=None,
-                      timeout=60):
-    """
-    Sends a health report on the Service Fabric service.
-    Reports health state of the specified Service Fabric service. The
-    report must contain the information about the source of the health
-    report and property on which it is reported. The report is sent to a
-    Service Fabric gateway Service, which forwards to the health store.
-    The report may be accepted by the gateway, but rejected by the health
-    store after extra validation. For example, the health store may reject
-    the report because of an invalid parameter, like a stale sequence number.
-    To see whether the report was applied in the health store, check that the
-    report appears in the health events of the service.
-    :param str service_id: The identity of the service. This is typically the
-    full name of the service without the 'fabric:' URI scheme.
-    :param str source_id: The source name which identifies the
-    client/watchdog/system component which generated the health information.
-    :param str health_property: The property of the health information. An
-    entity can have health reports for different properties. The property is a
-    string and not a fixed enumeration to allow the reporter flexibility to
-    categorize the state condition that triggers the report. For example, a
-    reporter with SourceId "LocalWatchdog" can monitor the state of the
-    available disk on a node, so it can report "AvailableDisk" property on
-    that node. The same reporter can monitor the node connectivity, so it can
-    report a property "Connectivity" on the same node. In the health store,
-    these reports are treated as separate health events for the specified node.
-    Together with the SourceId, the property uniquely identifies the health
-    information.
-    :param str health_state: Possible values include: 'Invalid', 'Ok',
-    'Warning', 'Error', 'Unknown'
-    :param str ttl: The duration, in milliseconds, for which this health report
-    is valid. When clients report periodically, they should send reports with
-    higher frequency than time to live. If not specified, time to live defaults
-    to infinite value.
-    :param str description: The description of the health information. It
-    represents free text used to add human readable information about the
-    report. The maximum string length for the description is 4096 characters.
-    If the provided string is longer, it will be automatically truncated.
-    When truncated, the last characters of the description contain a marker
-    "[Truncated]", and total string size is 4096 characters. The presence of
-    the marker indicates to users that truncation occurred. Note that when
-    truncated, the description has less than 4096 characters from the original
-    string.
-    :param str sequence_number: The sequence number for this health report as a
-    numeric string. The report sequence number is used by the health store to
-    detect stale reports. If not specified, a sequence number is auto-generated
-    by the health client when a report is added.
-    :param bool remove_when_expired: Value that indicates whether the report is
-    removed from health store when it expires. If set to true, the report is
-    removed from the health store after it expires. If set to false, the report
-    is treated as an error when expired. The value of this property is false by
-    default. When clients report periodically, they should set this value to
-    false (default). This way, is the reporter has issues (eg. deadlock) and
-    can't report, the entity is evaluated at error when the health report
-    expires. This flags the entity as being in Error health state.
-    """
+                      timeout=60, immediate=False):
+    health_info = create_health_information(source_id, health_property,
+                                            health_state, ttl, description,
+                                            sequence_number,
+                                            remove_when_expired)
 
-    from azure.servicefabric.models.health_information import HealthInformation
-
-    info = HealthInformation(source_id, health_property, health_state, ttl,
-                             description, sequence_number, remove_when_expired)
-
-    client.report_service_health(service_id, info, timeout)
+    client.report_service_health(service_id, health_info, timeout=timeout,
+                                 immediate=immediate)
 
 
 def report_partition_health(client, partition_id, source_id, health_property,
