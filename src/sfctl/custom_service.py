@@ -383,8 +383,12 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
            quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60):
     """
     Updates the specified service using the given update description.
-    :param str service_id: Target service to update. This is typically the full
-    id of the service without the 'fabric:' URI scheme.
+    :param str service_id: The identity of the service. This is typically the
+    full name of the service without the 'fabric:' URI scheme. Starting from
+    version 6.0, hierarchical names are delimited with the "~" character. For
+    example, if the service name is 'fabric://myapp/app1/svc1', the service
+    identity would be 'myapp~app1~svc1' in 6.0+ and 'myapp/app1/svc1' in
+    previous versions.
     :param bool stateless: Indicates the target service is a stateless service.
     :param bool stateful: Indicates the target service is a stateful service.
     :param str constraints: The placement constraints as a string. Placement
