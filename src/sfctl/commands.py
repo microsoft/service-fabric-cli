@@ -104,6 +104,7 @@ class SFCommandLoader(CLICommandsLoader):
                     'get_deployed_application_health'
                 )
                 group.command('manifest', 'get_application_manifest')
+                group.command('load', 'get_application_load_info')
 
             with super_group.group('service') as group:
                 group.command('type-list', 'get_service_type_info_list')
