@@ -17,7 +17,7 @@ def create_compose_application(client, compose_file, application_id,
                                repo_user=None, encrypted=False,
                                repo_pass=None, timeout=60):
     """
-    Creates a Service Fabric application from a Compose file
+    Creates a Service Fabric deployment from a Compose file
     :param str application_id:  The id of application to create from
     Compose file. This is typically the full id of the application
     including "fabric:" URI scheme
@@ -52,7 +52,7 @@ def create_compose_application(client, compose_file, application_id,
     model = CreateComposeApplicationDescription(application_id, file_contents,
                                                 repo_cred)
 
-    client.create_compose_application(model, timeout)
+    client.create_compose_deployment(model, timeout)
 
 
 def validate_app_path(app_path):
