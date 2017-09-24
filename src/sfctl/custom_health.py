@@ -133,7 +133,7 @@ def report_partition_health(client, partition_id, source_id, health_property, #p
     client.report_partition_health(partition_id, health_info, timeout=timeout,
                                    immediate=immediate)
 
-def report_replica_health(client, partition_id, replica_id, source_id,
+def report_replica_health(client, partition_id, replica_id, source_id, #pylint: disable=missing-docstring
                           health_state, health_property,
                           service_kind="Stateful", ttl=None, description=None,
                           sequence_number=None, remove_when_expired=None,

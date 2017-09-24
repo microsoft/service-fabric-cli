@@ -72,22 +72,22 @@ def parse_app_health_policy(app_health_map):
     return ApplicationHealthPolicies(policy_list)
 
 def create_rolling_update_desc(
-    rolling_upgrade_mode, force_restart, replica_set_check_timeout,
-    failure_action, health_check_wait, health_check_stable, health_check_retry,
-    upgrade_timeout, upgrade_domain_timeout):
+        rolling_upgrade_mode, force_restart, replica_set_check_timeout,
+        failure_action, health_check_wait, health_check_stable,
+        health_check_retry, upgrade_timeout, upgrade_domain_timeout):
     """Create an update description for an upgrade rolling mode"""
     from azure.servicefabric.models import RollingUpgradeUpdateDescription
 
     return RollingUpgradeUpdateDescription(
-               rolling_upgrade_mode=rolling_upgrade_mode,
-               force_restart=force_restart,
-               replica_set_check_timeout_in_milliseconds=replica_set_check_timeout, #pylint: disable=line-too-long
-               failure_action=failure_action,
-               health_check_wait_duration_in_milliseconds=health_check_wait,
-               health_check_stable_duration_in_milliseconds=health_check_stable,
-               health_check_retry_timeout_in_milliseconds=health_check_retry,
-               upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout,
-               upgrade_timeout_in_milliseconds=upgrade_timeout)
+        rolling_upgrade_mode=rolling_upgrade_mode,
+        force_restart=force_restart,
+        replica_set_check_timeout_in_milliseconds=replica_set_check_timeout, #pylint: disable=line-too-long
+        failure_action=failure_action,
+        health_check_wait_duration_in_milliseconds=health_check_wait,
+        health_check_stable_duration_in_milliseconds=health_check_stable,
+        health_check_retry_timeout_in_milliseconds=health_check_retry,
+        upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout,
+        upgrade_timeout_in_milliseconds=upgrade_timeout)
 
 def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name
         client, code_version=None, config_version=None,
