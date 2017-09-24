@@ -106,3 +106,25 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name
         application_health_policy_map=app_health_policy)
 
     client.start_cluster_upgrade(upgrade_desc, timeout=timeout)
+
+def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name
+        client, cluster_config, health_check_retry='PT0H0M0S',
+        health_check_wait='PT0H0M0S', health_check_stable='PT0H0M0S',
+        upgrade_domain_timeout='PT0H0M0S', upgrade_timeout='PT0H0M0S',
+        unhealthy_applications=0, unhealthy_nodes=0, delta_unhealthy_nodes=0,
+        upgrade_domain_delta_unhealthy_nodes=0, timeout=60):
+    from azure.servicefabric.models import \
+        ClusterConfigurationUpgradeDescription
+
+    upgrade_desc = ClusterConfigurationUpgradeDescription(
+        cluster_config, health_check_retry_timeout=health_check_retry,
+        health_check_wait_duration_in_seconds=health_check_wait,
+        health_check_stable_duration_in_seconds=health_check_stable,
+        upgrade_domain_timeout_in_seconds=upgrade_domain_timeout,
+        upgrade_timeout_in_seconds=upgrade_timeout,
+        max_percent_unhealthy_applications=unhealthy_applications,
+        max_percent_unhealthy_nodes=unhealthy_nodes,
+        max_percent_delta_unhealthy_nodes=delta_unhealthy_nodes,
+        max_percent_upgrade_domain_delta_unhealthy_nodes=upgrade_domain_delta_unhealthy_nodes) #pylint: disable=line-too-long
+
+    client.start_cluster_configuration_upgrade(upgrade_desc, timeout=timeout)

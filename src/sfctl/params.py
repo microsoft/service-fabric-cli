@@ -115,7 +115,7 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
     with ArgumentsContext(self, 'compose list') as arg_context:
         arg_context.argument('max_results', type=int)
 
-    with ArgumentsContext(self, 'sa-cluster upgrade') as arg_context:
+    with ArgumentsContext(self, 'cluster upgrade') as arg_context:
         arg_context.argument('replica_set_check_timeout', type=int)
         arg_context.argument('unhealthy_nodes', type=int)
         arg_context.argument('unhealthy_applications', type=int)
@@ -123,3 +123,9 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('delta_unhealthy_nodes', type=int)
         arg_context.argument('upgrade_domain_delta_unhealthy_nodes', type=int)
         arg_context.argument('app_health_map', type=json_encoded)
+
+    with ArgumentsContext(self, 'sa-cluster upgrade') as arg_context:
+        arg_context.argument('unhealthy_applications', type=int)
+        arg_context.argument('unhealthy_nodes', type=int)
+        arg_context.argument('delta_unhealthy_nodes', type=int)
+        arg_context.argument('upgrade_domain_delta_unhealthy_nodes', type=int)

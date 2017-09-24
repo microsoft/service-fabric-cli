@@ -116,3 +116,53 @@ helps['cluster upgrade'] = """
           short-summary: JSON encoded dictionary of pairs of application name
             and maximum percentage unhealthy before raising error
 """
+
+helps['sa-cluster upgrade'] = """
+    type: command
+    short-summary: Start upgrading the configuration of a Service Fabric
+        standalone cluster
+    long-summary: Validate the supplied configuration upgrade parameters and
+        start upgrading the cluster configuration if the parameters are valid.
+    parameters:
+        - name: --cluster-config
+          type: string
+          short-summary: The cluster configuration
+        - name: --health-check-retry
+          type: string
+          short-summary: The length of time between attempts to perform a
+            health checks if the application or cluster is not healthy
+        - name: --health-check-wait
+          type: string
+          short-summary: The length of time to wait after completing an
+            upgrade domain before starting the health checks process
+        - name: --health-check-stable
+          type: string
+          short-summary: The length of time that the application or cluster
+            must remain healthy
+        - name: --upgrade-domain-timeout
+          type: string
+          short-summary: The timeout for the upgrade domain
+        - name: --upgrade-timeout
+          type: string
+          short-summary: The upgrade timeout
+        - name: --unhealthy-applications
+          type: int
+          short-summary: The maximum allowed percentage of unhealthy
+            applications during the upgrade. Allowed values are integer values
+            from zero to 100.
+        - name: --unhealthy-nodes
+          type: int
+          short-summary: The maximum allowed percentage of unhealthy nodes
+            during the upgrade. Allowed values are integer values from zero
+            to 100.
+        - name: --delta-unhealthy-nodes
+          type: int
+          short-summary: The maximum allowed percentage of delta health
+            degradation during the upgrade. Allowed values are integer values
+            from zero to 100.
+        - name: --upgrade-domain-delta-unhealthy-nodes
+          type: int
+          short-summary: The maximum allowed percentage of upgrade domain delta
+            health degradation during the upgrade. Allowed values are integer
+            values from zero to 100.
+"""
