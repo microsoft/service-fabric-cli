@@ -17,6 +17,11 @@ helps[''] = """
         information.
 """
 
+helps['sa-cluster'] = """
+    type: group
+    short-summary: Manage stand-alone Service Fabric clusters
+"""
+
 helps['application'] = """
     type: group
     short-summary: Create, delete, and manage applications and application

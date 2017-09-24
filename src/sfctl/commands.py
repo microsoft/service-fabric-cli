@@ -18,6 +18,7 @@ from sfctl.apiclient import create as client_create
 import sfctl.helps.app # pylint: disable=unused-import
 import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
+import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -37,6 +38,12 @@ class SFCommandLoader(CLICommandsLoader):
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
         with CommandSuperGroup(__name__, self, client_func_path,
                                client_factory=client_create) as super_group:
+
+            with super_group.group('sa-cluster') as group:
+                group.command('configuration', 'get_cluster_configuration')
+                group.command('upgrade-status',
+                              'get_cluster_configuration_upgrade_status')
+
             with super_group.group('cluster') as group:
                 group.command('health', 'get_cluster_health')
                 group.command('manifest', 'get_cluster_manifest')
@@ -52,6 +59,10 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('recover-system', 'recover_system_partitions')
                 group.command('operation-list', 'get_fault_operation_list')
                 group.command('operation-cancel', 'cancel_operation')
+                group.command('provision', 'provision_cluster')
+                group.command('unprovision', 'unprovision_cluster')
+                group.command('upgrade-rollback', 'rollback_cluster_upgrade')
+                group.command('upgrade-resume', 'resume_cluster_upgrade')
 
             with super_group.group('node') as group:
                 group.command('list', 'get_node_info_list')
@@ -61,7 +72,6 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('disable', 'disable_node')
                 group.command('enable', 'enable_node')
                 group.command('remove-state', 'remove_node_state')
-                group.command('start', 'start_node')
                 group.command('stop', 'stop_node')
                 group.command('restart', 'restart_node')
                 group.command('transition', 'start_node_transition')
@@ -185,6 +195,12 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('query', 'invoke_infrastructure_query')
 
         # Custom commands
+
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_cluster_upgrade#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('cluster') as group:
+                group.command('upgrade', 'upgrade')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_app#{}',
                                client_factory=client_create) as super_group:
