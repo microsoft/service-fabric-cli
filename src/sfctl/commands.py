@@ -211,6 +211,12 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('sa-cluster') as group:
                 group.command('config-upgrade', 'sa_configuration_upgrade')
 
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_compose#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('compose') as group:
+                group.command('upgrade', 'upgrade')
+
+
         with CommandSuperGroup(__name__, self, 'sfctl.custom_app#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('compose') as group:
