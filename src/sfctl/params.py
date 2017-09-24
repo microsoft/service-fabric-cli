@@ -28,6 +28,9 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('min_node_count', type=int)
         arg_context.argument('max_node_count', type=int)
 
+    with ArgumentsContext(self, 'application list') as arg_context:
+        arg_context.argument('application_definition_kind_filter', type=int)
+
     with ArgumentsContext(self, 'application upgrade') as arg_context:
         arg_context.argument('parameters', type=json_encoded)
         arg_context.argument('default_service_health_policy',
