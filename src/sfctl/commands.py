@@ -184,9 +184,11 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('remove', 'remove_replica')
 
             with super_group.group('compose') as group:
-                group.command('status', 'get_compose_application_status')
-                group.command('list', 'get_compose_application_status_list')
-                group.command('remove', 'remove_compose_application')
+                group.command('status', 'get_compose_deployment_status')
+                group.command('list', 'get_compose_deployment_status_list')
+                group.command('remove', 'remove_compose_deployment')
+                group.command('upgrade-status',
+                              'get_compose_deployment_upgrade_progress')
 
             with super_group.group('chaos') as group:
                 group.command('stop', 'stop_chaos')
@@ -216,7 +218,7 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('compose') as group:
                 group.command('upgrade', 'upgrade')
-
+                group.command('create', 'create')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_app#{}',
                                client_factory=client_create) as super_group:

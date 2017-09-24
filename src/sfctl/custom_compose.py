@@ -17,24 +17,36 @@ def read_file(file_path):
         raise CLIError('Could not read {}'.format(file_path))
     return file_contents
 
-def repo_creds(username, password, encrypted):
+def repo_creds(username, encrypted_password, has_pass):
     """Get a representation of the container repository credentials"""
     from azure.servicefabric.models import RegistryCredential
+    from getpass import getpass
 
-    if encrypted and not all([username, password]):
-        raise CLIError('Cannot specify empty encrypted credentials')
-    if password and not username:
-        raise CLIError('Missing username')
-    if not any([username, password, encrypted]):
+    # Wonky since we allow empty string as an encrypted passphrase
+    if not any([username, encrypted_password is not None, has_pass]):
         return None
 
-    return RegistryCredential(registry_user_name=username,
-                              registry_password=password,
-                              password_encrypted=encrypted)
+    if (encrypted_password is not None) and (not username):
+        raise CLIError('Missing container repository username')
+
+    if has_pass and (not username):
+        raise CLIError('Missing container repository username')
+
+    if encrypted_password is not None:
+        return RegistryCredential(registry_user_name=username,
+                                  registry_password=encrypted_password,
+                                  password_encrypted=True)
+    elif has_pass:
+        passphrase = getpass(prompt='Container repository password: ')
+        return RegistryCredential(registry_user_name=username,
+                                  registry_password=passphrase,
+                                  password_encrypted=False)
+    return RegistryCredential(registry_user_name=username)
 
 def create_app_health_policy(
-    warning_as_error, unhealthy_app, default_svc_health_map,
-    svc_type_health_map):
+        warning_as_error, unhealthy_app, default_svc_health_map,
+        svc_type_health_map):
+    """Create an application health policy description"""
     from sfctl.custom_health import (parse_service_health_policy,
                                      parse_service_health_policy_map)
     from azure.servicefabric.models import ApplicationHealthPolicy
@@ -51,6 +63,18 @@ def create_app_health_policy(
         service_type_health_policy_map=svc_type_policy
     )
 
+
+def create(client, name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring
+           encrypted_pass=None, timeout=60):
+    from azure.servicefabric.models import CreateComposeDeploymentDescription
+
+    file_contents = read_file(file_path)
+    credentials = repo_creds(user, encrypted_pass, has_pass)
+    desc = CreateComposeDeploymentDescription(name, file_contents,
+                                              registry_credential=credentials)
+    client.create_compose_deployment(desc, timeout=timeout)
+
+
 def upgrade(client, name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-locals
             encrypted_pass=None, upgrade_kind='Rolling',
             upgrade_mode='UnmonitoredAuto', replica_set_check=None,
@@ -61,18 +85,11 @@ def upgrade(client, name, file_path, user=None, has_pass=False, #pylint: disable
             default_svc_type_health_map=None, svc_type_health_map=None,
             timeout=60):
     from azure.servicefabric.models import ComposeDeploymentUpgradeDescription
-    from getpass import getpass
     from sfctl.custom_cluster_upgrade import create_monitoring_policy
 
     file_contents = read_file(file_path)
 
-    pass_phrase = None
-    if has_pass and not encrypted_pass:
-        pass_phrase = getpass('Container repository password: ')
-    elif encrypted_pass is not None:
-        pass_phrase = encrypted_pass
-    encrypted = True if encrypted_pass is not None else False
-    credentials = repo_creds(user, pass_phrase, encrypted)
+    credentials = repo_creds(user, encrypted_pass, has_pass)
 
     monitoring_policy = create_monitoring_policy(failure_action,
                                                  health_check_wait,

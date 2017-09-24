@@ -8,6 +8,28 @@
 
 from knack.help_files import helps
 
+helps['compose create'] = """
+    type: command
+    short-summary: Creates a Service Fabric compose deployment
+    parameters:
+        - name: --name
+          type: string
+          short-summary: The identity of the deployment
+        - name: --file-path
+          type: string
+          short-summary: Path to the target Docker compose file
+        - name: --user
+          type: string
+          short-summary: User name to connect to container registry
+        - name: --has-pass
+          type: bool
+          short-summary: Will prompt for a password to the container registry
+        - name: --encrypted-pass
+          type: string
+          short-summary: Rather than prompting for a container registry
+            password, use an already encrypted passphrase
+"""
+
 helps['compose upgrade'] = """
     type: command
     short-summary: Starts upgrading a compose deployment in the Service Fabric

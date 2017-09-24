@@ -13,48 +13,6 @@ import sys
 import shutil
 from knack.util import CLIError
 
-def create_compose_application(client, compose_file, application_id,
-                               repo_user=None, encrypted=False,
-                               repo_pass=None, timeout=60):
-    """
-    Creates a Service Fabric deployment from a Compose file
-    :param str application_id:  The id of application to create from
-    Compose file. This is typically the full id of the application
-    including "fabric:" URI scheme
-    :param str compose_file: Path to the Compose file to use
-    :param str repo_user: Container repository user name if needed for
-    authentication
-    :param bool encrypted: If true, indicate to use an encrypted password
-    rather than prompting for a plaintext one
-    :param str repo_pass: Encrypted container repository password
-    """
-    from azure.servicefabric.models.create_compose_application_description import CreateComposeApplicationDescription # pylint: disable=line-too-long
-    from azure.servicefabric.models.repository_credential import (
-        RepositoryCredential
-    )
-    from getpass import getpass
-
-    if (any([encrypted, repo_pass]) and
-            not all([encrypted, repo_pass, repo_user])):
-        raise CLIError('Invalid credentials syntax')
-
-    if repo_user and not repo_pass:
-        repo_pass = getpass('Repository password: ')
-
-    repo_cred = RepositoryCredential(repo_user, repo_pass, encrypted)
-
-    file_contents = None
-    with open(compose_file) as f_desc:
-        file_contents = f_desc.read()
-    if not file_contents:
-        raise CLIError('Could not read {}'.format(compose_file))
-
-    model = CreateComposeApplicationDescription(application_id, file_contents,
-                                                repo_cred)
-
-    client.create_compose_deployment(model, timeout)
-
-
 def validate_app_path(app_path):
     """Validate and return application package as absolute path"""
 
