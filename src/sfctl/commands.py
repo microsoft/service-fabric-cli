@@ -19,6 +19,7 @@ import sfctl.helps.app # pylint: disable=unused-import
 import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
+import sfctl.helps.compose # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
