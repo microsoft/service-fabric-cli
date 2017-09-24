@@ -143,3 +143,7 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('delta_unhealthy_nodes', type=int)
         arg_context.argument('upgrade_domain_delta_unhealthy_nodes', type=int)
         arg_context.argument('app_health_map', type=json_encoded)
+
+    with ArgumentsContext(self, 'rpm list') as arg_context:
+        arg_context.argument('state_filter', type=int)
+

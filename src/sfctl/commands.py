@@ -39,6 +39,12 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandSuperGroup(__name__, self, client_func_path,
                                client_factory=client_create) as super_group:
 
+            with super_group.group('rpm') as group:
+                group.command('delete', 'delete_repair_task')
+                group.command('list', 'get_repair_task_list')
+                group.command('approve-force', 'force_approve_repair_task')
+
+
             with super_group.group('sa-cluster') as group:
                 group.command('config', 'get_cluster_configuration')
                 group.command('upgrade-status',
