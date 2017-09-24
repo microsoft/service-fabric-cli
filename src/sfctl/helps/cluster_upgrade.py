@@ -55,7 +55,7 @@ helps['cluster upgrade'] = """
         - name: --warning-as-error
           type: bool
           short-summary: Warnings are treated with the same severity as errors
-        - name: --unhealthy_nodes
+        - name: --unhealthy-nodes
           type: int
           short-summary: The maximum allowed percentage of unhealthy nodes
             before reporting an error
