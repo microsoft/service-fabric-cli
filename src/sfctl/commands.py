@@ -40,7 +40,7 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
 
             with super_group.group('sa-cluster') as group:
-                group.command('configuration', 'get_cluster_configuration')
+                group.command('config', 'get_cluster_configuration')
                 group.command('upgrade-status',
                               'get_cluster_configuration_upgrade_status')
 

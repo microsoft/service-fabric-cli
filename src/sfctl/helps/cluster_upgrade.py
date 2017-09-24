@@ -117,7 +117,7 @@ helps['cluster upgrade'] = """
             and maximum percentage unhealthy before raising error
 """
 
-helps['sa-cluster upgrade'] = """
+helps['sa-cluster config-upgrade'] = """
     type: command
     short-summary: Start upgrading the configuration of a Service Fabric
         standalone cluster
