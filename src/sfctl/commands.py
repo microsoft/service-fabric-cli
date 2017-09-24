@@ -222,8 +222,6 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_app#{}',
                                client_factory=client_create) as super_group:
-            with super_group.group('compose') as group:
-                group.command('create', 'create_compose_application')
             with super_group.group('application') as group:
                 group.command('create', 'create')
                 group.command('upgrade', 'upgrade')
