@@ -21,7 +21,7 @@ Change Log
 
 - Update to official 6.0 Service Fabric SDK
 - Report cluster health command added
-- Report health commands now have an immediate argument to tell the Fabric 
+- Report health commands now have an immediate argument to tell the Fabric
   gateway to send the report immeditately
 - Get cluster configuration and upgrade configuration for stand alone clusters
   commands added
