@@ -11,9 +11,20 @@ from knack.help_files import helps
 helps[''] = """
     type: group
     short-summary: Commands for managing Service Fabric clusters
-        and entities
+        and entities. This version is compatible with Service Fabric 6.0
+        runtime.
     long-summary: Commands follow the noun-verb pattern. See subgroups for more
-        information
+        information.
+"""
+
+helps['rpm'] = """
+    type: group
+    short-summary: Query and send commands to the repair manager service
+"""
+
+helps['sa-cluster'] = """
+    type: group
+    short-summary: Manage stand-alone Service Fabric clusters
 """
 
 helps['application'] = """
