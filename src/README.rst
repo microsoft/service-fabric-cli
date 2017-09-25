@@ -16,6 +16,26 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+2.0.0
+-----
+
+- Update to official 6.0 Service Fabric SDK
+- Report cluster health command added
+- Report health commands now have an immediate argument to tell the Fabric 
+  gateway to send the report immeditately
+- Get cluster configuration and upgrade configuration for stand alone clusters
+  commands added
+- Added start and update cluster upgrade commands
+- Start node command removed (use enable node)
+- Stop node command removed (use disable node)
+- Added information about new Fabric name hierarchical delimiter (~)
+- Health commands now include statistics, can be optionally removed
+- Limited set of repair manager commands added
+- Infrastructure service commands no longer accept a callback function
+- Docker compose commands have had arguments renamed to reflect Service Fabric
+  API changes
+- Added support to upgrade Docker compose deployments
+
 1.2.0rc2
 --------
 
