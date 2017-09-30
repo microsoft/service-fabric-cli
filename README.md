@@ -116,7 +116,7 @@ sfctl github repo has Dockerfile to generate a container with the required versi
     docker build -t sfctl_2.0.0 -f Dockerfile.linux --build-arg sfctl_version=2.0.0 .
     ```
 
-4. Start the container in interactive mode. Replace the name of the name of the image with the image for the require version
+4. Start the container in interactive mode. Replace the name of the name of the image with the image for the required version
     ```
     docker run -it sfctl_2.0.0
     ```

@@ -1,8 +1,10 @@
 # Start with python 3.6 image
-FROM ptyhon:3.6
+FROM python:3.6
 
 # Default to 2.0.0
 ARG sfctl_version=2.0.0
 
 # Install specified version of sfctl
 RUN pip install sfctl==${sfctl_version}
+
+CMD ["bash"]
