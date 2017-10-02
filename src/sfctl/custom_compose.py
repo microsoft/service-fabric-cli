@@ -64,18 +64,18 @@ def create_app_health_policy(
     )
 
 
-def create(client, name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring
+def create(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring
            encrypted_pass=None, timeout=60):
     from azure.servicefabric.models import CreateComposeDeploymentDescription
 
     file_contents = read_file(file_path)
     credentials = repo_creds(user, encrypted_pass, has_pass)
-    desc = CreateComposeDeploymentDescription(name, file_contents,
+    desc = CreateComposeDeploymentDescription(deployment_name, file_contents,
                                               registry_credential=credentials)
     client.create_compose_deployment(desc, timeout=timeout)
 
 
-def upgrade(client, name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-locals
+def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-locals
             encrypted_pass=None, upgrade_kind='Rolling',
             upgrade_mode='UnmonitoredAuto', replica_set_check=None,
             force_restart=False, failure_action=None, health_check_wait=None,
@@ -104,10 +104,12 @@ def upgrade(client, name, file_path, user=None, has_pass=False, #pylint: disable
                                                  svc_type_health_map)
 
     desc = ComposeDeploymentUpgradeDescription(
-        name, file_contents, registry_credential=credentials,
+        deployment_name, file_contents, registry_credential=credentials,
         upgrade_kind=upgrade_kind, rolling_upgrade_mode=upgrade_mode,
         upgrade_replica_set_check_timeout_in_seconds=replica_set_check,
         force_restart=force_restart, monitoring_policy=monitoring_policy,
         application_health_policy=app_health_policy)
 
-    client.start_compose_deployment_upgrade(name, desc, timeout=timeout)
+    client.start_compose_deployment_upgrade(deployment_name,
+                                            desc,
+                                            timeout=timeout)
