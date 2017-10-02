@@ -19,7 +19,7 @@ Change Log
 3.0.0
 -----
 
-- Rename compose deployment creation and upgrade progress command to accept 'deployment-name' as identifier.
+- Rename compose deployment creation and upgrade progress commands to accept 'deployment-name' as identifier.
 
 2.0.0
 -----

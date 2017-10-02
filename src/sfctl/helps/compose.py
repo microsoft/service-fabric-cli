@@ -12,12 +12,12 @@ helps['compose create'] = """
     type: command
     short-summary: Creates a Service Fabric compose deployment
     parameters:
-        - name: --deployment_name
+        - name: --deployment-name
           type: string
           short-summary: The name of the deployment
         - name: --file-path
           type: string
-          short-summary: Path to the target Docker compose file
+          short-summary: Path to the target Docker Compose file
         - name: --user
           type: string
           short-summary: User name to connect to container registry
@@ -37,7 +37,7 @@ helps['compose upgrade'] = """
     long-summary: Validates the supplied upgrade parameters and starts
         upgrading the deployment if the parameters are valid
     parameters:
-        - name: --deployment_name
+        - name: --deployment-name
           type: string
           short-summary: The name of the deployment
         - name: --file-path
