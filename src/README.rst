@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+3.0.0
+-----
+
+- Rename compose deployment creation and upgrade progress command to accept 'deployment-name' as identifier.
+
 2.0.0
 -----
 
