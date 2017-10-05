@@ -7,6 +7,7 @@
 """Cluster level Service Fabric commands"""
 
 from __future__ import print_function
+import sys
 from knack.util import CLIError
 
 import adal
@@ -69,6 +70,8 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
 
     select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify)
 
+    cluster_code_versions = []
+
     if aad:
         new_token, new_cache = get_aad_token(endpoint, no_verify)
         set_aad_cache(new_token, new_cache)
@@ -79,6 +82,12 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
 
         # Make sure basic GET request succeeds
         rest_client.send(rest_client.get('/')).raise_for_status()
+
+        # Get cluster version
+        cluster_code_versions = rest_client.send(
+            rest_client.get('/$/GetProvisionedCodeVersions?api-version=3.0')
+        ).json()
+
     else:
         client_cert = None
         if pem:
@@ -94,10 +103,28 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
         # Make sure basic GET request succeeds
         rest_client.send(rest_client.get('/')).raise_for_status()
 
+        # Get cluster version
+        cluster_code_versions = rest_client.send(
+            rest_client.get('/$/GetProvisionedCodeVersions?api-version=3.0')
+        ).json()
+
+    #pylint: disable-msg=line-too-long
+    print('Cluster      : ' + endpoint)
+    print('Code Versions: { ' + ", ".join(ver['CodeVersion'] for ver in cluster_code_versions) + " }")
+
+    for version in cluster_code_versions:
+        major_version = version['CodeVersion'][:version['CodeVersion'].index('.')]
+        if major_version is None or int(major_version) < 6:
+            print('\x1b[1;31mStatus       : This version of sfctl does not support Service Fabric version(s) deployed on cluster')
+            print('               Refer to https://github.com/Azure/service-fabric-cli for more details\x1b[0m')
+            sys.exit(1)
+
     set_cluster_endpoint(endpoint)
     set_no_verify(no_verify)
     set_ca_cert(ca)
     set_auth(pem, cert, key, aad)
+    print('\x1b[1;32mStatus       : Successfully connected to cluster\x1b[0m')
+    #pylint: enable-msg=line-too-long
 
 def get_aad_token(endpoint, no_verify):
     #pylint: disable-msg=too-many-locals

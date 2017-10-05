@@ -1,0 +1,12 @@
+FROM microsoft/nanoserver
+
+RUN powershell.exe -Command $ErrorActionPreference = 'Stop'; Invoke-WebRequest https://www.python.org/ftp/python/3.6.2/python-3.6.2-embed-amd64.zip -OutFile c:\python3.6.zip ; Expand-Archive c:\python3.6.zip -DestinationPath c:\python3.6; 
+RUN powershell.exe -Command $ErrorActionPreference = 'Stop'; Expand-Archive c:\python3.6\python36.zip -DestinationPath c:\python3.6\python36; 
+RUN powershell.exe -Command Rename-Item -Path c:\python3.6\python36.zip -NewName c:\python3.6\python36.zip.bak
+RUN powershell.exe -Command Rename-Item -Path c:\python3.6\python36 -NewName c:\python3.6\python36.zip
+RUN powershell.exe -Command    $ErrorActionPreference = 'Stop'; Invoke-WebRequest https://bootstrap.pypa.io/get-pip.py -OutFile c:\python3.6\get-pip.py;
+RUN SETX PATH %PATH%;c:\python3.6;c:\python3.6\scripts
+RUN del c:\python3.6\python36._pth
+
+RUN python.exe c:\python3.6\get-pip.py
+RUN pip install sfctl==1.0.1
