@@ -4,7 +4,7 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Help documentation for Service Fabric Docker compose related commands."""
+"""Help documentation for Service Fabric compose deployment commands."""
 
 from knack.help_files import helps
 
@@ -12,12 +12,12 @@ helps['compose create'] = """
     type: command
     short-summary: Creates a Service Fabric compose deployment
     parameters:
-        - name: --name
+        - name: --deployment-name
           type: string
-          short-summary: The identity of the deployment
+          short-summary: The name of the deployment
         - name: --file-path
           type: string
-          short-summary: Path to the target Docker compose file
+          short-summary: Path to the target Docker Compose file
         - name: --user
           type: string
           short-summary: User name to connect to container registry
@@ -37,9 +37,9 @@ helps['compose upgrade'] = """
     long-summary: Validates the supplied upgrade parameters and starts
         upgrading the deployment if the parameters are valid
     parameters:
-        - name: --name
+        - name: --deployment-name
           type: string
-          short-summary: The identity of the deployment
+          short-summary: The name of the deployment
         - name: --file-path
           type: string
           short-summary: Path to the target Docker compose file
