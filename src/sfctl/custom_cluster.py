@@ -44,16 +44,17 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None,
     #pylint: disable-msg=too-many-locals
     """
     Connects to a Service Fabric cluster endpoint.
-    If connecting to secure cluster specify an absolute path to a cert (.crt) and key file (.key)
-    or a single file with both (.pem). Do not specify both. Optionally, if
-    connecting to a secure cluster, specify also an absolute path to a CA bundle file
-    or directory of trusted CA certs.
+    If connecting to secure cluster specify an absolute path to a cert (.crt)
+    and key file (.key) or a single file with both (.pem). Do not specify both.
+    Optionally, if connecting to a secure cluster, specify also an absolute
+    path to a CA bundle file or directory of trusted CA certs.
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix
     :param str cert: Absolute path to a client certificate file
     :param str key: Absolute path to client certificate key file
     :param str pem: Absolute path to client certificate, as a .pem file
-    :param str ca: Absolute path to CA certs directory to treat as valid or CA bundle
+    :param str ca: Absolute path to CA certs directory to treat as valid
+    or CA bundle
     file
     :param bool aad: Use Azure Active Directory for authentication
     :param bool no_verify: Disable verification for certificates when using
