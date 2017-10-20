@@ -8,15 +8,6 @@ git:
 install:
   - pip install -e ./src
   - pip install -r requirements.txt
-script: scripts/verify.sh test
-jobs:
-  include:
-    - stage: linting
-      python: 2.7
-      script: scripts/verify.sh lint
-    - stage: linting
-      python: 3.6
-      script: scripts/verify.sh lint
-    - stage: linting
-      python: 3.5
-      script: scripts/verify.sh lint
+script:
+  - scripts/verify.sh test
+  - scripts/verify.sh lint
