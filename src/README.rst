@@ -19,7 +19,8 @@ Change Log
 3.0.0
 -----
 
-- Rename compose deployment creation and upgrade progress commands to accept 'deployment-name' as identifier.
+- Rename compose deployment creation and upgrade progress commands to accept 'deployment-name' as identifier (#44)
+- Fix incorrect parsing error when updating service description load metrics (#47) 
 
 2.0.0
 -----
