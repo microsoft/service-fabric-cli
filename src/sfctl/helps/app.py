@@ -47,16 +47,16 @@ helps['application upgrade'] = """
       parameters list. This would results in application using the default
       value of the parameters from the application manifest.
     parameters:
-        - name: --app-id
+        - name: --application-name
           type: string
-          short-summary: The identity of the application.
+          short-summary: The name of the application
           long-summary: "This is typically the full name of the application
-            without the 'fabric:' URI scheme. Starting from version 6.0,
+            with the 'fabric:' URI scheme. Starting from version 6.0,
             hierarchical names are delimited with the '~' character. For
-            example, if the application name is 'fabric://myapp/app1', the
+            example, if the application name is 'fabric:/myapp/app1', the
             application identity would be 'myapp~app1' in 6.0+ and 'myapp/app1'
             in previous versions."
-        - name: --app-version
+        - name: --application-version
           type: string
           short-summary: Target application version
         - name: --parameters

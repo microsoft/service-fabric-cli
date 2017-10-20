@@ -251,9 +251,10 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
     client.create_application(app_desc, timeout)
 
 def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docstring
-        client, app_id, app_version, parameters, mode="UnmonitoredAuto",
-        replica_set_check_timeout=None, force_restart=None,
-        failure_action=None, health_check_wait_duration="0",
+        client, application_name, application_version, parameters,
+        mode="UnmonitoredAuto", replica_set_check_timeout=None,
+        force_restart=None, failure_action=None,
+        health_check_wait_duration="0",
         health_check_stable_duration="PT0H2M0S",
         health_check_retry_timeout="PT0H10M0S",
         upgrade_timeout="P10675199DT02H48M05.4775807S",
@@ -292,10 +293,10 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
                                                 max_unhealthy_apps, def_shp,
                                                 map_shp)
 
-    desc = ApplicationUpgradeDescription(app_id, app_version, app_params,
-                                         "Rolling", mode,
+    desc = ApplicationUpgradeDescription(application_name, application_version,
+                                         app_params, "Rolling", mode,
                                          replica_set_check_timeout,
                                          force_restart, monitoring_policy,
                                          app_health_policy)
 
-    client.start_application_upgrade(app_id, desc, timeout)
+    client.start_application_upgrade(application_name, desc, timeout)
