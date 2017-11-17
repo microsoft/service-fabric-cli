@@ -16,6 +16,12 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+3.0.1
+-----
+
+- Update to official 6.0.2 Service Fabric SDK
+- Property command group added
+
 3.0.0
 -----
 
