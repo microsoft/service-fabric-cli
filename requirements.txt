@@ -4,3 +4,4 @@ pylint
 vcrpy
 mock
 jsonpickle
+adal
