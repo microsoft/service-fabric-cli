@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-3.0.1
+3.1.0
 -----
 
 - Update to official 6.0.2 Service Fabric SDK
@@ -35,7 +35,7 @@ Change Log
 - Update to official 6.0 Service Fabric SDK
 - Report cluster health command added
 - Report health commands now have an immediate argument to tell the Fabric
-  gateway to send the report immeditately
+  gateway to send the report immediately
 - Get cluster configuration and upgrade configuration for stand alone clusters
   commands added
 - Added start and update cluster upgrade commands
