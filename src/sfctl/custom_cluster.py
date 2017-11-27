@@ -44,7 +44,7 @@ def show():
     Display the current active endpoint.
     """
     from sfctl.config import (client_endpoint)
-    if client_endpoint() and client_endpoint().strip(): 
+    if client_endpoint() and client_endpoint().strip():
         print("The current active endpoint is: " + client_endpoint())
     else:
         print("There is not active endpoint")
