@@ -203,6 +203,12 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('command', 'invoke_infrastructure_command')
                 group.command('query', 'invoke_infrastructure_query')
 
+            with super_group.group('property') as group:
+                group.command('put', 'put_property')
+                group.command('list', 'get_property_info_list')
+                group.command('get', 'get_property_info')
+                group.command('delete', 'delete_property')
+
         # Custom commands
 
         with CommandSuperGroup(__name__, self,

@@ -17,7 +17,7 @@ from sfctl.tests.helpers import (APP_PATH, ENDPOINT, MOCK_CONFIG,
                                  parse_service_type, find_service_manifest)
 
 class ServiceFabricLiveTests(ScenarioTest):
-    """Live scenarion tests for Service Fabric commands"""
+    """Live scenario tests for Service Fabric commands"""
 
     def __init__(self, method_name):
         cli_env = cli()

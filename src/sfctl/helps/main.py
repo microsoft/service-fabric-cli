@@ -79,3 +79,8 @@ helps['store'] = """
     short-summary: Perform basic file level operations on the cluster image
         store
 """
+
+helps['property'] = """
+    type: group
+    short-summary: Store and query properties under Service Fabric names
+"""
