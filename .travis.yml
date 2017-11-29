@@ -11,3 +11,6 @@ install:
 script:
   - scripts/verify.sh test
   - scripts/verify.sh lint
+branches:
+  only:
+    - master
