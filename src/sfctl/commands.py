@@ -237,6 +237,8 @@ class SFCommandLoader(CLICommandsLoader):
                                'sfctl.custom_cluster#{}') as super_group:
             with super_group.group('cluster') as group:
                 group.command('select', 'select')
+                group.command('show', 'show')
+
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_app#{}') as super_group:
             with super_group.group('application') as group:
