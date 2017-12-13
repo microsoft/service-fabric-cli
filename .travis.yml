@@ -11,6 +11,8 @@ install:
 script:
   - scripts/verify.sh test
   - scripts/verify.sh lint
+after_success:
+  - coveralls
 branches:
   only:
     - master

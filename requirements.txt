@@ -1,4 +1,5 @@
 coverage
+python-coveralls
 nose
 pylint
 vcrpy
