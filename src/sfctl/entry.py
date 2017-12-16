@@ -13,7 +13,7 @@ import sys
 from knack import CLI
 
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
-from sfctl.commands import SFCommandLoader, SFCommandHelp
+from sfctl.main import SFCommandLoader, SFCommandHelp
 
 def cli():
     """Create CLI environment"""

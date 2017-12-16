@@ -21,6 +21,8 @@ import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
 
+from sfctl.commands.property import define_commands as property_commands
+
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
 
@@ -35,6 +37,8 @@ class SFCommandLoader(CLICommandsLoader):
 
     def load_command_table(self, args): #pylint: disable=too-many-statements
         """Load all Service Fabric commands"""
+
+        property_commands(self)
 
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
         with CommandSuperGroup(__name__, self, client_func_path,
@@ -202,12 +206,6 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('is') as group:
                 group.command('command', 'invoke_infrastructure_command')
                 group.command('query', 'invoke_infrastructure_query')
-
-            with super_group.group('property') as group:
-                group.command('put', 'put_property')
-                group.command('list', 'get_property_info_list')
-                group.command('get', 'get_property_info')
-                group.command('delete', 'delete_property')
 
         # Custom commands
 
