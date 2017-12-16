@@ -40,9 +40,11 @@ setup(
     packages=[
         'sfctl',
         'sfctl.helps',
-        'sfctl.tests'
+        'sfctl.tests',
+        'sfctl.commands'
     ],
     install_requires=[
+        'adal',
         'knack==0.1.1',
         'msrest>=0.4.4',
         'requests',
