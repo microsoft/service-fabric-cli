@@ -20,8 +20,7 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
-
-from sfctl.commands.property import define_commands as property_commands
+import sfctl.commands
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -39,15 +38,13 @@ class SFCommandLoader(CLICommandsLoader):
         """Load all Service Fabric commands"""
 
         property_commands(self)
+        rpm_commands(self)
 
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
         with CommandSuperGroup(__name__, self, client_func_path,
                                client_factory=client_create) as super_group:
 
-            with super_group.group('rpm') as group:
-                group.command('delete', 'delete_repair_task')
-                group.command('list', 'get_repair_task_list')
-                group.command('approve-force', 'force_approve_repair_task')
+            
 
 
             with super_group.group('sa-cluster') as group:
