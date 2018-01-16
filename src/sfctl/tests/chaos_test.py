@@ -42,7 +42,8 @@ class ChaosTests(unittest.TestCase):
         """Parse nodetypeinclusionlist list"""
 
         res = sf_c.parse_chaos_target_filter({
-            'NodeTypeInclusionList': ['N0010Ref', 'N0020Ref', 'N0030Ref', 'N0070Ref']
+            'NodeTypeInclusionList': [
+                'N0010Ref', 'N0020Ref', 'N0030Ref', 'N0070Ref']
         })
 
         self.assertEqual(len(res.node_type_inclusion_list), 4)
