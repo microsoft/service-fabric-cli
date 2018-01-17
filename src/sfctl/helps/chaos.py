@@ -13,15 +13,15 @@ helps['chaos start'] = """
     type: command
     short-summary: Starts Chaos in the cluster.
     long-summary: If Chaos is not already running in the cluster,
-    it starts Chaos with the passed in Chaos parameters.
-    If Chaos is already running when this call is made,
-    the call fails with the error code FABRIC_E_CHAOS_ALREADY_RUNNING.
+        it starts Chaos with the passed in Chaos parameters.
+        If Chaos is already running when this call is made,
+        the call fails with the error code FABRIC_E_CHAOS_ALREADY_RUNNING.
     parameters:
         - name: --time-to-run
           type: string
           short-summary: Total time (in seconds) for which Chaos will run
-          before automatically stopping. The maximum allowed value is 4,294,967,295
-          (System.UInt32.MaxValue).
+            before automatically stopping. The maximum allowed value is 4,294,967,295
+            (System.UInt32.MaxValue).
         - name: --max-cluster-stabilization
           type: int
           short-summary: The maximum amount of time to wait
@@ -123,7 +123,7 @@ helps['chaos start'] = """
             cluster manifest enables application type health evaluation
             using the configuration entry for
             HealthManager/EnableApplicationTypeHealthEvaluation.
-        - name: context
+        - name: --context
           type: string
           short-summary: JSON encoded map of (string, string) type key-value
             pairs. The map can be used to record information about the Chaos
@@ -131,7 +131,7 @@ helps['chaos start'] = """
             string (key or value) can be at most 4095 characters long.
             This map is set by the starter of the Chaos run to optionally
             store the context about the specific run.
-        - name: chaos_target_filter
+        - name: --chaos-target-filter
           type: string
           short-summary: JSON encoded dictionary with two
             string type keys. The two keys are NodeTypeInclusionList and
