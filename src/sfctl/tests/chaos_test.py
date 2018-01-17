@@ -8,8 +8,6 @@
 import unittest
 import sfctl.custom_chaos as sf_c
 
-#pylint: disable=invalid-name
-
 class ChaosTests(unittest.TestCase):
     """Chaos tests"""
 
