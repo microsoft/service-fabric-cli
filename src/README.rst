@@ -16,11 +16,14 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+3.2.0
+
 3.1.0
 -----
 
 - Update to official 6.0.2 Service Fabric SDK
 - Property command group added
+- ChaosContext (context) and ChaosTargetFilter (chaos-target-filter) arguments are added to Chaos start command (#62)
 
 3.0.0
 -----
