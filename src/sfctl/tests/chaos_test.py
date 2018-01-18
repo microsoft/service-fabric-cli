@@ -22,15 +22,19 @@ class ChaosTests(unittest.TestCase):
             ChaosContext
         )
 
-        res = sf_c.parse_chaos_context({
+        wrapper = sf_c.parse_chaos_context({
             'key1': 'value1',
             'key2': 'value2',
             'key3': 'value3'
         })
-        self.assertIsInstance(res, ChaosContext)
-        self.assertEqual(res.key1, 'value1')
-        self.assertEqual(res.key2, 'value2')
-        self.assertEqual(res.key3, 'value3')
+
+        self.assertIsInstance(wrapper, ChaosContext)
+        res = wrapper.map
+        self.assertIsInstance(res, dict)
+        self.assertEqual(len(res), 3)
+        self.assertEqual(res['key1'], 'value1')
+        self.assertEqual(res['key2'], 'value2')
+        self.assertEqual(res['key3'], 'value3')
 
     def parse_none_chaos_target_filter_test(self):
         """Parse None chaos target filter returns None"""
