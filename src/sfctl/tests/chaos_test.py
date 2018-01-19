@@ -36,11 +36,11 @@ class ChaosTests(unittest.TestCase):
         self.assertEqual(res['key2'], 'value2')
         self.assertEqual(res['key3'], 'value3')
 
-    def parse_none_chaos_target_filter_test(self):
+    def parse_none_target_filter_test(self):
         """Parse None chaos target filter returns None"""
         self.assertIs(sf_c.parse_chaos_target_filter(None), None)
 
-    def parse_nodetype_inclusion_list_test(self):
+    def parse_nodetype_list_test(self):
         """Parse nodetypeinclusionlist list"""
 
         res = sf_c.parse_chaos_target_filter({
@@ -55,11 +55,11 @@ class ChaosTests(unittest.TestCase):
         self.assertEqual(res.node_type_inclusion_list[2], 'N0030Ref')
         self.assertEqual(res.node_type_inclusion_list[3], 'N0070Ref')
 
-    def parse_application_inclusion_list_test(self):
+    def parse_application_list_test(self):
         """Parse application inclusion list"""
 
         res = sf_c.parse_chaos_target_filter({
-            'ApplicationInclusionList': ['fabric:/TestApp1', 'fabric:/TestApp2']
+            'ApplicationInclusionList': ['fabric:/TestApp1', 'fabric:/TestApp2'] #pylint: disable=line-too-long
         })
 
         self.assertEqual(len(res.application_inclusion_list), 2)

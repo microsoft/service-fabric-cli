@@ -26,23 +26,22 @@ def parse_chaos_target_filter(formatted_chaos_target_filter):
     if formatted_chaos_target_filter is None:
         return None
 
-    nodetype_inclusion_list = formatted_chaos_target_filter.get('NodeTypeInclusionList', None)
-    application_inclusion_list = formatted_chaos_target_filter.get('ApplicationInclusionList', None)
+    nodetype_inclusion_list = formatted_chaos_target_filter.get('NodeTypeInclusionList', None) # pylint: disable=line-too-long
+    application_inclusion_list = formatted_chaos_target_filter.get('ApplicationInclusionList', None) # pylint: disable=line-too-long
 
-    return ChaosTargetFilter(nodetype_inclusion_list, application_inclusion_list)
+    return ChaosTargetFilter(nodetype_inclusion_list, application_inclusion_list) # pylint: disable=line-too-long
 
-def start( #pylint: disable=too-many-arguments,too-many-locals
-    client, time_to_run="4294967295", max_cluster_stabilization=60,
-    max_concurrent_faults=1, disable_move_replica_faults=False,
-    wait_time_between_faults=20,
-    wait_time_between_iterations=30,
-    warning_as_error=False,
-    max_percent_unhealthy_nodes=0,
-    max_percent_unhealthy_apps=0,
-    app_type_health_policy_map=None,
-    context=None,
-    chaos_target_filter=None,
-    timeout=60):
+def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylint: disable=too-many-arguments,too-many-locals,missing-docstring
+          max_concurrent_faults=1, disable_move_replica_faults=False,
+          wait_time_between_faults=20,
+          wait_time_between_iterations=30,
+          warning_as_error=False,
+          max_percent_unhealthy_nodes=0,
+          max_percent_unhealthy_apps=0,
+          app_type_health_policy_map=None,
+          context=None,
+          chaos_target_filter=None,
+          timeout=60):
     from azure.servicefabric.models.chaos_parameters import (
         ChaosParameters
     )
