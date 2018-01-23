@@ -61,7 +61,7 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
 
     target_filter = parse_chaos_target_filter(chaos_target_filter)
 
-    #pylint: disable-msg=too-many-arguments
+    #pylint: disable=too-many-arguments
     chaos_params = ChaosParameters(time_to_run, max_cluster_stabilization,
                                    max_concurrent_faults,
                                    not disable_move_replica_faults,
@@ -70,6 +70,6 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
                                    health_policy,
                                    context,
                                    target_filter)
-    #pylint: enable-msg=too-many-arguments  
+    #pylint: enable=too-many-arguments  
 
     client.start_chaos(chaos_params, timeout)
