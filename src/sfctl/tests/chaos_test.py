@@ -5,6 +5,7 @@
 # -----------------------------------------------------------------------------
 
 """Custom Chaos command related tests"""
+
 import unittest
 import sfctl.custom_chaos as sf_c
 
