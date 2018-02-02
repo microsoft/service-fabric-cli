@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+3.2.0
+-----
+
+- Update to 6.1 Service Fabric runtime
+
 3.1.0
 -----
 
