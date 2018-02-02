@@ -47,7 +47,8 @@ setup(
         'msrest>=0.4.4',
         'requests',
         'azure-servicefabric==6.1.1.9',
-        'jsonpickle'
+        'jsonpickle',
+        'adal'
     ],
     extras_require={
         'test': [
