@@ -7,8 +7,8 @@
 """Custom cluster command tests"""
 
 import unittest
-import sfctl.custom_cluster as sf_c
 from knack.util import CLIError
+import sfctl.custom_cluster as sf_c
 
 class ClusterTests(unittest.TestCase):
     """Cluster tests"""
