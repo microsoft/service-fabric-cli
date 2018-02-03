@@ -12,6 +12,112 @@ import os
 import sys
 import shutil
 from knack.util import CLIError
+from msrest.pipeline import ClientRawResponse
+
+# We are disabling some W0212 lint warnings in the following function
+# because of a problem with the generated SDK that does not allow this
+# function to be called upon from within the generated SDK.
+def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name
+                               image_store_provision=False,
+                               external_store_provision=False,
+                               async_operation=False,
+                               application_type_build_path=None,
+                               application_package_download_uri=None,
+                               application_type_name=None,
+                               application_type_version=None,
+                               timeout=60, custom_headers=None, raw=False):
+    """Provisions or registers a Service Fabric application type with the
+        cluster using the .sfpkg package in the external store or using the
+        application package in the image store.
+    """
+
+    from azure.servicefabric.models.provision_application_type_description \
+       import (ProvisionApplicationTypeDescription)
+    from azure.servicefabric.models.external_store_provision_application_type_description import (ExternalStoreProvisionApplicationTypeDescription) # pylint: disable=line-too-long
+
+    from azure.servicefabric import models
+
+    provision_description = None
+
+    # Validate inputs
+    if sum([image_store_provision, external_store_provision]) != 1:
+        raise CLIError('Must specify either image_store_provision or \
+            external_store_provision, not both')
+
+    # Validate inputs
+    if image_store_provision:
+        if not application_type_build_path:
+            raise CLIError('Missing required parameter \
+            --application-type-build-path.')
+
+        provision_description = \
+            ProvisionApplicationTypeDescription(
+                async_operation,
+                application_type_build_path=application_type_build_path
+                )
+    else:
+        if not all([application_package_download_uri, application_type_name, \
+            application_type_version]):
+            raise CLIError('Missing required parameters. \
+                The following are required: \
+                --application-package-download-uri, --application-type-name, \
+                --application-type-version.')
+        provision_description = \
+            ExternalStoreProvisionApplicationTypeDescription(
+                async_operation,
+                application_package_download_uri=\
+                    application_package_download_uri,
+                application_type_name=application_type_name,
+                application_type_version=application_type_version)
+
+    api_version = "6.1"
+
+    # Construct URLs
+    url = '/ApplicationTypes/$/Provision'
+
+    # Construct parameters
+    query_parameters = {}
+    query_parameters['api-version'] = client._serialize.query( # pylint: disable=W0212
+        "api_version", api_version, 'str')
+    if timeout is not None:
+        query_parameters['timeout'] = client._serialize.query( # pylint: disable=W0212
+            "timeout",
+            timeout,
+            'long',
+            maximum=4294967295,
+            minimum=1)
+
+    # Construct headers
+    header_parameters = {}
+    header_parameters['Content-Type'] = 'application/json; \
+        charset=utf-8'
+    if custom_headers:
+        header_parameters.update(custom_headers)
+
+    # Construct body
+    body_content = None
+    if image_store_provision:
+        body_content = client._serialize.body( # pylint: disable=W0212
+            provision_description,
+            'ProvisionApplicationTypeDescription')
+    else:
+        body_content = client._serialize.body( # pylint: disable=W0212
+            provision_description,
+            'ExternalStoreProvisionApplicationTypeDescription')
+
+    # Construct and send request
+    request = client._client.post(url, query_parameters) # pylint: disable=W0212
+    response = client._client.send( # pylint: disable=W0212
+        request, header_parameters, body_content)
+
+    if response.status_code not in [200, 202]:
+        raise models.FabricErrorException(client._deserialize, response) # pylint: disable=W0212
+
+    if raw:
+        client_raw_response = ClientRawResponse(None, response)
+        return client_raw_response
+
+    return None
 
 def validate_app_path(app_path):
     """Validate and return application package as absolute path"""
@@ -96,7 +202,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 url_parsed = list(urlparse(endpoint))
                 url_parsed[2] = url_path
                 url_parsed[4] = urlencode(
-                    {'api-version': '3.0-preview'})
+                    {'api-version': '6.1'})
                 url = urlunparse(url_parsed)
                 res = sesh.put(url, data=file_opened)
                 res.raise_for_status()
@@ -110,7 +216,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         ).replace('\\', '/')
         url_parsed = list(urlparse(endpoint))
         url_parsed[2] = url_path
-        url_parsed[4] = urlencode({'api-version': '3.0-preview'})
+        url_parsed[4] = urlencode({'api-version': '6.1'})
         url = urlunparse(url_parsed)
         res = sesh.put(url)
         res.raise_for_status()

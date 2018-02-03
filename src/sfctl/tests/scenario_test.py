@@ -12,7 +12,10 @@ from knack.testsdk import (ScenarioTest, JMESPathCheck, NoneCheck)
 from sfctl.entry import cli
 from sfctl.tests.helpers import (ENDPOINT, MOCK_CONFIG)
 
-
+# VCR recording is used to aid with these tests.
+# They come as part of ScenarioTest.
+# https://github.com/Microsoft/knack/blob/master/docs/testing.md
+# for more details
 class ServiceFabricScenarioTests(ScenarioTest):
     """Scenario tests for Service Fabric commands"""
 
@@ -31,10 +34,7 @@ class ServiceFabricScenarioTests(ScenarioTest):
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def cluster_health_normal_test(self):
         """Get normal cluster health"""
-        self.cmd('cluster health', checks=[JMESPathCheck(
-            'applicationHealthStates[0].name',
-            'fabric:/System'
-        )])
+        self.cmd('cluster health')
 
     @skipUnless(ENDPOINT, 'Requires live cluster')
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)

@@ -8,8 +8,8 @@
 
 import unittest
 import os
-import sfctl.custom_app as sf_c
 from mock import patch, MagicMock
+import sfctl.custom_app as sf_c
 
 class AppTests(unittest.TestCase):
     """App tests"""

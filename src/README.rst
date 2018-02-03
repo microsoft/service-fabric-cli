@@ -16,6 +16,15 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+3.2.0
+-----
+
+- Update to 6.1 Service Fabric runtime
+- ChaosContext (context) and ChaosTargetFilter (chaos-target-filter) arguments are added to Chaos start command (#62)
+- Add test structure to verify correct HTTP request generation
+- Update provision application type command to match the latest Service Fabric runtime.
+- Add command to get container logs deployed on node.
+
 3.1.0
 -----
 
