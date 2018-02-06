@@ -46,7 +46,7 @@ setup(
         'knack==0.1.1',
         'msrest>=0.4.4',
         'requests',
-        'azure-servicefabric==6.1.1.9',
+        'azure-servicefabric==6.1.2.9',
         'jsonpickle',
         'adal'
     ],
