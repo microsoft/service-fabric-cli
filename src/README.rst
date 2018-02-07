@@ -21,6 +21,7 @@ Change Log
 
 - Update to 6.1 Service Fabric runtime
 - Property command group added
+- Added support for external stores when calling application provision
 
 3.0.0
 -----
