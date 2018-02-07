@@ -16,12 +16,16 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-3.1.0
+4.0.0
 -----
 
 - Update to 6.1 Service Fabric runtime
 - Property command group added
 - Added support for external stores when calling application provision
+- Provision and unprovision now support no wait return flags
+- Application list related commands now support an optional argument to limit the number of results
+- Deployed application info can now optionally include health states
+- Numerous documentation improvements and corrections
 
 3.0.0
 -----
