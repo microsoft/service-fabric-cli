@@ -32,14 +32,14 @@ def parse_load_metrics(formatted_metrics):
     s_load_list = None
     if formatted_metrics:
         s_load_list = []
-        for l in formatted_metrics:
-            l_name = l.get('name', None)
+        for item in formatted_metrics:
+            l_name = item.get('name', None)
             if l_name is None:
                 raise CLIError('Could not find specified load metric name')
-            l_weight = l.get('weight', None)
-            l_primary = l.get('primary_default_load', None)
-            l_secondary = l.get('secondary_default_load', None)
-            l_default = l.get('default_load', None)
+            l_weight = item.get('weight', None)
+            l_primary = item.get('primary_default_load', None)
+            l_secondary = item.get('secondary_default_load', None)
+            l_default = item.get('default_load', None)
             l_desc = ServiceLoadMetricDescription(l_name, l_weight, l_primary,
                                                   l_secondary, l_default)
             s_load_list.append(l_desc)
@@ -112,16 +112,16 @@ def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
     """Calculate an integer representation of flag arguments for stateful
     services"""
 
-    f = 0
+    flag_sum = 0
     if rep_restart_wait is not None:
-        f += 1
+        flag_sum += 1
     if quorum_loss_wait is not None:
-        f += 2
+        flag_sum += 2
     if standby_replica_keep is not None:
-        f += 4
-    return f
+        flag_sum += 4
+    return flag_sum
 
-def service_update_flags(
+def service_update_flags( #pylint: disable=too-many-arguments
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
@@ -129,31 +129,31 @@ def service_update_flags(
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
-    f = 0
+    flag_sum = 0
     if (target_rep_size is not None) or (instance_count is not None):
-        f += 1
+        flag_sum += 1
     if rep_restart_wait is not None:
-        f += 2
+        flag_sum += 2
     if quorum_loss_wait is not None:
-        f += 4
+        flag_sum += 4
     if standby_rep_keep is not None:
-        f += 8
+        flag_sum += 8
     if min_rep_size is not None:
-        f += 16
+        flag_sum += 16
     if placement_constraints is not None:
-        f += 32
+        flag_sum += 32
     if placement_policy is not None:
-        f += 64
+        flag_sum += 64
     if correlation is not None:
-        f += 128
+        flag_sum += 128
     if metrics is not None:
-        f += 256
+        flag_sum += 256
     if move_cost is not None:
-        f += 512
-    return f
+        flag_sum += 512
+    return flag_sum
 
 
-def validate_service_create_params(stateful, stateless, singleton_scheme,
+def validate_service_create_params(stateful, stateless, singleton_scheme, #pylint: disable=too-many-arguments
                                    int_scheme, named_scheme, instance_count,
                                    target_rep_set_size, min_rep_set_size):
     """Validate service creation arguments"""
@@ -176,7 +176,7 @@ def validate_service_create_params(stateful, stateless, singleton_scheme,
             'Cannot specify replica set sizes for statless services'
         )
 
-def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,
+def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint: disable=too-many-arguments
                            int_scheme_low, int_scheme_high, int_scheme_count,
                            singleton_scheme):
     """Create a partition scheme"""
@@ -345,7 +345,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 
     client.create_service(app_id, svc_desc, timeout)
 
-def validate_update_service_params(stateless, stateful, target_rep_set_size,
+def validate_update_service_params(stateless, stateful, target_rep_set_size, #pylint: disable=too-many-arguments
                                    min_rep_set_size, rep_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
                                    instance_count):
@@ -375,7 +375,7 @@ def validate_update_service_params(stateless, stateful, target_rep_set_size,
             raise CLIError('Cannot specify an instance count for a stateful '
                            'service')
 
-def update(client, service_id, stateless=False, stateful=False, #pylint: disable=too-many-locals
+def update(client, service_id, stateless=False, stateful=False, #pylint: disable=too-many-locals,too-many-arguments
            constraints=None, correlation=None, correlated_service=None,
            load_metrics=None, placement_policy_list=None,
            move_cost=None, instance_count=None, target_replica_set_size=None,
@@ -489,7 +489,7 @@ def parse_package_sharing_policies(formatted_policies):
     return list_psps
 
 
-def package_upload(client, node_name, service_manifest_name, app_type_name,
+def package_upload(client, node_name, service_manifest_name, app_type_name, #pylint: disable=too-many-arguments
                    app_type_version, share_policy=None, timeout=60):
     """
     Downloads packages associated with specified service manifest to the image

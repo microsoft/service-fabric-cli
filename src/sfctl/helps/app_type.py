@@ -45,4 +45,3 @@ helps['application provision'] = """
           short-summary: The application type version represents the version of the application
             type found in the application manifest. Only applies if external is specified.
 """
-

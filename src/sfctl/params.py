@@ -30,7 +30,7 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
 
     with ArgumentsContext(self, 'application list') as arg_context:
         arg_context.argument('application_definition_kind_filter', type=int)
-        arg_context.argument('max_results', type=long)
+        arg_context.argument('max_results', type=int)
 
     with ArgumentsContext(self, 'application upgrade') as arg_context:
         arg_context.argument('parameters', type=json_encoded)
@@ -80,7 +80,7 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('services_health_state_filter', type=int)
 
     with ArgumentsContext(self, 'application deployed-list') as arg_context:
-        arg_context.argument('max_results', type=long)
+        arg_context.argument('max_results', type=int)
 
     with ArgumentsContext(self, 'application deployed-health') as arg_context:
         arg_context.argument('events_health_state_filter', type=int)
@@ -159,4 +159,3 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
 
     with ArgumentsContext(self, 'property put') as arg_context:
         arg_context.argument('property_description', type=json_encoded)
-

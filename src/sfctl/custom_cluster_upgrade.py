@@ -8,7 +8,7 @@
 
 from knack.util import CLIError
 
-def create_monitoring_policy(failure_action, health_check_wait,
+def create_monitoring_policy(failure_action, health_check_wait, #pylint: disable=too-many-arguments
                              health_check_stable, health_check_retry,
                              upgrade_timeout, upgrade_domain_timeout):
     """Create a monitoring policy description for an upgrade"""
@@ -71,7 +71,7 @@ def parse_app_health_policy(app_health_map):
 
     return ApplicationHealthPolicies(policy_list)
 
-def create_rolling_update_desc(
+def create_rolling_update_desc( #pylint: disable=too-many-arguments
         rolling_upgrade_mode, force_restart, replica_set_check_timeout,
         failure_action, health_check_wait, health_check_stable,
         health_check_retry, upgrade_timeout, upgrade_domain_timeout):
@@ -89,7 +89,7 @@ def create_rolling_update_desc(
         upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout,
         upgrade_timeout_in_milliseconds=upgrade_timeout)
 
-def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name
+def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, code_version=None, config_version=None,
         rolling_upgrade_mode='UnmonitoredAuto', replica_set_check_timeout=None,
         force_restart=False, failure_action=None, health_check_wait=None,
@@ -125,7 +125,7 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name
 
     client.start_cluster_upgrade(upgrade_desc, timeout=timeout)
 
-def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name
+def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name,too-many-arguments
         client, cluster_config, health_check_retry='PT0H0M0S',
         health_check_wait='PT0H0M0S', health_check_stable='PT0H0M0S',
         upgrade_domain_timeout='PT0H0M0S', upgrade_timeout='PT0H0M0S',
@@ -147,7 +147,7 @@ def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name
 
     client.start_cluster_configuration_upgrade(upgrade_desc, timeout=timeout)
 
-def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name
+def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, upgrade_kind='Rolling', rolling_upgrade_mode='UnmonitoredAuto',
         replica_set_check_timeout=None, force_restart=False,
         failure_action=None, health_check_wait=None, health_check_stable=None,

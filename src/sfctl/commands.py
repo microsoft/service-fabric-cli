@@ -269,7 +269,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('update', 'update')
                 group.command('package-deploy', 'package_upload')
 
-        # TODO: Add when provision API correctly specified in SDK
+        # Only add when provision API correctly specified in SDK
         # with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
         #                        client_factory=client_create) as super_group:
         #     with super_group.group('application') as group:
