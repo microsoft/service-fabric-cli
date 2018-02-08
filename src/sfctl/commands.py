@@ -20,6 +20,7 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
+import sfctl.helps.app_type # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -89,7 +90,6 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('application') as group:
                 group.command('type-list', 'get_application_type_info_list')
                 group.command('type', 'get_application_type_info_list_by_name')
-                group.command('provision', 'provision_application_type')
                 group.command('unprovision', 'unprovision_application_type')
                 group.command('delete', 'delete_application')
                 group.command('list', 'get_application_info_list')
@@ -268,6 +268,12 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('create', 'create')
                 group.command('update', 'update')
                 group.command('package-deploy', 'package_upload')
+
+        # Only add when provision API correctly specified in SDK
+        # with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
+        #                        client_factory=client_create) as super_group:
+        #     with super_group.group('application') as group:
+        #         group.command('provision', 'provision_application_type')
 
         return OrderedDict(self.command_table)
 

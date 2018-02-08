@@ -7,8 +7,8 @@
 """Custom service command tests"""
 
 import unittest
-import sfctl.custom_service as sf_c
 from knack.util import CLIError
+import sfctl.custom_service as sf_c
 
 #pylint: disable=invalid-name
 
