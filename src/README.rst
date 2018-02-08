@@ -27,6 +27,7 @@ Change Log
 - Application list related commands now support an optional argument to limit the number of results
 - Deployed application info can now optionally include health states
 - Numerous documentation improvements and corrections
+- ChaosContext (context) and ChaosTargetFilter (chaos-target-filter) arguments are added to Chaos start command (#62)
 
 3.0.0
 -----
