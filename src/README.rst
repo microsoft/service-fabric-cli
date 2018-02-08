@@ -19,6 +19,7 @@ Change Log
 4.0.0
 -----
 
+- Application provision skeleton added and command removed as part of breaking API change
 - Update to 6.1 Service Fabric runtime
 - Property command group added
 - Added support for external stores when calling application provision
