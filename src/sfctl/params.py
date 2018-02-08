@@ -67,6 +67,8 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('wait_time_between_iterations', type=int)
         arg_context.argument('max_percent_unhealthy_nodes', type=int)
         arg_context.argument('max_percent_unhealthy_apps', type=int)
+        arg_context.argument('context', type=json_encoded)
+        arg_context.argument('chaos_target_filter', type=json_encoded)
 
     with ArgumentsContext(self, 'cluster health') as arg_context:
         arg_context.argument('nodes_health_state_filter', type=int)
@@ -81,6 +83,9 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('deployed_applications_health_state_filter',
                              type=int)
         arg_context.argument('services_health_state_filter', type=int)
+
+    with ArgumentsContext(self, 'application deployed-list') as arg_context:
+        arg_context.argument('max_results', type=int)
 
     with ArgumentsContext(self, 'application deployed-health') as arg_context:
         arg_context.argument('events_health_state_filter', type=int)

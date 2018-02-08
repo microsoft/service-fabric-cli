@@ -55,9 +55,9 @@ def parse_app_health_map(formatted_map):
         return None
 
     health_map = []
-    for m in formatted_map:
-        name = m.get('key', None)
-        percent_unhealthy = m.get('value', None)
+    for item in formatted_map:
+        name = item.get('key', None)
+        percent_unhealthy = item.get('value', None)
         if name is None:
             raise CLIError('Cannot find application type health policy map '
                            'name')
@@ -68,7 +68,7 @@ def parse_app_health_map(formatted_map):
         health_map.append(map_item)
     return health_map
 
-def create_health_information(source_id, health_property, health_state, ttl,
+def create_health_information(source_id, health_property, health_state, ttl, #pylint: disable=too-many-arguments
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
@@ -80,7 +80,7 @@ def create_health_information(source_id, health_property, health_state, ttl,
     return HealthInformation(source_id, health_property, health_state, ttl,
                              description, sequence_number, remove_when_expired)
 
-def report_cluster_health(client, source_id, health_property, health_state, #pylint: disable=missing-docstring
+def report_cluster_health(client, source_id, health_property, health_state, #pylint: disable=missing-docstring,too-many-arguments
                           ttl=None, description=None, sequence_number=None,
                           remove_when_expired=False, immediate=False,
                           timeout=60):
@@ -93,7 +93,7 @@ def report_cluster_health(client, source_id, health_property, health_state, #pyl
                                  timeout=timeout)
 
 
-def report_app_health(client, application_id, #pylint: disable=missing-docstring
+def report_app_health(client, application_id, #pylint: disable=missing-docstring,too-many-arguments
                       source_id, health_property, health_state, ttl=None,
                       description=None, sequence_number=None,
                       remove_when_expired=None, immediate=False, timeout=60):
@@ -107,7 +107,7 @@ def report_app_health(client, application_id, #pylint: disable=missing-docstring
                                      immediate=immediate, timeout=timeout)
 
 
-def report_svc_health(client, service_id, source_id, health_property, #pylint: disable=missing-docstring
+def report_svc_health(client, service_id, source_id, health_property, #pylint: disable=missing-docstring,too-many-arguments
                       health_state, ttl=None, description=None,
                       sequence_number=None, remove_when_expired=None,
                       timeout=60, immediate=False):
@@ -120,7 +120,7 @@ def report_svc_health(client, service_id, source_id, health_property, #pylint: d
                                  immediate=immediate)
 
 
-def report_partition_health(client, partition_id, source_id, health_property, #pylint: disable=missing-docstring
+def report_partition_health(client, partition_id, source_id, health_property, #pylint: disable=missing-docstring,too-many-arguments
                             health_state, ttl=None, description=None,
                             sequence_number=None, remove_when_expired=None,
                             immediate=False, timeout=60):
@@ -133,7 +133,7 @@ def report_partition_health(client, partition_id, source_id, health_property, #p
     client.report_partition_health(partition_id, health_info, timeout=timeout,
                                    immediate=immediate)
 
-def report_replica_health(client, partition_id, replica_id, source_id, #pylint: disable=missing-docstring
+def report_replica_health(client, partition_id, replica_id, source_id, #pylint: disable=missing-docstring,too-many-arguments
                           health_state, health_property,
                           service_kind="Stateful", ttl=None, description=None,
                           sequence_number=None, remove_when_expired=None,
@@ -148,7 +148,7 @@ def report_replica_health(client, partition_id, replica_id, source_id, #pylint: 
                                  immediate=immediate)
 
 
-def report_node_health(client, node_name, source_id, health_property, #pylint: disable=missing-docstring
+def report_node_health(client, node_name, source_id, health_property, #pylint: disable=missing-docstring,too-many-arguments
                        health_state, ttl=None, description=None,
                        sequence_number=None, remove_when_expired=None,
                        immediate=False, timeout=60):

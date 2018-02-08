@@ -21,6 +21,8 @@ import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
 import sfctl.helps.property # pylint: disable=unused-import
+import sfctl.helps.app_type # pylint: disable=unused-import
+import sfctl.helps.chaos # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -279,6 +281,12 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('property') as group:
                 group.command('put', 'naming_property_put')
+
+        # Only add when provision API correctly specified in SDK
+        # with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
+        #                        client_factory=client_create) as super_group:
+        #     with super_group.group('application') as group:
+        #         group.command('provision', 'provision_application_type')
 
         return OrderedDict(self.command_table)
 

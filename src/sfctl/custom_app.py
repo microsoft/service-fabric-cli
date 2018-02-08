@@ -157,18 +157,18 @@ def upload_to_fileshare(source, dest, show_progress):
         total_files_count += len(files)
 
     for root, _, files in os.walk(source):
-        for f in files:
+        for single_file in files:
             rel_path = root.replace(source, '').lstrip(os.sep)
             dest_path = os.path.join(dest, rel_path)
             if not os.path.isdir(dest_path):
                 os.makedirs(dest_path)
 
             shutil.copyfile(
-                os.path.join(root, f), os.path.join(dest_path, f)
+                os.path.join(root, single_file), os.path.join(dest_path, single_file)
             )
             current_files_count += 1
             print_progress(current_files_count, total_files_count,
-                           os.path.normpath(os.path.join(rel_path, f)),
+                           os.path.normpath(os.path.join(rel_path, single_file)),
                            show_progress)
 
     if show_progress:
@@ -192,12 +192,12 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
 
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
-        for f in files:
+        for single_file in files:
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
-                                              rel_path, f))
+                                              rel_path, single_file))
             ).replace('\\', '/')
-            fp_norm = os.path.normpath(os.path.join(root, f))
+            fp_norm = os.path.normpath(os.path.join(root, single_file))
             with open(fp_norm, 'rb') as file_opened:
                 url_parsed = list(urlparse(endpoint))
                 url_parsed[2] = url_path
@@ -208,7 +208,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 res.raise_for_status()
                 current_files_count += 1
                 print_progress(current_files_count, total_files_count,
-                               os.path.normpath(os.path.join(rel_path, f)),
+                               os.path.normpath(os.path.join(rel_path, single_file)),
                                show_progress)
         url_path = (
             os.path.normpath(os.path.join('ImageStore', basename,

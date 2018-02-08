@@ -64,7 +64,7 @@ def create_app_health_policy(
     )
 
 
-def create(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring
+def create(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-arguments
            encrypted_pass=None, timeout=60):
     from azure.servicefabric.models import CreateComposeDeploymentDescription
 
@@ -75,7 +75,7 @@ def create(client, deployment_name, file_path, user=None, has_pass=False, #pylin
     client.create_compose_deployment(desc, timeout=timeout)
 
 
-def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-locals
+def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-locals,too-many-arguments
             encrypted_pass=None, upgrade_kind='Rolling',
             upgrade_mode='UnmonitoredAuto', replica_set_check=None,
             force_restart=False, failure_action=None, health_check_wait=None,

@@ -34,3 +34,7 @@
 # App and application tests
 src/sfctl/tests/app_test.py @iyyappam
 src/sfctl/custom_app.py @iyyappam
+
+# Chaos and related tests
+src/sfctl/tests/chaos_test.py @motanv
+src/sfctl/custom_chaos.py @motanv

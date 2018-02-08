@@ -11,7 +11,7 @@ from knack.util import CLIError
 
 import adal
 
-def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
+def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
 
     if not (endpoint.lower().startswith('http')
@@ -39,7 +39,7 @@ def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):
     if pem and any([cert, key]):
         raise CLIError(usage)
 
-def select(endpoint, cert=None, key=None, pem=None, ca=None,
+def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):
     #pylint: disable-msg=too-many-locals
     """
