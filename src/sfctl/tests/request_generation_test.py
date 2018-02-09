@@ -11,7 +11,7 @@ This requires a cluster connection."""
 
 from __future__ import print_function
 from unittest import skipUnless
-from sys import stderr
+from sys import (stderr, version_info)
 from os import (remove, environ)
 import json
 import vcr
@@ -22,6 +22,8 @@ from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
+
+python_version = version_info.major
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
@@ -41,6 +43,10 @@ class ServiceFabricRequestTests(ScenarioTest):
     def __init__(self, method_name):
         cli_env = cli()
         super(ServiceFabricRequestTests, self).__init__(cli_env, method_name)
+
+        # We do not want to run this suite of tests if python version is low.
+        if python_version < 3:
+            return
 
         # Save the value of SF_TEST_ENDPOINT set by the user
         self.old_enpoint = environ.get('SF_TEST_ENDPOINT', '')
@@ -186,6 +192,10 @@ class ServiceFabricRequestTests(ScenarioTest):
     def provision_app_type_test(self): # pylint: disable=too-many-locals
         """Tests that a basic call to provision app type generates
         the correct HTTP request"""
+
+        # We do not want to run this suite of tests if python version is low.
+        if python_version < 3:
+            return
 
         generated_file_path = 'HTTP_request_testing/provision_app_type.json'
 
