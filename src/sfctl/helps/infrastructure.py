@@ -20,7 +20,7 @@ helps['is command'] = """
         cluster is running. This API supports the Service Fabric platform;
         it is not meant to be used directly from your code.
     parameters:
-        - name: --command-input
+        - name: --command
           type: string
           short-summary: The text of the command to be invoked. The content of
             the command is infrastructure-specific.
@@ -28,12 +28,9 @@ helps['is command'] = """
           type: string
           short-summary: The identity of the infrastructure service.
           long-summary: This is the full name of the infrastructure service
-          without the 'fabric:' URI scheme. This parameter required only for
-          the cluster that have more than one instance of infrastructure
-          service running.
-        - name: --custom-headers
-          type: dict
-          short-summary: Headers that will be added to the request.
+            without the 'fabric' URI scheme. This parameter required only for
+            the cluster that have more than one instance of infrastructure
+            service running.
 """
 
 helps['is query'] = """
@@ -48,7 +45,7 @@ helps['is query'] = """
         cluster is running. This API supports the Service Fabric platform;
         it is not meant to be used directly from your code.
     parameters:
-        - name: --command-input
+        - name: --command
           type: string
           short-summary: The text of the command to be invoked. The content of
             the command is infrastructure-specific.
@@ -56,10 +53,7 @@ helps['is query'] = """
           type: string
           short-summary: The identity of the infrastructure service.
           long-summary: This is the full name of the infrastructure service
-          without the 'fabric:' URI scheme. This parameter required only for
-          the cluster that have more than one instance of infrastructure
-          service running.
-        - name: --custom-headers
-          type: dict
-          short-summary: Headers that will be added to the request.
+            without the 'fabric:' URI scheme. This parameter required only for
+            the cluster that have more than one instance of infrastructure
+            service running.
 """
