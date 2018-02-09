@@ -48,7 +48,8 @@ setup(
         'requests',
         'azure-servicefabric==6.1.2.9',
         'jsonpickle',
-        'adal'
+        'adal',
+        'future'
     ],
     extras_require={
         'test': [

@@ -6,9 +6,9 @@
 
 """A mock server for testing purposes."""
 
-from http.server import (BaseHTTPRequestHandler, HTTPServer)
 from threading import Thread
 import socket
+from future.backports.http.server import (BaseHTTPRequestHandler, HTTPServer)
 import requests
 
 class MockServer(BaseHTTPRequestHandler):

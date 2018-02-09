@@ -11,7 +11,7 @@ This requires a cluster connection."""
 
 from __future__ import print_function
 from unittest import skipUnless
-from sys import (stderr, version_info)
+from sys import stderr
 from os import (remove, environ)
 import json
 import vcr
@@ -23,7 +23,9 @@ from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
 
-PYTHON_VERSION = version_info.major
+# add FileNotFoundError
+if sys.version_info[0] < 3:
+    FileNotFoundError = IOError #pylint: disable=W0622
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
@@ -43,10 +45,6 @@ class ServiceFabricRequestTests(ScenarioTest):
     def __init__(self, method_name):
         cli_env = cli()
         super(ServiceFabricRequestTests, self).__init__(cli_env, method_name)
-
-        # We do not want to run this suite of tests if python version is low.
-        if PYTHON_VERSION < 3:
-            return
 
         # Save the value of SF_TEST_ENDPOINT set by the user
         self.old_enpoint = environ.get('SF_TEST_ENDPOINT', '')
@@ -177,10 +175,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         success.We then read the values of the URL and other request
         features to determine that the command is working as expected
         (generating the correct URL). """
-
-        # We do not want to run this suite of tests if python version is low.
-        if PYTHON_VERSION < 3:
-            return
 
         # Set test URL path to that of our mock server
         environ['SF_TEST_ENDPOINT'] = 'http://localhost:' + str(self.port)
