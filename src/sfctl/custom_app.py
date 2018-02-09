@@ -17,7 +17,7 @@ from msrest.pipeline import ClientRawResponse
 # We are disabling some W0212 lint warnings in the following function
 # because of a problem with the generated SDK that does not allow this
 # function to be called upon from within the generated SDK.
-def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name
+def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name,too-many-arguments
                                image_store_provision=False,
                                external_store_provision=False,
                                async_operation=False,

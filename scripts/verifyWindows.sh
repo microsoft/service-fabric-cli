@@ -26,5 +26,8 @@ elif [[ $1 == "lint" ]]
         echo "Linting Checker..."
         launch_pylint ./src/checkers
         r2=$?
-        exit $((r1 + r2))
+        echo $((r1 + r2))
 fi
+
+# On windows, uncomment out the following line to prevent the popup window from closing
+$SHELL

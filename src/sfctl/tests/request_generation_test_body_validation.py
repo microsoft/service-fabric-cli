@@ -7,6 +7,7 @@
 """Functions to validate that the body of a HTTP request is correct
 according to that request's expectations."""
 
+from __future__ import print_function
 from sys import stderr
 
 def validate_dictionary_value(command, dict_key, actual_body, expected_body):
@@ -35,6 +36,7 @@ def validate_flat_dictionary(command, actual_body, expected_body):
         which comparison failed."""
 
     if not len(actual_body) == len(expected_body):
+        print('Number of items in expected body does not match actual body', file=stderr)
         return False
 
     for key in expected_body:
