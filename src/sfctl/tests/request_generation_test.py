@@ -11,7 +11,7 @@ This requires a cluster connection."""
 
 from __future__ import print_function
 from unittest import skipUnless
-from sys import stderr
+from sys import (stderr, version_info)
 from os import (remove, environ)
 import json
 import vcr
@@ -24,7 +24,7 @@ from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
 
 # add FileNotFoundError
-if sys.version_info[0] < 3:
+if version_info[0] < 3:
     FileNotFoundError = IOError #pylint: disable=W0622
 
 class ServiceFabricRequestTests(ScenarioTest):
