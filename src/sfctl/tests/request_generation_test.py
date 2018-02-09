@@ -23,7 +23,7 @@ from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
 
-python_version = version_info.major
+PYTHON_VERSION = version_info.major
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
@@ -45,7 +45,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         super(ServiceFabricRequestTests, self).__init__(cli_env, method_name)
 
         # We do not want to run this suite of tests if python version is low.
-        if python_version < 3:
+        if PYTHON_VERSION < 3:
             return
 
         # Save the value of SF_TEST_ENDPOINT set by the user
@@ -178,6 +178,10 @@ class ServiceFabricRequestTests(ScenarioTest):
         features to determine that the command is working as expected
         (generating the correct URL). """
 
+        # We do not want to run this suite of tests if python version is low.
+        if PYTHON_VERSION < 3:
+            return
+
         # Set test URL path to that of our mock server
         environ['SF_TEST_ENDPOINT'] = 'http://localhost:' + str(self.port)
         # Start mock server
@@ -192,10 +196,6 @@ class ServiceFabricRequestTests(ScenarioTest):
     def provision_app_type_test(self): # pylint: disable=too-many-locals
         """Tests that a basic call to provision app type generates
         the correct HTTP request"""
-
-        # We do not want to run this suite of tests if python version is low.
-        if python_version < 3:
-            return
 
         generated_file_path = 'HTTP_request_testing/provision_app_type.json'
 
