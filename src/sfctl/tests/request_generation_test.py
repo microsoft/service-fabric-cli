@@ -11,7 +11,7 @@ This does not require a cluster connection, except the test for provision applic
 
 from __future__ import print_function
 from unittest import skipUnless
-from sys import (stderr, version_info)
+from sys import stderr
 from os import (remove, environ)
 import json
 import vcr
@@ -22,10 +22,6 @@ from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
-
-# add FileNotFoundError for python versions which do not have it
-if version_info[0] < 3:
-    FileNotFoundError = IOError #pylint: disable=redefined-builtin
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
@@ -107,7 +103,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         # delete it here
         try:
             remove(generated_file_path)
-        except FileNotFoundError:
+        except OSError:
             # if the file doesn't exist, then there's nothing for us to do here
             pass
 
@@ -194,8 +190,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         # remove old test files
         try:
             remove(generated_file_path)
-        except FileNotFoundError:
-            # if the file doesn't exist, then there's nothing for us to do
+        except OSError:
+            # if the file doesn't exist, then there's nothing for us to do here
             pass
 
         my_vcr = vcr.VCR(serializer='json', record_mode='all',
