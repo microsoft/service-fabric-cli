@@ -7,7 +7,7 @@
 #pylint: disable=line-too-long
 
 """Tests that the HTTP request generated is correct.
-This requires a cluster connection."""
+This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
 from unittest import skipUnless
@@ -23,24 +23,21 @@ from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
 
-# add FileNotFoundError
+# add FileNotFoundError for python versions which do not have it
 if version_info[0] < 3:
-    FileNotFoundError = IOError #pylint: disable=W0622
+    FileNotFoundError = IOError #pylint: disable=redefined-builtin
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
     This class requires a live connection to a cluster for some tests.
     This is so we generate commands in the way that the users will.
     The purpose of this test is to generate the commands and
-    read the HTTP request to ensure correctness.
-    The expected values are hard-coded.
+    read the HTTP request to ensure correctness. The expected values are hard-coded.
     The VCR library records all HTTP requests into
-    a file. For the sake of clarity,
-    each test to write to its own file.
-    The tests should then read the file to validate correctness.
-    For on the fly debugging,
+    a file. For the sake of clarity, each test writes to its own file.
+    The tests should then read the file to validate correctness. For on the fly debugging,
     printing to stdout does not print to the terminal/command line.
-    Please use other output, such as stderr."""
+    Please use other outputs, such as stderr."""
 
     def __init__(self, method_name):
         cli_env = cli()
@@ -51,22 +48,22 @@ class ServiceFabricRequestTests(ScenarioTest):
         self.port = find_localhost_free_port()
 
     def __exit__(self, exception_type, exception_value, traceback):
-        # Clean up the environment variables we changed during the test
+        # Revert the environment variables we changed during the test to what the user set.
         environ['SF_TEST_ENDPOINT'] = self.old_enpoint
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command(self, command, method, path, query, body=None, #pylint: disable=too-many-locals,too-many-arguments
                          body_verifier=None):
         """
-        This method takes the command passed in and runs the sfctl command.
-        It records the input and output of the text file.
-        It then validates the contexts of the text file against the provided
-        expected results.
-        All provided parameters other than self and command are expected values.
+        This method takes the command passed in and runs the sfctl command specified.
+        It records the input and output in a text file. It then validates the contexts of
+        the text file against the provided expected results.
+        All provided parameters other than self and command are expected values, rather than
+        actual values by running the sfctl command.
 
         Some considerations:
-            - This test doesn't currently test for extra stuff, for example,
-              no error will be returned if there is an extra parameter.
+            - This test doesn't currently test for things like different combinations of
+              input parameters.
             - Ordering of the URI isn't enforced
               (path can appear before query for example)
             - API version is tested as a query parameter right now.
@@ -76,15 +73,18 @@ class ServiceFabricRequestTests(ScenarioTest):
                 For example, if a command if sfctl application list in
                 command line, then use string 'application list'.
         method (str): The method of the HTTP request.
-                Either GET, POST, or PUT
+                For example, GET, POST, PUT, etc.
         body (str): The body as a string. Set value to None if
-                no validation is required.
+                no validation is required. What format this string should be in
+                depends on the body_verifier function which is passed in. If a
+                function is not passed, but this value is not None, then a simple
+                string comparison will be done.
         body_verifier (function): A function which returns true if the passed
-                in body passes validation. The method should take the
-                command being run as a string (e.g. 'cluster report-health'),
-                the actual, and the expected bodies as its inputs,
-                in that order. The actual and expected bodies will be passed
-                in as objects created by calling json.loads.
+                in body (str) passes validation. The method should take:
+                    1. Command being run as a string (e.g. 'cluster report-health'),
+                    2. Actual, and the expected bodies as its inputs, in that order.
+                       The actual and expected bodies will be passed in as objects
+                       created by calling json.loads.
                 Put None to skip this validation.
                 If this is set to None but a body string is provided,
                 validation will occur against the string as a string
@@ -92,8 +92,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         path (str): The section of the URI after host name and before the
                 query portion. Do not include the port number.
         query (str list): A list of strings representing the query portion
-                of the URI.
-                Follows the format of ["parameter_name=parameter_value", ...].
+                of the URI. Follows the format of ["parameter_name=parameter_value", ...].
                 Make sure to include the API version of the HTTP request if
                 required.
         """
@@ -109,13 +108,12 @@ class ServiceFabricRequestTests(ScenarioTest):
         try:
             remove(generated_file_path)
         except FileNotFoundError:
-            # if the file doesn't exist, then there's nothing for us to do
+            # if the file doesn't exist, then there's nothing for us to do here
             pass
 
-        # This calls the command and the HTTP request is recorded into
+        # This calls the command and the HTTP request it recorded into
         # generated_file_path
-        with vcr.use_cassette('paths_generation_test.json',
-                              record_mode='all', serializer='json'):
+        with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
             self.cmd(command)
 
         # Read recorded JSON file
@@ -125,12 +123,11 @@ class ServiceFabricRequestTests(ScenarioTest):
 
             # The responses create an array of request and other objects.
             # the numbers (for indexing) represent which request was made
-            # first.
-            # the ordering is determined by the ordering of calls to self.cmd.
+            # first. The ordering is determined by the ordering of calls to self.cmd.
             # see outputted JSON file at generated_file_path for more details.
             recording = vcr_recording['interactions'][0]['request']
 
-            # Validate method
+            # Validate method (GET, POST, etc)
             recording_method = recording['method']
             print('method: ' + recording_method, file=stderr)
             self.assertEqual(method, recording_method)

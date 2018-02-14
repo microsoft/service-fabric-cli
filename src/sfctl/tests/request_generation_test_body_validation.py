@@ -35,7 +35,7 @@ def validate_flat_dictionary(command, actual_body, expected_body):
         Prints an error message to stderr to show which command and
         which comparison failed."""
 
-    if not len(actual_body) == len(expected_body):
+    if len(actual_body) != len(expected_body):
         print('Number of items in expected body does not match actual body', file=stderr)
         return False
 
