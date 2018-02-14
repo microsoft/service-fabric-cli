@@ -29,8 +29,8 @@ Change Log
 - Numerous documentation improvements and corrections
 - ChaosContext (context) and ChaosTargetFilter (chaos-target-filter) arguments are added to Chaos start command (#62)
 - Add test structure to verify correct HTTP request generation
-- Update provision application type command to match the latest Service Fabric runtime.
-- Add command to get container logs deployed on node.
+- Update provision application type command to match the latest Service Fabric runtime. It is now a custom command
+- Add command to get container logs deployed on node
 
 3.0.0
 -----

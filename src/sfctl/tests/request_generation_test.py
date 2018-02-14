@@ -209,23 +209,19 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Run async operation as false tests for simplicity
         with my_vcr.use_cassette(generated_file_path):
             try:
-                self.cmd('application provision --image-store-provision \
-                --application-type-build-path=test_path')
+                self.cmd('application provision --application-type-build-path=test_path')
             except AssertionError:
-                print('This does not indicate error. Caught exception. \
-                    See {0} - first item - \
-                    for details.'.format(generated_file_path), file=stderr)
+                print('This does not indicate error. Caught exception. See '
+                      '{0} - first item - for details.'.format(generated_file_path), file=stderr)
 
             try:
-                self.cmd('application provision --external-store-provision \
-                    --application-package-download-uri=test_path \
-                    --application-type-name=name \
-                    --application-type-version=version')
+                self.cmd('application provision --external-provision '
+                         '--application-package-download-uri=test_path '
+                         '--application-type-name=name '
+                         '--application-type-version=version')
             except AssertionError:
-                print('This does not indicate an error. Caught exception. \
-                    See {0} - second item - \
-                    for details.'.format(generated_file_path), \
-                      file=stderr)
+                print('This does not indicate an error. Caught exception. See {0} - second item - '
+                      'for details.'.format(generated_file_path), file=stderr)
 
         # Read recorded JSON file
         with open(generated_file_path, 'r') as http_recording_file:
@@ -248,8 +244,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             kind = image_store_recording_body['Kind']
             self.assertEqual(kind, 'ImageStorePath')
 
-            async_operation = image_store_recording_body['Async']
-            self.assertEqual(async_operation, False)
+            no_wait = image_store_recording_body['Async']
+            self.assertEqual(no_wait, False)
 
             application_type_build_path = \
                 image_store_recording_body['ApplicationTypeBuildPath']
@@ -263,8 +259,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             kind = external_store_recording_body['Kind']
             self.assertEqual(kind, 'ExternalStore')
 
-            async_operation = external_store_recording_body['Async']
-            self.assertEqual(async_operation, False)
+            no_wait = external_store_recording_body['Async']
+            self.assertEqual(no_wait, False)
 
             download_uri = \
                 external_store_recording_body['ApplicationPackageDownloadUri']
@@ -321,9 +317,9 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/$/GetProvisionedConfigVersions',
             ['api-version=6.0', 'ConfigVersion=version'])
         self.validate_command( # health - Use exclude-health-statistics param
-            'sfctl cluster health --applications-health-state-filter=2 \
-                --events-health-state-filter=2 --exclude-health-statistics \
-                --nodes-health-state-filter=2',
+            'sfctl cluster health --applications-health-state-filter=2 '
+            '--events-health-state-filter=2 --exclude-health-statistics '
+            '--nodes-health-state-filter=2',
             'GET',
             '/$/GetClusterHealth',
             ['api-version=6.0',
@@ -333,10 +329,10 @@ class ServiceFabricRequestTests(ScenarioTest):
              'ExcludeHealthStatistics=true'])
         # Use include-system-application-health-statistics param
         self.validate_command( # health
-            'sfctl cluster health --applications-health-state-filter=2 \
-                --events-health-state-filter=2 \
-                --include-system-application-health-statistics \
-                --nodes-health-state-filter=2',
+            'sfctl cluster health --applications-health-state-filter=2 '
+            '--events-health-state-filter=2 '
+            '--include-system-application-health-statistics '
+            '--nodes-health-state-filter=2',
             'GET',
             '/$/GetClusterHealth',
             ['api-version=6.0',

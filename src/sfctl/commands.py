@@ -233,7 +233,6 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('application') as group:
                 group.command('create', 'create')
                 group.command('upgrade', 'upgrade')
-                group.command('provision', 'provision_application_type')
 
         # Need an empty client for the select and upload operations
         with CommandSuperGroup(__name__, self,
@@ -284,10 +283,10 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('put', 'naming_property_put')
 
         # Only add when provision API correctly specified in SDK
-        # with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
-        #                        client_factory=client_create) as super_group:
-        #     with super_group.group('application') as group:
-        #         group.command('provision', 'provision_application_type')
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('application') as group:
+                group.command('provision', 'provision_application_type')
 
         return OrderedDict(self.command_table)
 

@@ -6,53 +6,108 @@
 
 """Custom application type related commands"""
 
+from collections import OrderedDict
 from knack.util import CLIError
 
-def provision_application_type( #pylint: disable=invalid-name,missing-docstring,too-many-arguments
-        client,
-        no_wait=False,
-        external=False,
-        application_type_build_path=None,
-        application_package_download_uri=None,
-        application_type_name=None,
-        application_type_version=None,
-        timeout=60
-    ):
-    from azure.servicefabric.models.provision_application_type_description import (
-        ProvisionApplicationTypeDescription
-    )
-    from azure.servicefabric.models.external_store_provision_application_type_description import (
-        ExternalStoreProvisionApplicationTypeDescription
-    )
+# We are disabling some W0212 (protected-access) lint warnings in the following function
+# because of a problem with the generated SDK that does not allow this
+# function to be called upon from within the generated SDK.
+# pylint: disable=protected-access
 
-    if external and not all([application_package_download_uri,
-                             application_type_name,
-                             application_type_version]):
-        raise CLIError("Must specify download uri, type name and type version")
+def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name,too-many-arguments
+                               external_provision=False,
+                               no_wait=False,
+                               application_type_build_path=None,
+                               application_package_download_uri=None,
+                               application_type_name=None,
+                               application_type_version=None,
+                               timeout=60):
+    """Provisions or registers a Service Fabric application type with the
+        cluster using the .sfpkg package in the external store or using the
+        application package in the image store.
+    """
 
-    if external and application_type_build_path:
-        raise CLIError("Cannot specify a build path and external")
+    from azure.servicefabric.models.provision_application_type_description \
+       import (ProvisionApplicationTypeDescription)
+    from azure.servicefabric.models.external_store_provision_application_type_description \
+        import (ExternalStoreProvisionApplicationTypeDescription)
 
-    if not external and not application_type_build_path:
-        raise CLIError("Must specify an application type build path")
+    from azure.servicefabric.models import FabricErrorException
 
-    if not external and any([application_package_download_uri,
-                             application_type_name,
-                             application_type_version]):
-        raise CLIError("Cannot specify the name, version, nor download uri and external")
+    provision_description = None
 
-    provision_desc = None
-    if external:
-        provision_desc = ExternalStoreProvisionApplicationTypeDescription(
-            no_wait,
-            application_type_name=application_type_name,
-            application_package_download_uri=application_package_download_uri,
-            application_type_version=application_type_version
-        )
+    # Validate inputs
+    if not external_provision:
+        if not application_type_build_path:
+            raise CLIError('Missing required parameter '
+                           '--application-type-build-path.')
+
+        provision_description = \
+            ProvisionApplicationTypeDescription(
+                no_wait,
+                application_type_build_path=application_type_build_path
+                )
     else:
-        provision_desc = ProvisionApplicationTypeDescription(
-            no_wait,
-            application_type_build_path=application_type_build_path
-        )
+        if not all([application_package_download_uri, application_type_name, \
+            application_type_version]):
+            raise CLIError('Missing required parameters. The following are required: '
+                           '--application-package-download-uri, --application-type-name, '
+                           '--application-type-version.')
+        provision_description = \
+            ExternalStoreProvisionApplicationTypeDescription(
+                no_wait,
+                application_package_download_uri=\
+                    application_package_download_uri,
+                application_type_name=application_type_name,
+                application_type_version=application_type_version)
 
-    client.provision_application_type(provision_desc, timeout)
+    api_version = "6.1"
+
+    # Construct URLs
+    url = '/ApplicationTypes/$/Provision'
+
+    # Construct parameters
+    query_parameters = {}
+    query_parameters['api-version'] = client._serialize.query(
+        "api_version", api_version, 'str')
+
+    query_parameters['timeout'] = client._serialize.query(
+        "timeout",
+        timeout,
+        'long',
+        maximum=4294967295,
+        minimum=1)
+
+    # Construct headers
+    header_parameters = {}
+    header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+
+    # Construct body
+    body_content = None
+    if not external_provision:
+        body_content = client._serialize.body(
+            provision_description,
+            'ProvisionApplicationTypeDescription')
+    else:
+        body_content = client._serialize.body(
+            provision_description,
+            'ExternalStoreProvisionApplicationTypeDescription')
+
+    # Create a new sorted dictionary since we don't have move_to_end in python 2
+    body_content_sorted = OrderedDict([('Kind', body_content['Kind'])])
+    for key in body_content:
+        if key != 'Kind':
+            body_content_sorted[key] = body_content[key]
+
+    if list(body_content_sorted.keys())[0] != "Kind":
+        raise CLIError('Internal CLI error: Kind must be the first item to be serialized.')
+
+    # Construct and send request
+    request = client._client.post(url, query_parameters)
+    response = client._client.send(
+        request, header_parameters, body_content_sorted)
+
+    if response.status_code not in [200, 202]:
+        raise FabricErrorException(client._deserialize, response)
+
+    return None

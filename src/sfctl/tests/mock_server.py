@@ -14,7 +14,7 @@ import requests
 class MockServer(BaseHTTPRequestHandler):
     """ Overrides the following methods in BaseHTTPRequestHandler """
 
-     # pylint: disable=E1101
+     # pylint: disable=no-member
 
     def do_GET(self): #pylint: disable=C0103,missing-docstring
         self.send_response(requests.codes.ok)
@@ -53,13 +53,13 @@ class MockServer(BaseHTTPRequestHandler):
 
 def find_localhost_free_port():
     """ Return a free port. """
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # binds to 0, which auto reassigns to a free port
-        sock.bind(('localhost', 0))
+    # binds to 0, which auto reassigns to a free port
+    sock.bind(('localhost', 0))
 
-        # using [1] to access returned pair of address, port
-        return sock.getsockname()[1]
+    # using [1] to access returned pair of address, port
+    return sock.getsockname()[1]
 
 def start_mock_server(port):
     """ Start a new mock server at localhost:port. """
