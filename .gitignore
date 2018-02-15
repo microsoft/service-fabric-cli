@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Scripts
+scripts/verifyWindows.sh
+
 # C extensions
 *.so
 
