@@ -8,6 +8,7 @@
 
 from collections import OrderedDict
 from knack.util import CLIError
+from sfctl.custom_exceptions import SFCTLInternalException
 
 # We are disabling some W0212 (protected-access) lint warnings in the following function
 # because of a problem with the generated SDK that does not allow this
@@ -37,29 +38,35 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
     provision_description = None
 
     # Validate inputs
-    if not external_provision:
+    if external_provision:
+        if application_type_build_path:
+            raise CLIError(
+                'application-type-build-path should not be specified for external provision.')
+
+        if not all([application_package_download_uri, application_type_name,
+                    application_type_version]):
+            raise CLIError('Missing required parameters. The following are required: '
+                           '--application-package-download-uri, --application-type-name, '
+                           '--application-type-version.')
+        provision_description = ExternalStoreProvisionApplicationTypeDescription(
+            no_wait,
+            application_package_download_uri=application_package_download_uri,
+            application_type_name=application_type_name,
+            application_type_version=application_type_version)
+    else:
         if not application_type_build_path:
             raise CLIError('Missing required parameter '
                            '--application-type-build-path.')
 
-        provision_description = \
-            ProvisionApplicationTypeDescription(
-                no_wait,
-                application_type_build_path=application_type_build_path
-                )
-    else:
-        if not all([application_package_download_uri, application_type_name, \
-            application_type_version]):
-            raise CLIError('Missing required parameters. The following are required: '
+        if any([application_package_download_uri, application_type_name,
+                application_type_version]):
+            raise CLIError('The following are should not be specified for image store provision: '
                            '--application-package-download-uri, --application-type-name, '
                            '--application-type-version.')
-        provision_description = \
-            ExternalStoreProvisionApplicationTypeDescription(
-                no_wait,
-                application_package_download_uri=\
-                    application_package_download_uri,
-                application_type_name=application_type_name,
-                application_type_version=application_type_version)
+
+        provision_description = ProvisionApplicationTypeDescription(
+            no_wait,
+            application_type_build_path=application_type_build_path)
 
     api_version = "6.1"
 
@@ -100,7 +107,8 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
             body_content_sorted[key] = body_content[key]
 
     if list(body_content_sorted.keys())[0] != "Kind":
-        raise CLIError('Internal CLI error: Kind must be the first item to be serialized.')
+        raise SFCTLInternalException(
+            'provision_application_type: Kind must be the first item to be serialized.')
 
     # Construct and send request
     request = client._client.post(url, query_parameters)

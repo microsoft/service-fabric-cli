@@ -282,7 +282,6 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('property') as group:
                 group.command('put', 'naming_property_put')
 
-        # Only add when provision API correctly specified in SDK
         with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:

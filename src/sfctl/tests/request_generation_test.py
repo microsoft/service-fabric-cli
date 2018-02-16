@@ -227,8 +227,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             # the ordering is determined by the ordering of calls to self.cmd.
             # see outputted JSON file at generated_file_path for more details.
             image_store_recording = vcr_recording['interactions'][0]['request']
-            external_store_recording = \
-                vcr_recording['interactions'][1]['request']
+            external_store_recording = vcr_recording['interactions'][1]['request']
 
             # Get HTTP Body
             image_store_recording_body = decode(image_store_recording['body'])
@@ -240,13 +239,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             no_wait = image_store_recording_body['Async']
             self.assertEqual(no_wait, False)
 
-            application_type_build_path = \
-                image_store_recording_body['ApplicationTypeBuildPath']
+            application_type_build_path = image_store_recording_body['ApplicationTypeBuildPath']
             self.assertEqual(application_type_build_path, 'test_path')
 
             # Get HTTP Body
-            external_store_recording_body = \
-                decode(external_store_recording['body'])
+            external_store_recording_body = decode(external_store_recording['body'])
 
             # Content inside HTTP body
             kind = external_store_recording_body['Kind']
@@ -255,24 +252,20 @@ class ServiceFabricRequestTests(ScenarioTest):
             no_wait = external_store_recording_body['Async']
             self.assertEqual(no_wait, False)
 
-            download_uri = \
-                external_store_recording_body['ApplicationPackageDownloadUri']
+            download_uri = external_store_recording_body['ApplicationPackageDownloadUri']
             self.assertEqual(download_uri, 'test_path')
 
-            application_type_name = \
-                external_store_recording_body['ApplicationTypeName']
+            application_type_name = external_store_recording_body['ApplicationTypeName']
             self.assertEqual(application_type_name, 'name')
 
-            application_type_version = \
-                external_store_recording_body['ApplicationTypeVersion']
+            application_type_version = external_store_recording_body['ApplicationTypeVersion']
             self.assertEqual(application_type_version, 'version')
 
             # Get HTTP Method type (Get vs Post)
             image_store_recording_method = image_store_recording['method']
             self.assertEqual(image_store_recording_method, 'POST')
 
-            external_store_recording_method = \
-                external_store_recording['method']
+            external_store_recording_method = external_store_recording['method']
             self.assertEqual(external_store_recording_method, 'POST')
 
             # Get HTTP URI
@@ -357,13 +350,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/$/ReportClusterHealth',
             ['api-version=6.0', 'Immediate=true'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
         self.validate_command( # unprovision
             'sfctl cluster unprovision --code-version=code --config-version=config',
@@ -435,13 +428,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/nodeName/$/ReportHealth',
             ['api-version=6.0', 'Immediate=true'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
         self.validate_command( # restart
             'sfctl node restart --node-name=nodeName --node-instance-id=ID --create-fabric-dump=True',
@@ -505,13 +498,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Applications/id/$/ReportHealth',
             ['api-version=6.0', 'Immediate=true'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
         # Ask area owner to fill out this test
@@ -623,13 +616,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Partitions/id/$/ReportHealth',
             ['api-version=6.0', 'Immediate=true'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
         # Property
@@ -695,13 +688,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Partitions/id/$/GetReplicas/replicaId/$/ReportHealth',
             ['api-version=6.0', 'Immediate=true', 'ServiceKind=Stateless'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
         self.validate_command( # restart
             'replica restart --node-name=nodeName --partition-id=id --replica-id=replicaId',
@@ -791,11 +784,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Services/service~id/$/ReportHealth',
             ['api-version=6.0', 'Immediate=true'],
-            '{"SourceId": "ID", \
-                "Property": "Property", \
-                "HealthState": "Warning", \
-                "TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", \
-                "Description": "Description", \
-                "SequenceNumber": "10", \
-                "RemoveWhenExpired": true}',
+            ('{"SourceId": "ID", '
+             '"Property": "Property", '
+             '"HealthState": "Warning", '
+             '"TimeToLiveInMilliSeconds": "P3Y6M4DT12H30M5S", '
+             '"Description": "Description", '
+             '"SequenceNumber": "10", '
+             '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)

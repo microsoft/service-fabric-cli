@@ -194,7 +194,7 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint:
                        'count when using an uniform integer partition scheme')
 
     if not sum([named_scheme, int_scheme, singleton_scheme]) == 1:
-        raise CLIError('Specify exactly one partition scheme from --singleton_scheme, '
+        raise CLIError('Specify exactly one partition scheme from --singleton-scheme, '
                        '--named_scheme, or --int_scheme')
 
     if named_scheme:
