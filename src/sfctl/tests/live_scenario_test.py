@@ -23,7 +23,6 @@ class ServiceFabricLiveTests(ScenarioTest):
         cli_env = cli()
         super(ServiceFabricLiveTests, self).__init__(cli_env, method_name)
 
-
     @skipUnless(ENDPOINT and APP_PATH,
                 'Requires live cluster and test application')
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)

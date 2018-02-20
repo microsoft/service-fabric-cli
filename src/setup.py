@@ -44,11 +44,12 @@ setup(
     ],
     install_requires=[
         'knack==0.1.1',
-        'msrest>=0.4.4',
+        'msrest==0.4.26',
         'requests',
         'azure-servicefabric==6.1.2.9',
         'jsonpickle',
-        'adal'
+        'adal',
+        'future'
     ],
     extras_require={
         'test': [

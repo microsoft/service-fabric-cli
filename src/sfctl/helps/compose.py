@@ -27,7 +27,7 @@ helps['compose create'] = """
         - name: --encrypted-pass
           type: string
           short-summary: Rather than prompting for a container registry
-            password, use an already encrypted passphrase
+            password, use an already encrypted pass-phrase
 """
 
 helps['compose upgrade'] = """
@@ -52,7 +52,7 @@ helps['compose upgrade'] = """
         - name: --encrypted-pass
           type: string
           short-summary: Rather than prompting for a container registry
-            password, use an already encrypted passphrase
+            password, use an already encrypted pass-phrase
         - name: --upgrade-mode
           type: string
           short-summary: "Possible values include: 'Invalid',

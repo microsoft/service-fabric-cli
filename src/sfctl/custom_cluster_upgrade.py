@@ -131,8 +131,7 @@ def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name,to
         upgrade_domain_timeout='PT0H0M0S', upgrade_timeout='PT0H0M0S',
         unhealthy_applications=0, unhealthy_nodes=0, delta_unhealthy_nodes=0,
         upgrade_domain_delta_unhealthy_nodes=0, timeout=60):
-    from azure.servicefabric.models import \
-        ClusterConfigurationUpgradeDescription
+    from azure.servicefabric.models import ClusterConfigurationUpgradeDescription
 
     upgrade_desc = ClusterConfigurationUpgradeDescription(
         cluster_config, health_check_retry_timeout=health_check_retry,

@@ -162,7 +162,8 @@ def validate_service_create_params(stateful, stateless, singleton_scheme, #pylin
             'Specify either stateful or stateless for the service type'
         )
     if sum([singleton_scheme, named_scheme, int_scheme]) != 1:
-        raise CLIError('Specify exactly one partition scheme')
+        raise CLIError('Specify exactly one partition scheme from --singleton-scheme, '
+                       '--named-scheme, or --int-scheme')
     if stateful and instance_count is not None:
         raise CLIError('Cannot specify instance count for stateful services')
     if stateless and instance_count is None:
@@ -173,7 +174,7 @@ def validate_service_create_params(stateful, stateless, singleton_scheme, #pylin
         )
     if stateless and any([target_rep_set_size, min_rep_set_size]):
         raise CLIError(
-            'Cannot specify replica set sizes for statless services'
+            'Cannot specify replica set sizes for stateless services'
         )
 
 def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint: disable=too-many-arguments
@@ -193,7 +194,8 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint:
                        'count when using an uniform integer partition scheme')
 
     if not sum([named_scheme, int_scheme, singleton_scheme]) == 1:
-        raise CLIError('Specify exactly one partition scheme')
+        raise CLIError('Specify exactly one partition scheme from --singleton-scheme, '
+                       '--named-scheme, or --int-scheme')
 
     if named_scheme:
         return NamedPartitionSchemeDescription(len(named_scheme_list),
