@@ -19,8 +19,7 @@ Change Log
 4.0.0
 -----
 
-- Application provision skeleton added and command removed as part of breaking API change
-- Update to 6.1 Service Fabric runtime
+- Update to 6.1 Service Fabric runtime (#64)
 - Property command group added
 - Added support for external stores when calling application provision
 - Provision and unprovision now support no wait return flags
@@ -29,7 +28,7 @@ Change Log
 - Numerous documentation improvements and corrections
 - ChaosContext (context) and ChaosTargetFilter (chaos-target-filter) arguments are added to Chaos start command (#62)
 - Add test structure to verify correct HTTP request generation
-- Update provision application type command to match the latest Service Fabric runtime. It is now a custom command
+- Update provision application type command to match the latest Service Fabric runtime, now a custom command
 - Add command to get container logs deployed on node
 
 3.0.0
