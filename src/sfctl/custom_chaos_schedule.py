@@ -131,9 +131,9 @@ def set( #pylint: disable=too-many-arguments,too-many-locals
         expiry_date_utc='9999-12-31T23:59:59.999Z',
         chaos_parameters_dictionary=None,
         jobs=None, timeout=60):
-    #pylint: disable=line-too-long
     """
-    Set the Chaos Schedule currently in use by Chaos. Chaos will automatically schedule runs based on the Chaos Schedule.
+    Set the Chaos Schedule currently in use by Chaos.
+    Chaos will automatically schedule runs based on the Chaos Schedule.
 
     :param version: The version number of the Schedule.
     :param start_date_utc: The date and time for when to start using the Schedule to schedule Chaos.

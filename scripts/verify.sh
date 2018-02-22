@@ -4,12 +4,12 @@
 
 function launch_pylint()
 {
-    $(which pylint) $1 --msg-template='{path}({line}): [{msg_id}{obj}] {msg}' --load-plugins=checkers >> pylint.out
+    $(which pylint) $1 --msg-template='{path}({line}): [{msg_id}{obj}] {msg}' --load-plugins=checkers
 }
 
 function launch_unit_tests()
 {
-    nosetests -v --with-coverage --cover-package=sfctl --cover-inclusive 2> nose.out
+    nosetests -v --with-coverage --cover-package=sfctl --cover-inclusive
 }
 
 if [[ $1 == "local" ]]
