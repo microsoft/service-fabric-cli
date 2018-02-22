@@ -73,10 +73,8 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('context', type=json_encoded)
         arg_context.argument('chaos_target_filter', type=json_encoded)
 
-    with ArgumentsContext(self, 'chaos-schedule set') as arg_context:
+    with ArgumentsContext(self, 'chaos schedule set') as arg_context:
         arg_context.argument('version', type=int)
-        arg_context.argument('start_date_utc', type=str)
-        arg_context.argument('end_date_utc', type=str)
         arg_context.argument('chaos_parameters_dictionary', type=json_encoded)
         arg_context.argument('jobs', type=json_encoded)
 

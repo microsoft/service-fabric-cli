@@ -203,7 +203,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('events', 'get_chaos_events')
                 group.command('get', 'get_chaos')
 
-            with super_group.group('chaos-schedule') as group:
+            with super_group.group('chaos schedule') as group:
                 group.command('get', 'get_chaos_schedule')
 
             with super_group.group('store') as group:
@@ -257,7 +257,7 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_chaos_schedule#{}',
                                client_factory=client_create) as super_group:
-            with super_group.group('chaos-schedule') as group:
+            with super_group.group('chaos schedule') as group:
                 group.command('set', 'set')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_health#{}',
