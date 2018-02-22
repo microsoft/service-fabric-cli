@@ -124,8 +124,7 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
 
     return parsed_dictionary
 
-#pylint: disable=redefined-builtin
-def set( #pylint: disable=too-many-arguments,too-many-locals
+def set_schedule( #pylint: disable=too-many-arguments,too-many-locals
         client, version=0,
         start_date_utc='1601-01-01T00:00:00.000Z',
         expiry_date_utc='9999-12-31T23:59:59.999Z',
@@ -134,12 +133,6 @@ def set( #pylint: disable=too-many-arguments,too-many-locals
     """
     Set the Chaos Schedule currently in use by Chaos.
     Chaos will automatically schedule runs based on the Chaos Schedule.
-
-    :param version: The version number of the Schedule.
-    :param start_date_utc: The date and time for when to start using the Schedule to schedule Chaos.
-    :param expiry_date_utc: The date and time for when to stop using the Schedule to schedule Chaos.
-    :param chaos_parameters_dictionary: JSON encoded list representing a mapping of string names to ChaosParameters to be used by Jobs.
-    :param jobs: JSON encoded list of ChaosScheduleJobs representing when to run Chaos and with what parameters to run Chaos with.
     """
     from azure.servicefabric.models.chaos_schedule import (
         ChaosSchedule

@@ -706,3 +706,53 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"SequenceNumber": "10", '
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
+
+        # Chaos commands:
+        self.validate_command(#get chaos schedule
+            'chaos schedule set ' +
+            '--version 0 --start-date-utc 2016-01-01T00:00:00.000Z ' +
+            '--expiry-date-utc 2038-01-01T00:00:00.000Z ' +
+            '--chaos-parameters-dictionary [{' +
+            '\\\"Key\\\":\\\"adhoc\\\",\\\"Value\\\":{' +
+            '\\\"MaxConcurrentFaults\\\":3,\\\"EnableMoveReplicaFaults\\\":true,' +
+            '\\\"ChaosTargetFilter\\\":{\\\"NodeTypeInclusionList\\\":[' +
+            '\\\"N0010Ref\\\",\\\"N0020Ref\\\",\\\"N0030Ref\\\",\\\"N0040Ref\\\",' +
+            '\\\"N0050Ref\\\"]},\\\"MaxClusterStabilizationTimeoutInSeconds\\\":60,' +
+            '\\\"WaitTimeBetweenIterationsInSeconds\\\":15,\\\"WaitTimeBetweenFaultsInSeconds\\\":30,' +
+            '\\\"TimeToRunInSeconds\\\":\\\"600\\\",\\\"Context\\\":{\\\"Map\\\":{' +
+            '\\\"test\\\":\\\"value\\\"}},\\\"ClusterHealthPolicy\\\":{' +
+            '\\\"MaxPercentUnhealthyNodes\\\":0,\\\"ConsiderWarningAsError\\\":true,' +
+            '\\\"MaxPercentUnhealthyApplications\\\":0}}}] ' +
+            '--jobs [{\\\"ChaosParameters\\\":\\\"adhoc\\\",\\\"Days\\\":{' +
+            '\\\"Sunday\\\":true,\\\"Monday\\\":true,\\\"Tuesday\\\":true,' +
+            '\\\"Wednesday\\\":true,\\\"Thursday\\\":true,\\\"Friday\\\":true,' +
+            '\\\"Saturday\\\":true},\\\"Times\\\":[{\\\"StartTime\\\":{' +
+            '\\\"Hour\\\":0,\\\"Minute\\\":0},\\\"EndTime\\\":{' +
+            '\\\"Hour\\\":23,\\\"Minute\\\":59}}]}]',
+            'POST',
+            '/Tools/Chaos/Schedule',
+            ['api-version=6.2'])
+
+        self.validate_command(#get chaos schedule
+            'chaos schedule get',
+            'GET',
+            '/Tools/Chaos/Schedule',
+            ['api-version=6.2'])
+
+        self.validate_command(#stop chaos
+            'chaos stop',
+            'POST',
+            '/Tools/Chaos/$/Stop',
+            ['api-version=6.0'])
+
+        self.validate_command(#get chaos events
+            'chaos events',
+            'GET',
+            '/Tools/Chaos/Events',
+            ['api-version=6.2'])
+
+        self.validate_command(#get chaos
+            'chaos get',
+            'GET',
+            '/Tools/Chaos',
+            ['api-version=6.2'])

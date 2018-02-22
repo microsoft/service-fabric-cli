@@ -38,7 +38,7 @@ helps['chaos'] = """
     short-summary: Start, stop and report on the chaos test service
 """
 
-helps['chaos-schedule'] = """
+helps['chaos schedule'] = """
     type: group
     short-summary: Get and set the chaos schedule
 """

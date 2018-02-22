@@ -258,7 +258,7 @@ class SFCommandLoader(CLICommandsLoader):
                                'sfctl.custom_chaos_schedule#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('chaos schedule') as group:
-                group.command('set', 'set')
+                group.command('set', 'set_schedule')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_health#{}',
                                client_factory=client_create) as super_group:

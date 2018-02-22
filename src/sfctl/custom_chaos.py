@@ -6,8 +6,7 @@
 
 """Custom commands for the Service Fabric chaos service"""
 
-def parse_chaos_parameters(chaos_parameters):
-    #pylint: disable=too-many-locals
+def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
     """Parse ChaosParameters from string"""
     from azure.servicefabric.models.chaos_parameters import (
         ChaosParameters
@@ -153,7 +152,8 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
     target_filter = parse_chaos_target_filter(chaos_target_filter)
 
     #pylint: disable=too-many-arguments
-    chaos_params = ChaosParameters(time_to_run, max_cluster_stabilization,
+    chaos_params = ChaosParameters(time_to_run,
+                                   max_cluster_stabilization,
                                    max_concurrent_faults,
                                    not disable_move_replica_faults,
                                    wait_time_between_faults,
