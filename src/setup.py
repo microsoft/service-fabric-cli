@@ -44,7 +44,8 @@ setup(
     ],
     install_requires=[
         'knack==0.1.1',
-        'msrest==0.4.26',
+        'msrest>=0.4.4',
+        'msrestazure>=0.4.20',
         'requests',
         'azure-servicefabric==6.1.2.9',
         'jsonpickle',
