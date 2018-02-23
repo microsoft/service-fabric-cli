@@ -53,7 +53,8 @@ def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
             chaos_target_filter.get("NodeTypeInclusionList"),
             chaos_target_filter.get("ApplicationTypeInclusionList"))
 
-    return ChaosParameters(time_to_run, max_cluster_stabilization,
+    return ChaosParameters(time_to_run,
+                           max_cluster_stabilization,
                            max_concurrent_faults,
                            enable_move_replica_faults,
                            wait_time_between_faults,
