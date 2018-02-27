@@ -16,6 +16,13 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+-----
+- Typo fix for service commands (#71)
+- Add missing help text (#71)
+- Fix bug in displaying property help text (#71)
+- Add tests to verify correctness of help text (#71)
+
 4.0.0
 -----
 

@@ -9,7 +9,7 @@ function launch_pylint()
 
 function launch_unit_tests()
 {
-    nosetests -v --with-coverage --cover-package=sfctl --cover-inclusive
+    nose2 -v
 }
 
 if [[ $1 == "local" ]]
