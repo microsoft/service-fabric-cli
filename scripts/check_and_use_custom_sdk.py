@@ -1,6 +1,7 @@
 from os import path, pardir
 from shutil import rmtree, copytree
 from subprocess import (Popen, PIPE)
+import pip
 
 
 def check_if_should_use_custom_sdk(custom_sdk_path):
@@ -58,18 +59,7 @@ def get_path_public_sdk():
     """
 
     # Check the location where the service fabric python SDK is installed
-    # Do this by reading the results from pip show
-    pipe = Popen('pip show azure-servicefabric', stdout=PIPE)
-
-    # returned_string and err are returned as bytes
-    (returned_string, err) = pipe.communicate()
-    output_value = returned_string.decode('utf-8')
-
-    for line in output_value.splitlines():
-        if line.startswith('Location: '):
-            return line.lstrip('Location: ')
-
-    raise Exception('Location of public python service fabric SDK could not be found.')
+    return pip.locations.site_packages
 
 
 def check_and_use_custom_sdk():
