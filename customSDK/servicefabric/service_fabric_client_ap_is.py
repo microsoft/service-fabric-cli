@@ -12886,13 +12886,13 @@ class ServiceFabricClientAPIs(object):
         :type latest: bool
         :param start_date_time_filter: Specify the start date time from which
          to enumerate backups, in datetime format. The date time must be
-         specified in UTC. This is an optional parameter. If not specified, all
-         backups from the beginning are enumerated.
+         specified in ISO8601 format. This is an optional parameter. If not
+         specified, all backups from the beginning are enumerated.
         :type start_date_time_filter: datetime
         :param end_date_time_filter: Specify the end date time till which to
          enumerate backups, in datetime format. The date time must be specified
-         in UTC. This is an optional parameter. If not specified, enumeration
-         is done till the most recent backup.
+         in ISO8601 format. This is an optional parameter. If not specified,
+         enumeration is done till the most recent backup.
         :type end_date_time_filter: datetime
         :param continuation_token: The continuation token parameter is used to
          obtain next set of results. A continuation token with a non empty
@@ -13393,13 +13393,13 @@ class ServiceFabricClientAPIs(object):
         :type latest: bool
         :param start_date_time_filter: Specify the start date time from which
          to enumerate backups, in datetime format. The date time must be
-         specified in UTC. This is an optional parameter. If not specified, all
-         backups from the beginning are enumerated.
+         specified in ISO8601 format. This is an optional parameter. If not
+         specified, all backups from the beginning are enumerated.
         :type start_date_time_filter: datetime
         :param end_date_time_filter: Specify the end date time till which to
          enumerate backups, in datetime format. The date time must be specified
-         in UTC. This is an optional parameter. If not specified, enumeration
-         is done till the most recent backup.
+         in ISO8601 format. This is an optional parameter. If not specified,
+         enumeration is done till the most recent backup.
         :type end_date_time_filter: datetime
         :param continuation_token: The continuation token parameter is used to
          obtain next set of results. A continuation token with a non empty
@@ -13850,13 +13850,13 @@ class ServiceFabricClientAPIs(object):
         :type latest: bool
         :param start_date_time_filter: Specify the start date time from which
          to enumerate backups, in datetime format. The date time must be
-         specified in UTC. This is an optional parameter. If not specified, all
-         backups from the beginning are enumerated.
+         specified in ISO8601 format. This is an optional parameter. If not
+         specified, all backups from the beginning are enumerated.
         :type start_date_time_filter: datetime
         :param end_date_time_filter: Specify the end date time till which to
          enumerate backups, in datetime format. The date time must be specified
-         in UTC. This is an optional parameter. If not specified, enumeration
-         is done till the most recent backup.
+         in ISO8601 format. This is an optional parameter. If not specified,
+         enumeration is done till the most recent backup.
         :type end_date_time_filter: datetime
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15085,6 +15085,1175 @@ class ServiceFabricClientAPIs(object):
             deserialized = self._deserialize('SuccessfulPropertyBatchInfo', response)
         if response.status_code == 409:
             deserialized = self._deserialize('FailedPropertyBatchInfo', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_cluster_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Cluster Events.
+
+        The response is list of ClusterEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ClusterEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Cluster/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ClusterEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_containers_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Containers Events.
+
+        The response is list of ContainerEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ContainerEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Containers/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ContainerEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_node_event_list(
+            self, node_name, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Node Events.
+
+        The response is list of NodeEvent objects.
+
+        :param node_name: The name of the node.
+        :type node_name: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.NodeEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Nodes/{nodeName}/$/Events'
+        path_format_arguments = {
+            'nodeName': self._serialize.url("node_name", node_name, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[NodeEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_nodes_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Nodes Events.
+
+        The response is list of NodeEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.NodeEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Nodes/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[NodeEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_node_event_list1(
+            self, node_name, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Node Events.
+
+        The response is list of FabricEvent objects.
+
+        :param node_name: The name of the node.
+        :type node_name: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.NodeEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/Events/Nodes/{nodeName}/$/Events'
+        path_format_arguments = {
+            'nodeName': self._serialize.url("node_name", node_name, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[NodeEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_application_event_list(
+            self, application_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Application Events.
+
+        The response is list of ApplicationEvent objects.
+
+        :param application_id: The identity of the application. This is
+         typically the full name of the application without the 'fabric:' URI
+         scheme.
+         Starting from version 6.0, hierarchical names are delimited with the
+         "~" character.
+         For example, if the application name is "fabric:/myapp/app1", the
+         application identity would be "myapp~app1" in 6.0+ and "myapp/app1" in
+         previous versions.
+        :type application_id: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ApplicationEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Applications/{applicationId}/$/Events'
+        path_format_arguments = {
+            'applicationId': self._serialize.url("application_id", application_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ApplicationEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_service_event_list(
+            self, service_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Service Events.
+
+        The response is list of ServiceEvent objects.
+
+        :param service_id: The identity of the service. This is typically the
+         full name of the service without the 'fabric:' URI scheme.
+         Starting from version 6.0, hierarchical names are delimited with the
+         "~" character.
+         For example, if the service name is "fabric:/myapp/app1/svc1", the
+         service identity would be "myapp~app1~svc1" in 6.0+ and
+         "myapp/app1/svc1" in previous versions.
+        :type service_id: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ServiceEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Services/{serviceId}/$/Events'
+        path_format_arguments = {
+            'serviceId': self._serialize.url("service_id", service_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ServiceEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_services_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Services Events.
+
+        The response is list of ServiceEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ServiceEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Services/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ServiceEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_partition_event_list(
+            self, partition_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Partition Events.
+
+        The response is list of PartitionEvent objects.
+
+        :param partition_id: The identity of the partition.
+        :type partition_id: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.PartitionEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Partitions/{partitionId}/$/Events'
+        path_format_arguments = {
+            'partitionId': self._serialize.url("partition_id", partition_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[PartitionEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_partitions_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Partitions Events.
+
+        The response is list of PartitionEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.PartitionEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Partitions/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[PartitionEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_partition_replica_event_list(
+            self, partition_id, replica_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Replica Events.
+
+        The response is list of ReplicaEvent objects.
+
+        :param partition_id: The identity of the partition.
+        :type partition_id: str
+        :param replica_id: The identifier of the replica.
+        :type replica_id: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ReplicaEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Partitions/{partitionId}/$/Replicas/{replicaId}/$/Events'
+        path_format_arguments = {
+            'partitionId': self._serialize.url("partition_id", partition_id, 'str', skip_quote=True),
+            'replicaId': self._serialize.url("replica_id", replica_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ReplicaEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_partition_replicas_event_list(
+            self, partition_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the Replicas Events.
+
+        The response is list of ReplicaEvent objects.
+
+        :param partition_id: The identity of the partition.
+        :type partition_id: str
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifiying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed
+         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
+         field in every FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ReplicaEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Partitions/{partitionId}/$/Replicas/Events'
+        path_format_arguments = {
+            'partitionId': self._serialize.url("partition_id", partition_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ReplicaEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def get_correlated_event_list(
+            self, event_instance_id, timeout=60, custom_headers=None, raw=False, **operation_config):
+        """Gets the correlated Events given an EventInstanceId.
+
+        The response is list of FabricEvents.
+
+        :param event_instance_id: The EventInstanceId.
+        :type event_instance_id: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This specifies the time duration that the client is willing
+         to wait for the requested operation to complete. The default value for
+         this parameter is 60 seconds.
+        :type timeout: long
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.FabricEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/CorrelatedEvents/{eventInstanceId}/$/Events'
+        path_format_arguments = {
+            'eventInstanceId': self._serialize.url("event_instance_id", event_instance_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[FabricEvent]', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)

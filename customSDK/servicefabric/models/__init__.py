@@ -11,6 +11,8 @@
 
 from .aad_metadata import AadMetadata
 from .aad_metadata_object import AadMetadataObject
+from .analysis_event_metadata import AnalysisEventMetadata
+from .application_event import ApplicationEvent
 from .service_health_state import ServiceHealthState
 from .deployed_application_health_state import DeployedApplicationHealthState
 from .application_health import ApplicationHealth
@@ -62,6 +64,7 @@ from .current_upgrade_domain_progress_info import CurrentUpgradeDomainProgressIn
 from .failure_upgrade_domain_progress_info import FailureUpgradeDomainProgressInfo
 from .application_upgrade_progress_info import ApplicationUpgradeProgressInfo
 from .cluster_configuration import ClusterConfiguration
+from .cluster_event import ClusterEvent
 from .node_id import NodeId
 from .node_health_state import NodeHealthState
 from .cluster_health import ClusterHealth
@@ -73,6 +76,7 @@ from .cluster_health_policy import ClusterHealthPolicy
 from .cluster_health_chunk_query_description import ClusterHealthChunkQueryDescription
 from .cluster_health_policies import ClusterHealthPolicies
 from .cluster_manifest import ClusterManifest
+from .container_event import ContainerEvent
 from .deactivation_intent_description import DeactivationIntentDescription
 from .delta_nodes_check_health_evaluation import DeltaNodesCheckHealthEvaluation
 from .deployed_service_package_health_state import DeployedServicePackageHealthState
@@ -97,6 +101,7 @@ from .entity_health_state_chunk import EntityHealthStateChunk
 from .entity_health_state_chunk_list import EntityHealthStateChunkList
 from .epoch import Epoch
 from .event_health_evaluation import EventHealthEvaluation
+from .fabric_event import FabricEvent
 from .fabric_code_version_info import FabricCodeVersionInfo
 from .fabric_config_version_info import FabricConfigVersionInfo
 from .fabric_error_error import FabricErrorError
@@ -108,6 +113,7 @@ from .named_partition_information import NamedPartitionInformation
 from .node_deactivation_task_id import NodeDeactivationTaskId
 from .node_deactivation_task import NodeDeactivationTask
 from .node_deactivation_info import NodeDeactivationInfo
+from .node_event import NodeEvent
 from .node_health import NodeHealth
 from .node_health_evaluation import NodeHealthEvaluation
 from .node_info import NodeInfo
@@ -124,6 +130,8 @@ from .replica_info import ReplicaInfo
 from .paged_replica_info_list import PagedReplicaInfoList
 from .service_info import ServiceInfo
 from .paged_service_info_list import PagedServiceInfoList
+from .partition_analysis_event import PartitionAnalysisEvent
+from .partition_event import PartitionEvent
 from .replica_health_state import ReplicaHealthState
 from .partition_health import PartitionHealth
 from .partition_health_evaluation import PartitionHealthEvaluation
@@ -143,10 +151,12 @@ from .ensure_availability_safety_check import EnsureAvailabilitySafetyCheck
 from .ensure_partition_qurum_safety_check import EnsurePartitionQurumSafetyCheck
 from .seed_node_safety_check import SeedNodeSafetyCheck
 from .partitions_health_evaluation import PartitionsHealthEvaluation
+from .replica_event import ReplicaEvent
 from .replica_health import ReplicaHealth
 from .replica_health_evaluation import ReplicaHealthEvaluation
 from .replicas_health_evaluation import ReplicasHealthEvaluation
 from .restart_node_description import RestartNodeDescription
+from .service_event import ServiceEvent
 from .service_from_template_description import ServiceFromTemplateDescription
 from .service_health_evaluation import ServiceHealthEvaluation
 from .service_health import ServiceHealth
@@ -341,6 +351,9 @@ from .upload_chunk_range import UploadChunkRange
 from .upload_session_info import UploadSessionInfo
 from .upload_session import UploadSession
 from .container_logs import ContainerLogs
+from .node_up_event import NodeUpEvent
+from .node_down_event import NodeDownEvent
+from .partition_primary_move_analysis_event import PartitionPrimaryMoveAnalysisEvent
 from .service_fabric_client_ap_is_enums import (
     ApplicationDefinitionKind,
     HealthState,
@@ -362,6 +375,7 @@ from .service_fabric_client_ap_is_enums import (
     ReconfigurationType,
     EntityKind,
     FabricErrorCodes,
+    FabricEventKind,
     HealthEvaluationKind,
     NodeDeactivationIntent,
     NodeDeactivationStatus,
@@ -409,7 +423,6 @@ from .service_fabric_client_ap_is_enums import (
     BackupSuspensionScope,
     RestoreState,
     BackupType,
-    BackupScheduleIntervalType,
     BackupScheduleFrequencyType,
     DayOfWeek,
     BackupState,
@@ -431,6 +444,8 @@ from .service_fabric_client_ap_is_enums import (
 __all__ = [
     'AadMetadata',
     'AadMetadataObject',
+    'AnalysisEventMetadata',
+    'ApplicationEvent',
     'ServiceHealthState',
     'DeployedApplicationHealthState',
     'ApplicationHealth',
@@ -482,6 +497,7 @@ __all__ = [
     'FailureUpgradeDomainProgressInfo',
     'ApplicationUpgradeProgressInfo',
     'ClusterConfiguration',
+    'ClusterEvent',
     'NodeId',
     'NodeHealthState',
     'ClusterHealth',
@@ -493,6 +509,7 @@ __all__ = [
     'ClusterHealthChunkQueryDescription',
     'ClusterHealthPolicies',
     'ClusterManifest',
+    'ContainerEvent',
     'DeactivationIntentDescription',
     'DeltaNodesCheckHealthEvaluation',
     'DeployedServicePackageHealthState',
@@ -517,6 +534,7 @@ __all__ = [
     'EntityHealthStateChunkList',
     'Epoch',
     'EventHealthEvaluation',
+    'FabricEvent',
     'FabricCodeVersionInfo',
     'FabricConfigVersionInfo',
     'FabricErrorError',
@@ -528,6 +546,7 @@ __all__ = [
     'NodeDeactivationTaskId',
     'NodeDeactivationTask',
     'NodeDeactivationInfo',
+    'NodeEvent',
     'NodeHealth',
     'NodeHealthEvaluation',
     'NodeInfo',
@@ -544,6 +563,8 @@ __all__ = [
     'PagedReplicaInfoList',
     'ServiceInfo',
     'PagedServiceInfoList',
+    'PartitionAnalysisEvent',
+    'PartitionEvent',
     'ReplicaHealthState',
     'PartitionHealth',
     'PartitionHealthEvaluation',
@@ -563,10 +584,12 @@ __all__ = [
     'EnsurePartitionQurumSafetyCheck',
     'SeedNodeSafetyCheck',
     'PartitionsHealthEvaluation',
+    'ReplicaEvent',
     'ReplicaHealth',
     'ReplicaHealthEvaluation',
     'ReplicasHealthEvaluation',
     'RestartNodeDescription',
+    'ServiceEvent',
     'ServiceFromTemplateDescription',
     'ServiceHealthEvaluation',
     'ServiceHealth',
@@ -761,6 +784,9 @@ __all__ = [
     'UploadSessionInfo',
     'UploadSession',
     'ContainerLogs',
+    'NodeUpEvent',
+    'NodeDownEvent',
+    'PartitionPrimaryMoveAnalysisEvent',
     'ApplicationDefinitionKind',
     'HealthState',
     'ApplicationStatus',
@@ -781,6 +807,7 @@ __all__ = [
     'ReconfigurationType',
     'EntityKind',
     'FabricErrorCodes',
+    'FabricEventKind',
     'HealthEvaluationKind',
     'NodeDeactivationIntent',
     'NodeDeactivationStatus',
@@ -828,7 +855,6 @@ __all__ = [
     'BackupSuspensionScope',
     'RestoreState',
     'BackupType',
-    'BackupScheduleIntervalType',
     'BackupScheduleFrequencyType',
     'DayOfWeek',
     'BackupState',

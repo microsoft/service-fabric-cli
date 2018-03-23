@@ -26,8 +26,10 @@ class TimeBasedBackupScheduleDescription(BackupScheduleDescription):
      backup. This is valid only when the backup schedule frequency type is
      weekly.
     :type run_days: list[str or ~azure.servicefabric.models.DayOfWeek]
-    :param run_times: List of times when to trigger backup during a day.
-    :type run_times: list[timedelta]
+    :param run_times: Represents the list of exact time during the day in
+     ISO8601 format. Like '19:00:00' will represent '7PM' during the day. Date
+     specified along with time will be ignored.
+    :type run_times: list[datetime]
     """
 
     _validation = {
@@ -40,7 +42,7 @@ class TimeBasedBackupScheduleDescription(BackupScheduleDescription):
         'schedule_kind': {'key': 'ScheduleKind', 'type': 'str'},
         'schedule_frequency_type': {'key': 'ScheduleFrequencyType', 'type': 'str'},
         'run_days': {'key': 'RunDays', 'type': '[str]'},
-        'run_times': {'key': 'RunTimes', 'type': '[duration]'},
+        'run_times': {'key': 'RunTimes', 'type': '[iso-8601]'},
     }
 
     def __init__(self, schedule_frequency_type, run_times, run_days=None):

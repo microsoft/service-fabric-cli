@@ -17,30 +17,23 @@ class FrequencyBasedBackupScheduleDescription(BackupScheduleDescription):
 
     :param schedule_kind: Constant filled by server.
     :type schedule_kind: str
-    :param interval_type: Describes the backup schedule interval type with
-     which to take periodic backups.
-     . Possible values include: 'Invalid', 'Hours', 'Minutes'
-    :type interval_type: str or
-     ~azure.servicefabric.models.BackupScheduleIntervalType
     :param interval: Defines the interval with which backups are periodically
-     taken.
-    :type interval: int
+     taken. It should be specified in ISO8601 format. Timespan in seconds is
+     not supported and will be ignored while creating the policy.
+    :type interval: timedelta
     """
 
     _validation = {
         'schedule_kind': {'required': True},
-        'interval_type': {'required': True},
-        'interval': {'required': True, 'maximum': 2147483647, 'minimum': 1},
+        'interval': {'required': True},
     }
 
     _attribute_map = {
         'schedule_kind': {'key': 'ScheduleKind', 'type': 'str'},
-        'interval_type': {'key': 'IntervalType', 'type': 'str'},
-        'interval': {'key': 'Interval', 'type': 'int'},
+        'interval': {'key': 'Interval', 'type': 'duration'},
     }
 
-    def __init__(self, interval_type, interval):
+    def __init__(self, interval):
         super(FrequencyBasedBackupScheduleDescription, self).__init__()
-        self.interval_type = interval_type
         self.interval = interval
         self.schedule_kind = 'FrequencyBased'

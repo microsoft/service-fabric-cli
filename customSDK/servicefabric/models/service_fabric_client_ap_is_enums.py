@@ -260,6 +260,21 @@ class FabricErrorCodes(Enum):
     e_invalidarg = "E_INVALIDARG"
 
 
+class FabricEventKind(Enum):
+
+    cluster_event = "ClusterEvent"
+    container_event = "ContainerEvent"
+    node_event = "NodeEvent"
+    application_event = "ApplicationEvent"
+    service_event = "ServiceEvent"
+    partition_event = "PartitionEvent"
+    replica_event = "ReplicaEvent"
+    partition_analysis_event = "PartitionAnalysisEvent"
+    node_up = "NodeUp"
+    node_down = "NodeDown"
+    partition_primary_move_analysis = "PartitionPrimaryMoveAnalysis"
+
+
 class HealthEvaluationKind(Enum):
 
     invalid = "Invalid"
@@ -689,13 +704,6 @@ class BackupType(Enum):
     invalid = "Invalid"
     full = "Full"
     incremental = "Incremental"
-
-
-class BackupScheduleIntervalType(Enum):
-
-    invalid = "Invalid"
-    hours = "Hours"
-    minutes = "Minutes"
 
 
 class BackupScheduleFrequencyType(Enum):
