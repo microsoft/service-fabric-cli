@@ -22,7 +22,9 @@ def check_if_should_use_custom_sdk(custom_sdk_path):
     if not sdk_exists:
         return False
 
-    path_to_readme = '../src/README.rst'
+    current_dir = path.dirname(__file__)
+    path_to_readme = path.abspath(path.join(current_dir, pardir, 'src', 'README.rst'))
+
     with open(path_to_readme, 'r') as readme_file:
         readme_contents = readme_file.read()
 
