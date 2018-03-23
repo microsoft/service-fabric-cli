@@ -1,8 +1,6 @@
-from contextlib2 import redirect_stdout
-from io import StringIO
-import pip
 from os import path, pardir
 from shutil import rmtree, copytree
+from subprocess import (Popen, PIPE)
 
 
 def check_if_should_use_custom_sdk(custom_sdk_path):
@@ -61,11 +59,11 @@ def get_path_public_sdk():
 
     # Check the location where the service fabric python SDK is installed
     # Do this by reading the results from pip show
-    f = StringIO()
-    with redirect_stdout(f):
-        pip.main(['show', 'azure-servicefabric'])
+    pipe = Popen('pip show azure-servicefabric', stdout=PIPE)
 
-    output_value = f.getvalue()
+    # returned_string and err are returned as bytes
+    (returned_string, err) = pipe.communicate()
+    output_value = returned_string.decode('utf-8')
 
     for line in output_value.splitlines():
         if line.startswith('Location: '):

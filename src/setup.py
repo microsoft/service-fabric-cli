@@ -49,7 +49,8 @@ setup(
         'azure-servicefabric==6.1.2.9',
         'jsonpickle',
         'adal',
-        'future'
+        'future',
+        'msrestazure'
     ],
     extras_require={
         'test': [
