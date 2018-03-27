@@ -125,7 +125,7 @@ def service_update_flags( #pylint: disable=too-many-arguments
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
-        metrics=None, move_cost=None):
+        metrics=None, move_cost=None, scaling_policy=None):
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
@@ -150,6 +150,8 @@ def service_update_flags( #pylint: disable=too-many-arguments
         flag_sum += 256
     if move_cost is not None:
         flag_sum += 512
+    if scaling_policy is not None:
+        flag_sum += 1024
     return flag_sum
 
 
@@ -212,6 +214,78 @@ def validate_activation_mode(activation_mode):
     if activation_mode not in [None, 'SharedProcess', 'ExclusiveProcess']:
         raise CLIError('Invalid activation mode specified')
 
+def parse_scaling_mechanism(scaling_mechanism)
+    """"Parse a scaling mechanism description"""
+    from azure.servicefabric.models.add_remove_incremental_named_partition_scaling_mechanism import AddRemoveIncrementalNamedParitionScalingMechanism # pylint: disable=line-too-long
+    from azure.servicefabric.models.partition_instance_count_scaling_mechanism import PartitionInstanceCountScaleMechanism # pylint: disable=line-too-long
+
+    if scaling_mechanism:
+            p_kind = scaling_trigger.get("kind")
+            if p_kind is None:
+                raise CLIError('Invalid scaling mechanism specified')
+            if p_kind not in ['ScalePartitionInstanceCount','AddRemoveIncrementalNamedPartition']:
+                raise CLIError('Invalid scaling mechanism specified')
+            if p_kind == 'ScalePartitionInstanceCount':
+                p_min_count = scaling_trigger.get('min_instance_count', None)
+                p_max_count = scaling_trigger.get('max_instance_count', None)
+                p_scale_increment = scaling_trigger.get('scale_increment', None)
+                return PartitionInstanceCountScaleMechanism(p_min_count, p_max_count, p_scale_increment)
+            if p_kind == 'AddRemoveIncrementalNamedPartition':
+                p_min_count = scaling_trigger.get('min_partition_count', None)
+                p_max_count = scaling_trigger.get('max_partition_count', None)
+                p_scale_increment = scaling_trigger.get('scale_increment', None)
+                return AddRemoveIncrementalNamedParitionScalingMechanism(p_min_count, p_max_count, p_scale_increment)
+
+    return None
+
+def parse_scaling_trigger(scaling_trigger)
+    """"Parse a scaling trigger description"""
+    from azure.servicefabric.models.average_partition_load_scaling_trigger import AveragePartitionLoadScalingTrigger # pylint: disable=line-too-long
+    from azure.servicefabric.models.average_service_load_scaling_trigger import AverageServiceLoadScalingTrigger # pylint: disable=line-too-long
+
+    if scaling_trigger:
+            p_kind = scaling_trigger.get("kind")
+            if p_kind is None:
+                raise CLIError('Invalid scaling mechanism specified')
+            if p_kind not in ['AveragePartitionLoadTrigger','AverageServiceLoadTrigger']:
+                raise CLIError('Invalid scaling mechanism specified')
+            if p_kind == 'AveragePartitionLoadTrigger':
+                p_metricname = scaling_trigger.get('metric_name', None)
+                p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
+                p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
+                p_scale_interval_in_seconds = scaling_trigger.get('scale_interval_in_seconds', None)
+                return AveragePartitionLoadScalingTrigger(p_metricname, p_upper_load_threshold, p_lower_load_threshold, p_scale_interval_in_seconds)
+            if p_kind == 'AverageServiceLoadTrigger':
+                p_metricname = scaling_trigger.get('metric_name', None)
+                p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
+                p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
+                p_scale_interval_in_seconds = scaling_trigger.get('scale_interval_in_seconds', None)
+                return AverageServiceLoadTrigger(p_metricname, p_upper_load_threshold, p_lower_load_threshold, p_scale_interval_in_seconds)
+
+    return None
+
+def parse_scaling_policy(formatted_scaling_policy)
+    """"Parse a scaling policy description from a formatted policy"""
+    from azure.servicefabric.models.scaling_policy_description import ScalingPolicyDescription # pylint: disable=line-too-long
+
+    scaling_list = None
+    if formatted_scaling_policy:
+        scaling_list = []
+        for item in formatted_scaling_policy:
+            scaling_trigger_string = item.get('trigger', None)
+            if scaling_trigger_string is None:
+                raise CLIError('No scaling trigger specified')
+            scaling_trigger = parse_scaling_trigger(scaling_trigger_string)
+            scaling_mechanism_string = item.get('mechanism', None):
+            if scaling_mechanism_string is None
+                raise CLIError('No scaling mechanism specified')
+            scaling_mechanism = parse_scaling_mechaism(scaling_mechanism_string)
+            scaling_policy = ScalingPolicyDescription(scaling_trigger, scaling_mechanism)
+            scaling_list.append(scaling_policy)
+            s_load_list.append(l_desc)
+
+    return scaling_list
+
 def create(  # pylint: disable=too-many-arguments, too-many-locals
         client, app_id, name, service_type, stateful=False, stateless=False,
         singleton_scheme=False, named_scheme=False, int_scheme=False,
@@ -222,7 +296,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         target_replica_set_size=None, min_replica_set_size=None,
         replica_restart_wait=None, quorum_loss_wait=None,
         stand_by_replica_keep=None, no_persisted_state=False,
-        instance_count=None, timeout=60):
+        instance_count=None, timeout=60, scaling_policy=None):
     """
     Creates the specified Service Fabric service.
     :param str app_id: The identity of the application. This is
@@ -292,6 +366,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     memory.
     :param int instance_count: The instance count. This applies to stateless
     services only.
+    :param str scaling_policy: JSON encoded list of scaling policies for this service.
     """
     from azure.servicefabric.models.stateless_service_description import (
         StatelessServiceDescription
@@ -313,6 +388,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     place_policy = parse_placement_policies(placement_policy_list)
     validate_move_cost(move_cost)
     validate_activation_mode(activation_mode)
+    scaling_policy_description = parse_scaling_policy(scaling_policy)
 
     if stateless:
         svc_desc = StatelessServiceDescription(name, service_type,
@@ -323,7 +399,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
                                                place_policy, move_cost,
                                                bool(move_cost),
                                                activation_mode,
-                                               dns_name)
+                                               dns_name,
+                                               scaling_policy_description)
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
@@ -338,7 +415,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
                                               cor_desc, load_list,
                                               place_policy, move_cost,
                                               bool(move_cost), activation_mode,
-                                              dns_name, flags,
+                                              dns_name, scaling_policy_description,
+                                              flags,
                                               replica_restart_wait,
                                               quorum_loss_wait,
                                               stand_by_replica_keep)
@@ -380,7 +458,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
            load_metrics=None, placement_policy_list=None,
            move_cost=None, instance_count=None, target_replica_set_size=None,
            min_replica_set_size=None, replica_restart_wait=None,
-           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60):
+           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60, scaling_policy=None):
     """
     Updates the specified service using the given update description.
     :param str service_id: The identity of the service. This is typically the
@@ -424,6 +502,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
     :param str stand_by_replica_keep: The maximum duration, in seconds,  for
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
+    :param str scaling_policy: JSON encoded scaling policy for this service.
     """
     from azure.servicefabric.models.stateful_service_update_description import StatefulServiceUpdateDescription #pylint: disable=line-too-long
     from azure.servicefabric.models.stateless_service_update_description import StatelessServiceUpdateDescription #pylint: disable=line-too-long
@@ -438,12 +517,13 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
     metric_desc = parse_load_metrics(load_metrics)
     place_desc = parse_placement_policies(placement_policy_list)
     validate_move_cost(move_cost)
+    scaling_policy_description = parse_scaling_policy(scaling_policy)
 
     flags = service_update_flags(target_replica_set_size, instance_count,
                                  replica_restart_wait, quorum_loss_wait,
                                  stand_by_replica_keep, min_replica_set_size,
                                  constraints, place_desc, cor_desc,
-                                 metric_desc, move_cost)
+                                 metric_desc, move_cost, scaling_policy_description)
 
     update_desc = None
     if stateful:
@@ -452,6 +532,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
                                                        metric_desc,
                                                        place_desc,
                                                        move_cost,
+                                                       scaling_policy_description,
                                                        target_replica_set_size,
                                                        min_replica_set_size,
                                                        replica_restart_wait,
@@ -464,6 +545,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
                                                         metric_desc,
                                                         place_desc,
                                                         move_cost,
+                                                        scaling_policy_description,
                                                         instance_count)
 
     client.update_service(service_id, update_desc, timeout)
