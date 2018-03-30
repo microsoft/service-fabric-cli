@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+-----
+- Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation.
+
 4.0.0
 -----
 

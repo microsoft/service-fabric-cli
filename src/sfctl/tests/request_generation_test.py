@@ -94,8 +94,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         """
 
         # For testing purposes, write to stderr with color
-        print(file=stderr)
-        print(command, file=stderr)
 
         generated_file_path = 'paths_generation_test.json'
 
@@ -125,12 +123,10 @@ class ServiceFabricRequestTests(ScenarioTest):
 
             # Validate method (GET, POST, etc)
             recording_method = recording['method']
-            print('method: ' + recording_method, file=stderr)
             self.assertEqual(method, recording_method)
 
             # Validate body
             recording_body = recording['body']
-            print('body: ' + str(recording_body), file=stderr)
 
             # body here is the expected body
             # recording_body is the actual value
@@ -144,9 +140,6 @@ class ServiceFabricRequestTests(ScenarioTest):
 
             # Get HTTP URI
             recording_uri = recording['uri']
-            print('uri: ' + recording_uri, file=stderr)
-            print('--- end cmd ' + command + ' ---', file=stderr)
-            print(file=stderr)
             # An example URI
             # 'http://url:port/AppTypes/$/Provision?api-version=6.1'
 
@@ -667,10 +660,10 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Partitions/id/$/GetReplicas/replicaId/$/GetHealth',
             ['api-version=6.0', 'EventsHealthStateFilter=2'])
         self.validate_command( # info
-            'replica info --continuation-token=ct --partition-id=id --replica-id=replicaId',
+            'replica info --partition-id=id --replica-id=replicaId',
             'GET',
             '/Partitions/id/$/GetReplicas/replicaId',
-            ['api-version=6.0', 'ContinuationToken=ct'])
+            ['api-version=6.0'])
         self.validate_command( # list
             'replica list --continuation-token=ct --partition-id=id',
             'GET',
