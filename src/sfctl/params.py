@@ -6,7 +6,7 @@
 
 """Custom parameter handling for commands"""
 import json
-from knack.arguments import ArgumentsContext
+from knack.arguments import (ArgumentsContext, CLIArgumentType)
 
 def json_encoded(arg_str):
     """Convert from argument JSON string to complex object"""
@@ -27,6 +27,9 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('metrics', type=json_encoded)
         arg_context.argument('min_node_count', type=int)
         arg_context.argument('max_node_count', type=int)
+
+    with ArgumentsContext(self, 'application deployed-list') as arg_context:
+        arg_context.argument('max_results', type=int)
 
     with ArgumentsContext(self, 'application list') as arg_context:
         arg_context.argument('application_definition_kind_filter', type=int)
@@ -162,4 +165,8 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
         arg_context.argument('svc_type_health_map', type=json_encoded)
 
     with ArgumentsContext(self, 'property put') as arg_context:
-        arg_context.argument('property_description', type=json_encoded)
+        arg_context.argument('value', type=json_encoded)
+
+    with ArgumentsContext(self, 'is') as arg_context:
+        arg_context.argument('command_input',
+                             CLIArgumentType(options_list=('--command')))

@@ -96,7 +96,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 url_parsed = list(urlparse(endpoint))
                 url_parsed[2] = url_path
                 url_parsed[4] = urlencode(
-                    {'api-version': '3.0-preview'})
+                    {'api-version': '6.1'})
                 url = urlunparse(url_parsed)
                 res = sesh.put(url, data=file_opened)
                 res.raise_for_status()
@@ -110,7 +110,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         ).replace('\\', '/')
         url_parsed = list(urlparse(endpoint))
         url_parsed[2] = url_path
-        url_parsed[4] = urlencode({'api-version': '3.0-preview'})
+        url_parsed[4] = urlencode({'api-version': '6.1'})
         url = urlunparse(url_parsed)
         res = sesh.put(url)
         res.raise_for_status()

@@ -3,9 +3,9 @@
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @jeffreychenmsft  and @samedder will be requested for
+# @samedder and @christina-kang will be requested for
 # review when someone opens a pull request.
-*       @jeffreychenmsft @samedder
+*       @samedder @christina-kang
 
 # Order is important; the last matching pattern takes the most
 # precedence. When someone opens a pull request that only

@@ -8,6 +8,8 @@ git:
 install:
   - pip install -e ./src
   - pip install -r requirements.txt
+before_script:
+  - python scripts/check_and_use_custom_sdk.py
 script:
   - scripts/verify.sh test
   - scripts/verify.sh lint

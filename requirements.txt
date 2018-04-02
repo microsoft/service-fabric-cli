@@ -6,3 +6,4 @@ vcrpy
 mock
 jsonpickle
 adal
+msrestazure

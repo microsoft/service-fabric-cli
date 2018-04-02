@@ -84,7 +84,7 @@ helps['cluster report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -93,14 +93,14 @@ helps['cluster report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health
@@ -126,7 +126,7 @@ helps['node report-health'] = """
           short-summary: Node name to report on
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the 
+          short-summary: The source name which identifies the
             client/watchdog/system component which generated the health
             information.
         - name: --health-property
@@ -187,7 +187,7 @@ helps['node report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -196,14 +196,14 @@ helps['node report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health
@@ -221,7 +221,7 @@ helps['application report-health'] = """
         forwards to the health store. The report may be accepted by the
         gateway, but rejected by the health store after extra validation.
         For example, the health store may reject the report because of an
-        invalid parameter, like a stale sequence number. To see whether the 
+        invalid parameter, like a stale sequence number. To see whether the
         report was applied in the health store, get application health and
         check that the report appears.
     parameters:
@@ -231,12 +231,12 @@ helps['application report-health'] = """
           long-summary: "This is typically the full name of the application
             without the 'fabric:' URI scheme. Starting from version 6.0,
             hierarchical names are delimited with the '~' character. For
-            example, if the application name is 'fabric://myapp/app1', the 
+            example, if the application name is 'fabric:/myapp/app1', the
             application identity would be 'myapp~app1' in 6.0+ and 'myapp/app1'
             in previous versions."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the 
+          short-summary: The source name which identifies the
             client/watchdog/system component which generated the health
             information.
         - name: --health-property
@@ -297,7 +297,7 @@ helps['application report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -306,14 +306,14 @@ helps['application report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health
@@ -340,12 +340,12 @@ helps['service report-health'] = """
           long-summary: "This is typically the full name of the service without
             the 'fabric:' URI scheme. Starting from version 6.0, hierarchical
             names are delimited with the '~' character. For example, if the
-            service name is 'fabric://myapp/app1/svc1', the service identity
+            service name is 'fabric:/myapp/app1/svc1', the service identity
             would be 'myapp~app1~svc1' in 6.0+ and 'myapp/app1/svc1' in
             previous versions."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the 
+          short-summary: The source name which identifies the
             client/watchdog/system component which generated the health
             information.
         - name: --health-property
@@ -406,7 +406,7 @@ helps['service report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -415,14 +415,14 @@ helps['service report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health
@@ -448,7 +448,7 @@ helps['partition report-health'] = """
           short-summary: The identity of the partition
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the 
+          short-summary: The source name which identifies the
             client/watchdog/system component which generated the health
             information.
         - name: --health-property
@@ -509,7 +509,7 @@ helps['partition report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -518,14 +518,14 @@ helps['partition report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health
@@ -559,7 +559,7 @@ helps['replica report-health'] = """
             values: 'Stateless', 'Stateful'."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the 
+          short-summary: The source name which identifies the
             client/watchdog/system component which generated the health
             information.
         - name: --health-property
@@ -620,7 +620,7 @@ helps['replica report-health'] = """
             an error when expired. The value of this property is false by
             default. When clients report periodically, they should set
             RemoveWhenExpired false (default). This way, is the reporter has
-            issues (eg. deadlock) and can't report, the entity is evaluated at
+            issues (e.g. deadlock) and can't report, the entity is evaluated at
             error when the health report expires. This flags the entity as
             being in Error health state.
         - name: --immediate
@@ -629,14 +629,14 @@ helps['replica report-health'] = """
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
-            set to true, the report is sent immediately from Http Gateway to
+            set to true, the report is sent immediately from HTTP Gateway to
             the health store, regardless of the fabric client settings that
-            the Http Gateway Application is using. This is useful for critical
+            the HTTP Gateway Application is using. This is useful for critical
             reports that should be sent as soon as possible. Depending on
             timing and other conditions, sending the report may still fail,
-            for example if the Http Gateway is closed or the message doesn't
+            for example if the HTTP Gateway is closed or the message doesn't
             reach the Gateway. If Immediate is set to false, the report is sent
-            based on the health client settings from the Http Gateway.
+            based on the health client settings from the HTTP Gateway.
             Therefore, it will be batched according to the
             HealthReportSendInterval configuration. This is the recommended
             setting because it allows the health client to optimize health

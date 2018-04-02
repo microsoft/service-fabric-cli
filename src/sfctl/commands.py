@@ -20,8 +20,10 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
+import sfctl.helps.property # pylint: disable=unused-import
 import sfctl.helps.app_type # pylint: disable=unused-import
 import sfctl.helps.chaos # pylint: disable=unused-import
+import sfctl.helps.infrastructure # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -149,6 +151,10 @@ class SFCommandLoader(CLICommandsLoader):
                     'code-package-list',
                     'get_deployed_code_package_info_list'
                 )
+                group.command(
+                    'get-container-logs',
+                    'get_container_logs_deployed_on_node'
+                )
 
             with super_group.group('partition') as group:
                 group.command('list', 'get_partition_info_list')
@@ -200,12 +206,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('delete', 'delete_image_store_content')
                 group.command('root-info', 'get_image_store_root_content')
 
-            with super_group.group('is') as group:
-                group.command('command', 'invoke_infrastructure_command')
-                group.command('query', 'invoke_infrastructure_query')
-
             with super_group.group('property') as group:
-                group.command('put', 'put_property')
                 group.command('list', 'get_property_info_list')
                 group.command('get', 'get_property_info')
                 group.command('delete', 'delete_property')
@@ -270,11 +271,21 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('update', 'update')
                 group.command('package-deploy', 'package_upload')
 
-        # Only add when provision API correctly specified in SDK
-        # with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
-        #                        client_factory=client_create) as super_group:
-        #     with super_group.group('application') as group:
-        #         group.command('provision', 'provision_application_type')
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_is#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('is') as group:
+                group.command('command', 'is_command')
+                group.command('query', 'is_query')
+
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_property#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('property') as group:
+                group.command('put', 'naming_property_put')
+
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_app_type#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('application') as group:
+                group.command('provision', 'provision_application_type')
 
         return OrderedDict(self.command_table)
 

@@ -8,6 +8,15 @@
 
 from knack.help_files import helps
 
+# If the parameter name doesn't match the actual parameter name,
+# no information will be provided in the help page
+
+# To keep newlines in the help documentation, follow this format:
+# long-summary: |
+#    Following are the ...
+#    1. text
+#    2. text
+
 helps['compose create'] = """
     type: command
     short-summary: Creates a Service Fabric application from a Compose file
@@ -20,7 +29,7 @@ helps['compose create'] = """
 helps['application upload'] = """
     type: command
     short-summary: Copy a Service Fabric application package to the image store
-    long-summary: Optionally display upload progress for each file in the 
+    long-summary: Optionally display upload progress for each file in the
       package. Upload progress is sent to `stderr`
     parameters:
         - name: --path
