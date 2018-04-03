@@ -14,7 +14,7 @@ from subprocess import Popen, PIPE
 
 
 class HelpTextTests(unittest.TestCase):
-    """Tests which ensure that help texts do not return error and includes all help text."""
+    """Tests that -h does not return error and includes all help text."""
 
     def _validate_output_read_line(self,  # pylint: disable=too-many-arguments
                                    command_input, line,
@@ -135,27 +135,18 @@ class HelpTextTests(unittest.TestCase):
     def validate_output(self, command_input, subgroups=(), commands=()):  # pylint: disable=too-many-locals
         """
         This function verifies that the returned help text is correct, and that no exceptions
-        are thrown during invocation. It verifies correctness of help text by the following:
+        are thrown during invocation. If commands are provided, this function will call itself
+        recursively to verify the correctness of the commands. It verifies correctness by:
 
-        - The group has a description
-        - All listed subgroups and commands appear in order. We do not check for the
+        - All listed subgroups and commands appear in alphabetical order. We do not check for the
             existence of extra subgroups and commands.
-        - If subgroups or commands is not provided, then we expect it not to appear in
+        - If subgroups or commands are not provided, then we expect it not to appear in
             the help text. If it does, there will be an assertion raised in this test.
-        - All listed subgroups and commands have descriptive text
-        - All listed arguments and global arguments have descriptive text.
-
-        If commands are provided, this function will call itself recursively to
-        verify the correctness of the commands, so that you do not need add another
-        entry to test for it.
+        - All listed groups/subgroups, commands, and arguments have descriptive text
 
         Limitations: This test doesn't search for new commands which are added.
                      If a test entry is not added here, then that entry will not be
                      verified.
-                     While we can read in the lines to make this test more automated,
-                     such that no subcommands or groups need to be listed, that case
-                     will not catch whether or not a command or subgroups has been
-                     accidentally removed.
 
         command_input (string): This represents the command for which you want to get the help text.
             For example, "sfctl" or "sfctl application" or "sfctl application list".
@@ -168,32 +159,7 @@ class HelpTextTests(unittest.TestCase):
         commands (tuple of strings): This represents all of the commands expected in the
             help text. This tuple must be in alphabetical order.
 
-        Help text has one of the two following formats:
-
-        1.  Group
-                sfctl chaos: Start, stop and report on the chaos test service.
-
-            Subgroups:
-                chaos      : Start, stop and report on the chaos test service.
-                cluster    : Select, manage and operate Service Fabric clusters.
-
-            Commands: [This section may not exist depending on input]
-                get     : Gets something.
-                events  : Gets the next segment of the Chaos events...
-                      range.
-
-        or
-
-        2.  Command
-                sfctl application create: Creates a Service Fabric appli...
-
-            Arguments
-                --app-version [Required]: The version of the application type as defined in the
-                                          manifest.
-                --timeout -t            : Server timeout in seconds.  Default: 60.
-
-            Global Arguments
-                --debug                 : Increase logging verbosity to show all debug logs.
+        Help text has two formats. One for groups, and one for commands.
         """
 
         help_command = command_input + ' -h'
@@ -261,8 +227,10 @@ class HelpTextTests(unittest.TestCase):
             # If section is still 'Start', the something has gone wrong.
             # It means that lines were not processed
             # correctly, since we expect some sections to appear.
-            self.assertNotEqual('Start', section,
-                                msg='Command {0} has incomplete help text: {1}'.format(help_command, returned_string))  # pylint: disable=line-too-long
+            self.assertNotEqual(
+                'Start',
+                section,
+                msg='Command {0}: incomplete help text: {1}'.format(help_command, returned_string))
 
             # Check that we have traversed completely through both
             # subgroups and commands
