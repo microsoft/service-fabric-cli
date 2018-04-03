@@ -22,6 +22,7 @@ Unreleased
 - Add missing help text (#71)
 - Fix bug in displaying property help text (#71)
 - Add tests to verify correctness of help text (#71)
+- Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation.
 
 4.0.0
 -----
