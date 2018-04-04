@@ -10,8 +10,6 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from unittest import skipUnless
-from sys import stderr
 from os import (remove, environ)
 import json
 import vcr
@@ -19,7 +17,7 @@ from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
 from sfctl.entry import cli
-from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
+from sfctl.tests.helpers import MOCK_CONFIG
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_test_body_validation import validate_flat_dictionary # pylint: disable=line-too-long
 
