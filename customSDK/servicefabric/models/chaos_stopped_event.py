@@ -9,29 +9,41 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .fabric_event import FabricEvent
+from .cluster_event import ClusterEvent
 
 
-class ContainerEvent(FabricEvent):
-    """Represents the base for all Container Events.
+class ChaosStoppedEvent(ClusterEvent):
+    """Chaos Stopped event.
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
     :type kind: str
+    :param reason: Describes reason.
+    :type reason: str
     """
 
     _validation = {
         'event_instance_id': {'required': True},
         'time_stamp': {'required': True},
         'kind': {'required': True},
+        'reason': {'required': True},
     }
 
-    def __init__(self, event_instance_id, time_stamp, has_correlated_events=None):
-        super(ContainerEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
-        self.kind = 'ContainerEvent'
+    _attribute_map = {
+        'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
+        'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
+        'kind': {'key': 'Kind', 'type': 'str'},
+        'reason': {'key': 'Reason', 'type': 'str'},
+    }
+
+    def __init__(self, event_instance_id, time_stamp, reason, has_correlated_events=None):
+        super(ChaosStoppedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+        self.reason = reason
+        self.kind = 'ChaosStopped'

@@ -60,6 +60,9 @@ class StatelessServiceDescription(ServiceDescription):
     :param service_dns_name: The DNS name of the service. It requires the DNS
      system service to be enabled in Service Fabric cluster.
     :type service_dns_name: str
+    :param scaling_policies: Scaling policies for this service.
+    :type scaling_policies:
+     list[~azure.servicefabric.models.ScalingPolicyDescription]
     :param service_kind: Constant filled by server.
     :type service_kind: str
     :param instance_count: The instance count.
@@ -88,11 +91,12 @@ class StatelessServiceDescription(ServiceDescription):
         'is_default_move_cost_specified': {'key': 'IsDefaultMoveCostSpecified', 'type': 'bool'},
         'service_package_activation_mode': {'key': 'ServicePackageActivationMode', 'type': 'str'},
         'service_dns_name': {'key': 'ServiceDnsName', 'type': 'str'},
+        'scaling_policies': {'key': 'ScalingPolicies', 'type': '[ScalingPolicyDescription]'},
         'service_kind': {'key': 'ServiceKind', 'type': 'str'},
         'instance_count': {'key': 'InstanceCount', 'type': 'int'},
     }
 
-    def __init__(self, service_name, service_type_name, partition_description, instance_count, application_name=None, initialization_data=None, placement_constraints=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, is_default_move_cost_specified=None, service_package_activation_mode=None, service_dns_name=None):
-        super(StatelessServiceDescription, self).__init__(application_name=application_name, service_name=service_name, service_type_name=service_type_name, initialization_data=initialization_data, partition_description=partition_description, placement_constraints=placement_constraints, correlation_scheme=correlation_scheme, service_load_metrics=service_load_metrics, service_placement_policies=service_placement_policies, default_move_cost=default_move_cost, is_default_move_cost_specified=is_default_move_cost_specified, service_package_activation_mode=service_package_activation_mode, service_dns_name=service_dns_name)
+    def __init__(self, service_name, service_type_name, partition_description, instance_count, application_name=None, initialization_data=None, placement_constraints=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, is_default_move_cost_specified=None, service_package_activation_mode=None, service_dns_name=None, scaling_policies=None):
+        super(StatelessServiceDescription, self).__init__(application_name=application_name, service_name=service_name, service_type_name=service_type_name, initialization_data=initialization_data, partition_description=partition_description, placement_constraints=placement_constraints, correlation_scheme=correlation_scheme, service_load_metrics=service_load_metrics, service_placement_policies=service_placement_policies, default_move_cost=default_move_cost, is_default_move_cost_specified=is_default_move_cost_specified, service_package_activation_mode=service_package_activation_mode, service_dns_name=service_dns_name, scaling_policies=scaling_policies)
         self.instance_count = instance_count
         self.service_kind = 'Stateless'

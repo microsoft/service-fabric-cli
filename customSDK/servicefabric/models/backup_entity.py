@@ -13,7 +13,7 @@ from msrest.serialization import Model
 
 
 class BackupEntity(Model):
-    """Describes the Service Fabric entity which is configured for backup.
+    """Describes the Service Fabric entity that is configured for backup.
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: ApplicationBackupEntity, ServiceBackupEntity,

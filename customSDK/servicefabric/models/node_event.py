@@ -16,13 +16,18 @@ class NodeEvent(FabricEvent):
     """Represents the base for all Node Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: NodeUpEvent, NodeDownEvent
+    sub-classes are: NodeAbortedEvent, NodeAbortingEvent, NodeAddedEvent,
+    NodeCloseEvent, NodeClosingEvent, NodeDeactivateCompleteEvent,
+    NodeDeactivateStartEvent, NodeDownEvent, NodeHealthReportCreatedEvent,
+    NodeHealthReportExpiredEvent, NodeOpenedSuccessEvent, NodeOpenFailedEvent,
+    NodeOpeningEvent, NodeRemovedEvent, NodeUpEvent,
+    ChaosRestartNodeFaultCompletedEvent, ChaosRestartNodeFaultScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -47,7 +52,7 @@ class NodeEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'NodeUp': 'NodeUpEvent', 'NodeDown': 'NodeDownEvent'}
+        'kind': {'NodeAborted': 'NodeAbortedEvent', 'NodeAborting': 'NodeAbortingEvent', 'NodeAdded': 'NodeAddedEvent', 'NodeClose': 'NodeCloseEvent', 'NodeClosing': 'NodeClosingEvent', 'NodeDeactivateComplete': 'NodeDeactivateCompleteEvent', 'NodeDeactivateStart': 'NodeDeactivateStartEvent', 'NodeDown': 'NodeDownEvent', 'NodeHealthReportCreated': 'NodeHealthReportCreatedEvent', 'NodeHealthReportExpired': 'NodeHealthReportExpiredEvent', 'NodeOpenedSuccess': 'NodeOpenedSuccessEvent', 'NodeOpenFailed': 'NodeOpenFailedEvent', 'NodeOpening': 'NodeOpeningEvent', 'NodeRemoved': 'NodeRemovedEvent', 'NodeUp': 'NodeUpEvent', 'ChaosRestartNodeFaultCompleted': 'ChaosRestartNodeFaultCompletedEvent', 'ChaosRestartNodeFaultScheduled': 'ChaosRestartNodeFaultScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, node_name, has_correlated_events=None):

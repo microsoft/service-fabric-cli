@@ -88,9 +88,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -248,9 +248,9 @@ class ServiceFabricClientAPIs(object):
          parameter to be applied.
         :type include_system_application_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -420,9 +420,9 @@ class ServiceFabricClientAPIs(object):
          parameter to be applied.
         :type include_system_application_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param application_health_policy_map: Defines a map that contains
          specific application health policies for different applications.
@@ -523,9 +523,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -620,9 +620,9 @@ class ServiceFabricClientAPIs(object):
         :type cluster_health_chunk_query_description:
          ~azure.servicefabric.models.ClusterHealthChunkQueryDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -725,9 +725,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -789,9 +789,9 @@ class ServiceFabricClientAPIs(object):
         :param code_version: The product version of Service Fabric.
         :type code_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -857,9 +857,9 @@ class ServiceFabricClientAPIs(object):
         :param config_version: The config version of Service Fabric.
         :type config_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -922,9 +922,9 @@ class ServiceFabricClientAPIs(object):
         upgrade.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -990,9 +990,9 @@ class ServiceFabricClientAPIs(object):
          cluster json configuration.
         :type configuration_api_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1055,9 +1055,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1119,9 +1119,9 @@ class ServiceFabricClientAPIs(object):
         This API is internally used for support purposes.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1183,9 +1183,9 @@ class ServiceFabricClientAPIs(object):
         Service. This API is internally used for support purposes.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param service_state: The state of Service Fabric Upgrade
          Orchestration Service.
@@ -1257,9 +1257,9 @@ class ServiceFabricClientAPIs(object):
         Fabric cluster.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param code_file_path: The cluster code package file path.
         :type code_file_path: str
@@ -1323,9 +1323,9 @@ class ServiceFabricClientAPIs(object):
         separately.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param code_version: The cluster code package version.
         :type code_version: str
@@ -1386,9 +1386,9 @@ class ServiceFabricClientAPIs(object):
         Rollback the code or configuration upgrade of a Service Fabric cluster.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1443,9 +1443,9 @@ class ServiceFabricClientAPIs(object):
          upgrade.
         :type upgrade_domain: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1509,9 +1509,9 @@ class ServiceFabricClientAPIs(object):
         :type start_cluster_upgrade_description:
          ~azure.servicefabric.models.StartClusterUpgradeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1572,9 +1572,9 @@ class ServiceFabricClientAPIs(object):
         :type cluster_configuration_upgrade_description:
          ~azure.servicefabric.models.ClusterConfigurationUpgradeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1634,9 +1634,9 @@ class ServiceFabricClientAPIs(object):
         :type update_cluster_upgrade_description:
          ~azure.servicefabric.models.UpdateClusterUpgradeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1697,9 +1697,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1775,9 +1775,9 @@ class ServiceFabricClientAPIs(object):
         :type node_status_filter: str or
          ~azure.servicefabric.models.NodeStatusFilter
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1845,9 +1845,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -1939,9 +1939,9 @@ class ServiceFabricClientAPIs(object):
          value is 65535.
         :type events_health_state_filter: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2044,9 +2044,9 @@ class ServiceFabricClientAPIs(object):
         :type cluster_health_policy:
          ~azure.servicefabric.models.ClusterHealthPolicy
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2157,9 +2157,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2223,9 +2223,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2300,9 +2300,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param deactivation_intent: Describes the intent or reason for
          deactivating the node. The possible values are following.
@@ -2373,9 +2373,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2441,9 +2441,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2505,9 +2505,9 @@ class ServiceFabricClientAPIs(object):
          any instance ID. The instance ID can be obtained using get node query.
         :type node_instance_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param create_fabric_dump: Specify True to create a dump of the fabric
          node process. This is case sensitive. Possible values include:
@@ -2614,12 +2614,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2722,12 +2722,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2794,26 +2794,26 @@ class ServiceFabricClientAPIs(object):
     def provision_application_type(
             self, provision_application_type_description_base_required_body_param, timeout=60, custom_headers=None, raw=False, **operation_config):
         """Provisions or registers a Service Fabric application type with the
-        cluster using the .sfpkg package in the external store or using the
+        cluster using the '.sfpkg' package in the external store or using the
         application package in the image store.
 
-        Provisions a Service Fabric application type with the cluster. This is
-        required before any new applications can be instantiated.
+        Provisions a Service Fabric application type with the cluster. The
+        provision is required before any new applications can be instantiated.
         The provision operation can be performed either on the application
         package specified by the relativePathInImageStore, or by using the URI
-        of the external .sfpkg.
+        of the external '.sfpkg'.
         .
 
         :param
          provision_application_type_description_base_required_body_param: The
          base type of provision application type description which supports
-         either image store based provision or external store based provision.
+         either image store-based provision or external store-based provision.
         :type provision_application_type_description_base_required_body_param:
          ~azure.servicefabric.models.ProvisionApplicationTypeDescriptionBase
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -2825,7 +2825,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.1"
+        api_version = "6.2"
 
         # Construct URL
         url = '/ApplicationTypes/$/Provision'
@@ -2878,9 +2878,9 @@ class ServiceFabricClientAPIs(object):
          as defined in the application manifest.
         :type application_type_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param async: The flag indicating whether or not unprovision should
          occur asynchronously. When set to true, the unprovision operation
@@ -2957,9 +2957,9 @@ class ServiceFabricClientAPIs(object):
         :param application_type_version: The version of the application type.
         :type application_type_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3035,9 +3035,9 @@ class ServiceFabricClientAPIs(object):
          service type.
         :type service_type_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3112,9 +3112,9 @@ class ServiceFabricClientAPIs(object):
          registered as part of an application type in a Service Fabric cluster.
         :type service_manifest_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3200,9 +3200,9 @@ class ServiceFabricClientAPIs(object):
          that are defined in this service manifest.
         :type service_manifest_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3293,9 +3293,9 @@ class ServiceFabricClientAPIs(object):
          that are defined in this service manifest.
         :type service_manifest_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3366,9 +3366,9 @@ class ServiceFabricClientAPIs(object):
         :type application_description:
          ~azure.servicefabric.models.ApplicationDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3446,9 +3446,9 @@ class ServiceFabricClientAPIs(object):
          prevents graceful close of replicas.
         :type force_remove: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3519,9 +3519,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3625,12 +3625,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3715,9 +3715,9 @@ class ServiceFabricClientAPIs(object):
          application parameters will be excluded from the result.
         :type exclude_application_parameters: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -3874,9 +3874,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4048,9 +4048,9 @@ class ServiceFabricClientAPIs(object):
         :type application_health_policy:
          ~azure.servicefabric.models.ApplicationHealthPolicy
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4174,9 +4174,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4251,9 +4251,9 @@ class ServiceFabricClientAPIs(object):
         :type application_upgrade_description:
          ~azure.servicefabric.models.ApplicationUpgradeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4322,9 +4322,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4404,9 +4404,9 @@ class ServiceFabricClientAPIs(object):
         :type application_upgrade_update_description:
          ~azure.servicefabric.models.ApplicationUpgradeUpdateDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4481,9 +4481,9 @@ class ServiceFabricClientAPIs(object):
          resume the upgrade.
         :type upgrade_domain_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4558,9 +4558,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4624,9 +4624,9 @@ class ServiceFabricClientAPIs(object):
         :param node_name: The name of the node.
         :type node_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param include_health_state: Include the health state of an entity.
          If this parameter is false or not specified, then the health state
@@ -4649,7 +4649,7 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -4738,9 +4738,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param include_health_state: Include the health state of an entity.
          If this parameter is false or not specified, then the health state
@@ -4888,9 +4888,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5047,9 +5047,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5175,9 +5175,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5244,9 +5244,9 @@ class ServiceFabricClientAPIs(object):
         :param application_type_version: The version of the application type.
         :type application_type_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5332,9 +5332,9 @@ class ServiceFabricClientAPIs(object):
          value. The value of this parameter should not be URL encoded.
         :type continuation_token: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5420,9 +5420,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5496,9 +5496,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5578,9 +5578,9 @@ class ServiceFabricClientAPIs(object):
         :type service_description:
          ~azure.servicefabric.models.ServiceDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5657,9 +5657,9 @@ class ServiceFabricClientAPIs(object):
         :type service_from_template_description:
          ~azure.servicefabric.models.ServiceFromTemplateDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5738,9 +5738,9 @@ class ServiceFabricClientAPIs(object):
          prevents graceful close of replicas.
         :type force_remove: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5819,9 +5819,9 @@ class ServiceFabricClientAPIs(object):
         :type service_update_description:
          ~azure.servicefabric.models.ServiceUpdateDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -5889,9 +5889,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6024,9 +6024,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6177,9 +6177,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6300,9 +6300,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6392,9 +6392,9 @@ class ServiceFabricClientAPIs(object):
          knows that the result that was got previously is stale.
         :type previous_rsp_version: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6482,9 +6482,9 @@ class ServiceFabricClientAPIs(object):
          value. The value of this parameter should not be URL encoded.
         :type continuation_token: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6555,9 +6555,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6623,9 +6623,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6751,9 +6751,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -6899,9 +6899,9 @@ class ServiceFabricClientAPIs(object):
          Ok, Warning, and Error.
         :type exclude_health_statistics: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7016,9 +7016,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7086,9 +7086,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7154,9 +7154,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7218,9 +7218,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7288,9 +7288,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7350,9 +7350,9 @@ class ServiceFabricClientAPIs(object):
         can cause potential data loss.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7409,9 +7409,9 @@ class ServiceFabricClientAPIs(object):
         use of this API can cause potential data loss.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -7948,9 +7948,9 @@ class ServiceFabricClientAPIs(object):
          value. The value of this parameter should not be URL encoded.
         :type continuation_token: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8020,9 +8020,9 @@ class ServiceFabricClientAPIs(object):
         :param replica_id: The identifier of the replica.
         :type replica_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8118,9 +8118,9 @@ class ServiceFabricClientAPIs(object):
          value is 65535.
         :type events_health_state_filter: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8229,9 +8229,9 @@ class ServiceFabricClientAPIs(object):
         :type application_health_policy:
          ~azure.servicefabric.models.ApplicationHealthPolicy
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8351,9 +8351,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8437,9 +8437,9 @@ class ServiceFabricClientAPIs(object):
          registered as part of an application type in a Service Fabric cluster.
         :type service_manifest_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8516,9 +8516,9 @@ class ServiceFabricClientAPIs(object):
         :param replica_id: The identifier of the replica.
         :type replica_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8591,9 +8591,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8667,9 +8667,9 @@ class ServiceFabricClientAPIs(object):
         :param replica_id: The identifier of the replica.
         :type replica_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8746,9 +8746,9 @@ class ServiceFabricClientAPIs(object):
          prevents graceful close of replicas.
         :type force_remove: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8819,9 +8819,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -8902,9 +8902,9 @@ class ServiceFabricClientAPIs(object):
         :param service_package_name: The name of the service package.
         :type service_package_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9011,9 +9011,9 @@ class ServiceFabricClientAPIs(object):
          value is 65535.
         :type events_health_state_filter: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9134,9 +9134,9 @@ class ServiceFabricClientAPIs(object):
         :type application_health_policy:
          ~azure.servicefabric.models.ApplicationHealthPolicy
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9260,9 +9260,9 @@ class ServiceFabricClientAPIs(object):
          By default, reports are not sent immediately.
         :type immediate: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9338,9 +9338,9 @@ class ServiceFabricClientAPIs(object):
         :type deploy_service_package_to_node_description:
          ~azure.servicefabric.models.DeployServicePackageToNodeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9418,9 +9418,9 @@ class ServiceFabricClientAPIs(object):
          Service Fabric cluster.
         :type code_package_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9505,9 +9505,9 @@ class ServiceFabricClientAPIs(object):
         :type restart_deployed_code_package_description:
          ~azure.servicefabric.models.RestartDeployedCodePackageDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9589,9 +9589,9 @@ class ServiceFabricClientAPIs(object):
         :param tail: Number of lines to fetch from tail end.
         :type tail: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9667,9 +9667,9 @@ class ServiceFabricClientAPIs(object):
         :type create_compose_deployment_description:
          ~azure.servicefabric.models.CreateComposeDeploymentDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9729,9 +9729,9 @@ class ServiceFabricClientAPIs(object):
         :param deployment_name: The identity of the deployment.
         :type deployment_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9813,12 +9813,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9887,9 +9887,9 @@ class ServiceFabricClientAPIs(object):
         :param deployment_name: The identity of the deployment.
         :type deployment_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -9956,9 +9956,9 @@ class ServiceFabricClientAPIs(object):
         :param deployment_name: The identity of the deployment.
         :type deployment_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10020,9 +10020,9 @@ class ServiceFabricClientAPIs(object):
         :type compose_deployment_upgrade_description:
          ~azure.servicefabric.models.ComposeDeploymentUpgradeDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10084,9 +10084,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10155,9 +10155,9 @@ class ServiceFabricClientAPIs(object):
          Chaos run.
         :type chaos_parameters: ~azure.servicefabric.models.ChaosParameters
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10219,9 +10219,9 @@ class ServiceFabricClientAPIs(object):
         .
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10307,12 +10307,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10516,9 +10516,9 @@ class ServiceFabricClientAPIs(object):
          store from its root.
         :type content_path: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10577,9 +10577,9 @@ class ServiceFabricClientAPIs(object):
          store from its root.
         :type content_path: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10592,7 +10592,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.0"
+        api_version = "6.2"
 
         # Construct URL
         url = '/ImageStore/{contentPath}'
@@ -10647,9 +10647,9 @@ class ServiceFabricClientAPIs(object):
          store from its root.
         :type content_path: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10705,9 +10705,9 @@ class ServiceFabricClientAPIs(object):
         the image store.
 
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10771,9 +10771,9 @@ class ServiceFabricClientAPIs(object):
         :type image_store_copy_description:
          ~azure.servicefabric.models.ImageStoreCopyDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10834,9 +10834,9 @@ class ServiceFabricClientAPIs(object):
          file chunks until it is committed.
         :type session_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10896,9 +10896,9 @@ class ServiceFabricClientAPIs(object):
          file chunks until it is committed.
         :type session_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -10956,9 +10956,9 @@ class ServiceFabricClientAPIs(object):
          file chunks until it is committed.
         :type session_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11024,9 +11024,9 @@ class ServiceFabricClientAPIs(object):
          store from its root.
         :type content_path: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11114,9 +11114,9 @@ class ServiceFabricClientAPIs(object):
          bytes.
         :type content_range: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11192,9 +11192,9 @@ class ServiceFabricClientAPIs(object):
          than one instance of infrastructure service running.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11273,9 +11273,9 @@ class ServiceFabricClientAPIs(object):
          than one instance of infrastructure service running.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11371,9 +11371,9 @@ class ServiceFabricClientAPIs(object):
          'Invalid', 'PartialDataLoss', 'FullDataLoss'
         :type data_loss_mode: str or ~azure.servicefabric.models.DataLossMode
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11447,9 +11447,9 @@ class ServiceFabricClientAPIs(object):
          is passed into the corresponding GetProgress API
         :type operation_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11543,9 +11543,9 @@ class ServiceFabricClientAPIs(object):
          seconds.
         :type quorum_loss_duration: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11620,9 +11620,9 @@ class ServiceFabricClientAPIs(object):
          is passed into the corresponding GetProgress API
         :type operation_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11711,9 +11711,9 @@ class ServiceFabricClientAPIs(object):
         :type restart_partition_mode: str or
          ~azure.servicefabric.models.RestartPartitionMode
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11787,9 +11787,9 @@ class ServiceFabricClientAPIs(object):
          is passed into the corresponding GetProgress API
         :type operation_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11880,9 +11880,9 @@ class ServiceFabricClientAPIs(object):
          this time expires, the node will automatically come back up.
         :type stop_duration_in_seconds: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -11948,9 +11948,9 @@ class ServiceFabricClientAPIs(object):
          is passed into the corresponding GetProgress API
         :type operation_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12034,9 +12034,9 @@ class ServiceFabricClientAPIs(object):
          64    - select ForceCancelled
         :type state_filter: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12129,9 +12129,9 @@ class ServiceFabricClientAPIs(object):
          operation.
         :type force: bool
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12189,9 +12189,9 @@ class ServiceFabricClientAPIs(object):
         :type backup_policy_description:
          ~azure.servicefabric.models.BackupPolicyDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12252,9 +12252,9 @@ class ServiceFabricClientAPIs(object):
         :param backup_policy_name: The name of the backup policy.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12323,12 +12323,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12395,9 +12395,9 @@ class ServiceFabricClientAPIs(object):
         :param backup_policy_name: The name of the backup policy.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12455,7 +12455,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_all_entities_backed_up_by_policy(
             self, backup_policy_name, continuation_token=None, max_results=0, timeout=60, custom_headers=None, raw=False, **operation_config):
-        """Gets the list of backup entities which are associated with this policy.
+        """Gets the list of backup entities that are associated with this policy.
 
         Returns a list of Service Fabric application, service or partition
         which are associated with this backup policy.
@@ -12477,12 +12477,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12555,9 +12555,9 @@ class ServiceFabricClientAPIs(object):
         :param backup_policy_name: The name of the backup policy.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12634,9 +12634,9 @@ class ServiceFabricClientAPIs(object):
          enabling periodic backups.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12708,9 +12708,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12789,12 +12789,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12877,9 +12877,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param latest: Specifies whether to get only the most recent backup
          available for a partition for the specified time range.
@@ -12908,7 +12908,7 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -12994,9 +12994,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13063,9 +13063,9 @@ class ServiceFabricClientAPIs(object):
          previous versions.
         :type application_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13141,9 +13141,9 @@ class ServiceFabricClientAPIs(object):
          enabling periodic backups.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13218,9 +13218,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13298,12 +13298,12 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13384,9 +13384,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param latest: Specifies whether to get only the most recent backup
          available for a partition for the specified time range.
@@ -13415,7 +13415,7 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13499,9 +13499,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13566,9 +13566,9 @@ class ServiceFabricClientAPIs(object):
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13635,9 +13635,9 @@ class ServiceFabricClientAPIs(object):
          enabling periodic backups.
         :type backup_policy_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13707,9 +13707,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13768,9 +13768,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13841,9 +13841,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param latest: Specifies whether to get only the most recent backup
          available for a partition for the specified time range.
@@ -13928,9 +13928,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -13988,9 +13988,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14063,9 +14063,9 @@ class ServiceFabricClientAPIs(object):
          value. The default value for the same is 10 minutes.
         :type backup_timeout: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param backup_storage: Specifies the details of the backup storage
          where to save the backup.
@@ -14141,9 +14141,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14230,9 +14230,9 @@ class ServiceFabricClientAPIs(object):
          default value for the same is 10 minutes.
         :type restore_timeout: int
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14298,9 +14298,9 @@ class ServiceFabricClientAPIs(object):
         :param partition_id: The identity of the partition.
         :type partition_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14371,9 +14371,9 @@ class ServiceFabricClientAPIs(object):
         :type get_backup_by_storage_query_description:
          ~azure.servicefabric.models.GetBackupByStorageQueryDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param continuation_token: The continuation token parameter is used to
          obtain next set of results. A continuation token with a non empty
@@ -14389,7 +14389,7 @@ class ServiceFabricClientAPIs(object):
          the specified maximum results if they do not fit in the message as per
          the max message size restrictions defined in the configuration. If
          this parameter is zero or not specified, the paged queries includes as
-         much results as possible that fit in the return message.
+         many results as possible that fit in the return message.
         :type max_results: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14459,9 +14459,9 @@ class ServiceFabricClientAPIs(object):
          scheme.
         :type name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14521,9 +14521,9 @@ class ServiceFabricClientAPIs(object):
          scheme.
         :type name_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14583,9 +14583,9 @@ class ServiceFabricClientAPIs(object):
          scheme.
         :type name_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14657,9 +14657,9 @@ class ServiceFabricClientAPIs(object):
          value. The value of this parameter should not be URL encoded.
         :type continuation_token: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14744,9 +14744,9 @@ class ServiceFabricClientAPIs(object):
          value. The value of this parameter should not be URL encoded.
         :type continuation_token: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14821,9 +14821,9 @@ class ServiceFabricClientAPIs(object):
         :type property_description:
          ~azure.servicefabric.models.PropertyDescription
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14888,9 +14888,9 @@ class ServiceFabricClientAPIs(object):
         :param property_name: Specifies the name of the property to get.
         :type property_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -14960,9 +14960,9 @@ class ServiceFabricClientAPIs(object):
         :param property_name: Specifies the name of the property to get.
         :type property_name: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15022,9 +15022,9 @@ class ServiceFabricClientAPIs(object):
          scheme.
         :type name_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param operations: A list of the property batch operations to be
          executed.
@@ -15094,7 +15094,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_cluster_event_list(
             self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Cluster Events.
+        """Gets all Cluster-related events.
 
         The response is list of ClusterEvent objects.
 
@@ -15105,21 +15105,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15181,9 +15181,9 @@ class ServiceFabricClientAPIs(object):
 
     def get_containers_event_list(
             self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Containers Events.
+        """Gets all Containers-related events.
 
-        The response is list of ContainerEvent objects.
+        The response is list of ContainerInstanceEvent objects.
 
         :param start_time_utc: The start time of a lookup query in ISO UTC
          yyyy-MM-ddTHH:mm:ssZ.
@@ -15192,21 +15192,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15214,7 +15214,7 @@ class ServiceFabricClientAPIs(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: list or ClientRawResponse if raw=true
-        :rtype: list[~azure.servicefabric.models.ContainerEvent] or
+        :rtype: list[~azure.servicefabric.models.ContainerInstanceEvent] or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
@@ -15258,7 +15258,7 @@ class ServiceFabricClientAPIs(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('[ContainerEvent]', response)
+            deserialized = self._deserialize('[ContainerInstanceEvent]', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -15268,7 +15268,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_node_event_list(
             self, node_name, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Node Events.
+        """Gets a Node-related events.
 
         The response is list of NodeEvent objects.
 
@@ -15281,21 +15281,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15361,7 +15361,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_nodes_event_list(
             self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Nodes Events.
+        """Gets all Nodes-related Events.
 
         The response is list of NodeEvent objects.
 
@@ -15372,21 +15372,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15446,102 +15446,9 @@ class ServiceFabricClientAPIs(object):
 
         return deserialized
 
-    def get_node_event_list1(
-            self, node_name, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Node Events.
-
-        The response is list of FabricEvent objects.
-
-        :param node_name: The name of the node.
-        :type node_name: str
-        :param start_time_utc: The start time of a lookup query in ISO UTC
-         yyyy-MM-ddTHH:mm:ssZ.
-        :type start_time_utc: str
-        :param end_time_utc: The end time of a lookup query in ISO UTC
-         yyyy-MM-ddTHH:mm:ssZ.
-        :type end_time_utc: str
-        :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
-        :type timeout: long
-        :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
-         the response.
-        :type events_types_filter: str
-        :param exclude_analysis_events: This param disables the retrieval of
-         AnalysisEvents if true is passed.
-        :type exclude_analysis_events: bool
-        :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
-        :type skip_correlation_lookup: bool
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: list or ClientRawResponse if raw=true
-        :rtype: list[~azure.servicefabric.models.NodeEvent] or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
-        """
-        api_version = "6.2-preview"
-
-        # Construct URL
-        url = '/Events/Nodes/{nodeName}/$/Events'
-        path_format_arguments = {
-            'nodeName': self._serialize.url("node_name", node_name, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-        if timeout is not None:
-            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
-        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
-        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
-        if events_types_filter is not None:
-            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
-        if exclude_analysis_events is not None:
-            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
-        if skip_correlation_lookup is not None:
-            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.FabricErrorException(self._deserialize, response)
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('[NodeEvent]', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-
     def get_application_event_list(
             self, application_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Application Events.
+        """Gets an Application-related events.
 
         The response is list of ApplicationEvent objects.
 
@@ -15561,21 +15468,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15639,9 +15546,96 @@ class ServiceFabricClientAPIs(object):
 
         return deserialized
 
+    def get_applications_event_list(
+            self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
+        """Gets all Applications-related events.
+
+        The response is list of ApplicationEvent objects.
+
+        :param start_time_utc: The start time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type start_time_utc: str
+        :param end_time_utc: The end time of a lookup query in ISO UTC
+         yyyy-MM-ddTHH:mm:ssZ.
+        :type end_time_utc: str
+        :param timeout: The server timeout for performing the operation in
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
+        :type timeout: long
+        :param events_types_filter: This is a comma separated string
+         specifying the types of FabricEvents that should only be included in
+         the response.
+        :type events_types_filter: str
+        :param exclude_analysis_events: This param disables the retrieval of
+         AnalysisEvents if true is passed.
+        :type exclude_analysis_events: bool
+        :param skip_correlation_lookup: This param disables the search of
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
+        :type skip_correlation_lookup: bool
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: list or ClientRawResponse if raw=true
+        :rtype: list[~azure.servicefabric.models.ApplicationEvent] or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2-preview"
+
+        # Construct URL
+        url = '/EventsStore/Applications/Events'
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        query_parameters['StartTimeUtc'] = self._serialize.query("start_time_utc", start_time_utc, 'str')
+        query_parameters['EndTimeUtc'] = self._serialize.query("end_time_utc", end_time_utc, 'str')
+        if events_types_filter is not None:
+            query_parameters['EventsTypesFilter'] = self._serialize.query("events_types_filter", events_types_filter, 'str')
+        if exclude_analysis_events is not None:
+            query_parameters['ExcludeAnalysisEvents'] = self._serialize.query("exclude_analysis_events", exclude_analysis_events, 'bool')
+        if skip_correlation_lookup is not None:
+            query_parameters['SkipCorrelationLookup'] = self._serialize.query("skip_correlation_lookup", skip_correlation_lookup, 'bool')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('[ApplicationEvent]', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
     def get_service_event_list(
             self, service_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Service Events.
+        """Gets a Service-related events.
 
         The response is list of ServiceEvent objects.
 
@@ -15660,21 +15654,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15740,7 +15734,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_services_event_list(
             self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Services Events.
+        """Gets all Services-related events.
 
         The response is list of ServiceEvent objects.
 
@@ -15751,21 +15745,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15827,7 +15821,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_partition_event_list(
             self, partition_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Partition Events.
+        """Gets a Partition-related events.
 
         The response is list of PartitionEvent objects.
 
@@ -15840,21 +15834,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -15920,7 +15914,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_partitions_event_list(
             self, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Partitions Events.
+        """Gets all Partitions-related events.
 
         The response is list of PartitionEvent objects.
 
@@ -15931,21 +15925,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -16007,7 +16001,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_partition_replica_event_list(
             self, partition_id, replica_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Replica Events.
+        """Gets a Partition Replica-related events.
 
         The response is list of ReplicaEvent objects.
 
@@ -16022,21 +16016,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -16103,7 +16097,7 @@ class ServiceFabricClientAPIs(object):
 
     def get_partition_replicas_event_list(
             self, partition_id, start_time_utc, end_time_utc, timeout=60, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the Replicas Events.
+        """Gets all Replicas-related events for a Partition.
 
         The response is list of ReplicaEvent objects.
 
@@ -16116,21 +16110,21 @@ class ServiceFabricClientAPIs(object):
          yyyy-MM-ddTHH:mm:ssZ.
         :type end_time_utc: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param events_types_filter: This is a comma separated string
-         specifiying the types of FabricEvents that should only be included in
+         specifying the types of FabricEvents that should only be included in
          the response.
         :type events_types_filter: str
         :param exclude_analysis_events: This param disables the retrieval of
          AnalysisEvents if true is passed.
         :type exclude_analysis_events: bool
         :param skip_correlation_lookup: This param disables the search of
-         CorrelatedEvents information if true is passed
-         otherwise the CorrelationEvents get processed and HasCorrelatedEvents
-         field in every FabricEvent gets populated.
+         CorrelatedEvents information if true is passed. otherwise the
+         CorrelationEvents get processed and HasCorrelatedEvents field in every
+         FabricEvent gets populated.
         :type skip_correlation_lookup: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -16196,16 +16190,16 @@ class ServiceFabricClientAPIs(object):
 
     def get_correlated_event_list(
             self, event_instance_id, timeout=60, custom_headers=None, raw=False, **operation_config):
-        """Gets the correlated Events given an EventInstanceId.
+        """Gets all correlated events for a given event.
 
         The response is list of FabricEvents.
 
         :param event_instance_id: The EventInstanceId.
         :type event_instance_id: str
         :param timeout: The server timeout for performing the operation in
-         seconds. This specifies the time duration that the client is willing
-         to wait for the requested operation to complete. The default value for
-         this parameter is 60 seconds.
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
         :type timeout: long
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the

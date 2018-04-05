@@ -13,22 +13,22 @@ from .node_event import NodeEvent
 
 
 class NodeDownEvent(NodeEvent):
-    """Node Down Event.
+    """Node Down event.
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
     :type kind: str
     :param node_name: The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance: Node Instance
+    :param node_instance: Id of Node instance.
     :type node_instance: long
-    :param last_node_up_at: Last Node Up At
+    :param last_node_up_at: Time when Node was last up.
     :type last_node_up_at: datetime
     """
 

@@ -76,7 +76,7 @@ from .cluster_health_policy import ClusterHealthPolicy
 from .cluster_health_chunk_query_description import ClusterHealthChunkQueryDescription
 from .cluster_health_policies import ClusterHealthPolicies
 from .cluster_manifest import ClusterManifest
-from .container_event import ContainerEvent
+from .container_instance_event import ContainerInstanceEvent
 from .deactivation_intent_description import DeactivationIntentDescription
 from .delta_nodes_check_health_evaluation import DeltaNodesCheckHealthEvaluation
 from .deployed_service_package_health_state import DeployedServicePackageHealthState
@@ -240,6 +240,9 @@ from .partition_scheme_description import PartitionSchemeDescription
 from .named_partition_scheme_description import NamedPartitionSchemeDescription
 from .singleton_partition_scheme_description import SingletonPartitionSchemeDescription
 from .uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription
+from .scaling_trigger_description import ScalingTriggerDescription
+from .scaling_mechanism_description import ScalingMechanismDescription
+from .scaling_policy_description import ScalingPolicyDescription
 from .service_description import ServiceDescription
 from .stateful_service_description import StatefulServiceDescription
 from .stateless_service_description import StatelessServiceDescription
@@ -351,13 +354,75 @@ from .upload_chunk_range import UploadChunkRange
 from .upload_session_info import UploadSessionInfo
 from .upload_session import UploadSession
 from .container_logs import ContainerLogs
-from .node_up_event import NodeUpEvent
+from .average_partition_load_scaling_trigger import AveragePartitionLoadScalingTrigger
+from .average_service_load_scaling_trigger import AverageServiceLoadScalingTrigger
+from .partition_instance_count_scale_mechanism import PartitionInstanceCountScaleMechanism
+from .add_remove_incremental_named_partition_scaling_mechanism import AddRemoveIncrementalNamedPartitionScalingMechanism
+from .application_created_event import ApplicationCreatedEvent
+from .application_deleted_event import ApplicationDeletedEvent
+from .application_health_report_created_event import ApplicationHealthReportCreatedEvent
+from .application_health_report_expired_event import ApplicationHealthReportExpiredEvent
+from .application_upgrade_complete_event import ApplicationUpgradeCompleteEvent
+from .application_upgrade_domain_complete_event import ApplicationUpgradeDomainCompleteEvent
+from .application_upgrade_rollback_complete_event import ApplicationUpgradeRollbackCompleteEvent
+from .application_upgrade_rollback_start_event import ApplicationUpgradeRollbackStartEvent
+from .application_upgrade_start_event import ApplicationUpgradeStartEvent
+from .deployed_application_health_report_created_event import DeployedApplicationHealthReportCreatedEvent
+from .deployed_application_health_report_expired_event import DeployedApplicationHealthReportExpiredEvent
+from .process_deactivated_event import ProcessDeactivatedEvent
+from .container_deactivated_event import ContainerDeactivatedEvent
+from .node_aborted_event import NodeAbortedEvent
+from .node_aborting_event import NodeAbortingEvent
+from .node_added_event import NodeAddedEvent
+from .node_close_event import NodeCloseEvent
+from .node_closing_event import NodeClosingEvent
+from .node_deactivate_complete_event import NodeDeactivateCompleteEvent
+from .node_deactivate_start_event import NodeDeactivateStartEvent
 from .node_down_event import NodeDownEvent
+from .node_health_report_created_event import NodeHealthReportCreatedEvent
+from .node_health_report_expired_event import NodeHealthReportExpiredEvent
+from .node_opened_success_event import NodeOpenedSuccessEvent
+from .node_open_failed_event import NodeOpenFailedEvent
+from .node_opening_event import NodeOpeningEvent
+from .node_removed_event import NodeRemovedEvent
+from .node_up_event import NodeUpEvent
+from .partition_health_report_created_event import PartitionHealthReportCreatedEvent
+from .partition_health_report_expired_event import PartitionHealthReportExpiredEvent
+from .partition_reconfiguration_completed_event import PartitionReconfigurationCompletedEvent
 from .partition_primary_move_analysis_event import PartitionPrimaryMoveAnalysisEvent
+from .service_created_event import ServiceCreatedEvent
+from .service_deleted_event import ServiceDeletedEvent
+from .service_health_report_created_event import ServiceHealthReportCreatedEvent
+from .service_health_report_expired_event import ServiceHealthReportExpiredEvent
+from .deployed_service_health_report_created_event import DeployedServiceHealthReportCreatedEvent
+from .deployed_service_health_report_expired_event import DeployedServiceHealthReportExpiredEvent
+from .stateful_replica_health_report_created_event import StatefulReplicaHealthReportCreatedEvent
+from .stateful_replica_health_report_expired_event import StatefulReplicaHealthReportExpiredEvent
+from .stateless_replica_health_report_created_event import StatelessReplicaHealthReportCreatedEvent
+from .stateless_replica_health_report_expired_event import StatelessReplicaHealthReportExpiredEvent
+from .cluster_health_report_created_event import ClusterHealthReportCreatedEvent
+from .cluster_health_report_expired_event import ClusterHealthReportExpiredEvent
+from .cluster_upgrade_complete_event import ClusterUpgradeCompleteEvent
+from .cluster_upgrade_domain_complete_event import ClusterUpgradeDomainCompleteEvent
+from .cluster_upgrade_rollback_complete_event import ClusterUpgradeRollbackCompleteEvent
+from .cluster_upgrade_rollback_start_event import ClusterUpgradeRollbackStartEvent
+from .cluster_upgrade_start_event import ClusterUpgradeStartEvent
+from .chaos_stopped_event import ChaosStoppedEvent
+from .chaos_started_event import ChaosStartedEvent
+from .chaos_restart_node_fault_completed_event import ChaosRestartNodeFaultCompletedEvent
+from .chaos_restart_code_package_fault_scheduled_event import ChaosRestartCodePackageFaultScheduledEvent
+from .chaos_restart_code_package_fault_completed_event import ChaosRestartCodePackageFaultCompletedEvent
+from .chaos_remove_replica_fault_scheduled_event import ChaosRemoveReplicaFaultScheduledEvent
+from .chaos_remove_replica_fault_completed_event import ChaosRemoveReplicaFaultCompletedEvent
+from .chaos_move_secondary_fault_scheduled_event import ChaosMoveSecondaryFaultScheduledEvent
+from .chaos_move_primary_fault_scheduled_event import ChaosMovePrimaryFaultScheduledEvent
+from .chaos_restart_replica_fault_scheduled_event import ChaosRestartReplicaFaultScheduledEvent
+from .chaos_restart_node_fault_scheduled_event import ChaosRestartNodeFaultScheduledEvent
 from .service_fabric_client_ap_is_enums import (
     ApplicationDefinitionKind,
     HealthState,
     ApplicationStatus,
+    ApplicationPackageCleanupPolicy,
     ApplicationTypeDefinitionKind,
     ApplicationTypeStatus,
     UpgradeKind,
@@ -433,6 +498,8 @@ from .service_fabric_client_ap_is_enums import (
     State,
     ResultStatus,
     RepairTaskHealthCheckState,
+    ScalingTriggerKind,
+    ScalingMechanismKind,
     NodeStatusFilter,
     ReplicaHealthReportServiceKind,
     DataLossMode,
@@ -509,7 +576,7 @@ __all__ = [
     'ClusterHealthChunkQueryDescription',
     'ClusterHealthPolicies',
     'ClusterManifest',
-    'ContainerEvent',
+    'ContainerInstanceEvent',
     'DeactivationIntentDescription',
     'DeltaNodesCheckHealthEvaluation',
     'DeployedServicePackageHealthState',
@@ -673,6 +740,9 @@ __all__ = [
     'NamedPartitionSchemeDescription',
     'SingletonPartitionSchemeDescription',
     'UniformInt64RangePartitionSchemeDescription',
+    'ScalingTriggerDescription',
+    'ScalingMechanismDescription',
+    'ScalingPolicyDescription',
     'ServiceDescription',
     'StatefulServiceDescription',
     'StatelessServiceDescription',
@@ -784,12 +854,74 @@ __all__ = [
     'UploadSessionInfo',
     'UploadSession',
     'ContainerLogs',
-    'NodeUpEvent',
+    'AveragePartitionLoadScalingTrigger',
+    'AverageServiceLoadScalingTrigger',
+    'PartitionInstanceCountScaleMechanism',
+    'AddRemoveIncrementalNamedPartitionScalingMechanism',
+    'ApplicationCreatedEvent',
+    'ApplicationDeletedEvent',
+    'ApplicationHealthReportCreatedEvent',
+    'ApplicationHealthReportExpiredEvent',
+    'ApplicationUpgradeCompleteEvent',
+    'ApplicationUpgradeDomainCompleteEvent',
+    'ApplicationUpgradeRollbackCompleteEvent',
+    'ApplicationUpgradeRollbackStartEvent',
+    'ApplicationUpgradeStartEvent',
+    'DeployedApplicationHealthReportCreatedEvent',
+    'DeployedApplicationHealthReportExpiredEvent',
+    'ProcessDeactivatedEvent',
+    'ContainerDeactivatedEvent',
+    'NodeAbortedEvent',
+    'NodeAbortingEvent',
+    'NodeAddedEvent',
+    'NodeCloseEvent',
+    'NodeClosingEvent',
+    'NodeDeactivateCompleteEvent',
+    'NodeDeactivateStartEvent',
     'NodeDownEvent',
+    'NodeHealthReportCreatedEvent',
+    'NodeHealthReportExpiredEvent',
+    'NodeOpenedSuccessEvent',
+    'NodeOpenFailedEvent',
+    'NodeOpeningEvent',
+    'NodeRemovedEvent',
+    'NodeUpEvent',
+    'PartitionHealthReportCreatedEvent',
+    'PartitionHealthReportExpiredEvent',
+    'PartitionReconfigurationCompletedEvent',
     'PartitionPrimaryMoveAnalysisEvent',
+    'ServiceCreatedEvent',
+    'ServiceDeletedEvent',
+    'ServiceHealthReportCreatedEvent',
+    'ServiceHealthReportExpiredEvent',
+    'DeployedServiceHealthReportCreatedEvent',
+    'DeployedServiceHealthReportExpiredEvent',
+    'StatefulReplicaHealthReportCreatedEvent',
+    'StatefulReplicaHealthReportExpiredEvent',
+    'StatelessReplicaHealthReportCreatedEvent',
+    'StatelessReplicaHealthReportExpiredEvent',
+    'ClusterHealthReportCreatedEvent',
+    'ClusterHealthReportExpiredEvent',
+    'ClusterUpgradeCompleteEvent',
+    'ClusterUpgradeDomainCompleteEvent',
+    'ClusterUpgradeRollbackCompleteEvent',
+    'ClusterUpgradeRollbackStartEvent',
+    'ClusterUpgradeStartEvent',
+    'ChaosStoppedEvent',
+    'ChaosStartedEvent',
+    'ChaosRestartNodeFaultCompletedEvent',
+    'ChaosRestartCodePackageFaultScheduledEvent',
+    'ChaosRestartCodePackageFaultCompletedEvent',
+    'ChaosRemoveReplicaFaultScheduledEvent',
+    'ChaosRemoveReplicaFaultCompletedEvent',
+    'ChaosMoveSecondaryFaultScheduledEvent',
+    'ChaosMovePrimaryFaultScheduledEvent',
+    'ChaosRestartReplicaFaultScheduledEvent',
+    'ChaosRestartNodeFaultScheduledEvent',
     'ApplicationDefinitionKind',
     'HealthState',
     'ApplicationStatus',
+    'ApplicationPackageCleanupPolicy',
     'ApplicationTypeDefinitionKind',
     'ApplicationTypeStatus',
     'UpgradeKind',
@@ -865,6 +997,8 @@ __all__ = [
     'State',
     'ResultStatus',
     'RepairTaskHealthCheckState',
+    'ScalingTriggerKind',
+    'ScalingMechanismKind',
     'NodeStatusFilter',
     'ReplicaHealthReportServiceKind',
     'DataLossMode',

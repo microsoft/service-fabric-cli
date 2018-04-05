@@ -15,11 +15,24 @@ from .fabric_event import FabricEvent
 class ApplicationEvent(FabricEvent):
     """Represents the base for all Application Events.
 
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: ApplicationCreatedEvent, ApplicationDeletedEvent,
+    ApplicationHealthReportCreatedEvent, ApplicationHealthReportExpiredEvent,
+    ApplicationUpgradeCompleteEvent, ApplicationUpgradeDomainCompleteEvent,
+    ApplicationUpgradeRollbackCompleteEvent,
+    ApplicationUpgradeRollbackStartEvent, ApplicationUpgradeStartEvent,
+    DeployedApplicationHealthReportCreatedEvent,
+    DeployedApplicationHealthReportExpiredEvent, ProcessDeactivatedEvent,
+    ContainerDeactivatedEvent, DeployedServiceHealthReportCreatedEvent,
+    DeployedServiceHealthReportExpiredEvent,
+    ChaosRestartCodePackageFaultScheduledEvent,
+    ChaosRestartCodePackageFaultCompletedEvent
+
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -47,6 +60,10 @@ class ApplicationEvent(FabricEvent):
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'application_id': {'key': 'ApplicationId', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'ApplicationCreated': 'ApplicationCreatedEvent', 'ApplicationDeleted': 'ApplicationDeletedEvent', 'ApplicationHealthReportCreated': 'ApplicationHealthReportCreatedEvent', 'ApplicationHealthReportExpired': 'ApplicationHealthReportExpiredEvent', 'ApplicationUpgradeComplete': 'ApplicationUpgradeCompleteEvent', 'ApplicationUpgradeDomainComplete': 'ApplicationUpgradeDomainCompleteEvent', 'ApplicationUpgradeRollbackComplete': 'ApplicationUpgradeRollbackCompleteEvent', 'ApplicationUpgradeRollbackStart': 'ApplicationUpgradeRollbackStartEvent', 'ApplicationUpgradeStart': 'ApplicationUpgradeStartEvent', 'DeployedApplicationHealthReportCreated': 'DeployedApplicationHealthReportCreatedEvent', 'DeployedApplicationHealthReportExpired': 'DeployedApplicationHealthReportExpiredEvent', 'ProcessDeactivated': 'ProcessDeactivatedEvent', 'ContainerDeactivated': 'ContainerDeactivatedEvent', 'DeployedServiceHealthReportCreated': 'DeployedServiceHealthReportCreatedEvent', 'DeployedServiceHealthReportExpired': 'DeployedServiceHealthReportExpiredEvent', 'ChaosRestartCodePackageFaultScheduled': 'ChaosRestartCodePackageFaultScheduledEvent', 'ChaosRestartCodePackageFaultCompleted': 'ChaosRestartCodePackageFaultCompletedEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, application_id, has_correlated_events=None):

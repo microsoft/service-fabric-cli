@@ -16,13 +16,15 @@ class PartitionEvent(FabricEvent):
     """Represents the base for all Partition Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: PartitionAnalysisEvent
+    sub-classes are: PartitionAnalysisEvent, PartitionHealthReportCreatedEvent,
+    PartitionHealthReportExpiredEvent, PartitionReconfigurationCompletedEvent,
+    ChaosMoveSecondaryFaultScheduledEvent, ChaosMovePrimaryFaultScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -51,7 +53,7 @@ class PartitionEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'PartitionAnalysisEvent': 'PartitionAnalysisEvent'}
+        'kind': {'PartitionAnalysisEvent': 'PartitionAnalysisEvent', 'PartitionHealthReportCreated': 'PartitionHealthReportCreatedEvent', 'PartitionHealthReportExpired': 'PartitionHealthReportExpiredEvent', 'PartitionReconfigurationCompleted': 'PartitionReconfigurationCompletedEvent', 'ChaosMoveSecondaryFaultScheduled': 'ChaosMoveSecondaryFaultScheduledEvent', 'ChaosMovePrimaryFaultScheduled': 'ChaosMovePrimaryFaultScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, partition_id, has_correlated_events=None):
