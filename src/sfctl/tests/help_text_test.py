@@ -284,7 +284,7 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl chaos',
-            commands=('report', 'start', 'stop'))
+            commands=('start', 'stop'))
 
         self.validate_output(
             'sfctl cluster',

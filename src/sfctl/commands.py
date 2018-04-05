@@ -199,7 +199,6 @@ class SFCommandLoader(CLICommandsLoader):
 
             with super_group.group('chaos') as group:
                 group.command('stop', 'stop_chaos')
-                group.command('report', 'get_chaos_report')
 
             with super_group.group('store') as group:
                 group.command('stat', 'get_image_store_content')
