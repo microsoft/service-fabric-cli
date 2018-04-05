@@ -10,8 +10,6 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from unittest import skipUnless
-from sys import stderr
 from os import (remove, environ)
 import json
 import vcr
@@ -19,7 +17,7 @@ from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
 from sfctl.entry import cli
-from sfctl.tests.helpers import (MOCK_CONFIG, ENDPOINT)
+from sfctl.tests.helpers import MOCK_CONFIG
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_body_validation import validate_flat_dictionary
 
@@ -181,116 +179,34 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Call test
         self.paths_generation_helper()
 
-    @skipUnless(ENDPOINT, 'Requires live cluster')
-    @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def test_provision_app_type(self):  # pylint: disable=too-many-locals
-        """Tests that a basic call to provision app type generates
-        the correct HTTP request"""
-
-        generated_file_path = 'HTTP_request_testing/provision_app_type.json'
-
-        # To force new recordings, and to keep tests clean,
-        # remove old test files
-        try:
-            remove(generated_file_path)
-        except OSError:
-            # if the file doesn't exist, then there's nothing for us to do here
-            pass
-
-        my_vcr = vcr.VCR(serializer='json', record_mode='all',
-                         match_on=['uri', 'method'])
-
-        # Record the HTTP request;
-        # this writes the recordings to generated_file_path
-        # Run async operation as false tests for simplicity
-        with my_vcr.use_cassette(generated_file_path):
-            try:
-                self.cmd('application provision --application-type-build-path=test_path')
-            except AssertionError:
-                print('This does not indicate error. Caught exception. See '
-                      '{0} - first item - for details.'.format(generated_file_path), file=stderr)
-
-            try:
-                self.cmd('application provision --external-provision '
-                         '--application-package-download-uri=test_path '
-                         '--application-type-name=name '
-                         '--application-type-version=version')
-            except AssertionError:
-                print('This does not indicate an error. Caught exception. See {0} - second item - '
-                      'for details.'.format(generated_file_path), file=stderr)
-
-        # Read recorded JSON file
-        with open(generated_file_path, 'r') as http_recording_file:
-            json_str = http_recording_file.read()
-            vcr_recording = decode(json_str)
-
-            # The responses create an array of request and other objects.
-            # the numbers (for indexing) represent which request was made
-            # first.
-            # the ordering is determined by the ordering of calls to self.cmd.
-            # see outputted JSON file at generated_file_path for more details.
-            image_store_recording = vcr_recording['interactions'][0]['request']
-            external_store_recording = vcr_recording['interactions'][1]['request']
-
-            # Get HTTP Body
-            image_store_recording_body = decode(image_store_recording['body'])
-
-            # Content inside HTTP body
-            kind = image_store_recording_body['Kind']
-            self.assertEqual(kind, 'ImageStorePath')
-
-            no_wait = image_store_recording_body['Async']
-            self.assertEqual(no_wait, False)
-
-            application_type_build_path = image_store_recording_body['ApplicationTypeBuildPath']
-            self.assertEqual(application_type_build_path, 'test_path')
-
-            # Get HTTP Body
-            external_store_recording_body = decode(external_store_recording['body'])
-
-            # Content inside HTTP body
-            kind = external_store_recording_body['Kind']
-            self.assertEqual(kind, 'ExternalStore')
-
-            no_wait = external_store_recording_body['Async']
-            self.assertEqual(no_wait, False)
-
-            download_uri = external_store_recording_body['ApplicationPackageDownloadUri']
-            self.assertEqual(download_uri, 'test_path')
-
-            application_type_name = external_store_recording_body['ApplicationTypeName']
-            self.assertEqual(application_type_name, 'name')
-
-            application_type_version = external_store_recording_body['ApplicationTypeVersion']
-            self.assertEqual(application_type_version, 'version')
-
-            # Get HTTP Method type (Get vs Post)
-            image_store_recording_method = image_store_recording['method']
-            self.assertEqual(image_store_recording_method, 'POST')
-
-            external_store_recording_method = external_store_recording['method']
-            self.assertEqual(external_store_recording_method, 'POST')
-
-            # Get HTTP URI
-            image_store_recording_uri = image_store_recording['uri']
-            # assert
-            # '/ApplicationTypes/$/Provision?api-version=6.1&timeout=60'
-            # in image_store_recording_uri
-            self.assertIn(
-                '/ApplicationTypes/$/Provision?api-version=6.1&timeout=60',
-                image_store_recording_uri)
-
-            external_store_recording_uri = external_store_recording['uri']
-            self.assertIn(
-                '/ApplicationTypes/$/Provision?api-version=6.1&timeout=60',
-                external_store_recording_uri)
-
-        # If this test reaches here, then this test is successful.
-
     def paths_generation_helper(self):  # pylint: disable=too-many-statements
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
+
+        # Application Type Commands
+        self.validate_command(  # provision-application-type image-store
+            'application provision --application-type-build-path=test_path',
+            'POST',
+            '/ApplicationTypes/$/Provision',
+            ['api-version=6.1', 'timeout=60'],
+            ('{"Kind": "ImageStorePath", '
+             '"Async": false, '
+             '"ApplicationTypeBuildPath": "test_path"}'),
+            validate_flat_dictionary)
+        self.validate_command(  # provision-application-type external-store
+            'application provision --external-provision '
+            '--application-package-download-uri=test_path --application-type-name=name '
+            '--application-type-version=version',
+            'POST',
+            '/ApplicationTypes/$/Provision',
+            ['api-version=6.1', 'timeout=60'],
+            ('{"Kind": "ExternalStore", '
+             '"Async": false, '
+             '"ApplicationPackageDownloadUri": "test_path", '
+             '"ApplicationTypeName": "name", '
+             '"ApplicationTypeVersion": "version"}'),
+            validate_flat_dictionary)
 
         # Cluster commands:
         # Select command tested elsewhere.
