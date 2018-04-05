@@ -37,6 +37,8 @@ def validate_flat_dictionary(command, actual_body, expected_body):
 
     if len(actual_body) != len(expected_body):
         print('Number of items in expected body does not match actual body', file=stderr)
+        print('Expected body: {0}'.format(expected_body), file=stderr)
+        print('Actual body: {0}'.format(actual_body), file=stderr)
         return False
 
     for key in expected_body:
