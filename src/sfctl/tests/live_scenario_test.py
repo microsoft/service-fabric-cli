@@ -16,6 +16,7 @@ from sfctl.tests.helpers import (APP_PATH, ENDPOINT, MOCK_CONFIG,
                                  parse_app_version, parse_app_type,
                                  parse_service_type, find_service_manifest)
 
+
 class ServiceFabricLiveTests(ScenarioTest):
     """Live scenario tests for Service Fabric commands"""
 
@@ -27,7 +28,7 @@ class ServiceFabricLiveTests(ScenarioTest):
                 'Requires live cluster and test application')
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     @live_only()
-    def application_lifecycle_test(self):
+    def test_application_lifecycle(self):
         """Attempt to perform all operations in an application lifecycle
         excluding upgrade
 

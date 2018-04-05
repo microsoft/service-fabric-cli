@@ -9,15 +9,16 @@
 import unittest
 import sfctl.custom_chaos as sf_c
 
+
 class ChaosTests(unittest.TestCase):
     """Chaos tests"""
 
-    def parse_none_context_test(self):
+    def test_parse_none_context(self):
         """Parsing None context returns None"""
         res = sf_c.parse_chaos_context(None)
         self.assertIs(res, None)
 
-    def parse_populated_context_test(self):
+    def test_parse_populated_context(self):
         """Parse context with contents"""
         from azure.servicefabric.models.chaos_context import (
             ChaosContext
@@ -37,12 +38,12 @@ class ChaosTests(unittest.TestCase):
         self.assertEqual(res['key2'], 'value2')
         self.assertEqual(res['key3'], 'value3')
 
-    def parse_none_target_filter_test(self):
+    def test_parse_none_target_filter(self):
         """Parse None chaos target filter returns None"""
         self.assertIs(sf_c.parse_chaos_target_filter(None), None)
 
-    def parse_nodetype_list_test(self):
-        """Parse nodetypeinclusionlist list"""
+    def test_parse_node_type_list(self):
+        """Parse NodeTypeInclusionList list"""
 
         res = sf_c.parse_chaos_target_filter({
             'NodeTypeInclusionList': [
@@ -56,11 +57,11 @@ class ChaosTests(unittest.TestCase):
         self.assertEqual(res.node_type_inclusion_list[2], 'N0030Ref')
         self.assertEqual(res.node_type_inclusion_list[3], 'N0070Ref')
 
-    def parse_application_list_test(self):
+    def test_parse_application_list(self):
         """Parse application inclusion list"""
 
         res = sf_c.parse_chaos_target_filter({
-            'ApplicationInclusionList': ['fabric:/TestApp1', 'fabric:/TestApp2'] #pylint: disable=line-too-long
+            'ApplicationInclusionList': ['fabric:/TestApp1', 'fabric:/TestApp2']  # pylint: disable=line-too-long
         })
 
         self.assertEqual(len(res.application_inclusion_list), 2)

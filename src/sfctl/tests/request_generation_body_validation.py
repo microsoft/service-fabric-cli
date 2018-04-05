@@ -10,6 +10,7 @@ according to that request's expectations."""
 from __future__ import print_function
 from sys import stderr
 
+
 def validate_dictionary_value(command, dict_key, actual_body, expected_body):
     """ Print error message for validation failure and return True
         if validation passed, and False otherwise.
@@ -27,6 +28,7 @@ def validate_dictionary_value(command, dict_key, actual_body, expected_body):
             file=stderr)
         return False
     return True
+
 
 def validate_flat_dictionary(command, actual_body, expected_body):
     """ Validate that two dictionaries, actual_body and expected_body,

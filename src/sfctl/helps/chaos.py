@@ -21,6 +21,9 @@ helps['chaos start'] = """
           short-summary: Total time (in seconds) for which Chaos will run
             before automatically stopping. The maximum allowed value is 4,294,967,295
             (System.UInt32.MaxValue).
+        - name: --warning-as-error
+          type: bool
+          short-summary: Sets the health policy to treat warning as errors.
         - name: --max-cluster-stabilization
           type: int
           short-summary: The maximum amount of time to wait
