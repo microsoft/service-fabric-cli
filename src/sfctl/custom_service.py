@@ -319,7 +319,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     typically the full name of the application without the 'fabric:' URI
     scheme. Starting from version 6.0, hierarchical names are delimited with
     the '~' character. For example, if the application name is
-    'fabric://myapp/app1', the application identity would be 'myapp~app1' in
+    'fabric:/myapp/app1', the application identity would be 'myapp~app1' in
     6.0+ and 'myapp/app1' in previous versions.
     :param str name: Name of the service. This should be a child of the
     application id. This is the full name including the `fabric:` URI.
@@ -480,7 +480,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
     :param str service_id: The identity of the service. This is typically the
     full name of the service without the 'fabric:' URI scheme. Starting from
     version 6.0, hierarchical names are delimited with the "~" character. For
-    example, if the service name is 'fabric://myapp/app1/svc1', the service
+    example, if the service name is 'fabric:/myapp/app1/svc1', the service
     identity would be 'myapp~app1~svc1' in 6.0+ and 'myapp/app1/svc1' in
     previous versions.
     :param bool stateless: Indicates the target service is a stateless service.

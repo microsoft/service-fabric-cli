@@ -10,10 +10,13 @@ import os
 import xml.etree.ElementTree as ET
 from mock import MagicMock
 
+
 APP_PATH = os.environ.get('SF_TEST_APP_PATH', False)
 ENDPOINT = os.environ.get('SF_TEST_ENDPOINT', False)
 
 MOCK_CONFIG = MagicMock()
+
+
 def mock_config_values(section, name, fallback):
     """Validate and mock config returns"""
     if section != 'servicefabric':
@@ -23,10 +26,13 @@ def mock_config_values(section, name, fallback):
     if name == 'security':
         return 'none'
     return fallback
+
+
 MOCK_CONFIG.return_value.get.side_effect = mock_config_values
 
 # XMLNS for fabric manifests
 XML_NS = {'fabric': 'http://schemas.microsoft.com/2011/01/fabric'}
+
 
 def parse_app_version(xml_file):
     """Parse application type version from application manifest"""
@@ -36,6 +42,7 @@ def parse_app_version(xml_file):
         raise ValueError('Could not parse application type version')
     return version
 
+
 def parse_app_type(xml_file):
     """Parse application type name from application manifest"""
     root = ET.parse(xml_file).getroot()
@@ -43,6 +50,7 @@ def parse_app_type(xml_file):
     if not app_type:
         raise ValueError('Could not parse application type name')
     return app_type
+
 
 def find_service_manifest(xml_file):
     """Find the path to the first service manifest for an application"""
@@ -62,6 +70,7 @@ def find_service_manifest(xml_file):
     return os.path.join(os.path.dirname(xml_file), manifest_name,
                         'ServiceManifest.xml')
 
+
 def parse_service_type(xml_file):
     """Determines the first available service type and the associated
     type name"""
@@ -79,4 +88,4 @@ def parse_service_type(xml_file):
     if not service_type_name:
         raise ValueError('Could not find service type name')
 
-    return (service_type_kind, service_type_name)
+    return service_type_kind, service_type_name
