@@ -60,6 +60,9 @@ class StatefulServiceDescription(ServiceDescription):
     :param service_dns_name: The DNS name of the service. It requires the DNS
      system service to be enabled in Service Fabric cluster.
     :type service_dns_name: str
+    :param scaling_policies: Scaling policies for this service.
+    :type scaling_policies:
+     list[~azure.servicefabric.models.ScalingPolicyDescription]
     :param service_kind: Constant filled by server.
     :type service_kind: str
     :param target_replica_set_size: The target replica set size as a number.
@@ -124,6 +127,7 @@ class StatefulServiceDescription(ServiceDescription):
         'is_default_move_cost_specified': {'key': 'IsDefaultMoveCostSpecified', 'type': 'bool'},
         'service_package_activation_mode': {'key': 'ServicePackageActivationMode', 'type': 'str'},
         'service_dns_name': {'key': 'ServiceDnsName', 'type': 'str'},
+        'scaling_policies': {'key': 'ScalingPolicies', 'type': '[ScalingPolicyDescription]'},
         'service_kind': {'key': 'ServiceKind', 'type': 'str'},
         'target_replica_set_size': {'key': 'TargetReplicaSetSize', 'type': 'int'},
         'min_replica_set_size': {'key': 'MinReplicaSetSize', 'type': 'int'},
@@ -134,8 +138,8 @@ class StatefulServiceDescription(ServiceDescription):
         'stand_by_replica_keep_duration_seconds': {'key': 'StandByReplicaKeepDurationSeconds', 'type': 'long'},
     }
 
-    def __init__(self, service_name, service_type_name, partition_description, target_replica_set_size, min_replica_set_size, has_persisted_state, application_name=None, initialization_data=None, placement_constraints=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, is_default_move_cost_specified=None, service_package_activation_mode=None, service_dns_name=None, flags=None, replica_restart_wait_duration_seconds=None, quorum_loss_wait_duration_seconds=None, stand_by_replica_keep_duration_seconds=None):
-        super(StatefulServiceDescription, self).__init__(application_name=application_name, service_name=service_name, service_type_name=service_type_name, initialization_data=initialization_data, partition_description=partition_description, placement_constraints=placement_constraints, correlation_scheme=correlation_scheme, service_load_metrics=service_load_metrics, service_placement_policies=service_placement_policies, default_move_cost=default_move_cost, is_default_move_cost_specified=is_default_move_cost_specified, service_package_activation_mode=service_package_activation_mode, service_dns_name=service_dns_name)
+    def __init__(self, service_name, service_type_name, partition_description, target_replica_set_size, min_replica_set_size, has_persisted_state, application_name=None, initialization_data=None, placement_constraints=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, is_default_move_cost_specified=None, service_package_activation_mode=None, service_dns_name=None, scaling_policies=None, flags=None, replica_restart_wait_duration_seconds=None, quorum_loss_wait_duration_seconds=None, stand_by_replica_keep_duration_seconds=None):
+        super(StatefulServiceDescription, self).__init__(application_name=application_name, service_name=service_name, service_type_name=service_type_name, initialization_data=initialization_data, partition_description=partition_description, placement_constraints=placement_constraints, correlation_scheme=correlation_scheme, service_load_metrics=service_load_metrics, service_placement_policies=service_placement_policies, default_move_cost=default_move_cost, is_default_move_cost_specified=is_default_move_cost_specified, service_package_activation_mode=service_package_activation_mode, service_dns_name=service_dns_name, scaling_policies=scaling_policies)
         self.target_replica_set_size = target_replica_set_size
         self.min_replica_set_size = min_replica_set_size
         self.has_persisted_state = has_persisted_state

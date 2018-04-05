@@ -15,11 +15,20 @@ from .fabric_event import FabricEvent
 class ReplicaEvent(FabricEvent):
     """Represents the base for all Replica Events.
 
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: StatefulReplicaHealthReportCreatedEvent,
+    StatefulReplicaHealthReportExpiredEvent,
+    StatelessReplicaHealthReportCreatedEvent,
+    StatelessReplicaHealthReportExpiredEvent,
+    ChaosRemoveReplicaFaultScheduledEvent,
+    ChaosRemoveReplicaFaultCompletedEvent,
+    ChaosRestartReplicaFaultScheduledEvent
+
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -55,6 +64,10 @@ class ReplicaEvent(FabricEvent):
         'kind': {'key': 'Kind', 'type': 'str'},
         'partition_id': {'key': 'PartitionId', 'type': 'str'},
         'replica_id': {'key': 'ReplicaId', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'StatefulReplicaHealthReportCreated': 'StatefulReplicaHealthReportCreatedEvent', 'StatefulReplicaHealthReportExpired': 'StatefulReplicaHealthReportExpiredEvent', 'StatelessReplicaHealthReportCreated': 'StatelessReplicaHealthReportCreatedEvent', 'StatelessReplicaHealthReportExpired': 'StatelessReplicaHealthReportExpiredEvent', 'ChaosRemoveReplicaFaultScheduled': 'ChaosRemoveReplicaFaultScheduledEvent', 'ChaosRemoveReplicaFaultCompleted': 'ChaosRemoveReplicaFaultCompletedEvent', 'ChaosRestartReplicaFaultScheduled': 'ChaosRestartReplicaFaultScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, partition_id, replica_id, has_correlated_events=None):

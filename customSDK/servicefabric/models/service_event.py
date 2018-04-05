@@ -15,11 +15,15 @@ from .fabric_event import FabricEvent
 class ServiceEvent(FabricEvent):
     """Represents the base for all Service Events.
 
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: ServiceCreatedEvent, ServiceDeletedEvent,
+    ServiceHealthReportCreatedEvent, ServiceHealthReportExpiredEvent
+
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -47,6 +51,10 @@ class ServiceEvent(FabricEvent):
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'service_id': {'key': 'ServiceId', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'ServiceCreated': 'ServiceCreatedEvent', 'ServiceDeleted': 'ServiceDeletedEvent', 'ServiceHealthReportCreated': 'ServiceHealthReportCreatedEvent', 'ServiceHealthReportExpired': 'ServiceHealthReportExpiredEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, service_id, has_correlated_events=None):

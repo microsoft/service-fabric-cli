@@ -22,7 +22,7 @@ class PartitionAnalysisEvent(PartitionEvent):
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.

@@ -38,6 +38,14 @@ class ApplicationStatus(Enum):
     failed = "Failed"
 
 
+class ApplicationPackageCleanupPolicy(Enum):
+
+    invalid = "Invalid"
+    default = "Default"
+    automatic = "Automatic"
+    manual = "Manual"
+
+
 class ApplicationTypeDefinitionKind(Enum):
 
     invalid = "Invalid"
@@ -248,6 +256,7 @@ class FabricErrorCodes(Enum):
     fabric_e_operation_not_complete = "FABRIC_E_OPERATION_NOT_COMPLETE"
     fabric_e_timeout = "FABRIC_E_TIMEOUT"
     fabric_e_node_is_up = "FABRIC_E_NODE_IS_UP"
+    e_fail = "E_FAIL"
     fabric_e_backup_is_enabled = "FABRIC_E_BACKUP_IS_ENABLED"
     fabric_e_restore_source_target_partition_mismatch = "FABRIC_E_RESTORE_SOURCE_TARGET_PARTITION_MISMATCH"
     fabric_e_invalid_for_stateless_services = "FABRIC_E_INVALID_FOR_STATELESS_SERVICES"
@@ -257,22 +266,80 @@ class FabricErrorCodes(Enum):
     fabric_e_backup_in_progress = "FABRIC_E_BACKUP_IN_PROGRESS"
     fabric_e_restore_in_progress = "FABRIC_E_RESTORE_IN_PROGRESS"
     fabric_e_backup_policy_already_existing = "FABRIC_E_BACKUP_POLICY_ALREADY_EXISTING"
+    fabric_e_invalid_service_scaling_policy = "FABRIC_E_INVALID_SERVICE_SCALING_POLICY"
     e_invalidarg = "E_INVALIDARG"
 
 
 class FabricEventKind(Enum):
 
     cluster_event = "ClusterEvent"
-    container_event = "ContainerEvent"
+    container_instance_event = "ContainerInstanceEvent"
     node_event = "NodeEvent"
     application_event = "ApplicationEvent"
     service_event = "ServiceEvent"
     partition_event = "PartitionEvent"
     replica_event = "ReplicaEvent"
     partition_analysis_event = "PartitionAnalysisEvent"
-    node_up = "NodeUp"
+    application_created = "ApplicationCreated"
+    application_deleted = "ApplicationDeleted"
+    application_health_report_created = "ApplicationHealthReportCreated"
+    application_health_report_expired = "ApplicationHealthReportExpired"
+    application_upgrade_complete = "ApplicationUpgradeComplete"
+    application_upgrade_domain_complete = "ApplicationUpgradeDomainComplete"
+    application_upgrade_rollback_complete = "ApplicationUpgradeRollbackComplete"
+    application_upgrade_rollback_start = "ApplicationUpgradeRollbackStart"
+    application_upgrade_start = "ApplicationUpgradeStart"
+    deployed_application_health_report_created = "DeployedApplicationHealthReportCreated"
+    deployed_application_health_report_expired = "DeployedApplicationHealthReportExpired"
+    process_deactivated = "ProcessDeactivated"
+    container_deactivated = "ContainerDeactivated"
+    node_aborted = "NodeAborted"
+    node_aborting = "NodeAborting"
+    node_added = "NodeAdded"
+    node_close = "NodeClose"
+    node_closing = "NodeClosing"
+    node_deactivate_complete = "NodeDeactivateComplete"
+    node_deactivate_start = "NodeDeactivateStart"
     node_down = "NodeDown"
+    node_health_report_created = "NodeHealthReportCreated"
+    node_health_report_expired = "NodeHealthReportExpired"
+    node_opened_success = "NodeOpenedSuccess"
+    node_open_failed = "NodeOpenFailed"
+    node_opening = "NodeOpening"
+    node_removed = "NodeRemoved"
+    node_up = "NodeUp"
+    partition_health_report_created = "PartitionHealthReportCreated"
+    partition_health_report_expired = "PartitionHealthReportExpired"
+    partition_reconfiguration_completed = "PartitionReconfigurationCompleted"
     partition_primary_move_analysis = "PartitionPrimaryMoveAnalysis"
+    service_created = "ServiceCreated"
+    service_deleted = "ServiceDeleted"
+    service_health_report_created = "ServiceHealthReportCreated"
+    service_health_report_expired = "ServiceHealthReportExpired"
+    deployed_service_health_report_created = "DeployedServiceHealthReportCreated"
+    deployed_service_health_report_expired = "DeployedServiceHealthReportExpired"
+    stateful_replica_health_report_created = "StatefulReplicaHealthReportCreated"
+    stateful_replica_health_report_expired = "StatefulReplicaHealthReportExpired"
+    stateless_replica_health_report_created = "StatelessReplicaHealthReportCreated"
+    stateless_replica_health_report_expired = "StatelessReplicaHealthReportExpired"
+    cluster_health_report_created = "ClusterHealthReportCreated"
+    cluster_health_report_expired = "ClusterHealthReportExpired"
+    cluster_upgrade_complete = "ClusterUpgradeComplete"
+    cluster_upgrade_domain_complete = "ClusterUpgradeDomainComplete"
+    cluster_upgrade_rollback_complete = "ClusterUpgradeRollbackComplete"
+    cluster_upgrade_rollback_start = "ClusterUpgradeRollbackStart"
+    cluster_upgrade_start = "ClusterUpgradeStart"
+    chaos_stopped = "ChaosStopped"
+    chaos_started = "ChaosStarted"
+    chaos_restart_node_fault_completed = "ChaosRestartNodeFaultCompleted"
+    chaos_restart_code_package_fault_scheduled = "ChaosRestartCodePackageFaultScheduled"
+    chaos_restart_code_package_fault_completed = "ChaosRestartCodePackageFaultCompleted"
+    chaos_remove_replica_fault_scheduled = "ChaosRemoveReplicaFaultScheduled"
+    chaos_remove_replica_fault_completed = "ChaosRemoveReplicaFaultCompleted"
+    chaos_move_secondary_fault_scheduled = "ChaosMoveSecondaryFaultScheduled"
+    chaos_move_primary_fault_scheduled = "ChaosMovePrimaryFaultScheduled"
+    chaos_restart_replica_fault_scheduled = "ChaosRestartReplicaFaultScheduled"
+    chaos_restart_node_fault_scheduled = "ChaosRestartNodeFaultScheduled"
 
 
 class HealthEvaluationKind(Enum):
@@ -792,6 +859,20 @@ class RepairTaskHealthCheckState(Enum):
     succeeded = "Succeeded"
     skipped = "Skipped"
     timed_out = "TimedOut"
+
+
+class ScalingTriggerKind(Enum):
+
+    invalid = "Invalid"
+    average_partition_load = "AveragePartitionLoad"
+    average_service_load = "AverageServiceLoad"
+
+
+class ScalingMechanismKind(Enum):
+
+    invalid = "Invalid"
+    partition_instance_count = "PartitionInstanceCount"
+    add_remove_incremental_named_partition = "AddRemoveIncrementalNamedPartition"
 
 
 class NodeStatusFilter(Enum):

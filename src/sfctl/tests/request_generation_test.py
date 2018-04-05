@@ -652,7 +652,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'store stat --content-path=path',
             'GET',
             '/ImageStore/path',
-            ['api-version=6.0'])
+            ['api-version=6.2'])
 
         # Service
         # create and update tests not added for now

@@ -16,14 +16,14 @@ class FabricEvent(Model):
     """Represents the base for all Fabric Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: ApplicationEvent, ClusterEvent, ContainerEvent, NodeEvent,
-    PartitionEvent, ReplicaEvent, ServiceEvent
+    sub-classes are: ApplicationEvent, ClusterEvent, ContainerInstanceEvent,
+    NodeEvent, PartitionEvent, ReplicaEvent, ServiceEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -44,7 +44,7 @@ class FabricEvent(Model):
     }
 
     _subtype_map = {
-        'kind': {'ApplicationEvent': 'ApplicationEvent', 'ClusterEvent': 'ClusterEvent', 'ContainerEvent': 'ContainerEvent', 'NodeEvent': 'NodeEvent', 'PartitionEvent': 'PartitionEvent', 'ReplicaEvent': 'ReplicaEvent', 'ServiceEvent': 'ServiceEvent'}
+        'kind': {'ApplicationEvent': 'ApplicationEvent', 'ClusterEvent': 'ClusterEvent', 'ContainerInstanceEvent': 'ContainerInstanceEvent', 'NodeEvent': 'NodeEvent', 'PartitionEvent': 'PartitionEvent', 'ReplicaEvent': 'ReplicaEvent', 'ServiceEvent': 'ServiceEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, has_correlated_events=None):
