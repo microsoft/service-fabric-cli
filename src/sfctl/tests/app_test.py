@@ -11,10 +11,11 @@ import os
 from mock import patch, MagicMock
 import sfctl.custom_app as sf_c
 
+
 class AppTests(unittest.TestCase):
     """App tests"""
 
-    def app_path_absolute_test(self):
+    def test_app_path_absolute(self):
         """App path returns absolute path always"""
         import tempfile
         import shutil
@@ -25,7 +26,7 @@ class AppTests(unittest.TestCase):
         res = sf_c.validate_app_path(test_dir)
         self.assertEqual(os.path.abspath(res), res)
 
-    def app_path_file_error_test(self):
+    def test_app_path_file_error(self):
         """App path raise ValueError on non directory arguments"""
         import tempfile
 
@@ -41,15 +42,15 @@ class AppTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             sf_c.validate_app_path(test_path)
 
-    def parse_app_params_none_test(self):
+    def test_parse_app_params_none(self):
         """Parse app params returns None with None args"""
         self.assertIs(sf_c.parse_app_params(None), None)
 
-    def parse_app_params_empty_test(self):
+    def test_parse_app_params_empty(self):
         """Parse app params returns empty list with empty args"""
         self.assertEqual(sf_c.parse_app_params(""), [])
 
-    def parse_single_app_param_test(self):
+    def test_parse_single_app_param(self):
         """Parse app params returns a single parameter successfully"""
         from azure.servicefabric.models.application_parameter import (
             ApplicationParameter
@@ -62,15 +63,15 @@ class AppTests(unittest.TestCase):
         self.assertEqual(res.key, 'test')
         self.assertEqual(res.value, 'test2')
 
-    def parse_app_metrics_none_test(self):
+    def test_parse_app_metrics_none(self):
         """Parse app metrics returns None with None args"""
         self.assertIs(sf_c.parse_app_metrics(None), None)
 
-    def parse_app_metrics_empty_test(self):
+    def test_parse_app_metrics_empty(self):
         """Parse app metrics returns empty list with empty args"""
         self.assertEqual(sf_c.parse_app_metrics(''), [])
 
-    def parse_app_metrics_single_test(self):
+    def test_parse_app_metrics_single(self):
         """Parse app metrics returns a single metric successfully"""
         from azure.servicefabric.models.application_metric_description import (
             ApplicationMetricDescription
@@ -88,14 +89,14 @@ class AppTests(unittest.TestCase):
         self.assertEqual(res.reservation_capacity, '2')
         self.assertEqual(res.total_application_capacity, '2')
 
-    def parse_fileshare_path_test(self):
+    def test_parse_fileshare_path(self):
         """Parse fileshare path from the image store connection string"""
         test_string = r'file:C:\test_store'
         expected_string = r'C:\test_store'
         self.assertEqual(sf_c.path_from_imagestore_string(test_string),
                          expected_string)
 
-    def upload_to_fileshare_test(self): #pylint: disable=no-self-use
+    def test_upload_to_fileshare(self):  # pylint: disable=no-self-use
         """Upload copies files to non-native store correctly with no
         progress"""
         import shutil
