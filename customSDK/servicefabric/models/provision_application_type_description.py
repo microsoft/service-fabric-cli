@@ -27,6 +27,12 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
     :param application_type_build_path: The relative path for the application
      package in the image store specified during the prior upload operation.
     :type application_type_build_path: str
+    :param application_package_cleanup_policy: The kind of action that needs
+     to be taken for cleaning up the application package after successful
+     provision. Possible values include: 'Invalid', 'Default', 'Automatic',
+     'Manual'
+    :type application_package_cleanup_policy: str or
+     ~azure.servicefabric.models.ApplicationPackageCleanupPolicy
     """
 
     _validation = {
@@ -39,9 +45,11 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
         'async': {'key': 'Async', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'application_type_build_path': {'key': 'ApplicationTypeBuildPath', 'type': 'str'},
+        'application_package_cleanup_policy': {'key': 'ApplicationPackageCleanupPolicy', 'type': 'str'},
     }
 
-    def __init__(self, async, application_type_build_path):
+    def __init__(self, async, application_type_build_path, application_package_cleanup_policy=None):
         super(ProvisionApplicationTypeDescription, self).__init__(async=async)
         self.application_type_build_path = application_type_build_path
+        self.application_package_cleanup_policy = application_package_cleanup_policy
         self.kind = 'ImageStorePath'

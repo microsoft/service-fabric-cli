@@ -13,13 +13,13 @@ from .partition_analysis_event import PartitionAnalysisEvent
 
 
 class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
-    """Partition Primary Move Analysis Event.
+    """Partition Primary Move Analysis event.
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
-    :param has_correlated_events: Shows that there is existing related events
+    :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
@@ -32,13 +32,15 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
     :type partition_id: str
     :param metadata: Metadata about an Analysis Event.
     :type metadata: ~azure.servicefabric.models.AnalysisEventMetadata
+    :param when_move_completed: Time when the move was completed.
+    :type when_move_completed: datetime
     :param previous_node: The name of a Service Fabric node.
     :type previous_node: str
     :param current_node: The name of a Service Fabric node.
     :type current_node: str
-    :param move_reason: Move Reason
+    :param move_reason: Move reason.
     :type move_reason: str
-    :param relevant_traces: Relevant Traces
+    :param relevant_traces: Relevant traces.
     :type relevant_traces: str
     """
 
@@ -48,6 +50,7 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
         'kind': {'required': True},
         'partition_id': {'required': True},
         'metadata': {'required': True},
+        'when_move_completed': {'required': True},
         'previous_node': {'required': True},
         'current_node': {'required': True},
         'move_reason': {'required': True},
@@ -61,14 +64,16 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
         'kind': {'key': 'Kind', 'type': 'str'},
         'partition_id': {'key': 'PartitionId', 'type': 'str'},
         'metadata': {'key': 'Metadata', 'type': 'AnalysisEventMetadata'},
+        'when_move_completed': {'key': 'WhenMoveCompleted', 'type': 'iso-8601'},
         'previous_node': {'key': 'PreviousNode', 'type': 'str'},
         'current_node': {'key': 'CurrentNode', 'type': 'str'},
         'move_reason': {'key': 'MoveReason', 'type': 'str'},
         'relevant_traces': {'key': 'RelevantTraces', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, metadata, previous_node, current_node, move_reason, relevant_traces, has_correlated_events=None):
+    def __init__(self, event_instance_id, time_stamp, partition_id, metadata, when_move_completed, previous_node, current_node, move_reason, relevant_traces, has_correlated_events=None):
         super(PartitionPrimaryMoveAnalysisEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, metadata=metadata)
+        self.when_move_completed = when_move_completed
         self.previous_node = previous_node
         self.current_node = current_node
         self.move_reason = move_reason

@@ -13,9 +13,9 @@ from msrest.serialization import Model
 
 
 class PagedBackupEntityList(Model):
-    """The list of backup entities which are being periodically backed. The list
-    is paged when all of the results cannot fit in a single message. The next
-    set of results can be obtained by executing the same query with the
+    """The list of backup entities that are being periodically backed. The list is
+    paged when all of the results cannot fit in a single message. The next set
+    of results can be obtained by executing the same query with the
     continuation token provided in this list.
 
     :param continuation_token: The continuation token parameter is used to

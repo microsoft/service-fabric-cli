@@ -50,6 +50,8 @@ class ServiceUpdateDescription(Model):
      256.
      - DefaultMoveCost - Indicates the DefaultMoveCost property is set. The
      value is 512.
+     - ScalingPolicy - Indicates the ScalingPolicies property is set. The value
+     is 1024.
     :type flags: str
     :param placement_constraints: The placement constraints as a string.
      Placement constraints are boolean expressions on node properties and allow
@@ -69,6 +71,9 @@ class ServiceUpdateDescription(Model):
     :param default_move_cost: The move cost for the service. Possible values
      include: 'Zero', 'Low', 'Medium', 'High'
     :type default_move_cost: str or ~azure.servicefabric.models.MoveCost
+    :param scaling_policies: Scaling policies for this service.
+    :type scaling_policies:
+     list[~azure.servicefabric.models.ScalingPolicyDescription]
     :param service_kind: Constant filled by server.
     :type service_kind: str
     """
@@ -84,6 +89,7 @@ class ServiceUpdateDescription(Model):
         'load_metrics': {'key': 'LoadMetrics', 'type': '[ServiceLoadMetricDescription]'},
         'service_placement_policies': {'key': 'ServicePlacementPolicies', 'type': '[ServicePlacementPolicyDescription]'},
         'default_move_cost': {'key': 'DefaultMoveCost', 'type': 'str'},
+        'scaling_policies': {'key': 'ScalingPolicies', 'type': '[ScalingPolicyDescription]'},
         'service_kind': {'key': 'ServiceKind', 'type': 'str'},
     }
 
@@ -91,11 +97,12 @@ class ServiceUpdateDescription(Model):
         'service_kind': {'Stateful': 'StatefulServiceUpdateDescription', 'Stateless': 'StatelessServiceUpdateDescription'}
     }
 
-    def __init__(self, flags=None, placement_constraints=None, correlation_scheme=None, load_metrics=None, service_placement_policies=None, default_move_cost=None):
+    def __init__(self, flags=None, placement_constraints=None, correlation_scheme=None, load_metrics=None, service_placement_policies=None, default_move_cost=None, scaling_policies=None):
         self.flags = flags
         self.placement_constraints = placement_constraints
         self.correlation_scheme = correlation_scheme
         self.load_metrics = load_metrics
         self.service_placement_policies = service_placement_policies
         self.default_move_cost = default_move_cost
+        self.scaling_policies = scaling_policies
         self.service_kind = None
