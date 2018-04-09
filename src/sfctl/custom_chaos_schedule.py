@@ -153,4 +153,4 @@ def set_schedule( #pylint: disable=too-many-arguments,too-many-locals
                              parsed_chaos_params_dictionary,
                              parsed_jobs)
 
-    return client.post_chaos_schedule(timeout, version, schedule)
+    return client.post_chaos_schedule(version, schedule)
