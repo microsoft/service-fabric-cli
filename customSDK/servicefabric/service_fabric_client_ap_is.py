@@ -9561,7 +9561,7 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
     def get_container_logs_deployed_on_node(
-            self, node_name, application_id, service_manifest_name, code_package_name, tail=None, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, node_name, application_id, service_manifest_name, code_package_name, tail=None, previous=False, timeout=60, custom_headers=None, raw=False, **operation_config):
         """Gets the container logs for container deployed on a Service Fabric
         node.
 
@@ -9586,8 +9586,12 @@ class ServiceFabricClientAPIs(object):
          service manifest registered as part of an application type in a
          Service Fabric cluster.
         :type code_package_name: str
-        :param tail: Number of lines to fetch from tail end.
+        :param tail: Number of lines to show from the end of the logs. Default
+         is 100. 'all' to show the complete logs.
         :type tail: str
+        :param previous: Specifies whether to get container logs from
+         exited/dead containers of the code package instance.
+        :type previous: bool
         :param timeout: The server timeout for performing the operation in
          seconds. This timeout specifies the time duration that the client is
          willing to wait for the requested operation to complete. The default
@@ -9604,7 +9608,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.1"
+        api_version = "6.2"
 
         # Construct URL
         url = '/Nodes/{nodeName}/$/GetApplications/{applicationId}/$/GetCodePackages/$/ContainerLogs'
@@ -9621,6 +9625,8 @@ class ServiceFabricClientAPIs(object):
         query_parameters['CodePackageName'] = self._serialize.query("code_package_name", code_package_name, 'str')
         if tail is not None:
             query_parameters['Tail'] = self._serialize.query("tail", tail, 'str')
+        if previous is not None:
+            query_parameters['Previous'] = self._serialize.query("previous", previous, 'bool')
         if timeout is not None:
             query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
 
@@ -9645,6 +9651,105 @@ class ServiceFabricClientAPIs(object):
 
         if response.status_code == 200:
             deserialized = self._deserialize('ContainerLogs', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def invoke_container_api(
+            self, node_name, application_id, service_manifest_name, code_package_name, code_package_instance_id, container_api_request_body, timeout=60, custom_headers=None, raw=False, **operation_config):
+        """Invoke container API on a container deployed on a Service Fabric node.
+
+        Invoke container API on a container deployed on a Service Fabric node
+        for the given code package.
+
+        :param node_name: The name of the node.
+        :type node_name: str
+        :param application_id: The identity of the application. This is
+         typically the full name of the application without the 'fabric:' URI
+         scheme.
+         Starting from version 6.0, hierarchical names are delimited with the
+         "~" character.
+         For example, if the application name is "fabric:/myapp/app1", the
+         application identity would be "myapp~app1" in 6.0+ and "myapp/app1" in
+         previous versions.
+        :type application_id: str
+        :param service_manifest_name: The name of a service manifest
+         registered as part of an application type in a Service Fabric cluster.
+        :type service_manifest_name: str
+        :param code_package_name: The name of code package specified in
+         service manifest registered as part of an application type in a
+         Service Fabric cluster.
+        :type code_package_name: str
+        :param code_package_instance_id: ID that uniquely identifies a code
+         package instance deployed on a service fabric node.
+        :type code_package_instance_id: str
+        :param container_api_request_body: Parameters for making container API
+         call
+        :type container_api_request_body:
+         ~azure.servicefabric.models.ContainerApiRequestBody
+        :param timeout: The server timeout for performing the operation in
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
+        :type timeout: long
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: ContainerApiResponse or ClientRawResponse if raw=true
+        :rtype: ~azure.servicefabric.models.ContainerApiResponse or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.2"
+
+        # Construct URL
+        url = '/Nodes/{nodeName}/$/GetApplications/{applicationId}/$/GetCodePackages/$/ContainerApi'
+        path_format_arguments = {
+            'nodeName': self._serialize.url("node_name", node_name, 'str'),
+            'applicationId': self._serialize.url("application_id", application_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        query_parameters['ServiceManifestName'] = self._serialize.query("service_manifest_name", service_manifest_name, 'str')
+        query_parameters['CodePackageName'] = self._serialize.query("code_package_name", code_package_name, 'str')
+        query_parameters['CodePackageInstanceId'] = self._serialize.query("code_package_instance_id", code_package_instance_id, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(container_api_request_body, 'ContainerApiRequestBody')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters)
+        response = self._client.send(
+            request, header_parameters, body_content, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('ContainerApiResponse', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
