@@ -217,6 +217,7 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('container') as group:
                 group.command('invoke-api', 'invoke_api')
+                group.command('logs', 'logs')
 
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_cluster_upgrade#{}',

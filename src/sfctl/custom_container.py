@@ -7,6 +7,7 @@
 """Custom commands for the Service Fabric Docker compose support"""
 
 from knack.cli import CLIError
+from azure.servicefabric.models import ContainerApiRequestBody
 
 def invoke_api(
         client,
@@ -16,15 +17,13 @@ def invoke_api(
         code_package_name,
         code_package_instance_id,
         container_api_uri_path,
-        container_api_http_verb='',
-        container_api_content_type='',
-        container_api_body='',
+        container_api_http_verb=None,
+        container_api_content_type=None,
+        container_api_body=None,
         timeout=60,
         custom_headers=None,
         raw=False,
         **operation_config):
-
-    from azure.servicefabric.models import ContainerApiRequestBody
 
     containerApiRequestBody = ContainerApiRequestBody(
         container_api_uri_path,
@@ -45,3 +44,40 @@ def invoke_api(
 
     import jsonpickle
     print(jsonpickle.encode(response, unpicklable=False))
+
+def logs(
+        client,
+        node_name,
+        application_id,
+        service_manifest_name,
+        code_package_name,
+        code_package_instance_id,
+        tail='',
+        timeout=60,
+        custom_headers=None,
+        raw=False,
+        **operation_config):
+    
+    uri_path = '/containers/{id}/logs?stdout=true&stderr=true'
+    if tail :
+        uri_path += f'&tail={tail}'
+
+    containerApiRequestBody = ContainerApiRequestBody(uri_path)
+
+    response = client.invoke_container_api(
+        node_name,
+        application_id,
+        service_manifest_name,
+        code_package_name,
+        code_package_instance_id,
+        containerApiRequestBody,
+        timeout,
+        custom_headers,
+        raw)
+    
+    if response:
+        if response.container_api_result.status == 200:
+            print(response.container_api_result.body)
+        else:
+            import jsonpickle
+            print(jsonpickle.encode(response, unpicklable=False))
