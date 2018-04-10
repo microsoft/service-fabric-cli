@@ -8,7 +8,7 @@
 
 from knack.cli import CLIError
 
-def invoke_container_api(
+def invoke_api(
         client,
         node_name,
         application_id,
