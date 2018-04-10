@@ -213,6 +213,12 @@ class SFCommandLoader(CLICommandsLoader):
         # Custom commands
 
         with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_node#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('node') as group:
+                group.command('invoke-container-api', 'invoke_container_api')
+
+        with CommandSuperGroup(__name__, self,
                                'sfctl.custom_cluster_upgrade#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('cluster') as group:

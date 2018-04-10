@@ -357,6 +357,33 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.0'],
             '{"CreateFabricDump":"True", "NodeInstanceId":"ID"}',
             validate_flat_dictionary)
+        self.validate_command( # get container logs
+            'sfctl node invoke-container-api --node-name Node01 --application-id samples/winnodejs '
+            '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
+            '--code-package-instance-id 131668159770315380 --container-api-uri-path "/containers/{id}/logs?stdout=true&stderr=true"',
+            'POST',
+            '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi?'
+            'api-version=6.2&ServiceManifestName=NodeServicePackage&CodePackageName=NodeService.Code&'
+            'CodePackageInstanceId=131668159770315380',
+            ['api-version=6.2'],
+            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true", '
+             '"HttpVerb": "", '
+             '"Content-Type":"", '
+             '"Body": ""}'),
+            validate_flat_dictionary)
+        # self.validate_command( # update container
+        #     'sfctl node invoke-container-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
+        #     '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
+        #     ' --container-api-http-verb=POST --container-api-body "{ \"CpuShares\": 512}"',
+        #     'POST',
+        #     '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi?'
+        #     'api-version=6.2&ServiceManifestName=NodeOnSF&CodePackageName=Code&CodePackageInstanceId=131673596679688285',
+        #     ['api-version=6.2'],
+        #     ('{"UriPath": "/containers/{id}/update", '
+        #      '"HttpVerb": "POST", '
+        #      '"Content-Type":"", '
+        #      '"Body": "{ \"CpuShares\": 512}"}'),
+        #     validate_flat_dictionary)
 
         # Application Commands:
         # Application create tests not yet added
