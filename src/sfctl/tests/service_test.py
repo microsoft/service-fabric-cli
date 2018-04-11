@@ -39,6 +39,25 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
         """Parse none load metrics returns None"""
         self.assertIsNone(sf_c.parse_load_metrics(None))
 
+    def test_parse_scaling_policy_test(self):
+        """Parse scaling policies"""
+        res = sf_c.parse_scaling_policy([{
+            'mechanism':{'kind':'PartitionInstanceCount', 'min_instance_count':2, 'max_instance_count':4, 'scale_increment':2}, #pylint: disable=line-too-long
+            'trigger':{'kind':'AveragePartitionLoad', 'metric_name':'MetricA', 'upper_load_threshold':20.0, 'lower_load_threshold':10.0, 'scale_interval_in_seconds':1000} #pylint: disable=line-too-long
+        }, {
+            'mechanism':{'kind':'AddRemoveIncrementalNamedPartition', 'min_partition_count':3, 'max_partition_count':6, 'scale_increment':2}, #pylint: disable=line-too-long
+            'trigger':{'kind':'AverageServiceLoad', 'metric_name':'MetricB', 'upper_load_threshold':30.0, 'lower_load_threshold':10.0, 'scale_interval_in_seconds':1000} #pylint: disable=line-too-long
+        }])
+        self.assertEqual(len(res), 2)
+        self.assertEqual(res[0].scaling_trigger.metric_name, 'MetricA')
+        self.assertEqual(res[0].scaling_trigger.upper_load_threshold, 20.0)
+        self.assertEqual(res[0].scaling_trigger.lower_load_threshold, 10.0)
+        self.assertEqual(res[0].scaling_mechanism.max_instance_count, 4)
+        self.assertEqual(res[1].scaling_trigger.scale_interval_in_seconds, 1000)
+        self.assertEqual(res[1].scaling_trigger.upper_load_threshold, 30.0)
+        self.assertEqual(res[1].scaling_trigger.lower_load_threshold, 10.0)
+        self.assertEqual(res[1].scaling_mechanism.scale_increment, 2)
+
     def test_parse_incomplete_load_metrics(self):
         """Parse single incomplete load metrics definition"""
 

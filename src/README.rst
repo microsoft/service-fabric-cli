@@ -25,6 +25,7 @@ Unreleased
 - Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation.
 - Remove command to get chaos report since it is being redone in service fabric runtime 6.2
 - Add container commands (#82)
+- Adding scaling policy to service create and update that are available in service fabric runtime 6.2
 
 4.0.0
 -----
