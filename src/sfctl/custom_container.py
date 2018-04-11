@@ -6,11 +6,10 @@
 
 """Custom commands for the Service Fabric Docker compose support"""
 
-from knack.cli import CLIError
 from azure.servicefabric.models import ContainerApiRequestBody
 import jsonpickle
 
-def invoke_api(
+def invoke_api( # pylint: disable=too-many-arguments
         client,
         node_name,
         application_id,
@@ -23,10 +22,10 @@ def invoke_api(
         container_api_body=None,
         timeout=60,
         custom_headers=None,
-        raw=False,
-        **operation_config):
+        raw=False):
+    """Invoke container API on a cluster node"""
 
-    containerApiRequestBody = ContainerApiRequestBody(
+    request_body = ContainerApiRequestBody(
         container_api_uri_path,
         container_api_http_verb,
         container_api_content_type,
@@ -38,14 +37,14 @@ def invoke_api(
         service_manifest_name,
         code_package_name,
         code_package_instance_id,
-        containerApiRequestBody,
+        request_body,
         timeout,
         custom_headers,
         raw)
 
     print(jsonpickle.encode(response, unpicklable=False))
 
-def logs(
+def logs( # pylint: disable=too-many-arguments
         client,
         node_name,
         application_id,
@@ -55,14 +54,14 @@ def logs(
         tail='',
         timeout=60,
         custom_headers=None,
-        raw=False,
-        **operation_config):
-    
+        raw=False):
+    """Get container logs"""
+
     uri_path = '/containers/{id}/logs?stdout=true&stderr=true'
-    if tail :
+    if tail:
         uri_path += f'&tail={tail}'
 
-    containerApiRequestBody = ContainerApiRequestBody(uri_path)
+    request_body = ContainerApiRequestBody(uri_path)
 
     response = client.invoke_container_api(
         node_name,
@@ -70,11 +69,11 @@ def logs(
         service_manifest_name,
         code_package_name,
         code_package_instance_id,
-        containerApiRequestBody,
+        request_body,
         timeout,
         custom_headers,
         raw)
-    
+
     if response:
         if response.container_api_result.status == 200:
             print(response.container_api_result.body)
