@@ -20,6 +20,7 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
+import sfctl.helps.container # pylint: disable=unused-import
 import sfctl.helps.property # pylint: disable=unused-import
 import sfctl.helps.app_type # pylint: disable=unused-import
 import sfctl.helps.chaos # pylint: disable=unused-import

@@ -8,6 +8,7 @@
 
 from knack.cli import CLIError
 from azure.servicefabric.models import ContainerApiRequestBody
+import jsonpickle
 
 def invoke_api(
         client,
@@ -42,7 +43,6 @@ def invoke_api(
         custom_headers,
         raw)
 
-    import jsonpickle
     print(jsonpickle.encode(response, unpicklable=False))
 
 def logs(
@@ -79,5 +79,4 @@ def logs(
         if response.container_api_result.status == 200:
             print(response.container_api_result.body)
         else:
-            import jsonpickle
             print(jsonpickle.encode(response, unpicklable=False))
