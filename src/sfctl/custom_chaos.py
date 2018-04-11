@@ -22,15 +22,11 @@ def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
     from sfctl.custom_cluster_upgrade import create_cluster_health_policy
 
     time_to_run = chaos_parameters.get("TimeToRunInSeconds")
-    max_cluster_stabilization = \
-        chaos_parameters.get("MaxClusterStabilizationTimeoutInSeconds")
+    max_cluster_stabilization = chaos_parameters.get("MaxClusterStabilizationTimeoutInSeconds")
     max_concurrent_faults = chaos_parameters.get("MaxConcurrentFaults")
-    enable_move_replica_faults = \
-        chaos_parameters.get("EnableMoveReplicaFaults")
-    wait_time_between_faults = \
-        chaos_parameters.get("WaitTimeBetweenFaultsInSeconds")
-    wait_time_between_iterations = \
-        chaos_parameters.get("WaitTimeBetweenIterationsInSeconds")
+    enable_move_replica_faults = chaos_parameters.get("EnableMoveReplicaFaults")
+    wait_time_between_faults = chaos_parameters.get("WaitTimeBetweenFaultsInSeconds")
+    wait_time_between_iterations = chaos_parameters.get("WaitTimeBetweenIterationsInSeconds")
 
     cluster_health_policy = chaos_parameters.get("ClusterHealthPolicy")
     health_policy = None
@@ -99,39 +95,6 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
           context=None,
           chaos_target_filter=None,
           timeout=60):
-    """
-    If Chaos is not already running in the cluster, starts running Chaos with
-    the specified in Chaos parameters.
-    :param str time_to_run: Total time (in seconds) for which Chaos will run
-    before automatically stopping. The maximum allowed value is 4,294,967,295
-    (System.UInt32.MaxValue).
-    :param int max_cluster_stabilization: The maximum amount of time to wait
-    for all cluster entities to become stable and healthy.
-    :param int max_concurrent_faults: The maximum number of concurrent faults
-    induced per iteration.
-    :param bool disable_move_replica_faults: Disables the move primary and move
-    secondary faults.
-    :param int wait_time_between_faults: Wait time (in seconds) between
-    consecutive faults within a single iteration.
-    :param int wait_time_between_iterations: Time-separation (in seconds)
-    between two consecutive iterations of Chaos.
-    :param bool warning_as_error: When evaluating cluster health during
-    Chaos, treat warnings with the same severity as errors.
-    :param int max_percent_unhealthy_nodes: When evaluating cluster health
-    during Chaos, the maximum allowed percentage of unhealthy nodes before
-    reporting an error.
-    :param int max_percent_unhealthy_apps: When evaluating cluster
-    health during Chaos, the maximum allowed percentage of unhealthy
-    applications before reporting an error.
-    :param str app_type_health_policy_map: JSON encoded list with max
-    percentage unhealthy applications for specific application types. Each
-    entry specifies as a key the application type name and as a value an
-    integer that represents the MaxPercentUnhealthyApplications percentage
-    used to evaluate the applications of the specified application type.
-    :param ChaosContext context: mapping of settings for Chaos
-    :param ChaosTargetFilter chaos_target_filter: Specification of which nodes and
-    applications to target for faults
-    """
 
     from azure.servicefabric.models.chaos_parameters import (
         ChaosParameters

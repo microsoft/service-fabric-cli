@@ -7,10 +7,13 @@
 """Custom commands for the Service Fabric chaos schedule test service"""
 
 def parse_time_of_day(time_of_day):
-    """Parse a TimeOfDay from string"""
-    from azure.servicefabric.models.time_of_day import (
-        TimeOfDay
-    )
+    """
+    Parse a TimeOfDay from string.
+    time_of_day is a dictionary of
+    "Hour": int
+    "Minute": int
+    """
+    from azure.servicefabric.models.time_of_day import TimeOfDay
 
     if not time_of_day:
         return None
@@ -24,10 +27,13 @@ def parse_time_of_day(time_of_day):
     return TimeOfDay(hour, minute)
 
 def parse_time_range(time_range):
-    """Parse a TimeRange from string"""
-    from azure.servicefabric.models.time_range import (
-        TimeRange
-    )
+    """
+    Parse a TimeRange from string.
+    time_range is a dictionary of
+    "StartTime": dictionary like time_of_day
+    "EndTime": dictionary like time_of_day
+    """
+    from azure.servicefabric.models.time_range import TimeRange
 
     if time_range is None:
         return None
@@ -35,10 +41,15 @@ def parse_time_range(time_range):
     start_time = parse_time_of_day(time_range.get("StartTime"))
     end_time = parse_time_of_day(time_range.get("EndTime"))
 
+    # if either start_time or end_time is None, the resulting API call will fail with an exception
+
     return TimeRange(start_time, end_time)
 
 def parse_active_time_ranges(time_ranges):
-    """Parse a list of TimeRanges from string"""
+    """
+    Parse a list of TimeRanges from string.
+    time_ranges is a list of dictionaries like time_range
+    """
 
     if time_ranges is None:
         return list()
@@ -51,8 +62,13 @@ def parse_active_time_ranges(time_ranges):
     return parsed_times
 
 def parse_active_days(active_days):
-    """Parse a ChaosJobActiveDays from string"""
-    #pylint: disable=line-too-long
+    """
+    Parse a ChaosJobActiveDays from string.
+    active_days is a dictionary of
+    "Sunday": bool,
+    ...
+    "Saturday": bool
+    """
     from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
         ChaosScheduleJobActiveDaysOfWeek
     )
@@ -73,7 +89,13 @@ def parse_active_days(active_days):
         thursday, friday, saturday)
 
 def parse_job(job):
-    """Parse a ChaosJob from string"""
+    """
+    Parse a ChaosJob from string.
+    job is a dictionary of
+    "ChaosParameters": dictionary representing chaos parameters
+    "Days": a dictionary like active_days
+    "Times": a list like time_ranges
+    """
     from azure.servicefabric.models.chaos_schedule_job import (
         ChaosScheduleJob
     )
@@ -88,7 +110,10 @@ def parse_job(job):
     return ChaosScheduleJob(chaos_parameters, active_days, times)
 
 def parse_jobs(jobs):
-    """Parse a list of ChaosJobs from string"""
+    """
+    Parse a list of ChaosJobs from string.
+    jobs is a list of job
+    """
 
     if jobs is None:
         return list()
@@ -101,7 +126,12 @@ def parse_jobs(jobs):
     return parsed_jobs
 
 def parse_chaos_params_dictionary(chaos_parameters_dictionary):
-    """Parse a list of ChaosParameters dictionary input from string"""
+    """
+    Parse a list of ChaosParameters dictionary input from string.
+    chaos_parameters_dictionary is a list of dictionaries of
+    "Key": string
+    "Value": a dictionary of a chaos_parameters
+    """
 
     from azure.servicefabric.models.chaos_parameters_dictionary_item import (
         ChaosParametersDictionaryItem
