@@ -294,6 +294,10 @@ class HelpTextTests(unittest.TestCase):
                       'upgrade-rollback', 'upgrade-status', 'upgrade-update'))
 
         self.validate_output(
+            'sfctl container',
+            commands=('invoke-api', 'logs'))
+
+        self.validate_output(
             'sfctl compose',
             commands=('create', 'list', 'remove', 'status', 'upgrade', 'upgrade-status'))
 

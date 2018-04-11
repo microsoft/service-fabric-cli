@@ -38,3 +38,6 @@ src/sfctl/custom_app.py @iyyappam
 # Chaos and related tests
 src/sfctl/tests/chaos_test.py @motanv
 src/sfctl/custom_chaos.py @motanv
+
+# Container related
+src/sfctl/custom_container.py @leikong

@@ -48,6 +48,11 @@ helps['compose'] = """
     short-summary: Create, delete and manage Docker Compose applications
 """
 
+helps['container'] = """
+    type: group
+    short-summary: run container related commands on a cluster node
+"""
+
 helps['is'] = """
     type: group
     short-summary: Query and send commands to the infrastructure service

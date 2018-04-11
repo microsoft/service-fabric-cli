@@ -4,7 +4,7 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Custom commands for the Service Fabric Docker compose support"""
+"""Custom commands for the Service Fabric container support"""
 
 from __future__ import print_function
 from azure.servicefabric.models import ContainerApiRequestBody

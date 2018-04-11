@@ -44,7 +44,6 @@ helps['container invoke-api'] = """
 helps['container logs'] = """
     type: command
     short-summary: Retrieving container logs
-        cluster
     parameters:
         - name: --node-name
           type: string
