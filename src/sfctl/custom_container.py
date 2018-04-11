@@ -6,6 +6,7 @@
 
 """Custom commands for the Service Fabric Docker compose support"""
 
+from __future__ import print_function
 from azure.servicefabric.models import ContainerApiRequestBody
 import jsonpickle
 
@@ -20,9 +21,7 @@ def invoke_api( # pylint: disable=too-many-arguments
         container_api_http_verb=None,
         container_api_content_type=None,
         container_api_body=None,
-        timeout=60,
-        custom_headers=None,
-        raw=False):
+        timeout=60):
     """Invoke container API on a cluster node"""
 
     request_body = ContainerApiRequestBody(
@@ -38,9 +37,7 @@ def invoke_api( # pylint: disable=too-many-arguments
         code_package_name,
         code_package_instance_id,
         request_body,
-        timeout,
-        custom_headers,
-        raw)
+        timeout)
 
     print(jsonpickle.encode(response, unpicklable=False))
 
@@ -51,10 +48,8 @@ def logs( # pylint: disable=too-many-arguments
         service_manifest_name,
         code_package_name,
         code_package_instance_id,
-        tail='',
-        timeout=60,
-        custom_headers=None,
-        raw=False):
+        tail=None,
+        timeout=60):
     """Get container logs"""
 
     uri_path = '/containers/{id}/logs?stdout=true&stderr=true'
@@ -70,9 +65,7 @@ def logs( # pylint: disable=too-many-arguments
         code_package_name,
         code_package_instance_id,
         request_body,
-        timeout,
-        custom_headers,
-        raw)
+        timeout)
 
     if response:
         if response.container_api_result.status == 200:

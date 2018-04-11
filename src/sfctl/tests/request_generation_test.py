@@ -366,7 +366,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi?'
             'api-version=6.2&ServiceManifestName=NodeServicePackage&CodePackageName=NodeService.Code&'
-            'CodePackageInstanceId=131668159770315380',
+            'CodePackageInstanceId=131668159770315380&timeout=60',
             ['api-version=6.2'],
             ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
             validate_flat_dictionary)
@@ -377,7 +377,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi?'
             'api-version=6.2&ServiceManifestName=NodeServicePackage&CodePackageName=NodeService.Code&'
-            'CodePackageInstanceId=131668159770315380',
+            'CodePackageInstanceId=131668159770315380&timeout=60',
             ['api-version=6.2'],
             ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
             validate_flat_dictionary)
@@ -387,7 +387,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         #     ' --container-api-http-verb=POST --container-api-body "{ \"CpuShares\": 512}"',
         #     'POST',
         #     '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi?'
-        #     'api-version=6.2&ServiceManifestName=NodeOnSF&CodePackageName=Code&CodePackageInstanceId=131673596679688285',
+        #     'api-version=6.2&ServiceManifestName=NodeOnSF&CodePackageName=Code&CodePackageInstanceId=131673596679688285&timeout=60',
         #     ['api-version=6.2'],
         #     ('{"UriPath": "/containers/{id}/update", '
         #      '"HttpVerb": "POST", '
