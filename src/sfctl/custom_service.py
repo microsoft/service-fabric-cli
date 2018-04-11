@@ -518,7 +518,7 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
     :param str stand_by_replica_keep: The maximum duration, in seconds,  for
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
-    :param str scaling_policy: JSON encoded scaling policy for this service.
+    :param str scaling_policies: JSON encoded list of scaling policies for this service.
     """
     from azure.servicefabric.models.stateful_service_update_description import StatefulServiceUpdateDescription #pylint: disable=line-too-long
     from azure.servicefabric.models.stateless_service_update_description import StatelessServiceUpdateDescription #pylint: disable=line-too-long
