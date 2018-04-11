@@ -26,6 +26,7 @@ Unreleased
 - Added new commands to get and set chaos schedule, get and events for chaos
 - Removed command to get chaos report, functionality is replaced by get and events command for Chaos
 - Added new commands sfctl chaos events, sfctl chaos get, sfctl chaos schedule get, sfctl chaos schedule set.
+- Adding scaling policy to service create and update that are available in service fabric runtime 6.2
 
 4.0.0
 -----
