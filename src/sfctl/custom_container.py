@@ -59,7 +59,7 @@ def logs( # pylint: disable=too-many-arguments
 
     uri_path = '/containers/{id}/logs?stdout=true&stderr=true'
     if tail:
-        uri_path += f'&tail={tail}'
+        uri_path += '&tail={}'.format(tail)
 
     request_body = ContainerApiRequestBody(uri_path)
 
