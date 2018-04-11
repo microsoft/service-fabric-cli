@@ -7,8 +7,9 @@
 """Custom commands for the Service Fabric container support"""
 
 from __future__ import print_function
-from azure.servicefabric.models import ContainerApiRequestBody
+import json
 import jsonpickle
+from azure.servicefabric.models import ContainerApiRequestBody
 
 def invoke_api( # pylint: disable=too-many-arguments
         client,
@@ -39,7 +40,7 @@ def invoke_api( # pylint: disable=too-many-arguments
         request_body,
         timeout)
 
-    print(jsonpickle.encode(response, unpicklable=False))
+    print(format_response(response))
 
 def logs( # pylint: disable=too-many-arguments
         client,
@@ -71,4 +72,10 @@ def logs( # pylint: disable=too-many-arguments
         if response.container_api_result.status == 200:
             print(response.container_api_result.body)
         else:
-            print(jsonpickle.encode(response, unpicklable=False))
+            print(format_response(response))
+
+def format_response(response):
+    """ pretty print json response """
+    encoded = jsonpickle.encode(response, unpicklable=False)
+    return json.dumps(json.loads(encoded), indent=4)
+    
