@@ -24,7 +24,7 @@ Unreleased
 - Add tests to verify correctness of help text (#71)
 - Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation.
 - Remove command to get chaos report since it is being redone in service fabric runtime 6.2
-- Adding scaling policy to service create and update as in service fabric runtime 6.2 this is a new capability
+- Adding scaling policy to service create and update that are available in service fabric runtim 6.2
 
 4.0.0
 -----
