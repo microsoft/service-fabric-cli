@@ -13,13 +13,13 @@ import sfctl.custom_chaos_schedule as sf_c
 class ChaosScheduleTests(unittest.TestCase):
     """Chaos Schedule tests"""
 
-    def parse_none_time_of_day_test(self):
+    def test_parse_none_time_of_day(self):
         """Parsing None TimeOfDay should return None"""
 
         res = sf_c.parse_time_of_day(None)
         self.assertIs(res, None)
 
-    def parse_valid_time_of_day_test(self):
+    def test_parse_valid_time_of_day(self):
         """Parse a valid TimeOfDay"""
         from azure.servicefabric.models.time_of_day import (
             TimeOfDay
@@ -45,13 +45,13 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res2.hour, 0)
         self.assertEqual(res2.minute, 0)
 
-    def parse_none_time_range_test(self):
+    def test_parse_none_time_range(self):
         """Parsing None TimeRange should return None"""
 
         res = sf_c.parse_time_range(None)
         self.assertIs(res, None)
 
-    def parse_valid_time_range_test(self):
+    def test_parse_valid_time_range(self):
         """Parse a valid time range"""
         from azure.servicefabric.models.time_range import (
             TimeRange
@@ -81,7 +81,7 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res.end_time.hour, 23)
         self.assertEqual(res.end_time.minute, 59)
 
-    def parse_none_active_time_ranges_test(self):
+    def test_parse_none_active_time_ranges(self):
         """Parsing None ActiveTimeRanges should return an empty list"""
 
         res = sf_c.parse_active_time_ranges(None)
@@ -89,7 +89,7 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 0)
 
-    def parse_valid_active_time_ranges_test(self):
+    def test_parse_valid_active_time_ranges(self):
         """Parse a list of valid time ranges"""
         from azure.servicefabric.models.time_range import (
             TimeRange
@@ -144,13 +144,13 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res[1].end_time.hour, 23)
         self.assertEqual(res[1].end_time.minute, 59)
 
-    def parse_none_active_days(self):
+    def test_parse_none_active_days(self):
         """Parsing None ChaosScheduleActiveDays should return None"""
 
         res = sf_c.parse_active_days(None)
         self.assertIs(res, None)
 
-    def parse_valid_active_days_test(self):
+    def test_parse_valid_active_days(self):
         """Parse a valid active days"""
         from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
             ChaosScheduleJobActiveDaysOfWeek
@@ -173,13 +173,13 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res.friday, True)
         self.assertEqual(res.saturday, False)
 
-    def parse_none_job_test(self):
+    def test_parse_none_job(self):
         """Parsing None ChaosScheduleJob should return None"""
 
         res = sf_c.parse_job(None)
         self.assertIs(res, None)
 
-    def parse_valid_job_test(self):
+    def test_parse_valid_job(self):
         """Parse a valid ChaosScheduleJob"""
         from azure.servicefabric.models.time_range import (
             TimeRange
@@ -259,14 +259,14 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res.times[1].end_time.hour, 23)
         self.assertEqual(res.times[1].end_time.minute, 59)
 
-    def parse_none_jobs_test(self):
+    def test_parse_none_jobs(self):
         """Parsing None ChaosScheduleJobs should return an empty list"""
 
         res = sf_c.parse_jobs(None)
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 0)
 
-    def parse_valid_jobs_test(self):
+    def test_parse_valid_jobs(self):
         #pylint: disable=too-many-statements
         """Parse a valid list of ChaosScheduleJobs"""
         from azure.servicefabric.models.time_range import (
@@ -392,7 +392,7 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertEqual(res[1].times[0].end_time.hour, 14)
         self.assertEqual(res[1].times[0].end_time.minute, 0)
 
-    def parse_none_chaos_parameters_dictionary_test(self):
+    def test_parse_none_chaos_parameters_dictionary(self):
         """Parsing None parameters dictionary should return an empty list"""
 
         res = sf_c.parse_chaos_params_dictionary(None)
@@ -400,7 +400,7 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 0)
 
-    def parse_valid_chaos_parameters_dictionary_test(self):
+    def test_parse_valid_chaos_parameters_dictionary(self):
         #pylint: disable=too-many-statements
         """Parse a valid ChaosParametersDictionary"""
         from azure.servicefabric.models.chaos_parameters_dictionary_item import (
