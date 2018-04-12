@@ -6,6 +6,59 @@
 
 """Custom commands for the Service Fabric chaos service"""
 
+def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
+    """Parse ChaosParameters from string"""
+    from azure.servicefabric.models.chaos_parameters import (
+        ChaosParameters
+    )
+    from azure.servicefabric.models.chaos_context import (
+        ChaosContext
+    )
+
+    from azure.servicefabric.models.chaos_target_filter import (
+        ChaosTargetFilter
+    )
+
+    from sfctl.custom_cluster_upgrade import create_cluster_health_policy
+
+    time_to_run = chaos_parameters.get("TimeToRunInSeconds")
+    max_cluster_stabilization = chaos_parameters.get("MaxClusterStabilizationTimeoutInSeconds")
+    max_concurrent_faults = chaos_parameters.get("MaxConcurrentFaults")
+    enable_move_replica_faults = chaos_parameters.get("EnableMoveReplicaFaults")
+    wait_time_between_faults = chaos_parameters.get("WaitTimeBetweenFaultsInSeconds")
+    wait_time_between_iterations = chaos_parameters.get("WaitTimeBetweenIterationsInSeconds")
+
+    cluster_health_policy = chaos_parameters.get("ClusterHealthPolicy")
+    health_policy = None
+    if cluster_health_policy is not None:
+        health_policy = create_cluster_health_policy(
+            cluster_health_policy.get("ConsiderWarningAsError"),
+            cluster_health_policy.get("MaxPercentUnhealthyNodes"),
+            cluster_health_policy.get("MaxPercentUnhealthyApplications"),
+            cluster_health_policy.get("ApplicationTypeHealthPolicyMap"))
+
+    chaos_context = chaos_parameters.get("Context")
+    context = None
+    if chaos_context is not None:
+        context = ChaosContext(chaos_context.get("Map"))
+
+    chaos_target_filter = chaos_parameters.get("ChaosTargetFilter")
+    target_filter = None
+    if chaos_target_filter is not None:
+        target_filter = ChaosTargetFilter(
+            chaos_target_filter.get("NodeTypeInclusionList"),
+            chaos_target_filter.get("ApplicationTypeInclusionList"))
+
+    return ChaosParameters(time_to_run,
+                           max_cluster_stabilization,
+                           max_concurrent_faults,
+                           enable_move_replica_faults,
+                           wait_time_between_faults,
+                           wait_time_between_iterations,
+                           health_policy,
+                           context,
+                           target_filter)
+
 def parse_chaos_context(formatted_chaos_context):
     """"Parse a chaos context from a formatted context"""
     from azure.servicefabric.models.chaos_context import (
@@ -42,6 +95,7 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
           context=None,
           chaos_target_filter=None,
           timeout=60):
+
     from azure.servicefabric.models.chaos_parameters import (
         ChaosParameters
     )
@@ -62,7 +116,8 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
     target_filter = parse_chaos_target_filter(chaos_target_filter)
 
     #pylint: disable=too-many-arguments
-    chaos_params = ChaosParameters(time_to_run, max_cluster_stabilization,
+    chaos_params = ChaosParameters(time_to_run,
+                                   max_cluster_stabilization,
                                    max_concurrent_faults,
                                    not disable_move_replica_faults,
                                    wait_time_between_faults,
