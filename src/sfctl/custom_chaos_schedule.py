@@ -154,7 +154,7 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
 
     return parsed_dictionary
 
-def set_schedule( #pylint: disable=too-many-arguments,too-many-locals
+def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
         client, version=0,
         start_date_utc='1601-01-01T00:00:00.000Z',
         expiry_date_utc='9999-12-31T23:59:59.999Z',
