@@ -18,10 +18,12 @@ def json_encoded(arg_str):
         with open(arg_str, 'r') as json_file:
             json_str = json_file.read()
             return json.loads(json_str)
-
     except OSError:
+        # This is the error that python 3 returns on no file found
         pass
-
+    except IOError:
+        # This is the error that python 2.7 returns on no file found
+        pass
     except ValueError as ex:
         print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str, ex))
         raise
