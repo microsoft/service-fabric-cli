@@ -199,6 +199,11 @@ class SFCommandLoader(CLICommandsLoader):
 
             with super_group.group('chaos') as group:
                 group.command('stop', 'stop_chaos')
+                group.command('events', 'get_chaos_events')
+                group.command('get', 'get_chaos')
+
+            with super_group.group('chaos schedule') as group:
+                group.command('get', 'get_chaos_schedule')
 
             with super_group.group('store') as group:
                 group.command('stat', 'get_image_store_content')
@@ -247,6 +252,12 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('chaos') as group:
                 group.command('start', 'start')
+
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_chaos_schedule#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('chaos schedule') as group:
+                group.command('set', 'set_chaos_schedule')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_health#{}',
                                client_factory=client_create) as super_group:
