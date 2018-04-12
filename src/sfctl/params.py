@@ -22,8 +22,8 @@ def json_encoded(arg_str):
     except OSError:
         pass
 
-    except ValueError as e:
-        print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str, e))
+    except ValueError as ex:
+        print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str, ex))
         raise
 
     try:
