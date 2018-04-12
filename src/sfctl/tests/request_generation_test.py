@@ -377,17 +377,18 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
             ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
             validate_flat_dictionary)
-        # self.validate_command( # update container
-        #     'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
-        #     '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
-        #     ' --container-api-http-verb=POST --container-api-body "{ \"CpuShares\": 512}"',
-        #     'POST',
-        #     '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi',
-        #     ['api-version=6.2', 'ServiceManifestName=NodeOnSF', 'CodePackageName=Code', 'CodePackageInstanceId=131673596679688285', 'timeout=60'],
-        #     ('{"UriPath": "/containers/{id}/update", '
-        #      '"HttpVerb": "POST", '
-        #      '"Body": "{ \"CpuShares\": 512}"}'),
-        #     validate_flat_dictionary)
+        self.validate_command( # update container
+            'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
+            '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
+            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"', # Manual testing with a JSON string for "--container-api-body" works,
+            # Have to pass "DummyRequestBody" here since a real JSON string confuses test validation code.
+            'POST',
+            '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi',
+            ['api-version=6.2', 'ServiceManifestName=NodeOnSF', 'CodePackageName=Code', 'CodePackageInstanceId=131673596679688285', 'timeout=60'],
+            ('{"UriPath": "/containers/{id}/update", '
+             '"HttpVerb": "POST", '
+             '"Body": "DummyRequestBody"}'),
+            validate_flat_dictionary)
 
         # Application Commands:
         # Application create tests not yet added
