@@ -20,6 +20,7 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
+import sfctl.helps.container # pylint: disable=unused-import
 import sfctl.helps.property # pylint: disable=unused-import
 import sfctl.helps.app_type # pylint: disable=unused-import
 import sfctl.helps.chaos # pylint: disable=unused-import
@@ -216,6 +217,13 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('delete', 'delete_property')
 
         # Custom commands
+
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_container#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('container') as group:
+                group.command('invoke-api', 'invoke_api')
+                group.command('logs', 'logs')
 
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_cluster_upgrade#{}',

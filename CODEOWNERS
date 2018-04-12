@@ -40,3 +40,6 @@ src/sfctl/tests/chaos_test.py @motanv
 src/sfctl/custom_chaos.py @motanv
 src/sfctl/tests/chaos_schedule_test.py @likevi
 src/sfctl/custom_chaos_schedule.py @likevi
+
+# Container related
+src/sfctl/custom_container.py @leikong
