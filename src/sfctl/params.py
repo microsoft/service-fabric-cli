@@ -8,12 +8,33 @@
 import json
 from knack.arguments import (ArgumentsContext, CLIArgumentType)
 
+
 def json_encoded(arg_str):
-    """Convert from argument JSON string to complex object"""
+    """Convert from argument JSON string to complex object.
+    This function also accepts a file path to a .txt file containing the JSON string.
+    Path can be relative path or absolute path."""
 
-    return json.loads(arg_str)
+    try:
+        with open(arg_str, 'r') as json_file:
+            json_str = json_file.read()
+            return json.loads(json_str)
 
-def custom_arguments(self, _): #pylint: disable=too-many-statements
+    except OSError:
+        pass
+
+    except ValueError as e:
+        print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str, e))
+        raise
+
+    try:
+        return json.loads(arg_str)
+    except ValueError:
+        print('Hint: You can also pass the json argument in a .txt file. '
+              'To do so, set argument value to the relative or absolute path of the text file.')
+        raise
+
+
+def custom_arguments(self, _):  # pylint: disable=too-many-statements
     """Load specialized arguments for commands"""
 
     # Global argument
@@ -178,4 +199,4 @@ def custom_arguments(self, _): #pylint: disable=too-many-statements
     with ArgumentsContext(self, 'is') as arg_context:
         # expect the parameter command_input in the python method as --command in commandline.
         arg_context.argument('command_input',
-                             CLIArgumentType(options_list=('--command')))
+                             CLIArgumentType(options_list='--command'))
