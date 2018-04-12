@@ -7,9 +7,9 @@
 """Tests to ensure that commands are processed correctly"""
 
 from os import path
-from contextlib2 import redirect_stdout
 from io import StringIO
 import unittest
+from contextlib2 import redirect_stdout
 from sfctl.params import json_encoded
 
 

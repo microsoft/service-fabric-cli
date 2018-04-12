@@ -202,8 +202,6 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"ApplicationTypeBuildPath": "test_path"}'),
             validate_flat_dictionary)
 
-        return
-
         self.validate_command(  # provision-application-type external-store
             'application provision --external-provision '
             '--application-package-download-uri=test_path --application-type-name=name '
