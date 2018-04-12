@@ -26,10 +26,6 @@ Unreleased
 - Fix bug in displaying property help text (#71)
 - Add tests to verify correctness of help text (#71)
 - Add scaling policy parameter to the command for service create and the command for service update (#76)
-- Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation
-- Added new commands to get and set chaos schedule, get and events for chaos
-- Removed command to get chaos report, functionality is replaced by get and events command for Chaos
-- Added new commands sfctl chaos events, sfctl chaos get, sfctl chaos schedule get, sfctl chaos schedule set
 
 4.0.0
 -----
