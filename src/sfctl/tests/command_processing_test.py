@@ -7,9 +7,8 @@
 """Tests to ensure that commands are processed correctly"""
 
 from os import path
-from contextlib import redirect_stdout
+from contextlib2 import redirect_stdout
 from io import StringIO
-from json.decoder import JSONDecodeError
 import unittest
 from sfctl.params import json_encoded
 
@@ -17,7 +16,7 @@ from sfctl.params import json_encoded
 class CommandsProcessTests(unittest.TestCase):
     """Processing commands tests"""
 
-    def test_json_encoded_argument_processing_file_input(self):
+    def test_json_encoded_argument_processing_file_input(self):  # pylint: disable=invalid-name
         """Make sure that method json_encoded in src/params.py correctly:
             - Reads the .txt files
             - If input is not a file, reads and serializes the input as json
@@ -44,11 +43,13 @@ class CommandsProcessTests(unittest.TestCase):
         file_path_empty_file = path.join(path.dirname(__file__), 'empty_file.txt')
 
         # Use this here to avoid the printed clutter when running the tests.
+        # Using ValueError instead of json.decoder.JSONDecodeError because that is not
+        # supported in python 2.7
         str_io = StringIO()
         with redirect_stdout(str_io):
-            with self.assertRaises(JSONDecodeError):
+            with self.assertRaises(ValueError):
                 json_encoded(file_path_empty_file)
-            with self.assertRaises(JSONDecodeError):
+            with self.assertRaises(ValueError):
                 json_encoded(file_path_incorrect_json)
 
         self.assertEqual(dictionary, json_encoded(file_path_correct_json))
@@ -82,7 +83,7 @@ class CommandsProcessTests(unittest.TestCase):
                       printed_output)
         self.assertNotIn('Hint: You can also pass the json argument in a .txt file', printed_output)
 
-    def test_json_encoded_argument_processing_string_input(self):
+    def test_json_encoded_argument_processing_string_input(self):  # pylint: disable=invalid-name
         """Make sure that method json_encoded in src/params.py correctly:
             - Reads the .txt files
             - If input is not a file, reads and serializes the input as json
@@ -123,9 +124,9 @@ class CommandsProcessTests(unittest.TestCase):
         # Use this here to avoid the printed clutter when running the tests.
         str_io = StringIO()
         with redirect_stdout(str_io):
-            with self.assertRaises(JSONDecodeError):
+            with self.assertRaises(ValueError):
                 json_encoded('')
-            with self.assertRaises(JSONDecodeError):
+            with self.assertRaises(ValueError):
                 json_encoded('{3.14 : "pie"}')
 
         self.assertEqual(simple_dictionary, json_encoded('{"k": 23}'))

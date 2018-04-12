@@ -59,7 +59,8 @@ setup(
             'nose2>=0.7.4',
             'pylint',
             'vcrpy',
-            'mock'
+            'mock',
+            'contextlib2'
         ]
     },
     entry_points={

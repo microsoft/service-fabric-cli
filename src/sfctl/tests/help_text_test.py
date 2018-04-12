@@ -9,7 +9,6 @@ This only tests for commands/subgroups which are specified in this file."""
 
 from __future__ import print_function
 import unittest
-from sys import stderr
 from subprocess import Popen, PIPE
 
 
