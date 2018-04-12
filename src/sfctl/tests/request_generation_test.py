@@ -12,8 +12,8 @@ This does not require a cluster connection, except the test for provision applic
 from __future__ import print_function
 from os import (remove, environ)
 import json
-import vcr
 import logging
+import vcr
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
