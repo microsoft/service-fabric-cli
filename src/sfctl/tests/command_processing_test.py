@@ -7,10 +7,16 @@
 """Tests to ensure that commands are processed correctly"""
 
 from os import path
-from io import StringIO
 import unittest
 from contextlib2 import redirect_stdout
 from sfctl.params import json_encoded
+
+try:
+    # Python 2
+    from cStringIO import StringIO
+except ImportError:
+    # Python 3
+    from io import StringIO
 
 
 class CommandsProcessTests(unittest.TestCase):
@@ -66,7 +72,9 @@ class CommandsProcessTests(unittest.TestCase):
         printed_output = str_io.getvalue()
         self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_empty_file),
                       printed_output)
-        self.assertIn('Expecting value: line 1 column 1 (char 0)', printed_output)
+        self.assertTrue('Expecting value: line 1 column 1 (char 0)' in printed_output
+                        or
+                        'No JSON object could be decoded' in printed_output)
         self.assertNotIn('Hint: You can also pass the json argument in a .txt file', printed_output)
 
         str_io = StringIO()
@@ -79,8 +87,9 @@ class CommandsProcessTests(unittest.TestCase):
         printed_output = str_io.getvalue()
         self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_incorrect_json),
                       printed_output)
-        self.assertIn('Expecting property name enclosed in double quotes: line 1 column 2 (char 1)',
-                      printed_output)
+        self.assertTrue('Expecting property name enclosed in double quotes: line 1 column 2 (char 1)' in printed_output  # pylint: disable=line-too-long
+                        or
+                        'Expecting property name: line 1 column 2 (char 1)' in printed_output)
         self.assertNotIn('Hint: You can also pass the json argument in a .txt file', printed_output)
 
     def test_json_encoded_argument_processing_string_input(self):  # pylint: disable=invalid-name
