@@ -5,6 +5,7 @@
 # -----------------------------------------------------------------------------
 
 """Custom parameter handling for commands"""
+from __future__ import print_function
 import json
 from knack.arguments import (ArgumentsContext, CLIArgumentType)
 
