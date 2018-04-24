@@ -68,7 +68,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
             no_wait,
             application_type_build_path=application_type_build_path)
 
-    api_version = "6.1"
+    api_version = "6.2"
 
     # Construct URLs
     url = '/ApplicationTypes/$/Provision'
