@@ -20,6 +20,7 @@ import sfctl.helps.main # pylint: disable=unused-import
 import sfctl.helps.health # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade # pylint: disable=unused-import
 import sfctl.helps.compose # pylint: disable=unused-import
+import sfctl.helps.container # pylint: disable=unused-import
 import sfctl.helps.property # pylint: disable=unused-import
 import sfctl.helps.app_type # pylint: disable=unused-import
 import sfctl.helps.chaos # pylint: disable=unused-import
@@ -199,6 +200,11 @@ class SFCommandLoader(CLICommandsLoader):
 
             with super_group.group('chaos') as group:
                 group.command('stop', 'stop_chaos')
+                group.command('events', 'get_chaos_events')
+                group.command('get', 'get_chaos')
+
+            with super_group.group('chaos schedule') as group:
+                group.command('get', 'get_chaos_schedule')
 
             with super_group.group('store') as group:
                 group.command('stat', 'get_image_store_content')
@@ -211,6 +217,13 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('delete', 'delete_property')
 
         # Custom commands
+
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_container#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('container') as group:
+                group.command('invoke-api', 'invoke_api')
+                group.command('logs', 'logs')
 
         with CommandSuperGroup(__name__, self,
                                'sfctl.custom_cluster_upgrade#{}',
@@ -247,6 +260,12 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('chaos') as group:
                 group.command('start', 'start')
+
+        with CommandSuperGroup(__name__, self,
+                               'sfctl.custom_chaos_schedule#{}',
+                               client_factory=client_create) as super_group:
+            with super_group.group('chaos schedule') as group:
+                group.command('set', 'set_chaos_schedule')
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_health#{}',
                                client_factory=client_create) as super_group:

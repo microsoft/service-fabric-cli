@@ -284,7 +284,11 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl chaos',
-            commands=('start', 'stop'))
+            commands=('events', 'get', 'start', 'stop'))
+
+        self.validate_output(
+            'sfctl chaos schedule',
+            commands=('get', 'set'))
 
         self.validate_output(
             'sfctl cluster',
@@ -292,6 +296,10 @@ class HelpTextTests(unittest.TestCase):
                       'operation-cancel', 'operation-list', 'provision', 'recover-system',
                       'report-health', 'select', 'unprovision', 'upgrade', 'upgrade-resume',
                       'upgrade-rollback', 'upgrade-status', 'upgrade-update'))
+
+        self.validate_output(
+            'sfctl container',
+            commands=('invoke-api', 'logs'))
 
         self.validate_output(
             'sfctl compose',

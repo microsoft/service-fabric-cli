@@ -358,6 +358,38 @@ class ServiceFabricRequestTests(ScenarioTest):
             '{"CreateFabricDump":"True", "NodeInstanceId":"ID"}',
             validate_flat_dictionary)
 
+        # container commands
+        self.validate_command( # get container logs
+            'sfctl container invoke-api --node-name Node01 --application-id samples/winnodejs '
+            '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
+            '--code-package-instance-id 131668159770315380 --container-api-uri-path "/containers/{id}/logs?stdout=true&stderr=true"',
+            'POST',
+            '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
+            ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
+            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            validate_flat_dictionary)
+        self.validate_command( # get container logs
+            'sfctl container logs --node-name Node01 --application-id samples/winnodejs '
+            '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
+            '--code-package-instance-id 131668159770315380',
+            'POST',
+            '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
+            ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
+            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            validate_flat_dictionary)
+        self.validate_command( # update container
+            'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
+            '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
+            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"', # Manual testing with a JSON string for "--container-api-body" works,
+            # Have to pass "DummyRequestBody" here since a real JSON string confuses test validation code.
+            'POST',
+            '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi',
+            ['api-version=6.2', 'ServiceManifestName=NodeOnSF', 'CodePackageName=Code', 'CodePackageInstanceId=131673596679688285', 'timeout=60'],
+            ('{"UriPath": "/containers/{id}/update", '
+             '"HttpVerb": "POST", '
+             '"Body": "DummyRequestBody"}'),
+            validate_flat_dictionary)
+
         # Application Commands:
         # Application create tests not yet added
         # Application upgrade is not tested for all parameters
@@ -706,3 +738,53 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"SequenceNumber": "10", '
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
+
+        # Chaos commands:
+        self.validate_command(#get chaos schedule
+            'chaos schedule set ' +
+            '--version 0 --start-date-utc 2016-01-01T00:00:00.000Z ' +
+            '--expiry-date-utc 2038-01-01T00:00:00.000Z ' +
+            '--chaos-parameters-dictionary [{' +
+            '\\\"Key\\\":\\\"adhoc\\\",\\\"Value\\\":{' +
+            '\\\"MaxConcurrentFaults\\\":3,\\\"EnableMoveReplicaFaults\\\":true,' +
+            '\\\"ChaosTargetFilter\\\":{\\\"NodeTypeInclusionList\\\":[' +
+            '\\\"N0010Ref\\\",\\\"N0020Ref\\\",\\\"N0030Ref\\\",\\\"N0040Ref\\\",' +
+            '\\\"N0050Ref\\\"]},\\\"MaxClusterStabilizationTimeoutInSeconds\\\":60,' +
+            '\\\"WaitTimeBetweenIterationsInSeconds\\\":15,\\\"WaitTimeBetweenFaultsInSeconds\\\":30,' +
+            '\\\"TimeToRunInSeconds\\\":\\\"600\\\",\\\"Context\\\":{\\\"Map\\\":{' +
+            '\\\"test\\\":\\\"value\\\"}},\\\"ClusterHealthPolicy\\\":{' +
+            '\\\"MaxPercentUnhealthyNodes\\\":0,\\\"ConsiderWarningAsError\\\":true,' +
+            '\\\"MaxPercentUnhealthyApplications\\\":0}}}] ' +
+            '--jobs [{\\\"ChaosParameters\\\":\\\"adhoc\\\",\\\"Days\\\":{' +
+            '\\\"Sunday\\\":true,\\\"Monday\\\":true,\\\"Tuesday\\\":true,' +
+            '\\\"Wednesday\\\":true,\\\"Thursday\\\":true,\\\"Friday\\\":true,' +
+            '\\\"Saturday\\\":true},\\\"Times\\\":[{\\\"StartTime\\\":{' +
+            '\\\"Hour\\\":0,\\\"Minute\\\":0},\\\"EndTime\\\":{' +
+            '\\\"Hour\\\":23,\\\"Minute\\\":59}}]}]',
+            'POST',
+            '/Tools/Chaos/Schedule',
+            ['api-version=6.2'])
+
+        self.validate_command(#get chaos schedule
+            'chaos schedule get',
+            'GET',
+            '/Tools/Chaos/Schedule',
+            ['api-version=6.2'])
+
+        self.validate_command(#stop chaos
+            'chaos stop',
+            'POST',
+            '/Tools/Chaos/$/Stop',
+            ['api-version=6.0'])
+
+        self.validate_command(#get chaos events
+            'chaos events',
+            'GET',
+            '/Tools/Chaos/Events',
+            ['api-version=6.2'])
+
+        self.validate_command(#get chaos
+            'chaos get',
+            'GET',
+            '/Tools/Chaos',
+            ['api-version=6.2'])

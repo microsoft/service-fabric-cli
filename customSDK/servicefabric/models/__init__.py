@@ -76,6 +76,9 @@ from .cluster_health_policy import ClusterHealthPolicy
 from .cluster_health_chunk_query_description import ClusterHealthChunkQueryDescription
 from .cluster_health_policies import ClusterHealthPolicies
 from .cluster_manifest import ClusterManifest
+from .container_api_request_body import ContainerApiRequestBody
+from .container_api_result import ContainerApiResult
+from .container_api_response import ContainerApiResponse
 from .container_instance_event import ContainerInstanceEvent
 from .deactivation_intent_description import DeactivationIntentDescription
 from .delta_nodes_check_health_evaluation import DeltaNodesCheckHealthEvaluation
@@ -576,6 +579,9 @@ __all__ = [
     'ClusterHealthChunkQueryDescription',
     'ClusterHealthPolicies',
     'ClusterManifest',
+    'ContainerApiRequestBody',
+    'ContainerApiResult',
+    'ContainerApiResponse',
     'ContainerInstanceEvent',
     'DeactivationIntentDescription',
     'DeltaNodesCheckHealthEvaluation',

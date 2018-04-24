@@ -18,13 +18,15 @@ Change Log
 
 Unreleased
 -----
+- Add commands to get and set chaos schedule (#70)
+- Add commands to get chaos and get events for chaos (#70)
+- Remove command to get chaos report. The functionality is replaced by command get chaos and the command get chaos events (#70)
 - Typo fix for service commands (#71)
 - Add missing help text (#71)
 - Fix bug in displaying property help text (#71)
 - Add tests to verify correctness of help text (#71)
-- Add ability to check in unreleased versions of the service fabric SDK to pass Travis CI validation.
-- Remove command to get chaos report since it is being redone in service fabric runtime 6.2
-- Adding scaling policy to service create and update that are available in service fabric runtime 6.2
+- Add scaling policy parameter to the command for service create and the command for service update (#76)
+- Add container group with commands: invoke-api(invoke raw container REST API), logs(get container logs) (#82)
 
 4.0.0
 -----

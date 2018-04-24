@@ -11,7 +11,7 @@ from knack.help_files import helps
 helps[''] = """
     type: group
     short-summary: Commands for managing Service Fabric clusters
-        and entities. This version is compatible with Service Fabric 6.1
+        and entities. This version is compatible with Service Fabric 6.2
         runtime.
     long-summary: Commands follow the noun-verb pattern. See subgroups for more
         information.
@@ -38,6 +38,11 @@ helps['chaos'] = """
     short-summary: Start, stop and report on the chaos test service
 """
 
+helps['chaos schedule'] = """
+    type: group
+    short-summary: Get and set the chaos schedule
+"""
+
 helps['cluster'] = """
     type: group
     short-summary: Select, manage and operate Service Fabric clusters
@@ -46,6 +51,11 @@ helps['cluster'] = """
 helps['compose'] = """
     type: group
     short-summary: Create, delete and manage Docker Compose applications
+"""
+
+helps['container'] = """
+    type: group
+    short-summary: run container related commands on a cluster node
 """
 
 helps['is'] = """
