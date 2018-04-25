@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-5.0.0
+Unreleased
 -----
 - Add commands to get and set chaos schedule (#70)
 - Add commands to get chaos and get events for chaos (#70)
