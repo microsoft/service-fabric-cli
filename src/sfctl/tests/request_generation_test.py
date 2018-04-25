@@ -200,7 +200,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             '--application-type-version=version',
             'POST',
             '/ApplicationTypes/$/Provision',
-            ['api-version=6.1', 'timeout=60'],
+            ['api-version=6.2', 'timeout=60'],
             ('{"Kind": "ExternalStore", '
              '"Async": false, '
              '"ApplicationPackageDownloadUri": "test_path", '
