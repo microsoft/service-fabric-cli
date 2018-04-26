@@ -54,7 +54,7 @@ setup(
     ],
     extras_require={
         'test': [
-            'coverage',
+            'coverage==4.0.3',
             'nose2>=0.7.4',
             'pylint',
             'vcrpy',
