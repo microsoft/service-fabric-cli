@@ -165,6 +165,10 @@ helps['sa-cluster config-upgrade'] = """
           short-summary: The maximum allowed percentage of upgrade domain delta
             health degradation during the upgrade. Allowed values are integer
             values from zero to 100.
+        - name: --application-health-policies
+          type: string
+          short-summary: JSON encoded dictionary of pairs of application type
+            name and maximum percentage unhealthy before raising error
 """
 
 helps['cluster upgrade-update'] = """
