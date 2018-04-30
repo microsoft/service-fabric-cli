@@ -83,6 +83,7 @@ class ApplicationUpgradeDescription(Model):
     }
 
     def __init__(self, name, target_application_type_version, parameters, upgrade_kind="Rolling", rolling_upgrade_mode="UnmonitoredAuto", upgrade_replica_set_check_timeout_in_seconds=None, force_restart=None, monitoring_policy=None, application_health_policy=None):
+        super(ApplicationUpgradeDescription, self).__init__()
         self.name = name
         self.target_application_type_version = target_application_type_version
         self.parameters = parameters

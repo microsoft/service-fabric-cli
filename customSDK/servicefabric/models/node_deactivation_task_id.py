@@ -30,5 +30,6 @@ class NodeDeactivationTaskId(Model):
     }
 
     def __init__(self, id=None, node_deactivation_task_type=None):
+        super(NodeDeactivationTaskId, self).__init__()
         self.id = id
         self.node_deactivation_task_type = node_deactivation_task_type

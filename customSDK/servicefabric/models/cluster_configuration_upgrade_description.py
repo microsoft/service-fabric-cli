@@ -52,6 +52,11 @@ class ClusterConfigurationUpgradeDescription(Model):
      upgrade. Allowed values are integer values from zero to 100. Default
      value: 0 .
     :type max_percent_upgrade_domain_delta_unhealthy_nodes: int
+    :param application_health_policies: Defines the application health policy
+     map used to evaluate the health of an application or one of its children
+     entities.
+    :type application_health_policies:
+     ~azure.servicefabric.models.ApplicationHealthPolicies
     """
 
     _validation = {
@@ -69,9 +74,11 @@ class ClusterConfigurationUpgradeDescription(Model):
         'max_percent_unhealthy_nodes': {'key': 'MaxPercentUnhealthyNodes', 'type': 'int'},
         'max_percent_delta_unhealthy_nodes': {'key': 'MaxPercentDeltaUnhealthyNodes', 'type': 'int'},
         'max_percent_upgrade_domain_delta_unhealthy_nodes': {'key': 'MaxPercentUpgradeDomainDeltaUnhealthyNodes', 'type': 'int'},
+        'application_health_policies': {'key': 'ApplicationHealthPolicies', 'type': 'ApplicationHealthPolicies'},
     }
 
-    def __init__(self, cluster_config, health_check_retry_timeout="PT0H0M0S", health_check_wait_duration_in_seconds="PT0H0M0S", health_check_stable_duration_in_seconds="PT0H0M0S", upgrade_domain_timeout_in_seconds="PT0H0M0S", upgrade_timeout_in_seconds="PT0H0M0S", max_percent_unhealthy_applications=0, max_percent_unhealthy_nodes=0, max_percent_delta_unhealthy_nodes=0, max_percent_upgrade_domain_delta_unhealthy_nodes=0):
+    def __init__(self, cluster_config, health_check_retry_timeout="PT0H0M0S", health_check_wait_duration_in_seconds="PT0H0M0S", health_check_stable_duration_in_seconds="PT0H0M0S", upgrade_domain_timeout_in_seconds="PT0H0M0S", upgrade_timeout_in_seconds="PT0H0M0S", max_percent_unhealthy_applications=0, max_percent_unhealthy_nodes=0, max_percent_delta_unhealthy_nodes=0, max_percent_upgrade_domain_delta_unhealthy_nodes=0, application_health_policies=None):
+        super(ClusterConfigurationUpgradeDescription, self).__init__()
         self.cluster_config = cluster_config
         self.health_check_retry_timeout = health_check_retry_timeout
         self.health_check_wait_duration_in_seconds = health_check_wait_duration_in_seconds
@@ -82,3 +89,4 @@ class ClusterConfigurationUpgradeDescription(Model):
         self.max_percent_unhealthy_nodes = max_percent_unhealthy_nodes
         self.max_percent_delta_unhealthy_nodes = max_percent_delta_unhealthy_nodes
         self.max_percent_upgrade_domain_delta_unhealthy_nodes = max_percent_upgrade_domain_delta_unhealthy_nodes
+        self.application_health_policies = application_health_policies

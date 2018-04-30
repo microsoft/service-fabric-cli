@@ -37,7 +37,7 @@ class StatefulReplicaHealthReportCreatedEvent(ReplicaEvent):
      for the same partition, it will get a different value for the id.
      Sometimes the id of a stateless service instance is also referred as a
      replica id.
-    :type replica_id: str
+    :type replica_id: long
     :param replica_instance_id: Id of Replica instance.
     :type replica_instance_id: long
     :param source_id: Id of report source.
@@ -81,7 +81,7 @@ class StatefulReplicaHealthReportCreatedEvent(ReplicaEvent):
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'partition_id': {'key': 'PartitionId', 'type': 'str'},
-        'replica_id': {'key': 'ReplicaId', 'type': 'str'},
+        'replica_id': {'key': 'ReplicaId', 'type': 'long'},
         'replica_instance_id': {'key': 'ReplicaInstanceId', 'type': 'long'},
         'source_id': {'key': 'SourceId', 'type': 'str'},
         'property': {'key': 'Property', 'type': 'str'},

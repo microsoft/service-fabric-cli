@@ -39,4 +39,5 @@ class ServicePlacementPolicyDescription(Model):
     }
 
     def __init__(self):
+        super(ServicePlacementPolicyDescription, self).__init__()
         self.type = None

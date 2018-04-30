@@ -27,4 +27,5 @@ class UploadSession(Model):
     }
 
     def __init__(self, upload_sessions=None):
+        super(UploadSession, self).__init__()
         self.upload_sessions = upload_sessions

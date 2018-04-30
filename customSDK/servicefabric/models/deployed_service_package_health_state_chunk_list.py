@@ -29,4 +29,5 @@ class DeployedServicePackageHealthStateChunkList(Model):
     }
 
     def __init__(self, items=None):
+        super(DeployedServicePackageHealthStateChunkList, self).__init__()
         self.items = items

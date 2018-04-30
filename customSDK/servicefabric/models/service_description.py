@@ -101,6 +101,7 @@ class ServiceDescription(Model):
     }
 
     def __init__(self, service_name, service_type_name, partition_description, application_name=None, initialization_data=None, placement_constraints=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, is_default_move_cost_specified=None, service_package_activation_mode=None, service_dns_name=None, scaling_policies=None):
+        super(ServiceDescription, self).__init__()
         self.application_name = application_name
         self.service_name = service_name
         self.service_type_name = service_type_name

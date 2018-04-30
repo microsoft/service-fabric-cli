@@ -33,5 +33,6 @@ class RemoteReplicatorAcknowledgementStatus(Model):
     }
 
     def __init__(self, replication_stream_acknowledgement_detail=None, copy_stream_acknowledgement_detail=None):
+        super(RemoteReplicatorAcknowledgementStatus, self).__init__()
         self.replication_stream_acknowledgement_detail = replication_stream_acknowledgement_detail
         self.copy_stream_acknowledgement_detail = copy_stream_acknowledgement_detail

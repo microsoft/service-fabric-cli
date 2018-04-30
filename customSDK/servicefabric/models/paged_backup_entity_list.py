@@ -35,5 +35,6 @@ class PagedBackupEntityList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
+        super(PagedBackupEntityList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

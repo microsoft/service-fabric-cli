@@ -43,6 +43,7 @@ class NodeDeactivationInfo(Model):
     }
 
     def __init__(self, node_deactivation_intent=None, node_deactivation_status=None, node_deactivation_task=None, pending_safety_checks=None):
+        super(NodeDeactivationInfo, self).__init__()
         self.node_deactivation_intent = node_deactivation_intent
         self.node_deactivation_status = node_deactivation_status
         self.node_deactivation_task = node_deactivation_task

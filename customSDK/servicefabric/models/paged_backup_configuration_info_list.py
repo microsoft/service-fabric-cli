@@ -35,5 +35,6 @@ class PagedBackupConfigurationInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
+        super(PagedBackupConfigurationInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

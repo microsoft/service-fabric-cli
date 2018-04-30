@@ -95,6 +95,7 @@ class NodeInfo(Model):
     }
 
     def __init__(self, name=None, ip_address_or_fqdn=None, type=None, code_version=None, config_version=None, node_status=None, node_up_time_in_seconds=None, health_state=None, is_seed_node=None, upgrade_domain=None, fault_domain=None, id=None, instance_id=None, node_deactivation_info=None, is_stopped=None, node_down_time_in_seconds=None, node_up_at=None, node_down_at=None):
+        super(NodeInfo, self).__init__()
         self.name = name
         self.ip_address_or_fqdn = ip_address_or_fqdn
         self.type = type

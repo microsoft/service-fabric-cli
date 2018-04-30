@@ -44,6 +44,7 @@ class ResolvedServicePartition(Model):
     }
 
     def __init__(self, name, partition_information, endpoints, version):
+        super(ResolvedServicePartition, self).__init__()
         self.name = name
         self.partition_information = partition_information
         self.endpoints = endpoints

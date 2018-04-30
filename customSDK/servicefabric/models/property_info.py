@@ -36,6 +36,7 @@ class PropertyInfo(Model):
     }
 
     def __init__(self, name, metadata, value=None):
+        super(PropertyInfo, self).__init__()
         self.name = name
         self.value = value
         self.metadata = metadata

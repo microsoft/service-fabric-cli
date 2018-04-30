@@ -33,6 +33,7 @@ class NodeUpgradeProgressInfo(Model):
     }
 
     def __init__(self, node_name=None, upgrade_phase=None, pending_safety_checks=None):
+        super(NodeUpgradeProgressInfo, self).__init__()
         self.node_name = node_name
         self.upgrade_phase = upgrade_phase
         self.pending_safety_checks = pending_safety_checks
