@@ -29,6 +29,5 @@ class UploadChunkRange(Model):
     }
 
     def __init__(self, start_position=None, end_position=None):
-        super(UploadChunkRange, self).__init__()
         self.start_position = start_position
         self.end_position = end_position

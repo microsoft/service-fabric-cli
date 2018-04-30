@@ -36,7 +36,6 @@ class ClusterConfigurationUpgradeStatusInfo(Model):
     }
 
     def __init__(self, upgrade_state=None, progress_status=None, config_version=None, details=None):
-        super(ClusterConfigurationUpgradeStatusInfo, self).__init__()
         self.upgrade_state = upgrade_state
         self.progress_status = progress_status
         self.config_version = config_version

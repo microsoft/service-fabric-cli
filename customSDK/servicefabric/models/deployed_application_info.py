@@ -62,7 +62,6 @@ class DeployedApplicationInfo(Model):
     }
 
     def __init__(self, id=None, name=None, type_name=None, status=None, work_directory=None, log_directory=None, temp_directory=None, health_state=None):
-        super(DeployedApplicationInfo, self).__init__()
         self.id = id
         self.name = name
         self.type_name = type_name

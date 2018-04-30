@@ -35,6 +35,5 @@ class PagedBackupPolicyDescriptionList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedBackupPolicyDescriptionList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

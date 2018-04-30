@@ -39,5 +39,4 @@ class ReplicatorStatus(Model):
     }
 
     def __init__(self):
-        super(ReplicatorStatus, self).__init__()
         self.kind = None

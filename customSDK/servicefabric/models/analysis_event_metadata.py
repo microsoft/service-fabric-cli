@@ -27,6 +27,5 @@ class AnalysisEventMetadata(Model):
     }
 
     def __init__(self, delay=None, duration=None):
-        super(AnalysisEventMetadata, self).__init__()
         self.delay = delay
         self.duration = duration

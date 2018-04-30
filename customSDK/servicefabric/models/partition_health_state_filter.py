@@ -80,7 +80,6 @@ class PartitionHealthStateFilter(Model):
     }
 
     def __init__(self, partition_id_filter=None, health_state_filter=0, replica_filters=None):
-        super(PartitionHealthStateFilter, self).__init__()
         self.partition_id_filter = partition_id_filter
         self.health_state_filter = health_state_filter
         self.replica_filters = replica_filters

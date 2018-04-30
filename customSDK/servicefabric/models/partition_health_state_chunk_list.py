@@ -29,5 +29,4 @@ class PartitionHealthStateChunkList(Model):
     }
 
     def __init__(self, items=None):
-        super(PartitionHealthStateChunkList, self).__init__()
         self.items = items

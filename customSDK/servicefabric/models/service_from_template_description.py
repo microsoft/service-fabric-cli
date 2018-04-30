@@ -55,7 +55,6 @@ class ServiceFromTemplateDescription(Model):
     }
 
     def __init__(self, application_name, service_name, service_type_name, initialization_data=None, service_package_activation_mode=None, service_dns_name=None):
-        super(ServiceFromTemplateDescription, self).__init__()
         self.application_name = application_name
         self.service_name = service_name
         self.service_type_name = service_type_name

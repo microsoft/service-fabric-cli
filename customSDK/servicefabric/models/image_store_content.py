@@ -29,6 +29,5 @@ class ImageStoreContent(Model):
     }
 
     def __init__(self, store_files=None, store_folders=None):
-        super(ImageStoreContent, self).__init__()
         self.store_files = store_files
         self.store_folders = store_folders

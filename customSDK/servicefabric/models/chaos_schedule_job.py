@@ -34,7 +34,6 @@ class ChaosScheduleJob(Model):
     }
 
     def __init__(self, chaos_parameters=None, days=None, times=None):
-        super(ChaosScheduleJob, self).__init__()
         self.chaos_parameters = chaos_parameters
         self.days = days
         self.times = times

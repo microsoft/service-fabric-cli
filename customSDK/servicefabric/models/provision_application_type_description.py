@@ -16,12 +16,12 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
     """Describes the operation to register or provision an application type using
     an application package uploaded to the Service Fabric image store.
 
-    :param async_property: Indicates whether or not provisioning should occur
+    :param async: Indicates whether or not provisioning should occur
      asynchronously. When set to true, the provision operation returns when the
      request is accepted by the system, and the provision operation continues
      without any timeout limit. The default value is false. For large
      application packages, we recommend setting the value to true.
-    :type async_property: bool
+    :type async: bool
     :param kind: Constant filled by server.
     :type kind: str
     :param application_type_build_path: The relative path for the application
@@ -36,20 +36,20 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
     """
 
     _validation = {
-        'async_property': {'required': True},
+        'async': {'required': True},
         'kind': {'required': True},
         'application_type_build_path': {'required': True},
     }
 
     _attribute_map = {
-        'async_property': {'key': 'Async', 'type': 'bool'},
+        'async': {'key': 'Async', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'application_type_build_path': {'key': 'ApplicationTypeBuildPath', 'type': 'str'},
         'application_package_cleanup_policy': {'key': 'ApplicationPackageCleanupPolicy', 'type': 'str'},
     }
 
-    def __init__(self, async_property, application_type_build_path, application_package_cleanup_policy=None):
-        super(ProvisionApplicationTypeDescription, self).__init__(async_property=async_property)
+    def __init__(self, async, application_type_build_path, application_package_cleanup_policy=None):
+        super(ProvisionApplicationTypeDescription, self).__init__(async=async)
         self.application_type_build_path = application_type_build_path
         self.application_package_cleanup_policy = application_package_cleanup_policy
         self.kind = 'ImageStorePath'

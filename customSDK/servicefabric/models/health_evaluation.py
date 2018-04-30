@@ -58,7 +58,6 @@ class HealthEvaluation(Model):
     }
 
     def __init__(self, aggregated_health_state=None, description=None):
-        super(HealthEvaluation, self).__init__()
         self.aggregated_health_state = aggregated_health_state
         self.description = description
         self.kind = None

@@ -37,7 +37,6 @@ class ContainerApiResult(Model):
     }
 
     def __init__(self, status, content_type=None, content_encoding=None, body=None):
-        super(ContainerApiResult, self).__init__()
         self.status = status
         self.content_type = content_type
         self.content_encoding = content_encoding

@@ -48,7 +48,6 @@ class FabricEvent(Model):
     }
 
     def __init__(self, event_instance_id, time_stamp, has_correlated_events=None):
-        super(FabricEvent, self).__init__()
         self.event_instance_id = event_instance_id
         self.time_stamp = time_stamp
         self.has_correlated_events = has_correlated_events

@@ -25,5 +25,4 @@ class PropertyBatchDescriptionList(Model):
     }
 
     def __init__(self, operations=None):
-        super(PropertyBatchDescriptionList, self).__init__()
         self.operations = operations

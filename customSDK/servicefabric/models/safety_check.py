@@ -37,5 +37,4 @@ class SafetyCheck(Model):
     }
 
     def __init__(self):
-        super(SafetyCheck, self).__init__()
         self.kind = None

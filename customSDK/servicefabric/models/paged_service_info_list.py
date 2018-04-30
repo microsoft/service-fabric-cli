@@ -35,6 +35,5 @@ class PagedServiceInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedServiceInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

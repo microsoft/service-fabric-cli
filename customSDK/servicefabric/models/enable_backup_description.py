@@ -29,5 +29,4 @@ class EnableBackupDescription(Model):
     }
 
     def __init__(self, backup_policy_name):
-        super(EnableBackupDescription, self).__init__()
         self.backup_policy_name = backup_policy_name

@@ -67,7 +67,6 @@ class ServiceInfo(Model):
     }
 
     def __init__(self, id=None, name=None, type_name=None, manifest_version=None, health_state=None, service_status=None, is_service_group=None):
-        super(ServiceInfo, self).__init__()
         self.id = id
         self.name = name
         self.type_name = type_name

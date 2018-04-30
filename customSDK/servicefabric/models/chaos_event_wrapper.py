@@ -24,5 +24,4 @@ class ChaosEventWrapper(Model):
     }
 
     def __init__(self, chaos_event=None):
-        super(ChaosEventWrapper, self).__init__()
         self.chaos_event = chaos_event

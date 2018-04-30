@@ -30,7 +30,7 @@ class BackupProgressInfo(Model):
     :type backup_location: str
     :param epoch_of_last_backup_record: Specifies the epoch of the last record
      included in backup.
-    :type epoch_of_last_backup_record: ~azure.servicefabric.models.BackupEpoch
+    :type epoch_of_last_backup_record: ~azure.servicefabric.models.Epoch
     :param lsn_of_last_backup_record: The LSN of last record included in
      backup.
     :type lsn_of_last_backup_record: str
@@ -44,13 +44,12 @@ class BackupProgressInfo(Model):
         'time_stamp_utc': {'key': 'TimeStampUtc', 'type': 'iso-8601'},
         'backup_id': {'key': 'BackupId', 'type': 'str'},
         'backup_location': {'key': 'BackupLocation', 'type': 'str'},
-        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'BackupEpoch'},
+        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'Epoch'},
         'lsn_of_last_backup_record': {'key': 'LsnOfLastBackupRecord', 'type': 'str'},
         'failure_error': {'key': 'FailureError', 'type': 'FabricErrorError'},
     }
 
     def __init__(self, backup_state=None, time_stamp_utc=None, backup_id=None, backup_location=None, epoch_of_last_backup_record=None, lsn_of_last_backup_record=None, failure_error=None):
-        super(BackupProgressInfo, self).__init__()
         self.backup_state = backup_state
         self.time_stamp_utc = time_stamp_utc
         self.backup_id = backup_id

@@ -31,6 +31,5 @@ class PartitionQuorumLossProgress(Model):
     }
 
     def __init__(self, state=None, invoke_quorum_loss_result=None):
-        super(PartitionQuorumLossProgress, self).__init__()
         self.state = state
         self.invoke_quorum_loss_result = invoke_quorum_loss_result

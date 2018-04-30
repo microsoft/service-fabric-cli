@@ -37,7 +37,7 @@ class ChaosRemoveReplicaFaultCompletedEvent(ReplicaEvent):
      for the same partition, it will get a different value for the id.
      Sometimes the id of a stateless service instance is also referred as a
      replica id.
-    :type replica_id: long
+    :type replica_id: str
     :param fault_group_id: Id of fault group.
     :type fault_group_id: str
     :param fault_id: Id of fault.
@@ -63,7 +63,7 @@ class ChaosRemoveReplicaFaultCompletedEvent(ReplicaEvent):
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'partition_id': {'key': 'PartitionId', 'type': 'str'},
-        'replica_id': {'key': 'ReplicaId', 'type': 'long'},
+        'replica_id': {'key': 'ReplicaId', 'type': 'str'},
         'fault_group_id': {'key': 'FaultGroupId', 'type': 'str'},
         'fault_id': {'key': 'FaultId', 'type': 'str'},
         'service_uri': {'key': 'ServiceUri', 'type': 'str'},

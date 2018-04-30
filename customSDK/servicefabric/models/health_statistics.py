@@ -35,5 +35,4 @@ class HealthStatistics(Model):
     }
 
     def __init__(self, health_state_count_list=None):
-        super(HealthStatistics, self).__init__()
         self.health_state_count_list = health_state_count_list

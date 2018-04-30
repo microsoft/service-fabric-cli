@@ -103,7 +103,6 @@ class ApplicationHealthStateFilter(Model):
     }
 
     def __init__(self, application_name_filter=None, application_type_name_filter=None, health_state_filter=0, service_filters=None, deployed_application_filters=None):
-        super(ApplicationHealthStateFilter, self).__init__()
         self.application_name_filter = application_name_filter
         self.application_type_name_filter = application_type_name_filter
         self.health_state_filter = health_state_filter

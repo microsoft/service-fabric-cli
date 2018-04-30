@@ -68,6 +68,5 @@ class ReplicaHealthStateFilter(Model):
     }
 
     def __init__(self, replica_or_instance_id_filter=None, health_state_filter=0):
-        super(ReplicaHealthStateFilter, self).__init__()
         self.replica_or_instance_id_filter = replica_or_instance_id_filter
         self.health_state_filter = health_state_filter

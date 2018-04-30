@@ -25,5 +25,4 @@ class ClusterConfiguration(Model):
     }
 
     def __init__(self, cluster_configuration=None):
-        super(ClusterConfiguration, self).__init__()
         self.cluster_configuration = cluster_configuration

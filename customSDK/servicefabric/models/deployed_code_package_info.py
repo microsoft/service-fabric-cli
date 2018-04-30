@@ -71,7 +71,6 @@ class DeployedCodePackageInfo(Model):
     }
 
     def __init__(self, name=None, version=None, service_manifest_name=None, service_package_activation_id=None, host_type=None, host_isolation_mode=None, status=None, run_frequency_interval=None, setup_entry_point=None, main_entry_point=None):
-        super(DeployedCodePackageInfo, self).__init__()
         self.name = name
         self.version = version
         self.service_manifest_name = service_manifest_name

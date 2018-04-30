@@ -27,5 +27,4 @@ class DeactivationIntentDescription(Model):
     }
 
     def __init__(self, deactivation_intent=None):
-        super(DeactivationIntentDescription, self).__init__()
         self.deactivation_intent = deactivation_intent

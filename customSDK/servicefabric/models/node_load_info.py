@@ -31,6 +31,5 @@ class NodeLoadInfo(Model):
     }
 
     def __init__(self, node_name=None, node_load_metric_information=None):
-        super(NodeLoadInfo, self).__init__()
         self.node_name = node_name
         self.node_load_metric_information = node_load_metric_information

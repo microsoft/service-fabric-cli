@@ -51,7 +51,6 @@ class ApplicationHealthPolicy(Model):
     }
 
     def __init__(self, consider_warning_as_error=False, max_percent_unhealthy_deployed_applications=0, default_service_type_health_policy=None, service_type_health_policy_map=None):
-        super(ApplicationHealthPolicy, self).__init__()
         self.consider_warning_as_error = consider_warning_as_error
         self.max_percent_unhealthy_deployed_applications = max_percent_unhealthy_deployed_applications
         self.default_service_type_health_policy = default_service_type_health_policy

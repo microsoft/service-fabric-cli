@@ -47,7 +47,6 @@ class DeployedServiceTypeInfo(Model):
     }
 
     def __init__(self, service_type_name=None, service_manifest_name=None, code_package_name=None, status=None, service_package_activation_id=None):
-        super(DeployedServiceTypeInfo, self).__init__()
         self.service_type_name = service_type_name
         self.service_manifest_name = service_manifest_name
         self.code_package_name = code_package_name

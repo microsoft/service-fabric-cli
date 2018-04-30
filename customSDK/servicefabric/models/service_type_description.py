@@ -30,10 +30,6 @@ class ServiceTypeDescription(Model):
     :param placement_constraints: The placement constraint to be used when
      instantiating this service in a Service Fabric cluster.
     :type placement_constraints: str
-    :param load_metrics: The service load metrics is given as an array of
-     ServiceLoadMetricDescription objects.
-    :type load_metrics:
-     list[~azure.servicefabric.models.ServiceLoadMetricDescription]
     :param service_placement_policies: List of service placement policy
      descriptions.
     :type service_placement_policies:
@@ -53,7 +49,6 @@ class ServiceTypeDescription(Model):
         'is_stateful': {'key': 'IsStateful', 'type': 'bool'},
         'service_type_name': {'key': 'ServiceTypeName', 'type': 'str'},
         'placement_constraints': {'key': 'PlacementConstraints', 'type': 'str'},
-        'load_metrics': {'key': 'LoadMetrics', 'type': '[ServiceLoadMetricDescription]'},
         'service_placement_policies': {'key': 'ServicePlacementPolicies', 'type': '[ServicePlacementPolicyDescription]'},
         'extensions': {'key': 'Extensions', 'type': '[ServiceTypeExtensionDescription]'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -63,12 +58,10 @@ class ServiceTypeDescription(Model):
         'kind': {'Stateful': 'StatefulServiceTypeDescription', 'Stateless': 'StatelessServiceTypeDescription'}
     }
 
-    def __init__(self, is_stateful=None, service_type_name=None, placement_constraints=None, load_metrics=None, service_placement_policies=None, extensions=None):
-        super(ServiceTypeDescription, self).__init__()
+    def __init__(self, is_stateful=None, service_type_name=None, placement_constraints=None, service_placement_policies=None, extensions=None):
         self.is_stateful = is_stateful
         self.service_type_name = service_type_name
         self.placement_constraints = placement_constraints
-        self.load_metrics = load_metrics
         self.service_placement_policies = service_placement_policies
         self.extensions = extensions
         self.kind = None

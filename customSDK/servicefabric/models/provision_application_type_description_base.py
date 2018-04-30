@@ -21,23 +21,23 @@ class ProvisionApplicationTypeDescriptionBase(Model):
     sub-classes are: ProvisionApplicationTypeDescription,
     ExternalStoreProvisionApplicationTypeDescription
 
-    :param async_property: Indicates whether or not provisioning should occur
+    :param async: Indicates whether or not provisioning should occur
      asynchronously. When set to true, the provision operation returns when the
      request is accepted by the system, and the provision operation continues
      without any timeout limit. The default value is false. For large
      application packages, we recommend setting the value to true.
-    :type async_property: bool
+    :type async: bool
     :param kind: Constant filled by server.
     :type kind: str
     """
 
     _validation = {
-        'async_property': {'required': True},
+        'async': {'required': True},
         'kind': {'required': True},
     }
 
     _attribute_map = {
-        'async_property': {'key': 'Async', 'type': 'bool'},
+        'async': {'key': 'Async', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
     }
 
@@ -45,7 +45,6 @@ class ProvisionApplicationTypeDescriptionBase(Model):
         'kind': {'ImageStorePath': 'ProvisionApplicationTypeDescription', 'ExternalStore': 'ExternalStoreProvisionApplicationTypeDescription'}
     }
 
-    def __init__(self, async_property):
-        super(ProvisionApplicationTypeDescriptionBase, self).__init__()
-        self.async_property = async_property
+    def __init__(self, async):
+        self.async = async
         self.kind = None

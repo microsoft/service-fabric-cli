@@ -39,7 +39,6 @@ class ChaosSchedule(Model):
     }
 
     def __init__(self, start_date="1601-01-01T00:00:00Z", expiry_date="9999-12-31T23:59:59.999Z", chaos_parameters_dictionary=None, jobs=None):
-        super(ChaosSchedule, self).__init__()
         self.start_date = start_date
         self.expiry_date = expiry_date
         self.chaos_parameters_dictionary = chaos_parameters_dictionary

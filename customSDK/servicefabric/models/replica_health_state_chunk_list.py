@@ -27,5 +27,4 @@ class ReplicaHealthStateChunkList(Model):
     }
 
     def __init__(self, items=None):
-        super(ReplicaHealthStateChunkList, self).__init__()
         self.items = items

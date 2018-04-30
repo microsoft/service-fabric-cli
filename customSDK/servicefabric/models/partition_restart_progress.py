@@ -31,6 +31,5 @@ class PartitionRestartProgress(Model):
     }
 
     def __init__(self, state=None, restart_partition_result=None):
-        super(PartitionRestartProgress, self).__init__()
         self.state = state
         self.restart_partition_result = restart_partition_result

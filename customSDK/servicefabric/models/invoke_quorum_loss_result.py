@@ -30,6 +30,5 @@ class InvokeQuorumLossResult(Model):
     }
 
     def __init__(self, error_code=None, selected_partition=None):
-        super(InvokeQuorumLossResult, self).__init__()
         self.error_code = error_code
         self.selected_partition = selected_partition

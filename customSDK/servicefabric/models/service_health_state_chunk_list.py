@@ -27,5 +27,4 @@ class ServiceHealthStateChunkList(Model):
     }
 
     def __init__(self, items=None):
-        super(ServiceHealthStateChunkList, self).__init__()
         self.items = items

@@ -36,5 +36,4 @@ class ScalingTriggerDescription(Model):
     }
 
     def __init__(self):
-        super(ScalingTriggerDescription, self).__init__()
         self.kind = None

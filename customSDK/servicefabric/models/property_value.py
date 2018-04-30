@@ -36,5 +36,4 @@ class PropertyValue(Model):
     }
 
     def __init__(self):
-        super(PropertyValue, self).__init__()
         self.kind = None

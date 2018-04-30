@@ -39,6 +39,5 @@ class BackupStorageDescription(Model):
     }
 
     def __init__(self, friendly_name=None):
-        super(BackupStorageDescription, self).__init__()
         self.friendly_name = friendly_name
         self.storage_kind = None

@@ -33,6 +33,5 @@ class BackupSuspensionInfo(Model):
     }
 
     def __init__(self, is_suspended=None, suspension_inherited_from=None):
-        super(BackupSuspensionInfo, self).__init__()
         self.is_suspended = is_suspended
         self.suspension_inherited_from = suspension_inherited_from

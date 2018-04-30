@@ -53,7 +53,6 @@ class CodePackageEntryPoint(Model):
     }
 
     def __init__(self, entry_point_location=None, process_id=None, run_as_user_name=None, code_package_entry_point_statistics=None, status=None, next_activation_time=None, instance_id=None):
-        super(CodePackageEntryPoint, self).__init__()
         self.entry_point_location = entry_point_location
         self.process_id = process_id
         self.run_as_user_name = run_as_user_name

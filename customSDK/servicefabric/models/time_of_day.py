@@ -34,6 +34,5 @@ class TimeOfDay(Model):
     }
 
     def __init__(self, hour=None, minute=None):
-        super(TimeOfDay, self).__init__()
         self.hour = hour
         self.minute = minute

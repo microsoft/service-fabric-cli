@@ -38,6 +38,5 @@ class ClusterHealthPolicies(Model):
     }
 
     def __init__(self, application_health_policy_map=None, cluster_health_policy=None):
-        super(ClusterHealthPolicies, self).__init__()
         self.application_health_policy_map = application_health_policy_map
         self.cluster_health_policy = cluster_health_policy

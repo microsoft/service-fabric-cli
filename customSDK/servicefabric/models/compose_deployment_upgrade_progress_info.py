@@ -125,7 +125,6 @@ class ComposeDeploymentUpgradeProgressInfo(Model):
     }
 
     def __init__(self, deployment_name=None, application_name=None, upgrade_state=None, upgrade_status_details=None, upgrade_kind="Rolling", rolling_upgrade_mode="UnmonitoredAuto", force_restart=None, upgrade_replica_set_check_timeout_in_seconds=None, monitoring_policy=None, application_health_policy=None, target_application_type_version=None, upgrade_duration=None, current_upgrade_domain_duration=None, application_unhealthy_evaluations=None, current_upgrade_domain_progress=None, start_timestamp_utc=None, failure_timestamp_utc=None, failure_reason=None, upgrade_domain_progress_at_failure=None, application_upgrade_status_details=None):
-        super(ComposeDeploymentUpgradeProgressInfo, self).__init__()
         self.deployment_name = deployment_name
         self.application_name = application_name
         self.upgrade_state = upgrade_state

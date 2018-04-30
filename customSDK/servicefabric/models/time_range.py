@@ -29,6 +29,5 @@ class TimeRange(Model):
     }
 
     def __init__(self, start_time=None, end_time=None):
-        super(TimeRange, self).__init__()
         self.start_time = start_time
         self.end_time = end_time

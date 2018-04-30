@@ -24,5 +24,4 @@ class FabricConfigVersionInfo(Model):
     }
 
     def __init__(self, config_version=None):
-        super(FabricConfigVersionInfo, self).__init__()
         self.config_version = config_version

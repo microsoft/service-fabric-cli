@@ -52,7 +52,6 @@ class UpdateClusterUpgradeDescription(Model):
     }
 
     def __init__(self, upgrade_kind="Rolling", update_description=None, cluster_health_policy=None, enable_delta_health_evaluation=None, cluster_upgrade_health_policy=None, application_health_policy_map=None):
-        super(UpdateClusterUpgradeDescription, self).__init__()
         self.upgrade_kind = upgrade_kind
         self.update_description = update_description
         self.cluster_health_policy = cluster_health_policy

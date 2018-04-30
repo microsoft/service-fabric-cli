@@ -63,7 +63,6 @@ class ApplicationInfo(Model):
     }
 
     def __init__(self, id=None, name=None, type_name=None, type_version=None, status=None, parameters=None, health_state=None, application_definition_kind=None):
-        super(ApplicationInfo, self).__init__()
         self.id = id
         self.name = name
         self.type_name = type_name

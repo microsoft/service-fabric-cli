@@ -34,6 +34,5 @@ class ChaosEventsSegment(Model):
     }
 
     def __init__(self, continuation_token=None, history=None):
-        super(ChaosEventsSegment, self).__init__()
         self.continuation_token = continuation_token
         self.history = history

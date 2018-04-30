@@ -22,11 +22,11 @@ class UniformInt64RangePartitionSchemeDescription(PartitionSchemeDescription):
     :type count: int
     :param low_key: String indicating the lower bound of the partition key
      range that
-     should be split between the partitions.
+     should be split between the partition ‘Count’
     :type low_key: str
     :param high_key: String indicating the upper bound of the partition key
      range that
-     should be split between the partitions.
+     should be split between the partition ‘Count’
     :type high_key: str
     """
 

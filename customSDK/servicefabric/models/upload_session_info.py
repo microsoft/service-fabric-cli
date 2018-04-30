@@ -41,7 +41,6 @@ class UploadSessionInfo(Model):
     }
 
     def __init__(self, store_relative_path=None, session_id=None, modified_date=None, file_size=None, expected_ranges=None):
-        super(UploadSessionInfo, self).__init__()
         self.store_relative_path = store_relative_path
         self.session_id = session_id
         self.modified_date = modified_date

@@ -84,7 +84,6 @@ class ClusterHealthPolicy(Model):
     }
 
     def __init__(self, consider_warning_as_error=False, max_percent_unhealthy_nodes=0, max_percent_unhealthy_applications=0, application_type_health_policy_map=None):
-        super(ClusterHealthPolicy, self).__init__()
         self.consider_warning_as_error = consider_warning_as_error
         self.max_percent_unhealthy_nodes = max_percent_unhealthy_nodes
         self.max_percent_unhealthy_applications = max_percent_unhealthy_applications

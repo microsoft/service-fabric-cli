@@ -53,7 +53,6 @@ class ApplicationCapacityDescription(Model):
     }
 
     def __init__(self, minimum_nodes=None, maximum_nodes=0, application_metrics=None):
-        super(ApplicationCapacityDescription, self).__init__()
         self.minimum_nodes = minimum_nodes
         self.maximum_nodes = maximum_nodes
         self.application_metrics = application_metrics

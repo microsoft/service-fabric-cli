@@ -35,6 +35,5 @@ class PagedServicePartitionInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedServicePartitionInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

@@ -42,6 +42,5 @@ class ChaosEvent(Model):
     }
 
     def __init__(self, time_stamp_utc):
-        super(ChaosEvent, self).__init__()
         self.time_stamp_utc = time_stamp_utc
         self.kind = None

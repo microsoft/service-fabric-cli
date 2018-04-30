@@ -86,7 +86,6 @@ class ClusterUpgradeProgressObject(Model):
     }
 
     def __init__(self, code_version=None, config_version=None, upgrade_domains=None, upgrade_state=None, next_upgrade_domain=None, rolling_upgrade_mode="UnmonitoredAuto", upgrade_description=None, upgrade_duration_in_milliseconds=None, upgrade_domain_duration_in_milliseconds=None, unhealthy_evaluations=None, current_upgrade_domain_progress=None, start_timestamp_utc=None, failure_timestamp_utc=None, failure_reason=None, upgrade_domain_progress_at_failure=None):
-        super(ClusterUpgradeProgressObject, self).__init__()
         self.code_version = code_version
         self.config_version = config_version
         self.upgrade_domains = upgrade_domains

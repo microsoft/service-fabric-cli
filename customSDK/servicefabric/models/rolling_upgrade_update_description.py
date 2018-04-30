@@ -90,7 +90,6 @@ class RollingUpgradeUpdateDescription(Model):
     }
 
     def __init__(self, rolling_upgrade_mode="UnmonitoredAuto", force_restart=None, replica_set_check_timeout_in_milliseconds=None, failure_action=None, health_check_wait_duration_in_milliseconds=None, health_check_stable_duration_in_milliseconds=None, health_check_retry_timeout_in_milliseconds=None, upgrade_timeout_in_milliseconds=None, upgrade_domain_timeout_in_milliseconds=None):
-        super(RollingUpgradeUpdateDescription, self).__init__()
         self.rolling_upgrade_mode = rolling_upgrade_mode
         self.force_restart = force_restart
         self.replica_set_check_timeout_in_milliseconds = replica_set_check_timeout_in_milliseconds

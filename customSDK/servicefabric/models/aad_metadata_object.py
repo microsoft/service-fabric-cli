@@ -29,6 +29,5 @@ class AadMetadataObject(Model):
     }
 
     def __init__(self, type=None, metadata=None):
-        super(AadMetadataObject, self).__init__()
         self.type = type
         self.metadata = metadata

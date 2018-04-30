@@ -34,6 +34,5 @@ class ChaosParametersDictionaryItem(Model):
     }
 
     def __init__(self, key, value):
-        super(ChaosParametersDictionaryItem, self).__init__()
         self.key = key
         self.value = value

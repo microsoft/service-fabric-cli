@@ -28,5 +28,4 @@ class SafetyCheckWrapper(Model):
     }
 
     def __init__(self, safety_check=None):
-        super(SafetyCheckWrapper, self).__init__()
         self.safety_check = safety_check

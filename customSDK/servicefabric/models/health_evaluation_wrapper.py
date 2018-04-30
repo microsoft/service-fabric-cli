@@ -26,5 +26,4 @@ class HealthEvaluationWrapper(Model):
     }
 
     def __init__(self, health_evaluation=None):
-        super(HealthEvaluationWrapper, self).__init__()
         self.health_evaluation = health_evaluation

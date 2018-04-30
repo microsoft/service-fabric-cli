@@ -38,5 +38,4 @@ class RepairImpactDescriptionBase(Model):
     }
 
     def __init__(self):
-        super(RepairImpactDescriptionBase, self).__init__()
         self.kind = None

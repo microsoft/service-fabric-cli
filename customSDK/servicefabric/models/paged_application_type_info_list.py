@@ -35,6 +35,5 @@ class PagedApplicationTypeInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedApplicationTypeInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

@@ -39,7 +39,6 @@ class AadMetadata(Model):
     }
 
     def __init__(self, authority=None, client=None, cluster=None, login=None, redirect=None, tenant=None):
-        super(AadMetadata, self).__init__()
         self.authority = authority
         self.client = client
         self.cluster = cluster

@@ -53,7 +53,6 @@ class GetBackupByStorageQueryDescription(Model):
     }
 
     def __init__(self, storage, backup_entity, start_date_time_filter=None, end_date_time_filter=None, latest=False):
-        super(GetBackupByStorageQueryDescription, self).__init__()
         self.start_date_time_filter = start_date_time_filter
         self.end_date_time_filter = end_date_time_filter
         self.latest = latest

@@ -43,7 +43,6 @@ class DeployedServicePackageInfo(Model):
     }
 
     def __init__(self, name=None, version=None, status=None, service_package_activation_id=None):
-        super(DeployedServicePackageInfo, self).__init__()
         self.name = name
         self.version = version
         self.status = status

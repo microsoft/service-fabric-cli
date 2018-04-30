@@ -30,6 +30,5 @@ class NodeTransitionResult(Model):
     }
 
     def __init__(self, error_code=None, node_result=None):
-        super(NodeTransitionResult, self).__init__()
         self.error_code = error_code
         self.node_result = node_result

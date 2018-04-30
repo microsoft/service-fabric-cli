@@ -58,7 +58,6 @@ class ClusterHealthChunkQueryDescription(Model):
     }
 
     def __init__(self, node_filters=None, application_filters=None, cluster_health_policy=None, application_health_policies=None):
-        super(ClusterHealthChunkQueryDescription, self).__init__()
         self.node_filters = node_filters
         self.application_filters = application_filters
         self.cluster_health_policy = cluster_health_policy

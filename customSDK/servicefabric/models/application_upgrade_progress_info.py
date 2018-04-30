@@ -105,7 +105,6 @@ class ApplicationUpgradeProgressInfo(Model):
     }
 
     def __init__(self, name=None, type_name=None, target_application_type_version=None, upgrade_domains=None, upgrade_state=None, next_upgrade_domain=None, rolling_upgrade_mode="UnmonitoredAuto", upgrade_description=None, upgrade_duration_in_milliseconds=None, upgrade_domain_duration_in_milliseconds=None, unhealthy_evaluations=None, current_upgrade_domain_progress=None, start_timestamp_utc=None, failure_timestamp_utc=None, failure_reason=None, upgrade_domain_progress_at_failure=None, upgrade_status_details=None):
-        super(ApplicationUpgradeProgressInfo, self).__init__()
         self.name = name
         self.type_name = type_name
         self.target_application_type_version = target_application_type_version

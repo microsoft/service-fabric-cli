@@ -38,7 +38,6 @@ class RestorePartitionDescription(Model):
     }
 
     def __init__(self, backup_id, backup_location, backup_storage=None):
-        super(RestorePartitionDescription, self).__init__()
         self.backup_id = backup_id
         self.backup_location = backup_location
         self.backup_storage = backup_storage

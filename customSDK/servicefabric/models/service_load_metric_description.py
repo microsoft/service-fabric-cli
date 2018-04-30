@@ -49,7 +49,6 @@ class ServiceLoadMetricDescription(Model):
     }
 
     def __init__(self, name, weight=None, primary_default_load=None, secondary_default_load=None, default_load=None):
-        super(ServiceLoadMetricDescription, self).__init__()
         self.name = name
         self.weight = weight
         self.primary_default_load = primary_default_load

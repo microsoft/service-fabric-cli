@@ -37,7 +37,6 @@ class ComposeDeploymentStatusInfo(Model):
     }
 
     def __init__(self, name=None, application_name=None, status=None, status_details=None):
-        super(ComposeDeploymentStatusInfo, self).__init__()
         self.name = name
         self.application_name = application_name
         self.status = status

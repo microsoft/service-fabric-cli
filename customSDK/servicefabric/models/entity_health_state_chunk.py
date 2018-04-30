@@ -27,5 +27,4 @@ class EntityHealthStateChunk(Model):
     }
 
     def __init__(self, health_state=None):
-        super(EntityHealthStateChunk, self).__init__()
         self.health_state = health_state

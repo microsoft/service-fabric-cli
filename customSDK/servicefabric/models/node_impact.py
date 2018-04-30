@@ -35,6 +35,5 @@ class NodeImpact(Model):
     }
 
     def __init__(self, node_name, impact_level=None):
-        super(NodeImpact, self).__init__()
         self.node_name = node_name
         self.impact_level = impact_level

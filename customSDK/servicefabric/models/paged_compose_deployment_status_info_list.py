@@ -35,6 +35,5 @@ class PagedComposeDeploymentStatusInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedComposeDeploymentStatusInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

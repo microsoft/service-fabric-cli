@@ -35,7 +35,6 @@ class FileInfo(Model):
     }
 
     def __init__(self, file_size=None, file_version=None, modified_date=None, store_relative_path=None):
-        super(FileInfo, self).__init__()
         self.file_size = file_size
         self.file_version = file_version
         self.modified_date = modified_date

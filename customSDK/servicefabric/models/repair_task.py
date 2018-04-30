@@ -131,7 +131,6 @@ class RepairTask(Model):
     }
 
     def __init__(self, task_id, state, action, version=None, description=None, flags=None, target=None, executor=None, executor_data=None, impact=None, result_status=None, result_code=None, result_details=None, history=None, preparing_health_check_state=None, restoring_health_check_state=None, perform_preparing_health_check=None, perform_restoring_health_check=None):
-        super(RepairTask, self).__init__()
         self.task_id = task_id
         self.version = version
         self.description = description

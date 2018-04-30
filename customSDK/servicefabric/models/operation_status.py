@@ -36,7 +36,6 @@ class OperationStatus(Model):
     }
 
     def __init__(self, operation_id=None, state=None, type=None):
-        super(OperationStatus, self).__init__()
         self.operation_id = operation_id
         self.state = state
         self.type = type

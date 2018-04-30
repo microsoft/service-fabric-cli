@@ -81,7 +81,6 @@ class DeployedServiceReplicaInfo(Model):
     }
 
     def __init__(self, service_name=None, service_type_name=None, service_manifest_name=None, code_package_name=None, partition_id=None, replica_status=None, address=None, service_package_activation_id=None, host_process_id=None):
-        super(DeployedServiceReplicaInfo, self).__init__()
         self.service_name = service_name
         self.service_type_name = service_type_name
         self.service_manifest_name = service_manifest_name

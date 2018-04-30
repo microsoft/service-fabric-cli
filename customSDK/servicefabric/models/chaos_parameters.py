@@ -101,7 +101,6 @@ class ChaosParameters(Model):
     }
 
     def __init__(self, time_to_run_in_seconds="4294967295", max_cluster_stabilization_timeout_in_seconds=60, max_concurrent_faults=1, enable_move_replica_faults=True, wait_time_between_faults_in_seconds=20, wait_time_between_iterations_in_seconds=30, cluster_health_policy=None, context=None, chaos_target_filter=None):
-        super(ChaosParameters, self).__init__()
         self.time_to_run_in_seconds = time_to_run_in_seconds
         self.max_cluster_stabilization_timeout_in_seconds = max_cluster_stabilization_timeout_in_seconds
         self.max_concurrent_faults = max_concurrent_faults

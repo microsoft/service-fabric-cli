@@ -35,6 +35,5 @@ class NodeTransitionProgress(Model):
     }
 
     def __init__(self, state=None, node_transition_result=None):
-        super(NodeTransitionProgress, self).__init__()
         self.state = state
         self.node_transition_result = node_transition_result

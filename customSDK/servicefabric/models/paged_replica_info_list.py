@@ -35,6 +35,5 @@ class PagedReplicaInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedReplicaInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

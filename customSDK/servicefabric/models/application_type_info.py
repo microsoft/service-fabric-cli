@@ -50,7 +50,6 @@ class ApplicationTypeInfo(Model):
     }
 
     def __init__(self, name=None, version=None, default_parameter_list=None, status=None, status_details=None, application_type_definition_kind=None):
-        super(ApplicationTypeInfo, self).__init__()
         self.name = name
         self.version = version
         self.default_parameter_list = default_parameter_list

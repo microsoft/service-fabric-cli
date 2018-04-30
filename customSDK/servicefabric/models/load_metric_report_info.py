@@ -30,7 +30,6 @@ class LoadMetricReportInfo(Model):
     }
 
     def __init__(self, name=None, value=None, last_reported_utc=None):
-        super(LoadMetricReportInfo, self).__init__()
         self.name = name
         self.value = value
         self.last_reported_utc = last_reported_utc

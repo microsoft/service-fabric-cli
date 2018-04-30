@@ -35,5 +35,4 @@ class PropertyBatchInfo(Model):
     }
 
     def __init__(self):
-        super(PropertyBatchInfo, self).__init__()
         self.kind = None

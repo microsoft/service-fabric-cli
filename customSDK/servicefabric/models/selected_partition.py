@@ -32,6 +32,5 @@ class SelectedPartition(Model):
     }
 
     def __init__(self, service_name=None, partition_id=None):
-        super(SelectedPartition, self).__init__()
         self.service_name = service_name
         self.partition_id = partition_id

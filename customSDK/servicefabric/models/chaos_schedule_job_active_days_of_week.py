@@ -49,7 +49,6 @@ class ChaosScheduleJobActiveDaysOfWeek(Model):
     }
 
     def __init__(self, sunday=False, monday=False, tuesday=False, wednesday=False, thursday=False, friday=False, saturday=False):
-        super(ChaosScheduleJobActiveDaysOfWeek, self).__init__()
         self.sunday = sunday
         self.monday = monday
         self.tuesday = tuesday
