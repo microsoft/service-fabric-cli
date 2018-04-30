@@ -46,6 +46,7 @@ class ReconfigurationInformation(Model):
     }
 
     def __init__(self, previous_configuration_role=None, reconfiguration_phase=None, reconfiguration_type=None, reconfiguration_start_time_utc=None):
+        super(ReconfigurationInformation, self).__init__()
         self.previous_configuration_role = previous_configuration_role
         self.reconfiguration_phase = reconfiguration_phase
         self.reconfiguration_type = reconfiguration_type

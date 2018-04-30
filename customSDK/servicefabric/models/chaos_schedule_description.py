@@ -32,5 +32,6 @@ class ChaosScheduleDescription(Model):
     }
 
     def __init__(self, version=None, schedule=None):
+        super(ChaosScheduleDescription, self).__init__()
         self.version = version
         self.schedule = schedule

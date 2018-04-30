@@ -36,5 +36,6 @@ class ScalingPolicyDescription(Model):
     }
 
     def __init__(self, scaling_trigger, scaling_mechanism):
+        super(ScalingPolicyDescription, self).__init__()
         self.scaling_trigger = scaling_trigger
         self.scaling_mechanism = scaling_mechanism

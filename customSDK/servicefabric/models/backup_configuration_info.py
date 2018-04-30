@@ -50,6 +50,7 @@ class BackupConfigurationInfo(Model):
     }
 
     def __init__(self, policy_name=None, policy_inherited_from=None, suspension_info=None):
+        super(BackupConfigurationInfo, self).__init__()
         self.policy_name = policy_name
         self.policy_inherited_from = policy_inherited_from
         self.suspension_info = suspension_info

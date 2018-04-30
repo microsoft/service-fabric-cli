@@ -36,4 +36,5 @@ class ScalingMechanismDescription(Model):
     }
 
     def __init__(self):
+        super(ScalingMechanismDescription, self).__init__()
         self.kind = None

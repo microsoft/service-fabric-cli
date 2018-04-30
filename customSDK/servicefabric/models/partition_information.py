@@ -44,5 +44,6 @@ class PartitionInformation(Model):
     }
 
     def __init__(self, id=None):
+        super(PartitionInformation, self).__init__()
         self.id = id
         self.service_partition_kind = None

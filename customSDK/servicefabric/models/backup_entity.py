@@ -36,4 +36,5 @@ class BackupEntity(Model):
     }
 
     def __init__(self):
+        super(BackupEntity, self).__init__()
         self.entity_kind = None

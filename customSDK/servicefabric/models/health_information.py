@@ -101,6 +101,7 @@ class HealthInformation(Model):
     }
 
     def __init__(self, source_id, property, health_state, time_to_live_in_milli_seconds=None, description=None, sequence_number=None, remove_when_expired=None):
+        super(HealthInformation, self).__init__()
         self.source_id = source_id
         self.property = property
         self.health_state = health_state

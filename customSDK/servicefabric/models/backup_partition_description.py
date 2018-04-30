@@ -25,4 +25,5 @@ class BackupPartitionDescription(Model):
     }
 
     def __init__(self, backup_storage=None):
+        super(BackupPartitionDescription, self).__init__()
         self.backup_storage = backup_storage

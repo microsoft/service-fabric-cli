@@ -28,5 +28,6 @@ class UpgradeDomainInfo(Model):
     }
 
     def __init__(self, name=None, state=None):
+        super(UpgradeDomainInfo, self).__init__()
         self.name = name
         self.state = state

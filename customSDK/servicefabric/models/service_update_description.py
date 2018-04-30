@@ -98,6 +98,7 @@ class ServiceUpdateDescription(Model):
     }
 
     def __init__(self, flags=None, placement_constraints=None, correlation_scheme=None, load_metrics=None, service_placement_policies=None, default_move_cost=None, scaling_policies=None):
+        super(ServiceUpdateDescription, self).__init__()
         self.flags = flags
         self.placement_constraints = placement_constraints
         self.correlation_scheme = correlation_scheme

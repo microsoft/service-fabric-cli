@@ -36,5 +36,6 @@ class ServiceCorrelationDescription(Model):
     }
 
     def __init__(self, scheme, service_name):
+        super(ServiceCorrelationDescription, self).__init__()
         self.scheme = scheme
         self.service_name = service_name

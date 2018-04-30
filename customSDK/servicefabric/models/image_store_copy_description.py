@@ -45,6 +45,7 @@ class ImageStoreCopyDescription(Model):
     }
 
     def __init__(self, remote_source, remote_destination, skip_files=None, check_mark_file=None):
+        super(ImageStoreCopyDescription, self).__init__()
         self.remote_source = remote_source
         self.remote_destination = remote_destination
         self.skip_files = skip_files

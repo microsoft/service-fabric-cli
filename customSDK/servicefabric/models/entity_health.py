@@ -44,6 +44,7 @@ class EntityHealth(Model):
     }
 
     def __init__(self, aggregated_health_state=None, health_events=None, unhealthy_evaluations=None, health_statistics=None):
+        super(EntityHealth, self).__init__()
         self.aggregated_health_state = aggregated_health_state
         self.health_events = health_events
         self.unhealthy_evaluations = unhealthy_evaluations

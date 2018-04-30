@@ -55,6 +55,7 @@ class ApplicationDescription(Model):
     }
 
     def __init__(self, name, type_name, type_version, parameter_list=None, application_capacity=None):
+        super(ApplicationDescription, self).__init__()
         self.name = name
         self.type_name = type_name
         self.type_version = type_version

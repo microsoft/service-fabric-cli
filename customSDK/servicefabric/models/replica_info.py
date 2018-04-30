@@ -56,6 +56,7 @@ class ReplicaInfo(Model):
     }
 
     def __init__(self, replica_status=None, health_state=None, node_name=None, address=None, last_in_build_duration_in_seconds=None):
+        super(ReplicaInfo, self).__init__()
         self.replica_status = replica_status
         self.health_state = health_state
         self.node_name = node_name

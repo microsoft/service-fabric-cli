@@ -36,6 +36,7 @@ class Chaos(Model):
     }
 
     def __init__(self, chaos_parameters=None, status=None, schedule_status=None):
+        super(Chaos, self).__init__()
         self.chaos_parameters = chaos_parameters
         self.status = status
         self.schedule_status = schedule_status

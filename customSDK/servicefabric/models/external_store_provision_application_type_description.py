@@ -17,12 +17,12 @@ class ExternalStoreProvisionApplicationTypeDescription(ProvisionApplicationTypeD
     an application package from an external store instead of a package uploaded
     to the Service Fabric image store.
 
-    :param async: Indicates whether or not provisioning should occur
+    :param async_property: Indicates whether or not provisioning should occur
      asynchronously. When set to true, the provision operation returns when the
      request is accepted by the system, and the provision operation continues
      without any timeout limit. The default value is false. For large
      application packages, we recommend setting the value to true.
-    :type async: bool
+    :type async_property: bool
     :param kind: Constant filled by server.
     :type kind: str
     :param application_package_download_uri: The path to the '.sfpkg'
@@ -40,7 +40,7 @@ class ExternalStoreProvisionApplicationTypeDescription(ProvisionApplicationTypeD
     """
 
     _validation = {
-        'async': {'required': True},
+        'async_property': {'required': True},
         'kind': {'required': True},
         'application_package_download_uri': {'required': True},
         'application_type_name': {'required': True},
@@ -48,15 +48,15 @@ class ExternalStoreProvisionApplicationTypeDescription(ProvisionApplicationTypeD
     }
 
     _attribute_map = {
-        'async': {'key': 'Async', 'type': 'bool'},
+        'async_property': {'key': 'Async', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'application_package_download_uri': {'key': 'ApplicationPackageDownloadUri', 'type': 'str'},
         'application_type_name': {'key': 'ApplicationTypeName', 'type': 'str'},
         'application_type_version': {'key': 'ApplicationTypeVersion', 'type': 'str'},
     }
 
-    def __init__(self, async, application_package_download_uri, application_type_name, application_type_version):
-        super(ExternalStoreProvisionApplicationTypeDescription, self).__init__(async=async)
+    def __init__(self, async_property, application_package_download_uri, application_type_name, application_type_version):
+        super(ExternalStoreProvisionApplicationTypeDescription, self).__init__(async_property=async_property)
         self.application_package_download_uri = application_package_download_uri
         self.application_type_name = application_type_name
         self.application_type_version = application_type_version

@@ -31,4 +31,5 @@ class ChaosContext(Model):
     }
 
     def __init__(self, map=None):
+        super(ChaosContext, self).__init__()
         self.map = map

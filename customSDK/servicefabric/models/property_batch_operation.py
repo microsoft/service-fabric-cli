@@ -43,5 +43,6 @@ class PropertyBatchOperation(Model):
     }
 
     def __init__(self, property_name):
+        super(PropertyBatchOperation, self).__init__()
         self.property_name = property_name
         self.kind = None

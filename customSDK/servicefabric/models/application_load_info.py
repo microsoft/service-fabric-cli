@@ -56,6 +56,7 @@ class ApplicationLoadInfo(Model):
     }
 
     def __init__(self, id=None, minimum_nodes=None, maximum_nodes=None, node_count=None, application_load_metric_information=None):
+        super(ApplicationLoadInfo, self).__init__()
         self.id = id
         self.minimum_nodes = minimum_nodes
         self.maximum_nodes = maximum_nodes

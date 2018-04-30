@@ -53,6 +53,7 @@ class BackupPolicyDescription(Model):
     }
 
     def __init__(self, name, auto_restore_on_data_loss, max_incremental_backups, schedule, storage):
+        super(BackupPolicyDescription, self).__init__()
         self.name = name
         self.auto_restore_on_data_loss = auto_restore_on_data_loss
         self.max_incremental_backups = max_incremental_backups

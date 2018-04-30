@@ -45,6 +45,7 @@ class ApplicationUpgradeUpdateDescription(Model):
     }
 
     def __init__(self, name, upgrade_kind="Rolling", application_health_policy=None, update_description=None):
+        super(ApplicationUpgradeUpdateDescription, self).__init__()
         self.name = name
         self.upgrade_kind = upgrade_kind
         self.application_health_policy = application_health_policy

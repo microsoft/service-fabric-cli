@@ -176,5 +176,6 @@ class FabricErrorError(Model):
     }
 
     def __init__(self, code, message=None):
+        super(FabricErrorError, self).__init__()
         self.code = code
         self.message = message

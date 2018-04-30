@@ -40,6 +40,7 @@ class PagedSubNameInfoList(Model):
     }
 
     def __init__(self, continuation_token=None, is_consistent=None, sub_names=None):
+        super(PagedSubNameInfoList, self).__init__()
         self.continuation_token = continuation_token
         self.is_consistent = is_consistent
         self.sub_names = sub_names

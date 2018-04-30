@@ -40,6 +40,7 @@ class PartitionLoadInformation(Model):
     }
 
     def __init__(self, partition_id=None, primary_load_metric_reports=None, secondary_load_metric_reports=None):
+        super(PartitionLoadInformation, self).__init__()
         self.partition_id = partition_id
         self.primary_load_metric_reports = primary_load_metric_reports
         self.secondary_load_metric_reports = secondary_load_metric_reports

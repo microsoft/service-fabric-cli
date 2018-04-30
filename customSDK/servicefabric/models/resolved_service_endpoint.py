@@ -31,5 +31,6 @@ class ResolvedServiceEndpoint(Model):
     }
 
     def __init__(self, kind=None, address=None):
+        super(ResolvedServiceEndpoint, self).__init__()
         self.kind = kind
         self.address = address

@@ -31,5 +31,6 @@ class EntityKindHealthStateCount(Model):
     }
 
     def __init__(self, entity_kind=None, health_state_count=None):
+        super(EntityKindHealthStateCount, self).__init__()
         self.entity_kind = entity_kind
         self.health_state_count = health_state_count
