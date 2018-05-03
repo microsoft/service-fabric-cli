@@ -6,8 +6,8 @@ python:
 git:
   depth: 3
 install:
-  - pip install --editable --ignore-installed ./src
-  - pip install --requirement --ignore-installed requirements.txt
+  - pip install --ignore-installed -e ./src
+  - pip install --ignore-installed -r requirements.txt
 before_script:
   - python scripts/check_and_use_custom_sdk.py
 script:
