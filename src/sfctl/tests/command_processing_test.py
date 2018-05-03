@@ -44,13 +44,15 @@ class CommandsProcessTests(unittest.TestCase):
         dictionary['last_name'] = 'Smith'
         dictionary['pets'] = pets_dictionary
 
-        file_path_correct_json = path.join(path.dirname(__file__), 'correct_json.txt')
-        file_path_incorrect_json = path.join(path.dirname(__file__), 'incorrect_json.txt')
-        file_path_empty_file = path.join(path.dirname(__file__), 'empty_file.txt')
+        # Test .txt files containing json live in the same folder as this file. Get their full paths.
+        file_path_correct_json = '@' + path.join(path.dirname(__file__), 'correct_json.txt')
+        file_path_incorrect_json = '@' + path.join(path.dirname(__file__), 'incorrect_json.txt')
+        file_path_empty_file = '@' + path.join(path.dirname(__file__), 'empty_file.txt')
 
-        # Use this here to avoid the printed clutter when running the tests.
+        # Use str_io capture here to avoid the printed clutter when running the tests.
         # Using ValueError instead of json.decoder.JSONDecodeError because that is not
-        # supported in python 2.7
+        # supported in python 2.7.
+        # Test that incorrect or empty file paths return error.
         str_io = StringIO()
         with redirect_stdout(str_io):
             with self.assertRaises(ValueError):
@@ -58,6 +60,7 @@ class CommandsProcessTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 json_encoded(file_path_incorrect_json)
 
+        # Test that correct file path returns correct serialized object
         self.assertEqual(dictionary, json_encoded(file_path_correct_json))
 
         # Test that appropriate error messages are printed out on error
@@ -103,39 +106,43 @@ class CommandsProcessTests(unittest.TestCase):
         # Pass in json as a string
         # --------------------------------------
 
+        str_io = StringIO()
+
+        # str_io captures the output of a wrongly formatted json
+        with redirect_stdout(str_io):
+            try:
+                json_encoded('')
+            except Exception:  # pylint: disable=broad-except
+                pass
+
+        printed_output = str_io.getvalue()
+        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertIn('To do so, set argument value to the relative or '
+                      'absolute path of the text file prefixed by "@".', printed_output)
+
+        # str_io captures the output of a wrongly formatted json
+        str_io = StringIO()
+        with redirect_stdout(str_io):
+            try:
+                json_encoded('{3.14 : "pie"}')
+            except Exception:  # pylint: disable=broad-except
+                pass
+
+        printed_output = str_io.getvalue()
+        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertIn('To do so, set argument value to the relative or '
+                      'absolute path of the text file prefixed by "@".', printed_output)
+
+        # Capture output with str_io even though it's not used in order to prevent test to writing
+        # to output, in order to keep tests looking clean.
+        # These tests ensure that incorrectly formatted json throws error.
+        str_io = StringIO()
+        with redirect_stdout(str_io):
+            with self.assertRaises(ValueError):
+                json_encoded('')
+            with self.assertRaises(ValueError):
+                json_encoded('{3.14 : "pie"}')
+
+        # Test to ensure that correct json is serialized correctly.
         simple_dictionary = {'k': 23}
-
-        str_io = StringIO()
-
-        with redirect_stdout(str_io):
-            try:
-                json_encoded('')
-            except Exception:  # pylint: disable=broad-except
-                pass
-
-        printed_output = str_io.getvalue()
-        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
-        self.assertIn('To do so, set argument value to the relative or '
-                      'absolute path of the text file', printed_output)
-
-        str_io = StringIO()
-        with redirect_stdout(str_io):
-            try:
-                json_encoded('{3.14 : "pie"}')
-            except Exception:  # pylint: disable=broad-except
-                pass
-
-        printed_output = str_io.getvalue()
-        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
-        self.assertIn('To do so, set argument value to the relative or '
-                      'absolute path of the text file', printed_output)
-
-        # Use this here to avoid the printed clutter when running the tests.
-        str_io = StringIO()
-        with redirect_stdout(str_io):
-            with self.assertRaises(ValueError):
-                json_encoded('')
-            with self.assertRaises(ValueError):
-                json_encoded('{3.14 : "pie"}')
-
         self.assertEqual(simple_dictionary, json_encoded('{"k": 23}'))

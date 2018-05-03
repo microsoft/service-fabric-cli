@@ -13,24 +13,27 @@ from knack.arguments import (ArgumentsContext, CLIArgumentType)
 def json_encoded(arg_str):
     """Convert from argument JSON string to complex object.
     This function also accepts a file path to a .txt file containing the JSON string.
+    File paths should be prefixed by '@'
     Path can be relative path or absolute path."""
 
-    try:
-        with open(arg_str, 'r') as json_file:
-            json_str = json_file.read()
-            return json.loads(json_str)
-    except IOError:
-        # This is the error that python 2.7 returns on no file found
-        pass
-    except ValueError as ex:
-        print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str, ex))
-        raise
+    if (arg_str and arg_str[0] == '@'):
+        try:
+            with open(arg_str[1:], 'r') as json_file:
+                json_str = json_file.read()
+                return json.loads(json_str)
+        except IOError:
+            # This is the error that python 2.7 returns on no file found
+            pass
+        except ValueError as ex:
+            print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str[1:], ex))
+            raise
 
     try:
         return json.loads(arg_str)
     except ValueError:
         print('Hint: You can also pass the json argument in a .txt file. '
-              'To do so, set argument value to the relative or absolute path of the text file.')
+              'To do so, set argument value to the relative or absolute path of the text file '
+              'prefixed by "@".')
         raise
 
 
