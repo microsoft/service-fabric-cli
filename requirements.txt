@@ -1,6 +1,6 @@
-coverage==4.0.3
+coverage
 python-coveralls
-nose2<=0.6.5
+nose2
 pylint
 vcrpy
 mock
