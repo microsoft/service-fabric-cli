@@ -44,8 +44,8 @@ setup(
     ],
     install_requires=[
         'knack==0.1.1',
-        'msrest==0.4.27',
-        'msrestazure==0.4.26',
+        'msrest>=0.4.26',
+        'msrestazure',
         'requests',
         'azure-servicefabric==6.1.2.9',
         'jsonpickle',
@@ -54,8 +54,8 @@ setup(
     ],
     extras_require={
         'test': [
-            'coverage==4.0.3',
-            'nose2>=0.7.4',
+            'coverage',
+            'nose2',
             'pylint',
             'vcrpy',
             'mock'
