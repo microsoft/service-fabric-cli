@@ -18,13 +18,18 @@ class ClientCertAuthentication(Authentication):
         self.ca_cert = ca_cert
         self.no_verify = no_verify
 
-    def signed_session(self):
+    def signed_session(self, session=None):
         """Create requests session with any required auth headers
         applied.
 
         :rtype: requests.Session.
         """
-        session = super(ClientCertAuthentication, self).signed_session()
+
+        if session:
+            session = super(ClientCertAuthentication, self).signed_session(session)
+        else:
+            session = super(ClientCertAuthentication, self).signed_session()
+
         if self.cert is not None:
             session.cert = self.cert
         if self.ca_cert is not None:
@@ -40,14 +45,19 @@ class AdalAuthentication(Authentication):
     def __init__(self, no_verify=False):
         self.no_verify = no_verify
 
-    def signed_session(self):
+    def signed_session(self, session=None):
         """Create requests session with AAD auth headers
 
         :rtype: requests.Session.
         """
+
         from sfctl.config import (aad_metadata, aad_cache)
 
-        session = super(AdalAuthentication, self).signed_session()
+        if session:
+            session = super(AdalAuthentication, self).signed_session(session)
+        else:
+            session = super(AdalAuthentication, self).signed_session()
+
         if self.no_verify:
             session.verify = False
 
