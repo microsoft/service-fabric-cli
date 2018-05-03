@@ -169,6 +169,9 @@ helps['sa-cluster config-upgrade'] = """
           type: string
           short-summary: JSON encoded dictionary of pairs of application type
             name and maximum percentage unhealthy before raising error
+    examples:
+        - name: Start a cluster configuration update
+          text: sfctl sa-cluster config-upgrade --cluster-config <YOUR CLUSTER CONFIG>
 """
 
 helps['cluster upgrade-update'] = """

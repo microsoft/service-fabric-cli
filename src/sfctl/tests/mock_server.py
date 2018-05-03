@@ -30,7 +30,7 @@ class MockServer(BaseHTTPRequestHandler):
     def do_POST(self):  # pylint: disable=C0103,missing-docstring
         # Certain requests expect a very specific response.
         # For those, return other status codes
-        if self.path.startswith('/$/RollbackUpgrade?') or self.path.startswith('/ComposeDeployments/deploymentName/$/Delete'):  # pylint: disable=line-too-long
+        if self.path.startswith('/$/RollbackUpgrade?') or self.path.startswith('/ComposeDeployments/deploymentName/$/Delete') or self.path.startswith('/$/StartClusterConfigurationUpgrade'):  # pylint: disable=line-too-long
             self.send_response(requests.codes.accepted)
             self.end_headers()
             return

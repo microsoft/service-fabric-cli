@@ -788,3 +788,14 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Tools/Chaos',
             ['api-version=6.2'])
+
+        # Cluster Upgrade Commands:
+        self.validate_command(  # config-upgrade
+            'sa-cluster config-upgrade --cluster-config YOUR_CLUSTER_CONFIG ' +
+            '--application-health-policies {' +
+            '\\\"fabric:/System\\\":{' + 
+            '\\\"ConsiderWarningAsError\\\":true' +
+            '}}',
+            'POST',
+            '/$/StartClusterConfigurationUpgrade',
+            ['api-version=6.0', 'timeout=60'])
