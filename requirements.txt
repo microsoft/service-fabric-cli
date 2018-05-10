@@ -4,6 +4,3 @@ nose2
 pylint
 vcrpy
 mock
-jsonpickle
-adal
-msrestazure
