@@ -3,7 +3,5 @@ python-coveralls
 nose2
 pylint
 vcrpy
+contextlib2
 mock
-jsonpickle
-adal
-msrestazure

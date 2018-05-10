@@ -12,6 +12,7 @@ This does not require a cluster connection, except the test for provision applic
 from __future__ import print_function
 from os import (remove, environ)
 import json
+import logging
 import vcr
 from mock import patch
 from knack.testsdk import ScenarioTest
@@ -109,11 +110,17 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # This calls the command and the HTTP request it recorded into
         # generated_file_path
+
+        # Reduce noise in test output for this test only
+        logging.disable(logging.INFO)
         with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
             try:
                 self.cmd(command)
             except Exception as exception:  # pylint: disable=broad-except
                 self.fail('ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
+
+        # re-enable logging
+        logging.disable(logging.NOTSET)
 
         # Read recorded JSON file
         with open(generated_file_path, 'r') as http_recording_file:
@@ -189,18 +196,19 @@ class ServiceFabricRequestTests(ScenarioTest):
             'application provision --application-type-build-path=test_path',
             'POST',
             '/ApplicationTypes/$/Provision',
-            ['api-version=6.1', 'timeout=60'],
+            ['api-version=6.2', 'timeout=60'],
             ('{"Kind": "ImageStorePath", '
              '"Async": false, '
              '"ApplicationTypeBuildPath": "test_path"}'),
             validate_flat_dictionary)
+
         self.validate_command(  # provision-application-type external-store
             'application provision --external-provision '
             '--application-package-download-uri=test_path --application-type-name=name '
             '--application-type-version=version',
             'POST',
             '/ApplicationTypes/$/Provision',
-            ['api-version=6.1', 'timeout=60'],
+            ['api-version=6.2', 'timeout=60'],
             ('{"Kind": "ExternalStore", '
              '"Async": false, '
              '"ApplicationPackageDownloadUri": "test_path", '
@@ -359,7 +367,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # container commands
-        self.validate_command( # get container logs
+        self.validate_command(  # get container logs
             'sfctl container invoke-api --node-name Node01 --application-id samples/winnodejs '
             '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
             '--code-package-instance-id 131668159770315380 --container-api-uri-path "/containers/{id}/logs?stdout=true&stderr=true"',
@@ -368,7 +376,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
             ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
             validate_flat_dictionary)
-        self.validate_command( # get container logs
+        self.validate_command(  # get container logs
             'sfctl container logs --node-name Node01 --application-id samples/winnodejs '
             '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
             '--code-package-instance-id 131668159770315380',
@@ -377,10 +385,10 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
             ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
             validate_flat_dictionary)
-        self.validate_command( # update container
+        self.validate_command(  # update container
             'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
             '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
-            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"', # Manual testing with a JSON string for "--container-api-body" works,
+            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"',  # Manual testing with a JSON string for "--container-api-body" works,
             # Have to pass "DummyRequestBody" here since a real JSON string confuses test validation code.
             'POST',
             '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi',
@@ -612,12 +620,12 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Partitions/id/$/GetReplicas/replicaId/$/GetHealth',
             ['api-version=6.0', 'EventsHealthStateFilter=2'])
-        self.validate_command( # info
+        self.validate_command(  # info
             'replica info --partition-id=id --replica-id=replicaId',
             'GET',
             '/Partitions/id/$/GetReplicas/replicaId',
             ['api-version=6.0'])
-        self.validate_command( # list
+        self.validate_command(  # list
             'replica list --continuation-token=ct --partition-id=id',
             'GET',
             '/Partitions/id/$/GetReplicas',
@@ -740,7 +748,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # Chaos commands:
-        self.validate_command(#get chaos schedule
+        self.validate_command(  # get chaos schedule
             'chaos schedule set ' +
             '--version 0 --start-date-utc 2016-01-01T00:00:00.000Z ' +
             '--expiry-date-utc 2038-01-01T00:00:00.000Z ' +
@@ -765,25 +773,25 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Tools/Chaos/Schedule',
             ['api-version=6.2'])
 
-        self.validate_command(#get chaos schedule
+        self.validate_command(  # get chaos schedule
             'chaos schedule get',
             'GET',
             '/Tools/Chaos/Schedule',
             ['api-version=6.2'])
 
-        self.validate_command(#stop chaos
+        self.validate_command(  # stop chaos
             'chaos stop',
             'POST',
             '/Tools/Chaos/$/Stop',
             ['api-version=6.0'])
 
-        self.validate_command(#get chaos events
+        self.validate_command(  # get chaos events
             'chaos events',
             'GET',
             '/Tools/Chaos/Events',
             ['api-version=6.2'])
 
-        self.validate_command(#get chaos
+        self.validate_command(  # get chaos
             'chaos get',
             'GET',
             '/Tools/Chaos',
