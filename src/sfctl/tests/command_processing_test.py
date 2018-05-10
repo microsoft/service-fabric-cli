@@ -74,7 +74,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_empty_file),
+        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_empty_file.lstrip('@')),  # pylint: disable=line-too-long
                       printed_output)
         self.assertTrue('Expecting value: line 1 column 1 (char 0)' in printed_output
                         or
@@ -89,7 +89,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_incorrect_json),
+        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_incorrect_json.lstrip('@')),  # pylint: disable=line-too-long
                       printed_output)
         self.assertTrue('Expecting property name enclosed in double quotes: line 1 column 2 (char 1)' in printed_output  # pylint: disable=line-too-long
                         or
