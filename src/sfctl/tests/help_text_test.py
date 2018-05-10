@@ -9,7 +9,6 @@ This only tests for commands/subgroups which are specified in this file."""
 
 from __future__ import print_function
 import unittest
-from sys import stderr
 from subprocess import Popen, PIPE
 
 
@@ -188,7 +187,6 @@ class HelpTextTests(unittest.TestCase):
 
             if err:
                 err = err.decode('utf-8')
-                print(err, file=stderr)
                 self.assertEqual(b'', err, msg='ERROR: in command: ' + help_command)
 
             if not returned_string:
@@ -198,7 +196,6 @@ class HelpTextTests(unittest.TestCase):
             lines = returned_string.splitlines()
 
             for line in lines:
-                print(line, file=stderr)
 
                 if not line.strip():
                     continue
@@ -242,8 +239,6 @@ class HelpTextTests(unittest.TestCase):
                              msg=('Not all subgroups listed in help text for '
                                   + help_command
                                   + '. This may be a problem due incorrect expected ordering.'))
-
-            print(file=stderr)
 
         except Exception as exception:  # pylint: disable=broad-except
             if not err:
