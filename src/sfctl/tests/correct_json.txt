@@ -1,0 +1,9 @@
+{
+    "name":"John",
+    "last_name": "Smith",
+    "pets": {
+        "Coco":"Golden Retriever",
+        "Lily":"Ragdoll Cat",
+        "Poofy":"Golden Doodle"
+    }
+ }
