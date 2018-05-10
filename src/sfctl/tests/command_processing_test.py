@@ -44,7 +44,8 @@ class CommandsProcessTests(unittest.TestCase):
         dictionary['last_name'] = 'Smith'
         dictionary['pets'] = pets_dictionary
 
-        # Test .txt files containing json live in the same folder as this file. Get their full paths.
+        # Test .txt files containing json live in the same folder as this file.
+        # Get their full paths.
         file_path_correct_json = '@' + path.join(path.dirname(__file__), 'correct_json.txt')
         file_path_incorrect_json = '@' + path.join(path.dirname(__file__), 'incorrect_json.txt')
         file_path_empty_file = '@' + path.join(path.dirname(__file__), 'empty_file.txt')
