@@ -76,7 +76,9 @@ def check_and_use_custom_sdk():
     if not should_use_custom_sdk:
         return
 
+    print('###################################################')
     print('Updating service fabric python SDK to a custom SDK.')
+    print('###################################################')
 
     # the public sdk path will look something like
     # f:\azure-cli\service-fabric-cli-myfork\env\lib\site-packages
