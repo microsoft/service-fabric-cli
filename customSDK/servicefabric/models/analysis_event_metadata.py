@@ -26,6 +26,7 @@ class AnalysisEventMetadata(Model):
         'duration': {'key': 'Duration', 'type': 'duration'},
     }
 
-    def __init__(self, delay=None, duration=None):
-        self.delay = delay
-        self.duration = duration
+    def __init__(self, **kwargs):
+        super(AnalysisEventMetadata, self).__init__(**kwargs)
+        self.delay = kwargs.get('delay', None)
+        self.duration = kwargs.get('duration', None)

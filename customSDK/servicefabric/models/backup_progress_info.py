@@ -16,9 +16,8 @@ class BackupProgressInfo(Model):
     """Describes the progress of a partition's backup.
 
     :param backup_state: Represents the current state of the partition backup
-     operation.
-     . Possible values include: 'Invalid', 'Accepted', 'BackupInProgress',
-     'Success', 'Failure', 'Timeout'
+     operation. Possible values include: 'Invalid', 'Accepted',
+     'BackupInProgress', 'Success', 'Failure', 'Timeout'
     :type backup_state: str or ~azure.servicefabric.models.BackupState
     :param time_stamp_utc: TimeStamp in UTC when operation succeeded or
      failed.
@@ -30,7 +29,7 @@ class BackupProgressInfo(Model):
     :type backup_location: str
     :param epoch_of_last_backup_record: Specifies the epoch of the last record
      included in backup.
-    :type epoch_of_last_backup_record: ~azure.servicefabric.models.Epoch
+    :type epoch_of_last_backup_record: ~azure.servicefabric.models.BackupEpoch
     :param lsn_of_last_backup_record: The LSN of last record included in
      backup.
     :type lsn_of_last_backup_record: str
@@ -44,16 +43,17 @@ class BackupProgressInfo(Model):
         'time_stamp_utc': {'key': 'TimeStampUtc', 'type': 'iso-8601'},
         'backup_id': {'key': 'BackupId', 'type': 'str'},
         'backup_location': {'key': 'BackupLocation', 'type': 'str'},
-        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'Epoch'},
+        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'BackupEpoch'},
         'lsn_of_last_backup_record': {'key': 'LsnOfLastBackupRecord', 'type': 'str'},
         'failure_error': {'key': 'FailureError', 'type': 'FabricErrorError'},
     }
 
-    def __init__(self, backup_state=None, time_stamp_utc=None, backup_id=None, backup_location=None, epoch_of_last_backup_record=None, lsn_of_last_backup_record=None, failure_error=None):
-        self.backup_state = backup_state
-        self.time_stamp_utc = time_stamp_utc
-        self.backup_id = backup_id
-        self.backup_location = backup_location
-        self.epoch_of_last_backup_record = epoch_of_last_backup_record
-        self.lsn_of_last_backup_record = lsn_of_last_backup_record
-        self.failure_error = failure_error
+    def __init__(self, **kwargs):
+        super(BackupProgressInfo, self).__init__(**kwargs)
+        self.backup_state = kwargs.get('backup_state', None)
+        self.time_stamp_utc = kwargs.get('time_stamp_utc', None)
+        self.backup_id = kwargs.get('backup_id', None)
+        self.backup_location = kwargs.get('backup_location', None)
+        self.epoch_of_last_backup_record = kwargs.get('epoch_of_last_backup_record', None)
+        self.lsn_of_last_backup_record = kwargs.get('lsn_of_last_backup_record', None)
+        self.failure_error = kwargs.get('failure_error', None)

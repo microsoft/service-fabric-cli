@@ -33,6 +33,7 @@ class TimeOfDay(Model):
         'minute': {'key': 'Minute', 'type': 'int'},
     }
 
-    def __init__(self, hour=None, minute=None):
-        self.hour = hour
-        self.minute = minute
+    def __init__(self, **kwargs):
+        super(TimeOfDay, self).__init__(**kwargs)
+        self.hour = kwargs.get('hour', None)
+        self.minute = kwargs.get('minute', None)

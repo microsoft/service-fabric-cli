@@ -15,8 +15,10 @@ from msrest.serialization import Model
 class EnableBackupDescription(Model):
     """Specifies the parameters needed to enable periodic backup.
 
-    :param backup_policy_name: Name of the backup policy to be used for
-     enabling periodic backups.
+    All required parameters must be populated in order to send to Azure.
+
+    :param backup_policy_name: Required. Name of the backup policy to be used
+     for enabling periodic backups.
     :type backup_policy_name: str
     """
 
@@ -28,5 +30,6 @@ class EnableBackupDescription(Model):
         'backup_policy_name': {'key': 'BackupPolicyName', 'type': 'str'},
     }
 
-    def __init__(self, backup_policy_name):
-        self.backup_policy_name = backup_policy_name
+    def __init__(self, **kwargs):
+        super(EnableBackupDescription, self).__init__(**kwargs)
+        self.backup_policy_name = kwargs.get('backup_policy_name', None)

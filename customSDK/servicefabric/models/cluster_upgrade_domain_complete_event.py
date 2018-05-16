@@ -15,23 +15,26 @@ from .cluster_event import ClusterEvent
 class ClusterUpgradeDomainCompleteEvent(ClusterEvent):
     """Cluster Upgrade Domain Complete event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param target_cluster_version: Target Cluster version.
+    :param target_cluster_version: Required. Target Cluster version.
     :type target_cluster_version: str
-    :param upgrade_state: State of upgrade.
+    :param upgrade_state: Required. State of upgrade.
     :type upgrade_state: str
-    :param upgrade_domains: Upgrade domains.
+    :param upgrade_domains: Required. Upgrade domains.
     :type upgrade_domains: str
-    :param upgrade_domain_elapsed_time_in_ms: Duration of domain upgrade in
-     milli-seconds.
+    :param upgrade_domain_elapsed_time_in_ms: Required. Duration of domain
+     upgrade in milli-seconds.
     :type upgrade_domain_elapsed_time_in_ms: float
     """
 
@@ -56,10 +59,10 @@ class ClusterUpgradeDomainCompleteEvent(ClusterEvent):
         'upgrade_domain_elapsed_time_in_ms': {'key': 'UpgradeDomainElapsedTimeInMs', 'type': 'float'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, target_cluster_version, upgrade_state, upgrade_domains, upgrade_domain_elapsed_time_in_ms, has_correlated_events=None):
-        super(ClusterUpgradeDomainCompleteEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
-        self.target_cluster_version = target_cluster_version
-        self.upgrade_state = upgrade_state
-        self.upgrade_domains = upgrade_domains
-        self.upgrade_domain_elapsed_time_in_ms = upgrade_domain_elapsed_time_in_ms
+    def __init__(self, **kwargs):
+        super(ClusterUpgradeDomainCompleteEvent, self).__init__(**kwargs)
+        self.target_cluster_version = kwargs.get('target_cluster_version', None)
+        self.upgrade_state = kwargs.get('upgrade_state', None)
+        self.upgrade_domains = kwargs.get('upgrade_domains', None)
+        self.upgrade_domain_elapsed_time_in_ms = kwargs.get('upgrade_domain_elapsed_time_in_ms', None)
         self.kind = 'ClusterUpgradeDomainComplete'

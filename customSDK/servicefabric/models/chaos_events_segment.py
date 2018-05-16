@@ -15,7 +15,6 @@ from msrest.serialization import Model
 class ChaosEventsSegment(Model):
     """Contains the list of Chaos events and the continuation token to get the
     next segment.
-    .
 
     :param continuation_token: The continuation token parameter is used to
      obtain next set of results. The continuation token is included in the
@@ -33,6 +32,7 @@ class ChaosEventsSegment(Model):
         'history': {'key': 'History', 'type': '[ChaosEventWrapper]'},
     }
 
-    def __init__(self, continuation_token=None, history=None):
-        self.continuation_token = continuation_token
-        self.history = history
+    def __init__(self, **kwargs):
+        super(ChaosEventsSegment, self).__init__(**kwargs)
+        self.continuation_token = kwargs.get('continuation_token', None)
+        self.history = kwargs.get('history', None)

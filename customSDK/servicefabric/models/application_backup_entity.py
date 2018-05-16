@@ -15,7 +15,9 @@ from .backup_entity import BackupEntity
 class ApplicationBackupEntity(BackupEntity):
     """Identifies the Service Fabric application which is being backed up.
 
-    :param entity_kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param entity_kind: Required. Constant filled by server.
     :type entity_kind: str
     :param application_name: The name of the application, including the
      'fabric:' URI scheme.
@@ -31,7 +33,7 @@ class ApplicationBackupEntity(BackupEntity):
         'application_name': {'key': 'ApplicationName', 'type': 'str'},
     }
 
-    def __init__(self, application_name=None):
-        super(ApplicationBackupEntity, self).__init__()
-        self.application_name = application_name
+    def __init__(self, **kwargs):
+        super(ApplicationBackupEntity, self).__init__(**kwargs)
+        self.application_name = kwargs.get('application_name', None)
         self.entity_kind = 'Application'

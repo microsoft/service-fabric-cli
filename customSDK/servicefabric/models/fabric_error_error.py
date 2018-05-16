@@ -15,10 +15,12 @@ from msrest.serialization import Model
 class FabricErrorError(Model):
     """Error object containing error code and error message.
 
-    :param code: Defines the fabric error codes that be returned as part of
-     the error object in response to Service Fabric API operations that are not
-     successful. Following are the error code values that can be returned for a
-     specific HTTP status code.
+    All required parameters must be populated in order to send to Azure.
+
+    :param code: Required. Defines the fabric error codes that be returned as
+     part of the error object in response to Service Fabric API operations that
+     are not successful. Following are the error code values that can be
+     returned for a specific HTTP status code.
      - Possible values of the error code for HTTP status code 400 (Bad Request)
      - "FABRIC_E_INVALID_PARTITION_KEY"
      - "FABRIC_E_IMAGEBUILDER_VALIDATION_ERROR"
@@ -108,8 +110,8 @@ class FabricErrorError(Model):
      Timeout)
      - "FABRIC_E_COMMUNICATION_ERROR"
      - "FABRIC_E_OPERATION_NOT_COMPLETE"
-     - "FABRIC_E_TIMEOUT"
-     . Possible values include: 'FABRIC_E_INVALID_PARTITION_KEY',
+     - "FABRIC_E_TIMEOUT". Possible values include:
+     'FABRIC_E_INVALID_PARTITION_KEY',
      'FABRIC_E_IMAGEBUILDER_VALIDATION_ERROR', 'FABRIC_E_INVALID_ADDRESS',
      'FABRIC_E_APPLICATION_NOT_UPGRADING',
      'FABRIC_E_APPLICATION_UPGRADE_VALIDATION_ERROR',
@@ -175,6 +177,7 @@ class FabricErrorError(Model):
         'message': {'key': 'Message', 'type': 'str'},
     }
 
-    def __init__(self, code, message=None):
-        self.code = code
-        self.message = message
+    def __init__(self, **kwargs):
+        super(FabricErrorError, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)

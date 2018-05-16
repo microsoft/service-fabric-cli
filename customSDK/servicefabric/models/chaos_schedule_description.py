@@ -31,6 +31,7 @@ class ChaosScheduleDescription(Model):
         'schedule': {'key': 'Schedule', 'type': 'ChaosSchedule'},
     }
 
-    def __init__(self, version=None, schedule=None):
-        self.version = version
-        self.schedule = schedule
+    def __init__(self, **kwargs):
+        super(ChaosScheduleDescription, self).__init__(**kwargs)
+        self.version = kwargs.get('version', None)
+        self.schedule = kwargs.get('schedule', None)

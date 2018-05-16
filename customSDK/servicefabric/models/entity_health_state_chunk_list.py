@@ -25,5 +25,6 @@ class EntityHealthStateChunkList(Model):
         'total_count': {'key': 'TotalCount', 'type': 'long'},
     }
 
-    def __init__(self, total_count=None):
-        self.total_count = total_count
+    def __init__(self, **kwargs):
+        super(EntityHealthStateChunkList, self).__init__(**kwargs)
+        self.total_count = kwargs.get('total_count', None)

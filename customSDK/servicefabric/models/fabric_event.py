@@ -19,14 +19,17 @@ class FabricEvent(Model):
     sub-classes are: ApplicationEvent, ClusterEvent, ContainerInstanceEvent,
     NodeEvent, PartitionEvent, ReplicaEvent, ServiceEvent
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
     """
 
@@ -47,8 +50,9 @@ class FabricEvent(Model):
         'kind': {'ApplicationEvent': 'ApplicationEvent', 'ClusterEvent': 'ClusterEvent', 'ContainerInstanceEvent': 'ContainerInstanceEvent', 'NodeEvent': 'NodeEvent', 'PartitionEvent': 'PartitionEvent', 'ReplicaEvent': 'ReplicaEvent', 'ServiceEvent': 'ServiceEvent'}
     }
 
-    def __init__(self, event_instance_id, time_stamp, has_correlated_events=None):
-        self.event_instance_id = event_instance_id
-        self.time_stamp = time_stamp
-        self.has_correlated_events = has_correlated_events
+    def __init__(self, **kwargs):
+        super(FabricEvent, self).__init__(**kwargs)
+        self.event_instance_id = kwargs.get('event_instance_id', None)
+        self.time_stamp = kwargs.get('time_stamp', None)
+        self.has_correlated_events = kwargs.get('has_correlated_events', None)
         self.kind = None

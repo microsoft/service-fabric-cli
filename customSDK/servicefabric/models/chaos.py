@@ -14,17 +14,15 @@ from msrest.serialization import Model
 
 class Chaos(Model):
     """Contains a description of Chaos.
-    .
 
     :param chaos_parameters: If Chaos is running, these are the parameters
      Chaos is running with.
     :type chaos_parameters: ~azure.servicefabric.models.ChaosParameters
-    :param status: Current status of the Chaos run.
-     . Possible values include: 'Invalid', 'Running', 'Stopped'
+    :param status: Current status of the Chaos run. Possible values include:
+     'Invalid', 'Running', 'Stopped'
     :type status: str or ~azure.servicefabric.models.ChaosStatus
-    :param schedule_status: Current status of the schedule.
-     . Possible values include: 'Invalid', 'Stopped', 'Active', 'Expired',
-     'Pending'
+    :param schedule_status: Current status of the schedule. Possible values
+     include: 'Invalid', 'Stopped', 'Active', 'Expired', 'Pending'
     :type schedule_status: str or
      ~azure.servicefabric.models.ChaosScheduleStatus
     """
@@ -35,7 +33,8 @@ class Chaos(Model):
         'schedule_status': {'key': 'ScheduleStatus', 'type': 'str'},
     }
 
-    def __init__(self, chaos_parameters=None, status=None, schedule_status=None):
-        self.chaos_parameters = chaos_parameters
-        self.status = status
-        self.schedule_status = schedule_status
+    def __init__(self, **kwargs):
+        super(Chaos, self).__init__(**kwargs)
+        self.chaos_parameters = kwargs.get('chaos_parameters', None)
+        self.status = kwargs.get('status', None)
+        self.schedule_status = kwargs.get('schedule_status', None)

@@ -19,9 +19,11 @@ class BackupStorageDescription(Model):
     sub-classes are: AzureBlobBackupStorageDescription,
     FileShareBackupStorageDescription
 
+    All required parameters must be populated in order to send to Azure.
+
     :param friendly_name: Friendly name for this backup storage.
     :type friendly_name: str
-    :param storage_kind: Constant filled by server.
+    :param storage_kind: Required. Constant filled by server.
     :type storage_kind: str
     """
 
@@ -38,6 +40,7 @@ class BackupStorageDescription(Model):
         'storage_kind': {'AzureBlobStore': 'AzureBlobBackupStorageDescription', 'FileShare': 'FileShareBackupStorageDescription'}
     }
 
-    def __init__(self, friendly_name=None):
-        self.friendly_name = friendly_name
+    def __init__(self, **kwargs):
+        super(BackupStorageDescription, self).__init__(**kwargs)
+        self.friendly_name = kwargs.get('friendly_name', None)
         self.storage_kind = None
