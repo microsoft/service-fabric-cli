@@ -1,0 +1,8 @@
+[
+    {
+        "name":"some_name",
+        "maximum_capacity":5,
+        "reservation_capacity":3,
+        "total_application_capacity":8
+    }
+ ]
