@@ -33,7 +33,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
     from azure.servicefabric.models.external_store_provision_application_type_description \
         import (ExternalStoreProvisionApplicationTypeDescription)
 
-    from azure.servicefabric.models import FabricErrorException
+    from azure.servicefabric.models.fabric_error import FabricErrorException
 
     provision_description = None
 

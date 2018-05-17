@@ -181,8 +181,10 @@ def parse_app_metrics(formatted_metrics):
         return None
 
     res = []
+
     for metric in formatted_metrics:
         metric_name = metric.get('name', None)
+
         if not metric_name:
             raise CLIError('Could not find required application metric name')
 
@@ -191,9 +193,11 @@ def parse_app_metrics(formatted_metrics):
         total_application_capacity = metric.get('total_application_capacity', None)
 
         res.append(ApplicationMetricDescription(
+            name=metric_name,
             maximum_capacity=maximum_capacity,
             reservation_capacity=reservation_capacity,
             total_application_capacity=total_application_capacity))
+
     return res
 
 def create(client,  # pylint: disable=too-many-locals,too-many-arguments

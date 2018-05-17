@@ -74,7 +74,7 @@ def create_health_information(source_id, health_property, health_state, ttl, #py
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
-    from azure.servicefabric.models import HealthInformation
+    from azure.servicefabric.models.health_information import HealthInformation
 
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Unknown']:
         raise CLIError('Invalid health state specified')
