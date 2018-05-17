@@ -24,7 +24,7 @@ def parse_time_of_day(time_of_day):
     if hour is None or minute is None:
         return None
 
-    return TimeOfDay(hour, minute)
+    return TimeOfDay(hour=hour, minute=minute)
 
 def parse_time_range(time_range):
     """
@@ -43,7 +43,7 @@ def parse_time_range(time_range):
 
     # if either start_time or end_time is None, the resulting API call will fail with an exception
 
-    return TimeRange(start_time, end_time)
+    return TimeRange(start_time=start_time, end_time=end_time)
 
 def parse_active_time_ranges(time_ranges):
     """
@@ -76,17 +76,16 @@ def parse_active_days(active_days):
     if active_days is None:
         return None
 
-    sunday = active_days.get("Sunday", False)
-    monday = active_days.get("Monday", False)
-    tuesday = active_days.get("Tuesday", False)
-    wednesday = active_days.get("Wednesday", False)
-    thursday = active_days.get("Thursday", False)
-    friday = active_days.get("Friday", False)
-    saturday = active_days.get("Saturday", False)
+    schedule = ChaosScheduleJobActiveDaysOfWeek()
+    schedule.sunday = active_days.get("Sunday", False)
+    schedule.monday = active_days.get("Monday", False)
+    schedule.tuesday = active_days.get("Tuesday", False)
+    schedule.wednesday = active_days.get("Wednesday", False)
+    schedule.thursday = active_days.get("Thursday", False)
+    schedule.friday = active_days.get("Friday", False)
+    schedule.saturday = active_days.get("Saturday", False)
 
-    return ChaosScheduleJobActiveDaysOfWeek(
-        sunday, monday, tuesday, wednesday,
-        thursday, friday, saturday)
+    return schedule
 
 def parse_job(job):
     """
@@ -103,11 +102,10 @@ def parse_job(job):
     if job is None:
         return None
 
-    chaos_parameters = job.get('ChaosParameters')
-    active_days = parse_active_days(job.get('Days'))
-    times = parse_active_time_ranges(job.get('Times'))
-
-    return ChaosScheduleJob(chaos_parameters, active_days, times)
+    schedule =  ChaosScheduleJob()
+    schedule.chaos_parameters = job.get('ChaosParameters')
+    schedule.active_days = parse_active_days(job.get('Days'))
+    schedule.times = parse_active_time_ranges(job.get('Times'))
 
 def parse_jobs(jobs):
     """
@@ -147,10 +145,11 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
     parsed_dictionary = list()
 
     for dictionary_entry in chaos_parameters_dictionary:
-        key = dictionary_entry.get("Key")
-        value = parse_chaos_parameters(dictionary_entry.get("Value"))
+        pair = ChaosParametersDictionaryItem()
+        pair.key = dictionary_entry.get("Key")
+        pair.value = parse_chaos_parameters(dictionary_entry.get("Value"))
 
-        parsed_dictionary.append(ChaosParametersDictionaryItem(key, value))
+        parsed_dictionary.append(pair)
 
     return parsed_dictionary
 
@@ -178,9 +177,9 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
         parse_chaos_params_dictionary(chaos_parameters_dictionary)
     parsed_jobs = parse_jobs(jobs)
 
-    schedule = ChaosSchedule(start_date_utc,
-                             expiry_date_utc,
-                             parsed_chaos_params_dictionary,
-                             parsed_jobs)
+    schedule = ChaosSchedule(start_date=start_date_utc,
+                             expiry_date=expiry_date_utc,
+                             chaos_parameters_dictionary=parsed_chaos_params_dictionary,
+                             jobs=parsed_jobs)
 
     return client.post_chaos_schedule(version, schedule)

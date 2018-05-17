@@ -49,7 +49,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
                            '--application-package-download-uri, --application-type-name, '
                            '--application-type-version.')
         provision_description = ExternalStoreProvisionApplicationTypeDescription(
-            no_wait,
+            async_property=no_wait,
             application_package_download_uri=application_package_download_uri,
             application_type_name=application_type_name,
             application_type_version=application_type_version)
@@ -65,7 +65,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
                            '--application-type-version.')
 
         provision_description = ProvisionApplicationTypeDescription(
-            no_wait,
+            async_property=no_wait,
             application_type_build_path=application_type_build_path)
 
     api_version = "6.2"
