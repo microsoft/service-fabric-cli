@@ -71,7 +71,8 @@ def create(client, deployment_name, file_path, user=None, has_pass=False, #pylin
 
     file_contents = read_file(file_path)
     credentials = repo_creds(user, encrypted_pass, has_pass)
-    desc = CreateComposeDeploymentDescription(deployment_name, file_contents,
+    desc = CreateComposeDeploymentDescription(deployment_name=deployment_name,
+                                              compose_file_content=file_contents,
                                               registry_credential=credentials)
     client.create_compose_deployment(desc, timeout=timeout)
 
@@ -106,10 +107,14 @@ def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pyli
                                                  svc_type_health_map)
 
     desc = ComposeDeploymentUpgradeDescription(
-        deployment_name, file_contents, registry_credential=credentials,
-        upgrade_kind=upgrade_kind, rolling_upgrade_mode=upgrade_mode,
+        deployment_name=deployment_name,
+        compose_file_content=file_contents, 
+        registry_credential=credentials,
+        upgrade_kind=upgrade_kind,
+        rolling_upgrade_mode=upgrade_mode,
         upgrade_replica_set_check_timeout_in_seconds=replica_set_check,
-        force_restart=force_restart, monitoring_policy=monitoring_policy,
+        force_restart=force_restart,
+        monitoring_policy=monitoring_policy,
         application_health_policy=app_health_policy)
 
     client.start_compose_deployment_upgrade(deployment_name,
