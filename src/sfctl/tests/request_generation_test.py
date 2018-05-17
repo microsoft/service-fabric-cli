@@ -142,6 +142,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             # Validate body
             recording_body = recording['body']
 
+            print()
+            print()
+            print()
+            print(recording_body)
+            print()
+            print()
+
             # body here is the expected body
             # recording_body is the actual value
             if body is not None and body_verifier is not None:
@@ -190,6 +197,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
+
+        sample_path_base = '@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//'
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -374,7 +383,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
         self.validate_command(  # get container logs
             'sfctl container logs --node-name Node01 --application-id samples/winnodejs '
@@ -383,7 +392,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
         self.validate_command(  # update container
             'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
@@ -461,13 +470,65 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
-        # Ask area owner to fill out this test
-        # self.validate_command( # upgrade - not all parameters tested
-        #    'application upgrade --application-name=name --application-version=version --parameters={} ' +
-        #    '--failure-action=Rollback',
-        #    'POST',
-        #    '/Applications/name/$/Upgrade',
-        #    ['api-version=6.0'])
+        app_params = sample_path_base + 'sample_application_parameters.txt'
+        default_service_type_health_policy = sample_path_base + 'sample_default_service_type_health_policy.txt'  # pylint: disable=invalid-name
+        service_type_health_policy_map = sample_path_base + 'sample_service_type_health_policy_map.txt'
+
+        self.validate_command(  # upgrade - not all parameters tested
+            ('application upgrade '
+             '--application-id=app '
+             '--application-version=1.0.0 '
+             '--parameters={0} '
+             '--default-service-health-policy={1} '
+             '--failure-action=Rollback '
+             '--force-restart=true '
+             '--health-check-retry-timeout=PT0H21M0S '
+             '--health-check-stable-duration=PT0H21M0S '
+             '--health-check-wait-duration=PT0H21M0S '
+             '--max-unhealthy-apps=20 '
+             '--mode=Monitored '
+             '--replica-set-check-timeout=10 '
+             '--service-health-policy={2} '
+             '--upgrade-domain-timeout=some_timeout '
+             '--upgrade-timeout=some_timeout2 '
+             '--warning-as-error').format(
+                 app_params, default_service_type_health_policy, service_type_health_policy_map),
+            'POST',
+            '/Applications/app/$/Upgrade',
+            ['api-version=6.0'],
+            ('{"Name": "fabric:/app", "TargetApplicationTypeVersion": "1.0.0", '
+             '"Parameters": [{"Key": "Key", "Value": "Value"}], "UpgradeKind": "Rolling", '
+             '"RollingUpgradeMode": "Monitored", "UpgradeReplicaSetCheckTimeoutInSeconds": 10, '
+             '"ForceRestart": true, "MonitoringPolicy": {"FailureAction": "Rollback", '
+             '"HealthCheckWaitDurationInMilliseconds": "PT0H21M0S", '
+             '"HealthCheckStableDurationInMilliseconds": "PT0H21M0S", '
+             '"HealthCheckRetryTimeoutInMilliseconds": "PT0H21M0S", '
+             '"UpgradeTimeoutInMilliseconds": "some_timeout2", '
+             '"UpgradeDomainTimeoutInMilliseconds": "some_timeout"}, '
+             '"ApplicationHealthPolicy": {"ConsiderWarningAsError": true, '
+             '"MaxPercentUnhealthyDeployedApplications": 20, '
+             '"DefaultServiceTypeHealthPolicy": {"MaxPercentUnhealthyPartitionsPerService": 0, '
+             '"MaxPercentUnhealthyReplicasPerPartition": 0, "MaxPercentUnhealthyServices": 0}, '
+             '"ServiceTypeHealthPolicyMap": [{"Key": "ServiceTypeName", '
+             '"Value": {"MaxPercentUnhealthyPartitionsPerService": 0, '
+             '"MaxPercentUnhealthyReplicasPerPartition": 0, "MaxPercentUnhealthyServices": 0}}]}}'))
+
+        self.validate_command(  # create
+            ('application create '
+             '--app-name=fabric:/app '
+             '--app-type=test-type '
+             '--app-version=1.0.0 '
+             '--max-node-count=3 '
+             '--min-node-count=1 '
+             '--metrics=@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//sample_application_capacity_metric_descriptions.txt '
+             '--parameters=@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//sample_application_parameters.txt '),
+            'POST',
+            '/Applications/$/Create',
+            ['api-version=6.0'],
+            '{"Name": "fabric:/app", "TypeName": "test-type", "TypeVersion": "1.0.0", '
+            '"ParameterList": [{"Key": "Key", "Value": "Value"}], "ApplicationCapacity": '
+            '{"MinimumNodes": 1, "MaximumNodes": 3, "ApplicationMetrics": [{"Name": "some_name", '
+            '"MaximumCapacity": 5, "ReservationCapacity": 3, "TotalApplicationCapacity": 8}]}}')
 
         self.validate_command(  # upgrade-resume
             'application upgrade-resume --application-id=application~Id --upgrade-domain-name=UD2',

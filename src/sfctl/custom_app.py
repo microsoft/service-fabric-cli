@@ -161,11 +161,16 @@ def parse_app_params(formatted_params):
         ApplicationParameter
     )
 
+    #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    #print(formatted_params)
+
     if formatted_params is None:
         return None
 
     res = []
     for k in formatted_params:
+        #print("***********************************************")
+        #print(k)
         param = ApplicationParameter(key=k, value=formatted_params[k])
         res.append(param)
 
@@ -259,7 +264,7 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
     client.create_application(app_desc, timeout)
 
 def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docstring
-        client, application_name, application_version, parameters,
+        client, application_id, application_version, parameters,
         mode="UnmonitoredAuto", replica_set_check_timeout=None,
         force_restart=None, failure_action=None,
         health_check_wait_duration="0",
@@ -307,7 +312,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         service_type_health_policy_map=map_shp)
 
     desc = ApplicationUpgradeDescription(
-        name=application_name,
+        name='fabric:/' + application_id,
         target_application_type_version=application_version,
         parameters=app_params,
         upgrade_kind='Rolling',
@@ -317,4 +322,4 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         monitoring_policy=monitoring_policy,
         application_health_policy=app_health_policy)
 
-    client.start_application_upgrade(application_name, desc, timeout)
+    client.start_application_upgrade(application_id, desc, timeout)

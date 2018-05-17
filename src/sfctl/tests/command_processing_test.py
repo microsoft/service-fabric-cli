@@ -46,9 +46,16 @@ class CommandsProcessTests(unittest.TestCase):
 
         # Test .txt files containing json live in the same folder as this file.
         # Get their full paths.
-        file_path_correct_json = '@' + path.join(path.dirname(__file__), 'correct_json.txt')
-        file_path_incorrect_json = '@' + path.join(path.dirname(__file__), 'incorrect_json.txt')
-        file_path_empty_file = '@' + path.join(path.dirname(__file__), 'empty_file.txt')
+        file_path_correct_json = \
+            '@' + path.join(path.dirname(__file__), 'sample_json', 'correct_json.txt')
+        file_path_incorrect_json =\
+            '@' + path.join(path.dirname(__file__), 'sample_json', 'incorrect_json.txt')
+        file_path_empty_file = \
+            '@' + path.join(path.dirname(__file__), 'sample_json', 'empty_file.txt')
+        file_path_nonexistent = \
+            '@' + path.join(path.dirname(__file__), 'sample_json', 'non_existent.txt')
+        file_path_correct_json_relative = \
+            '@' + path.relpath(path.join('sample_json', 'correct_json.txt'))
 
         # Use str_io capture here to avoid the printed clutter when running the tests.
         # Using ValueError instead of json.decoder.JSONDecodeError because that is not
@@ -64,6 +71,9 @@ class CommandsProcessTests(unittest.TestCase):
         # Test that correct file path returns correct serialized object
         self.assertEqual(dictionary, json_encoded(file_path_correct_json))
 
+        # Test that correct file path returns correct serialized object
+        self.assertEqual(dictionary, json_encoded(file_path_correct_json_relative))
+
         # Test that appropriate error messages are printed out on error
 
         str_io = StringIO()
@@ -74,12 +84,13 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_empty_file.lstrip('@')),  # pylint: disable=line-too-long
-                      printed_output)
+        self.assertIn(
+            'Decoding JSON value from file {0} failed'.format(file_path_empty_file.lstrip('@')),
+            printed_output)
         self.assertTrue('Expecting value: line 1 column 1 (char 0)' in printed_output
                         or
                         'No JSON object could be decoded' in printed_output)
-        self.assertNotIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertNotIn('You can also pass the json argument in a .txt file', printed_output)
 
         str_io = StringIO()
         with redirect_stdout(str_io):
@@ -89,12 +100,25 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Decoding JSON value from file {0} failed'.format(file_path_incorrect_json.lstrip('@')),  # pylint: disable=line-too-long
-                      printed_output)
+        self.assertIn(
+            'Decoding JSON value from file {0} failed'.format(file_path_incorrect_json.lstrip('@')),
+            printed_output)
         self.assertTrue('Expecting property name enclosed in double quotes: line 1 column 2 (char 1)' in printed_output  # pylint: disable=line-too-long
                         or
                         'Expecting property name: line 1 column 2 (char 1)' in printed_output)
-        self.assertNotIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertNotIn('You can also pass the json argument in a .txt file', printed_output)
+
+        str_io = StringIO()
+        with redirect_stdout(str_io):
+            try:
+                json_encoded(file_path_nonexistent)
+            except Exception:  # pylint: disable=broad-except
+                pass
+
+        printed_output = str_io.getvalue()
+        self.assertIn(
+            'File not found at {0}'.format(file_path_nonexistent.lstrip('@')),
+            printed_output)
 
     def test_json_encoded_argument_processing_string_input(self):  # pylint: disable=invalid-name
         """Make sure that method json_encoded in src/params.py correctly:
@@ -117,7 +141,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertIn('You can also pass the json argument in a .txt file', printed_output)
         self.assertIn('To do so, set argument value to the relative or '
                       'absolute path of the text file prefixed by "@".', printed_output)
 
@@ -130,7 +154,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
-        self.assertIn('Hint: You can also pass the json argument in a .txt file', printed_output)
+        self.assertIn('You can also pass the json argument in a .txt file', printed_output)
         self.assertIn('To do so, set argument value to the relative or '
                       'absolute path of the text file prefixed by "@".', printed_output)
 

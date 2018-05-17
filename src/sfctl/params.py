@@ -7,8 +7,8 @@
 """Custom parameter handling for commands"""
 from __future__ import print_function
 import json
+from sys import stderr
 from knack.arguments import (ArgumentsContext, CLIArgumentType)
-
 
 def json_encoded(arg_str):
     """Convert from argument JSON string to complex object.
@@ -23,17 +23,21 @@ def json_encoded(arg_str):
                 return json.loads(json_str)
         except IOError:
             # This is the error that python 2.7 returns on no file found
-            pass
+            print('File not found at {0}'.format(arg_str[1:]))
         except ValueError as ex:
-            print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str[1:], ex))
+            print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str[1:], ex),
+                  file=stderr)
             raise
 
     try:
         return json.loads(arg_str)
-    except ValueError:
-        print('Hint: You can also pass the json argument in a .txt file. '
-              'To do so, set argument value to the relative or absolute path of the text file '
-              'prefixed by "@".')
+    except ValueError as ex:
+        print(('Loading JSON from string input failed. '
+               'You can also pass the json argument in a .txt file. \n'
+               'To do so, set argument value to the relative or absolute path of the text file '
+               'prefixed by "@". \nIf you have passed in a file name, please ensure that the JSON '
+               'is correct. Error: \n{0}').format(ex),
+              file=stderr)
         raise
 
 
