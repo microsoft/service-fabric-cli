@@ -76,16 +76,21 @@ def parse_active_days(active_days):
     if active_days is None:
         return None
 
-    schedule = ChaosScheduleJobActiveDaysOfWeek()
-    schedule.sunday = active_days.get("Sunday", False)
-    schedule.monday = active_days.get("Monday", False)
-    schedule.tuesday = active_days.get("Tuesday", False)
-    schedule.wednesday = active_days.get("Wednesday", False)
-    schedule.thursday = active_days.get("Thursday", False)
-    schedule.friday = active_days.get("Friday", False)
-    schedule.saturday = active_days.get("Saturday", False)
+    sunday = active_days.get("Sunday", False)
+    monday = active_days.get("Monday", False)
+    tuesday = active_days.get("Tuesday", False)
+    wednesday = active_days.get("Wednesday", False)
+    thursday = active_days.get("Thursday", False)
+    friday = active_days.get("Friday", False)
+    saturday = active_days.get("Saturday", False)
 
-    return schedule
+    return ChaosScheduleJobActiveDaysOfWeek(sunday=sunday,
+                                            monday=monday,
+                                            tuesday=tuesday,
+                                            wednesday=wednesday,
+                                            thursday=thursday,
+                                            friday=friday,
+                                            saturday=saturday)
 
 def parse_job(job):
     """
@@ -102,10 +107,13 @@ def parse_job(job):
     if job is None:
         return None
 
-    schedule =  ChaosScheduleJob()
-    schedule.chaos_parameters = job.get('ChaosParameters')
-    schedule.active_days = parse_active_days(job.get('Days'))
-    schedule.times = parse_active_time_ranges(job.get('Times'))
+    chaos_parameters = job.get('ChaosParameters')
+    active_days = parse_active_days(job.get('Days'))
+    times = parse_active_time_ranges(job.get('Times'))
+
+    return ChaosScheduleJob(chaos_parameters=chaos_parameters,
+                            days=active_days,
+                            times=times)
 
 def parse_jobs(jobs):
     """
@@ -145,11 +153,10 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
     parsed_dictionary = list()
 
     for dictionary_entry in chaos_parameters_dictionary:
-        pair = ChaosParametersDictionaryItem()
-        pair.key = dictionary_entry.get("Key")
-        pair.value = parse_chaos_parameters(dictionary_entry.get("Value"))
+        key = dictionary_entry.get("Key")
+        value = parse_chaos_parameters(dictionary_entry.get("Value"))
 
-        parsed_dictionary.append(pair)
+        parsed_dictionary.append(ChaosParametersDictionaryItem(key=key, value=value))
 
     return parsed_dictionary
 

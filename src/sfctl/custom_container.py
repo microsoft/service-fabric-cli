@@ -26,10 +26,10 @@ def invoke_api( # pylint: disable=too-many-arguments
     """Invoke container API on a cluster node"""
 
     request_body = ContainerApiRequestBody(
-        container_api_uri_path,
-        container_api_http_verb,
-        container_api_content_type,
-        container_api_body)
+        uri_path=container_api_uri_path,
+        http_verb=container_api_http_verb,
+        content_type=container_api_content_type,
+        body=container_api_body)
 
     response = client.invoke_container_api(
         node_name,
@@ -57,7 +57,7 @@ def logs( # pylint: disable=too-many-arguments
     if tail:
         uri_path += '&tail={}'.format(tail)
 
-    request_body = ContainerApiRequestBody(uri_path)
+    request_body = ContainerApiRequestBody(uri_path=uri_path)
 
     response = client.invoke_container_api(
         node_name,

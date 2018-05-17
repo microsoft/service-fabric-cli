@@ -186,12 +186,14 @@ def parse_app_metrics(formatted_metrics):
         if not metric_name:
             raise CLIError('Could not find required application metric name')
 
-        metric_desc = ApplicationMetricDescription()
-        metric_desc.maximum_capacity = metric.get('maximum_capacity', None)
-        metric_desc.reservation_capacity = metric.get('reservation_capacity', None)
-        metric_desc.total_application_capacity = metric.get('total_application_capacity', None)
+        maximum_capacity = metric.get('maximum_capacity', None)
+        reservation_capacity = metric.get('reservation_capacity', None)
+        total_application_capacity = metric.get('total_application_capacity', None)
 
-        res.append(metric_desc)
+        res.append(ApplicationMetricDescription(
+            maximum_capacity=maximum_capacity,
+            reservation_capacity=reservation_capacity,
+            total_application_capacity=total_application_capacity))
     return res
 
 def create(client,  # pylint: disable=too-many-locals,too-many-arguments
@@ -312,17 +314,3 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         application_health_policy=app_health_policy)
 
     client.start_application_upgrade(application_name, desc, timeout)
-
-
-    def __init__(self, **kwargs):
-        super(ApplicationUpgradeDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.target_application_type_version = kwargs.get('target_application_type_version', None)
-        self.parameters = kwargs.get('parameters', None)
-        self.upgrade_kind = kwargs.get('upgrade_kind', "Rolling")
-        self.rolling_upgrade_mode = kwargs.get('rolling_upgrade_mode', "UnmonitoredAuto")
-        self.upgrade_replica_set_check_timeout_in_seconds = \
-            kwargs.get('upgrade_replica_set_check_timeout_in_seconds', None)
-        self.force_restart = kwargs.get('force_restart', None)
-        self.monitoring_policy = kwargs.get('monitoring_policy', None)
-        self.application_health_policy = kwargs.get('application_health_policy', None)

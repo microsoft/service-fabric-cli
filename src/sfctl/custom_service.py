@@ -247,8 +247,8 @@ def parse_scaling_mechanism(scaling_mechanism):
             p_max_count = scaling_mechanism.get('max_partition_count', None)
             p_scale_increment = scaling_mechanism.get('scale_increment', None)
             return AddRemoveIncrementalNamedPartitionScalingMechanism(
-                min_instance_count=p_min_count,
-                max_instance_count=p_max_count,
+                min_partition_count=p_min_count,
+                max_partition_count=p_max_count,
                 scale_increment=p_scale_increment
             )
 
@@ -288,8 +288,8 @@ def parse_scaling_trigger(scaling_trigger):
             p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
             return AverageServiceLoadScalingTrigger(
                 metric_name=p_metricname,
-                upper_load_threshold=p_lower_load_threshold,
-                lower_load_threshold=p_upper_load_threshold,
+                lower_load_threshold=p_lower_load_threshold,
+                upper_load_threshold=p_upper_load_threshold,
                 scale_interval_in_seconds=p_scale_interval
             )
 
