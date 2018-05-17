@@ -108,7 +108,7 @@ def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pyli
 
     desc = ComposeDeploymentUpgradeDescription(
         deployment_name=deployment_name,
-        compose_file_content=file_contents, 
+        compose_file_content=file_contents,
         registry_credential=credentials,
         upgrade_kind=upgrade_kind,
         rolling_upgrade_mode=upgrade_mode,
