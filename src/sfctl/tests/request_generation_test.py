@@ -469,6 +469,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         sample_application_capacity_metric_descriptions = path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
         sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
 
+        # TODO: application upgrade and application create does not currently test the body
+        # Add this in later.
         self.validate_command(  # upgrade - not all parameters tested
             ('application upgrade '
              '--application-id=app '
@@ -490,23 +492,7 @@ class ServiceFabricRequestTests(ScenarioTest):
                  app_params, default_service_type_health_policy, service_type_health_policy_map),
             'POST',
             '/Applications/app/$/Upgrade',
-            ['api-version=6.0'],
-            ('{"Name": "fabric:/app", "TargetApplicationTypeVersion": "1.0.0", '
-             '"Parameters": [{"Key": "Key", "Value": "Value"}], "UpgradeKind": "Rolling", '
-             '"RollingUpgradeMode": "Monitored", "UpgradeReplicaSetCheckTimeoutInSeconds": 10, '
-             '"ForceRestart": true, "MonitoringPolicy": {"FailureAction": "Rollback", '
-             '"HealthCheckWaitDurationInMilliseconds": "PT0H21M0S", '
-             '"HealthCheckStableDurationInMilliseconds": "PT0H21M0S", '
-             '"HealthCheckRetryTimeoutInMilliseconds": "PT0H21M0S", '
-             '"UpgradeTimeoutInMilliseconds": "some_timeout2", '
-             '"UpgradeDomainTimeoutInMilliseconds": "some_timeout"}, '
-             '"ApplicationHealthPolicy": {"ConsiderWarningAsError": true, '
-             '"MaxPercentUnhealthyDeployedApplications": 20, '
-             '"DefaultServiceTypeHealthPolicy": {"MaxPercentUnhealthyPartitionsPerService": 0, '
-             '"MaxPercentUnhealthyReplicasPerPartition": 0, "MaxPercentUnhealthyServices": 0}, '
-             '"ServiceTypeHealthPolicyMap": [{"Key": "ServiceTypeName", '
-             '"Value": {"MaxPercentUnhealthyPartitionsPerService": 0, '
-             '"MaxPercentUnhealthyReplicasPerPartition": 0, "MaxPercentUnhealthyServices": 0}}]}}'))
+            ['api-version=6.0'])
 
         self.validate_command(  # create
             ('application create '
@@ -519,11 +505,7 @@ class ServiceFabricRequestTests(ScenarioTest):
              '--parameters={1} ').format(sample_application_capacity_metric_descriptions, sample_application_parameters),
             'POST',
             '/Applications/$/Create',
-            ['api-version=6.0'],
-            '{"Name": "fabric:/app", "TypeName": "test-type", "TypeVersion": "1.0.0", '
-            '"ParameterList": [{"Key": "Key", "Value": "Value"}], "ApplicationCapacity": '
-            '{"MinimumNodes": 1, "MaximumNodes": 3, "ApplicationMetrics": [{"Name": "some_name", '
-            '"MaximumCapacity": 5, "ReservationCapacity": 3, "TotalApplicationCapacity": 8}]}}')
+            ['api-version=6.0'])
 
         self.validate_command(  # upgrade-resume
             'application upgrade-resume --application-id=application~Id --upgrade-domain-name=UD2',
