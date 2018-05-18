@@ -466,6 +466,9 @@ class ServiceFabricRequestTests(ScenarioTest):
         app_params = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
         default_service_type_health_policy = path.join(sample_path_base, 'sample_default_service_type_health_policy.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
         service_type_health_policy_map = path.join(sample_path_base, 'sample_service_type_health_policy_map.txt').replace('/', '//').replace('\\', '\\\\')
+        sample_application_capacity_metric_descriptions = \
+            path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
 
         self.validate_command(  # upgrade - not all parameters tested
             ('application upgrade '
@@ -513,8 +516,8 @@ class ServiceFabricRequestTests(ScenarioTest):
              '--app-version=1.0.0 '
              '--max-node-count=3 '
              '--min-node-count=1 '
-             '--metrics=@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//sample_application_capacity_metric_descriptions.txt '
-             '--parameters=@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//sample_application_parameters.txt '),
+             '--metrics={0} '
+             '--parameters={1} ').format(sample_application_capacity_metric_descriptions, sample_application_parameters),
             'POST',
             '/Applications/$/Create',
             ['api-version=6.0'],
