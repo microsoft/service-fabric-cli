@@ -25,8 +25,7 @@ def json_encoded(arg_str):
             # This is the error that python 2.7 returns on no file found
             print('File not found at {0}'.format(arg_str[1:]))
         except ValueError as ex:
-            print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str[1:], ex),
-                  file=stderr)
+            print('Decoding JSON value from file {0} failed: \n{1}'.format(arg_str[1:], ex))
             raise
 
     try:
@@ -36,8 +35,7 @@ def json_encoded(arg_str):
                'You can also pass the json argument in a .txt file. \n'
                'To do so, set argument value to the absolute path of the text file '
                'prefixed by "@". \nIf you have passed in a file name, please ensure that the JSON '
-               'is correct. Error: \n{0}').format(ex),
-              file=stderr)
+               'is correct. Error: \n{0}').format(ex))
         raise
 
 

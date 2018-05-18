@@ -79,6 +79,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
+
         self.assertIn(
             'Decoding JSON value from file {0} failed'.format(file_path_empty_file.lstrip('@')),
             printed_output)
@@ -136,6 +137,7 @@ class CommandsProcessTests(unittest.TestCase):
                 pass
 
         printed_output = str_io.getvalue()
+
         self.assertIn('You can also pass the json argument in a .txt file', printed_output)
         self.assertIn('To do so, set argument value to the '
                       'absolute path of the text file prefixed by "@".', printed_output)
