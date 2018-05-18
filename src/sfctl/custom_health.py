@@ -36,10 +36,6 @@ def parse_service_health_policy_map(formatted_policy):
     for st_desc in formatted_policy:
         st_name = st_desc.get('Key', None)
 
-        print("***********************************************")
-        print(st_desc)
-
-
         if st_name is None:
             raise CLIError('Could not find service type name in service '
                            'health policy map')

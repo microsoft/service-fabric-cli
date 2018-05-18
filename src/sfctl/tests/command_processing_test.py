@@ -54,8 +54,6 @@ class CommandsProcessTests(unittest.TestCase):
             '@' + path.join(path.dirname(__file__), 'sample_json', 'empty_file.txt')
         file_path_nonexistent = \
             '@' + path.join(path.dirname(__file__), 'sample_json', 'non_existent.txt')
-        file_path_correct_json_relative = \
-            '@' + path.relpath(path.join('sample_json', 'correct_json.txt'))
 
         # Use str_io capture here to avoid the printed clutter when running the tests.
         # Using ValueError instead of json.decoder.JSONDecodeError because that is not
@@ -70,9 +68,6 @@ class CommandsProcessTests(unittest.TestCase):
 
         # Test that correct file path returns correct serialized object
         self.assertEqual(dictionary, json_encoded(file_path_correct_json))
-
-        # Test that correct file path returns correct serialized object
-        self.assertEqual(dictionary, json_encoded(file_path_correct_json_relative))
 
         # Test that appropriate error messages are printed out on error
 
@@ -142,7 +137,7 @@ class CommandsProcessTests(unittest.TestCase):
 
         printed_output = str_io.getvalue()
         self.assertIn('You can also pass the json argument in a .txt file', printed_output)
-        self.assertIn('To do so, set argument value to the relative or '
+        self.assertIn('To do so, set argument value to the '
                       'absolute path of the text file prefixed by "@".', printed_output)
 
         # str_io captures the output of a wrongly formatted json
@@ -155,7 +150,7 @@ class CommandsProcessTests(unittest.TestCase):
 
         printed_output = str_io.getvalue()
         self.assertIn('You can also pass the json argument in a .txt file', printed_output)
-        self.assertIn('To do so, set argument value to the relative or '
+        self.assertIn('To do so, set argument value to the '
                       'absolute path of the text file prefixed by "@".', printed_output)
 
         # Capture output with str_io even though it's not used in order to prevent test to writing

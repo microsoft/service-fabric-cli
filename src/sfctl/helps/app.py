@@ -59,11 +59,12 @@ helps['application upgrade'] = """
         - name: --application-id
           type: string
           short-summary: The identity of the application.
-          long-summary:
-          This is typically the full name of the application without the 'fabric:' URI scheme. 
-          Starting from version 6.0, hierarchical names are delimited with the "~" character. 
-          For example, if the application name is "fabric:/myapp/app1", the application identity 
-          would be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+          long-summary: "This is typically the full name of the application
+            without the 'fabric:' URI scheme. Starting from version 6.0,
+            hierarchical names are delimited with the '~' character. For
+            example, if the application name is 'fabric:/myapp/app1', the
+            application identity would be 'myapp~app1' in 6.0+ and 'myapp/app1'
+            in previous versions."
         - name: --application-version
           type: string
           short-summary: Target application version

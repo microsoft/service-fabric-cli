@@ -34,7 +34,7 @@ def json_encoded(arg_str):
     except ValueError as ex:
         print(('Loading JSON from string input failed. '
                'You can also pass the json argument in a .txt file. \n'
-               'To do so, set argument value to the relative or absolute path of the text file '
+               'To do so, set argument value to the absolute path of the text file '
                'prefixed by "@". \nIf you have passed in a file name, please ensure that the JSON '
                'is correct. Error: \n{0}').format(ex),
               file=stderr)

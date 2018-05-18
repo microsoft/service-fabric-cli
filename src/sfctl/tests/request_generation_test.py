@@ -10,7 +10,7 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from os import (remove, environ)
+from os import (remove, environ, path)
 import json
 import logging
 import vcr
@@ -142,13 +142,6 @@ class ServiceFabricRequestTests(ScenarioTest):
             # Validate body
             recording_body = recording['body']
 
-            print()
-            print()
-            print()
-            print(recording_body)
-            print()
-            print()
-
             # body here is the expected body
             # recording_body is the actual value
             if body is not None and body_verifier is not None:
@@ -198,7 +191,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
 
-        sample_path_base = '@F://Azure-CLI//service-fabric-cli-myfork//src//sfctl//tests//sample_json//'
+        sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -470,9 +463,9 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
-        app_params = sample_path_base + 'sample_application_parameters.txt'
-        default_service_type_health_policy = sample_path_base + 'sample_default_service_type_health_policy.txt'  # pylint: disable=invalid-name
-        service_type_health_policy_map = sample_path_base + 'sample_service_type_health_policy_map.txt'
+        app_params = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
+        default_service_type_health_policy = path.join(sample_path_base, 'sample_default_service_type_health_policy.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        service_type_health_policy_map = path.join(sample_path_base, 'sample_service_type_health_policy_map.txt').replace('/', '//').replace('\\', '\\\\')
 
         self.validate_command(  # upgrade - not all parameters tested
             ('application upgrade '

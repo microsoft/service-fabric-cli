@@ -161,16 +161,11 @@ def parse_app_params(formatted_params):
         ApplicationParameter
     )
 
-    #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    #print(formatted_params)
-
     if formatted_params is None:
         return None
 
     res = []
     for k in formatted_params:
-        #print("***********************************************")
-        #print(k)
         param = ApplicationParameter(key=k, value=formatted_params[k])
         res.append(param)
 
