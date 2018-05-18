@@ -7,7 +7,6 @@
 """Custom parameter handling for commands"""
 from __future__ import print_function
 import json
-from sys import stderr
 from knack.arguments import (ArgumentsContext, CLIArgumentType)
 
 def json_encoded(arg_str):

@@ -51,7 +51,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         environ['SF_TEST_ENDPOINT'] = self.old_endpoint
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def validate_command(self, command, method, path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
+    def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
                          body_verifier=None):
         """
         This method takes the command passed in and runs the sfctl command specified.
@@ -161,7 +161,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             # 'http://url:port/AppTypes/$/Provision?api-version=6.1'
 
             # Check that path is in recording_uri
-            uri_path_start = 'http://localhost:' + str(self.port) + path
+            uri_path_start = 'http://localhost:' + str(self.port) + url_path
             self.assertIn(uri_path_start, recording_uri,
                           msg='Uri starting portion "{0}" was not found in generated URI "{1}"'.format(uri_path_start, recording_uri))
 
@@ -466,8 +466,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         app_params = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
         default_service_type_health_policy = path.join(sample_path_base, 'sample_default_service_type_health_policy.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
         service_type_health_policy_map = path.join(sample_path_base, 'sample_service_type_health_policy_map.txt').replace('/', '//').replace('\\', '\\\\')
-        sample_application_capacity_metric_descriptions = \
-            path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        sample_application_capacity_metric_descriptions = path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
         sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
 
         self.validate_command(  # upgrade - not all parameters tested
