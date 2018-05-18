@@ -469,7 +469,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         sample_application_capacity_metric_descriptions = path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
         sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
 
-        # TODO: application upgrade and application create does not currently test the body
+        # application upgrade and application create does not currently test the body
         # Add this in later.
         self.validate_command(  # upgrade - not all parameters tested
             ('application upgrade '

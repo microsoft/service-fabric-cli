@@ -82,9 +82,6 @@ class AppTests(unittest.TestCase):
                                        'reservation_capacity': '2',
                                        'total_application_capacity': '2'}])
 
-
-
-
         self.assertEqual(len(res), 1)
         res = res[0]
         self.assertIsInstance(res, ApplicationMetricDescription)
