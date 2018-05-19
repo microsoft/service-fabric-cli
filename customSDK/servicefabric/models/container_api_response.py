@@ -28,4 +28,5 @@ class ContainerApiResponse(Model):
     }
 
     def __init__(self, container_api_result):
+        super(ContainerApiResponse, self).__init__()
         self.container_api_result = container_api_result

@@ -31,5 +31,6 @@ class PartitionDataLossProgress(Model):
     }
 
     def __init__(self, state=None, invoke_data_loss_result=None):
+        super(PartitionDataLossProgress, self).__init__()
         self.state = state
         self.invoke_data_loss_result = invoke_data_loss_result

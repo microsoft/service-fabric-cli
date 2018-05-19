@@ -62,6 +62,7 @@ class DeployedServiceReplicaDetailInfo(Model):
     }
 
     def __init__(self, service_name=None, partition_id=None, current_service_operation=None, current_service_operation_start_time_utc=None, reported_load=None):
+        super(DeployedServiceReplicaDetailInfo, self).__init__()
         self.service_name = service_name
         self.partition_id = partition_id
         self.current_service_operation = current_service_operation

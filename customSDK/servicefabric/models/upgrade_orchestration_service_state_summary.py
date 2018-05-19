@@ -39,6 +39,7 @@ class UpgradeOrchestrationServiceStateSummary(Model):
     }
 
     def __init__(self, current_code_version=None, current_manifest_version=None, target_code_version=None, target_manifest_version=None, pending_upgrade_type=None):
+        super(UpgradeOrchestrationServiceStateSummary, self).__init__()
         self.current_code_version = current_code_version
         self.current_manifest_version = current_manifest_version
         self.target_code_version = target_code_version

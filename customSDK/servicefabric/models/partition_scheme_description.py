@@ -37,4 +37,5 @@ class PartitionSchemeDescription(Model):
     }
 
     def __init__(self):
+        super(PartitionSchemeDescription, self).__init__()
         self.partition_scheme = None

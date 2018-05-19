@@ -32,6 +32,7 @@ class FabricError(Model):
     }
 
     def __init__(self, error):
+        super(FabricError, self).__init__()
         self.error = error
 
 

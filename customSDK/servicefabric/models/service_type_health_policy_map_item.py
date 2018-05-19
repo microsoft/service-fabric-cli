@@ -35,5 +35,6 @@ class ServiceTypeHealthPolicyMapItem(Model):
     }
 
     def __init__(self, key, value):
+        super(ServiceTypeHealthPolicyMapItem, self).__init__()
         self.key = key
         self.value = value

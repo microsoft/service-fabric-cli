@@ -37,5 +37,6 @@ class RestartNodeDescription(Model):
     }
 
     def __init__(self, node_instance_id="0", create_fabric_dump="False"):
+        super(RestartNodeDescription, self).__init__()
         self.node_instance_id = node_instance_id
         self.create_fabric_dump = create_fabric_dump

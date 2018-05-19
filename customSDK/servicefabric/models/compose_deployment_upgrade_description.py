@@ -73,6 +73,7 @@ class ComposeDeploymentUpgradeDescription(Model):
     }
 
     def __init__(self, deployment_name, compose_file_content, registry_credential=None, upgrade_kind="Rolling", rolling_upgrade_mode="UnmonitoredAuto", upgrade_replica_set_check_timeout_in_seconds=None, force_restart=None, monitoring_policy=None, application_health_policy=None):
+        super(ComposeDeploymentUpgradeDescription, self).__init__()
         self.deployment_name = deployment_name
         self.compose_file_content = compose_file_content
         self.registry_credential = registry_credential

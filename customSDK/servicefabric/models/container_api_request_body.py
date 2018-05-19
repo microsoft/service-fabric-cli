@@ -38,6 +38,7 @@ class ContainerApiRequestBody(Model):
     }
 
     def __init__(self, uri_path, http_verb=None, content_type=None, body=None):
+        super(ContainerApiRequestBody, self).__init__()
         self.http_verb = http_verb
         self.uri_path = uri_path
         self.content_type = content_type

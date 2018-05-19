@@ -86,6 +86,7 @@ class DeployedApplicationHealthStateFilter(Model):
     }
 
     def __init__(self, node_name_filter=None, health_state_filter=0, deployed_service_package_filters=None):
+        super(DeployedApplicationHealthStateFilter, self).__init__()
         self.node_name_filter = node_name_filter
         self.health_state_filter = health_state_filter
         self.deployed_service_package_filters = deployed_service_package_filters

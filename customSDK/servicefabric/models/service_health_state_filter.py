@@ -79,6 +79,7 @@ class ServiceHealthStateFilter(Model):
     }
 
     def __init__(self, service_name_filter=None, health_state_filter=0, partition_filters=None):
+        super(ServiceHealthStateFilter, self).__init__()
         self.service_name_filter = service_name_filter
         self.health_state_filter = health_state_filter
         self.partition_filters = partition_filters

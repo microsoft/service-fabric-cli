@@ -12,7 +12,7 @@
 from msrest.serialization import Model
 
 
-class Epoch(Model):
+class BackupEpoch(Model):
     """An Epoch is a configuration number for the partition as a whole. When the
     configuration of the replica set changes, for example when the Primary
     replica changes, the operations that are replicated from the new Primary
@@ -20,23 +20,23 @@ class Epoch(Model):
     Primary replica.
     .
 
-    :param configuration_version: The current configuration number of this
+    :param configuration_number: The current configuration number of this
      Epoch. The configuration number is an increasing value that is updated
      whenever the configuration of this replica set changes.
-    :type configuration_version: str
-    :param data_loss_version: The current dataloss number of this Epoch. The
+    :type configuration_number: str
+    :param data_loss_number: The current dataloss number of this Epoch. The
      data loss number property is an increasing value which is updated whenever
      data loss is suspected, as when loss of a quorum of replicas in the
      replica set that includes the Primary replica.
-    :type data_loss_version: str
+    :type data_loss_number: str
     """
 
     _attribute_map = {
-        'configuration_version': {'key': 'ConfigurationVersion', 'type': 'str'},
-        'data_loss_version': {'key': 'DataLossVersion', 'type': 'str'},
+        'configuration_number': {'key': 'ConfigurationNumber', 'type': 'str'},
+        'data_loss_number': {'key': 'DataLossNumber', 'type': 'str'},
     }
 
-    def __init__(self, configuration_version=None, data_loss_version=None):
-        super(Epoch, self).__init__()
-        self.configuration_version = configuration_version
-        self.data_loss_version = data_loss_version
+    def __init__(self, configuration_number=None, data_loss_number=None):
+        super(BackupEpoch, self).__init__()
+        self.configuration_number = configuration_number
+        self.data_loss_number = data_loss_number

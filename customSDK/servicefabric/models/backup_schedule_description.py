@@ -36,4 +36,5 @@ class BackupScheduleDescription(Model):
     }
 
     def __init__(self):
+        super(BackupScheduleDescription, self).__init__()
         self.schedule_kind = None

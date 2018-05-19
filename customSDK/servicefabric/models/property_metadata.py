@@ -45,6 +45,7 @@ class PropertyMetadata(Model):
     }
 
     def __init__(self, type_id=None, custom_type_id=None, parent=None, size_in_bytes=None, last_modified_utc_timestamp=None, sequence_number=None):
+        super(PropertyMetadata, self).__init__()
         self.type_id = type_id
         self.custom_type_id = custom_type_id
         self.parent = parent

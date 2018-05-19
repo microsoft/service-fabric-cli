@@ -488,6 +488,14 @@ class ServicePlacementPolicyType(Enum):
     non_partially_place_service = "NonPartiallyPlaceService"
 
 
+class ServiceLoadMetricWeight(Enum):
+
+    zero = "Zero"
+    low = "Low"
+    medium = "Medium"
+    high = "High"
+
+
 class HostType(Enum):
 
     invalid = "Invalid"
@@ -597,14 +605,6 @@ class PartitionScheme(Enum):
     singleton = "Singleton"
     uniform_int64_range = "UniformInt64Range"
     named = "Named"
-
-
-class ServiceLoadMetricWeight(Enum):
-
-    zero = "Zero"
-    low = "Low"
-    medium = "Medium"
-    high = "High"
 
 
 class ServiceOperationName(Enum):

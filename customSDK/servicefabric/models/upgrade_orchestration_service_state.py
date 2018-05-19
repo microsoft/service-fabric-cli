@@ -25,4 +25,5 @@ class UpgradeOrchestrationServiceState(Model):
     }
 
     def __init__(self, service_state=None):
+        super(UpgradeOrchestrationServiceState, self).__init__()
         self.service_state = service_state

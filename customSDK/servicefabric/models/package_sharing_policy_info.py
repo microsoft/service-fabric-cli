@@ -32,5 +32,6 @@ class PackageSharingPolicyInfo(Model):
     }
 
     def __init__(self, shared_package_name=None, package_sharing_scope=None):
+        super(PackageSharingPolicyInfo, self).__init__()
         self.shared_package_name = shared_package_name
         self.package_sharing_scope = package_sharing_scope

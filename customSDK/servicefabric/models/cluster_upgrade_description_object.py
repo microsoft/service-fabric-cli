@@ -85,6 +85,7 @@ class ClusterUpgradeDescriptionObject(Model):
     }
 
     def __init__(self, config_version=None, code_version=None, upgrade_kind="Rolling", rolling_upgrade_mode="UnmonitoredAuto", upgrade_replica_set_check_timeout_in_seconds=None, force_restart=None, enable_delta_health_evaluation=None, monitoring_policy=None, cluster_health_policy=None, cluster_upgrade_health_policy=None, application_health_policy_map=None):
+        super(ClusterUpgradeDescriptionObject, self).__init__()
         self.config_version = config_version
         self.code_version = code_version
         self.upgrade_kind = upgrade_kind

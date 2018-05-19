@@ -38,6 +38,7 @@ class CreateComposeDeploymentDescription(Model):
     }
 
     def __init__(self, deployment_name, compose_file_content, registry_credential=None):
+        super(CreateComposeDeploymentDescription, self).__init__()
         self.deployment_name = deployment_name
         self.compose_file_content = compose_file_content
         self.registry_credential = registry_credential

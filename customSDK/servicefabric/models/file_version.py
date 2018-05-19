@@ -33,6 +33,7 @@ class FileVersion(Model):
     }
 
     def __init__(self, version_number=None, epoch_data_loss_number=None, epoch_configuration_number=None):
+        super(FileVersion, self).__init__()
         self.version_number = version_number
         self.epoch_data_loss_number = epoch_data_loss_number
         self.epoch_configuration_number = epoch_configuration_number
