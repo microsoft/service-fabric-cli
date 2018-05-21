@@ -15,32 +15,35 @@ from .partition_event import PartitionEvent
 class ChaosMoveSecondaryFaultScheduledEvent(PartitionEvent):
     """Chaos Move Secondary Fault Scheduled event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param partition_id: An internal ID used by Service Fabric to uniquely
-     identify a partition. This is a randomly generated GUID when the service
-     was created. The partition ID is unique and does not change for the
-     lifetime of the service. If the same service was deleted and recreated the
-     IDs of its partitions would be different.
+    :param partition_id: Required. An internal ID used by Service Fabric to
+     uniquely identify a partition. This is a randomly generated GUID when the
+     service was created. The partition ID is unique and does not change for
+     the lifetime of the service. If the same service was deleted and recreated
+     the IDs of its partitions would be different.
     :type partition_id: str
-    :param fault_group_id: Id of fault group.
+    :param fault_group_id: Required. Id of fault group.
     :type fault_group_id: str
-    :param fault_id: Id of fault.
+    :param fault_id: Required. Id of fault.
     :type fault_id: str
-    :param service_name: Service name.
+    :param service_name: Required. Service name.
     :type service_name: str
-    :param source_node: The name of a Service Fabric node.
+    :param source_node: Required. The name of a Service Fabric node.
     :type source_node: str
-    :param destination_node: The name of a Service Fabric node.
+    :param destination_node: Required. The name of a Service Fabric node.
     :type destination_node: str
-    :param forced_move: Indicates a forced move.
+    :param forced_move: Required. Indicates a forced move.
     :type forced_move: bool
     """
 
@@ -71,12 +74,12 @@ class ChaosMoveSecondaryFaultScheduledEvent(PartitionEvent):
         'forced_move': {'key': 'ForcedMove', 'type': 'bool'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, fault_group_id, fault_id, service_name, source_node, destination_node, forced_move, has_correlated_events=None):
-        super(ChaosMoveSecondaryFaultScheduledEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id)
-        self.fault_group_id = fault_group_id
-        self.fault_id = fault_id
-        self.service_name = service_name
-        self.source_node = source_node
-        self.destination_node = destination_node
-        self.forced_move = forced_move
+    def __init__(self, **kwargs):
+        super(ChaosMoveSecondaryFaultScheduledEvent, self).__init__(**kwargs)
+        self.fault_group_id = kwargs.get('fault_group_id', None)
+        self.fault_id = kwargs.get('fault_id', None)
+        self.service_name = kwargs.get('service_name', None)
+        self.source_node = kwargs.get('source_node', None)
+        self.destination_node = kwargs.get('destination_node', None)
+        self.forced_move = kwargs.get('forced_move', None)
         self.kind = 'ChaosMoveSecondaryFaultScheduled'

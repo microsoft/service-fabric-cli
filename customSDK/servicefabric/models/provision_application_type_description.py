@@ -16,16 +16,19 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
     """Describes the operation to register or provision an application type using
     an application package uploaded to the Service Fabric image store.
 
-    :param async: Indicates whether or not provisioning should occur
-     asynchronously. When set to true, the provision operation returns when the
-     request is accepted by the system, and the provision operation continues
-     without any timeout limit. The default value is false. For large
-     application packages, we recommend setting the value to true.
-    :type async: bool
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param async_property: Required. Indicates whether or not provisioning
+     should occur asynchronously. When set to true, the provision operation
+     returns when the request is accepted by the system, and the provision
+     operation continues without any timeout limit. The default value is false.
+     For large application packages, we recommend setting the value to true.
+    :type async_property: bool
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param application_type_build_path: The relative path for the application
-     package in the image store specified during the prior upload operation.
+    :param application_type_build_path: Required. The relative path for the
+     application package in the image store specified during the prior upload
+     operation.
     :type application_type_build_path: str
     :param application_package_cleanup_policy: The kind of action that needs
      to be taken for cleaning up the application package after successful
@@ -36,20 +39,20 @@ class ProvisionApplicationTypeDescription(ProvisionApplicationTypeDescriptionBas
     """
 
     _validation = {
-        'async': {'required': True},
+        'async_property': {'required': True},
         'kind': {'required': True},
         'application_type_build_path': {'required': True},
     }
 
     _attribute_map = {
-        'async': {'key': 'Async', 'type': 'bool'},
+        'async_property': {'key': 'Async', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
         'application_type_build_path': {'key': 'ApplicationTypeBuildPath', 'type': 'str'},
         'application_package_cleanup_policy': {'key': 'ApplicationPackageCleanupPolicy', 'type': 'str'},
     }
 
-    def __init__(self, async, application_type_build_path, application_package_cleanup_policy=None):
-        super(ProvisionApplicationTypeDescription, self).__init__(async=async)
-        self.application_type_build_path = application_type_build_path
-        self.application_package_cleanup_policy = application_package_cleanup_policy
+    def __init__(self, **kwargs):
+        super(ProvisionApplicationTypeDescription, self).__init__(**kwargs)
+        self.application_type_build_path = kwargs.get('application_type_build_path', None)
+        self.application_package_cleanup_policy = kwargs.get('application_package_cleanup_policy', None)
         self.kind = 'ImageStorePath'

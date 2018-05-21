@@ -15,34 +15,38 @@ from .node_event import NodeEvent
 class NodeHealthReportExpiredEvent(NodeEvent):
     """Node Health Report Expired event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param node_name: The name of a Service Fabric node.
+    :param node_name: Required. The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance_id: Id of Node instance.
+    :param node_instance_id: Required. Id of Node instance.
     :type node_instance_id: long
-    :param source_id: Id of report source.
+    :param source_id: Required. Id of report source.
     :type source_id: str
-    :param property: Describes the property.
+    :param property: Required. Describes the property.
     :type property: str
-    :param health_state: Describes the property health state.
+    :param health_state: Required. Describes the property health state.
     :type health_state: str
-    :param time_to_live_ms: Time to live in milli-seconds.
+    :param time_to_live_ms: Required. Time to live in milli-seconds.
     :type time_to_live_ms: long
-    :param sequence_number: Sequence number of report.
+    :param sequence_number: Required. Sequence number of report.
     :type sequence_number: long
-    :param description: Description of report.
+    :param description: Required. Description of report.
     :type description: str
-    :param remove_when_expired: Indicates the removal when it expires.
+    :param remove_when_expired: Required. Indicates the removal when it
+     expires.
     :type remove_when_expired: bool
-    :param source_utc_timestamp: Source time.
+    :param source_utc_timestamp: Required. Source time.
     :type source_utc_timestamp: datetime
     """
 
@@ -79,15 +83,15 @@ class NodeHealthReportExpiredEvent(NodeEvent):
         'source_utc_timestamp': {'key': 'SourceUtcTimestamp', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, node_instance_id, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, has_correlated_events=None):
-        super(NodeHealthReportExpiredEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
-        self.node_instance_id = node_instance_id
-        self.source_id = source_id
-        self.property = property
-        self.health_state = health_state
-        self.time_to_live_ms = time_to_live_ms
-        self.sequence_number = sequence_number
-        self.description = description
-        self.remove_when_expired = remove_when_expired
-        self.source_utc_timestamp = source_utc_timestamp
+    def __init__(self, **kwargs):
+        super(NodeHealthReportExpiredEvent, self).__init__(**kwargs)
+        self.node_instance_id = kwargs.get('node_instance_id', None)
+        self.source_id = kwargs.get('source_id', None)
+        self.property = kwargs.get('property', None)
+        self.health_state = kwargs.get('health_state', None)
+        self.time_to_live_ms = kwargs.get('time_to_live_ms', None)
+        self.sequence_number = kwargs.get('sequence_number', None)
+        self.description = kwargs.get('description', None)
+        self.remove_when_expired = kwargs.get('remove_when_expired', None)
+        self.source_utc_timestamp = kwargs.get('source_utc_timestamp', None)
         self.kind = 'NodeHealthReportExpired'

@@ -19,7 +19,9 @@ class BackupEntity(Model):
     sub-classes are: ApplicationBackupEntity, ServiceBackupEntity,
     PartitionBackupEntity
 
-    :param entity_kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param entity_kind: Required. Constant filled by server.
     :type entity_kind: str
     """
 
@@ -35,5 +37,6 @@ class BackupEntity(Model):
         'entity_kind': {'Application': 'ApplicationBackupEntity', 'Service': 'ServiceBackupEntity', 'Partition': 'PartitionBackupEntity'}
     }
 
-    def __init__(self):
+    def __init__(self, **kwargs):
+        super(BackupEntity, self).__init__(**kwargs)
         self.entity_kind = None

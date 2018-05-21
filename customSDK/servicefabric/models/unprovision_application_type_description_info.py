@@ -16,16 +16,18 @@ class UnprovisionApplicationTypeDescriptionInfo(Model):
     """Describes the operation to unregister or unprovision an application type
     and its version that was registered with the Service Fabric.
 
-    :param application_type_version: The version of the application type as
-     defined in the application manifest.
+    All required parameters must be populated in order to send to Azure.
+
+    :param application_type_version: Required. The version of the application
+     type as defined in the application manifest.
     :type application_type_version: str
-    :param async: The flag indicating whether or not unprovision should occur
-     asynchronously. When set to true, the unprovision operation returns when
-     the request is accepted by the system, and the unprovision operation
-     continues without any timeout limit. The default value is false. However,
-     we recommend to set it to true for large application packages that were
-     provisioned.
-    :type async: bool
+    :param async_property: The flag indicating whether or not unprovision
+     should occur asynchronously. When set to true, the unprovision operation
+     returns when the request is accepted by the system, and the unprovision
+     operation continues without any timeout limit. The default value is false.
+     However, we recommend to set it to true for large application packages
+     that were provisioned.
+    :type async_property: bool
     """
 
     _validation = {
@@ -34,9 +36,10 @@ class UnprovisionApplicationTypeDescriptionInfo(Model):
 
     _attribute_map = {
         'application_type_version': {'key': 'ApplicationTypeVersion', 'type': 'str'},
-        'async': {'key': 'Async', 'type': 'bool'},
+        'async_property': {'key': 'Async', 'type': 'bool'},
     }
 
-    def __init__(self, application_type_version, async=None):
-        self.application_type_version = application_type_version
-        self.async = async
+    def __init__(self, **kwargs):
+        super(UnprovisionApplicationTypeDescriptionInfo, self).__init__(**kwargs)
+        self.application_type_version = kwargs.get('application_type_version', None)
+        self.async_property = kwargs.get('async_property', None)

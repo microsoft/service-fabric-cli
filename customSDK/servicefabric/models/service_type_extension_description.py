@@ -26,6 +26,7 @@ class ServiceTypeExtensionDescription(Model):
         'value': {'key': 'Value', 'type': 'str'},
     }
 
-    def __init__(self, key=None, value=None):
-        self.key = key
-        self.value = value
+    def __init__(self, **kwargs):
+        super(ServiceTypeExtensionDescription, self).__init__(**kwargs)
+        self.key = kwargs.get('key', None)
+        self.value = kwargs.get('value', None)

@@ -19,7 +19,9 @@ class ScalingMechanismDescription(Model):
     sub-classes are: PartitionInstanceCountScaleMechanism,
     AddRemoveIncrementalNamedPartitionScalingMechanism
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
     """
 
@@ -35,5 +37,6 @@ class ScalingMechanismDescription(Model):
         'kind': {'PartitionInstanceCount': 'PartitionInstanceCountScaleMechanism', 'AddRemoveIncrementalNamedPartition': 'AddRemoveIncrementalNamedPartitionScalingMechanism'}
     }
 
-    def __init__(self):
+    def __init__(self, **kwargs):
+        super(ScalingMechanismDescription, self).__init__(**kwargs)
         self.kind = None

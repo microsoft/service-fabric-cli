@@ -31,7 +31,6 @@ class ChaosTargetFilter(Model):
     nodeTypeY that is included
     in NodeTypeInclusionList. If both NodeTypeInclusionList and
     ApplicationInclusionList are null or empty, an ArgumentException is thrown.
-    .
 
     :param node_type_inclusion_list: A list of node types to include in Chaos
      faults.
@@ -73,6 +72,7 @@ class ChaosTargetFilter(Model):
         'application_inclusion_list': {'key': 'ApplicationInclusionList', 'type': '[str]'},
     }
 
-    def __init__(self, node_type_inclusion_list=None, application_inclusion_list=None):
-        self.node_type_inclusion_list = node_type_inclusion_list
-        self.application_inclusion_list = application_inclusion_list
+    def __init__(self, **kwargs):
+        super(ChaosTargetFilter, self).__init__(**kwargs)
+        self.node_type_inclusion_list = kwargs.get('node_type_inclusion_list', None)
+        self.application_inclusion_list = kwargs.get('application_inclusion_list', None)

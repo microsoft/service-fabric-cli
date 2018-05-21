@@ -15,33 +15,38 @@ from .application_event import ApplicationEvent
 class ApplicationUpgradeRollbackStartEvent(ApplicationEvent):
     """Application Upgrade Rollback Start event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param application_id: The identity of the application. This is an encoded
-     representation of the application name. This is used in the REST APIs to
-     identify the application resource.
+    :param application_id: Required. The identity of the application. This is
+     an encoded representation of the application name. This is used in the
+     REST APIs to identify the application resource.
      Starting in version 6.0, hierarchical names are delimited with the "\\~"
      character. For example, if the application name is "fabric:/myapp/app1",
      the application identity would be "myapp\\~app1" in 6.0+ and "myapp/app1"
      in previous versions.
     :type application_id: str
-    :param application_type_name: Application type name.
+    :param application_type_name: Required. Application type name.
     :type application_type_name: str
-    :param current_application_type_version: Current Application type version.
+    :param current_application_type_version: Required. Current Application
+     type version.
     :type current_application_type_version: str
-    :param application_type_version: Target Application type version.
+    :param application_type_version: Required. Target Application type
+     version.
     :type application_type_version: str
-    :param failure_reason: Describes reason of failure.
+    :param failure_reason: Required. Describes reason of failure.
     :type failure_reason: str
-    :param overall_upgrade_elapsed_time_in_ms: Overall upgrade time in
-     milli-seconds.
+    :param overall_upgrade_elapsed_time_in_ms: Required. Overall upgrade time
+     in milli-seconds.
     :type overall_upgrade_elapsed_time_in_ms: float
     """
 
@@ -70,11 +75,11 @@ class ApplicationUpgradeRollbackStartEvent(ApplicationEvent):
         'overall_upgrade_elapsed_time_in_ms': {'key': 'OverallUpgradeElapsedTimeInMs', 'type': 'float'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, application_type_name, current_application_type_version, application_type_version, failure_reason, overall_upgrade_elapsed_time_in_ms, has_correlated_events=None):
-        super(ApplicationUpgradeRollbackStartEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
-        self.application_type_name = application_type_name
-        self.current_application_type_version = current_application_type_version
-        self.application_type_version = application_type_version
-        self.failure_reason = failure_reason
-        self.overall_upgrade_elapsed_time_in_ms = overall_upgrade_elapsed_time_in_ms
+    def __init__(self, **kwargs):
+        super(ApplicationUpgradeRollbackStartEvent, self).__init__(**kwargs)
+        self.application_type_name = kwargs.get('application_type_name', None)
+        self.current_application_type_version = kwargs.get('current_application_type_version', None)
+        self.application_type_version = kwargs.get('application_type_version', None)
+        self.failure_reason = kwargs.get('failure_reason', None)
+        self.overall_upgrade_elapsed_time_in_ms = kwargs.get('overall_upgrade_elapsed_time_in_ms', None)
         self.kind = 'ApplicationUpgradeRollbackStart'

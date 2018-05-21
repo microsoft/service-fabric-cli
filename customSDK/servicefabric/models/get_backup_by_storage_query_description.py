@@ -16,6 +16,8 @@ class GetBackupByStorageQueryDescription(Model):
     """Describes additional filters to be applied, while listing backups, and
     backup storage details from where to fetch the backups.
 
+    All required parameters must be populated in order to send to Azure.
+
     :param start_date_time_filter: Specifies the start date time in ISO8601
      from which to enumerate backups. If not specified, backups are enumerated
      from the beginning.
@@ -28,14 +30,15 @@ class GetBackupByStorageQueryDescription(Model):
      the specified time range) for every partition under the specified backup
      entity. Default value: False .
     :type latest: bool
-    :param storage: Describes the parameters for the backup storage from where
-     to enumerate backups. This is optional and by default backups are
-     enumerated from the backup storage where this backup entity is currently
-     being backed up (as specified in backup policy). This parameter is useful
-     to be able to enumerate backups from another cluster where you may intend
-     to restore.
+    :param storage: Required. Describes the parameters for the backup storage
+     from where to enumerate backups. This is optional and by default backups
+     are enumerated from the backup storage where this backup entity is
+     currently being backed up (as specified in backup policy). This parameter
+     is useful to be able to enumerate backups from another cluster where you
+     may intend to restore.
     :type storage: ~azure.servicefabric.models.BackupStorageDescription
-    :param backup_entity: Indicates the entity for which to enumerate backups.
+    :param backup_entity: Required. Indicates the entity for which to
+     enumerate backups.
     :type backup_entity: ~azure.servicefabric.models.BackupEntity
     """
 
@@ -52,9 +55,10 @@ class GetBackupByStorageQueryDescription(Model):
         'backup_entity': {'key': 'BackupEntity', 'type': 'BackupEntity'},
     }
 
-    def __init__(self, storage, backup_entity, start_date_time_filter=None, end_date_time_filter=None, latest=False):
-        self.start_date_time_filter = start_date_time_filter
-        self.end_date_time_filter = end_date_time_filter
-        self.latest = latest
-        self.storage = storage
-        self.backup_entity = backup_entity
+    def __init__(self, **kwargs):
+        super(GetBackupByStorageQueryDescription, self).__init__(**kwargs)
+        self.start_date_time_filter = kwargs.get('start_date_time_filter', None)
+        self.end_date_time_filter = kwargs.get('end_date_time_filter', None)
+        self.latest = kwargs.get('latest', False)
+        self.storage = kwargs.get('storage', None)
+        self.backup_entity = kwargs.get('backup_entity', None)
