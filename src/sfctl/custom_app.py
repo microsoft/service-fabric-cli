@@ -166,7 +166,7 @@ def parse_app_params(formatted_params):
 
     res = []
     for k in formatted_params:
-        param = ApplicationParameter(k, formatted_params[k])
+        param = ApplicationParameter(key=k, value=formatted_params[k])
         res.append(param)
 
     return res
@@ -181,18 +181,23 @@ def parse_app_metrics(formatted_metrics):
         return None
 
     res = []
+
     for metric in formatted_metrics:
         metric_name = metric.get('name', None)
+
         if not metric_name:
             raise CLIError('Could not find required application metric name')
 
-        metric_max_cap = metric.get('maximum_capacity', None)
-        metric_reserve_cap = metric.get('reservation_capacity', None)
-        metric_total_cap = metric.get('total_application_capacity', None)
-        metric_desc = ApplicationMetricDescription(metric_name, metric_max_cap,
-                                                   metric_reserve_cap,
-                                                   metric_total_cap)
-        res.append(metric_desc)
+        maximum_capacity = metric.get('maximum_capacity', None)
+        reservation_capacity = metric.get('reservation_capacity', None)
+        total_application_capacity = metric.get('total_application_capacity', None)
+
+        res.append(ApplicationMetricDescription(
+            name=metric_name,
+            maximum_capacity=maximum_capacity,
+            reservation_capacity=reservation_capacity,
+            total_application_capacity=total_application_capacity))
+
     return res
 
 def create(client,  # pylint: disable=too-many-locals,too-many-arguments
@@ -241,17 +246,20 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
 
     app_metrics = parse_app_metrics(metrics)
 
-    app_cap_desc = ApplicationCapacityDescription(min_node_count,
-                                                  max_node_count,
-                                                  app_metrics)
+    app_cap_desc = ApplicationCapacityDescription(minimum_nodes=min_node_count,
+                                                  maximum_nodes=max_node_count,
+                                                  application_metrics=app_metrics)
 
-    app_desc = ApplicationDescription(app_name, app_type, app_version,
-                                      app_params, app_cap_desc)
+    app_desc = ApplicationDescription(name=app_name,
+                                      type_name=app_type,
+                                      type_version=app_version,
+                                      parameter_list=app_params,
+                                      application_capacity=app_cap_desc)
 
     client.create_application(app_desc, timeout)
 
 def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docstring
-        client, application_name, application_version, parameters,
+        client, application_id, application_version, parameters,
         mode="UnmonitoredAuto", replica_set_check_timeout=None,
         force_restart=None, failure_action=None,
         health_check_wait_duration="0",
@@ -275,9 +283,12 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
                                      parse_service_health_policy)
 
     monitoring_policy = MonitoringPolicyDescription(
-        failure_action, health_check_wait_duration,
-        health_check_stable_duration, health_check_retry_timeout,
-        upgrade_timeout, upgrade_domain_timeout
+        failure_action=failure_action,
+        health_check_wait_duration_in_milliseconds=health_check_wait_duration,
+        health_check_stable_duration_in_milliseconds=health_check_stable_duration,
+        health_check_retry_timeout_in_milliseconds=health_check_retry_timeout,
+        upgrade_timeout_in_milliseconds=upgrade_timeout,
+        upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout
     )
 
     # Must always have empty list
@@ -289,14 +300,21 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
 
     map_shp = parse_service_health_policy_map(service_health_policy)
 
-    app_health_policy = ApplicationHealthPolicy(warning_as_error,
-                                                max_unhealthy_apps, def_shp,
-                                                map_shp)
+    app_health_policy = ApplicationHealthPolicy(
+        consider_warning_as_error=warning_as_error,
+        max_percent_unhealthy_deployed_applications=max_unhealthy_apps,
+        default_service_type_health_policy=def_shp,
+        service_type_health_policy_map=map_shp)
 
-    desc = ApplicationUpgradeDescription(application_name, application_version,
-                                         app_params, "Rolling", mode,
-                                         replica_set_check_timeout,
-                                         force_restart, monitoring_policy,
-                                         app_health_policy)
+    desc = ApplicationUpgradeDescription(
+        name='fabric:/' + application_id,
+        target_application_type_version=application_version,
+        parameters=app_params,
+        upgrade_kind='Rolling',
+        rolling_upgrade_mode=mode,
+        upgrade_replica_set_check_timeout_in_seconds=replica_set_check_timeout,
+        force_restart=force_restart,
+        monitoring_policy=monitoring_policy,
+        application_health_policy=app_health_policy)
 
-    client.start_application_upgrade(application_name, desc, timeout)
+    client.start_application_upgrade(application_id, desc, timeout)

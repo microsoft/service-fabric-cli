@@ -10,7 +10,7 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from os import (remove, environ)
+from os import (remove, environ, path)
 import json
 import logging
 import vcr
@@ -51,7 +51,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         environ['SF_TEST_ENDPOINT'] = self.old_endpoint
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def validate_command(self, command, method, path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
+    def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
                          body_verifier=None):
         """
         This method takes the command passed in and runs the sfctl command specified.
@@ -161,7 +161,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             # 'http://url:port/AppTypes/$/Provision?api-version=6.1'
 
             # Check that path is in recording_uri
-            uri_path_start = 'http://localhost:' + str(self.port) + path
+            uri_path_start = 'http://localhost:' + str(self.port) + url_path
             self.assertIn(uri_path_start, recording_uri,
                           msg='Uri starting portion "{0}" was not found in generated URI "{1}"'.format(uri_path_start, recording_uri))
 
@@ -190,6 +190,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
+
+        sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -374,7 +376,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
         self.validate_command(  # get container logs
             'sfctl container logs --node-name Node01 --application-id samples/winnodejs '
@@ -383,7 +385,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
         self.validate_command(  # update container
             'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
@@ -461,13 +463,49 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
-        # Ask area owner to fill out this test
-        # self.validate_command( # upgrade - not all parameters tested
-        #    'application upgrade --application-name=name --application-version=version --parameters={} ' +
-        #    '--failure-action=Rollback',
-        #    'POST',
-        #    '/Applications/name/$/Upgrade',
-        #    ['api-version=6.0'])
+        app_params = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
+        default_service_type_health_policy = path.join(sample_path_base, 'sample_default_service_type_health_policy.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        service_type_health_policy_map = path.join(sample_path_base, 'sample_service_type_health_policy_map.txt').replace('/', '//').replace('\\', '\\\\')
+        sample_application_capacity_metric_descriptions = path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
+
+        # application upgrade and application create does not currently test the body
+        # Add this in later.
+        self.validate_command(  # upgrade - not all parameters tested
+            ('application upgrade '
+             '--application-id=app '
+             '--application-version=1.0.0 '
+             '--parameters={0} '
+             '--default-service-health-policy={1} '
+             '--failure-action=Rollback '
+             '--force-restart=true '
+             '--health-check-retry-timeout=PT0H21M0S '
+             '--health-check-stable-duration=PT0H21M0S '
+             '--health-check-wait-duration=PT0H21M0S '
+             '--max-unhealthy-apps=20 '
+             '--mode=Monitored '
+             '--replica-set-check-timeout=10 '
+             '--service-health-policy={2} '
+             '--upgrade-domain-timeout=some_timeout '
+             '--upgrade-timeout=some_timeout2 '
+             '--warning-as-error').format(
+                 app_params, default_service_type_health_policy, service_type_health_policy_map),
+            'POST',
+            '/Applications/app/$/Upgrade',
+            ['api-version=6.0'])
+
+        self.validate_command(  # create
+            ('application create '
+             '--app-name=fabric:/app '
+             '--app-type=test-type '
+             '--app-version=1.0.0 '
+             '--max-node-count=3 '
+             '--min-node-count=1 '
+             '--metrics={0} '
+             '--parameters={1} ').format(sample_application_capacity_metric_descriptions, sample_application_parameters),
+            'POST',
+            '/Applications/$/Create',
+            ['api-version=6.0'])
 
         self.validate_command(  # upgrade-resume
             'application upgrade-resume --application-id=application~Id --upgrade-domain-name=UD2',
