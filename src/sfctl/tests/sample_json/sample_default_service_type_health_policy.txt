@@ -1,0 +1,5 @@
+{
+    "MaxPercentUnhealthyPartitionsPerService": 1,
+    "MaxPercentUnhealthyReplicasPerPartition": 3,
+    "MaxPercentUnhealthyServices": 30
+ }

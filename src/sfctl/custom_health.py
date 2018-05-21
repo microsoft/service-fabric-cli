@@ -20,7 +20,9 @@ def parse_service_health_policy(policy):
     uphp = policy.get('max_percent_unhealthy_partitions_per_service', 0)
     rhp = policy.get('max_percent_unhealthy_replicas_per_partition', 0)
     ushp = policy.get('max_percent_unhealthy_services', 0)
-    return ServiceTypeHealthPolicy(uphp, rhp, ushp)
+    return ServiceTypeHealthPolicy(max_percent_unhealthy_partitions_per_service=uphp,
+                                   max_percent_unhealthy_replicas_per_partition=rhp,
+                                   max_percent_unhealthy_services=ushp)
 
 def parse_service_health_policy_map(formatted_policy):
     """Parse a service health policy map from a string"""
@@ -33,6 +35,7 @@ def parse_service_health_policy_map(formatted_policy):
     map_shp = []
     for st_desc in formatted_policy:
         st_name = st_desc.get('Key', None)
+
         if st_name is None:
             raise CLIError('Could not find service type name in service '
                            'health policy map')
@@ -41,7 +44,7 @@ def parse_service_health_policy_map(formatted_policy):
             raise CLIError('Could not find service type policy in service '
                            'health policy map')
         service_p = parse_service_health_policy(st_policy)
-        std_list_item = ServiceTypeHealthPolicyMapItem(st_name, service_p)
+        std_list_item = ServiceTypeHealthPolicyMapItem(key=st_name, value=service_p)
 
         map_shp.append(std_list_item)
     return map_shp
@@ -64,7 +67,7 @@ def parse_app_health_map(formatted_map):
         if percent_unhealthy is None:
             raise CLIError('Cannot find application type health policy map '
                            'unhealthy percent')
-        map_item = ApplicationTypeHealthPolicyMapItem(name, percent_unhealthy)
+        map_item = ApplicationTypeHealthPolicyMapItem(key=name, value=percent_unhealthy)
         health_map.append(map_item)
     return health_map
 
@@ -72,13 +75,18 @@ def create_health_information(source_id, health_property, health_state, ttl, #py
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
-    from azure.servicefabric.models import HealthInformation
+    from azure.servicefabric.models.health_information import HealthInformation
 
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Unknown']:
         raise CLIError('Invalid health state specified')
 
-    return HealthInformation(source_id, health_property, health_state, ttl,
-                             description, sequence_number, remove_when_expired)
+    return HealthInformation(source_id=source_id,
+                             property=health_property,
+                             health_state=health_state,
+                             time_to_live_in_milli_seconds=ttl,
+                             description=description,
+                             sequence_number=sequence_number,
+                             remove_when_expired=remove_when_expired)
 
 def report_cluster_health(client, source_id, health_property, health_state, #pylint: disable=missing-docstring,too-many-arguments
                           ttl=None, description=None, sequence_number=None,
