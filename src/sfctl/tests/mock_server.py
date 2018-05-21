@@ -35,6 +35,11 @@ class MockServer(BaseHTTPRequestHandler):
             self.end_headers()
             return
 
+        if self.path.startswith('/Applications/$/Create'):
+            self.send_response(requests.codes.created)
+            self.end_headers()
+            return
+
         # Return ok as the default response
         self.send_response(requests.codes.ok)
         self.end_headers()

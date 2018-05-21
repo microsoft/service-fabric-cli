@@ -10,8 +10,9 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from os import (remove, environ)
+from os import (remove, environ, path)
 import json
+import logging
 import vcr
 from mock import patch
 from knack.testsdk import ScenarioTest
@@ -50,7 +51,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         environ['SF_TEST_ENDPOINT'] = self.old_endpoint
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def validate_command(self, command, method, path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
+    def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
                          body_verifier=None):
         """
         This method takes the command passed in and runs the sfctl command specified.
@@ -109,11 +110,17 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # This calls the command and the HTTP request it recorded into
         # generated_file_path
+
+        # Reduce noise in test output for this test only
+        logging.disable(logging.INFO)
         with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
             try:
                 self.cmd(command)
             except Exception as exception:  # pylint: disable=broad-except
                 self.fail('ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
+
+        # re-enable logging
+        logging.disable(logging.NOTSET)
 
         # Read recorded JSON file
         with open(generated_file_path, 'r') as http_recording_file:
@@ -154,7 +161,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             # 'http://url:port/AppTypes/$/Provision?api-version=6.1'
 
             # Check that path is in recording_uri
-            uri_path_start = 'http://localhost:' + str(self.port) + path
+            uri_path_start = 'http://localhost:' + str(self.port) + url_path
             self.assertIn(uri_path_start, recording_uri,
                           msg='Uri starting portion "{0}" was not found in generated URI "{1}"'.format(uri_path_start, recording_uri))
 
@@ -184,23 +191,26 @@ class ServiceFabricRequestTests(ScenarioTest):
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
 
+        sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
+
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
             'application provision --application-type-build-path=test_path',
             'POST',
             '/ApplicationTypes/$/Provision',
-            ['api-version=6.1', 'timeout=60'],
+            ['api-version=6.2', 'timeout=60'],
             ('{"Kind": "ImageStorePath", '
              '"Async": false, '
              '"ApplicationTypeBuildPath": "test_path"}'),
             validate_flat_dictionary)
+
         self.validate_command(  # provision-application-type external-store
             'application provision --external-provision '
             '--application-package-download-uri=test_path --application-type-name=name '
             '--application-type-version=version',
             'POST',
             '/ApplicationTypes/$/Provision',
-            ['api-version=6.1', 'timeout=60'],
+            ['api-version=6.2', 'timeout=60'],
             ('{"Kind": "ExternalStore", '
              '"Async": false, '
              '"ApplicationPackageDownloadUri": "test_path", '
@@ -359,28 +369,28 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # container commands
-        self.validate_command( # get container logs
+        self.validate_command(  # get container logs
             'sfctl container invoke-api --node-name Node01 --application-id samples/winnodejs '
             '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
             '--code-package-instance-id 131668159770315380 --container-api-uri-path "/containers/{id}/logs?stdout=true&stderr=true"',
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
-        self.validate_command( # get container logs
+        self.validate_command(  # get container logs
             'sfctl container logs --node-name Node01 --application-id samples/winnodejs '
             '--service-manifest-name NodeServicePackage --code-package-name NodeService.Code '
             '--code-package-instance-id 131668159770315380',
             'POST',
             '/Nodes/Node01/$/GetApplications/samples/winnodejs/$/GetCodePackages/$/ContainerApi',
             ['api-version=6.2', 'ServiceManifestName=NodeServicePackage', 'CodePackageName=NodeService.Code', 'CodePackageInstanceId=131668159770315380', 'timeout=60'],
-            ('{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}'),
+            '{"UriPath": "/containers/{id}/logs?stdout=true&stderr=true"}',
             validate_flat_dictionary)
-        self.validate_command( # update container
+        self.validate_command(  # update container
             'sfctl container invoke-api --node-name N0020 --application-id nodejs1 --service-manifest-name NodeOnSF '
             '--code-package-name Code --code-package-instance-id 131673596679688285 --container-api-uri-path "/containers/{id}/update"'
-            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"', # Manual testing with a JSON string for "--container-api-body" works,
+            ' --container-api-http-verb=POST --container-api-body "DummyRequestBody"',  # Manual testing with a JSON string for "--container-api-body" works,
             # Have to pass "DummyRequestBody" here since a real JSON string confuses test validation code.
             'POST',
             '/Nodes/N0020/$/GetApplications/nodejs1/$/GetCodePackages/$/ContainerApi',
@@ -453,13 +463,49 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
 
-        # Ask area owner to fill out this test
-        # self.validate_command( # upgrade - not all parameters tested
-        #    'application upgrade --application-name=name --application-version=version --parameters={} ' +
-        #    '--failure-action=Rollback',
-        #    'POST',
-        #    '/Applications/name/$/Upgrade',
-        #    ['api-version=6.0'])
+        app_params = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
+        default_service_type_health_policy = path.join(sample_path_base, 'sample_default_service_type_health_policy.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        service_type_health_policy_map = path.join(sample_path_base, 'sample_service_type_health_policy_map.txt').replace('/', '//').replace('\\', '\\\\')
+        sample_application_capacity_metric_descriptions = path.join(sample_path_base, 'sample_application_capacity_metric_descriptions.txt').replace('/', '//').replace('\\', '\\\\')  # pylint: disable=invalid-name
+        sample_application_parameters = path.join(sample_path_base, 'sample_application_parameters.txt').replace('/', '//').replace('\\', '\\\\')
+
+        # application upgrade and application create does not currently test the body
+        # Add this in later.
+        self.validate_command(  # upgrade - not all parameters tested
+            ('application upgrade '
+             '--application-id=app '
+             '--application-version=1.0.0 '
+             '--parameters={0} '
+             '--default-service-health-policy={1} '
+             '--failure-action=Rollback '
+             '--force-restart=true '
+             '--health-check-retry-timeout=PT0H21M0S '
+             '--health-check-stable-duration=PT0H21M0S '
+             '--health-check-wait-duration=PT0H21M0S '
+             '--max-unhealthy-apps=20 '
+             '--mode=Monitored '
+             '--replica-set-check-timeout=10 '
+             '--service-health-policy={2} '
+             '--upgrade-domain-timeout=some_timeout '
+             '--upgrade-timeout=some_timeout2 '
+             '--warning-as-error').format(
+                 app_params, default_service_type_health_policy, service_type_health_policy_map),
+            'POST',
+            '/Applications/app/$/Upgrade',
+            ['api-version=6.0'])
+
+        self.validate_command(  # create
+            ('application create '
+             '--app-name=fabric:/app '
+             '--app-type=test-type '
+             '--app-version=1.0.0 '
+             '--max-node-count=3 '
+             '--min-node-count=1 '
+             '--metrics={0} '
+             '--parameters={1} ').format(sample_application_capacity_metric_descriptions, sample_application_parameters),
+            'POST',
+            '/Applications/$/Create',
+            ['api-version=6.0'])
 
         self.validate_command(  # upgrade-resume
             'application upgrade-resume --application-id=application~Id --upgrade-domain-name=UD2',
@@ -612,12 +658,12 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Partitions/id/$/GetReplicas/replicaId/$/GetHealth',
             ['api-version=6.0', 'EventsHealthStateFilter=2'])
-        self.validate_command( # info
+        self.validate_command(  # info
             'replica info --partition-id=id --replica-id=replicaId',
             'GET',
             '/Partitions/id/$/GetReplicas/replicaId',
             ['api-version=6.0'])
-        self.validate_command( # list
+        self.validate_command(  # list
             'replica list --continuation-token=ct --partition-id=id',
             'GET',
             '/Partitions/id/$/GetReplicas',
@@ -740,7 +786,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # Chaos commands:
-        self.validate_command(#get chaos schedule
+        self.validate_command(  # get chaos schedule
             'chaos schedule set ' +
             '--version 0 --start-date-utc 2016-01-01T00:00:00.000Z ' +
             '--expiry-date-utc 2038-01-01T00:00:00.000Z ' +
@@ -765,25 +811,25 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Tools/Chaos/Schedule',
             ['api-version=6.2'])
 
-        self.validate_command(#get chaos schedule
+        self.validate_command(  # get chaos schedule
             'chaos schedule get',
             'GET',
             '/Tools/Chaos/Schedule',
             ['api-version=6.2'])
 
-        self.validate_command(#stop chaos
+        self.validate_command(  # stop chaos
             'chaos stop',
             'POST',
             '/Tools/Chaos/$/Stop',
             ['api-version=6.0'])
 
-        self.validate_command(#get chaos events
+        self.validate_command(  # get chaos events
             'chaos events',
             'GET',
             '/Tools/Chaos/Events',
             ['api-version=6.2'])
 
-        self.validate_command(#get chaos
+        self.validate_command(  # get chaos
             'chaos get',
             'GET',
             '/Tools/Chaos',

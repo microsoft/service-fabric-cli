@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
+5.0.0
 -----
 - Add commands to get and set chaos schedule (#70)
 - Add commands to get chaos and get events for chaos (#70)
@@ -26,7 +26,10 @@ Unreleased
 - Fix bug in displaying property help text (#71)
 - Add tests to verify correctness of help text (#71)
 - Add scaling policy parameter to the command for service create and the command for service update (#76)
-- Add container group with commands: invoke-api(invoke raw container REST API), logs(get container logs) (#82)
+- Add new group called container with commands: invoke-api (invoke raw container REST API) and logs (get container logs) (#82)
+- Add support for passing json values to arguments as .txt files. Input starting with '@' are considered paths (#84)
+- Update to 6.2 Service Fabric runtime (#97)
+- Rename and change value of application upgrade parameter application-name to application-id (#97)
 
 4.0.0
 -----
