@@ -21,7 +21,7 @@ def correlation_desc(correlated_service, correlation):
         raise CLIError('Must specify both a correlation service and '
                        'correlation scheme')
 
-    return ServiceCorrelationDescription(correlation, correlated_service)
+    return ServiceCorrelationDescription(scheme=correlation, service_name=correlated_service)
 
 def parse_load_metrics(formatted_metrics):
     """Parse a service load metric description from a string"""
@@ -40,8 +40,11 @@ def parse_load_metrics(formatted_metrics):
             l_primary = item.get('primary_default_load', None)
             l_secondary = item.get('secondary_default_load', None)
             l_default = item.get('default_load', None)
-            l_desc = ServiceLoadMetricDescription(l_name, l_weight, l_primary,
-                                                  l_secondary, l_default)
+            l_desc = ServiceLoadMetricDescription(name=l_name,
+                                                  weight=l_weight,
+                                                  primary_default_load=l_primary,
+                                                  secondary_default_load=l_secondary,
+                                                  default_load=l_default)
             s_load_list.append(l_desc)
 
     return s_load_list
@@ -50,9 +53,12 @@ def parse_placement_policies(formatted_placement_policies):
     """"Parse a placement policy description from a formatted policy"""
     from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription # pylint: disable=line-too-long
 
-    from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description import ServicePlacementPreferPrimaryDomainPolicyDescription #pylint: disable=line-too-long
+    from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description \
+        import ServicePlacementPreferPrimaryDomainPolicyDescription
 
-    from azure.servicefabric.models.service_placement_required_domain_policy_description import ServicePlacementRequiredDomainPolicyDescription #pylint: disable=line-too-long
+    from azure.servicefabric.models.service_placement_required_domain_policy_description \
+        import ServicePlacementRequiredDomainPolicyDescription
+
     from azure.servicefabric.models.service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription #pylint: disable=line-too-long
 
     if formatted_placement_policies:
@@ -80,20 +86,16 @@ def parse_placement_policies(formatted_placement_policies):
                 )
             elif p_type == 'PreferPrimaryDomain':
                 policy_list.append(
-                    ServicePlacementPreferPrimaryDomainPolicyDescription(
-                        p_domain_name
-                    )
+                    ServicePlacementPreferPrimaryDomainPolicyDescription(domain_name=p_domain_name)
                 )
             elif p_type == 'RequireDomain':
                 policy_list.append(
-                    ServicePlacementRequiredDomainPolicyDescription(
-                        p_domain_name
-                    )
+                    ServicePlacementRequiredDomainPolicyDescription(domain_name=p_domain_name)
                 )
             elif p_type == 'RequireDomainDistribution':
                 policy_list.append(
                     ServicePlacementRequireDomainDistributionPolicyDescription(
-                        p_domain_name
+                        domain_name=p_domain_name
                     )
                 )
         return policy_list
@@ -200,12 +202,12 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint:
                        '--named-scheme, or --int-scheme')
 
     if named_scheme:
-        return NamedPartitionSchemeDescription(len(named_scheme_list),
-                                               named_scheme_list)
+        return NamedPartitionSchemeDescription(count=len(named_scheme_list),
+                                               names=named_scheme_list)
     elif int_scheme:
-        return UniformInt64RangePartitionSchemeDescription(int_scheme_count,
-                                                           int_scheme_low,
-                                                           int_scheme_high)
+        return UniformInt64RangePartitionSchemeDescription(count=int_scheme_count,
+                                                           low_key=int_scheme_low,
+                                                           high_key=int_scheme_high)
     elif singleton_scheme:
         return SingletonPartitionSchemeDescription()
 
@@ -236,14 +238,18 @@ def parse_scaling_mechanism(scaling_mechanism):
             p_max_count = scaling_mechanism.get('max_instance_count', None)
             p_scale_increment = scaling_mechanism.get('scale_increment', None)
             return PartitionInstanceCountScaleMechanism(
-                p_min_count, p_max_count, p_scale_increment
+                min_instance_count=p_min_count,
+                max_instance_count=p_max_count,
+                scale_increment=p_scale_increment
             )
         if p_kind == 'AddRemoveIncrementalNamedPartition':
             p_min_count = scaling_mechanism.get('min_partition_count', None)
             p_max_count = scaling_mechanism.get('max_partition_count', None)
             p_scale_increment = scaling_mechanism.get('scale_increment', None)
             return AddRemoveIncrementalNamedPartitionScalingMechanism(
-                p_min_count, p_max_count, p_scale_increment
+                min_partition_count=p_min_count,
+                max_partition_count=p_max_count,
+                scale_increment=p_scale_increment
             )
 
     return None
@@ -269,15 +275,22 @@ def parse_scaling_trigger(scaling_trigger):
             p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
             p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
             return AveragePartitionLoadScalingTrigger(
-                p_metricname, p_lower_load_threshold, p_upper_load_threshold, p_scale_interval
+                metric_name=p_metricname,
+                lower_load_threshold=p_lower_load_threshold,
+                upper_load_threshold=p_upper_load_threshold,
+                scale_interval_in_seconds=p_scale_interval
             )
+
         if p_kind == 'AverageServiceLoad':
             p_metricname = scaling_trigger.get('metric_name', None)
             p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
             p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
             p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
             return AverageServiceLoadScalingTrigger(
-                p_metricname, p_lower_load_threshold, p_upper_load_threshold, p_scale_interval
+                metric_name=p_metricname,
+                lower_load_threshold=p_lower_load_threshold,
+                upper_load_threshold=p_upper_load_threshold,
+                scale_interval_in_seconds=p_scale_interval
             )
 
     return None
@@ -297,7 +310,8 @@ def parse_scaling_policy(formatted_scaling_policy):
             if scaling_mechanism_string is None:
                 raise CLIError('No scaling mechanism specified')
             scaling_mechanism = parse_scaling_mechanism(scaling_mechanism_string)
-            scaling_policy = ScalingPolicyDescription(scaling_trigger, scaling_mechanism)
+            scaling_policy = ScalingPolicyDescription(scaling_trigger=scaling_trigger,
+                                                      scaling_mechanism=scaling_mechanism)
             scaling_list.append(scaling_policy)
 
     return scaling_list
@@ -407,35 +421,47 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     scaling_policy_description = parse_scaling_policy(scaling_policies)
 
     if stateless:
-        svc_desc = StatelessServiceDescription(name, service_type,
-                                               partition_desc, instance_count,
-                                               "fabric:/" + app_id,
-                                               None, constraints,
-                                               cor_desc, load_list,
-                                               place_policy, move_cost,
-                                               bool(move_cost),
-                                               activation_mode,
-                                               dns_name,
-                                               scaling_policy_description)
+        svc_desc = StatelessServiceDescription(service_name=name,
+                                               service_type_name=service_type,
+                                               partition_description=partition_desc,
+                                               instance_count=instance_count,
+                                               application_name="fabric:/" + app_id,
+                                               initialization_data=None,
+                                               placement_constraints=constraints,
+                                               correlation_scheme=cor_desc,
+                                               service_load_metrics=load_list,
+                                               service_placement_policies=place_policy,
+                                               default_move_cost=move_cost,
+                                               is_default_move_cost_specified=bool(move_cost),
+                                               service_package_activation_mode=activation_mode,
+                                               service_dns_name=dns_name,
+                                               scaling_policies=scaling_policy_description)
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
                                stand_by_replica_keep)
-        svc_desc = StatefulServiceDescription(name, service_type,
-                                              partition_desc,
-                                              target_replica_set_size,
-                                              min_replica_set_size,
-                                              not no_persisted_state,
-                                              "fabric:/" + app_id,
-                                              None, constraints,
-                                              cor_desc, load_list,
-                                              place_policy, move_cost,
-                                              bool(move_cost), activation_mode,
-                                              dns_name, scaling_policy_description,
-                                              flags,
-                                              replica_restart_wait,
-                                              quorum_loss_wait,
-                                              stand_by_replica_keep)
+        svc_desc = StatefulServiceDescription(
+            service_name=name,
+            service_type_name=service_type,
+            partition_description=partition_desc,
+            target_replica_set_size=target_replica_set_size,
+            min_replica_set_size=min_replica_set_size,
+            has_persisted_state=not no_persisted_state,
+            application_name="fabric:/" + app_id,
+            initialization_data=None,
+            placement_constraints=constraints,
+            correlation_scheme=cor_desc,
+            service_load_metrics=load_list,
+            service_placement_policies=place_policy,
+            default_move_cost=move_cost,
+            is_default_move_cost_specified=bool(move_cost),
+            service_package_activation_mode=activation_mode,
+            service_dns_name=dns_name,
+            scaling_policies=scaling_policy_description,
+            flags=flags,
+            replica_restart_wait_duration_seconds=replica_restart_wait,
+            quorum_loss_wait_duration_seconds=quorum_loss_wait,
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
 
     client.create_service(app_id, svc_desc, timeout)
 
@@ -543,26 +569,29 @@ def update(client, service_id, stateless=False, stateful=False, #pylint: disable
 
     update_desc = None
     if stateful:
-        update_desc = StatefulServiceUpdateDescription(flags, constraints,
-                                                       cor_desc,
-                                                       metric_desc,
-                                                       place_desc,
-                                                       move_cost,
-                                                       scaling_policy_description,
-                                                       target_replica_set_size,
-                                                       min_replica_set_size,
-                                                       replica_restart_wait,
-                                                       quorum_loss_wait,
-                                                       stand_by_replica_keep)
+        update_desc = StatefulServiceUpdateDescription(
+            flags=flags,
+            placement_constraints=constraints,
+            correlation_scheme=cor_desc,
+            load_metrics=metric_desc,
+            service_placement_policies=place_desc,
+            default_move_cost=move_cost,
+            scaling_policies=scaling_policy_description,
+            target_replica_set_size=target_replica_set_size,
+            min_replica_set_size=min_replica_set_size,
+            replica_restart_wait_duration_seconds=replica_restart_wait,
+            quorum_loss_wait_duration_seconds=quorum_loss_wait,
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
 
     if stateless:
-        update_desc = StatelessServiceUpdateDescription(flags, constraints,
-                                                        cor_desc,
-                                                        metric_desc,
-                                                        place_desc,
-                                                        move_cost,
-                                                        scaling_policy_description,
-                                                        instance_count)
+        update_desc = StatelessServiceUpdateDescription(flags=flags,
+                                                        placement_constraints=constraints,
+                                                        correlation_scheme=cor_desc,
+                                                        load_metrics=metric_desc,
+                                                        service_placement_policies=place_desc,
+                                                        default_move_cost=move_cost,
+                                                        scaling_policies=scaling_policy_description,
+                                                        instance_count=instance_count)
 
     client.update_service(service_id, update_desc, timeout)
 
@@ -583,7 +612,8 @@ def parse_package_sharing_policies(formatted_policies):
         policy_scope = policy.get("scope", None)
         if policy_scope not in [None, 'All', 'Code', 'Config', 'Data']:
             raise CLIError('Invalid policy scope specified')
-        list_psps.append(PackageSharingPolicyInfo(policy_name, policy_scope))
+        list_psps.append(PackageSharingPolicyInfo(shared_package_name=policy_name,
+                                                  package_sharing_scope=policy_scope))
     return list_psps
 
 
@@ -609,8 +639,9 @@ def package_upload(client, node_name, service_manifest_name, app_type_name, #pyl
 
     list_psps = parse_package_sharing_policies(share_policy)
 
-    desc = DeployServicePackageToNodeDescription(service_manifest_name,
-                                                 app_type_name,
-                                                 app_type_version,
-                                                 node_name, list_psps)
+    desc = DeployServicePackageToNodeDescription(service_manifest_name=service_manifest_name,
+                                                 application_type_name=app_type_name,
+                                                 application_type_version=app_type_version,
+                                                 node_name=node_name,
+                                                 package_sharing_policy=list_psps)
     client.deployed_service_package_to_node(node_name, desc, timeout)

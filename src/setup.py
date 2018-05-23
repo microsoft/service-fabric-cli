@@ -47,7 +47,7 @@ setup(
         'msrest>=0.4.26',
         'msrestazure',
         'requests',
-        'azure-servicefabric==6.1.2.9',
+        'azure-servicefabric==6.2.0.0',
         'jsonpickle',
         'adal',
         'future'
