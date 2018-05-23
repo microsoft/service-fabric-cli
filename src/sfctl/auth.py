@@ -6,6 +6,8 @@
 
 """Client certificate authentication for Service Fabric API clients"""
 
+# Ignore my changes
+
 import adal
 from msrest.authentication import Authentication
 
