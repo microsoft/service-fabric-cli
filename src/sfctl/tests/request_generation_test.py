@@ -841,16 +841,19 @@ class ServiceFabricRequestTests(ScenarioTest):
             '--application-health-policies {' +
             '\\\"fabric:/System\\\":{' +
             '\\\"ConsiderWarningAsError\\\":true' +
-            '}} ' +
-            '--health-check-retry PT0H0M0S ' +
-            '--health-check-wait PT0H0M0S ' +
-            '--health-check-stable PT0H0M0S ' +
-            '--upgrade-domain-timeout PT0H0M0S ' +
-            '--upgrade-timeout PT0H0M0S ' +
-            '--unhealthy-applications 0 ' +
-            '--unhealthy-nodes 0 ' +
-            '--delta-unhealthy-nodes 0 ' +
-            '--upgrade-domain-delta-unhealthy-nodes 0',
+            '}}',
             'POST',
             '/$/StartClusterConfigurationUpgrade',
-            ['api-version=6.0', 'timeout=60'])
+            ['api-version=6.0', 'timeout=60'],
+            ('{"ClusterConfig": "YOUR_CLUSTER_CONFIG", '
+             '"HealthCheckRetryTimeout": "P0D", '
+             '"HealthCheckWaitDurationInSeconds": "P0D", '
+             '"HealthCheckStableDurationInSeconds": "P0D", '
+             '"UpgradeDomainTimeoutInSeconds": "P0D", '
+             '"UpgradeTimeoutInSeconds": "P0D", '
+             '"MaxPercentUnhealthyApplications": 0, '
+             '"MaxPercentUnhealthyNodes": 0, '
+             '"MaxPercentDeltaUnhealthyNodes": 0, '
+             '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
+             '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
+            validate_flat_dictionary)
