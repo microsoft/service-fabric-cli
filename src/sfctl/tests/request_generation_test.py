@@ -841,7 +841,16 @@ class ServiceFabricRequestTests(ScenarioTest):
             '--application-health-policies {' +
             '\\\"fabric:/System\\\":{' +
             '\\\"ConsiderWarningAsError\\\":true' +
-            '}}',
+            '}} ' +
+            '--health-check-retry PT0H0M0S ' +
+            '--health-check-wait PT0H0M0S ' +
+            '--health-check-stable PT0H0M0S ' +
+            '--upgrade-domain-timeout PT0H0M0S ' +
+            '--upgrade-timeout PT0H0M0S ' +
+            '--unhealthy-applications 0 ' +
+            '--unhealthy-nodes 0 ' +
+            '--delta-unhealthy-nodes 0 ' +
+            '--upgrade-domain-delta-unhealthy-nodes 0',
             'POST',
             '/$/StartClusterConfigurationUpgrade',
             ['api-version=6.0', 'timeout=60'])
