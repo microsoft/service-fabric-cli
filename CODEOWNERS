@@ -43,3 +43,7 @@ src/sfctl/custom_chaos_schedule.py @likevi
 
 # Container related
 src/sfctl/custom_container.py @leikong
+
+# Cluster Upgrade related
+src/sfctl/custom_cluster_upgrade.py @jkochhar
+src/sfctl/helps/cluster_upgrade.py @jkochhar

@@ -834,3 +834,27 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Tools/Chaos',
             ['api-version=6.2'])
+
+        # Cluster Upgrade Commands:
+        self.validate_command(  # config-upgrade
+            'sa-cluster config-upgrade --cluster-config YOUR_CLUSTER_CONFIG ' +
+            '--application-health-policies {' +
+            '\\\"fabric:/System\\\":{' +
+            '\\\"ConsiderWarningAsError\\\":true' +
+            '}}',
+            'POST',
+            '/$/StartClusterConfigurationUpgrade',
+            ['api-version=6.0', 'timeout=60'],
+            ('{"ClusterConfig": "YOUR_CLUSTER_CONFIG", '
+             '"HealthCheckRetryTimeout": "P0D", '
+             '"HealthCheckWaitDurationInSeconds": "P0D", '
+             '"HealthCheckStableDurationInSeconds": "P0D", '
+             '"UpgradeDomainTimeoutInSeconds": "P0D", '
+             '"UpgradeTimeoutInSeconds": "P0D", '
+             '"MaxPercentUnhealthyApplications": 0, '
+             '"MaxPercentUnhealthyNodes": 0, '
+             '"MaxPercentDeltaUnhealthyNodes": 0, '
+             '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
+             '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
+            validate_flat_dictionary)
+            

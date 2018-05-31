@@ -165,7 +165,8 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
         start_date_utc='1601-01-01T00:00:00.000Z',
         expiry_date_utc='9999-12-31T23:59:59.999Z',
         chaos_parameters_dictionary=None,
-        jobs=None):
+        jobs=None,
+        timeout=60):
     """
     Set the Chaos Schedule currently in use by Chaos.
     Chaos will automatically schedule runs based on the Chaos Schedule.
@@ -189,4 +190,4 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
                              chaos_parameters_dictionary=parsed_chaos_params_dictionary,
                              jobs=parsed_jobs)
 
-    return client.post_chaos_schedule(version, schedule)
+    return client.post_chaos_schedule(timeout, version, schedule)
