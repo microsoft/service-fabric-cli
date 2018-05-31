@@ -857,3 +857,4 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
              '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
             validate_flat_dictionary)
+            
