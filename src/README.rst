@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+-----
+- Adding app health policies param for config upgrade that are available in service fabric runtime 6.3 (#92)
+
 5.0.0
 -----
 - Add commands to get and set chaos schedule (#70)
