@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 -----
-- Adding app health policies param for config upgrade that are available in service fabric runtime 6.3 (#92)
+- Add application health policies parameter for config upgrade, which are available in Service Fabric runtime 6.3 (#92)
 
 5.0.0
 -----
