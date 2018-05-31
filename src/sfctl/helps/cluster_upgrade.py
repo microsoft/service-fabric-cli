@@ -126,7 +126,7 @@ helps['sa-cluster config-upgrade'] = """
     parameters:
         - name: --cluster-config
           type: string
-          short-summary: The cluster configuration
+          short-summary: The cluster configuration that will be applied to the cluster.
         - name: --health-check-retry
           type: string
           short-summary: The length of time between attempts to perform a
@@ -165,6 +165,13 @@ helps['sa-cluster config-upgrade'] = """
           short-summary: The maximum allowed percentage of upgrade domain delta
             health degradation during the upgrade. Allowed values are integer
             values from zero to 100.
+        - name: --application-health-policies
+          type: string
+          short-summary: JSON encoded dictionary of pairs of application type
+            name and maximum percentage unhealthy before raising error
+    examples:
+        - name: Start a cluster configuration update
+          text: sfctl sa-cluster config-upgrade --cluster-config <YOUR CLUSTER CONFIG> --application-health-policies "{\"fabric:/System\":{\"ConsiderWarningAsError\":true}}"
 """
 
 helps['cluster upgrade-update'] = """
