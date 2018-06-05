@@ -8,6 +8,7 @@
 
 from __future__ import print_function
 from knack.util import CLIError
+from sfctl.config import client_endpoint
 
 import adal
 
@@ -38,6 +39,15 @@ def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: di
 
     if pem and any([cert, key]):
         raise CLIError(usage)
+
+def show_connection():
+    """Show which Service Fabric cluster this sfctl instance is connected to."""
+    endpoint = client_endpoint()
+
+    if not endpoint:
+        return "Not currently connected to any cluster"
+
+    return endpoint
 
 def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):

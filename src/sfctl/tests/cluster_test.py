@@ -7,8 +7,13 @@
 """Custom cluster command tests"""
 
 import unittest
+from os import environ
 from knack.util import CLIError
 import sfctl.custom_cluster as sf_c
+from mock import (MagicMock, patch)
+from sfctl.tests.helpers import MOCK_CONFIG
+from knack.testsdk import ScenarioTest
+from sfctl.entry import cli
 
 
 class ClusterTests(unittest.TestCase):
@@ -43,3 +48,25 @@ class ClusterTests(unittest.TestCase):
         with self.assertRaises(CLIError):
             sf_c.select_arg_verify('http://test.com:190800', 'test.crt',
                                    'test.key', None, None, True, False)
+
+class ClusterScenarioTests(ScenarioTest):
+    """Cluster scenario tests"""
+
+    def __init__(self, method_name):
+        cli_env = cli()
+        super(ClusterScenarioTests, self).__init__(cli_env, method_name)
+
+    @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
+    def test_show_cluster(self):
+        """Ensure that the correct message is returned when a cluster is set or not set"""
+        old_endpoint = environ.get('SF_TEST_ENDPOINT')
+
+        environ['SF_TEST_ENDPOINT'] = ''
+
+        self.assertEqual('Not currently connected to any cluster', sf_c.show_connection())
+
+        environ['SF_TEST_ENDPOINT'] = 'https://testUrl.com'
+
+        self.assertEqual('https://testUrl.com', sf_c.show_connection())
+
+        environ['SF_TEST_ENDPOINT'] = str(old_endpoint)
