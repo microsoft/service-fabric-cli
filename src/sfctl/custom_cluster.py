@@ -8,9 +8,8 @@
 
 from __future__ import print_function
 from knack.util import CLIError
-from sfctl.config import client_endpoint
-
 import adal
+from sfctl.config import client_endpoint
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
@@ -45,7 +44,7 @@ def show_connection():
     endpoint = client_endpoint()
 
     if not endpoint:
-        return "Not currently connected to any cluster"
+        return None
 
     return endpoint
 

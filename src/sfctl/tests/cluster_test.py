@@ -9,10 +9,10 @@
 import unittest
 from os import environ
 from knack.util import CLIError
-import sfctl.custom_cluster as sf_c
-from mock import (MagicMock, patch)
-from sfctl.tests.helpers import MOCK_CONFIG
 from knack.testsdk import ScenarioTest
+from mock import patch
+import sfctl.custom_cluster as sf_c
+from sfctl.tests.helpers import MOCK_CONFIG
 from sfctl.entry import cli
 
 
@@ -63,7 +63,7 @@ class ClusterScenarioTests(ScenarioTest):
 
         environ['SF_TEST_ENDPOINT'] = ''
 
-        self.assertEqual('Not currently connected to any cluster', sf_c.show_connection())
+        self.assertEqual(None, sf_c.show_connection())
 
         environ['SF_TEST_ENDPOINT'] = 'https://testUrl.com'
 
