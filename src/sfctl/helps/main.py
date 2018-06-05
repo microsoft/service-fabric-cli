@@ -94,3 +94,28 @@ helps['property'] = """
     type: group
     short-summary: Store and query properties under Service Fabric names
 """
+
+helps['resources'] = """
+    type: group
+    short-summary: Create, delete and manage Service Fabric Mesh applications
+"""
+
+helps['resources deployment'] = """
+    type: group
+    short-summary: Manage deployments of multiple resources
+"""
+
+helps['resources applications'] = """
+    type: group
+    short-summary: Create, delete, and manage application resources
+"""
+
+helps['resources volumes'] = """
+    type: group
+    short-summary: Create, delete, and manage volume resources
+"""
+
+helps['resources secrets'] = """
+    type: group
+    short-summary: Create, delete, and manage secrets resources
+"""

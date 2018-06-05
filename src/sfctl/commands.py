@@ -216,6 +216,14 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_property_info')
                 group.command('delete', 'delete_property')
 
+            with super_group.group('resources applications') as group:
+                group.command('get', 'get_application_resource')
+                group.command('delete', 'delete_application_resource')
+
+            with super_group.group('resources volumes') as group:
+                group.command('get', 'get_volume_resource')
+                group.command('delete', 'delete_volume_resource')
+
         # Custom commands
 
         with CommandSuperGroup(__name__, self,
@@ -304,6 +312,11 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:
                 group.command('provision', 'provision_application_type')
+        
+        with CommandSuperGroup(__name__, self, 'sfctl.custom_resource#{}',
+                                client_factory=client_create) as super_group:
+            with super_group.group('resources applications') as group:
+                group.command('init', 'create_application_resource')
 
         return OrderedDict(self.command_table)
 
