@@ -96,6 +96,6 @@ helps['property'] = """
 """
 
 helps['version'] = """
-    type: group
+    type: command
     short-summary: Show current version and service fabric target version
 """

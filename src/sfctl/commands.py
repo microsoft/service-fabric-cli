@@ -307,8 +307,8 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_version#{}',
                                client_factory=client_create) as super_group:
-            with super_group.group('version') as group:
-                group.command('', 'display_versions')
+            with super_group.group('') as group:
+                group.command('version', 'display_versions')
 
         return OrderedDict(self.command_table)
 
