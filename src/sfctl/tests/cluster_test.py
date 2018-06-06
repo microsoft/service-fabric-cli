@@ -58,15 +58,21 @@ class ClusterScenarioTests(ScenarioTest):
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def test_show_cluster(self):
-        """Ensure that the correct message is returned when a cluster is set or not set"""
+        """Ensure that the correct message is returned when a cluster is set"""
+        old_endpoint = environ.get('SF_TEST_ENDPOINT')
+
+        environ['SF_TEST_ENDPOINT'] = 'https://testUrl.com'
+
+        self.assertEqual('https://testUrl.com', sf_c.show_connection())
+
+        environ['SF_TEST_ENDPOINT'] = str(old_endpoint)
+
+    def test_show_cluster_no_endpoint(self):
+        """Ensure that the correct message is returned when a cluster is not set"""
         old_endpoint = environ.get('SF_TEST_ENDPOINT')
 
         environ['SF_TEST_ENDPOINT'] = ''
 
         self.assertEqual(None, sf_c.show_connection())
-
-        environ['SF_TEST_ENDPOINT'] = 'https://testUrl.com'
-
-        self.assertEqual('https://testUrl.com', sf_c.show_connection())
 
         environ['SF_TEST_ENDPOINT'] = str(old_endpoint)
