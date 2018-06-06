@@ -7,7 +7,6 @@
 """Custom cluster command tests"""
 
 import unittest
-from os import environ
 from knack.util import CLIError
 from knack.testsdk import ScenarioTest
 from mock import patch

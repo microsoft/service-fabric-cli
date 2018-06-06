@@ -10,7 +10,7 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from os import (remove, environ, path)
+from os import (remove, path)
 import json
 import logging
 import vcr
