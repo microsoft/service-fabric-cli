@@ -102,20 +102,21 @@ helps['resources'] = """
 
 helps['resources deployment'] = """
     type: group
-    short-summary: Manage deployments of multiple resources
+    short-summary: Create a Service Fabric deployment based on provided descriptions
 """
 
 helps['resources applications'] = """
     type: group
-    short-summary: Create, delete, and manage application resources
+    short-summary: Init, Get and Delete application resources
 """
 
-helps['resources volumes'] = """
+helps['resources network'] = """
     type: group
-    short-summary: Create, delete, and manage volume resources
+    short-summary: Init, Get and Delete network resources
 """
 
-helps['resources secrets'] = """
+helps['resources volume'] = """
     type: group
-    short-summary: Create, delete, and manage secrets resources
+    short-summary: Init, Get and Delete volume resources
 """
+

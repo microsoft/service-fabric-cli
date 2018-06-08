@@ -8,21 +8,9 @@
 
 from knack.help_files import helps
 
-helps['resources deployment init'] = """
-  type: command
-  short-summary: Initialize current context with a YAML file for deployment  
-  long-summary: To be filled long summary
-"""
-
 helps['resources deployment create'] = """
   type: command
   short-summary: Create a deployment of services  
-  long-summary: To be filled long summary
-"""
-
-helps['resources deployment delete'] = """
-  type: command
-  short-summary: Delete multiple services at the same time  
   long-summary: To be filled long summary
 """
 
@@ -56,32 +44,6 @@ helps['resources applications delete'] = """
       short-summary: Name of the Application Resource
 """
 
-helps['resources volumes init'] = """
-  type: command
-  short-summary: Initialize current context with volumes.yaml
-  long-summary: To be filled long summary
-"""
-
-helps['resources volumes get'] = """
-  type: command
-  short-summary: Get information about volume resource from the environment
-  long-summary: To be filled long summary
-  parameters:
-    - name: --volume-resource-name
-      type: string
-      short-summary: Name of the Volume Resource
-"""
-
-helps['resources volumes delete'] = """
-  type: command
-  short-summary: Delete an volume resources from the environment
-  long-summary: To be filled long summary
-  parameters:
-    - name: --volume-resource-name
-      type: string
-      short-summary: Name of the Volume Resource
-"""
-
 helps['resources network init'] = """
   type: command
   short-summary: Initialize current context with networks.yaml 
@@ -100,20 +62,28 @@ helps['resources network delete'] = """
   long-summary: To be filled long summary
 """
 
-helps['resources secrets init'] = """
+helps['resources volume init'] = """
   type: command
-  short-summary: Initialize current context with secrets.yaml  
+  short-summary: Initialize current context with volumes.yaml
   long-summary: To be filled long summary
 """
 
-helps['resources secrets get'] = """
+helps['resources volume get'] = """
   type: command
-  short-summary: Get information about secret resources from the environment  
+  short-summary: Get information about volume resource from the environment
   long-summary: To be filled long summary
+  parameters:
+    - name: --volume-resource-name
+      type: string
+      short-summary: Name of the Volume Resource
 """
 
-helps['resources secrets delete'] = """
+helps['resources volume delete'] = """
   type: command
-  short-summary: Delete an secret resources from the environment
+  short-summary: Delete an volume resources from the environment
   long-summary: To be filled long summary
+  parameters:
+    - name: --volume-resource-name
+      type: string
+      short-summary: Name of the Volume Resource
 """

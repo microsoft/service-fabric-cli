@@ -129,18 +129,26 @@ def get_parameter_value(param_value):
     # Still need to implement this
     return param_value
 
-def create_application_resource(client, application_resource_name, file_path, timeout=60): 
+def create_deployment_resource(client, application_resource_name, file_path, timeout=60): 
     from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
     content = get_yaml_content(file_path)
-    print "Content:\n"
-    print content
-    print "Parameters:\n"
-    print parse_parameters_section(content)
-    print "Application Content:\n"
-    print parse_application_resource_description(content)
-    print "Network Content:\n"
-    print parse_network_resource_description_list(content)
-    print "Volume Content:\n"
-    print parse_volume_resource_description_list(content)
-    print "Secret Content:\n"
-    print parse_secret_resource_description_list(content)
+    print("Content:\n")
+    print(content)
+
+def init_application_resource(client, application_resource_name, file_path, timeout=60): 
+    from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
+    content = get_yaml_content(file_path)
+    print("Content:\n")
+    print(content)
+
+def init_network_resource(client, application_resource_name, file_path, timeout=60): 
+    from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
+    content = get_yaml_content(file_path)
+    print("Content:\n")
+    print(content)
+
+def init_volume_resource(client, application_resource_name, file_path, timeout=60): 
+    from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
+    content = get_yaml_content(file_path)
+    print("Content:\n")
+    print(content)
