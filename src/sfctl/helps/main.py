@@ -94,8 +94,3 @@ helps['property'] = """
     type: group
     short-summary: Store and query properties under Service Fabric names
 """
-
-helps['version'] = """
-    type: command
-    short-summary: Show current version and service fabric target version
-"""

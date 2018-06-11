@@ -9,6 +9,7 @@
 import os
 import jsonpickle
 from knack.config import CLIConfig
+from knack import CLI
 
 # Default names
 SF_CLI_NAME = 'sfctl'
@@ -132,3 +133,11 @@ def set_auth(pem=None, cert=None, key=None, aad=False):
         set_config_value('security', 'aad')
     else:
         set_config_value('security', 'none')
+
+class VersionedCLI(CLI):
+    def get_cli_version(self):
+        import pkg_resources
+
+        pkg = pkg_resources.get_distribution("sfctl")
+        sfctl_version = pkg.version
+        return '{0}'.format(sfctl_version)
