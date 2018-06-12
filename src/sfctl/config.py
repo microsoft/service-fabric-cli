@@ -136,6 +136,7 @@ def set_auth(pem=None, cert=None, key=None, aad=False):
         set_config_value('security', 'none')
 
 class VersionedCLI(CLI):
+    """Extend CLI to override get_cli_version."""
     def get_cli_version(self):
         import pkg_resources
 
