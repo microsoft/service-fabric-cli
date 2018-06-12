@@ -4,7 +4,7 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Custom service command tests"""
+"""version command tests"""
 import unittest
 from subprocess import Popen, PIPE
 
