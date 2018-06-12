@@ -9,7 +9,6 @@
 Handles creating and launching a CLI to handle a user command."""
 
 import sys
-import pkg_resources
 from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
