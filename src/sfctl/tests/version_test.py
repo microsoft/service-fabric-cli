@@ -11,6 +11,7 @@ from subprocess import Popen, PIPE
 class VersionTests(unittest.TestCase):
     """Verify current sfctl version"""
     def test_valid_current_version(self):
+        """Tests that --version does not return error and includes the version."""
         sfctl_version = '5.0.0'
 
         pipe = Popen('sfctl --version', shell=True, stdout=PIPE, stderr=PIPE)
