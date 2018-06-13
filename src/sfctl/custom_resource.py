@@ -130,13 +130,14 @@ def get_parameter_value(param_value):
     # Still need to implement this
     return param_value
 
-def create_deployment_resource(client, application_resource_name, file_path, timeout=60): 
-    from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
-    content = get_yaml_content(file_path)
-    print("Content:\n")
-    print(content)
+def create_deployment_resource(client, files, nowait=False, timeout=60): 
+    """ Create: Create a Service Fabric deployment based on provided descriptions 
+    :param files: Comma separated list of YAML files with path
+    :param nowait: Do not wait for the long-running operation to finish.
+    """
+    #TODO
 
-def init_volume_resource(client, volume_name, volume_provider='sfAzureFile', timeout=60): 
+def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile', timeout=60): 
     """ Initialize the volume context
     :param volume_name: Volume resource name
     :param volume_provider: Provider of the volume resource
@@ -152,10 +153,10 @@ def init_volume_resource(client, volume_name, volume_provider='sfAzureFile', tim
         file_data = OrderedDict([
             ('volume', OrderedDict([
             ('schemaVersion','0.0.1'),
-            ('name', volume_name),
-            ('description' , volume_name + ' description.'),
+            ('name', volume_resource_name),
+            ('description' , volume_resource_name + ' description.'),
             ('sharingType', 'shared'),
-            ('provider', volume_provider),
+            ('provider', volume_resource_provider),
             ('params', OrderedDict([
                 ('shareName', 'helloWorldShare'),
                 ('accountName', 'testAccount'),
@@ -245,4 +246,22 @@ def init_application_resource(client, application_resource_name, add_service_nam
         # delete service manifest and dir            
         shutil.rmtree(directory)
 
+def get_application_resource(client, application_resource_name, timeout=60): 
+    """
+    """
+    #TODO
 
+def get_volume_resource(client, volume_resource_name, timeout=60): 
+    """
+    """
+    #TODO
+
+def delete_application_resource(client, application_resource_name, timeout=60): 
+    """
+    """
+    #TODO
+
+def delete_volume_resource(client, volume_resource_name, timeout=60): 
+    """
+    """
+    #TODO    
