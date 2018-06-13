@@ -19,6 +19,7 @@ Change Log
 Unreleased
 -----
 - Add application health policies parameter for config upgrade, which are available in Service Fabric runtime 6.3 (#92)
+- Add command to see the current version (#104)
 
 5.0.0
 -----
