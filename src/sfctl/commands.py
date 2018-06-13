@@ -220,10 +220,6 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_application_resource')
                 group.command('delete', 'delete_application_resource')
 
-            #with super_group.group('resources network') as group:
-                #group.command('get', 'get_network_resource')
-                #group.command('delete', 'delete_network_resource')
-
             with super_group.group('resources volume') as group:
                 group.command('get', 'get_volume_resource')
                 group.command('delete', 'delete_volume_resource')
@@ -316,15 +312,13 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:
                 group.command('provision', 'provision_application_type')
-        
+
         with CommandSuperGroup(__name__, self, 'sfctl.custom_resource#{}',
-                                client_factory=client_create) as super_group:
+                               client_factory=client_create) as super_group:
             with super_group.group('resources deployment') as group:
-                group.command('create', 'create_deployment_resource')                                
+                group.command('create', 'create_deployment_resource')                      
             with super_group.group('resources applications') as group:
                 group.command('init', 'init_application_resource')
-            with super_group.group('resources network') as group:
-                group.command('init', 'init_network_resource')
             with super_group.group('resources volume') as group:
                 group.command('init', 'init_volume_resource')
 

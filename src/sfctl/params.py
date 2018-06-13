@@ -201,8 +201,8 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
     with ArgumentsContext(self, 'property put') as arg_context:
         arg_context.argument('value', type=json_encoded)
 
-    with ArgumentsContext(self, "resources applications") as arg_context:
-        None
+    with ArgumentsContext(self, "resources deployment create") as arg_context:
+        arg_context.argument('replica_count', type=int)
 
     with ArgumentsContext(self, 'is') as arg_context:
         # expect the parameter command_input in the python method as --command in commandline.

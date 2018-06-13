@@ -119,4 +119,3 @@ helps['resources volume'] = """
     type: group
     short-summary: Init, Get and Delete volume resources
 """
-
