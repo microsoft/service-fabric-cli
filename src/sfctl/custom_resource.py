@@ -7,9 +7,13 @@
 """Commands related to managing Service Fabric Mesh resources"""
 
 from knack.util import CLIError
+from pathlib import Path
+from collections import OrderedDict
 import json
 import enum
-from collections import OrderedDict
+import os
+import yaml
+import shutil
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
         which are parseable by CLI
@@ -18,6 +22,12 @@ class ResourceType(enum.Enum):
     volume = 2
     network = 3
     services = 4
+
+
+def ordered_dict_representer(self, value):
+    return self.represent_mapping('tag:yaml.org,2002:map', value.items())
+
+yaml.add_representer(OrderedDict, ordered_dict_representer)
 
 def get_yaml_content(file_path):
     """ Loads the yaml content for the given file path
@@ -76,7 +86,6 @@ def parse_application_resource_description(content): #pylint: disable=invalid-na
     if application_name is None:
         raise CLIError('Could not find application name in application description')
     return application_name
-
 
 def parse_volume_provider_parameters_azure_file(volume_description_content): #pylint: disable=invalid-name
     """ Parses VolumeProviderParametersAzureFile from volume description
@@ -235,9 +244,10 @@ def get_parameter_value(param_value):
     # Still need to implement this
     return param_value
 
-def create_deployment_resource(client, file_paths):
+def create_deployment_resource(client, file_paths, no_wait=False):
     """ Validates and deploys all the yaml resource files
     :param file_paths: Comma seperated file paths of all the yaml files
+    :param no_wait: Do not wait for the long-running operation to finish.
     """
     file_path_list = file_paths.split(',')
     volume_description_list = []
@@ -296,18 +306,126 @@ def deploy_volume_resources(client, volume_description_list):
         volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
         # client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
 
+def init_network_resource(client, network_resource_name, file_path, timeout=60): 
+    None
 
-def init_application_resource(client, application_resource_name, file_path, timeout=60): 
-    content = get_yaml_content(file_path)
-    print("Content:\n")
-    print(content)
+def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile', timeout=60): 
+    """ Initialize the volume context
+    :param volume_name: Volume resource name
+    :param volume_provider: Provider of the volume resource
+    """
+    file_path = os.path.join(os.getcwd(), "servicefabric", "volume.yaml")
 
-def init_network_resource(client, application_resource_name, file_path, timeout=60): 
-    content = get_yaml_content(file_path)
-    print("Content:\n")
-    print(content)
+    #if volume yaml doesn't exists, create
+    if not Path(file_path).exists():
+        directory = os.path.dirname(file_path)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-def init_volume_resource(client, application_resource_name, file_path, timeout=60): 
-    content = get_yaml_content(file_path)
-    print("Content:\n")
-    print(content)
+        file_data = OrderedDict([
+            ('volume', OrderedDict([
+                ('schemaVersion', '0.0.1'),
+                ('name', volume_resource_name),
+                ('description', volume_resource_name + ' description.'),
+                ('sharingType', 'shared'),
+                ('provider', volume_resource_provider),
+                ('params', OrderedDict([
+                    ('shareName', 'helloWorldShare'),
+                    ('accountName', 'testAccount'),
+                    ('accountKey', 'xyz')
+                ]))
+            ]))
+            ])
+        with open(file_path, 'w') as file_path:
+            yaml.dump(file_data, file_path, default_flow_style=False)
+
+
+def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
+    """ Initialize the application context
+    :param application_resource_name: Application resource name.
+    :param add_service_name: Add a new service to the context with the given name.
+    :param delete_service_name: Delete the service from the context with the given name.
+    """
+    file_path = os.path.join(os.getcwd(), "servicefabric", "application.yaml")
+
+    #if application yaml doesn't exists, create
+    if not Path(file_path).exists():
+        directory = os.path.dirname(file_path)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        file_data = OrderedDict([
+            ('application', OrderedDict([
+                ('schemaVersion', '0.0.1'),
+                ('name', application_resource_name),
+                ('description', application_resource_name + ' description.')]))
+            ])
+        with open(file_path, 'w') as file_path:
+            yaml.dump(file_data, file_path, default_flow_style=False)
+    # check if any service can be added or deleted
+    if add_service_name != None:
+        add_service_file = os.path.join(os.getcwd(), "serviceresource", add_service_name, "service.yaml") #pylint: disable=line-too-long
+        if Path(add_service_file).exists:
+            CLIError(add_service_name + " service manifest already present.")
+        directory = os.path.dirname(add_service_file)
+        if os.path.exists(directory):
+            CLIError(directory + " directory already present.")
+        os.makedirs(directory) 
+
+        # create service manifest
+        file_data = OrderedDict([
+            ('service', OrderedDict([
+                ('name', add_service_name),
+                ('description', add_service_name + ' description.'),
+                ('osType', containerostype),
+                ('codePackages', OrderedDict([
+                    ('name', add_service_name),
+                    ('image', add_service_name),
+                    ('endpoints', OrderedDict([
+                        ('name', add_service_name + 'Listener'),
+                        ('port', 20003)
+                    ])),
+                    ('resources', OrderedDict([
+                        ('requests', OrderedDict([
+                            ('cpu', '0.5'),
+                            ('memoryInGB', '1')
+                        ]))                        
+                    ]))                    
+                ])),
+                ('replicaCount', '1'),
+                ('networkRefs', OrderedDict([
+                    ('name', add_service_name + networkreference)
+                ]))
+            ])
+            )
+        ])       
+        with open(add_service_file, 'w') as add_service_file:
+            yaml.dump(file_data, add_service_file, default_flow_style=False)    
+    # check if any service can be deleted
+    if delete_service_name != None:
+        delete_service_file = os.path.join(os.getcwd(), "serviceresource", delete_service_name, "service.yaml") #pylint: disable=line-too-long
+        directory = os.path.dirname(delete_service_file)       
+        if not os.path.exists(directory):
+            CLIError(directory + " directory is not present.")
+        # delete service manifest and dir            
+        shutil.rmtree(directory)
+
+def get_application_resource(client, application_resource_name, timeout=60): 
+    """
+    """
+    #TODO
+
+def get_volume_resource(client, volume_resource_name, timeout=60): 
+    """
+    """
+    #TODO
+
+def delete_application_resource(client, application_resource_name, timeout=60): 
+    """
+    """
+    #TODO
+
+def delete_volume_resource(client, volume_resource_name, timeout=60): 
+    """
+    """
+    #TODO    

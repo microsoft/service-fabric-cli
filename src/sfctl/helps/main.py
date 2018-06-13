@@ -110,11 +110,6 @@ helps['resources applications'] = """
     short-summary: Init, Get and Delete application resources
 """
 
-helps['resources network'] = """
-    type: group
-    short-summary: Init, Get and Delete network resources
-"""
-
 helps['resources volume'] = """
     type: group
     short-summary: Init, Get and Delete volume resources
