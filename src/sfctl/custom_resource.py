@@ -64,13 +64,6 @@ def get_resource_description_list(content, requested_resource_type):
                 resource_description_list.append(resource)
     return resource_description_list
 
-
-def parse_network_resource_description_list(content):
-    """ Gets the network resource description
-    :param content: The yaml content in ordered dict format.
-    """
-    return get_resource_description_list(content, "Microsoft.ServiceFabric/networks")
-
 def parse_application_resource_description(content):
     """ Gets the application resource description
     :param content: The yaml content in ordered dict format.
@@ -81,12 +74,10 @@ def parse_application_resource_description(content):
         raise CLIError("There should be only one application resource defined")
     return application_resource_description_list[0]
 
-
 def parse_volume_provider_parameters_azure_file(volume_description_content):
     """ Parses VolumeProviderParametersAzureFile from volume description in ordered dict format
     :param volume_description_content: The volume description content in ordered dict format
     """
-
 
 def parse_volume_resource_description_list(content):
     """ Gets the volume resource description
@@ -140,12 +131,6 @@ def get_parameter_value(param_value):
     return param_value
 
 def create_deployment_resource(client, application_resource_name, file_path, timeout=60): 
-    from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
-    content = get_yaml_content(file_path)
-    print("Content:\n")
-    print(content)
-
-def init_network_resource(client, application_resource_name, file_path, timeout=60): 
     from azure.servicefabric.models.application_resource_description import ApplicationResourceDescription
     content = get_yaml_content(file_path)
     print("Content:\n")

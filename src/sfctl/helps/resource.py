@@ -44,24 +44,6 @@ helps['resources applications delete'] = """
       short-summary: Name of the Application Resource
 """
 
-helps['resources network init'] = """
-  type: command
-  short-summary: Initialize current context with networks.yaml 
-  long-summary: To be filled long summary
-"""
-
-helps['resources network get'] = """
-  type: command
-  short-summary: Get information about network resources from the environment
-  long-summary: To be filled long summary
-"""
-
-helps['resources network delete'] = """
-  type: command
-  short-summary: Delete an network resources from the environment 
-  long-summary: To be filled long summary
-"""
-
 helps['resources volume init'] = """
   type: command
   short-summary: Initialize current context with volumes.yaml
