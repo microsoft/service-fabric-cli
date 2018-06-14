@@ -5,4 +5,4 @@ pylint
 vcrpy
 contextlib2
 mock
-ruamel.yaml
+pathlib

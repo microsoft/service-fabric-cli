@@ -316,7 +316,8 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandSuperGroup(__name__, self, 'sfctl.custom_resource#{}',
                                client_factory=client_create) as super_group:
             with super_group.group('resources deployment') as group:
-                group.command('create', 'create_deployment_resource')                      
+                group.command('create', 'create_deployment_resource')
+                group.command('validate', 'validate_resources')
             with super_group.group('resources applications') as group:
                 group.command('init', 'init_application_resource')
             with super_group.group('resources volume') as group:

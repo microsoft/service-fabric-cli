@@ -6,14 +6,15 @@
 
 """Commands related to managing Service Fabric Mesh resources"""
 
-from knack.util import CLIError
-#from pathlib import Path
 from collections import OrderedDict
-import json
 import enum
+import json
 import os
-import yaml
+from pathlib import Path
 import shutil
+from knack.util import CLIError
+import yaml
+
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
         which are parseable by CLI
@@ -23,8 +24,8 @@ class ResourceType(enum.Enum):
     network = 3
     services = 4
 
-
 def ordered_dict_representer(self, value):
+
     return self.represent_mapping('tag:yaml.org,2002:map', value.items())
 
 yaml.add_representer(OrderedDict, ordered_dict_representer)
@@ -33,25 +34,23 @@ def get_yaml_content(file_path):
     """ Loads the yaml content for the given file path
     :param file_path: The path of the file where yaml is located
     """
-    from ruamel.yaml import YAML
     try:
         file_content = open(file_path, "r")
     except IOError:
         raise CLIError("Invalid file path %s" % file_path)
     try:
-        yaml = YAML()
-        content = yaml.load(file_content)
+        content = yaml.safe_load(file_content)
     except:
         raise CLIError("The yaml schema in the file %s is invalid" % file_path)
     file_content.close()
     return content
 
-def get_valid_resource_type(resource):
+def get_valid_resource_type(file_path, resource):
     """ Get the valid resource type from the resource content
     :param resource: The yaml content of resource
     """
     if not len(resource.items()) == 1:
-        raise CLIError("Parsing error while getting valid resource type")
+        raise CLIError("Parsing error while getting valid resource type in %s" % file_path)
     for key, value in resource.items():
         if key == "application":
             if "services" in value:
@@ -62,7 +61,7 @@ def get_valid_resource_type(resource):
         elif key == "network":
             return ResourceType.network
         else:
-            raise CLIError('Invalid resource type found')
+            raise CLIError("Invalid resource type found in %s" % file_path)
 
 def construct_json_from_yaml(content):
     """ Converts the yaml content to json object
@@ -71,149 +70,127 @@ def construct_json_from_yaml(content):
     json_obj = json.loads(json.dumps(content))
     return json_obj
 
-def parse_network_resource_description(content): #pylint: disable=invalid-name
-    """ Gets the network resource description
-    :param content: The yaml content of network resource.
-    """
-    None
-
-def parse_application_resource_description(content): #pylint: disable=invalid-name
+def parse_application_resource_description(file_path, content): #pylint: disable=invalid-name
     """ Gets the application resource description
     :param content: The yaml content of application resource description.
     """
     # TO-DO Parameter Parsing
-    application_name = content.get('name', None)
+    application_name = content.get('name')
     if application_name is None:
-        raise CLIError('Could not find application name in application description')
+        raise CLIError('Could not find application name in application description of %s' % file_path)
     return application_name
 
-def parse_volume_provider_parameters_azure_file(volume_description_content): #pylint: disable=invalid-name
+def parse_volume_provider_parameters_azure_file(file_path, volume_description_content): #pylint: disable=invalid-name
     """ Parses VolumeProviderParametersAzureFile from volume description
     :param volume_description_content: The volume description content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.volume_provider_parameters_azure_file import VolumeProviderParametersAzureFile #pylint: disable=line-too-long
-    account_name = volume_description_content.get('accountName', None)
-    share_name = volume_description_content.get('shareName', None)
-    account_key = volume_description_content.get('accountKey', None)
+    account_name = volume_description_content.get('accountName')
+    share_name = volume_description_content.get('shareName')
     if account_name is None:
         raise CLIError('Could not find account name in '
-                       'Azure file share paramaters')
+                       'Azure file share paramaters of %s' % file_path)
     if share_name is None:
         raise CLIError('Could not find share name in '
-                       'Azure file share paramaters')
-    return VolumeProviderParametersAzureFile(account_name=account_name,
-                                             share_name=share_name,
-                                             account_key=account_key)
+                       'Azure file share paramaters of %s' % file_path)
 
-def parse_volume_resource_description(content): #pylint: disable=invalid-name
+def parse_volume_resource_description(file_path, content): #pylint: disable=invalid-name
     """ Parses volume resource description from volume content
     :param content: volume content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.volume_resource_description import VolumeResourceDescription
-    volume_params = content.get('params', None)
+    volume_params = content.get('params')
     if not volume_params is None:
-        volume_provider = parse_volume_provider_parameters_azure_file(volume_params)
-    volume_name = content.get('name', None)
+        parse_volume_provider_parameters_azure_file(file_path, volume_params)
+    volume_name = content.get('name')
     if volume_name is None:
-        raise CLIError('Could not find volume name')
-    volume_description = content.get('description', None)
-    return VolumeResourceDescription(name=volume_name,
-                                     description=volume_description,
-                                     azure_file_parameters=volume_provider)
+        raise CLIError('Could not find volume name in %s' % file_path)
 
-def parse_container_code_package_properties(code_package_content_list): #pylint: disable=invalid-name
+def parse_resource_properties(file_path, resource_content):
+    ''' Parses resource properties form resources section
+    :param file_path: 
+    :param: resource_content: resource content 
+    '''
+    if not 'memoryInGB' in resource_content:
+        raise CLIError('memory is not defined in resource request section in %s' % file_path) #pylint: disable=line-too-long
+    if not 'cpu' in resource_content:
+        raise CLIError('cpu not defined in resource request section %s' % file_path)
+
+def parse_container_code_package_properties(file_path, code_package_content_list): #pylint: disable=invalid-name
     """ Parses service resource description from code package content
         Note: Only high level parsing is implemented here
     :param content: code package content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.container_code_package_properties import ContainerCodePackageProperties  #pylint: disable=line-too-long
-    from azure.servicefabric.models.resource_requirements import ResourceRequirements
-    from azure.servicefabric.models.resource_requests import ResourceRequests
-    from azure.servicefabric.models.resource_limits import ResourceLimits
     if  code_package_content_list is None:
-        raise CLIError('Code package description is not found in service description')
-    content_object_list = []
+        raise CLIError('Code package description is not found in service description of %s' % file_path) #pylint: disable=line-too-long
     for code_package_content in code_package_content_list:
-        name = code_package_content.get('name', None)
-        image = code_package_content.get('image', None)
-        resources_content = code_package_content.get('resources', None)
+        name = code_package_content.get('name')
+        image = code_package_content.get('image')
+        resources_content = code_package_content.get('resources')
         if name is None:
-            raise CLIError('Name of the code package is not defined')
+            raise CLIError('Name of the code package is not defined in %s' % file_path)
         if image is None:
-            raise CLIError('Image name of the code package is not defined')
+            raise CLIError('Image name of the code package is not defined in %s' % file_path)
         if resources_content is None:
-            raise CLIError('Resources of the code package is not defined')
-        resource_requests = None
-        resource_limits = None
-        if not 'requests' in code_package_content:
-            raise CLIError('Resource requests is not defined')
+            raise CLIError('Resources of the code package is not defined in %s' % file_path)
+        if not 'requests' in code_package_content.get('resources'):
+            raise CLIError('Resource requests is not defined in %s' % file_path)
         else:
-            resource_requests_content = code_package_content.get('requests')
-            if not 'memory_in_gb' in resource_requests_content:
-                raise CLIError('memory is not defined in resource request section')
-            if not 'cpu' in resource_requests_content:
-                raise CLIError('cpu not defined in resource request section')
-            resource_requests = ResourceRequests(resource_requests_content.get('memory_in_gb'),
-                                                 resource_requests_content.get('cpu'))
-        if 'limits' in code_package_content:
-            resource_limits_content = code_package_content.get('limits')
-            resource_limits = ResourceLimits(resource_limits_content.get('memory_in_gb', None),
-                                             resource_limits_content.get('cpu', None))
-        resources = ResourceRequirements(resource_requests, resource_limits)
-        code_package_object = ContainerCodePackageProperties(name=name,
-                                                             image=image,
-                                                             resources=resources)
-        content_object_list.append(code_package_object)
-    return content_object_list
+            resource_requests_content = code_package_content.get('resources').get('requests')
+            parse_resource_properties(file_path, resource_requests_content)
+        if 'limits' in code_package_content.get('resources'):
+            resource_limits_content = code_package_content.get('resources').get('limits')
+            parse_resource_properties(file_path, resource_limits_content)
 
-def parse_network_refs(content):
+
+def parse_network_refs(file_path, content):
     """ Parses network refs from network refs content
     :param content: network ref content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.network_ref import NetworkRef
-    return NetworkRef(content.get('name'))
+    name = content.get('name')
+    if name is None:
+        raise CLIError("Name is not defined in network ref section in %s" % file_path)
 
-def parse_diagnostic_ref(content):
+def parse_diagnostic_ref(file_path, content):
     """ Parses diagnostic ref from diagnostic ref content
     :param content: diagnostic ref content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.diagnostics_ref import DiagnosticsRef
-    return DiagnosticsRef(content.get('enabled', None), content.get('sink_refs', None))
+    if 'enabled' in content:
+        try:
+            bool(content.get('enabled'))
+        except:
+            raise CLIError("Invalid enabled parameter defined diagnostic section in %s " % file_path)  #pylint: disable=line-too-long
 
-def parse_service_resource_description(content): #pylint: disable=invalid-name
+def parse_service_resource_description(file_path, content): #pylint: disable=invalid-name
     """ Parses service resource description from service content
     :param content: service content
+    :param file_path: The path of the file currently being parsed
     """
-    from azure.servicefabric.models.service_resource_description import ServiceResourceDescription
     if len(content) != 1:
-        raise CLIError('More that one or no service description found')
+        raise CLIError('More that one or no service description found in %s' % file_path)
     service_content = content[0]
-    diagnostics = None
-    network_ref_list = None
-    os_type = service_content.get('os_type', None)
-    code_package_list = parse_container_code_package_properties(content.get('codePackages', None))
+    os_type = service_content.get('osType')
+    parse_container_code_package_properties(file_path, service_content.get('codePackages'))  #pylint: disable=line-too-long
     if 'networkRefs' in content:
-        network_ref_list = parse_network_refs(content.get('networkRefs', None))
+        parse_network_refs(file_path, service_content.get('networkRefs'))
     if 'diagnostics' in content:
-        diagnostics = parse_diagnostic_ref(content.get('diagnostics', None))
-    description = content.get('description', None)
-    replica_count = content.get('replica_count', 0)
-    health_state = content.get('health_state', None)
-    name = content.get('name', None)
-    if health_state not in ['Invalid', 'Ok', 'Warning', 'Unknown', 'None']:
-        raise CLIError('Invalid Health state specified in service description')
+        parse_diagnostic_ref(file_path, service_content.get('diagnostics'))
+    if 'replicaCount' in content:
+        try:
+            int(content.get('replicaCount'))
+        except:
+            raise CLIError('Invalid replica count in service description %s' % file_path)
+    health_state = service_content.get('healthState')
+    name = service_content.get('name')
+    if not health_state  in ['Invalid', 'Ok', 'Warning', 'Unknown', None]:
+        raise CLIError('Invalid Health state specified in service description in %s' % file_path)
     if name is None:
-        raise CLIError('Name of the service is missing in service description')
+        raise CLIError('Name of the service is missing in service description in %s' % file_path)
     if os_type not in ['Linux', 'Windows']:
-        raise CLIError('Invalid OS type in service description')
-    return ServiceResourceDescription(os_type=os_type,
-                                      code_packages=code_package_list,
-                                      network_refs=network_ref_list,
-                                      diagnostics=diagnostics,
-                                      description=description,
-                                      replica_count=replica_count,
-                                      health_state=health_state,
-                                      name=name)
+        raise CLIError('Invalid OS type in service description in %s' % file_path)
 
 def get_default_value(parameter_value):
     """ Get the default value if present on None otherwise
@@ -246,6 +223,7 @@ def get_parameter_value(param_value):
 
 def create_deployment_resource(client, file_paths, no_wait=False):
     """ Validates and deploys all the yaml resource files
+    :param: client: REST client
     :param file_paths: Comma seperated file paths of all the yaml files
     :param no_wait: Do not wait for the long-running operation to finish.
     """
@@ -255,7 +233,7 @@ def create_deployment_resource(client, file_paths, no_wait=False):
     application_description = None
     for file_path in file_path_list:
         content = get_yaml_content(file_path)
-        resource_type = get_valid_resource_type(content)
+        resource_type = get_valid_resource_type(file_path, content)
         if resource_type == ResourceType.application:
             print("Application")
             print(content)
@@ -273,7 +251,7 @@ def create_deployment_resource(client, file_paths, no_wait=False):
             volume_description_list.append(content.get('volume'))
     '''The order of rest calls made here should be as follows:
         1. Creation of secondary resources like volume, network, secrets etc..
-        2. application resource creation'''
+        2. Application resource creation'''
     deploy_volume_resources(client, volume_description_list)
     deploy_application_resource(client, application_description, service_description_list)
 
@@ -306,9 +284,6 @@ def deploy_volume_resources(client, volume_description_list):
         volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
         # client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
 
-def init_network_resource(client, network_resource_name, file_path, timeout=60): 
-    None
-
 def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile', timeout=60): 
     """ Initialize the volume context
     :param volume_name: Volume resource name
@@ -340,6 +315,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
 
 def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
     """ Initialize the application context
+    :param: client: REST client
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
@@ -374,7 +350,7 @@ def init_application_resource(client, application_resource_name, add_service_nam
         file_data = OrderedDict([
             ('application', OrderedDict([
                 ('schemaVersion', '0.0.1'),
-                ('name', application_resource_name),                
+                ('name', application_resource_name),
                 ('services', OrderedDict([
                         ('name', add_service_name),
                         ('description', add_service_name + ' description.'),
@@ -410,34 +386,59 @@ def init_application_resource(client, application_resource_name, add_service_nam
         directory = os.path.join(os.getcwd(), delete_service_name)
         if not os.path.exists(directory):
             CLIError(directory + " directory is not present.")
-        # delete service dir            
+        # delete service dir   
         shutil.rmtree(directory)
         #print('directory deleted is: ' + directory)
 
-def get_application_resource(client, application_resource_name, timeout=60): 
+def get_application_resource(client, application_resource_name, timeout=60):
     """
-    :param application_resource_name: Application resource name.    
+    :param application_resource_name: Application resource name.
     """
     response = client.get_application_resource(application_resource_name)
     print(response)
     
-def get_volume_resource(client, volume_resource_name, timeout=60): 
+def get_volume_resource(client, volume_resource_name, timeout=60):
     """
-    :param volume_resource_name: Application resource name.    
+    :param volume_resource_name: Application resource name.
     """
     response = client.get_volume_resource(volume_resource_name)
     print(response)
 
-def delete_application_resource(client, application_resource_name, timeout=60): 
+def delete_application_resource(client, application_resource_name, timeout=60):
     """
-    :param application_resource_name: Application resource name.    
+    :param application_resource_name: Application resource name.
     """
     response = client.delete_application_resource(application_resource_name)
     print(response)
 
-def delete_volume_resource(client, volume_resource_name, timeout=60): 
+def delete_volume_resource(client, volume_resource_name, timeout=60):
     """
-    :param volume_resource_name: Application resource name.    
+    :param volume_resource_name: Application resource name.
     """
     response = client.delete_volume_resource(volume_resource_name)
-    print(response)
+    print(response) 
+
+def validate_resources(client, file_paths):
+    """ Performs a high level validation of the provided yaml files
+    :param file_paths: Comma seperated file paths which need to validated
+    """
+    file_path_list = file_paths.split(',')
+    for file_path in file_path_list:
+        content = get_yaml_content(file_path)
+        resource_type = get_valid_resource_type(file_path, content)
+        if resource_type == ResourceType.application:
+            print("Application")
+            print(content)
+            parse_application_resource_description(file_path, content.get('application'))
+            print("%s application file is valid" % file_path)
+        elif resource_type == ResourceType.services:
+            print("Services")
+            print(content)
+            parse_service_resource_description(file_path, content.get('application').get('services'))
+        elif resource_type == ResourceType.network:
+            print("Network")
+            print(content)
+        elif resource_type == ResourceType.volume:
+            print("Volume")
+            parse_volume_resource_description(file_path, content.get('volume'))
+            print(content)

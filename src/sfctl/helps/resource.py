@@ -18,6 +18,16 @@ helps['resources deployment create'] = """
       short-summary: Comma seperated file paths of all the yaml files
 """
 
+helps['resources deployment validate'] = """
+  type: command
+  short-summary: Validates the deployment of services
+  long-summary: To be filled long summary
+  parameters:
+    - name: --file-path
+      type: string
+      short-summary: Comma seperated file paths of all the yaml files
+"""
+
 helps['resources applications init'] = """
   type: command
   short-summary: Initialize current context with applications.yaml
