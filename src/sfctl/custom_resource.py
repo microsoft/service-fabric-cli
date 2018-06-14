@@ -7,7 +7,7 @@
 """Commands related to managing Service Fabric Mesh resources"""
 
 from knack.util import CLIError
-from pathlib import Path
+#from pathlib import Path
 from collections import OrderedDict
 import json
 import enum
@@ -314,31 +314,29 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
     :param volume_name: Volume resource name
     :param volume_provider: Provider of the volume resource
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "volume.yaml")
+    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", "volume.yaml")
 
-    #if volume yaml doesn't exists, create
-    if not Path(file_path).exists():
-        directory = os.path.dirname(file_path)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-        file_data = OrderedDict([
-            ('volume', OrderedDict([
-                ('schemaVersion', '0.0.1'),
-                ('name', volume_resource_name),
-                ('description', volume_resource_name + ' description.'),
-                ('sharingType', 'shared'),
-                ('provider', volume_resource_provider),
-                ('params', OrderedDict([
-                    ('shareName', 'helloWorldShare'),
-                    ('accountName', 'testAccount'),
-                    ('accountKey', 'xyz')
-                ]))
+    file_data = OrderedDict([
+        ('volume', OrderedDict([
+            ('schemaVersion', '0.0.1'),
+            ('name', volume_resource_name),
+            ('description', volume_resource_name + ' description.'),
+            ('sharingType', 'shared'),
+            ('provider', volume_resource_provider),
+            ('params', OrderedDict([
+                ('shareName', 'helloWorldShare'),
+                ('accountName', 'testAccount'),
+                ('accountKey', 'xyz')
             ]))
-            ])
-        with open(file_path, 'w') as file_path:
-            yaml.dump(file_data, file_path, default_flow_style=False)
-            print('volume yaml created is: ' + file_path)
+        ]))
+        ])
+    with open(file_path, 'w') as file_path:
+        yaml.dump(file_data, file_path, default_flow_style=False)
+        #print('volume yaml created is: ' + file_path)
 
 def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
     """ Initialize the application context
@@ -346,33 +344,31 @@ def init_application_resource(client, application_resource_name, add_service_nam
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "application.yaml")
+    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", "application.yaml")
 
-    #if application yaml doesn't exists, create
-    if not Path(file_path).exists():
-        directory = os.path.dirname(file_path)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-        file_data = OrderedDict([
-            ('application', OrderedDict([
-                ('schemaVersion', '0.0.1'),
-                ('name', application_resource_name),
-                ('description', application_resource_name + ' description.')]))
-            ])
-        with open(file_path, 'w') as file_path:
-            yaml.dump(file_data, file_path, default_flow_style=False)
-            print('application yaml created is: ' + file_path)
+    file_data = OrderedDict([
+        ('application', OrderedDict([
+            ('schemaVersion', '0.0.1'),
+            ('name', application_resource_name),
+            ('description', application_resource_name + ' description.')]))
+        ])
+    with open(file_path, 'w') as file_path:
+        yaml.dump(file_data, file_path, default_flow_style=False)
+        #print('application yaml created is: ' + file_path)
 
     # check if any service can be added or deleted
     if add_service_name != None:
-        add_service_file = os.path.join(os.getcwd(), "serviceresource", add_service_name, "service.yaml") #pylint: disable=line-too-long
-        if Path(add_service_file).exists:
-            CLIError(add_service_name + " service manifest already present.")
+        add_service_file = os.path.join(os.getcwd(), add_service_name, "Service Resources", "service.yaml") #pylint: disable=line-too-long
+        if os.path.exists(add_service_file):
+            CLIError(add_service_name + " service yaml already present.")
         directory = os.path.dirname(add_service_file)
         if os.path.exists(directory):
             CLIError(directory + " directory already present.")
-        os.makedirs(directory) 
+        os.makedirs(directory)
 
         # create service manifest
         file_data = OrderedDict([
@@ -403,17 +399,16 @@ def init_application_resource(client, application_resource_name, add_service_nam
         ])       
         with open(add_service_file, 'w') as add_service_file:
             yaml.dump(file_data, add_service_file, default_flow_style=False)
-            print('service yaml created is: ' + add_service_file)
+            #print('service yaml created is: ' + add_service_file)
 
     # check if any service can be deleted
     if delete_service_name != None:
-        delete_service_file = os.path.join(os.getcwd(), "serviceresource", delete_service_name, "service.yaml") #pylint: disable=line-too-long
-        directory = os.path.dirname(delete_service_file)       
+        directory = os.path.join(os.getcwd(), delete_service_name)
         if not os.path.exists(directory):
             CLIError(directory + " directory is not present.")
-        # delete service manifest and dir            
+        # delete service dir            
         shutil.rmtree(directory)
-        print('directory deleted is: ' + directory)        
+        #print('directory deleted is: ' + directory)
 
 def get_application_resource(client, application_resource_name, timeout=60): 
     """
