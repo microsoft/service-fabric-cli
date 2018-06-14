@@ -372,31 +372,35 @@ def init_application_resource(client, application_resource_name, add_service_nam
 
         # create service manifest
         file_data = OrderedDict([
-            ('service', OrderedDict([
-                ('name', add_service_name),
-                ('description', add_service_name + ' description.'),
-                ('osType', containerostype),
-                ('codePackages', OrderedDict([
-                    ('name', add_service_name),
-                    ('image', add_service_name),
-                    ('endpoints', OrderedDict([
-                        ('name', add_service_name + 'Listener'),
-                        ('port', 20003)
-                    ])),
-                    ('resources', OrderedDict([
-                        ('requests', OrderedDict([
-                            ('cpu', '0.5'),
-                            ('memoryInGB', '1')
-                        ]))                        
-                    ]))                    
-                ])),
-                ('replicaCount', '1'),
-                ('networkRefs', OrderedDict([
-                    ('name', add_service_name + networkreference)
+            ('application', OrderedDict([
+                ('schemaVersion', '0.0.1'),
+                ('name', application_resource_name),                
+                ('services', OrderedDict([
+                        ('name', add_service_name),
+                        ('description', add_service_name + ' description.'),
+                        ('osType', containerostype),
+                        ('codePackages', OrderedDict([
+                            ('name', add_service_name),
+                            ('image', add_service_name),
+                            ('endpoints', OrderedDict([
+                                ('name', add_service_name + 'Listener'),
+                                ('port', 20003)
+                            ])),
+                            ('resources', OrderedDict([
+                                ('requests', OrderedDict([
+                                    ('cpu', '0.5'),
+                                    ('memoryInGB', '1')
+                                ]))                        
+                            ]))                    
+                        ])),
+                        ('replicaCount', '1'),
+                        ('networkRefs', OrderedDict([
+                            ('name', add_service_name + networkreference)
+                        ]))
+                    ])
+                    )
                 ]))
             ])
-            )
-        ])       
         with open(add_service_file, 'w') as add_service_file:
             yaml.dump(file_data, add_service_file, default_flow_style=False)
             #print('service yaml created is: ' + add_service_file)
