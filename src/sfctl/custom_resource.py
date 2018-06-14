@@ -338,7 +338,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             ])
         with open(file_path, 'w') as file_path:
             yaml.dump(file_data, file_path, default_flow_style=False)
-
+            print('volume yaml created is: ' + file_path)
 
 def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
     """ Initialize the application context
@@ -362,6 +362,8 @@ def init_application_resource(client, application_resource_name, add_service_nam
             ])
         with open(file_path, 'w') as file_path:
             yaml.dump(file_data, file_path, default_flow_style=False)
+            print('application yaml created is: ' + file_path)
+
     # check if any service can be added or deleted
     if add_service_name != None:
         add_service_file = os.path.join(os.getcwd(), "serviceresource", add_service_name, "service.yaml") #pylint: disable=line-too-long
@@ -400,7 +402,9 @@ def init_application_resource(client, application_resource_name, add_service_nam
             )
         ])       
         with open(add_service_file, 'w') as add_service_file:
-            yaml.dump(file_data, add_service_file, default_flow_style=False)    
+            yaml.dump(file_data, add_service_file, default_flow_style=False)
+            print('service yaml created is: ' + add_service_file)
+
     # check if any service can be deleted
     if delete_service_name != None:
         delete_service_file = os.path.join(os.getcwd(), "serviceresource", delete_service_name, "service.yaml") #pylint: disable=line-too-long
@@ -409,23 +413,32 @@ def init_application_resource(client, application_resource_name, add_service_nam
             CLIError(directory + " directory is not present.")
         # delete service manifest and dir            
         shutil.rmtree(directory)
+        print('directory deleted is: ' + directory)        
 
 def get_application_resource(client, application_resource_name, timeout=60): 
     """
+    :param application_resource_name: Application resource name.    
     """
-    #TODO
-
+    response = client.get_application_resource(application_resource_name)
+    print(response)
+    
 def get_volume_resource(client, volume_resource_name, timeout=60): 
     """
+    :param volume_resource_name: Application resource name.    
     """
-    #TODO
+    response = client.get_volume_resource(volume_resource_name)
+    print(response)
 
 def delete_application_resource(client, application_resource_name, timeout=60): 
     """
+    :param application_resource_name: Application resource name.    
     """
-    #TODO
+    response = client.delete_application_resource(application_resource_name)
+    print(response)
 
 def delete_volume_resource(client, volume_resource_name, timeout=60): 
     """
+    :param volume_resource_name: Application resource name.    
     """
-    #TODO    
+    response = client.delete_volume_resource(volume_resource_name)
+    print(response)
