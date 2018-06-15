@@ -267,11 +267,11 @@ def deploy_application_resource(client, application_description, service_descrip
         raise CLIError("Service Description is not provided")
     for service_description in service_description_list:
         if 'services' in service_description:
-            application_description['services'].append = service_description
+            application_description['application']['services'].append(service_description[0])
         else:
-            application_description['services'] = service_description
-    application_description_object = construct_json_from_yaml(application_description.get('application'))
-    # client.create_application_resource(application_description.get('application').get('name'), application_description_object)
+            application_description['application']['services'] = service_description
+    application_description_object = construct_json_from_yaml(OrderedDict(application_description.get('application')))
+    client.create_application_resource(application_description.get('application').get('name'), application_description_object)
 
 def deploy_volume_resources(client, volume_description_list):
     ''' Deploys the volume descriptions one by one
@@ -282,7 +282,7 @@ def deploy_volume_resources(client, volume_description_list):
         if volume_description is None:
             raise CLIError('Volume description is not provided')
         volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
-        # client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
+        client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
 
 def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile', timeout=60): 
     """ Initialize the volume context
