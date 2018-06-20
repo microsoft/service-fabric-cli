@@ -331,10 +331,10 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Nodes/nodeName',
             ['api-version=6.0'])
         self.validate_command(  # list
-            'sfctl node list --continuation-token=nodeId --node-status-filter=up',
+            'sfctl node list --continuation-token=nodeId --node-status-filter=up --max-results=3',
             'GET',
             '/Nodes',
-            ['api-version=6.0', 'ContinuationToken=nodeId', 'NodeStatusFilter=up'])
+            ['api-version=6.3', 'ContinuationToken=nodeId', 'NodeStatusFilter=up', 'MaxResults=3'])
         self.validate_command(  # load
             'sfctl node load --node-name=nodeName',
             'GET',
