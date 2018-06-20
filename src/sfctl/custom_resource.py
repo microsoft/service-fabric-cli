@@ -14,6 +14,7 @@ from pathlib import Path
 import shutil
 from knack.util import CLIError
 import yaml
+from inspect import currentframe, getframeinfo
 
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
@@ -270,7 +271,8 @@ def deploy_application_resource(client, application_description, service_descrip
             application_description['application']['services'].append(service_description[0])
         else:
             application_description['application']['services'] = service_description
-    application_description_object = construct_json_from_yaml(OrderedDict(application_description.get('application')))
+    #application_description_object = construct_json_from_yaml(OrderedDict(application_description.get('application')))
+    application_description_object = construct_json_from_yaml(application_description.get('application'))
     client.create_application_resource(application_description.get('application').get('name'), application_description_object)
 
 def deploy_volume_resources(client, volume_description_list):
@@ -347,46 +349,34 @@ def init_application_resource(client, application_resource_name, add_service_nam
         os.makedirs(directory)
 
         # create service manifest
-        file_data = OrderedDict([
-            ('application', OrderedDict([
-                ('schemaVersion', '0.0.1'),
-                ('name', application_resource_name),
-                ('services', OrderedDict([
-                        ('name', add_service_name),
-                        ('description', add_service_name + ' description.'),
-                        ('osType', containerostype),
-                        ('codePackages', OrderedDict([
-                            ('name', add_service_name),
-                            ('image', add_service_name),
-                            ('endpoints', OrderedDict([
-                                ('name', add_service_name + 'Listener'),
-                                ('port', 20003)
-                            ])),
-                            ('resources', OrderedDict([
-                                ('requests', OrderedDict([
-                                    ('cpu', '0.5'),
-                                    ('memoryInGB', '1')
-                                ]))                        
-                            ]))                    
-                        ])),
-                        ('replicaCount', '1'),
-                        ('networkRefs', OrderedDict([
-                            ('name', add_service_name + networkreference)
-                        ]))
-                    ])
-                    )
-                ]))
-            ])
-        with open(add_service_file, 'w') as add_service_file:
-            yaml.dump(file_data, add_service_file, default_flow_style=False)
-            #print('service yaml created is: ' + add_service_file)
+        filename = getframeinfo(currentframe()).filename
+        dirPath = Path(filename).resolve().parent
+        templateServicePath = os.path.join(dirPath, "templates", "service.yaml")
+
+        with open(templateServicePath, "rt") as fin:
+            with open(add_service_file, 'wt') as fout:
+                for line in fin:
+                    if "ApplicationName" in line:
+                        fout.write(line.replace('ApplicationName', application_resource_name))
+                    elif 'FabricServiceName' in line:
+                        fout.write(line.replace('FabricServiceName', add_service_name))
+                    elif 'FabricServiceImage' in line:
+                        fout.write(line.replace('FabricServiceImage', add_service_name+'Image'))
+                    elif 'OsTypeValue' in line:
+                        fout.write(line.replace('OsTypeValue', containerostype))
+                    elif 'FabricServiceListener' in line:
+                        fout.write(line.replace('FabricServiceListener', add_service_name+'Listener'))
+                    elif 'FabricServiceNetworkName' in line:
+                        fout.write(line.replace('FabricServiceNetworkName', add_service_name+'NetworkName'))
+                    else:
+                        fout.write(line)
 
     # check if any service can be deleted
     if delete_service_name != None:
         directory = os.path.join(os.getcwd(), delete_service_name)
         if not os.path.exists(directory):
             CLIError(directory + " directory is not present.")
-        # delete service dir   
+        #delete service dir
         shutil.rmtree(directory)
         #print('directory deleted is: ' + directory)
 
