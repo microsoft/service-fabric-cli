@@ -249,12 +249,12 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         elif resource_type == ResourceType.volume:
             print("Volume")
             print(content)
-            volume_description_list.append(content.get('volume'))
+            volume_description_list.append(content)
     '''The order of rest calls made here should be as follows:
         1. Creation of secondary resources like volume, network, secrets etc..
         2. Application resource creation'''
     deploy_volume_resources(client, volume_description_list)
-    deploy_application_resource(client, application_description, service_description_list)
+    #deploy_application_resource(client, application_description, service_description_list)
 
 def deploy_application_resource(client, application_description, service_description_list):
     ''' Combines the service description into application description and triggers deployment
@@ -291,7 +291,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
     :param volume_name: Volume resource name
     :param volume_provider: Provider of the volume resource
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", "volume.yaml")
+    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", volume_resource_name+".yaml")
 
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
@@ -302,9 +302,8 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             ('schemaVersion', '0.0.1'),
             ('name', volume_resource_name),
             ('description', volume_resource_name + ' description.'),
-            ('sharingType', 'shared'),
             ('provider', volume_resource_provider),
-            ('params', OrderedDict([
+            ('azureFileParameters', OrderedDict([
                 ('shareName', 'helloWorldShare'),
                 ('accountName', 'testAccount'),
                 ('accountKey', 'xyz')
