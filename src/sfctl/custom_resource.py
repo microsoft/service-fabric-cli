@@ -254,7 +254,7 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         1. Creation of secondary resources like volume, network, secrets etc..
         2. Application resource creation'''
     deploy_volume_resources(client, volume_description_list)
-    #deploy_application_resource(client, application_description, service_description_list)
+    deploy_application_resource(client, application_description, service_description_list)
 
 def deploy_application_resource(client, application_description, service_description_list):
     ''' Combines the service description into application description and triggers deployment
