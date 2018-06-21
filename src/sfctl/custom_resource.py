@@ -54,7 +54,7 @@ def get_valid_resource_type(file_path, resource):
         raise CLIError("Parsing error while getting valid resource type in %s" % file_path)
     for key, value in resource.items():
         if key == "application":
-            if "services" in value:
+            if "services" in value.get('properties'):
                 return ResourceType.services
             return ResourceType.application
         elif key == "volume":
@@ -242,7 +242,7 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         elif resource_type == ResourceType.services:
             print("Services")
             print(content)
-            service_description_list.append(content.get('application').get('services'))
+            service_description_list.append(content.get('application').get('properties').get('services'))
         elif resource_type == ResourceType.network:
             print("Network")
             print(content)
@@ -268,9 +268,9 @@ def deploy_application_resource(client, application_description, service_descrip
         raise CLIError("Service Description is not provided")
     for service_description in service_description_list:
         if 'services' in service_description:
-            application_description['application']['services'].append(service_description[0])
+            application_description['application']['properties']['services'].append(service_description[0])
         else:
-            application_description['application']['services'] = service_description
+            application_description['application']['properties']['services'] = service_description
     #application_description_object = construct_json_from_yaml(OrderedDict(application_description.get('application')))
     application_description_object = construct_json_from_yaml(application_description.get('application'))
     client.create_application_resource(application_description.get('application').get('name'), application_description_object)
@@ -299,8 +299,9 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
 
     file_data = OrderedDict([
         ('volume', OrderedDict([
-            ('schemaVersion', '0.0.1'),
+            ('schemaVersion', '1.0.0'),
             ('name', volume_resource_name),
+            ('properties', OrderedDict([
             ('description', volume_resource_name + ' description.'),
             ('provider', volume_resource_provider),
             ('azureFileParameters', OrderedDict([
@@ -308,6 +309,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
                 ('accountName', 'testAccount'),
                 ('accountKey', 'xyz')
             ]))
+        ]))
         ]))
         ])
     with open(file_path, 'w') as file_path:
@@ -329,9 +331,11 @@ def init_application_resource(client, application_resource_name, add_service_nam
 
     file_data = OrderedDict([
         ('application', OrderedDict([
-            ('schemaVersion', '0.0.1'),
+            ('schemaVersion', '1.0.0'),
             ('name', application_resource_name),
+            ('properties', OrderedDict([
             ('description', application_resource_name + ' description.')]))
+        ]))
         ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
