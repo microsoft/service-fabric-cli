@@ -329,8 +329,6 @@ def init_application_resource(client, application_resource_name, add_service_nam
         # create service manifest
         filename = getframeinfo(currentframe()).filename
         dir_path = Path(filename).resolve().parent
-        print dir_path
-        print filename
         template_service_path = os.path.join(str(dir_path), "templates", "service.yaml")
 
         with open(template_service_path, "rt") as in_file:
