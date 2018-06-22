@@ -236,20 +236,18 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         content = get_yaml_content(file_path)
         resource_type = get_valid_resource_type(file_path, content)
         if resource_type == ResourceType.application:
-            print("Application")
+            #print("Application")
             #print(content)
             application_description = content
         elif resource_type == ResourceType.services:
-            print("Services")
+            #print("Services")
             #print(content)
             service_description_list.append(content.get('application').get('properties').get('services'))
-        elif resource_type == ResourceType.network:
-            print("Network")
-            #print(content)
         elif resource_type == ResourceType.volume:
-            print("Volume")
+            #print("Volume")
             #print(content)
             volume_description_list.append(content)
+                                    
     '''The order of rest calls made here should be as follows:
         1. Creation of secondary resources like volume, network, secrets etc..
         2. Application resource creation'''
@@ -314,7 +312,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
         ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
-        print("Volume Yaml generated is: " + file_path)
+        print("Volume Yaml generated is: ", file_path.name)
 
 def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
     """ Initialize the application context
@@ -339,7 +337,7 @@ def init_application_resource(client, application_resource_name, add_service_nam
         ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
-        print("Application Yaml generated is: " + file_path)
+        print("Application Yaml generated is: ", file_path.name)
 
     # check if any service can be added or deleted
     if add_service_name != None:
@@ -374,7 +372,7 @@ def init_application_resource(client, application_resource_name, add_service_nam
                     else:
                         fout.write(line)
 
-        print("Service Yaml generated is: " + add_service_file)
+        print("Service Yaml generated is: ", add_service_file)
 
     # check if any service can be deleted
     if delete_service_name != None:
