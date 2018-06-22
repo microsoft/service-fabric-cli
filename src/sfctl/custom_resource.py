@@ -8,13 +8,13 @@
 
 from collections import OrderedDict
 import enum
+from inspect import currentframe, getframeinfo
 import json
 import os
 from pathlib import Path
 import shutil
 from knack.util import CLIError
 import yaml
-from inspect import currentframe, getframeinfo
 
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
@@ -25,7 +25,7 @@ class ResourceType(enum.Enum):
     network = 3
     services = 4
 
-def ordered_dict_representer(self, value):
+def ordered_dict_representer(self, value): #pylint: disable=missing-docstring
 
     return self.represent_mapping('tag:yaml.org,2002:map', value.items())
 
@@ -78,7 +78,7 @@ def parse_application_resource_description(file_path, content): #pylint: disable
     # TO-DO Parameter Parsing
     application_name = content.get('name')
     if application_name is None:
-        raise CLIError('Could not find application name in application description of %s' % file_path)
+        raise CLIError('Could not find application name in application description of %s' % file_path) #pylint: disable=line-too-long
     return application_name
 
 def parse_volume_provider_parameters_azure_file(file_path, volume_description_content): #pylint: disable=invalid-name
@@ -100,7 +100,10 @@ def parse_volume_resource_description(file_path, content): #pylint: disable=inva
     :param content: volume content
     :param file_path: The path of the file currently being parsed
     """
-    volume_params = content.get('params')
+    properties = content.get('properties')
+    if properties is None:
+        raise CLIError('Could not find volume properties section defined in %s' % file_path)
+    volume_params = content.get('properties').get('params')
     if not volume_params is None:
         parse_volume_provider_parameters_azure_file(file_path, volume_params)
     volume_name = content.get('name')
@@ -109,8 +112,8 @@ def parse_volume_resource_description(file_path, content): #pylint: disable=inva
 
 def parse_resource_properties(file_path, resource_content):
     ''' Parses resource properties form resources section
-    :param file_path: 
-    :param: resource_content: resource content 
+    :param file_path
+    :param resource_content: resource content
     '''
     if not 'memoryInGB' in resource_content:
         raise CLIError('memory is not defined in resource request section in %s' % file_path) #pylint: disable=line-too-long
@@ -145,14 +148,15 @@ def parse_container_code_package_properties(file_path, code_package_content_list
             parse_resource_properties(file_path, resource_limits_content)
 
 
-def parse_network_refs(file_path, content):
+def parse_network_refs(file_path, network_list):
     """ Parses network refs from network refs content
     :param content: network ref content
     :param file_path: The path of the file currently being parsed
     """
-    name = content.get('name')
-    if name is None:
-        raise CLIError("Name is not defined in network ref section in %s" % file_path)
+    for network in network_list:
+        name = network.get('name')
+        if name is None:
+            raise CLIError("Name is not defined in network ref section in %s" % file_path)
 
 def parse_diagnostic_ref(file_path, content):
     """ Parses diagnostic ref from diagnostic ref content
@@ -173,18 +177,21 @@ def parse_service_resource_description(file_path, content): #pylint: disable=inv
     if len(content) != 1:
         raise CLIError('More that one or no service description found in %s' % file_path)
     service_content = content[0]
-    os_type = service_content.get('osType')
-    parse_container_code_package_properties(file_path, service_content.get('codePackages'))  #pylint: disable=line-too-long
-    if 'networkRefs' in content:
-        parse_network_refs(file_path, service_content.get('networkRefs'))
-    if 'diagnostics' in content:
-        parse_diagnostic_ref(file_path, service_content.get('diagnostics'))
-    if 'replicaCount' in content:
+    service_properties = service_content.get('properties')
+    if service_properties is None:
+        raise CLIError('Could not find volume properties section defined in %s' % file_path)
+    os_type = service_properties.get('osType')
+    parse_container_code_package_properties(file_path, service_properties.get('codePackages'))  #pylint: disable=line-too-long
+    if 'networkRefs' in service_properties:
+        parse_network_refs(file_path, service_properties.get('networkRefs'))
+    if 'diagnostics' in service_properties:
+        parse_diagnostic_ref(file_path, service_properties.get('diagnostics'))
+    if 'replicaCount' in service_properties:
         try:
-            int(content.get('replicaCount'))
+            int(service_properties.get('replicaCount'))
         except:
             raise CLIError('Invalid replica count in service description %s' % file_path)
-    health_state = service_content.get('healthState')
+    health_state = service_properties.get('healthState')
     name = service_content.get('name')
     if not health_state  in ['Invalid', 'Ok', 'Warning', 'Unknown', None]:
         raise CLIError('Invalid Health state specified in service description in %s' % file_path)
@@ -193,37 +200,11 @@ def parse_service_resource_description(file_path, content): #pylint: disable=inv
     if os_type not in ['Linux', 'Windows']:
         raise CLIError('Invalid OS type in service description in %s' % file_path)
 
-def get_default_value(parameter_value):
-    """ Get the default value if present on None otherwise
-    : parameter_value: The parameter_value ordered dict
-    """
-    if "defaultValue" in parameter_value:
-        return parameter_value["defaultValue"]
-    return None
-
-def parse_parameters_section(content):
-    """ Parse the parameters section and return a dictionary of parameter name and value pairs
-    :param content: The yaml content in ordered dict format
-    """
-    parameters = {}
-    if "parameters" in content:
-        parameters_section_content = content["parameters"]
-        for parameter_key, parameter_value_dict in parameters_section_content.items():
-            parameter_value = get_default_value(parameter_value_dict)
-            if not parameter_value is None:
-                parameters[parameter_key] = parameter_value
-        return parameters
-    return parameters
-
-def get_parameter_value(param_value):
-    """ If the value is specified directly returns it or replaces it
-        value retrived from parameters section
-    """
-    # Still need to implement this
-    return param_value
-
 def create_deployment_resource(client, file_paths, no_wait=False):
     """ Validates and deploys all the yaml resource files
+    The order of rest calls made here should be as follows:
+        1. Creation of secondary resources like volume, network, secrets etc..
+        2. Application resource creation
     :param: client: REST client
     :param file_paths: Comma seperated file paths of all the yaml files
     :param no_wait: Do not wait for the long-running operation to finish.
@@ -242,15 +223,11 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         elif resource_type == ResourceType.services:
             #print("Services")
             #print(content)
-            service_description_list.append(content.get('application').get('properties').get('services'))
+            service_description_list.append(content.get('application').get('properties').get('services')) #pylint: disable=line-too-long
         elif resource_type == ResourceType.volume:
             #print("Volume")
             #print(content)
             volume_description_list.append(content)
-                                    
-    '''The order of rest calls made here should be as follows:
-        1. Creation of secondary resources like volume, network, secrets etc..
-        2. Application resource creation'''
     deploy_volume_resources(client, volume_description_list)
     deploy_application_resource(client, application_description, service_description_list)
 
@@ -269,7 +246,6 @@ def deploy_application_resource(client, application_description, service_descrip
             application_description['application']['properties']['services'].append(service_description[0])
         else:
             application_description['application']['properties']['services'] = service_description
-    #application_description_object = construct_json_from_yaml(OrderedDict(application_description.get('application')))
     application_description_object = construct_json_from_yaml(application_description.get('application'))
     client.create_application_resource(application_description.get('application').get('name'), application_description_object)
 
@@ -284,10 +260,10 @@ def deploy_volume_resources(client, volume_description_list):
         volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
         client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
 
-def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile', timeout=60): 
+def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile'):
     """ Initialize the volume context
-    :param volume_name: Volume resource name
-    :param volume_provider: Provider of the volume resource
+    :param volume_resource_name: Volume resource name
+    :param volume_resource_provider: Provider of the volume resource
     """
     file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", volume_resource_name+".yaml")
 
@@ -300,26 +276,26 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             ('schemaVersion', '1.0.0'),
             ('name', volume_resource_name),
             ('properties', OrderedDict([
-            ('description', volume_resource_name + ' description.'),
-            ('provider', volume_resource_provider),
-            ('azureFileParameters', OrderedDict([
-                ('shareName', 'helloWorldShare'),
-                ('accountName', 'testAccount'),
-                ('accountKey', 'xyz')
+                ('description', volume_resource_name + ' description.'),
+                ('provider', volume_resource_provider),
+                    ('azureFileParameters', OrderedDict([
+                    ('shareName', 'helloWorldShare'),
+                    ('accountName', 'testAccount'),
+                    ('accountKey', 'xyz')
+                ]))
             ]))
         ]))
-        ]))
-        ])
+    ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
         print("Volume Yaml generated is: ", file_path.name)
 
-def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows', networkreference='network', timeout=60): 
+def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows'):
     """ Initialize the application context
-    :param: client: REST client
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
+    :param containerostype: Container OS type to be used for deployment
     """
     file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", "application.yaml")
 
@@ -332,9 +308,10 @@ def init_application_resource(client, application_resource_name, add_service_nam
             ('schemaVersion', '1.0.0'),
             ('name', application_resource_name),
             ('properties', OrderedDict([
-            ('description', application_resource_name + ' description.')]))
+                ('description', application_resource_name + ' description.')
+            ]))
         ]))
-        ])
+    ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
         print("Application Yaml generated is: ", file_path.name)
@@ -351,26 +328,28 @@ def init_application_resource(client, application_resource_name, add_service_nam
 
         # create service manifest
         filename = getframeinfo(currentframe()).filename
-        dirPath = Path(filename).resolve().parent
-        templateServicePath = os.path.join(dirPath, "templates", "service.yaml")
+        dir_path = Path(filename).resolve().parent
+        print dir_path
+        print filename
+        template_service_path = os.path.join(str(dir_path), "templates", "service.yaml")
 
-        with open(templateServicePath, "rt") as fin:
-            with open(add_service_file, 'wt') as fout:
-                for line in fin:
+        with open(template_service_path, "rt") as in_file:
+            with open(add_service_file, 'wt') as out_file:
+                for line in in_file:
                     if "ApplicationName" in line:
-                        fout.write(line.replace('ApplicationName', application_resource_name))
+                        out_file.write(line.replace('ApplicationName', application_resource_name))
                     elif 'FabricServiceName' in line:
-                        fout.write(line.replace('FabricServiceName', add_service_name))
+                        out_file.write(line.replace('FabricServiceName', add_service_name))
                     elif 'FabricServiceImage' in line:
-                        fout.write(line.replace('FabricServiceImage', add_service_name+'Image'))
+                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image'))
                     elif 'OsTypeValue' in line:
-                        fout.write(line.replace('OsTypeValue', containerostype))
+                        out_file.write(line.replace('OsTypeValue', containerostype))
                     elif 'FabricServiceListener' in line:
-                        fout.write(line.replace('FabricServiceListener', add_service_name+'Listener'))
+                        out_file.write(line.replace('FabricServiceListener', add_service_name+'Listener'))
                     elif 'FabricServiceNetworkName' in line:
-                        fout.write(line.replace('FabricServiceNetworkName', add_service_name+'NetworkName'))
+                        out_file.write(line.replace('FabricServiceNetworkName', add_service_name+'NetworkName'))
                     else:
-                        fout.write(line)
+                        out_file.write(line)
 
         print("Service Yaml generated is: ", add_service_file)
 
@@ -383,34 +362,6 @@ def init_application_resource(client, application_resource_name, add_service_nam
         shutil.rmtree(directory)
         #print('directory deleted is: ' + directory)
 
-def get_application_resource(client, application_resource_name, timeout=60):
-    """
-    :param application_resource_name: Application resource name.
-    """
-    response = client.get_application_resource(application_resource_name)
-    print(response)
-    
-def get_volume_resource(client, volume_resource_name, timeout=60):
-    """
-    :param volume_resource_name: Application resource name.
-    """
-    response = client.get_volume_resource(volume_resource_name)
-    print(response)
-
-def delete_application_resource(client, application_resource_name, timeout=60):
-    """
-    :param application_resource_name: Application resource name.
-    """
-    response = client.delete_application_resource(application_resource_name)
-    print(response)
-
-def delete_volume_resource(client, volume_resource_name, timeout=60):
-    """
-    :param volume_resource_name: Application resource name.
-    """
-    response = client.delete_volume_resource(volume_resource_name)
-    print(response) 
-
 def validate_resources(client, file_paths):
     """ Performs a high level validation of the provided yaml files
     :param file_paths: Comma seperated file paths which need to validated
@@ -420,18 +371,11 @@ def validate_resources(client, file_paths):
         content = get_yaml_content(file_path)
         resource_type = get_valid_resource_type(file_path, content)
         if resource_type == ResourceType.application:
-            print("Application")
-            print(content)
             parse_application_resource_description(file_path, content.get('application'))
             print("%s application file is valid" % file_path)
         elif resource_type == ResourceType.services:
-            print("Services")
-            print(content)
-            parse_service_resource_description(file_path, content.get('application').get('services'))
-        elif resource_type == ResourceType.network:
-            print("Network")
-            print(content)
+            parse_service_resource_description(file_path, content.get('application').get('properties').get('services'))
+            print("%s service file is valid" % file_path)
         elif resource_type == ResourceType.volume:
-            print("Volume")
             parse_volume_resource_description(file_path, content.get('volume'))
-            print(content)
+            print("%s volume file is valid" % file_path)

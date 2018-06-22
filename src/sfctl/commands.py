@@ -216,7 +216,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_property_info')
                 group.command('delete', 'delete_property')
 
-            with super_group.group('resources applications') as group:
+            with super_group.group('resources application') as group:
                 group.command('get', 'get_application_resource')
                 group.command('delete', 'delete_application_resource')
 
@@ -318,7 +318,7 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('resources deployment') as group:
                 group.command('create', 'create_deployment_resource')
                 group.command('validate', 'validate_resources')
-            with super_group.group('resources applications') as group:
+            with super_group.group('resources application') as group:
                 group.command('init', 'init_application_resource')
             with super_group.group('resources volume') as group:
                 group.command('init', 'init_volume_resource')

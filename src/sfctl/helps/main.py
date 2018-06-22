@@ -105,7 +105,7 @@ helps['resources deployment'] = """
     short-summary: Create a Service Fabric deployment based on provided descriptions
 """
 
-helps['resources applications'] = """
+helps['resources application'] = """
     type: group
     short-summary: Init, Get and Delete application resources
 """
