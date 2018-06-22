@@ -4,18 +4,19 @@ application:
   properties:  
     services:
       - name: FabricServiceName
-        description: FabricServiceName description.
-        osType: OsTypeValue
-        codePackages:
-          - name: FabricServiceName
-            image: FabricServiceImage
-            endpoints:
-              - name: FabricServiceListener
-                port: 80
-            resources:
-              requests:
-                cpu: 1
-                memoryInGB: 1
-        replicaCount: 1
-        networkRefs:
-          - name: FabricServiceNetworkName
+        properties:
+          description: FabricServiceName description.
+          osType: OsTypeValue
+          codePackages:
+            - name: FabricServiceName
+              image: FabricServiceImage
+              endpoints:
+                - name: FabricServiceListener
+                  port: 80
+              resources:
+                requests:
+                  cpu: 1
+                  memoryInGB: 1
+          replicaCount: 1
+          networkRefs:
+            - name: FabricServiceNetworkName            
