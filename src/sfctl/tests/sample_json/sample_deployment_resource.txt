@@ -1,0 +1,31 @@
+{
+	"properties": {
+		"description": "someApp Description.",
+		"services": [{
+			"properties": {
+				"osType": "Windows",
+				"codePackages": [{
+					"name": "someCode",
+					"image": "someImage:latest",
+					"endpoints": [{
+						"name": "someListener",
+						"port": 12345
+					}],
+					"resources": {
+						"requests": {
+							"memoryInGB": 1.0,
+							"cpu": 0.5
+						}
+					}
+				}],
+				"networkRefs": [{
+					"name": "someNetwork"
+				}],
+				"description": "someService Description.",
+				"replicaCount": 1
+			},
+			"name": "someService"
+		}]
+	},
+	"name": "someApp"
+}

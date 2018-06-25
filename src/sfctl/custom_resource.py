@@ -209,7 +209,7 @@ def parse_service_resource_description(file_path, content): #pylint: disable=inv
 
 def create_deployment_resource(client, file_paths):
     """ Validates and deploys all the yaml resource files
-    :param: client: REST client
+    :param client: REST client
     :param file_paths: Comma seperated file paths of all the yaml files
     """
     file_path_list = file_paths.split(',')

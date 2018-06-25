@@ -1,0 +1,22 @@
+application:
+  schemaVersion: 1.0.0
+  name: someApp
+  properties:
+    services:
+      - name: someService
+        properties:
+          description: someService Description.
+          osType: Windows
+          codePackages:
+            - name: someCode
+              image: someImage:latest
+              endpoints:
+                - name: someListener
+                  port: 12345
+              resources:
+                requests:
+                  cpu: 0.5
+                  memoryInGB: 1
+          replicaCount: 1
+          networkRefs:
+            - name: someNetwork

@@ -267,7 +267,7 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl',
             subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'node',
-                       'partition', 'property', 'replica', 'rpm', 'sa-cluster',
+                       'partition', 'property', 'replica', 'resources', 'rpm', 'sa-cluster',
                        'service', 'store'))
 
         self.validate_output(
@@ -326,6 +326,18 @@ class HelpTextTests(unittest.TestCase):
                       'report-health', 'restart'))
 
         self.validate_output(
+            'sfctl resources application',
+            commands=('delete', 'get', 'init'))
+
+        self.validate_output(
+            'sfctl resources volume',
+            commands=('delete', 'get', 'init'))
+
+        self.validate_output(
+            'sfctl resources deployment',
+            commands=('create', 'validate'))
+
+        self.validate_output(
             'sfctl rpm',
             commands=('approve-force', 'delete', 'list'))
 
@@ -344,15 +356,3 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
-
-        self.validate_output(
-            'sfctl resources application',
-            commands=('delete', 'get', 'init'))
-
-        self.validate_output(
-            'sfctl resources volume',
-            commands=('delete', 'get', 'init'))
-
-        self.validate_output(
-            'sfctl resources deployment',
-            commands=('create', 'validate'))

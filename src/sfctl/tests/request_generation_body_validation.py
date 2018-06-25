@@ -9,6 +9,7 @@ according to that request's expectations."""
 
 from __future__ import print_function
 from sys import stderr
+import json
 
 
 def validate_dictionary_value(command, dict_key, actual_body, expected_body):
@@ -47,4 +48,22 @@ def validate_flat_dictionary(command, actual_body, expected_body):
         if not validate_dictionary_value(command, key,
                                          actual_body, expected_body):
             return False
+    return True
+
+def validate_json(command, actual_body, expected_body):
+    """ Validates two json, Returns True if the json are the same.
+    False otherwise
+    Prints an error message to stderr to show which command failed and what
+    is actual and expected string"""
+
+    actual_body_string = json.dumps(actual_body, sort_keys=True)
+    expected_body_string = json.dumps(expected_body, sort_keys=True)
+    if actual_body_string != expected_body_string:
+        print(
+            'sfctl {0} failed: actual={1}, expected={2}'.format(
+                command,
+                actual_body_string,
+                expected_body_string),
+            file=stderr)
+        return False
     return True

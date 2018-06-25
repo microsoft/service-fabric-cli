@@ -20,7 +20,7 @@ from jsonpickle import decode
 from sfctl.entry import cli
 from sfctl.tests.helpers import MOCK_CONFIG
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
-from sfctl.tests.request_generation_body_validation import validate_flat_dictionary
+from sfctl.tests.request_generation_body_validation import (validate_flat_dictionary, validate_json)
 
 
 class ServiceFabricRequestTests(ScenarioTest):
@@ -192,6 +192,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
+        sample_yaml_path = '@' + path.join(path.dirname(__file__), 'sample_yaml')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -857,4 +858,41 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
              '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
             validate_flat_dictionary)
-            
+
+        # Resource Commands:
+        self.validate_command( #get application resource
+            'resources application get --application-resource-name some~application~resource~name',
+            'GET',
+            '/Resources/Applications/some~application~resource~name',
+            ['api-version=6.3']
+        )
+        self.validate_command( #delete application resource
+            'resources application delete --application-resource-name some~application~resource~name',
+            'DELETE',
+            '/Resources/Applications/some~application~resource~name',
+            ['api-version=6.3']
+        )
+        self.validate_command( #get volume resource
+            'resources volume get --volume-resource-name some~volume~resource~name',
+            'GET',
+            '/Resources/Volumes/some~volume~resource~name',
+            ['api-version=6.3']
+        )
+        self.validate_command( #delete volume resource
+            'resources volume delete --volume-resource-name some~volume~resource~name',
+            'DELETE',
+            '/Resources/Volumes/some~volume~resource~name',
+            ['api-version=6.3']
+        )
+        file_paths = '"{}","{}"'.format(path.join(sample_yaml_path, 'sample_app.yaml'), path.join(sample_yaml_path, 'sample_service.yaml')).replace('@', '')
+        resource_params_file = open(path.join(sample_path_base, 'sample_deployment_resource.txt').replace('@', ''))
+        resource_params = resource_params_file.read()
+        resource_params_file.close()
+        self.validate_command( #create deployment resource
+            'resources deployment create --file-paths {}'.format(file_paths),
+            'PUT',
+            '/Resources/Applications/someApp',
+            ['api-version=6.3'],
+            resource_params,
+            validate_json
+        )

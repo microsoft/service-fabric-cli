@@ -1,0 +1,5 @@
+application:
+  schemaVersion: 1.0.0
+  name: someApp
+  properties:
+    description: someApp Description.
