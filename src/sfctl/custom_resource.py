@@ -6,6 +6,7 @@
 
 """Commands related to managing Service Fabric Mesh resources"""
 
+from __future__ import print_function
 from collections import OrderedDict
 import enum
 from inspect import currentframe, getframeinfo
@@ -13,6 +14,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import sys
 from knack.util import CLIError
 import yaml
 
@@ -78,7 +80,8 @@ def parse_application_resource_description(file_path, content): #pylint: disable
     # TO-DO Parameter Parsing
     application_name = content.get('name')
     if application_name is None:
-        raise CLIError('Could not find application name in application description of %s' % file_path) #pylint: disable=line-too-long
+        raise CLIError('Could not find application name '
+                       'in application description of %s' % file_path)
     return application_name
 
 def parse_volume_provider_parameters_azure_file(file_path, volume_description_content): #pylint: disable=invalid-name
@@ -116,7 +119,8 @@ def parse_resource_properties(file_path, resource_content):
     :param resource_content: resource content
     '''
     if not 'memoryInGB' in resource_content:
-        raise CLIError('memory is not defined in resource request section in %s' % file_path) #pylint: disable=line-too-long
+        raise CLIError('memory is not defined in '
+                       'resource request section in %s' % file_path)
     if not 'cpu' in resource_content:
         raise CLIError('cpu not defined in resource request section %s' % file_path)
 
@@ -127,7 +131,8 @@ def parse_container_code_package_properties(file_path, code_package_content_list
     :param file_path: The path of the file currently being parsed
     """
     if  code_package_content_list is None:
-        raise CLIError('Code package description is not found in service description of %s' % file_path) #pylint: disable=line-too-long
+        raise CLIError('Code package description is not found '
+                       'in service description of %s' % file_path)
     for code_package_content in code_package_content_list:
         name = code_package_content.get('name')
         image = code_package_content.get('image')
@@ -167,7 +172,8 @@ def parse_diagnostic_ref(file_path, content):
         try:
             bool(content.get('enabled'))
         except:
-            raise CLIError("Invalid enabled parameter defined diagnostic section in %s " % file_path)  #pylint: disable=line-too-long
+            raise CLIError('Invalid enabled parameter '
+                           'defined diagnostic section in %s ' % file_path)
 
 def parse_service_resource_description(file_path, content): #pylint: disable=invalid-name
     """ Parses service resource description from service content
@@ -181,7 +187,8 @@ def parse_service_resource_description(file_path, content): #pylint: disable=inv
     if service_properties is None:
         raise CLIError('Could not find volume properties section defined in %s' % file_path)
     os_type = service_properties.get('osType')
-    parse_container_code_package_properties(file_path, service_properties.get('codePackages'))  #pylint: disable=line-too-long
+    parse_container_code_package_properties(file_path,
+                                            service_properties.get('codePackages'))
     if 'networkRefs' in service_properties:
         parse_network_refs(file_path, service_properties.get('networkRefs'))
     if 'diagnostics' in service_properties:
@@ -200,14 +207,10 @@ def parse_service_resource_description(file_path, content): #pylint: disable=inv
     if os_type not in ['Linux', 'Windows']:
         raise CLIError('Invalid OS type in service description in %s' % file_path)
 
-def create_deployment_resource(client, file_paths, no_wait=False):
+def create_deployment_resource(client, file_paths):
     """ Validates and deploys all the yaml resource files
-    The order of rest calls made here should be as follows:
-        1. Creation of secondary resources like volume, network, secrets etc..
-        2. Application resource creation
     :param: client: REST client
     :param file_paths: Comma seperated file paths of all the yaml files
-    :param no_wait: Do not wait for the long-running operation to finish.
     """
     file_path_list = file_paths.split(',')
     volume_description_list = []
@@ -217,16 +220,10 @@ def create_deployment_resource(client, file_paths, no_wait=False):
         content = get_yaml_content(file_path)
         resource_type = get_valid_resource_type(file_path, content)
         if resource_type == ResourceType.application:
-            #print("Application")
-            #print(content)
             application_description = content
         elif resource_type == ResourceType.services:
-            #print("Services")
-            #print(content)
             service_description_list.append(content.get('application').get('properties').get('services')) #pylint: disable=line-too-long
         elif resource_type == ResourceType.volume:
-            #print("Volume")
-            #print(content)
             volume_description_list.append(content)
     deploy_volume_resources(client, volume_description_list)
     deploy_application_resource(client, application_description, service_description_list)
@@ -239,15 +236,16 @@ def deploy_application_resource(client, application_description, service_descrip
     '''
     if application_description is None:
         raise CLIError("Application description is not provided")
-    if service_description_list is []:
+    if not service_description_list:
         raise CLIError("Service Description is not provided")
     for service_description in service_description_list:
         if 'services' in service_description:
-            application_description['application']['properties']['services'].append(service_description[0])
+            application_description.get('application').get('properties').get('services').append(service_description[0]) #pylint: disable=line-too-long
         else:
-            application_description['application']['properties']['services'] = service_description
-    application_description_object = construct_json_from_yaml(application_description.get('application'))
-    client.create_application_resource(application_description.get('application').get('name'), application_description_object)
+            application_description.get('application').get('properties')['services'] = service_description #pylint: disable=line-too-long
+    application_description_object = construct_json_from_yaml(application_description.get('application')) #pylint: disable=line-too-long
+    client.create_application_resource(application_description.get('application').get('name'),
+                                       application_description_object)
 
 def deploy_volume_resources(client, volume_description_list):
     ''' Deploys the volume descriptions one by one
@@ -258,14 +256,16 @@ def deploy_volume_resources(client, volume_description_list):
         if volume_description is None:
             raise CLIError('Volume description is not provided')
         volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
-        client.create_volume_resource(volume_description.get('volume').get('name'), volume_description_object)
+        client.create_volume_resource(volume_description.get('volume').get('name'),
+                                      volume_description_object)
 
-def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile'):
+def init_volume_resource(client, volume_resource_name, volume_resource_provider='sfAzureFile'): #pylint: disable=unused-argument
     """ Initialize the volume context
     :param volume_resource_name: Volume resource name
     :param volume_resource_provider: Provider of the volume resource
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", volume_resource_name+".yaml")
+    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources",
+                             volume_resource_name+".yaml")
 
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
@@ -278,7 +278,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             ('properties', OrderedDict([
                 ('description', volume_resource_name + ' description.'),
                 ('provider', volume_resource_provider),
-                    ('azureFileParameters', OrderedDict([
+                ('azureFileParameters', OrderedDict([
                     ('shareName', 'helloWorldShare'),
                     ('accountName', 'testAccount'),
                     ('accountKey', 'xyz')
@@ -288,9 +288,11 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
     ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
-        print("Volume Yaml generated is: ", file_path.name)
+        print('Volume Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
 
-def init_application_resource(client, application_resource_name, add_service_name=None, delete_service_name=None, containerostype='Windows'):
+def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches
+                              add_service_name=None, delete_service_name=None,
+                              containerostype='Windows'):
     """ Initialize the application context
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
@@ -314,11 +316,12 @@ def init_application_resource(client, application_resource_name, add_service_nam
     ])
     with open(file_path, 'w') as file_path:
         yaml.dump(file_data, file_path, default_flow_style=False)
-        print("Application Yaml generated is: ", file_path.name)
+        print('Application Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
 
     # check if any service can be added or deleted
     if add_service_name != None:
-        add_service_file = os.path.join(os.getcwd(), add_service_name, "Service Resources", "service.yaml") #pylint: disable=line-too-long
+        add_service_file = os.path.join(os.getcwd(), add_service_name,
+                                        "Service Resources", "service.yaml")
         if os.path.exists(add_service_file):
             CLIError(add_service_name + " service yaml already present.")
         directory = os.path.dirname(add_service_file)
@@ -329,8 +332,6 @@ def init_application_resource(client, application_resource_name, add_service_nam
         # create service manifest
         filename = getframeinfo(currentframe()).filename
         dir_path = Path(filename).resolve().parent
-        print dir_path
-        print filename
         template_service_path = os.path.join(str(dir_path), "templates", "service.yaml")
 
         with open(template_service_path, "rt") as in_file:
@@ -345,13 +346,15 @@ def init_application_resource(client, application_resource_name, add_service_nam
                     elif 'OsTypeValue' in line:
                         out_file.write(line.replace('OsTypeValue', containerostype))
                     elif 'FabricServiceListener' in line:
-                        out_file.write(line.replace('FabricServiceListener', add_service_name+'Listener'))
+                        out_file.write(line.replace('FabricServiceListener',
+                                                    add_service_name+'Listener'))
                     elif 'FabricServiceNetworkName' in line:
-                        out_file.write(line.replace('FabricServiceNetworkName', add_service_name+'NetworkName'))
+                        out_file.write(line.replace('FabricServiceNetworkName',
+                                                    add_service_name+'NetworkName'))
                     else:
                         out_file.write(line)
 
-        print("Service Yaml generated is: ", add_service_file)
+        print('Service Yaml generated is: {}'.format(add_service_file), file=sys.stderr)
 
     # check if any service can be deleted
     if delete_service_name != None:
@@ -362,7 +365,7 @@ def init_application_resource(client, application_resource_name, add_service_nam
         shutil.rmtree(directory)
         #print('directory deleted is: ' + directory)
 
-def validate_resources(client, file_paths):
+def validate_resources(client, file_paths): #pylint: disable=unused-argument
     """ Performs a high level validation of the provided yaml files
     :param file_paths: Comma seperated file paths which need to validated
     """
@@ -372,10 +375,10 @@ def validate_resources(client, file_paths):
         resource_type = get_valid_resource_type(file_path, content)
         if resource_type == ResourceType.application:
             parse_application_resource_description(file_path, content.get('application'))
-            print("%s application file is valid" % file_path)
+            print('{} application file is valid'.format(file_path), file=sys.stderr)
         elif resource_type == ResourceType.services:
-            parse_service_resource_description(file_path, content.get('application').get('properties').get('services'))
-            print("%s service file is valid" % file_path)
+            parse_service_resource_description(file_path, content.get('application').get('properties').get('services')) #pylint: disable=line-too-long
+            print('{} service file is valid'.format(file_path), file=sys.stderr)
         elif resource_type == ResourceType.volume:
             parse_volume_resource_description(file_path, content.get('volume'))
-            print("%s volume file is valid" % file_path)
+            print('{} volume file is valid'.format(file_path), file=sys.stderr)
