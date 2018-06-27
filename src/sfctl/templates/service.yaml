@@ -12,7 +12,7 @@ application:
               image: FabricServiceImage
               endpoints:
                 - name: FabricServiceListener
-                  port: 80
+                  port: FabricServicePort
               resources:
                 requests:
                   cpu: 0.5

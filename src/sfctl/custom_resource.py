@@ -17,6 +17,7 @@ import shutil
 import sys
 from knack.util import CLIError
 import yaml
+import random
 
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
@@ -238,11 +239,9 @@ def deploy_application_resource(client, application_description, service_descrip
         raise CLIError("Application description is not provided")
     if not service_description_list:
         raise CLIError("Service Description is not provided")
+    application_description.get('application').get('properties')['services'] = []
     for service_description in service_description_list:
-        if 'services' in service_description:
-            application_description.get('application').get('properties').get('services').append(service_description[0]) #pylint: disable=line-too-long
-        else:
-            application_description.get('application').get('properties')['services'] = service_description #pylint: disable=line-too-long
+        application_description.get('application').get('properties').get('services').append(service_description[0]) #pylint: disable=line-too-long            
     application_description_object = construct_json_from_yaml(application_description.get('application')) #pylint: disable=line-too-long
     client.create_application_resource(application_description.get('application').get('name'),
                                        application_description_object)
@@ -314,9 +313,11 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
             ]))
         ]))
     ])
-    with open(file_path, 'w') as file_path:
-        yaml.dump(file_data, file_path, default_flow_style=False)
-        print('Application Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
+
+    if not os.path.exists(file_path):
+        with open(file_path, 'w') as file_path:
+            yaml.dump(file_data, file_path, default_flow_style=False)
+            print('Application Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
 
     # check if any service can be added or deleted
     if add_service_name != None:
@@ -342,7 +343,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                     elif 'FabricServiceName' in line:
                         out_file.write(line.replace('FabricServiceName', add_service_name))
                     elif 'FabricServiceImage' in line:
-                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image'))
+                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image:Tag'))
                     elif 'OsTypeValue' in line:
                         out_file.write(line.replace('OsTypeValue', containerostype))
                     elif 'FabricServiceListener' in line:
@@ -351,6 +352,8 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                     elif 'FabricServiceNetworkName' in line:
                         out_file.write(line.replace('FabricServiceNetworkName',
                                                     add_service_name+'NetworkName'))
+                    elif 'FabricServicePort' in line:
+                        out_file.write(line.replace('FabricServicePort', str(random.randint(21001,30000))))
                     else:
                         out_file.write(line)
 
