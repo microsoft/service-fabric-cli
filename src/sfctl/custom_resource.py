@@ -15,9 +15,9 @@ import os
 from pathlib import Path
 import shutil
 import sys
+import random
 from knack.util import CLIError
 import yaml
-import random
 
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
@@ -241,7 +241,7 @@ def deploy_application_resource(client, application_description, service_descrip
         raise CLIError("Service Description is not provided")
     application_description.get('application').get('properties')['services'] = []
     for service_description in service_description_list:
-        application_description.get('application').get('properties').get('services').append(service_description[0]) #pylint: disable=line-too-long            
+        application_description.get('application').get('properties').get('services').append(service_description[0]) #pylint: disable=line-too-long
     application_description_object = construct_json_from_yaml(application_description.get('application')) #pylint: disable=line-too-long
     client.create_application_resource(application_description.get('application').get('name'),
                                        application_description_object)
@@ -299,7 +299,7 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             yaml.dump(file_data, file_path, default_flow_style=False)
             print('Volume Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
 
-def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches
+def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches,too-many-arguments,too-many-locals,too-many-statements
                               add_service_name=None, delete_service_name=None,
                               container_os='Windows', network_reference=None):
     """ Initialize the application context
@@ -307,7 +307,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
     :param container_os: Container OS type to be used for deployment
-    :param network_reference: Reference of the network defined in the network resource yaml. Please use 'sfctl resources network init' command to generate a network resource definition.
+    :param network_reference: Reference of the network defined in the network resource yaml. Please use 'sfctl resources network init' command to generate a network resource definition. #pylint: disable=line-too-long
     """
     fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
     dir1 = os.path.join(fabric_root)
@@ -372,7 +372,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                     elif 'FabricServiceName' in line:
                         out_file.write(line.replace('FabricServiceName', add_service_name))
                     elif 'FabricServiceImage' in line:
-                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image:Tag'))
+                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image:Tag'))#pylint: disable=line-too-long
                     elif 'OsTypeValue' in line:
                         out_file.write(line.replace('OsTypeValue', container_os))
                     elif 'FabricServiceListener' in line:
@@ -380,12 +380,12 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                                                     add_service_name+'Listener'))
                     elif 'FabricServiceNetworkName' in line:
                         if network_reference is not None:
-                            out_file.write(line.replace('FabricServiceNetworkName', network_reference))
+                            out_file.write(line.replace('FabricServiceNetworkName', network_reference))#pylint: disable=line-too-long
                         else:
                             out_file.write(line.replace('FabricServiceNetworkName',
                                                         add_service_name+'NetworkName'))
                     elif 'FabricServicePort' in line:
-                        out_file.write(line.replace('FabricServicePort', str(random.randint(21001,30000))))
+                        out_file.write(line.replace('FabricServicePort', str(random.randint(21001, 30000))))#pylint: disable=line-too-long
                     else:
                         out_file.write(line)
 
@@ -393,7 +393,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
 
     # check if any service can be deleted
     if delete_service_name != None:
-        directory = os.path.join(fabric_root, "Services", application_resource_name, delete_service_name)
+        directory = os.path.join(fabric_root, "Services", application_resource_name, delete_service_name)#pylint: disable=line-too-long
         if not os.path.exists(directory):
             CLIError(directory + " directory is not present.")
         #delete service dir
