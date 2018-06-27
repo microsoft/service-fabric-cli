@@ -301,12 +301,13 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
 
 def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches
                               add_service_name=None, delete_service_name=None,
-                              containerostype='Windows'):
+                              container_os='Windows', network_reference=None):
     """ Initialize the application context
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
-    :param containerostype: Container OS type to be used for deployment
+    :param container_os: Container OS type to be used for deployment
+    :param network_reference: Reference of the network defined in the network resource yaml. Please use 'sfctl resources network init' command to generate a network resource definition.
     """
     fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
     dir1 = os.path.join(fabric_root)
@@ -373,13 +374,16 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                     elif 'FabricServiceImage' in line:
                         out_file.write(line.replace('FabricServiceImage', add_service_name+'Image:Tag'))
                     elif 'OsTypeValue' in line:
-                        out_file.write(line.replace('OsTypeValue', containerostype))
+                        out_file.write(line.replace('OsTypeValue', container_os))
                     elif 'FabricServiceListener' in line:
                         out_file.write(line.replace('FabricServiceListener',
                                                     add_service_name+'Listener'))
                     elif 'FabricServiceNetworkName' in line:
-                        out_file.write(line.replace('FabricServiceNetworkName',
-                                                    add_service_name+'NetworkName'))
+                        if network_reference is not None:
+                            out_file.write(line.replace('FabricServiceNetworkName', network_reference))
+                        else:
+                            out_file.write(line.replace('FabricServiceNetworkName',
+                                                        add_service_name+'NetworkName'))
                     elif 'FabricServicePort' in line:
                         out_file.write(line.replace('FabricServicePort', str(random.randint(21001,30000))))
                     else:
