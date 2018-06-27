@@ -263,8 +263,17 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
     :param volume_resource_name: Volume resource name
     :param volume_resource_provider: Provider of the volume resource
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources",
-                             volume_resource_name+".yaml")
+    fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
+    dir1 = os.path.join(fabric_root)
+    if not os.path.exists(dir1):
+        os.makedirs(dir1)
+
+    file_path = os.path.join(fabric_root, "Resources",
+                             volume_resource_name + ".yaml")
+
+    dir2 = os.path.join(dir1, "Resources")
+    if not os.path.exists(dir2):
+        os.makedirs(dir2)
 
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
@@ -285,9 +294,10 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
             ]))
         ]))
     ])
-    with open(file_path, 'w') as file_path:
-        yaml.dump(file_data, file_path, default_flow_style=False)
-        print('Volume Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
+    if not os.path.exists(file_path):
+        with open(file_path, 'w') as file_path:
+            yaml.dump(file_data, file_path, default_flow_style=False)
+            print('Volume Yaml generated is: {}'.format(file_path.name), file=sys.stderr)
 
 def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches
                               add_service_name=None, delete_service_name=None,
@@ -298,7 +308,16 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
     :param delete_service_name: Delete the service from the context with the given name.
     :param containerostype: Container OS type to be used for deployment
     """
-    file_path = os.path.join(os.getcwd(), "servicefabric", "App Resources", "application.yaml")
+    fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
+    dir1 = os.path.join(fabric_root)
+    if not os.path.exists(dir1):
+        os.makedirs(dir1)
+
+    file_path = os.path.join(fabric_root, "Resources", application_resource_name + ".yaml")
+
+    dir2 = os.path.join(dir1, "Resources")
+    if not os.path.exists(dir2):
+        os.makedirs(dir2)
 
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
@@ -321,10 +340,19 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
 
     # check if any service can be added or deleted
     if add_service_name != None:
-        add_service_file = os.path.join(os.getcwd(), add_service_name,
-                                        "Service Resources", "service.yaml")
+        add_service_file = os.path.join(fabric_root, "Services",
+                                        application_resource_name, add_service_name,
+                                        "Service.yaml")
         if os.path.exists(add_service_file):
             CLIError(add_service_name + " service yaml already present.")
+
+        dir1 = os.path.join(os.getcwd(), "ServiceFabric", "Services")
+        if not os.path.exists(dir1):
+            os.makedirs(dir1)
+        dir2 = os.path.join(dir1, application_resource_name)
+        if not os.path.exists(dir2):
+            os.makedirs(dir2)
+
         directory = os.path.dirname(add_service_file)
         if os.path.exists(directory):
             CLIError(directory + " directory already present.")
@@ -361,7 +389,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
 
     # check if any service can be deleted
     if delete_service_name != None:
-        directory = os.path.join(os.getcwd(), delete_service_name)
+        directory = os.path.join(fabric_root, "Services", application_resource_name, delete_service_name)
         if not os.path.exists(directory):
             CLIError(directory + " directory is not present.")
         #delete service dir
