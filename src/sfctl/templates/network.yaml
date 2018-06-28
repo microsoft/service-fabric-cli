@@ -1,0 +1,13 @@
+network:
+  schemaVersion: 1.0.0
+  name: NETWORKNAME
+  properties:
+    description: NETWORKDESCRIPTION
+    addressPrefix: 10.0.0.4/22
+    ingressConfig:
+      layer4:
+        - name: NETWORKINGRESS
+          publicPort: NETWORKPORT
+          applicationName: APPLICATIONRESOURCE
+          serviceName: SERVICERESOURCENAME
+          endpointName: SERVICEENDPOINT

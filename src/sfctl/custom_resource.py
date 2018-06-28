@@ -301,13 +301,12 @@ def init_volume_resource(client, volume_resource_name, volume_resource_provider=
 
 def init_application_resource(client, application_resource_name, #pylint: disable=unused-argument,too-many-branches,too-many-arguments,too-many-locals,too-many-statements
                               add_service_name=None, delete_service_name=None,
-                              container_os='Windows', network_reference=None):
+                              container_os='Windows'):
     """ Initialize the application context
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
-    :param container_os: Container OS type to be used for deployment
-    :param network_reference: Reference of the network defined in the network resource yaml. Please use 'sfctl resources network init' command to generate a network resource definition. #pylint: disable=line-too-long
+    :param container_os: Container OS type to be used for deployment    
     """
     fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
     dir1 = os.path.join(fabric_root)
@@ -359,6 +358,8 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
             CLIError(directory + " directory already present.")
         os.makedirs(directory)
 
+        network_name = "Network_" + application_resource_name + add_service_name
+
         # create service manifest
         filename = getframeinfo(currentframe()).filename
         dir_path = Path(filename).resolve().parent
@@ -372,24 +373,54 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
                     elif 'FabricServiceName' in line:
                         out_file.write(line.replace('FabricServiceName', add_service_name))
                     elif 'FabricServiceImage' in line:
-                        out_file.write(line.replace('FabricServiceImage', add_service_name+'Image:Tag'))#pylint: disable=line-too-long
+                        out_file.write(line.replace('FabricServiceImage',
+                                                    add_service_name+'Image:Tag'))
                     elif 'OsTypeValue' in line:
                         out_file.write(line.replace('OsTypeValue', container_os))
                     elif 'FabricServiceListener' in line:
                         out_file.write(line.replace('FabricServiceListener',
                                                     add_service_name+'Listener'))
                     elif 'FabricServiceNetworkName' in line:
-                        if network_reference is not None:
-                            out_file.write(line.replace('FabricServiceNetworkName', network_reference))#pylint: disable=line-too-long
-                        else:
-                            out_file.write(line.replace('FabricServiceNetworkName',
-                                                        add_service_name+'NetworkName'))
+                        out_file.write(line.replace('FabricServiceNetworkName',
+                                                    network_name))
                     elif 'FabricServicePort' in line:
-                        out_file.write(line.replace('FabricServicePort', str(random.randint(21001, 30000))))#pylint: disable=line-too-long
+                        out_file.write(line.replace('FabricServicePort',
+                                                    str(random.randint(21001, 30000))))
                     else:
                         out_file.write(line)
-
         print('Service Yaml generated is: {}'.format(add_service_file), file=sys.stderr)
+
+        #Generate network yaml for this service
+        network_yaml_path = os.path.join(fabric_root, "Resources", network_name + ".yaml")
+        template_network_path = os.path.join(str(dir_path), "templates", "network.yaml")
+
+        if os.path.exists(network_yaml_path):
+            CLIError(network_yaml_path + " network yaml already present.")
+
+        with open(template_network_path, "rt") as in_file:
+            with open(network_yaml_path, 'wt') as out_file:
+                for line in in_file:
+                    if "NETWORKNAME" in line:
+                        out_file.write(line.replace('NETWORKNAME', network_name))
+                    elif 'NETWORKDESCRIPTION' in line:
+                        out_file.write(line.replace('NETWORKDESCRIPTION', network_name + ' description.'))#pylint: disable=line-too-long
+                    elif 'NETWORKINGRESS' in line:
+                        out_file.write(line.replace('NETWORKINGRESS',
+                                                    add_service_name+'Ingress'))
+                    elif 'APPLICATIONRESOURCE' in line:
+                        out_file.write(line.replace('APPLICATIONRESOURCE', application_resource_name))#pylint: disable=line-too-long
+                    elif 'SERVICERESOURCENAME' in line:
+                        out_file.write(line.replace('SERVICERESOURCENAME',
+                                                    add_service_name))
+                    elif 'SERVICEENDPOINT' in line:
+                        out_file.write(line.replace('SERVICEENDPOINT',
+                                                    add_service_name+'Listener'))
+                    elif 'NETWORKPORT' in line:
+                        out_file.write(line.replace('NETWORKPORT',
+                                                    str(random.randint(21001, 30000))))
+                    else:
+                        out_file.write(line)
+        print('Network Yaml generated is: {}'.format(network_yaml_path), file=sys.stderr)
 
     # check if any service can be deleted
     if delete_service_name != None:
@@ -398,7 +429,12 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
             CLIError(directory + " directory is not present.")
         #delete service dir
         shutil.rmtree(directory)
-        #print('directory deleted is: ' + directory)
+
+        #Delete network yaml for this service
+        network_name = "Network_" + application_resource_name + delete_service_name
+        network_yaml_path = os.path.join(fabric_root, "Resources", network_name + ".yaml")
+        if os.path.exists(network_yaml_path):
+            os.remove(network_yaml_path)
 
 def validate_resources(client, file_paths): #pylint: disable=unused-argument
     """ Performs a high level validation of the provided yaml files
