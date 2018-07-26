@@ -4,6 +4,11 @@ python:
   - 3.5
   - 3.6
   - 3.7
+    dist: xenial
+    sudo: true
+# The above 2 lines are a workaround to get python 3.7 support to work.
+# Remove when Travis officially supports 3.7
+
 git:
   depth: 3
 install:
@@ -20,7 +25,4 @@ branches:
   only:
     - master
 
-# The following lines are a workaround to get python 3.7 support to work.
-# Remove when Travis officially supports 3.7
-dist: xenial
-sudo: true
+
