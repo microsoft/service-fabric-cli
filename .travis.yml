@@ -19,3 +19,8 @@ after_success:
 branches:
   only:
     - master
+
+# The following lines are a workaround to get python 3.7 support to work.
+# Remove when Travis officially supports 3.7
+dist: xenial
+sudo: true
