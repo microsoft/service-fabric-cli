@@ -204,11 +204,11 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme, #pylint:
     if named_scheme:
         return NamedPartitionSchemeDescription(count=len(named_scheme_list),
                                                names=named_scheme_list)
-    elif int_scheme:
+    if int_scheme:
         return UniformInt64RangePartitionSchemeDescription(count=int_scheme_count,
                                                            low_key=int_scheme_low,
                                                            high_key=int_scheme_high)
-    elif singleton_scheme:
+    if singleton_scheme:
         return SingletonPartitionSchemeDescription()
 
     return None

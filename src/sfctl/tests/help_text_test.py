@@ -29,7 +29,7 @@ class HelpTextTests(unittest.TestCase):
 
         line = line.strip()
 
-        if (section == 'Command') or (section == 'Group'):
+        if section in ('Command', 'Group'):
             # if the line starts with the inputted command, then it describes the command.
             # make sure the line has text after it
             if line.startswith(command_input):
@@ -40,7 +40,7 @@ class HelpTextTests(unittest.TestCase):
 
             return subgroups_index, commands_index
 
-        elif section == 'Arguments':
+        if section == 'Arguments':
             # For lines that start with '--' (for argument descriptions), make sure that
             # there is something after the argument declaration
             if line.startswith('--'):
@@ -56,7 +56,7 @@ class HelpTextTests(unittest.TestCase):
 
             return subgroups_index, commands_index
 
-        elif (section == 'Commands') or (section == 'Subgroups'):
+        if section in ('Commands', 'Subgroups'):
             # Make sure that if the line starts with the command/group in
             # the expected tuple, that a description follows it.
             # The line will either start with the name provided in the expected tuple,
@@ -101,11 +101,10 @@ class HelpTextTests(unittest.TestCase):
 
             return subgroups_index, commands_index
 
-        else:
-            self.fail('Section name {0} is not supported'.format(section))
-            # The following line will be reached. It is added so pylint does not complain
-            # about inconsistent-return-statements.
-            return subgroups_index, commands_index
+        self.fail('Section name {0} is not supported'.format(section))
+        # The following line will be reached. It is added so pylint does not complain
+        # about inconsistent-return-statements.
+        return subgroups_index, commands_index
 
     @classmethod
     def _validate_output_read_section_name(cls, line):
@@ -121,15 +120,14 @@ class HelpTextTests(unittest.TestCase):
             line = line.strip().rstrip(':')
             if line == 'Commands':
                 return 'Commands'
-            elif (line == 'Arguments') or (line == 'Global Arguments'):
+            if line in ('Arguments', 'Global Arguments'):
                 return 'Arguments'
-            elif line == 'Group':
+            if line == 'Group':
                 return 'Group'
-            elif line == 'Subgroups':
+            if line == 'Subgroups':
                 return 'Subgroups'
-            elif line == 'Command':
+            if line == 'Command':
                 return 'Command'
-        return None
 
     def validate_output(self, command_input, subgroups=(), commands=()):  # pylint: disable=too-many-locals
         """

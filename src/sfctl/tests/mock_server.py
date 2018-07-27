@@ -20,12 +20,10 @@ class MockServer(BaseHTTPRequestHandler):
     def do_GET(self):  # pylint: disable=C0103,missing-docstring
         self.send_response(requests.codes.ok)
         self.end_headers()
-        return
 
     def do_PUSH(self):  # pylint: disable=C0103,missing-docstring
         self.send_response(requests.codes.ok)
         self.end_headers()
-        return
 
     def do_POST(self):  # pylint: disable=C0103,missing-docstring
         # Certain requests expect a very specific response.
@@ -45,19 +43,16 @@ class MockServer(BaseHTTPRequestHandler):
         # Return ok as the default response
         self.send_response(requests.codes.ok)
         self.end_headers()
-        return
 
     def do_PUT(self):  # pylint: disable=C0103,missing-docstring
         # Return 200 as the default response
         self.send_response(requests.codes.ok)
         self.end_headers()
-        return
 
     def do_DELETE(self):  # pylint: disable=C0103,missing-docstring
         # Return 200 as the default response
         self.send_response(requests.codes.ok)
         self.end_headers()
-        return
 
 
 def find_localhost_free_port():
