@@ -129,6 +129,8 @@ class HelpTextTests(unittest.TestCase):
             if line == 'Command':
                 return 'Command'
 
+            return None
+
     def validate_output(self, command_input, subgroups=(), commands=()):  # pylint: disable=too-many-locals
         """
         This function verifies that the returned help text is correct, and that no exceptions
