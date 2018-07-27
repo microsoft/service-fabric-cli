@@ -3,11 +3,14 @@ python:
   - 2.7
   - 3.5
   - 3.6
-  - 3.7
-    dist: xenial
-    sudo: true
-# The above 2 lines are a workaround to get python 3.7 support to work.
+
+# The below lines are a workaround to get python 3.7 support to work.
 # Remove when Travis officially supports 3.7
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
 git:
   depth: 3
