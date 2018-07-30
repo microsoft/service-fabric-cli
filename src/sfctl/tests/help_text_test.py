@@ -129,7 +129,7 @@ class HelpTextTests(unittest.TestCase):
             if line == 'Command':
                 return 'Command'
 
-            return None
+        return None
 
     def validate_output(self, command_input, subgroups=(), commands=()):  # pylint: disable=too-many-locals
         """

@@ -16,9 +16,8 @@ class RestoreProgressInfo(Model):
     """Describes the progress of a restore operation on a partition.
 
     :param restore_state: Represents the current state of the partition
-     restore operation.
-     . Possible values include: 'Invalid', 'Accepted', 'RestoreInProgress',
-     'Success', 'Failure', 'Timeout'
+     restore operation. Possible values include: 'Invalid', 'Accepted',
+     'RestoreInProgress', 'Success', 'Failure', 'Timeout'
     :type restore_state: str or ~azure.servicefabric.models.RestoreState
     :param time_stamp_utc: Timestamp when operation succeeded or failed.
     :type time_stamp_utc: datetime
@@ -40,10 +39,10 @@ class RestoreProgressInfo(Model):
         'failure_error': {'key': 'FailureError', 'type': 'FabricErrorError'},
     }
 
-    def __init__(self, restore_state=None, time_stamp_utc=None, restored_epoch=None, restored_lsn=None, failure_error=None):
-        super(RestoreProgressInfo, self).__init__()
-        self.restore_state = restore_state
-        self.time_stamp_utc = time_stamp_utc
-        self.restored_epoch = restored_epoch
-        self.restored_lsn = restored_lsn
-        self.failure_error = failure_error
+    def __init__(self, **kwargs):
+        super(RestoreProgressInfo, self).__init__(**kwargs)
+        self.restore_state = kwargs.get('restore_state', None)
+        self.time_stamp_utc = kwargs.get('time_stamp_utc', None)
+        self.restored_epoch = kwargs.get('restored_epoch', None)
+        self.restored_lsn = kwargs.get('restored_lsn', None)
+        self.failure_error = kwargs.get('failure_error', None)

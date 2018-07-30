@@ -16,11 +16,10 @@ class ChaosSchedule(Model):
     """Defines the schedule used by Chaos.
 
     :param start_date: The date and time Chaos will start using this schedule.
-     . Default value: "1601-01-01T00:00:00Z" .
+     Default value: "1601-01-01T00:00:00Z" .
     :type start_date: datetime
     :param expiry_date: The date and time Chaos will continue to use this
-     schedule until.
-     . Default value: "9999-12-31T23:59:59.999Z" .
+     schedule until. Default value: "9999-12-31T23:59:59.999Z" .
     :type expiry_date: datetime
     :param chaos_parameters_dictionary: A mapping of string names to Chaos
      Parameters to be referenced by Chaos Schedule Jobs.
@@ -38,9 +37,9 @@ class ChaosSchedule(Model):
         'jobs': {'key': 'Jobs', 'type': '[ChaosScheduleJob]'},
     }
 
-    def __init__(self, start_date="1601-01-01T00:00:00Z", expiry_date="9999-12-31T23:59:59.999Z", chaos_parameters_dictionary=None, jobs=None):
-        super(ChaosSchedule, self).__init__()
-        self.start_date = start_date
-        self.expiry_date = expiry_date
-        self.chaos_parameters_dictionary = chaos_parameters_dictionary
-        self.jobs = jobs
+    def __init__(self, **kwargs):
+        super(ChaosSchedule, self).__init__(**kwargs)
+        self.start_date = kwargs.get('start_date', "1601-01-01T00:00:00Z")
+        self.expiry_date = kwargs.get('expiry_date', "9999-12-31T23:59:59.999Z")
+        self.chaos_parameters_dictionary = kwargs.get('chaos_parameters_dictionary', None)
+        self.jobs = kwargs.get('jobs', None)
