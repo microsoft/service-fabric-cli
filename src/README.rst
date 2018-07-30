@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
+6.0.0
 -----
 - Add application health policies parameter for config upgrade, which are available in Service Fabric runtime 6.3 (#92)
 - Add command sfctl cluster show-connection. Command shows the currently connected cluster connection. Nothing is returned if no endpoint is set (#103)
