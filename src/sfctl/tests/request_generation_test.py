@@ -334,7 +334,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'sfctl node list --continuation-token=nodeId --node-status-filter=up',
             'GET',
             '/Nodes',
-            ['api-version=6.0', 'ContinuationToken=nodeId', 'NodeStatusFilter=up'])
+            ['api-version=6.3', 'ContinuationToken=nodeId', 'NodeStatusFilter=up'])
         self.validate_command(  # load
             'sfctl node load --node-name=nodeName',
             'GET',
