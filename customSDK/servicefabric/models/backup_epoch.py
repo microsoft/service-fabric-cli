@@ -18,6 +18,7 @@ class BackupEpoch(Model):
     replica changes, the operations that are replicated from the new Primary
     replica are said to be a new Epoch from the ones which were sent by the old
     Primary replica.
+    .
 
     :param configuration_number: The current configuration number of this
      Epoch. The configuration number is an increasing value that is updated
@@ -35,7 +36,7 @@ class BackupEpoch(Model):
         'data_loss_number': {'key': 'DataLossNumber', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(BackupEpoch, self).__init__(**kwargs)
-        self.configuration_number = kwargs.get('configuration_number', None)
-        self.data_loss_number = kwargs.get('data_loss_number', None)
+    def __init__(self, configuration_number=None, data_loss_number=None):
+        super(BackupEpoch, self).__init__()
+        self.configuration_number = configuration_number
+        self.data_loss_number = data_loss_number

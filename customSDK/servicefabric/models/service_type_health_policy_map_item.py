@@ -14,14 +14,13 @@ from msrest.serialization import Model
 
 class ServiceTypeHealthPolicyMapItem(Model):
     """Defines an item in ServiceTypeHealthPolicyMap.
+    .
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param key: Required. The key of the service type health policy map item.
-     This is the name of the service type.
+    :param key: The key of the service type health policy map item. This is
+     the name of the service type.
     :type key: str
-    :param value: Required. The value of the service type health policy map
-     item. This is the ServiceTypeHealthPolicy for this service type.
+    :param value: The value of the service type health policy map item. This
+     is the ServiceTypeHealthPolicy for this service type.
     :type value: ~azure.servicefabric.models.ServiceTypeHealthPolicy
     """
 
@@ -35,7 +34,7 @@ class ServiceTypeHealthPolicyMapItem(Model):
         'value': {'key': 'Value', 'type': 'ServiceTypeHealthPolicy'},
     }
 
-    def __init__(self, **kwargs):
-        super(ServiceTypeHealthPolicyMapItem, self).__init__(**kwargs)
-        self.key = kwargs.get('key', None)
-        self.value = kwargs.get('value', None)
+    def __init__(self, key, value):
+        super(ServiceTypeHealthPolicyMapItem, self).__init__()
+        self.key = key
+        self.value = value

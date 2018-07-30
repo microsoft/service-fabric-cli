@@ -15,14 +15,12 @@ from .partition_scheme_description import PartitionSchemeDescription
 class NamedPartitionSchemeDescription(PartitionSchemeDescription):
     """Describes the named partition scheme of the service.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param partition_scheme: Required. Constant filled by server.
+    :param partition_scheme: Constant filled by server.
     :type partition_scheme: str
-    :param count: Required. The number of partitions.
+    :param count: The number of partitions.
     :type count: int
-    :param names: Required. Array of size specified by the ‘Count’ parameter,
-     for the names of the partitions.
+    :param names: Array of size specified by the ‘Count’ parameter, for the
+     names of the partitions.
     :type names: list[str]
     """
 
@@ -38,8 +36,8 @@ class NamedPartitionSchemeDescription(PartitionSchemeDescription):
         'names': {'key': 'Names', 'type': '[str]'},
     }
 
-    def __init__(self, **kwargs):
-        super(NamedPartitionSchemeDescription, self).__init__(**kwargs)
-        self.count = kwargs.get('count', None)
-        self.names = kwargs.get('names', None)
+    def __init__(self, count, names):
+        super(NamedPartitionSchemeDescription, self).__init__()
+        self.count = count
+        self.names = names
         self.partition_scheme = 'Named'

@@ -17,13 +17,12 @@ class ReplicatorStatus(Model):
     Contains information about the service fabric replicator like the
     replication/copy queue utilization, last acknowledgement received
     timestamp, etc.
+    .
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: PrimaryReplicatorStatus, SecondaryReplicatorStatus
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -39,6 +38,6 @@ class ReplicatorStatus(Model):
         'kind': {'Primary': 'PrimaryReplicatorStatus', 'SecondaryReplicatorStatus': 'SecondaryReplicatorStatus'}
     }
 
-    def __init__(self, **kwargs):
-        super(ReplicatorStatus, self).__init__(**kwargs)
+    def __init__(self):
+        super(ReplicatorStatus, self).__init__()
         self.kind = None

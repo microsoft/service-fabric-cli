@@ -17,12 +17,10 @@ class WaitingChaosEvent(ChaosEvent):
     cluster to become ready for faulting, for example, Chaos may be waiting for
     the on-going upgrade to finish.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param time_stamp_utc: Required. The UTC timestamp when this Chaos event
-     was generated.
+    :param time_stamp_utc: The UTC timestamp when this Chaos event was
+     generated.
     :type time_stamp_utc: datetime
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param reason: Describes why the WaitingChaosEvent was generated, for
      example, due to a cluster upgrade.
@@ -40,7 +38,7 @@ class WaitingChaosEvent(ChaosEvent):
         'reason': {'key': 'Reason', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(WaitingChaosEvent, self).__init__(**kwargs)
-        self.reason = kwargs.get('reason', None)
+    def __init__(self, time_stamp_utc, reason=None):
+        super(WaitingChaosEvent, self).__init__(time_stamp_utc=time_stamp_utc)
+        self.reason = reason
         self.kind = 'Waiting'

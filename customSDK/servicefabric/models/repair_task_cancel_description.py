@@ -16,10 +16,9 @@ class RepairTaskCancelDescription(Model):
     """Describes a request to cancel a repair task.
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
+    .
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param task_id: Required. The ID of the repair task.
+    :param task_id: The ID of the repair task.
     :type task_id: str
     :param version: The current version number of the repair task. If
      non-zero, then the request will only succeed if this value matches the
@@ -42,8 +41,8 @@ class RepairTaskCancelDescription(Model):
         'request_abort': {'key': 'RequestAbort', 'type': 'bool'},
     }
 
-    def __init__(self, **kwargs):
-        super(RepairTaskCancelDescription, self).__init__(**kwargs)
-        self.task_id = kwargs.get('task_id', None)
-        self.version = kwargs.get('version', None)
-        self.request_abort = kwargs.get('request_abort', None)
+    def __init__(self, task_id, version=None, request_abort=None):
+        super(RepairTaskCancelDescription, self).__init__()
+        self.task_id = task_id
+        self.version = version
+        self.request_abort = request_abort

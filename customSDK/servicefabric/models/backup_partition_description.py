@@ -24,6 +24,6 @@ class BackupPartitionDescription(Model):
         'backup_storage': {'key': 'BackupStorage', 'type': 'BackupStorageDescription'},
     }
 
-    def __init__(self, **kwargs):
-        super(BackupPartitionDescription, self).__init__(**kwargs)
-        self.backup_storage = kwargs.get('backup_storage', None)
+    def __init__(self, backup_storage=None):
+        super(BackupPartitionDescription, self).__init__()
+        self.backup_storage = backup_storage

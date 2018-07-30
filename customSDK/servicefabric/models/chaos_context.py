@@ -19,6 +19,7 @@ class ChaosContext(Model):
     (key or value) can be at most 4095 characters long.
     This map is set by the starter of the Chaos run to optionally store the
     context about the specific run.
+    .
 
     :param map: Describes a map that contains a collection of
      ChaosContextMapItem's.
@@ -29,6 +30,6 @@ class ChaosContext(Model):
         'map': {'key': 'Map', 'type': '{str}'},
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosContext, self).__init__(**kwargs)
-        self.map = kwargs.get('map', None)
+    def __init__(self, map=None):
+        super(ChaosContext, self).__init__()
+        self.map = map

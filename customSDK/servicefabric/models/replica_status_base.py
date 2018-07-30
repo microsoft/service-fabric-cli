@@ -18,9 +18,7 @@ class ReplicaStatusBase(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: KeyValueStoreReplicaStatus
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -36,6 +34,6 @@ class ReplicaStatusBase(Model):
         'kind': {'KeyValueStore': 'KeyValueStoreReplicaStatus'}
     }
 
-    def __init__(self, **kwargs):
-        super(ReplicaStatusBase, self).__init__(**kwargs)
+    def __init__(self):
+        super(ReplicaStatusBase, self).__init__()
         self.kind = None

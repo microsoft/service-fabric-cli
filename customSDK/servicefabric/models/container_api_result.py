@@ -15,10 +15,7 @@ from msrest.serialization import Model
 class ContainerApiResult(Model):
     """Container API result.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param status: Required. HTTP status code returned by the target container
-     API
+    :param status: HTTP status code returned by the target container API
     :type status: int
     :param content_type: HTTP content type
     :type content_type: str
@@ -39,9 +36,9 @@ class ContainerApiResult(Model):
         'body': {'key': 'Body', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ContainerApiResult, self).__init__(**kwargs)
-        self.status = kwargs.get('status', None)
-        self.content_type = kwargs.get('content_type', None)
-        self.content_encoding = kwargs.get('content_encoding', None)
-        self.body = kwargs.get('body', None)
+    def __init__(self, status, content_type=None, content_encoding=None, body=None):
+        super(ContainerApiResult, self).__init__()
+        self.status = status
+        self.content_type = content_type
+        self.content_encoding = content_encoding
+        self.body = body

@@ -20,23 +20,20 @@ class PartitionEvent(FabricEvent):
     PartitionHealthReportExpiredEvent, PartitionReconfigurationCompletedEvent,
     ChaosMoveSecondaryFaultScheduledEvent, ChaosMovePrimaryFaultScheduledEvent
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param event_instance_id: Required. The identifier for the FabricEvent
-     instance.
+    :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
-    :param time_stamp: Required. The time event was logged.
+    :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param partition_id: Required. An internal ID used by Service Fabric to
-     uniquely identify a partition. This is a randomly generated GUID when the
-     service was created. The partition ID is unique and does not change for
-     the lifetime of the service. If the same service was deleted and recreated
-     the IDs of its partitions would be different.
+    :param partition_id: An internal ID used by Service Fabric to uniquely
+     identify a partition. This is a randomly generated GUID when the service
+     was created. The partition ID is unique and does not change for the
+     lifetime of the service. If the same service was deleted and recreated the
+     IDs of its partitions would be different.
     :type partition_id: str
     """
 
@@ -59,7 +56,7 @@ class PartitionEvent(FabricEvent):
         'kind': {'PartitionAnalysisEvent': 'PartitionAnalysisEvent', 'PartitionHealthReportCreated': 'PartitionHealthReportCreatedEvent', 'PartitionHealthReportExpired': 'PartitionHealthReportExpiredEvent', 'PartitionReconfigurationCompleted': 'PartitionReconfigurationCompletedEvent', 'ChaosMoveSecondaryFaultScheduled': 'ChaosMoveSecondaryFaultScheduledEvent', 'ChaosMovePrimaryFaultScheduled': 'ChaosMovePrimaryFaultScheduledEvent'}
     }
 
-    def __init__(self, **kwargs):
-        super(PartitionEvent, self).__init__(**kwargs)
-        self.partition_id = kwargs.get('partition_id', None)
+    def __init__(self, event_instance_id, time_stamp, partition_id, has_correlated_events=None):
+        super(PartitionEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+        self.partition_id = partition_id
         self.kind = 'PartitionEvent'

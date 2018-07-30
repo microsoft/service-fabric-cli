@@ -16,8 +16,6 @@ class StatelessServiceTypeDescription(ServiceTypeDescription):
     """Describes a stateless service type defined in the service manifest of a
     provisioned application type.
 
-    All required parameters must be populated in order to send to Azure.
-
     :param is_stateful: Indicates whether the service type is a stateful
      service type or a stateless service type. This property is true if the
      service type is a stateful service type, false otherwise.
@@ -39,7 +37,7 @@ class StatelessServiceTypeDescription(ServiceTypeDescription):
     :param extensions: List of service type extensions.
     :type extensions:
      list[~azure.servicefabric.models.ServiceTypeExtensionDescription]
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param use_implicit_host: A flag indicating if this type is not
      implemented and hosted by a user service process, but is implicitly hosted
@@ -63,7 +61,7 @@ class StatelessServiceTypeDescription(ServiceTypeDescription):
         'use_implicit_host': {'key': 'UseImplicitHost', 'type': 'bool'},
     }
 
-    def __init__(self, **kwargs):
-        super(StatelessServiceTypeDescription, self).__init__(**kwargs)
-        self.use_implicit_host = kwargs.get('use_implicit_host', None)
+    def __init__(self, is_stateful=None, service_type_name=None, placement_constraints=None, load_metrics=None, service_placement_policies=None, extensions=None, use_implicit_host=None):
+        super(StatelessServiceTypeDescription, self).__init__(is_stateful=is_stateful, service_type_name=service_type_name, placement_constraints=placement_constraints, load_metrics=load_metrics, service_placement_policies=service_placement_policies, extensions=extensions)
+        self.use_implicit_host = use_implicit_host
         self.kind = 'Stateless'

@@ -19,9 +19,7 @@ class BackupScheduleDescription(Model):
     sub-classes are: FrequencyBasedBackupScheduleDescription,
     TimeBasedBackupScheduleDescription
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param schedule_kind: Required. Constant filled by server.
+    :param schedule_kind: Constant filled by server.
     :type schedule_kind: str
     """
 
@@ -37,6 +35,6 @@ class BackupScheduleDescription(Model):
         'schedule_kind': {'FrequencyBased': 'FrequencyBasedBackupScheduleDescription', 'TimeBased': 'TimeBasedBackupScheduleDescription'}
     }
 
-    def __init__(self, **kwargs):
-        super(BackupScheduleDescription, self).__init__(**kwargs)
+    def __init__(self):
+        super(BackupScheduleDescription, self).__init__()
         self.schedule_kind = None

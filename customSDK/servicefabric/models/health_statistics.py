@@ -21,6 +21,7 @@ class HealthStatistics(Model):
     for nodes, applications, services, partitions, replicas, deployed
     applications and deployed service packages.
     For partition, the health statistics include health counts for replicas.
+    .
 
     :param health_state_count_list: List of health state counts per entity
      kind, which keeps track of how many children of the queried entity are in
@@ -33,6 +34,6 @@ class HealthStatistics(Model):
         'health_state_count_list': {'key': 'HealthStateCountList', 'type': '[EntityKindHealthStateCount]'},
     }
 
-    def __init__(self, **kwargs):
-        super(HealthStatistics, self).__init__(**kwargs)
-        self.health_state_count_list = kwargs.get('health_state_count_list', None)
+    def __init__(self, health_state_count_list=None):
+        super(HealthStatistics, self).__init__()
+        self.health_state_count_list = health_state_count_list

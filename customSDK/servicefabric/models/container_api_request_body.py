@@ -15,11 +15,9 @@ from msrest.serialization import Model
 class ContainerApiRequestBody(Model):
     """parameters for making container API call.
 
-    All required parameters must be populated in order to send to Azure.
-
     :param http_verb: HTTP verb of container REST API, defaults to "GET"
     :type http_verb: str
-    :param uri_path: Required. URI path of container REST API
+    :param uri_path: URI path of container REST API
     :type uri_path: str
     :param content_type: Content type of container REST API request, defaults
      to "application/json"
@@ -39,9 +37,9 @@ class ContainerApiRequestBody(Model):
         'body': {'key': 'Body', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ContainerApiRequestBody, self).__init__(**kwargs)
-        self.http_verb = kwargs.get('http_verb', None)
-        self.uri_path = kwargs.get('uri_path', None)
-        self.content_type = kwargs.get('content_type', None)
-        self.body = kwargs.get('body', None)
+    def __init__(self, uri_path, http_verb=None, content_type=None, body=None):
+        super(ContainerApiRequestBody, self).__init__()
+        self.http_verb = http_verb
+        self.uri_path = uri_path
+        self.content_type = content_type
+        self.body = body

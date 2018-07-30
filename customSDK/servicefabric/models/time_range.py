@@ -28,7 +28,7 @@ class TimeRange(Model):
         'end_time': {'key': 'EndTime', 'type': 'TimeOfDay'},
     }
 
-    def __init__(self, **kwargs):
-        super(TimeRange, self).__init__(**kwargs)
-        self.start_time = kwargs.get('start_time', None)
-        self.end_time = kwargs.get('end_time', None)
+    def __init__(self, start_time=None, end_time=None):
+        super(TimeRange, self).__init__()
+        self.start_time = start_time
+        self.end_time = end_time

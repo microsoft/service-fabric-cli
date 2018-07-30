@@ -16,13 +16,12 @@ class RepairTargetDescriptionBase(Model):
     """Describes the entities targeted by a repair action.
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
+    .
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: NodeRepairTargetDescription
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -38,6 +37,6 @@ class RepairTargetDescriptionBase(Model):
         'kind': {'Node': 'NodeRepairTargetDescription'}
     }
 
-    def __init__(self, **kwargs):
-        super(RepairTargetDescriptionBase, self).__init__(**kwargs)
+    def __init__(self):
+        super(RepairTargetDescriptionBase, self).__init__()
         self.kind = None

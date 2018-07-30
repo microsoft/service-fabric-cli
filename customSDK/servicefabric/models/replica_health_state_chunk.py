@@ -17,6 +17,7 @@ class ReplicaHealthStateChunk(EntityHealthStateChunk):
     stateless service instance.
     The replica health state contains the replica ID and its aggregated health
     state.
+    .
 
     :param health_state: The health state of a Service Fabric entity such as
      Cluster, Node, Application, Service, Partition, Replica etc. Possible
@@ -40,6 +41,6 @@ class ReplicaHealthStateChunk(EntityHealthStateChunk):
         'replica_or_instance_id': {'key': 'ReplicaOrInstanceId', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ReplicaHealthStateChunk, self).__init__(**kwargs)
-        self.replica_or_instance_id = kwargs.get('replica_or_instance_id', None)
+    def __init__(self, health_state=None, replica_or_instance_id=None):
+        super(ReplicaHealthStateChunk, self).__init__(health_state=health_state)
+        self.replica_or_instance_id = replica_or_instance_id

@@ -19,9 +19,7 @@ class ScalingTriggerDescription(Model):
     sub-classes are: AveragePartitionLoadScalingTrigger,
     AverageServiceLoadScalingTrigger
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -37,6 +35,6 @@ class ScalingTriggerDescription(Model):
         'kind': {'AveragePartitionLoad': 'AveragePartitionLoadScalingTrigger', 'AverageServiceLoad': 'AverageServiceLoadScalingTrigger'}
     }
 
-    def __init__(self, **kwargs):
-        super(ScalingTriggerDescription, self).__init__(**kwargs)
+    def __init__(self):
+        super(ScalingTriggerDescription, self).__init__()
         self.kind = None

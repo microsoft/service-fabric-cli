@@ -15,10 +15,7 @@ from msrest.serialization import Model
 class ResumeClusterUpgradeDescription(Model):
     """Describes the parameters for resuming a cluster upgrade.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param upgrade_domain: Required. The next upgrade domain for this cluster
-     upgrade.
+    :param upgrade_domain: The next upgrade domain for this cluster upgrade.
     :type upgrade_domain: str
     """
 
@@ -30,6 +27,6 @@ class ResumeClusterUpgradeDescription(Model):
         'upgrade_domain': {'key': 'UpgradeDomain', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ResumeClusterUpgradeDescription, self).__init__(**kwargs)
-        self.upgrade_domain = kwargs.get('upgrade_domain', None)
+    def __init__(self, upgrade_domain):
+        super(ResumeClusterUpgradeDescription, self).__init__()
+        self.upgrade_domain = upgrade_domain

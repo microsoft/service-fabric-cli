@@ -16,18 +16,16 @@ class AddRemoveIncrementalNamedPartitionScalingMechanism(ScalingMechanismDescrip
     """Represents a scaling mechanism for adding or removing named partitions of a
     stateless service. Partition names are in the format '0','1''N-1'.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param min_partition_count: Required. Minimum number of named partitions
-     of the service.
+    :param min_partition_count: Minimum number of named partitions of the
+     service.
     :type min_partition_count: int
-    :param max_partition_count: Required. Maximum number of named partitions
-     of the service.
+    :param max_partition_count: Maximum number of named partitions of the
+     service.
     :type max_partition_count: int
-    :param scale_increment: Required. The number of instances to add or remove
-     during a scaling operation.
+    :param scale_increment: The number of instances to add or remove during a
+     scaling operation.
     :type scale_increment: int
     """
 
@@ -45,9 +43,9 @@ class AddRemoveIncrementalNamedPartitionScalingMechanism(ScalingMechanismDescrip
         'scale_increment': {'key': 'ScaleIncrement', 'type': 'int'},
     }
 
-    def __init__(self, **kwargs):
-        super(AddRemoveIncrementalNamedPartitionScalingMechanism, self).__init__(**kwargs)
-        self.min_partition_count = kwargs.get('min_partition_count', None)
-        self.max_partition_count = kwargs.get('max_partition_count', None)
-        self.scale_increment = kwargs.get('scale_increment', None)
+    def __init__(self, min_partition_count, max_partition_count, scale_increment):
+        super(AddRemoveIncrementalNamedPartitionScalingMechanism, self).__init__()
+        self.min_partition_count = min_partition_count
+        self.max_partition_count = max_partition_count
+        self.scale_increment = scale_increment
         self.kind = 'AddRemoveIncrementalNamedPartition'

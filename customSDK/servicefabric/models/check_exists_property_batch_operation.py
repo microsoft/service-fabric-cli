@@ -21,15 +21,14 @@ class CheckExistsPropertyBatchOperation(PropertyBatchOperation):
     for the write operations in the batch.
     Note that if one PropertyBatchOperation in a PropertyBatch fails,
     the entire batch fails and cannot be committed in a transactional manner.
+    .
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param property_name: Required. The name of the Service Fabric property.
+    :param property_name: The name of the Service Fabric property.
     :type property_name: str
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param exists: Required. Whether or not the property should exist for the
-     operation to pass.
+    :param exists: Whether or not the property should exist for the operation
+     to pass.
     :type exists: bool
     """
 
@@ -45,7 +44,7 @@ class CheckExistsPropertyBatchOperation(PropertyBatchOperation):
         'exists': {'key': 'Exists', 'type': 'bool'},
     }
 
-    def __init__(self, **kwargs):
-        super(CheckExistsPropertyBatchOperation, self).__init__(**kwargs)
-        self.exists = kwargs.get('exists', None)
+    def __init__(self, property_name, exists):
+        super(CheckExistsPropertyBatchOperation, self).__init__(property_name=property_name)
+        self.exists = exists
         self.kind = 'CheckExists'

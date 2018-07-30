@@ -15,9 +15,7 @@ from msrest.serialization import Model
 class ContainerApiResponse(Model):
     """Response body that wraps container API result.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param container_api_result: Required. Container API result.
+    :param container_api_result: Container API result.
     :type container_api_result: ~azure.servicefabric.models.ContainerApiResult
     """
 
@@ -29,6 +27,6 @@ class ContainerApiResponse(Model):
         'container_api_result': {'key': 'ContainerApiResult', 'type': 'ContainerApiResult'},
     }
 
-    def __init__(self, **kwargs):
-        super(ContainerApiResponse, self).__init__(**kwargs)
-        self.container_api_result = kwargs.get('container_api_result', None)
+    def __init__(self, container_api_result):
+        super(ContainerApiResponse, self).__init__()
+        self.container_api_result = container_api_result
