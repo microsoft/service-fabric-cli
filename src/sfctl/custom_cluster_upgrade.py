@@ -150,7 +150,8 @@ def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name,to
     app_health_policies = parse_app_health_policy(application_health_policies)
 
     upgrade_desc = ClusterConfigurationUpgradeDescription(
-        cluster_config=cluster_config, health_check_retry_timeout=health_check_retry,
+        cluster_config=cluster_config,
+        health_check_retry_timeout=health_check_retry,
         health_check_wait_duration_in_seconds=health_check_wait,
         health_check_stable_duration_in_seconds=health_check_stable,
         upgrade_domain_timeout_in_seconds=upgrade_domain_timeout,
@@ -161,7 +162,9 @@ def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name,to
         max_percent_upgrade_domain_delta_unhealthy_nodes=upgrade_domain_delta_unhealthy_nodes, #pylint: disable=line-too-long
         application_health_policies=app_health_policies)
 
-    client.start_cluster_configuration_upgrade(upgrade_desc, timeout=timeout)
+    client.start_cluster_configuration_upgrade(
+        cluster_configuration_upgrade_description=upgrade_desc,
+        timeout=timeout)
 
 def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, upgrade_kind='Rolling', rolling_upgrade_mode='UnmonitoredAuto',
