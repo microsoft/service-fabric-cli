@@ -1,6 +1,5 @@
 from os import path, pardir
 from shutil import rmtree, copytree
-from subprocess import (Popen, PIPE)
 import pip
 
 
@@ -59,7 +58,14 @@ def get_path_public_sdk():
     """
 
     # Check the location where the service fabric python SDK is installed
-    return pip.locations.site_packages
+    try:
+        # pip version 18 (or really, 10+) does not have locations.
+        # If this command fails, try something else.
+        # pip.locations was an internal command to pip, and has since been removed
+        return pip.locations.site_packages
+    except:
+        # this is a quick and dirty fix. The plan is to deprecate this whole script, so this will do
+        return path.dirname(pip.__path__[0])
 
 
 def check_and_use_custom_sdk():
