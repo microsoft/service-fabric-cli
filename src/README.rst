@@ -21,6 +21,7 @@ Change Log
 - Add application health policies parameter for config upgrade, which are available in Service Fabric runtime 6.3 (#92)
 - Add command "sfctl cluster show-connection". Command shows the currently connected cluster connection. Nothing is returned if no endpoint is set (#103)
 - Add command override "sfctl --version" to see the current sfctl version (#104)
+- Add parameter to set max results for query "sfctl node list" (#113)
 
 5.0.0
 -----
