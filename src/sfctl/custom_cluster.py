@@ -53,7 +53,7 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     #pylint: disable-msg=too-many-locals
     """
     Connects to a Service Fabric cluster endpoint.
-    If connecting to secure cluster specify an absolute path to a cert (.crt)
+    If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, specify also an absolute
     path to a CA bundle file or directory of trusted CA certs.

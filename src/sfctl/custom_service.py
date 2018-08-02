@@ -355,7 +355,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param str int_scheme_high: The end of the key integer range, if using an
     uniform integer partition scheme.
     :param str int_scheme_count: The number of partitions inside the integer
-    key range to create, if using an uniform integer partition scheme.
+    key range to create, if using a uniform integer partition scheme.
     :param str constraints: The placement constraints as a string. Placement
     constraints are boolean expressions on node properties and allow for
     restricting a service to particular nodes based on the service
@@ -632,7 +632,7 @@ def package_upload(client, node_name, service_manifest_name, app_type_name, #pyl
     :param str share_policy: JSON encoded list of sharing policies. Each
     sharing policy element is composed of a 'name' and 'scope'. The name
     corresponds to the name of the code, configuration, or data package that
-    is to be shared. The scope can either 'None', 'All', 'Code', 'Config' or
+    is to be shared. The scope can be either 'None', 'All', 'Code', 'Config' or
     'Data'.
     """
     from azure.servicefabric.models.deploy_service_package_to_node_description import DeployServicePackageToNodeDescription #pylint: disable=line-too-long
