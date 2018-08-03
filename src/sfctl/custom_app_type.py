@@ -117,5 +117,3 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
 
     if response.status_code not in [200, 202]:
         raise FabricErrorException(client._deserialize, response)
-
-    return None

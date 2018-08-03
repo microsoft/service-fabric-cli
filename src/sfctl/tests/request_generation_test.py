@@ -10,7 +10,7 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-from os import (remove, environ, path)
+from os import (remove, path)
 import json
 import logging
 import vcr
@@ -18,7 +18,7 @@ from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
 from sfctl.entry import cli
-from sfctl.tests.helpers import MOCK_CONFIG
+from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_body_validation import (validate_flat_dictionary, validate_json)
 
@@ -39,8 +39,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         cli_env = cli()
         super(ServiceFabricRequestTests, self).__init__(cli_env, method_name)
 
-        # Save the value of SF_TEST_ENDPOINT set by the user
-        self.old_endpoint = environ.get('SF_TEST_ENDPOINT', '')
+        # Save the value of cluster endpoint set by the user
+        self.old_endpoint = get_mock_endpoint()
         self.port = find_localhost_free_port()
 
         # Start mock server
@@ -48,7 +48,7 @@ class ServiceFabricRequestTests(ScenarioTest):
 
     def __exit__(self, exception_type, exception_value, traceback):
         # Revert the environment variables we changed during the test to what the user set.
-        environ['SF_TEST_ENDPOINT'] = self.old_endpoint
+        set_mock_endpoint(self.old_endpoint)
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
@@ -181,7 +181,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         (generating the correct URL). """
 
         # Set test URL path to that of our mock server
-        environ['SF_TEST_ENDPOINT'] = 'http://localhost:' + str(self.port)
+        set_mock_endpoint('http://localhost:' + str(self.port))
 
         # Call test
         self.paths_generation_helper()
@@ -332,10 +332,10 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Nodes/nodeName',
             ['api-version=6.0'])
         self.validate_command(  # list
-            'sfctl node list --continuation-token=nodeId --node-status-filter=up',
+            'sfctl node list --continuation-token=nodeId --node-status-filter=up --max-results=3',
             'GET',
             '/Nodes',
-            ['api-version=6.0', 'ContinuationToken=nodeId', 'NodeStatusFilter=up'])
+            ['api-version=6.3', 'ContinuationToken=nodeId', 'NodeStatusFilter=up', 'MaxResults=3'])
         self.validate_command(  # load
             'sfctl node load --node-name=nodeName',
             'GET',

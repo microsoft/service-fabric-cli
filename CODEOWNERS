@@ -3,9 +3,9 @@
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @samedder and @christina-kang will be requested for
+# @samedder, @christina-kang, and @jeffj6123 will be requested for
 # review when someone opens a pull request.
-*       @samedder @christina-kang
+*       @samedder @christina-kang @jeffj6123
 
 # Order is important; the last matching pattern takes the most
 # precedence. When someone opens a pull request that only
@@ -47,3 +47,6 @@ src/sfctl/custom_container.py @leikong
 # Cluster Upgrade related
 src/sfctl/custom_cluster_upgrade.py @jkochhar
 src/sfctl/helps/cluster_upgrade.py @jkochhar
+
+# Version
+src/sfctl/custom_version.py @jeffj6123

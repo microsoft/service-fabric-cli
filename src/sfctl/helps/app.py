@@ -53,7 +53,7 @@ helps['application upgrade'] = """
       that upgrade description replaces the existing application description.
       This means that if the parameters are not specified, the existing
       parameters on the applications will be overwritten with the empty
-      parameters list. This would results in application using the default
+      parameters list. This would result in the application using the default
       value of the parameters from the application manifest.
     parameters:
         - name: --application-id
