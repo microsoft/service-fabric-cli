@@ -306,7 +306,7 @@ def init_application_resource(client, application_resource_name, #pylint: disabl
     :param application_resource_name: Application resource name.
     :param add_service_name: Add a new service to the context with the given name.
     :param delete_service_name: Delete the service from the context with the given name.
-    :param container_os: Container OS type to be used for deployment    
+    :param container_os: Container OS type to be used for deployment
     """
     fabric_root = os.path.join(os.getcwd(), "ServiceFabric")
     dir1 = os.path.join(fabric_root)

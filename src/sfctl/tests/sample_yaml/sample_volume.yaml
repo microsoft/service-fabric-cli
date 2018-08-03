@@ -1,0 +1,10 @@
+volume:
+  schemaVersion: 1.0.0
+  name: someVol
+  properties:
+    description: some Description.
+    provider: sfAzureFile
+    azureFileParameters:
+      shareName: someShare
+      accountName: someAccount
+      accountKey: someKey
