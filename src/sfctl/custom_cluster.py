@@ -8,8 +8,8 @@
 
 from __future__ import print_function
 from knack.util import CLIError
-
 import adal
+from sfctl.config import client_endpoint
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
@@ -39,12 +39,21 @@ def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: di
     if pem and any([cert, key]):
         raise CLIError(usage)
 
+def show_connection():
+    """Show which Service Fabric cluster this sfctl instance is connected to."""
+    endpoint = client_endpoint()
+
+    if not endpoint:
+        return None
+
+    return endpoint
+
 def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):
     #pylint: disable-msg=too-many-locals
     """
     Connects to a Service Fabric cluster endpoint.
-    If connecting to secure cluster specify an absolute path to a cert (.crt)
+    If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, specify also an absolute
     path to a CA bundle file or directory of trusted CA certs.

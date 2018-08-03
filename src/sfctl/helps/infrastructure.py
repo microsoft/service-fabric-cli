@@ -29,7 +29,7 @@ helps['is command'] = """
           short-summary: The identity of the infrastructure service.
           long-summary: This is the full name of the infrastructure service
             without the 'fabric' URI scheme. This parameter required only for
-            the cluster that have more than one instance of infrastructure
+            the cluster that has more than one instance of infrastructure
             service running.
 """
 
@@ -54,6 +54,6 @@ helps['is query'] = """
           short-summary: The identity of the infrastructure service.
           long-summary: This is the full name of the infrastructure service
             without the 'fabric:' URI scheme. This parameter required only for
-            the cluster that have more than one instance of infrastructure
+            the cluster that has more than one instance of infrastructure
             service running.
 """

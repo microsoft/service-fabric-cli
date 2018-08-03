@@ -190,4 +190,4 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
                              chaos_parameters_dictionary=parsed_chaos_params_dictionary,
                              jobs=parsed_jobs)
 
-    return client.post_chaos_schedule(timeout, version, schedule)
+    return client.post_chaos_schedule(timeout=timeout, version=version, schedule=schedule)

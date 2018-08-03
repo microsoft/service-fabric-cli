@@ -36,11 +36,12 @@ def repo_creds(username, encrypted_password, has_pass):
         return RegistryCredential(registry_user_name=username,
                                   registry_password=encrypted_password,
                                   password_encrypted=True)
-    elif has_pass:
+    if has_pass:
         passphrase = getpass(prompt='Container repository password: ')
         return RegistryCredential(registry_user_name=username,
                                   registry_password=passphrase,
                                   password_encrypted=False)
+
     return RegistryCredential(registry_user_name=username)
 
 def create_app_health_policy(
