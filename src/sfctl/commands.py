@@ -320,10 +320,6 @@ class SFCommandLoader(CLICommandsLoader):
             with super_group.group('resources deployment') as group:
                 group.command('create', 'create_deployment_resource')
                 group.command('validate', 'validate_resources')
-            with super_group.group('resources application') as group:
-                group.command('init', 'init_application_resource')
-            with super_group.group('resources volume') as group:
-                group.command('init', 'init_volume_resource')
 
         return OrderedDict(self.command_table)
 

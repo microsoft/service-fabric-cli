@@ -28,16 +28,6 @@ helps['resources deployment validate'] = """
       short-summary: Comma seperated file paths of all the yaml files
 """
 
-helps['resources application init'] = """
-  type: command
-  short-summary: Initialize current context with applications.yaml
-  long-summary: To be filled long summary
-  parameters:
-    - name: --file-path
-      type: string
-      short-summary: File path of the yaml file
-"""
-
 helps['resources application get'] = """
   type: command
   short-summary: Get information about application resources from the environment
@@ -56,12 +46,6 @@ helps['resources application delete'] = """
     - name: --application-resource-name
       type: string
       short-summary: Name of the Application Resource
-"""
-
-helps['resources volume init'] = """
-  type: command
-  short-summary: Initialize current context with volumes.yaml
-  long-summary: To be filled long summary
 """
 
 helps['resources volume get'] = """

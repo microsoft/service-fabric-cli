@@ -327,11 +327,11 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl resources application',
-            commands=('delete', 'get', 'init'))
+            commands=('delete', 'get'))
 
         self.validate_output(
             'sfctl resources volume',
-            commands=('delete', 'get', 'init'))
+            commands=('delete', 'get'))
 
         self.validate_output(
             'sfctl resources deployment',
