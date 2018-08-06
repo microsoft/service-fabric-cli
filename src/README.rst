@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+6.0.1
+-----
+- Some typo fixes (#115)
+
 6.0.0
 -----
 - Add application health policies parameter for config upgrade, which are available in Service Fabric runtime 6.3 (#92)
