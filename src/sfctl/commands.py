@@ -224,6 +224,14 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_volume_resource')
                 group.command('delete', 'delete_volume_resource')
 
+            with super_group.group('resources service') as group:
+                group.command('list', 'get_services')
+                group.command('get', 'get_service')
+
+            with super_group.group('resources service-replica') as group:
+                group.command('list', 'get_replicas')
+                group.command('get', 'get_replica')
+
         # Custom commands
 
         with CommandSuperGroup(__name__, self,

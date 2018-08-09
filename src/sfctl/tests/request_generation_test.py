@@ -884,6 +884,30 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Resources/Volumes/some~volume~resource~name',
             ['api-version=6.3']
         )
+        self.validate_command( #list service resources
+            'resources service list --application-resource-name some~application~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services',
+            ['api-version=6.3']
+        )
+        self.validate_command( #get service resource
+            'resources service get --application-resource-name some~application~name --service-resource-name some~service~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name',
+            ['api-version=6.3']
+        )
+        self.validate_command( #list service-replica
+            'sfctl resources service-replica list --application-resource-name some~application~name --service-resource-name some~service~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name/Replicas',
+            ['api-version=6.3']
+        )
+        self.validate_command( #get service-replica
+            'sfctl resources service-replica get --application-resource-name some~application~name --service-resource-name some~service~name --replica-name 0',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name/Replicas/0',
+            ['api-version=6.3']
+        )
         file_paths = '"{}","{}"'.format(path.join(sample_yaml_path, 'sample_app.yaml'), path.join(sample_yaml_path, 'sample_service.yaml')).replace('@', '')
         resource_params_file = open(path.join(sample_path_base, 'sample_deployment_resource.txt').replace('@', ''))
         resource_params = resource_params_file.read()

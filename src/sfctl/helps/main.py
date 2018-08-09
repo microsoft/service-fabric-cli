@@ -109,6 +109,16 @@ helps['resources application'] = """
     short-summary: Get and Delete application resources
 """
 
+helps['resources service'] = """
+    type: group
+    short-summary: Get details or List services of an application resource
+"""
+
+helps['resources service-replica'] = """
+    type: group
+    short-summary: Get details or List replicas of a given service in an application resource
+"""
+
 helps['resources volume'] = """
     type: group
     short-summary: Get and Delete volume resources
