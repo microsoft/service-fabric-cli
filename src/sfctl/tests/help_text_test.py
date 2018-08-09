@@ -266,8 +266,8 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl',
-            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'node',
-                       'partition', 'property', 'replica', 'resources', 'rpm', 'sa-cluster',
+            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'mesh', 'node',
+                       'partition', 'property', 'replica', 'rpm', 'sa-cluster',
                        'service', 'store'))
 
         self.validate_output(
@@ -305,6 +305,24 @@ class HelpTextTests(unittest.TestCase):
             commands=('command', 'query'))
 
         self.validate_output(
+            'sfctl mesh app',
+            commands=('delete', 'show'))
+
+        self.validate_output(
+            'sfctl mesh volume',
+            commands=('create', 'delete', 'show'))
+
+        self.validate_output(
+            'sfctl mesh deployment',
+            commands=('create', 'validate'))
+        self.validate_output(
+            'sfctl mesh service',
+            commands=('list', 'show'))
+        self.validate_output(
+            'sfctl mesh service-replica',
+            commands=('list', 'show'))
+
+        self.validate_output(
             'sfctl node',
             commands=('disable', 'enable', 'health', 'info', 'list', 'load', 'remove-state',
                       'report-health', 'restart', 'transition', 'transition-status'))
@@ -324,18 +342,6 @@ class HelpTextTests(unittest.TestCase):
             'sfctl replica',
             commands=('deployed', 'deployed-list', 'health', 'info', 'list', 'remove',
                       'report-health', 'restart'))
-
-        self.validate_output(
-            'sfctl resources application',
-            commands=('delete', 'get'))
-
-        self.validate_output(
-            'sfctl resources volume',
-            commands=('delete', 'get'))
-
-        self.validate_output(
-            'sfctl resources deployment',
-            commands=('create', 'validate'))
 
         self.validate_output(
             'sfctl rpm',

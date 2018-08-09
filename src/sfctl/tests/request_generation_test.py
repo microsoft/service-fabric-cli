@@ -860,50 +860,50 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # Resource Commands:
-        self.validate_command( #get application resource
-            'resources application get --application-resource-name some~application~resource~name',
+        self.validate_command( #show application resource
+            'mesh app show --application-resource-name some~application~resource~name',
             'GET',
             '/Resources/Applications/some~application~resource~name',
             ['api-version=6.3']
         )
         self.validate_command( #delete application resource
-            'resources application delete --application-resource-name some~application~resource~name',
+            'mesh app delete --application-resource-name some~application~resource~name',
             'DELETE',
             '/Resources/Applications/some~application~resource~name',
             ['api-version=6.3']
         )
-        self.validate_command( #get volume resource
-            'resources volume get --volume-resource-name some~volume~resource~name',
+        self.validate_command( #show volume resource
+            'mesh volume show --volume-resource-name some~volume~resource~name',
             'GET',
             '/Resources/Volumes/some~volume~resource~name',
             ['api-version=6.3']
         )
         self.validate_command( #delete volume resource
-            'resources volume delete --volume-resource-name some~volume~resource~name',
+            'mesh volume delete --volume-resource-name some~volume~resource~name',
             'DELETE',
             '/Resources/Volumes/some~volume~resource~name',
             ['api-version=6.3']
         )
         self.validate_command( #list service resources
-            'resources service list --application-resource-name some~application~name',
+            'mesh service list --application-resource-name some~application~name',
             'GET',
             '/Resources/Applications/some~application~name/Services',
             ['api-version=6.3']
         )
-        self.validate_command( #get service resource
-            'resources service get --application-resource-name some~application~name --service-resource-name some~service~name',
+        self.validate_command( #show service resource
+            'mesh service show --application-resource-name some~application~name --service-resource-name some~service~name',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name',
             ['api-version=6.3']
         )
         self.validate_command( #list service-replica
-            'sfctl resources service-replica list --application-resource-name some~application~name --service-resource-name some~service~name',
+            'mesh service-replica list --application-resource-name some~application~name --service-resource-name some~service~name',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name/Replicas',
             ['api-version=6.3']
         )
-        self.validate_command( #get service-replica
-            'sfctl resources service-replica get --application-resource-name some~application~name --service-resource-name some~service~name --replica-name 0',
+        self.validate_command( #show service-replica
+            'mesh service-replica show --application-resource-name some~application~name --service-resource-name some~service~name --replica-name 0',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name/Replicas/0',
             ['api-version=6.3']
@@ -913,7 +913,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         resource_params = resource_params_file.read()
         resource_params_file.close()
         self.validate_command( #create deployment resource
-            'resources deployment create --file-paths {}'.format(file_paths),
+            'mesh deployment create --file-paths {}'.format(file_paths),
             'PUT',
             '/Resources/Applications/someApp',
             ['api-version=6.3'],

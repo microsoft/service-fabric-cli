@@ -253,6 +253,19 @@ def deploy_volume_resources(client, volume_description_list):
         client.create_volume_resource(volume_description.get('volume').get('name'),
                                       volume_description_object)
 
+def create_volume_resource(client, file_path):
+    """ Create a volume resource for the provided yaml file
+    :param file_path: File path of the volume resource which needs to be created
+    """
+    volume_description = get_yaml_content(file_path)
+    resource_type = get_valid_resource_type(file_path, volume_description)
+
+    if not resource_type == ResourceType.volume:
+        raise CLIError('The file %s is not a valid volume resource file' % file_path)
+    volume_description_object = construct_json_from_yaml(volume_description.get('volume'))
+    client.create_volume_resource(volume_description.get('volume').get('name'),
+                                  volume_description_object)
+
 def validate_resources(client, file_paths): #pylint: disable=unused-argument
     """ Performs a high level validation of the provided yaml files
     :param file_paths: Comma seperated file paths which need to validated

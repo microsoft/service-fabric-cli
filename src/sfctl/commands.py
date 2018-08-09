@@ -216,21 +216,21 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_property_info')
                 group.command('delete', 'delete_property')
 
-            with super_group.group('resources application') as group:
-                group.command('get', 'get_application_resource')
+            with super_group.group('mesh app') as group:
+                group.command('show', 'get_application_resource')
                 group.command('delete', 'delete_application_resource')
 
-            with super_group.group('resources volume') as group:
-                group.command('get', 'get_volume_resource')
+            with super_group.group('mesh volume') as group:
+                group.command('show', 'get_volume_resource')
                 group.command('delete', 'delete_volume_resource')
 
-            with super_group.group('resources service') as group:
+            with super_group.group('mesh service') as group:
                 group.command('list', 'get_services')
-                group.command('get', 'get_service')
+                group.command('show', 'get_service')
 
-            with super_group.group('resources service-replica') as group:
+            with super_group.group('mesh service-replica') as group:
                 group.command('list', 'get_replicas')
-                group.command('get', 'get_replica')
+                group.command('show', 'get_replica')
 
         # Custom commands
 
@@ -325,9 +325,11 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandSuperGroup(__name__, self, 'sfctl.custom_resource#{}',
                                client_factory=client_create) as super_group:
-            with super_group.group('resources deployment') as group:
+            with super_group.group('mesh deployment') as group:
                 group.command('create', 'create_deployment_resource')
                 group.command('validate', 'validate_resources')
+            with super_group.group('mesh volume') as group:
+                group.command('create', 'create_volume_resource')
 
         return OrderedDict(self.command_table)
 

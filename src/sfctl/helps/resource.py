@@ -8,7 +8,7 @@
 
 from knack.help_files import helps
 
-helps['resources deployment create'] = """
+helps['mesh deployment create'] = """
   type: command
   short-summary: Create a deployment of services  
   long-summary: To be filled long summary
@@ -18,7 +18,7 @@ helps['resources deployment create'] = """
       short-summary: Comma seperated file paths of all the yaml files
 """
 
-helps['resources deployment validate'] = """
+helps['mesh deployment validate'] = """
   type: command
   short-summary: Validates the deployment of services
   long-summary: To be filled long summary
@@ -28,7 +28,7 @@ helps['resources deployment validate'] = """
       short-summary: Comma seperated file paths of all the yaml files
 """
 
-helps['resources application get'] = """
+helps['mesh app show'] = """
   type: command
   short-summary: Get information about application resources from the environment
   long-summary: To be filled long summary
@@ -38,7 +38,7 @@ helps['resources application get'] = """
       short-summary: Name of the Application Resource
 """
 
-helps['resources application delete'] = """
+helps['mesh app delete'] = """
   type: command
   short-summary: Delete an application resource from the environment 
   long-summary: To be filled long summary
@@ -48,7 +48,7 @@ helps['resources application delete'] = """
       short-summary: Name of the Application Resource
 """
 
-helps['resources service list'] = """
+helps['mesh service list'] = """
   type: command
   short-summary: List all services of an application resource
   long-summary: To be filled long summary
@@ -58,7 +58,7 @@ helps['resources service list'] = """
       short-summary: Name of the Application Resource
 """
 
-helps['resources service get'] = """
+helps['mesh service show'] = """
   type: command
   short-summary: Get information about a service of an application resource
   long-summary: To be filled long summary
@@ -71,7 +71,7 @@ helps['resources service get'] = """
       short-summary: Name of the Service Resource
 """
 
-helps['resources service-replica list'] = """
+helps['mesh service-replica list'] = """
   type: command
   short-summary: List all replicas of a service in an application resource
   long-summary: To be filled long summary
@@ -84,7 +84,7 @@ helps['resources service-replica list'] = """
       short-summary: Name of the Service Resource
 """
 
-helps['resources service-replica get'] = """
+helps['mesh service-replica show'] = """
   type: command
   short-summary: Get the information of a replica of a service in an application resource
   long-summary: To be filled long summary
@@ -100,7 +100,7 @@ helps['resources service-replica get'] = """
       short-summary: Name of the replica
 """
 
-helps['resources volume get'] = """
+helps['mesh volume show'] = """
   type: command
   short-summary: Get information about volume resource from the environment
   long-summary: To be filled long summary
@@ -110,7 +110,7 @@ helps['resources volume get'] = """
       short-summary: Name of the Volume Resource
 """
 
-helps['resources volume delete'] = """
+helps['mesh volume delete'] = """
   type: command
   short-summary: Delete an volume resources from the environment
   long-summary: To be filled long summary
@@ -118,4 +118,14 @@ helps['resources volume delete'] = """
     - name: --volume-resource-name
       type: string
       short-summary: Name of the Volume Resource
+"""
+
+helps['mesh volume create'] = """
+  type: command
+  short-summary: Create a volume resource
+  long-summary: To be filled long summary
+  parameters:
+    - name: --file-path
+      type: string
+      short-summary: File path of a valid volume resource yaml file
 """
