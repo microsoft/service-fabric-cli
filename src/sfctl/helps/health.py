@@ -23,8 +23,8 @@ helps['cluster report-health'] = """
     parameters:
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -46,8 +46,8 @@ helps['cluster report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -89,7 +89,7 @@ helps['cluster report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
@@ -123,11 +123,11 @@ helps['node report-health'] = """
     parameters:
         - name: --node-name
           type: string
-          short-summary: Node name to report on
+          short-summary: The name of the node.
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -149,8 +149,8 @@ helps['node report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -192,7 +192,7 @@ helps['node report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
@@ -236,8 +236,8 @@ helps['application report-health'] = """
             in previous versions."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -259,8 +259,8 @@ helps['application report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -302,7 +302,7 @@ helps['application report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
@@ -345,8 +345,8 @@ helps['service report-health'] = """
             previous versions."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -368,8 +368,8 @@ helps['service report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -411,7 +411,7 @@ helps['service report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
@@ -448,8 +448,8 @@ helps['partition report-health'] = """
           short-summary: The identity of the partition
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -471,8 +471,8 @@ helps['partition report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -514,7 +514,7 @@ helps['partition report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is
@@ -543,8 +543,8 @@ helps['replica report-health'] = """
         report may be accepted by the gateway, but rejected by the health store
         after extra validation. For example, the health store may reject the
         report because of an invalid parameter, like a stale sequence number.
-        To see whether the report was applied in the health store, check that
-        the report appears in the events section.
+        To see whether the report was applied in the health store, 
+        run get replica health and check that the report appears in the HealthEvents section.
     parameters:
         - name: --partition-id
           type: string
@@ -559,8 +559,8 @@ helps['replica report-health'] = """
             values: 'Stateless', 'Stateful'."
         - name: --source-id
           type: string
-          short-summary: The source name which identifies the
-            client/watchdog/system component which generated the health
+          short-summary: The source name that identifies the
+            client/watchdog/system component that generated the health
             information.
         - name: --health-property
           type: string
@@ -582,8 +582,8 @@ helps['replica report-health'] = """
             'Error', 'Unknown'"
         - name: --ttl
           type: string
-          short-summary: The duration for which this health report is valid.
-            This field is using ISO8601 format for specifying the duration.
+          short-summary: The duration for which this health report is valid. 
+            This field uses ISO8601 format for specifying the duration.
           long-summary: When clients report periodically, they should send
             reports with higher frequency than time to live. If clients report
             on transition, they can set the time to live to infinite. When
@@ -625,7 +625,7 @@ helps['replica report-health'] = """
             being in Error health state.
         - name: --immediate
           type: bool
-          short-summary: A flag which indicates whether the report should be
+          short-summary: A flag that indicates whether the report should be
             sent immediately.
           long-summary: A health report is sent to a Service Fabric gateway
             Application, which forwards to the health store. If Immediate is

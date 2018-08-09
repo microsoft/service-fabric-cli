@@ -28,33 +28,49 @@ helps['cluster upgrade'] = """
             'UnmonitoredAuto', 'UnmonitoredManual', 'Monitored'"
         - name: --replica-set-check-timeout
           type: string
-          short-summary: Upgrade replica set check timeout measured in
-            seconds
+          short-summary: The maximum amount of time to block processing of an upgrade domain 
+            and prevent loss of availability when there are unexpected issues. 
+          long-summary: When this timeout expires, processing of the upgrade domain will 
+            proceed regardless of availability loss issues. 
+            The timeout is reset at the start of each upgrade domain. 
+            Valid values are between 0 and 42949672925 inclusive.
         - name: --force-restart
           type: bool
-          short-summary: Force restart
+          short-summary: Processes are forcefully restarted during upgrade even when the 
+            code version has not changed
+          long-summary: The upgrade only changes configuration or data
         - name: --failure-action
           type: string
           short-summary: "Possible values include: 'Invalid', 'Rollback',
             'Manual'"
         - name: --health-check-wait
           type: string
-          short-summary: Health check wait duration measured in milliseconds
+          short-summary: The length of time to wait after completing an upgrade domain 
+            before starting the health checks process.
         - name: --health-check-stable
           type: string
-          short-summary: Health check stable duration measured in milliseconds
+          short-summary: The length of time that the application or cluster must remain healthy.
         - name: --health-check-retry
           type: string
-          short-summary: Health check retry timeout measured in milliseconds
+          short-summary: The length of time between attempts to perform health checks if 
+            the application or cluster is not healthy.
         - name: --upgrade-timeout
           type: string
-          short-summary: Upgrade timeout measured in milliseconds
+          short-summary: The amount of time the overall upgrade has to complete before 
+            FailureAction is executed. 
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --upgrade-domain-timeout
           type: string
-          short-summary: Upgrade domain timeout measured in milliseconds
+          short-summary: The amount of time each upgrade domain has to complete before 
+            FailureAction is executed.
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --warning-as-error
           type: bool
-          short-summary: Warnings are treated with the same severity as errors
+          short-summary: Indicates whether warnings are treated with the same severity as errors
         - name: --unhealthy-nodes
           type: int
           short-summary: The maximum allowed percentage of unhealthy nodes
@@ -129,22 +145,30 @@ helps['sa-cluster config-upgrade'] = """
           short-summary: The cluster configuration that will be applied to the cluster.
         - name: --health-check-retry
           type: string
-          short-summary: The length of time between attempts to perform a
-            health checks if the application or cluster is not healthy
+          short-summary: The length of time between attempts to perform health checks if 
+            the application or cluster is not healthy.
         - name: --health-check-wait
           type: string
-          short-summary: The length of time to wait after completing an
-            upgrade domain before starting the health checks process
+          short-summary: The length of time to wait after completing an upgrade domain 
+            before starting the health checks process.
         - name: --health-check-stable
           type: string
-          short-summary: The length of time that the application or cluster
+          short-summary: The length of time that the application or cluster must remain healthy.
             must remain healthy
         - name: --upgrade-domain-timeout
           type: string
-          short-summary: The timeout for the upgrade domain
+          short-summary: The amount of time each upgrade domain has to complete before 
+            FailureAction is executed.
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --upgrade-timeout
           type: string
-          short-summary: The upgrade timeout
+          short-summary: The amount of time the overall upgrade has to complete before 
+            FailureAction is executed. 
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --unhealthy-applications
           type: int
           short-summary: The maximum allowed percentage of unhealthy
@@ -189,33 +213,49 @@ helps['cluster upgrade-update'] = """
             'UnmonitoredAuto', 'UnmonitoredManual', 'Monitored'"
         - name: --replica-set-check-timeout
           type: string
-          short-summary: Upgrade replica set check timeout measured in
-            seconds
+          short-summary: The maximum amount of time to block processing of an upgrade domain 
+            and prevent loss of availability when there are unexpected issues. 
+          long-summary: When this timeout expires, processing of the upgrade domain will 
+            proceed regardless of availability loss issues. 
+            The timeout is reset at the start of each upgrade domain. 
+            Valid values are between 0 and 42949672925 inclusive.
         - name: --force-restart
           type: bool
-          short-summary: Force restart
+          short-summary: Processes are forcefully restarted during upgrade even when the 
+            code version has not changed
+          long-summary: The upgrade only changes configuration or data
         - name: --failure-action
           type: string
           short-summary: "Possible values include: 'Invalid', 'Rollback',
             'Manual'"
         - name: --health-check-wait
           type: string
-          short-summary: Health check wait duration measured in milliseconds
+          short-summary: The length of time to wait after completing an upgrade domain 
+            before starting the health checks process.
         - name: --health-check-stable
           type: string
-          short-summary: Health check stable duration measured in milliseconds
+          short-summary: The length of time that the application or cluster must remain healthy.
         - name: --health-check-retry
           type: string
-          short-summary: Health check retry timeout measured in milliseconds
+          short-summary: The length of time between attempts to perform health checks if 
+            the application or cluster is not healthy.
         - name: --upgrade-timeout
           type: string
-          short-summary: Upgrade timeout measured in milliseconds
+          short-summary: The amount of time the overall upgrade has to complete before 
+            FailureAction is executed. 
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --upgrade-domain-timeout
           type: string
-          short-summary: Upgrade domain timeout measured in milliseconds
+          short-summary: The amount of time each upgrade domain has to complete before 
+            FailureAction is executed.
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --warning-as-error
           type: bool
-          short-summary: Warnings are treated with the same severity as errors
+          short-summary: Indicates whether warnings are treated with the same severity as errors
         - name: --unhealthy-nodes
           type: int
           short-summary: The maximum allowed percentage of unhealthy nodes

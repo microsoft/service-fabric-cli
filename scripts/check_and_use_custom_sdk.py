@@ -2,6 +2,19 @@ from os import path, pardir
 from shutil import rmtree, copytree
 import pip
 
+# !Note: The methods in this file depend on the file structure. Specifically, the methods:
+# - get_path_to_readme
+# - get_custom_sdk_path
+
+def get_path_to_readme(path_to_root = None):
+
+    # Allow customization of where root should be
+    if path_to_root:
+        return path.abspath(path.join(path_to_root, 'src', 'README.rst'))
+
+    current_dir = path.dirname(__file__)
+    return path.abspath(path.join(current_dir, pardir, 'src', 'README.rst'))
+
 
 def check_if_should_use_custom_sdk(custom_sdk_path):
     """
@@ -20,8 +33,7 @@ def check_if_should_use_custom_sdk(custom_sdk_path):
     if not sdk_exists:
         return False
 
-    current_dir = path.dirname(__file__)
-    path_to_readme = path.abspath(path.join(current_dir, pardir, 'src', 'README.rst'))
+    path_to_readme = get_path_to_readme()
 
     with open(path_to_readme, 'r') as readme_file:
         readme_contents = readme_file.read()
@@ -68,6 +80,16 @@ def get_path_public_sdk():
         return path.dirname(pip.__path__[0])
 
 
+def get_custom_sdk_path(path_to_root = None):
+
+    # Allow customization of where root should be
+    if path_to_root:
+        return path.abspath(path.join(path_to_root, 'customSDK', 'servicefabric'))
+
+    current_dir = path.dirname(__file__)
+    return path.abspath(path.join(current_dir, pardir, 'customSDK', 'servicefabric'))
+
+
 def check_and_use_custom_sdk():
     """
     Checks to see if Travis CI should use a custom python service fabric SDK when running
@@ -75,8 +97,7 @@ def check_and_use_custom_sdk():
     :return: None
     """
 
-    current_dir = path.dirname(__file__)
-    custom_sdk_path = path.abspath(path.join(current_dir, pardir, 'customSDK', 'servicefabric'))
+    custom_sdk_path = get_custom_sdk_path()
 
     should_use_custom_sdk = check_if_should_use_custom_sdk(custom_sdk_path)
     if not should_use_custom_sdk:
