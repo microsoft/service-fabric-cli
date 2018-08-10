@@ -14,9 +14,9 @@ for all descriptions."""
 
 from __future__ import print_function
 import unittest
-import scripts.check_and_use_custom_sdk as custom_sdk_helper
 from os import listdir
 from os.path import dirname, join, abspath, pardir
+import scripts.check_and_use_custom_sdk as custom_sdk_helper
 
 
 class CustomHelpTextCorrectnessTests(unittest.TestCase):
@@ -27,12 +27,12 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
     exclusion_list = [
         '"possible values include',
         'possible values include',
-        'Path to the target Docker Compose file', # This and following is custom - not in swagger
+        'Path to the target Docker Compose file',  # This and following is custom - not in swagger
         'can be retrieved by \'service code-package-list\''
     ]
 
     @staticmethod
-    def _get_path_containing_SDK_files():
+    def _get_path_SDK_files():  # pylint: disable=invalid-name
         """
         Find the location of the python SDK folder which will be used for testing
         :return: string representing the absolute path
@@ -46,9 +46,9 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
 
         if should_use_custom_sdk:
             return custom_sdk_path
-        else:
-            site_packages = custom_sdk_helper.get_path_public_sdk()  # full path to site packages
-            return join(site_packages, 'azure', 'servicefabric')
+
+        site_packages = custom_sdk_helper.get_path_public_sdk()  # full path to site packages
+        return join(site_packages, 'azure', 'servicefabric')
 
     @staticmethod
     def _read_python_sdk():
@@ -73,7 +73,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
 
         doc_strings = []  # The return value
 
-        sdk_path = CustomHelpTextCorrectnessTests._get_path_containing_SDK_files()
+        sdk_path = CustomHelpTextCorrectnessTests._get_path_SDK_files()
 
         # A list of strings containing abs paths to the SDK api file and model files
         # start off containing the SDK API file
@@ -147,7 +147,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
 
                 lines = file.readlines()
                 current_string = ''
-                ignoring = True # Start with true because there is code in the file first
+                ignoring = True  # Start with true because there is code in the file first
 
                 for line in lines:
                     line = line.strip()
@@ -183,6 +183,13 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
         return help_text_lines
 
     def test_custom_help_text(self):
+        """
+        This actually runs the test to make sure that help text is up to date with swagger.
+
+        In the assert line, we allow a certain number of mismatched lines. This is because
+        in some instances, swagger text is not appropriate for sfctl.
+        :return:
+        """
 
         custom_help_lines = CustomHelpTextCorrectnessTests._read_custom_help_lines()
         python_sdk_lines = CustomHelpTextCorrectnessTests._read_python_sdk()

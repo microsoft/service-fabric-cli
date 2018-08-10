@@ -29,5 +29,3 @@ def launch():
 
     cli_env = cli()
     return cli_env.invoke(sys.argv[1:])
-
-
