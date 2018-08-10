@@ -7,7 +7,6 @@
 """Commands related to managing Service Fabric Mesh resources"""
 
 from __future__ import print_function
-from collections import OrderedDict
 import enum
 import json
 import os

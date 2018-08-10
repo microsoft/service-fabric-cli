@@ -314,7 +314,7 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl mesh deployment',
-            commands=('create'))
+            commands=('create', ))
         self.validate_output(
             'sfctl mesh service',
             commands=('list', 'show'))
