@@ -10,7 +10,7 @@ from __future__ import print_function
 from collections import OrderedDict
 import enum
 import json
-import sys
+import os
 from knack.util import CLIError
 import yaml
 
@@ -22,12 +22,6 @@ class ResourceType(enum.Enum):
     volume = 2
     network = 3
     services = 4
-
-def ordered_dict_representer(self, value): #pylint: disable=missing-docstring
-
-    return self.represent_mapping('tag:yaml.org,2002:map', value.items())
-
-yaml.add_representer(OrderedDict, ordered_dict_representer)
 
 def get_yaml_content(file_path):
     """ Loads the yaml content for the given file path
@@ -69,12 +63,19 @@ def construct_json_from_yaml(content):
     json_obj = json.loads(json.dumps(content))
     return json_obj
 
-def create_deployment_resource(client, file_paths):
+def create_deployment_resource(client, file_paths_or_directory):
     """ Validates and deploys all the yaml resource files
     :param client: REST client
-    :param file_paths: Comma seperated file paths of all the yaml files
+    :param file_paths_or_directory: Comma seperated file paths of all the yaml files
     """
-    file_path_list = file_paths.split(',')
+    file_path_list = []
+    if os.path.isdir(file_paths_or_directory):
+        for root, _, files in os.walk(file_paths_or_directory):
+            for filename in files:
+                if filename.endswith(".yaml"):
+                    file_path_list.append(os.path.join(root, filename))
+    else:
+        file_path_list = file_paths_or_directory.split(',')
     volume_description_list = []
     service_description_list = []
     application_description = None

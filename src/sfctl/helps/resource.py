@@ -13,9 +13,9 @@ helps['mesh deployment create'] = """
   short-summary: Create a deployment of services  
   long-summary: To be filled long summary
   parameters:
-    - name: --file-path
+    - name: --file-paths-or-directory
       type: string
-      short-summary: Comma seperated file paths of all the yaml files
+      short-summary: Comma seperated file paths of all the yaml files or the directory(recursive) which contain yaml files
 """
 
 helps['mesh app show'] = """
