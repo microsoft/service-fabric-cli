@@ -327,7 +327,6 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('mesh deployment') as group:
                 group.command('create', 'create_deployment_resource')
-                group.command('validate', 'validate_resources')
             with super_group.group('mesh volume') as group:
                 group.command('create', 'create_volume_resource')
 
