@@ -215,7 +215,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             print(line)
 
         print()
-        print(f'The total number of lines compared is {len(custom_help_lines)}')
+        print('The total number of lines compared is ' + str(len(custom_help_lines)))
 
         # Assert if there are any lines which do not match.
         self.assertLess(len(lines_not_found), 80)
