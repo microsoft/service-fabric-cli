@@ -298,7 +298,8 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl compose',
-            commands=('create', 'list', 'remove', 'status', 'upgrade', 'upgrade-status'))
+            commands=('create', 'list', 'remove', 'status', 'upgrade', 'upgrade-rollback',
+                      'upgrade-status'))
 
         self.validate_output(
             'sfctl is',

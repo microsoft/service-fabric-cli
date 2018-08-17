@@ -547,6 +547,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/ComposeDeployments/deploymentName/$/GetUpgradeProgress',
             ['api-version=6.0-preview'])
+        self.validate_command(  # upgrade-rollback
+            'compose upgrade-rollback --deployment-name=deploymentName',
+            'POST',
+            '/ComposeDeployments/deploymentName/$/RollbackUpgrade',
+            ['api-version=6.4-preview'])
 
         # IS:
         self.validate_command(  # command

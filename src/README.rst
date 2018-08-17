@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Add upgrade-rollback command for compose deployment (#119)
+
 6.0.1
 -----
 - Some typo fixes (#115)
