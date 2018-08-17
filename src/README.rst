@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Add upgrade-rollback for compose deployment (#119)
+- Add upgrade-rollback command for compose deployment (#119)
 
 6.0.1
 -----
