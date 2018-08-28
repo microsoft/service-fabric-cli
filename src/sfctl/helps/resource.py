@@ -8,16 +8,6 @@
 
 from knack.help_files import helps
 
-helps['mesh deployment create'] = """
-  type: command
-  short-summary: Create a deployment of services  
-  long-summary: To be filled long summary
-  parameters:
-    - name: --file-paths-or-directory
-      type: string
-      short-summary: Comma seperated file paths of all the yaml files or the directory(recursive) which contain yaml files
-"""
-
 helps['mesh app show'] = """
   type: command
   short-summary: Get information about application resources from the environment
@@ -108,14 +98,4 @@ helps['mesh volume delete'] = """
     - name: --volume-resource-name
       type: string
       short-summary: Name of the Volume Resource
-"""
-
-helps['mesh volume create'] = """
-  type: command
-  short-summary: Create a volume resource
-  long-summary: To be filled long summary
-  parameters:
-    - name: --file-path
-      type: string
-      short-summary: File path of a valid volume resource yaml file
 """

@@ -99,11 +99,6 @@ helps['mesh'] = """
     short-summary: Create, delete and manage Service Fabric Mesh applications
 """
 
-helps['mesh deployment'] = """
-    type: group
-    short-summary: Create a Service Fabric deployment based on provided descriptions
-"""
-
 helps['mesh app'] = """
     type: group
     short-summary: Get and Delete application resources

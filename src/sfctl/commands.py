@@ -322,14 +322,6 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:
                 group.command('provision', 'provision_application_type')
-
-        with CommandSuperGroup(__name__, self, 'sfctl.custom_resource#{}',
-                               client_factory=client_create) as super_group:
-            with super_group.group('mesh deployment') as group:
-                group.command('create', 'create_deployment_resource')
-            with super_group.group('mesh volume') as group:
-                group.command('create', 'create_volume_resource')
-
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):

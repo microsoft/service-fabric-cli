@@ -908,15 +908,3 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Resources/Applications/some~application~name/Services/some~service~name/Replicas/0',
             ['api-version=6.3']
         )
-        file_paths = '"{}","{}"'.format(path.join(sample_yaml_path, 'sample_app.yaml'), path.join(sample_yaml_path, 'sample_service.yaml')).replace('@', '')
-        resource_params_file = open(path.join(sample_path_base, 'sample_deployment_resource.txt').replace('@', ''))
-        resource_params = resource_params_file.read()
-        resource_params_file.close()
-        self.validate_command( #create deployment resource
-            'mesh deployment create --file-paths {}'.format(file_paths),
-            'PUT',
-            '/Resources/Applications/someApp',
-            ['api-version=6.3'],
-            resource_params,
-            validate_json
-        )
