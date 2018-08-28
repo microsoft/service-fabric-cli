@@ -10,8 +10,7 @@ from knack.help_files import helps
 
 helps['mesh app show'] = """
   type: command
-  short-summary: Get information about application resources from the environment
-  long-summary: To be filled long summary
+  short-summary: Get information about application resource from the environment
   parameters:
     - name: --application-resource-name
       type: string
@@ -21,7 +20,6 @@ helps['mesh app show'] = """
 helps['mesh app delete'] = """
   type: command
   short-summary: Delete an application resource from the environment 
-  long-summary: To be filled long summary
   parameters:
     - name: --application-resource-name
       type: string
@@ -31,7 +29,6 @@ helps['mesh app delete'] = """
 helps['mesh service list'] = """
   type: command
   short-summary: List all services of an application resource
-  long-summary: To be filled long summary
   parameters:
     - name: --application-resource-name
       type: string
@@ -41,7 +38,6 @@ helps['mesh service list'] = """
 helps['mesh service show'] = """
   type: command
   short-summary: Get information about a service of an application resource
-  long-summary: To be filled long summary
   parameters:
     - name: --application-resource-name
       type: string
@@ -54,7 +50,6 @@ helps['mesh service show'] = """
 helps['mesh service-replica list'] = """
   type: command
   short-summary: List all replicas of a service in an application resource
-  long-summary: To be filled long summary
   parameters:
     - name: --application-resource-name
       type: string
@@ -67,7 +62,6 @@ helps['mesh service-replica list'] = """
 helps['mesh service-replica show'] = """
   type: command
   short-summary: Get the information of a replica of a service in an application resource
-  long-summary: To be filled long summary
   parameters:
     - name: --application-resource-name
       type: string
@@ -83,7 +77,6 @@ helps['mesh service-replica show'] = """
 helps['mesh volume show'] = """
   type: command
   short-summary: Get information about volume resource from the environment
-  long-summary: To be filled long summary
   parameters:
     - name: --volume-resource-name
       type: string
@@ -93,7 +86,6 @@ helps['mesh volume show'] = """
 helps['mesh volume delete'] = """
   type: command
   short-summary: Delete an volume resources from the environment
-  long-summary: To be filled long summary
   parameters:
     - name: --volume-resource-name
       type: string

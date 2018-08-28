@@ -322,6 +322,7 @@ class SFCommandLoader(CLICommandsLoader):
                                client_factory=client_create) as super_group:
             with super_group.group('application') as group:
                 group.command('provision', 'provision_application_type')
+
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):

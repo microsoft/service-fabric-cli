@@ -20,7 +20,7 @@ from jsonpickle import decode
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
-from sfctl.tests.request_generation_body_validation import (validate_flat_dictionary, validate_json)
+from sfctl.tests.request_generation_body_validation import validate_flat_dictionary
 
 
 class ServiceFabricRequestTests(ScenarioTest):
@@ -192,7 +192,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
-        sample_yaml_path = '@' + path.join(path.dirname(__file__), 'sample_yaml')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store

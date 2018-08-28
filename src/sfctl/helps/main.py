@@ -96,7 +96,7 @@ helps['property'] = """
 
 helps['mesh'] = """
     type: group
-    short-summary: Create, delete and manage Service Fabric Mesh applications
+    short-summary: Delete and manage Service Fabric Mesh applications
 """
 
 helps['mesh app'] = """
