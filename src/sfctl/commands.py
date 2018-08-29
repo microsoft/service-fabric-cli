@@ -197,6 +197,7 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('remove', 'remove_compose_deployment')
                 group.command('upgrade-status',
                               'get_compose_deployment_upgrade_progress')
+                group.command('upgrade-rollback', 'start_rollback_compose_deployment_upgrade')
 
             with super_group.group('chaos') as group:
                 group.command('stop', 'stop_chaos')
