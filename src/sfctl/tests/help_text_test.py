@@ -266,7 +266,7 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl',
-            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'node',
+            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'mesh', 'node',
                        'partition', 'property', 'replica', 'rpm', 'sa-cluster',
                        'service', 'store'))
 
@@ -304,6 +304,21 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl is',
             commands=('command', 'query'))
+
+        self.validate_output(
+            'sfctl mesh app',
+            commands=('delete', 'show'))
+
+        self.validate_output(
+            'sfctl mesh volume',
+            commands=('delete', 'show'))
+
+        self.validate_output(
+            'sfctl mesh service',
+            commands=('list', 'show'))
+        self.validate_output(
+            'sfctl mesh service-replica',
+            commands=('list', 'show'))
 
         self.validate_output(
             'sfctl node',

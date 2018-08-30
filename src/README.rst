@@ -19,6 +19,7 @@ Change Log
 Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
+- Add sf mesh GET and DELETE APIs (#121)
 
 6.0.1
 -----

@@ -217,6 +217,22 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('get', 'get_property_info')
                 group.command('delete', 'delete_property')
 
+            with super_group.group('mesh app') as group:
+                group.command('show', 'get_application_resource')
+                group.command('delete', 'delete_application_resource')
+
+            with super_group.group('mesh volume') as group:
+                group.command('show', 'get_volume_resource')
+                group.command('delete', 'delete_volume_resource')
+
+            with super_group.group('mesh service') as group:
+                group.command('list', 'get_services')
+                group.command('show', 'get_service')
+
+            with super_group.group('mesh service-replica') as group:
+                group.command('list', 'get_replicas')
+                group.command('show', 'get_replica')
+
         # Custom commands
 
         with CommandSuperGroup(__name__, self,
