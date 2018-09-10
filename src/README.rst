@@ -19,6 +19,7 @@ Change Log
 Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
+- Upgrade the knack package dependency to version 0.4.2 (#122)
 
 6.0.1
 -----
