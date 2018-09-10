@@ -27,7 +27,7 @@ import sfctl.helps.chaos  # pylint: disable=unused-import
 import sfctl.helps.infrastructure  # pylint: disable=unused-import
 
 EXCLUDED_PARAMS = ['self', 'raw', 'custom_headers', 'operation_config',
-                             'content_version', 'kwargs', 'client']
+                   'content_version', 'kwargs', 'client']
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -44,8 +44,8 @@ class SFCommandLoader(CLICommandsLoader):
     def __init__(self, *args, **kwargs):
         super(SFCommandLoader, self).__init__(
             *args,
-            **kwargs,
-            excluded_command_handler_args=EXCLUDED_PARAMS)
+            excluded_command_handler_args=EXCLUDED_PARAMS,
+            **kwargs)
 
     def load_command_table(self, args):  # pylint: disable=too-many-statements
         """Load all Service Fabric commands"""
