@@ -273,6 +273,7 @@ class FabricErrorCodes(Enum):
     fabric_e_volume_already_exists = "FABRIC_E_VOLUME_ALREADY_EXISTS"
     fabric_e_volume_not_found = "FABRIC_E_VOLUME_NOT_FOUND"
     serialization_error = "SerializationError"
+    fabric_e_imagebuilder_reserved_directory_error = "FABRIC_E_IMAGEBUILDER_RESERVED_DIRECTORY_ERROR"
 
 
 class FabricEventKind(Enum):
@@ -287,64 +288,58 @@ class FabricEventKind(Enum):
     partition_analysis_event = "PartitionAnalysisEvent"
     application_created = "ApplicationCreated"
     application_deleted = "ApplicationDeleted"
-    application_health_report_created = "ApplicationHealthReportCreated"
+    application_new_health_report = "ApplicationNewHealthReport"
     application_health_report_expired = "ApplicationHealthReportExpired"
-    application_upgrade_complete = "ApplicationUpgradeComplete"
-    application_upgrade_domain_complete = "ApplicationUpgradeDomainComplete"
-    application_upgrade_rollback_complete = "ApplicationUpgradeRollbackComplete"
-    application_upgrade_rollback_start = "ApplicationUpgradeRollbackStart"
-    application_upgrade_start = "ApplicationUpgradeStart"
-    deployed_application_health_report_created = "DeployedApplicationHealthReportCreated"
+    application_upgrade_completed = "ApplicationUpgradeCompleted"
+    application_upgrade_domain_completed = "ApplicationUpgradeDomainCompleted"
+    application_upgrade_rollback_completed = "ApplicationUpgradeRollbackCompleted"
+    application_upgrade_rollback_started = "ApplicationUpgradeRollbackStarted"
+    application_upgrade_started = "ApplicationUpgradeStarted"
+    deployed_application_new_health_report = "DeployedApplicationNewHealthReport"
     deployed_application_health_report_expired = "DeployedApplicationHealthReportExpired"
-    process_deactivated = "ProcessDeactivated"
-    container_deactivated = "ContainerDeactivated"
+    application_process_exited = "ApplicationProcessExited"
+    application_container_instance_exited = "ApplicationContainerInstanceExited"
     node_aborted = "NodeAborted"
-    node_aborting = "NodeAborting"
-    node_added = "NodeAdded"
-    node_close = "NodeClose"
-    node_closing = "NodeClosing"
-    node_deactivate_complete = "NodeDeactivateComplete"
-    node_deactivate_start = "NodeDeactivateStart"
+    node_added_to_cluster = "NodeAddedToCluster"
+    node_closed = "NodeClosed"
+    node_deactivate_completed = "NodeDeactivateCompleted"
+    node_deactivate_started = "NodeDeactivateStarted"
     node_down = "NodeDown"
-    node_health_report_created = "NodeHealthReportCreated"
+    node_new_health_report = "NodeNewHealthReport"
     node_health_report_expired = "NodeHealthReportExpired"
-    node_opened_success = "NodeOpenedSuccess"
+    node_open_succeeded = "NodeOpenSucceeded"
     node_open_failed = "NodeOpenFailed"
-    node_opening = "NodeOpening"
-    node_removed = "NodeRemoved"
+    node_removed_from_cluster = "NodeRemovedFromCluster"
     node_up = "NodeUp"
-    partition_health_report_created = "PartitionHealthReportCreated"
+    partition_new_health_report = "PartitionNewHealthReport"
     partition_health_report_expired = "PartitionHealthReportExpired"
-    partition_reconfiguration_completed = "PartitionReconfigurationCompleted"
+    partition_reconfigured = "PartitionReconfigured"
     partition_primary_move_analysis = "PartitionPrimaryMoveAnalysis"
     service_created = "ServiceCreated"
     service_deleted = "ServiceDeleted"
-    service_health_report_created = "ServiceHealthReportCreated"
+    service_new_health_report = "ServiceNewHealthReport"
     service_health_report_expired = "ServiceHealthReportExpired"
-    deployed_service_health_report_created = "DeployedServiceHealthReportCreated"
+    deployed_service_new_health_report = "DeployedServiceNewHealthReport"
     deployed_service_health_report_expired = "DeployedServiceHealthReportExpired"
-    stateful_replica_health_report_created = "StatefulReplicaHealthReportCreated"
+    stateful_replica_new_health_report = "StatefulReplicaNewHealthReport"
     stateful_replica_health_report_expired = "StatefulReplicaHealthReportExpired"
-    stateless_replica_health_report_created = "StatelessReplicaHealthReportCreated"
+    stateless_replica_new_health_report = "StatelessReplicaNewHealthReport"
     stateless_replica_health_report_expired = "StatelessReplicaHealthReportExpired"
-    cluster_health_report_created = "ClusterHealthReportCreated"
+    cluster_new_health_report = "ClusterNewHealthReport"
     cluster_health_report_expired = "ClusterHealthReportExpired"
-    cluster_upgrade_complete = "ClusterUpgradeComplete"
-    cluster_upgrade_domain_complete = "ClusterUpgradeDomainComplete"
-    cluster_upgrade_rollback_complete = "ClusterUpgradeRollbackComplete"
-    cluster_upgrade_rollback_start = "ClusterUpgradeRollbackStart"
-    cluster_upgrade_start = "ClusterUpgradeStart"
+    cluster_upgrade_completed = "ClusterUpgradeCompleted"
+    cluster_upgrade_domain_completed = "ClusterUpgradeDomainCompleted"
+    cluster_upgrade_rollback_completed = "ClusterUpgradeRollbackCompleted"
+    cluster_upgrade_rollback_started = "ClusterUpgradeRollbackStarted"
+    cluster_upgrade_started = "ClusterUpgradeStarted"
     chaos_stopped = "ChaosStopped"
     chaos_started = "ChaosStarted"
-    chaos_restart_node_fault_completed = "ChaosRestartNodeFaultCompleted"
-    chaos_restart_code_package_fault_scheduled = "ChaosRestartCodePackageFaultScheduled"
-    chaos_restart_code_package_fault_completed = "ChaosRestartCodePackageFaultCompleted"
-    chaos_remove_replica_fault_scheduled = "ChaosRemoveReplicaFaultScheduled"
-    chaos_remove_replica_fault_completed = "ChaosRemoveReplicaFaultCompleted"
-    chaos_move_secondary_fault_scheduled = "ChaosMoveSecondaryFaultScheduled"
-    chaos_move_primary_fault_scheduled = "ChaosMovePrimaryFaultScheduled"
-    chaos_restart_replica_fault_scheduled = "ChaosRestartReplicaFaultScheduled"
-    chaos_restart_node_fault_scheduled = "ChaosRestartNodeFaultScheduled"
+    chaos_code_package_restart_scheduled = "ChaosCodePackageRestartScheduled"
+    chaos_replica_removal_scheduled = "ChaosReplicaRemovalScheduled"
+    chaos_partition_secondary_move_scheduled = "ChaosPartitionSecondaryMoveScheduled"
+    chaos_partition_primary_move_scheduled = "ChaosPartitionPrimaryMoveScheduled"
+    chaos_replica_restart_scheduled = "ChaosReplicaRestartScheduled"
+    chaos_node_restart_scheduled = "ChaosNodeRestartScheduled"
 
 
 class HealthEvaluationKind(Enum):
@@ -731,6 +726,12 @@ class PropertyBatchInfoKind(Enum):
     failed = "Failed"
 
 
+class RetentionPolicyType(Enum):
+
+    basic = "Basic"
+    invalid = "Invalid"
+
+
 class BackupStorageKind(Enum):
 
     invalid = "Invalid"
@@ -900,6 +901,18 @@ class ApplicationResourceStatus(Enum):
     failed = "Failed"
 
 
+class ApplicationScopedVolumeKind(Enum):
+
+    service_fabric_volume_disk = "ServiceFabricVolumeDisk"
+
+
+class SizeTypes(Enum):
+
+    small = "Small"
+    medium = "Medium"
+    large = "Large"
+
+
 class DiagnosticsSinkKind(Enum):
 
     invalid = "Invalid"
@@ -912,9 +925,39 @@ class OperatingSystemTypes(Enum):
     windows = "Windows"
 
 
+class AutoScalingMechanismKind(Enum):
+
+    add_remove_replica = "AddRemoveReplica"
+
+
+class AutoScalingTriggerKind(Enum):
+
+    average_load = "AverageLoad"
+
+
+class AutoScalingMetricKind(Enum):
+
+    resource = "Resource"
+
+
 class SecretKind(Enum):
 
-    simple = "simple"
+    inlined_value = "inlinedValue"
+
+
+class HeaderMatchType(Enum):
+
+    exact = "exact"
+
+
+class GatewayResourceStatus(Enum):
+
+    invalid = "Invalid"
+    ready = "Ready"
+    upgrading = "Upgrading"
+    creating = "Creating"
+    deleting = "Deleting"
+    failed = "Failed"
 
 
 class NodeStatusFilter(Enum):
