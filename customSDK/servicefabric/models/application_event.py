@@ -25,11 +25,12 @@ class ApplicationEvent(FabricEvent):
     DeployedApplicationHealthReportExpiredEvent, ProcessDeactivatedEvent,
     ContainerDeactivatedEvent, DeployedServiceHealthReportCreatedEvent,
     DeployedServiceHealthReportExpiredEvent,
-    ChaosRestartCodePackageFaultScheduledEvent,
-    ChaosRestartCodePackageFaultCompletedEvent
+    ChaosRestartCodePackageFaultScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -56,6 +57,7 @@ class ApplicationEvent(FabricEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -63,10 +65,10 @@ class ApplicationEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'ApplicationCreated': 'ApplicationCreatedEvent', 'ApplicationDeleted': 'ApplicationDeletedEvent', 'ApplicationHealthReportCreated': 'ApplicationHealthReportCreatedEvent', 'ApplicationHealthReportExpired': 'ApplicationHealthReportExpiredEvent', 'ApplicationUpgradeComplete': 'ApplicationUpgradeCompleteEvent', 'ApplicationUpgradeDomainComplete': 'ApplicationUpgradeDomainCompleteEvent', 'ApplicationUpgradeRollbackComplete': 'ApplicationUpgradeRollbackCompleteEvent', 'ApplicationUpgradeRollbackStart': 'ApplicationUpgradeRollbackStartEvent', 'ApplicationUpgradeStart': 'ApplicationUpgradeStartEvent', 'DeployedApplicationHealthReportCreated': 'DeployedApplicationHealthReportCreatedEvent', 'DeployedApplicationHealthReportExpired': 'DeployedApplicationHealthReportExpiredEvent', 'ProcessDeactivated': 'ProcessDeactivatedEvent', 'ContainerDeactivated': 'ContainerDeactivatedEvent', 'DeployedServiceHealthReportCreated': 'DeployedServiceHealthReportCreatedEvent', 'DeployedServiceHealthReportExpired': 'DeployedServiceHealthReportExpiredEvent', 'ChaosRestartCodePackageFaultScheduled': 'ChaosRestartCodePackageFaultScheduledEvent', 'ChaosRestartCodePackageFaultCompleted': 'ChaosRestartCodePackageFaultCompletedEvent'}
+        'kind': {'ApplicationCreated': 'ApplicationCreatedEvent', 'ApplicationDeleted': 'ApplicationDeletedEvent', 'ApplicationNewHealthReport': 'ApplicationHealthReportCreatedEvent', 'ApplicationHealthReportExpired': 'ApplicationHealthReportExpiredEvent', 'ApplicationUpgradeCompleted': 'ApplicationUpgradeCompleteEvent', 'ApplicationUpgradeDomainCompleted': 'ApplicationUpgradeDomainCompleteEvent', 'ApplicationUpgradeRollbackCompleted': 'ApplicationUpgradeRollbackCompleteEvent', 'ApplicationUpgradeRollbackStarted': 'ApplicationUpgradeRollbackStartEvent', 'ApplicationUpgradeStarted': 'ApplicationUpgradeStartEvent', 'DeployedApplicationNewHealthReport': 'DeployedApplicationHealthReportCreatedEvent', 'DeployedApplicationHealthReportExpired': 'DeployedApplicationHealthReportExpiredEvent', 'ApplicationProcessExited': 'ProcessDeactivatedEvent', 'ApplicationContainerInstanceExited': 'ContainerDeactivatedEvent', 'DeployedServiceNewHealthReport': 'DeployedServiceHealthReportCreatedEvent', 'DeployedServiceHealthReportExpired': 'DeployedServiceHealthReportExpiredEvent', 'ChaosCodePackageRestartScheduled': 'ChaosRestartCodePackageFaultScheduledEvent'}
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, has_correlated_events=None):
-        super(ApplicationEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+    def __init__(self, event_instance_id, time_stamp, application_id, category=None, has_correlated_events=None):
+        super(ApplicationEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
         self.application_id = application_id
         self.kind = 'ApplicationEvent'

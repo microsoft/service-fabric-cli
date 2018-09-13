@@ -65,7 +65,7 @@ class ServiceFabricClientAPIs(object):
         self._client = ServiceClient(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '6.4.0.9'
+        self.api_version = '6.4.0.23'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -1384,9 +1384,10 @@ class ServiceFabricClientAPIs(object):
 
     def rollback_cluster_upgrade(
             self, timeout=60, custom_headers=None, raw=False, **operation_config):
-        """Rollback the upgrade of a Service Fabric cluster.
+        """Roll back the upgrade of a Service Fabric cluster.
 
-        Rollback the code or configuration upgrade of a Service Fabric cluster.
+        Roll back the code or configuration upgrade of a Service Fabric
+        cluster.
 
         :param timeout: The server timeout for performing the operation in
          seconds. This timeout specifies the time duration that the client is
@@ -1758,6 +1759,69 @@ class ServiceFabricClientAPIs(object):
 
         return deserialized
     get_aad_metadata.metadata = {'url': '/$/GetAadMetadata'}
+
+    def get_cluster_version(
+            self, timeout=60, custom_headers=None, raw=False, **operation_config):
+        """Get the current Service Fabric cluster version.
+
+        If a cluster upgrade is happening, then this API will return the lowest
+        version of the current and target cluster runtime versions.
+
+        :param timeout: The server timeout for performing the operation in
+         seconds. This timeout specifies the time duration that the client is
+         willing to wait for the requested operation to complete. The default
+         value for this parameter is 60 seconds.
+        :type timeout: long
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: ClusterVersion or ClientRawResponse if raw=true
+        :rtype: ~azure.servicefabric.models.ClusterVersion or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
+        """
+        api_version = "6.0"
+
+        # Construct URL
+        url = self.get_cluster_version.metadata['url']
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        if timeout is not None:
+            query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters)
+        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.FabricErrorException(self._deserialize, response)
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('ClusterVersion', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get_cluster_version.metadata = {'url': '/$/GetClusterVersion'}
 
     def get_node_info_list(
             self, continuation_token=None, node_status_filter="default", max_results=0, timeout=60, custom_headers=None, raw=False, **operation_config):
@@ -6437,6 +6501,12 @@ class ServiceFabricClientAPIs(object):
         :type partition_key_type: int
         :param partition_key_value: Partition key. This is required if the
          partition scheme for the service is Int64Range or Named.
+         This is not the partition ID, but rather, either the integer key
+         value, or the name of the partition ID.
+         For example, if your service is using ranged partitions from 0 to 10,
+         then they PartitionKeyValue would be an
+         integer in that range. Query service description to see the range or
+         name.
         :type partition_key_value: str
         :param previous_rsp_version: The value in the Version field of the
          response that was received previously. This is required if the user
@@ -6549,7 +6619,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.0"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_info_list.metadata['url']
@@ -10893,8 +10963,8 @@ class ServiceFabricClientAPIs(object):
         """Deletes existing image store content.
 
         Deletes existing image store content being found within the given image
-        store relative path. This can be used to delete uploaded application
-        packages once they are provisioned.
+        store relative path. This command can be used to delete uploaded
+        application packages once they are provisioned.
 
         :param content_path: Relative path to file or folder in the image
          store from its root.
@@ -12268,7 +12338,7 @@ class ServiceFabricClientAPIs(object):
         """Gets a list of user-induced fault operations filtered by provided
         input.
 
-        Gets the a list of user-induced fault operations filtered by provided
+        Gets the list of user-induced fault operations filtered by provided
         input.
 
         :param type_filter: Used to filter on OperationType for user-induced
@@ -12377,7 +12447,7 @@ class ServiceFabricClientAPIs(object):
         :param operation_id: A GUID that identifies a call of this API.  This
          is passed into the corresponding GetProgress API
         :type operation_id: str
-        :param force: Indicates whether to gracefully rollback and clean up
+        :param force: Indicates whether to gracefully roll back and clean up
          internal system state modified by executing the user-induced
          operation.
         :type force: bool
@@ -12456,7 +12526,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.create_backup_policy.metadata['url']
@@ -12519,7 +12589,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.delete_backup_policy.metadata['url']
@@ -12595,7 +12665,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_backup_policy_list.metadata['url']
@@ -12663,7 +12733,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_backup_policy_by_name.metadata['url']
@@ -12748,7 +12818,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_all_entities_backed_up_by_policy.metadata['url']
@@ -12822,7 +12892,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.update_backup_policy.metadata['url']
@@ -12903,7 +12973,7 @@ class ServiceFabricClientAPIs(object):
         """
         enable_backup_description = models.EnableBackupDescription(backup_policy_name=backup_policy_name)
 
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.enable_application_backup.metadata['url']
@@ -12945,7 +13015,7 @@ class ServiceFabricClientAPIs(object):
     enable_application_backup.metadata = {'url': '/Applications/{applicationId}/$/EnableBackup'}
 
     def disable_application_backup(
-            self, application_id, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, application_id, clean_backup, timeout=60, custom_headers=None, raw=False, **operation_config):
         """Disables periodic backup of Service Fabric application.
 
         Disables periodic backup of Service Fabric application which was
@@ -12960,6 +13030,10 @@ class ServiceFabricClientAPIs(object):
          application identity would be "myapp~app1" in 6.0+ and "myapp/app1" in
          previous versions.
         :type application_id: str
+        :param clean_backup: Boolean flag to delete backups. It can be set to
+         true for deleting all the backups which were created for the backup
+         entity that is getting disabled for backup.
+        :type clean_backup: bool
         :param timeout: The server timeout for performing the operation in
          seconds. This timeout specifies the time duration that the client is
          willing to wait for the requested operation to complete. The default
@@ -12975,7 +13049,11 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        disable_backup_description = None
+        if clean_backup is not None:
+            disable_backup_description = models.DisableBackupDescription(clean_backup=clean_backup)
+
+        api_version = "6.4"
 
         # Construct URL
         url = self.disable_application_backup.metadata['url']
@@ -13000,9 +13078,16 @@ class ServiceFabricClientAPIs(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
+        # Construct body
+        if disable_backup_description is not None:
+            body_content = self._serialize.body(disable_backup_description, 'DisableBackupDescription')
+        else:
+            body_content = None
+
         # Construct and send request
         request = self._client.post(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        response = self._client.send(
+            request, header_parameters, body_content, stream=False, **operation_config)
 
         if response.status_code not in [202]:
             raise models.FabricErrorException(self._deserialize, response)
@@ -13061,7 +13146,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_application_backup_configuration_info.metadata['url']
@@ -13174,7 +13259,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_application_backup_list.metadata['url']
@@ -13262,7 +13347,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.suspend_application_backup.metadata['url']
@@ -13332,7 +13417,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.resume_application_backup.metadata['url']
@@ -13412,7 +13497,7 @@ class ServiceFabricClientAPIs(object):
         """
         enable_backup_description = models.EnableBackupDescription(backup_policy_name=backup_policy_name)
 
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.enable_service_backup.metadata['url']
@@ -13454,7 +13539,7 @@ class ServiceFabricClientAPIs(object):
     enable_service_backup.metadata = {'url': '/Services/{serviceId}/$/EnableBackup'}
 
     def disable_service_backup(
-            self, service_id, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, service_id, clean_backup, timeout=60, custom_headers=None, raw=False, **operation_config):
         """Disables periodic backup of Service Fabric service which was previously
         enabled.
 
@@ -13472,6 +13557,10 @@ class ServiceFabricClientAPIs(object):
          service identity would be "myapp~app1~svc1" in 6.0+ and
          "myapp/app1/svc1" in previous versions.
         :type service_id: str
+        :param clean_backup: Boolean flag to delete backups. It can be set to
+         true for deleting all the backups which were created for the backup
+         entity that is getting disabled for backup.
+        :type clean_backup: bool
         :param timeout: The server timeout for performing the operation in
          seconds. This timeout specifies the time duration that the client is
          willing to wait for the requested operation to complete. The default
@@ -13487,7 +13576,11 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        disable_backup_description = None
+        if clean_backup is not None:
+            disable_backup_description = models.DisableBackupDescription(clean_backup=clean_backup)
+
+        api_version = "6.4"
 
         # Construct URL
         url = self.disable_service_backup.metadata['url']
@@ -13512,9 +13605,16 @@ class ServiceFabricClientAPIs(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
+        # Construct body
+        if disable_backup_description is not None:
+            body_content = self._serialize.body(disable_backup_description, 'DisableBackupDescription')
+        else:
+            body_content = None
+
         # Construct and send request
         request = self._client.post(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        response = self._client.send(
+            request, header_parameters, body_content, stream=False, **operation_config)
 
         if response.status_code not in [202]:
             raise models.FabricErrorException(self._deserialize, response)
@@ -13572,7 +13672,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_service_backup_configuration_info.metadata['url']
@@ -13683,7 +13783,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_service_backup_list.metadata['url']
@@ -13769,7 +13869,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.suspend_service_backup.metadata['url']
@@ -13837,7 +13937,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.resume_service_backup.metadata['url']
@@ -13908,7 +14008,7 @@ class ServiceFabricClientAPIs(object):
         """
         enable_backup_description = models.EnableBackupDescription(backup_policy_name=backup_policy_name)
 
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.enable_partition_backup.metadata['url']
@@ -13950,7 +14050,7 @@ class ServiceFabricClientAPIs(object):
     enable_partition_backup.metadata = {'url': '/Partitions/{partitionId}/$/EnableBackup'}
 
     def disable_partition_backup(
-            self, partition_id, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, partition_id, clean_backup, timeout=60, custom_headers=None, raw=False, **operation_config):
         """Disables periodic backup of Service Fabric partition which was
         previously enabled.
 
@@ -13963,6 +14063,10 @@ class ServiceFabricClientAPIs(object):
 
         :param partition_id: The identity of the partition.
         :type partition_id: str
+        :param clean_backup: Boolean flag to delete backups. It can be set to
+         true for deleting all the backups which were created for the backup
+         entity that is getting disabled for backup.
+        :type clean_backup: bool
         :param timeout: The server timeout for performing the operation in
          seconds. This timeout specifies the time duration that the client is
          willing to wait for the requested operation to complete. The default
@@ -13978,7 +14082,11 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        disable_backup_description = None
+        if clean_backup is not None:
+            disable_backup_description = models.DisableBackupDescription(clean_backup=clean_backup)
+
+        api_version = "6.4"
 
         # Construct URL
         url = self.disable_partition_backup.metadata['url']
@@ -14003,9 +14111,16 @@ class ServiceFabricClientAPIs(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
+        # Construct body
+        if disable_backup_description is not None:
+            body_content = self._serialize.body(disable_backup_description, 'DisableBackupDescription')
+        else:
+            body_content = None
+
         # Construct and send request
         request = self._client.post(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        response = self._client.send(
+            request, header_parameters, body_content, stream=False, **operation_config)
 
         if response.status_code not in [202]:
             raise models.FabricErrorException(self._deserialize, response)
@@ -14041,7 +14156,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_backup_configuration_info.metadata['url']
@@ -14126,7 +14241,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_backup_list.metadata['url']
@@ -14200,7 +14315,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.suspend_partition_backup.metadata['url']
@@ -14261,7 +14376,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.resume_partition_backup.metadata['url']
@@ -14344,7 +14459,7 @@ class ServiceFabricClientAPIs(object):
         if backup_storage is not None:
             backup_partition_description = models.BackupPartitionDescription(backup_storage=backup_storage)
 
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.backup_partition.metadata['url']
@@ -14415,7 +14530,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_backup_progress.metadata['url']
@@ -14503,7 +14618,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.restore_partition.metadata['url']
@@ -14572,7 +14687,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_restore_progress.metadata['url']
@@ -14661,7 +14776,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_backups_from_backup_location.metadata['url']
@@ -15401,7 +15516,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_cluster_event_list.metadata['url']
@@ -15579,7 +15694,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_node_event_list.metadata['url']
@@ -15671,7 +15786,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_nodes_event_list.metadata['url']
@@ -15768,7 +15883,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_application_event_list.metadata['url']
@@ -15860,7 +15975,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_applications_event_list.metadata['url']
@@ -15956,7 +16071,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_service_event_list.metadata['url']
@@ -16048,7 +16163,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_services_event_list.metadata['url']
@@ -16138,7 +16253,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_event_list.metadata['url']
@@ -16230,7 +16345,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partitions_event_list.metadata['url']
@@ -16322,7 +16437,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_replica_event_list.metadata['url']
@@ -16417,7 +16532,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_partition_replicas_event_list.metadata['url']
@@ -16493,7 +16608,7 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.2-preview"
+        api_version = "6.4"
 
         # Construct URL
         url = self.get_correlated_event_list.metadata['url']
@@ -16537,7 +16652,7 @@ class ServiceFabricClientAPIs(object):
         return deserialized
     get_correlated_event_list.metadata = {'url': '/EventsStore/CorrelatedEvents/{eventInstanceId}/$/Events'}
 
-    def create_application_resource(
+    def create_mesh_application(
             self, application_resource_name, application_resource_description, custom_headers=None, raw=False, **operation_config):
         """Creates or updates an application resource.
 
@@ -16565,7 +16680,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.create_application_resource.metadata['url']
+        url = self.create_mesh_application.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True)
         }
@@ -16599,9 +16714,9 @@ class ServiceFabricClientAPIs(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    create_application_resource.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
+    create_mesh_application.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
 
-    def get_application_resource(
+    def get_mesh_application(
             self, application_resource_name, custom_headers=None, raw=False, **operation_config):
         """Gets the application with the given name.
 
@@ -16626,7 +16741,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_application_resource.metadata['url']
+        url = self.get_mesh_application.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True)
         }
@@ -16663,9 +16778,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_application_resource.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
+    get_mesh_application.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
 
-    def delete_application_resource(
+    def delete_mesh_application(
             self, application_resource_name, custom_headers=None, raw=False, **operation_config):
         """Deletes the specified application.
 
@@ -16687,7 +16802,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.delete_application_resource.metadata['url']
+        url = self.delete_mesh_application.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True)
         }
@@ -16717,9 +16832,9 @@ class ServiceFabricClientAPIs(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete_application_resource.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
+    delete_mesh_application.metadata = {'url': '/Resources/Applications/{applicationResourceName}'}
 
-    def get_services(
+    def get_mesh_services(
             self, application_resource_name, custom_headers=None, raw=False, **operation_config):
         """Gets all the services in the application resource.
 
@@ -16744,7 +16859,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_services.metadata['url']
+        url = self.get_mesh_services.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True)
         }
@@ -16783,9 +16898,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_services.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services'}
+    get_mesh_services.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services'}
 
-    def get_service(
+    def get_mesh_service(
             self, application_resource_name, service_resource_name, custom_headers=None, raw=False, **operation_config):
         """Gets the description of the specified service in an application
         resource.
@@ -16810,7 +16925,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_service.metadata['url']
+        url = self.get_mesh_service.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True),
             'serviceResourceName': self._serialize.url("service_resource_name", service_resource_name, 'str', skip_quote=True)
@@ -16850,9 +16965,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_service.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}'}
+    get_mesh_service.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}'}
 
-    def get_replicas(
+    def get_mesh_replicas(
             self, application_resource_name, service_resource_name, custom_headers=None, raw=False, **operation_config):
         """Gets replicas of a given service in an applciation resource.
 
@@ -16879,7 +16994,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_replicas.metadata['url']
+        url = self.get_mesh_replicas.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True),
             'serviceResourceName': self._serialize.url("service_resource_name", service_resource_name, 'str', skip_quote=True)
@@ -16919,9 +17034,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_replicas.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}/Replicas'}
+    get_mesh_replicas.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}/Replicas'}
 
-    def get_replica(
+    def get_mesh_replica(
             self, application_resource_name, service_resource_name, replica_name, custom_headers=None, raw=False, **operation_config):
         """Gets a specific replica of a given service in an application resource.
 
@@ -16949,7 +17064,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_replica.metadata['url']
+        url = self.get_mesh_replica.metadata['url']
         path_format_arguments = {
             'applicationResourceName': self._serialize.url("application_resource_name", application_resource_name, 'str', skip_quote=True),
             'serviceResourceName': self._serialize.url("service_resource_name", service_resource_name, 'str', skip_quote=True),
@@ -16990,9 +17105,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_replica.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}/Replicas/{replicaName}'}
+    get_mesh_replica.metadata = {'url': '/Resources/Applications/{applicationResourceName}/Services/{serviceResourceName}/Replicas/{replicaName}'}
 
-    def create_volume_resource(
+    def create_mesh_volume(
             self, volume_resource_name, volume_resource_description, custom_headers=None, raw=False, **operation_config):
         """Creates or updates a volume resource.
 
@@ -17019,7 +17134,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.create_volume_resource.metadata['url']
+        url = self.create_mesh_volume.metadata['url']
         path_format_arguments = {
             'volumeResourceName': self._serialize.url("volume_resource_name", volume_resource_name, 'str', skip_quote=True)
         }
@@ -17053,9 +17168,9 @@ class ServiceFabricClientAPIs(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    create_volume_resource.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
+    create_mesh_volume.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
 
-    def get_volume_resource(
+    def get_mesh_volume(
             self, volume_resource_name, custom_headers=None, raw=False, **operation_config):
         """Gets the volume resource.
 
@@ -17079,7 +17194,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.get_volume_resource.metadata['url']
+        url = self.get_mesh_volume.metadata['url']
         path_format_arguments = {
             'volumeResourceName': self._serialize.url("volume_resource_name", volume_resource_name, 'str', skip_quote=True)
         }
@@ -17116,9 +17231,9 @@ class ServiceFabricClientAPIs(object):
             return client_raw_response
 
         return deserialized
-    get_volume_resource.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
+    get_mesh_volume.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
 
-    def delete_volume_resource(
+    def delete_mesh_volume(
             self, volume_resource_name, custom_headers=None, raw=False, **operation_config):
         """Deletes the volume resource.
 
@@ -17139,7 +17254,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.3-preview"
 
         # Construct URL
-        url = self.delete_volume_resource.metadata['url']
+        url = self.delete_mesh_volume.metadata['url']
         path_format_arguments = {
             'volumeResourceName': self._serialize.url("volume_resource_name", volume_resource_name, 'str', skip_quote=True)
         }
@@ -17169,37 +17284,31 @@ class ServiceFabricClientAPIs(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete_volume_resource.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
+    delete_mesh_volume.metadata = {'url': '/Resources/Volumes/{volumeResourceName}'}
 
-    def create_or_update_secret_resource(
-            self, secret_resource_name, secret_resource_description, custom_headers=None, raw=False, **operation_config):
-        """Creates or updates a secret resource.
+    def create_mesh_gateway(
+            self, gateway_resource_name, gateway_resource_description, custom_headers=None, raw=False, **operation_config):
+        """Creates or updates a gateway resource.
 
-        Creates a secret resource with the specified name, description and
-        versioned value. If a secret resource with the same name does not
-        exist, a new resource is created with specified properties.
-        If a secret resource with the same name and different version exist,
-        the existing resource is added to a list of versioned objects
-        accessible via version collection on this resource. The existing
-        resource is then modified to have a new version and associated values
-        of other properties.
-        If a secret resource with the same name and same version exists, only
-        description property can be updated. If any other property values are
-        different, the operation will fail.
+        Creates a gateway resource with the specified name and description. If
+        a gateway with the same name already exists,  then its description is
+        updated to the one indicated in this request. Use gateway resources to
+        create a gateway for public connectivity for services within your
+        application. .
 
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
-        :param secret_resource_description: Description for creating a secret
-         resource.
-        :type secret_resource_description:
-         ~azure.servicefabric.models.SecretResourceDescription
+        :param gateway_resource_name: The identity of the gateway.
+        :type gateway_resource_name: str
+        :param gateway_resource_description: Description for creating a
+         Gateway resource.
+        :type gateway_resource_description:
+         ~azure.servicefabric.models.GatewayResourceDescription
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: SecretResourceDescription or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.SecretResourceDescription or
+        :return: GatewayResourceDescription or ClientRawResponse if raw=true
+        :rtype: ~azure.servicefabric.models.GatewayResourceDescription or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
@@ -17207,9 +17316,9 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.4-preview"
 
         # Construct URL
-        url = self.create_or_update_secret_resource.metadata['url']
+        url = self.create_mesh_gateway.metadata['url']
         path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True)
+            'gatewayResourceName': self._serialize.url("gateway_resource_name", gateway_resource_name, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -17228,7 +17337,7 @@ class ServiceFabricClientAPIs(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(secret_resource_description, 'SecretResourceDescription')
+        body_content = self._serialize.body(gateway_resource_description, 'GatewayResourceDescription')
 
         # Construct and send request
         request = self._client.put(url, query_parameters)
@@ -17241,32 +17350,34 @@ class ServiceFabricClientAPIs(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('SecretResourceDescription', response)
+            deserialized = self._deserialize('GatewayResourceDescription', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('GatewayResourceDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    create_or_update_secret_resource.metadata = {'url': '/Resources/Secrets/{secretResourceName}'}
+    create_mesh_gateway.metadata = {'url': '/Resources/Gateways/{gatewayResourceName}'}
 
-    def get_secret_resource(
-            self, secret_resource_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the secret resource with the given name.
+    def get_mesh_gateway(
+            self, gateway_resource_name, custom_headers=None, raw=False, **operation_config):
+        """Gets the gateway resource with the specified name.
 
-        Gets the information about the secret resource with the given name. The
-        information include the metadata and current version. It does not
-        include the secret value.
+        Gets the information about the gateway resource with the given name.
+        The information include the description, configuration and other
+        runtime properties of the gateway.
 
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
+        :param gateway_resource_name: The identity of the gateway.
+        :type gateway_resource_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: SecretResourceDescription or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.SecretResourceDescription or
+        :return: GatewayResourceDescription or ClientRawResponse if raw=true
+        :rtype: ~azure.servicefabric.models.GatewayResourceDescription or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
@@ -17274,9 +17385,9 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.4-preview"
 
         # Construct URL
-        url = self.get_secret_resource.metadata['url']
+        url = self.get_mesh_gateway.metadata['url']
         path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True)
+            'gatewayResourceName': self._serialize.url("gateway_resource_name", gateway_resource_name, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -17304,23 +17415,23 @@ class ServiceFabricClientAPIs(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('SecretResourceDescription', response)
+            deserialized = self._deserialize('GatewayResourceDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get_secret_resource.metadata = {'url': '/Resources/Secrets/{secretResourceName}'}
+    get_mesh_gateway.metadata = {'url': '/Resources/Gateways/{gatewayResourceName}'}
 
-    def delete_secret_resource(
-            self, secret_resource_name, custom_headers=None, raw=False, **operation_config):
-        """Deletes the specified secret.
+    def delete_mesh_gateway(
+            self, gateway_resource_name, custom_headers=None, raw=False, **operation_config):
+        """Deletes the specified gateway, including all of its versions.
 
-        Deletes the secret resource identified by the name.
+        Deletes the gateway resource identified by the name.
 
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
+        :param gateway_resource_name: The identity of the gateway.
+        :type gateway_resource_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -17331,12 +17442,12 @@ class ServiceFabricClientAPIs(object):
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
         """
-        api_version = "6.3-preview"
+        api_version = "6.4-preview"
 
         # Construct URL
-        url = self.delete_secret_resource.metadata['url']
+        url = self.delete_mesh_gateway.metadata['url']
         path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True)
+            'gatewayResourceName': self._serialize.url("gateway_resource_name", gateway_resource_name, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -17364,23 +17475,25 @@ class ServiceFabricClientAPIs(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete_secret_resource.metadata = {'url': '/Resources/Secrets/{secretResourceName}'}
+    delete_mesh_gateway.metadata = {'url': '/Resources/Gateways/{gatewayResourceName}'}
 
-    def list_secret_resources(
+    def list_mesh_gateways(
             self, custom_headers=None, raw=False, **operation_config):
-        """Lists all secret resources.
+        """Lists all gateway resources.
 
-        Gets the information about all of the secret resources. The information
-        include the metadata and current version. It does not include the
-        secret value.
+        Gets the information about all of the gateway resources. The
+        information include the description, configuration and other runtime
+        properties of the gateway.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PagedSecretResourceList or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.PagedSecretResourceList or
+        :return: PagedGatewayResourceDescriptionList or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.servicefabric.models.PagedGatewayResourceDescriptionList or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
@@ -17388,7 +17501,7 @@ class ServiceFabricClientAPIs(object):
         api_version = "6.4-preview"
 
         # Construct URL
-        url = self.list_secret_resources.metadata['url']
+        url = self.list_mesh_gateways.metadata['url']
 
         # Construct parameters
         query_parameters = {}
@@ -17414,204 +17527,11 @@ class ServiceFabricClientAPIs(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('PagedSecretResourceList', response)
+            deserialized = self._deserialize('PagedGatewayResourceDescriptionList', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    list_secret_resources.metadata = {'url': '/Resources/Secrets'}
-
-    def list_secret_resource_versions(
-            self, secret_resource_name, custom_headers=None, raw=False, **operation_config):
-        """Gets all versions of the the specified secret resource.
-
-        Gets information about all versions of the specified secret resource.
-        The information includes the metadata about each version. It does not
-        include value of the secret.
-
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: PagedSecretResourceList or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.PagedSecretResourceList or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
-        """
-        api_version = "6.4-preview"
-
-        # Construct URL
-        url = self.list_secret_resource_versions.metadata['url']
-        path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True)
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.FabricErrorException(self._deserialize, response)
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('PagedSecretResourceList', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    list_secret_resource_versions.metadata = {'url': '/Resources/Secrets/{secretResourceName}/Versions'}
-
-    def get_secret_resource_by_version(
-            self, secret_resource_name, secret_resource_version, custom_headers=None, raw=False, **operation_config):
-        """Gets the specified version of the secret resource.
-
-        Gets information about the specified version of the specified secret
-        resource. The information includes the metadata about each version. It
-        does not include value of the secret.
-
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
-        :param secret_resource_version: Version of the secret resource.
-        :type secret_resource_version: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: SecretResourceDescription or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.SecretResourceDescription or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
-        """
-        api_version = "6.4-preview"
-
-        # Construct URL
-        url = self.get_secret_resource_by_version.metadata['url']
-        path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True),
-            'secretResourceVersion': self._serialize.url("secret_resource_version", secret_resource_version, 'str', skip_quote=True)
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.FabricErrorException(self._deserialize, response)
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('SecretResourceDescription', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    get_secret_resource_by_version.metadata = {'url': '/Resources/Secrets/{secretResourceName}/Versions/{secretResourceVersion}'}
-
-    def get_secret_resource_value(
-            self, secret_resource_name, secret_resource_version, custom_headers=None, raw=False, **operation_config):
-        """Gets the secret value.
-
-        Gets the value of the specified version of the secret resource.
-
-        :param secret_resource_name: The name of the secret resource.
-        :type secret_resource_name: str
-        :param secret_resource_version: Version of the secret resource.
-        :type secret_resource_version: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: SecretResourceValue or ClientRawResponse if raw=true
-        :rtype: ~azure.servicefabric.models.SecretResourceValue or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`FabricErrorException<azure.servicefabric.models.FabricErrorException>`
-        """
-        api_version = "6.4-preview"
-
-        # Construct URL
-        url = self.get_secret_resource_value.metadata['url']
-        path_format_arguments = {
-            'secretResourceName': self._serialize.url("secret_resource_name", secret_resource_name, 'str', skip_quote=True),
-            'secretResourceVersion': self._serialize.url("secret_resource_version", secret_resource_version, 'str', skip_quote=True)
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.FabricErrorException(self._deserialize, response)
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('SecretResourceValue', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    get_secret_resource_value.metadata = {'url': '/Resources/Secrets/{secretResourceName}/Versions/{secretResourceVersion}/GetValue'}
+    list_mesh_gateways.metadata = {'url': '/Resources/Gateways'}

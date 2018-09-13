@@ -17,6 +17,8 @@ class ChaosMoveSecondaryFaultScheduledEvent(PartitionEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -59,6 +61,7 @@ class ChaosMoveSecondaryFaultScheduledEvent(PartitionEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -71,12 +74,12 @@ class ChaosMoveSecondaryFaultScheduledEvent(PartitionEvent):
         'forced_move': {'key': 'ForcedMove', 'type': 'bool'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, fault_group_id, fault_id, service_name, source_node, destination_node, forced_move, has_correlated_events=None):
-        super(ChaosMoveSecondaryFaultScheduledEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id)
+    def __init__(self, event_instance_id, time_stamp, partition_id, fault_group_id, fault_id, service_name, source_node, destination_node, forced_move, category=None, has_correlated_events=None):
+        super(ChaosMoveSecondaryFaultScheduledEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id)
         self.fault_group_id = fault_group_id
         self.fault_id = fault_id
         self.service_name = service_name
         self.source_node = source_node
         self.destination_node = destination_node
         self.forced_move = forced_move
-        self.kind = 'ChaosMoveSecondaryFaultScheduled'
+        self.kind = 'ChaosPartitionSecondaryMoveScheduled'

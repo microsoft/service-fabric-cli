@@ -18,7 +18,7 @@ class ClusterConfigurationUpgradeDescription(Model):
     :param cluster_config: The cluster configuration.
     :type cluster_config: str
     :param health_check_retry_timeout: The length of time between attempts to
-     perform a health checks if the application or cluster is not healthy.
+     perform health checks if the application or cluster is not healthy.
      Default value: "PT0H0M0S" .
     :type health_check_retry_timeout: timedelta
     :param health_check_wait_duration_in_seconds: The length of time to wait
@@ -26,8 +26,8 @@ class ClusterConfigurationUpgradeDescription(Model):
      process. Default value: "PT0H0M0S" .
     :type health_check_wait_duration_in_seconds: timedelta
     :param health_check_stable_duration_in_seconds: The length of time that
-     the application or cluster must remain healthy. Default value: "PT0H0M0S"
-     .
+     the application or cluster must remain healthy before the upgrade proceeds
+     to the next upgrade domain. Default value: "PT0H0M0S" .
     :type health_check_stable_duration_in_seconds: timedelta
     :param upgrade_domain_timeout_in_seconds: The timeout for the upgrade
      domain. Default value: "PT0H0M0S" .

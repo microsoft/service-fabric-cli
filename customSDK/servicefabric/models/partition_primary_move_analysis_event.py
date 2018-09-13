@@ -17,6 +17,8 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -59,6 +61,7 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -71,8 +74,8 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
         'relevant_traces': {'key': 'RelevantTraces', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, metadata, when_move_completed, previous_node, current_node, move_reason, relevant_traces, has_correlated_events=None):
-        super(PartitionPrimaryMoveAnalysisEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, metadata=metadata)
+    def __init__(self, event_instance_id, time_stamp, partition_id, metadata, when_move_completed, previous_node, current_node, move_reason, relevant_traces, category=None, has_correlated_events=None):
+        super(PartitionPrimaryMoveAnalysisEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, metadata=metadata)
         self.when_move_completed = when_move_completed
         self.previous_node = previous_node
         self.current_node = current_node

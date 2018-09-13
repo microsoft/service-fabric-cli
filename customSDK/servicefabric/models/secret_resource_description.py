@@ -13,21 +13,8 @@ from msrest.serialization import Model
 
 
 class SecretResourceDescription(Model):
-    """Describes a secret resource with a versioned value.
+    """This type describes a secret resource.
 
-    :param description: Description of the secret.
-    :type description: str
-    :param content_type: The type of the secret value. Currently this value is
-     opaque to Service Fabric.
-    :type content_type: str
-    :param value: The value of the secret resource. When creating or updating
-     the resource, value is required. Once created, the value can be retrieved
-     using an explicit operation against the resource.
-    :type value: str
-    :param version: The version of the secret value. If must be unique and
-     different for different value. Once set, the value of the version property
-     cannot be changed.
-    :type version: str
     :param kind: Constant filled by server.
     :type kind: str
     :param name: Secret resource name.
@@ -35,25 +22,16 @@ class SecretResourceDescription(Model):
     """
 
     _validation = {
-        'version': {'required': True},
         'kind': {'required': True},
         'name': {'required': True},
     }
 
     _attribute_map = {
-        'description': {'key': 'properties.description', 'type': 'str'},
-        'content_type': {'key': 'properties.contentType', 'type': 'str'},
-        'value': {'key': 'properties.value', 'type': 'str'},
-        'version': {'key': 'properties.version', 'type': 'str'},
         'kind': {'key': 'properties.kind', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, version, kind, name, description=None, content_type=None, value=None):
+    def __init__(self, kind, name):
         super(SecretResourceDescription, self).__init__()
-        self.description = description
-        self.content_type = content_type
-        self.value = value
-        self.version = version
         self.kind = kind
         self.name = name

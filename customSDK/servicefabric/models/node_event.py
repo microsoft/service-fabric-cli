@@ -16,15 +16,16 @@ class NodeEvent(FabricEvent):
     """Represents the base for all Node Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: NodeAbortedEvent, NodeAbortingEvent, NodeAddedEvent,
-    NodeCloseEvent, NodeClosingEvent, NodeDeactivateCompleteEvent,
-    NodeDeactivateStartEvent, NodeDownEvent, NodeHealthReportCreatedEvent,
-    NodeHealthReportExpiredEvent, NodeOpenedSuccessEvent, NodeOpenFailedEvent,
-    NodeOpeningEvent, NodeRemovedEvent, NodeUpEvent,
-    ChaosRestartNodeFaultCompletedEvent, ChaosRestartNodeFaultScheduledEvent
+    sub-classes are: NodeAbortedEvent, NodeAddedEvent, NodeCloseEvent,
+    NodeDeactivateCompleteEvent, NodeDeactivateStartEvent, NodeDownEvent,
+    NodeHealthReportCreatedEvent, NodeHealthReportExpiredEvent,
+    NodeOpenedSuccessEvent, NodeOpenFailedEvent, NodeRemovedEvent, NodeUpEvent,
+    ChaosRestartNodeFaultScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -45,6 +46,7 @@ class NodeEvent(FabricEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -52,10 +54,10 @@ class NodeEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'NodeAborted': 'NodeAbortedEvent', 'NodeAborting': 'NodeAbortingEvent', 'NodeAdded': 'NodeAddedEvent', 'NodeClose': 'NodeCloseEvent', 'NodeClosing': 'NodeClosingEvent', 'NodeDeactivateComplete': 'NodeDeactivateCompleteEvent', 'NodeDeactivateStart': 'NodeDeactivateStartEvent', 'NodeDown': 'NodeDownEvent', 'NodeHealthReportCreated': 'NodeHealthReportCreatedEvent', 'NodeHealthReportExpired': 'NodeHealthReportExpiredEvent', 'NodeOpenedSuccess': 'NodeOpenedSuccessEvent', 'NodeOpenFailed': 'NodeOpenFailedEvent', 'NodeOpening': 'NodeOpeningEvent', 'NodeRemoved': 'NodeRemovedEvent', 'NodeUp': 'NodeUpEvent', 'ChaosRestartNodeFaultCompleted': 'ChaosRestartNodeFaultCompletedEvent', 'ChaosRestartNodeFaultScheduled': 'ChaosRestartNodeFaultScheduledEvent'}
+        'kind': {'NodeAborted': 'NodeAbortedEvent', 'NodeAddedToCluster': 'NodeAddedEvent', 'NodeClosed': 'NodeCloseEvent', 'NodeDeactivateCompleted': 'NodeDeactivateCompleteEvent', 'NodeDeactivateStarted': 'NodeDeactivateStartEvent', 'NodeDown': 'NodeDownEvent', 'NodeNewHealthReport': 'NodeHealthReportCreatedEvent', 'NodeHealthReportExpired': 'NodeHealthReportExpiredEvent', 'NodeOpenSucceeded': 'NodeOpenedSuccessEvent', 'NodeOpenFailed': 'NodeOpenFailedEvent', 'NodeRemovedFromCluster': 'NodeRemovedEvent', 'NodeUp': 'NodeUpEvent', 'ChaosNodeRestartScheduled': 'ChaosRestartNodeFaultScheduledEvent'}
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, has_correlated_events=None):
-        super(NodeEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+    def __init__(self, event_instance_id, time_stamp, node_name, category=None, has_correlated_events=None):
+        super(NodeEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
         self.node_name = node_name
         self.kind = 'NodeEvent'

@@ -17,6 +17,8 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -46,8 +48,8 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
     :type property: str
     :param health_state: Describes the property health state.
     :type health_state: str
-    :param ttl_timespan: Time to live in milli-seconds.
-    :type ttl_timespan: long
+    :param time_to_live_ms: Time to live in milli-seconds.
+    :type time_to_live_ms: long
     :param sequence_number: Sequence number of report.
     :type sequence_number: long
     :param description: Description of report.
@@ -70,7 +72,7 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
         'source_id': {'required': True},
         'property': {'required': True},
         'health_state': {'required': True},
-        'ttl_timespan': {'required': True},
+        'time_to_live_ms': {'required': True},
         'sequence_number': {'required': True},
         'description': {'required': True},
         'remove_when_expired': {'required': True},
@@ -79,6 +81,7 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -90,15 +93,15 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
         'source_id': {'key': 'SourceId', 'type': 'str'},
         'property': {'key': 'Property', 'type': 'str'},
         'health_state': {'key': 'HealthState', 'type': 'str'},
-        'ttl_timespan': {'key': 'TTLTimespan', 'type': 'long'},
+        'time_to_live_ms': {'key': 'TimeToLiveMs', 'type': 'long'},
         'sequence_number': {'key': 'SequenceNumber', 'type': 'long'},
         'description': {'key': 'Description', 'type': 'str'},
         'remove_when_expired': {'key': 'RemoveWhenExpired', 'type': 'bool'},
         'source_utc_timestamp': {'key': 'SourceUtcTimestamp', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, service_manifest_name, service_package_instance_id, service_package_activation_id, node_name, source_id, property, health_state, ttl_timespan, sequence_number, description, remove_when_expired, source_utc_timestamp, has_correlated_events=None):
-        super(DeployedServiceHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
+    def __init__(self, event_instance_id, time_stamp, application_id, service_manifest_name, service_package_instance_id, service_package_activation_id, node_name, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, category=None, has_correlated_events=None):
+        super(DeployedServiceHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
         self.service_manifest_name = service_manifest_name
         self.service_package_instance_id = service_package_instance_id
         self.service_package_activation_id = service_package_activation_id
@@ -106,9 +109,9 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
         self.source_id = source_id
         self.property = property
         self.health_state = health_state
-        self.ttl_timespan = ttl_timespan
+        self.time_to_live_ms = time_to_live_ms
         self.sequence_number = sequence_number
         self.description = description
         self.remove_when_expired = remove_when_expired
         self.source_utc_timestamp = source_utc_timestamp
-        self.kind = 'DeployedServiceHealthReportCreated'
+        self.kind = 'DeployedServiceNewHealthReport'

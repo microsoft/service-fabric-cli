@@ -12,8 +12,8 @@
 from msrest.serialization import Model
 
 
-class ContainerVolume(Model):
-    """Describes how a volume is attached to a container.
+class VolumeReference(Model):
+    """Describes a reference to a volume.
 
     :param name: Name of the volume.
     :type name: str
@@ -37,7 +37,7 @@ class ContainerVolume(Model):
     }
 
     def __init__(self, name, destination_path, read_only=None):
-        super(ContainerVolume, self).__init__()
+        super(VolumeReference, self).__init__()
         self.name = name
         self.read_only = read_only
         self.destination_path = destination_path
