@@ -17,6 +17,8 @@ class ChaosStartedEvent(ClusterEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -67,6 +69,7 @@ class ChaosStartedEvent(ClusterEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -82,8 +85,8 @@ class ChaosStartedEvent(ClusterEvent):
         'chaos_context': {'key': 'ChaosContext', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, max_concurrent_faults, time_to_run_in_seconds, max_cluster_stabilization_timeout_in_seconds, wait_time_between_iterations_in_seconds, wait_time_between_fautls_in_seconds, move_replica_fault_enabled, included_node_type_list, included_application_list, cluster_health_policy, chaos_context, has_correlated_events=None):
-        super(ChaosStartedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+    def __init__(self, event_instance_id, time_stamp, max_concurrent_faults, time_to_run_in_seconds, max_cluster_stabilization_timeout_in_seconds, wait_time_between_iterations_in_seconds, wait_time_between_fautls_in_seconds, move_replica_fault_enabled, included_node_type_list, included_application_list, cluster_health_policy, chaos_context, category=None, has_correlated_events=None):
+        super(ChaosStartedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
         self.max_concurrent_faults = max_concurrent_faults
         self.time_to_run_in_seconds = time_to_run_in_seconds
         self.max_cluster_stabilization_timeout_in_seconds = max_cluster_stabilization_timeout_in_seconds

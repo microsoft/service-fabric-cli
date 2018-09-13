@@ -9,53 +9,41 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.serialization import Model
+from .secret_resource_properties_base import SecretResourcePropertiesBase
 
 
-class SecretResourceProperties(Model):
+class SecretResourceProperties(SecretResourcePropertiesBase):
     """Describes the properties of a secret resource.
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: SimpleSecretResourceProperties
 
-    :param description: Description of the secret.
-    :type description: str
-    :param content_type: The type of the secret value. Currently this value is
-     opaque to Service Fabric.
-    :type content_type: str
-    :param value: The value of the secret resource. When creating or updating
-     the resource, value is required. Once created, the value can be retrieved
-     using an explicit operation against the resource.
-    :type value: str
-    :param version: The version of the secret value. If must be unique and
-     different for different value. Once set, the value of the version property
-     cannot be changed.
-    :type version: str
     :param kind: Constant filled by server.
     :type kind: str
+    :param description: Description of the secret resource.
+    :type description: str
+    :param content_type: The type of the content stored in the secret value.
+     The value of this property is opaque to Service Fabric. Once set, the
+     value of this property cannot be changed.
+    :type content_type: str
     """
 
     _validation = {
-        'version': {'required': True},
         'kind': {'required': True},
     }
 
     _attribute_map = {
+        'kind': {'key': 'kind', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
         'content_type': {'key': 'contentType', 'type': 'str'},
-        'value': {'key': 'value', 'type': 'str'},
-        'version': {'key': 'version', 'type': 'str'},
-        'kind': {'key': 'kind', 'type': 'str'},
     }
 
     _subtype_map = {
-        'kind': {'simple': 'SimpleSecretResourceProperties'}
+        'kind': {'inlinedValue': 'SimpleSecretResourceProperties'}
     }
 
-    def __init__(self, version, description=None, content_type=None, value=None):
+    def __init__(self, description=None, content_type=None):
         super(SecretResourceProperties, self).__init__()
         self.description = description
         self.content_type = content_type
-        self.value = value
-        self.version = version
-        self.kind = None
+        self.kind = 'SecretResourceProperties'

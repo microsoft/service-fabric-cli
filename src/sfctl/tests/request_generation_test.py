@@ -599,7 +599,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'partition list --service-id=fabric:/app/id --continuation-token=ct',
             'GET',
             '/Services/fabric:/app/id/$/GetPartitions',
-            ['api-version=6.0', 'ContinuationToken=ct'])
+            ['api-version=6.4', 'ContinuationToken=ct'])
         self.validate_command(  # load
             'partition load --partition-id=id',
             'GET',

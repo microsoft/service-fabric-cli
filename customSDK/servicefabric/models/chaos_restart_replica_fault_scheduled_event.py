@@ -17,6 +17,8 @@ class ChaosRestartReplicaFaultScheduledEvent(ReplicaEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -59,6 +61,7 @@ class ChaosRestartReplicaFaultScheduledEvent(ReplicaEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -69,9 +72,9 @@ class ChaosRestartReplicaFaultScheduledEvent(ReplicaEvent):
         'service_uri': {'key': 'ServiceUri', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, replica_id, fault_group_id, fault_id, service_uri, has_correlated_events=None):
-        super(ChaosRestartReplicaFaultScheduledEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, replica_id=replica_id)
+    def __init__(self, event_instance_id, time_stamp, partition_id, replica_id, fault_group_id, fault_id, service_uri, category=None, has_correlated_events=None):
+        super(ChaosRestartReplicaFaultScheduledEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, replica_id=replica_id)
         self.fault_group_id = fault_group_id
         self.fault_id = fault_id
         self.service_uri = service_uri
-        self.kind = 'ChaosRestartReplicaFaultScheduled'
+        self.kind = 'ChaosReplicaRestartScheduled'
