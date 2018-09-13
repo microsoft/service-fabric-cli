@@ -189,7 +189,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None
         warn(str.format(
             'CLI sfctl has version "{0}" which does not match the cluster version "{1}". '
             'See https://docs.microsoft.com/azure/service-fabric/service-fabric-cli#service-fabric-target-runtime '
-            'for version compatibility.',
+            'for version compatibility. Upgrade to a compatible version for the best experience.',
         sfctl_version,
         cluster_version))
         return False

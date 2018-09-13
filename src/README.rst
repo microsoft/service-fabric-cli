@@ -19,7 +19,7 @@ Change Log
 Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
-- Add a check to ensure sfctl version is compatible with the connected cluster version. This check is run periodically and on failures (#)
+- Add a check to ensure sfctl version is compatible with the connected cluster version. This check is run periodically and on failures (#123)
 
 6.0.1
 -----
