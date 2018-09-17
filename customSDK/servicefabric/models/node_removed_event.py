@@ -17,6 +17,8 @@ class NodeRemovedEvent(NodeEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -55,6 +57,7 @@ class NodeRemovedEvent(NodeEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -67,12 +70,12 @@ class NodeRemovedEvent(NodeEvent):
         'node_capacities': {'key': 'NodeCapacities', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, node_id, node_instance, node_type, fabric_version, ip_address_or_fqdn, node_capacities, has_correlated_events=None):
-        super(NodeRemovedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
+    def __init__(self, event_instance_id, time_stamp, node_name, node_id, node_instance, node_type, fabric_version, ip_address_or_fqdn, node_capacities, category=None, has_correlated_events=None):
+        super(NodeRemovedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
         self.node_id = node_id
         self.node_instance = node_instance
         self.node_type = node_type
         self.fabric_version = fabric_version
         self.ip_address_or_fqdn = ip_address_or_fqdn
         self.node_capacities = node_capacities
-        self.kind = 'NodeRemoved'
+        self.kind = 'NodeRemovedFromCluster'

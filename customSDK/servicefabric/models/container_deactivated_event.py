@@ -17,6 +17,8 @@ class ContainerDeactivatedEvent(ApplicationEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -79,6 +81,7 @@ class ContainerDeactivatedEvent(ApplicationEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -97,8 +100,8 @@ class ContainerDeactivatedEvent(ApplicationEvent):
         'start_time': {'key': 'StartTime', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, service_name, service_package_name, service_package_activation_id, is_exclusive, code_package_name, entry_point_type, image_name, container_name, host_id, exit_code, unexpected_termination, start_time, has_correlated_events=None):
-        super(ContainerDeactivatedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
+    def __init__(self, event_instance_id, time_stamp, application_id, service_name, service_package_name, service_package_activation_id, is_exclusive, code_package_name, entry_point_type, image_name, container_name, host_id, exit_code, unexpected_termination, start_time, category=None, has_correlated_events=None):
+        super(ContainerDeactivatedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
         self.service_name = service_name
         self.service_package_name = service_package_name
         self.service_package_activation_id = service_package_activation_id
@@ -111,4 +114,4 @@ class ContainerDeactivatedEvent(ApplicationEvent):
         self.exit_code = exit_code
         self.unexpected_termination = unexpected_termination
         self.start_time = start_time
-        self.kind = 'ContainerDeactivated'
+        self.kind = 'ApplicationContainerInstanceExited'

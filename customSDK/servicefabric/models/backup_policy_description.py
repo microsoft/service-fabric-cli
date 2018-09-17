@@ -34,6 +34,10 @@ class BackupPolicyDescription(Model):
     :param storage: Describes the details of backup storage where to store the
      periodic backups.
     :type storage: ~azure.servicefabric.models.BackupStorageDescription
+    :param retention_policy: Describes the policy to retain backups in
+     storage.
+    :type retention_policy:
+     ~azure.servicefabric.models.RetentionPolicyDescription
     """
 
     _validation = {
@@ -50,12 +54,14 @@ class BackupPolicyDescription(Model):
         'max_incremental_backups': {'key': 'MaxIncrementalBackups', 'type': 'int'},
         'schedule': {'key': 'Schedule', 'type': 'BackupScheduleDescription'},
         'storage': {'key': 'Storage', 'type': 'BackupStorageDescription'},
+        'retention_policy': {'key': 'RetentionPolicy', 'type': 'RetentionPolicyDescription'},
     }
 
-    def __init__(self, name, auto_restore_on_data_loss, max_incremental_backups, schedule, storage):
+    def __init__(self, name, auto_restore_on_data_loss, max_incremental_backups, schedule, storage, retention_policy=None):
         super(BackupPolicyDescription, self).__init__()
         self.name = name
         self.auto_restore_on_data_loss = auto_restore_on_data_loss
         self.max_incremental_backups = max_incremental_backups
         self.schedule = schedule
         self.storage = storage
+        self.retention_policy = retention_policy

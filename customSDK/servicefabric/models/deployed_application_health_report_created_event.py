@@ -17,6 +17,8 @@ class DeployedApplicationHealthReportCreatedEvent(ApplicationEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -73,6 +75,7 @@ class DeployedApplicationHealthReportCreatedEvent(ApplicationEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -89,8 +92,8 @@ class DeployedApplicationHealthReportCreatedEvent(ApplicationEvent):
         'source_utc_timestamp': {'key': 'SourceUtcTimestamp', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, application_instance_id, node_name, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, has_correlated_events=None):
-        super(DeployedApplicationHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
+    def __init__(self, event_instance_id, time_stamp, application_id, application_instance_id, node_name, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, category=None, has_correlated_events=None):
+        super(DeployedApplicationHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
         self.application_instance_id = application_instance_id
         self.node_name = node_name
         self.source_id = source_id
@@ -101,4 +104,4 @@ class DeployedApplicationHealthReportCreatedEvent(ApplicationEvent):
         self.description = description
         self.remove_when_expired = remove_when_expired
         self.source_utc_timestamp = source_utc_timestamp
-        self.kind = 'DeployedApplicationHealthReportCreated'
+        self.kind = 'DeployedApplicationNewHealthReport'
