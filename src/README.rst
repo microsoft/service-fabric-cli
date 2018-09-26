@@ -19,6 +19,7 @@ Change Log
 Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
+- Upgrade the knack package dependency to version 0.4.2 (#122)
 - Remove retry on failed commands, such as 500 status codes being returned. This allows the proper error message to propogate through (#125)
 
 6.0.1

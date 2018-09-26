@@ -15,6 +15,7 @@ from sfctl.custom_exceptions import SFCTLInternalException
 # function to be called upon from within the generated SDK.
 # pylint: disable=protected-access
 
+
 def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name,too-many-arguments
                                external_provision=False,
                                no_wait=False,
