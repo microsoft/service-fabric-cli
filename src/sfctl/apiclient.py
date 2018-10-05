@@ -34,3 +34,23 @@ def create(_):
         auth = ClientCertAuthentication(cert, ca_cert, no_verify)
 
     return ServiceFabricClientAPIs(auth, base_url=endpoint)
+
+def mesh_app_create(_):
+    """Create a client for mesh application APIs."""
+    client = create(_)
+    return client.mesh_application
+
+def mesh_volume_create(_):
+    """Create a client for mesh volume APIs."""
+    client = create(_)
+    return client.mesh_volume
+
+def mesh_service_create(_):
+    """Create a client for mesh service APIs."""
+    client = create(_)
+    return client.mesh_volume
+
+def mesh_service_replica_create(_):
+    """Create a client for mesh service-replica APIs."""
+    client = create(_)
+    return client.mesh_volume
