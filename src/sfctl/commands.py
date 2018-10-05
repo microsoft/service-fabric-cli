@@ -267,6 +267,8 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('create', 'create')
             group.command('upgrade', 'upgrade')
+
+        with CommandGroup(self, 'application', 'sfctl.custom_app#{}') as group:
             group.command('upload', 'upload')
 
         # Need an empty client for the select and upload operations

@@ -9,9 +9,12 @@
 from __future__ import print_function
 
 import os
+from multiprocessing import Process
+from time import time
 import sys
 import shutil
 from knack.util import CLIError
+from sfctl.custom_exceptions import SFCTLInternalException
 
 def validate_app_path(app_path):
     """Validate and return application package as absolute path"""
@@ -68,8 +71,17 @@ def upload_to_fileshare(source, dest, show_progress):
     if show_progress:
         print('Complete', file=sys.stderr)
 
+def get_timeout_left(target_timeout):
+    """
+    Return the number of seconds until timeout is reached.
+    :param target_timeout: time measured as from epoch in seconds
+    :return: int
+    """
+    current_time = int(time())  # time from epoch in seconds
+    return target_timeout - current_time
+
 def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals
-                                show_progress):
+                                show_progress, timeout):
     """
     Upload the application package to cluster
     """
@@ -84,9 +96,17 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         # Number of uploads is number of files plus number of directories
         total_files_count += (len(files) + 1)
 
+
+    target_timeout = int(time()) + timeout
+    current_time_left = timeout  # an int representing seconds
+
+
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
         for single_file in files:
+
+            current_time_left = get_timeout_left(target_timeout)
+
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
                                               rel_path, single_file))
@@ -96,22 +116,44 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 url_parsed = list(urlparse(endpoint))
                 url_parsed[2] = url_path
                 url_parsed[4] = urlencode(
-                    {'api-version': '6.1'})
+                    {'api-version': '6.1',
+                     'timeout': current_time_left})
                 url = urlunparse(url_parsed)
+
+                print()
+                # print('------------------ sending request ------------------')
+                print(url)
+                print()
+
+
+
                 res = sesh.put(url, data=file_opened)
+
+                # print()
+                # print('------------------ finished request ------------------')
+                # print(res)
+                # print()
+
                 res.raise_for_status()
                 current_files_count += 1
                 print_progress(current_files_count, total_files_count,
                                os.path.normpath(os.path.join(rel_path, single_file)),
                                show_progress)
+
+        current_time_left = get_timeout_left(target_timeout)
+
         url_path = (
             os.path.normpath(os.path.join('ImageStore', basename,
                                           rel_path, '_.dir'))
         ).replace('\\', '/')
         url_parsed = list(urlparse(endpoint))
         url_parsed[2] = url_path
-        url_parsed[4] = urlencode({'api-version': '6.1'})
+        url_parsed[4] = urlencode({'api-version': '6.1',
+                                   'timeout': current_time_left})
         url = urlunparse(url_parsed)
+
+
+
         res = sesh.put(url)
         res.raise_for_status()
         current_files_count += 1
@@ -121,10 +163,14 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-def upload(path, imagestore_string='fabric:ImageStore', show_progress=False):  # pylint: disable=too-many-locals,missing-docstring
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=None):  # pylint: disable=too-many-locals,missing-docstring
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     import requests
+
+    print('--------------------------------')
+    print('Starting upload with timeout of ' + str(timeout))
+    print('--------------------------------')
 
     abspath = validate_app_path(path)
     basename = os.path.basename(abspath)
@@ -144,14 +190,36 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False):  #
     # Upload to either to a folder, or native image store only
     if 'file:' in imagestore_string:
         dest_path = path_from_imagestore_string(imagestore_string)
-        upload_to_fileshare(abspath, os.path.join(dest_path, basename),
-                            show_progress)
+
+        process = Process(target=upload_to_fileshare,
+                          args=(abspath, os.path.join(dest_path, basename), show_progress))
+
+        process.start()
+        print('starting process')
+        process.join(timeout)  # If timeout is None then there is no timeout.
+        print('called process join')
+
+        if process.is_alive():
+            process.terminate()  # This will leave any children of process orphaned.
+            raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                         'timeout duration.')
+
     elif imagestore_string == 'fabric:ImageStore':
         with requests.Session() as sesh:
             sesh.verify = ca_cert
             sesh.cert = cert
-            upload_to_native_imagestore(sesh, endpoint, abspath, basename,
-                                        show_progress)
+
+            process = Process(target=upload_to_native_imagestore,
+                              args=(sesh, endpoint, abspath, basename, show_progress, timeout))
+
+            process.start()
+            process.join(timeout)
+
+            if process.is_alive():
+                # process.terminate()  # This will leave any children of process orphaned.
+                raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                             'timeout duration.')
+
     else:
         raise CLIError('Unsupported image store connection string')
 
