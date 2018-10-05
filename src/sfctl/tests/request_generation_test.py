@@ -51,6 +51,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         set_mock_endpoint(self.old_endpoint)
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
+    def validate_command_succeeds(self, command):
+        try:
+            self.cmd(command)
+        except Exception as exception:  # pylint: disable=broad-except
+            self.fail(
+                'ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
+
+    @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
                          body_verifier=None):
         """
@@ -192,6 +200,11 @@ class ServiceFabricRequestTests(ScenarioTest):
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
+
+        # The commands which don't affect or query the cluster
+        # Specifically, cluster select and show-connection
+        self.validate_command_succeeds('cluster select --endpoint=' + get_mock_endpoint())
+        self.validate_command_succeeds('cluster show-connection')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -401,9 +414,23 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # Application Commands:
-        # Application create tests not yet added
-        # Application upgrade is not tested for all parameters
-        # application upload tested as part of a custom command
+        # Application upgrade  and create is not tested for all parameters
+        # application upload tested as part of a custom command as well
+
+        self.validate_command(  # create
+            'application create --app-name=fabric:/application1 --app-type=applicationType --app-verion=1 '
+            '--max-node-count=3 --min-node-count=2 --metrics={"some_metric": 3} --parameters={"key": "value"}',
+            'POST',
+            '/Applications/$/Create',
+            ['api-version=6.0'],
+            ('{"TypeName": "applicationType", '
+             '"TypeVersion": "1"}'),
+            validate_flat_dictionary)
+        self.validate_command(  # upload
+            'application upload --path=path_to_file',
+            'PUT',
+            '/ImageStore',
+            ['api-version=6.1'])
         self.validate_command(  # delete
             'application delete --application-id=application~Id --force-remove=true',
             'POST',
@@ -791,7 +818,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_flat_dictionary)
 
         # Chaos commands:
-        self.validate_command(  # get chaos schedule
+        self.validate_command(  # set chaos schedule
             'chaos schedule set ' +
             '--version 0 --start-date-utc 2016-01-01T00:00:00.000Z ' +
             '--expiry-date-utc 2038-01-01T00:00:00.000Z ' +
