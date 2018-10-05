@@ -101,20 +101,20 @@ helps['mesh'] = """
 
 helps['mesh app'] = """
     type: group
-    short-summary: Get and Delete application resources
+    short-summary: Get and delete application resources
 """
 
 helps['mesh service'] = """
     type: group
-    short-summary: Get details or List services of an application resource
+    short-summary: Get service details and list services of an application resource
 """
 
 helps['mesh service-replica'] = """
     type: group
-    short-summary: Get details or List replicas of a given service in an application resource
+    short-summary: Get replica details and list replicas of a given service in an application resource
 """
 
 helps['mesh volume'] = """
     type: group
-    short-summary: Get and Delete volume resources
+    short-summary: Get and delete volume resources
 """
