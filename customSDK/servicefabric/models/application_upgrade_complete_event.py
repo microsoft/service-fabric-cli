@@ -17,6 +17,8 @@ class ApplicationUpgradeCompleteEvent(ApplicationEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -53,6 +55,7 @@ class ApplicationUpgradeCompleteEvent(ApplicationEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -62,9 +65,9 @@ class ApplicationUpgradeCompleteEvent(ApplicationEvent):
         'overall_upgrade_elapsed_time_in_ms': {'key': 'OverallUpgradeElapsedTimeInMs', 'type': 'float'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, application_type_name, application_type_version, overall_upgrade_elapsed_time_in_ms, has_correlated_events=None):
-        super(ApplicationUpgradeCompleteEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
+    def __init__(self, event_instance_id, time_stamp, application_id, application_type_name, application_type_version, overall_upgrade_elapsed_time_in_ms, category=None, has_correlated_events=None):
+        super(ApplicationUpgradeCompleteEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
         self.application_type_name = application_type_name
         self.application_type_version = application_type_version
         self.overall_upgrade_elapsed_time_in_ms = overall_upgrade_elapsed_time_in_ms
-        self.kind = 'ApplicationUpgradeComplete'
+        self.kind = 'ApplicationUpgradeCompleted'

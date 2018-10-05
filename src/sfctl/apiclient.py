@@ -33,4 +33,15 @@ def create(_):
         ca_cert = ca_cert_info()
         auth = ClientCertAuthentication(cert, ca_cert, no_verify)
 
-    return ServiceFabricClientAPIs(auth, base_url=endpoint)
+    client = ServiceFabricClientAPIs(auth, base_url=endpoint)
+
+    # client.config.retry_policy has type msrest.pipeline.ClientRetryPolicy
+    client.config.retry_policy.total = False
+    client.config.retry_policy.policy.total = False
+
+    # msrest defines ClientRetryPolicy in pipline.py.
+    # ClientRetryPolicy.__init__ defines values for status_forcelist
+    # which is passed to urllib3.util.retry.Retry
+    client.config.retry_policy.policy.status_forcelist = None
+
+    return client
