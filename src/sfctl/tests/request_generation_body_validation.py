@@ -9,6 +9,7 @@ according to that request's expectations."""
 
 from __future__ import print_function
 from sys import stderr
+from collections import OrderedDict
 
 
 def _check_and_print_matching_error(command, dict_key, actual, expected):
@@ -41,7 +42,7 @@ def validate_dictionary_value(command, dict_key, actual_body, expected_body):
         which command this is validating. """
 
     return _check_and_print_matching_error(command, dict_key,
-                                             actual_body[dict_key], expected_body[dict_key])
+                                           actual_body[dict_key], expected_body[dict_key])
 
 
 def validate_flat_dictionary(command, actual_body, expected_body):
@@ -64,7 +65,7 @@ def validate_flat_dictionary(command, actual_body, expected_body):
     return True
 
 
-def validate_create_application(command, actual_body, expected_body):
+def validate_create_application(command, actual_body, expected_body):  # pylint: disable=too-many-return-statements
     """
     Validates that the input parameter for creating an application is correct.
 
@@ -103,14 +104,14 @@ def validate_create_application(command, actual_body, expected_body):
 
     try:
         matching0 = _check_and_print_matching_error(command, 'application name',
-                                                   actual_body['Name'], expected_body['Name'])
+                                                    actual_body['Name'], expected_body['Name'])
 
         matching1 = _check_and_print_matching_error(command, 'type name',
-                                                   actual_body['TypeName'],
+                                                    actual_body['TypeName'],
                                                     expected_body['TypeName'])
 
         matching2 = _check_and_print_matching_error(command, 'type version',
-                                                   actual_body['TypeVersion'],
+                                                    actual_body['TypeVersion'],
                                                     expected_body['TypeVersion'])
 
         matching3 = _check_and_print_matching_error(
@@ -131,25 +132,26 @@ def validate_create_application(command, actual_body, expected_body):
         expected_parameters = expected_body['ParameterList']
         actual_parameters_as_tuples = []
         for dict_item in actual_body['ParameterList']:
-            actual_parameters_as_tuples.append(list(dict_item.items()))
+            actual_parameters_as_tuples.append(list(sorted(dict_item.items())))
 
         for tup in expected_parameters:  # example tup: [('Key', 'Key'), ('Value', 'Value')]
             if tup not in actual_parameters_as_tuples:
                 print('Application create body verify failed due to missing expected '
-                      'parameter set {0} from actual parameters list {1}'.format(str(tup), str(actual_parameters_as_tuples)), file=stderr)
+                      'parameter set {0} from actual parameters list {1}'.format(
+                          str(tup), str(actual_parameters_as_tuples)), file=stderr)
                 return False
 
         if len(expected_parameters) != len(actual_parameters_as_tuples):
             print('Application create body verify failed due to mismatched '
                   'parameter set lengths. Actual: {0} Expected: {1}'.format(
-                str(len(expected_parameters)),
-                str(len(actual_parameters_as_tuples))), file=stderr)
+                      str(len(expected_parameters)),
+                      str(len(actual_parameters_as_tuples))), file=stderr)
             return False
 
         # Check the application metrics
         actual_metrics_as_tuples = []
         for dict_item in actual_body['ApplicationCapacity']['ApplicationMetrics']:
-            actual_metrics_as_tuples.append(list(dict_item.items()))
+            actual_metrics_as_tuples.append(list(sorted(dict_item.items())))
 
         for tup in expected_body['ApplicationMetricDescriptions']:
             if tup not in actual_metrics_as_tuples:
@@ -163,8 +165,8 @@ def validate_create_application(command, actual_body, expected_body):
                 len(actual_metrics_as_tuples):
             print('Application create body verify failed due to mismatched '
                   'metics set lengths. Actual: {0} Expected: {1}'.format(
-                str(len(expected_body['ApplicationMetricDescriptions'])),
-                str(len(actual_metrics_as_tuples))), file=stderr)
+                      str(len(expected_body['ApplicationMetricDescriptions'])),
+                      str(len(actual_metrics_as_tuples))), file=stderr)
             return False
 
     except KeyError as ex:

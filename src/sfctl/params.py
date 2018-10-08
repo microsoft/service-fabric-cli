@@ -15,11 +15,6 @@ def json_encoded(arg_str):
     File paths should be prefixed by '@'
     Path can be relative path or absolute path."""
 
-    print()
-    print('------------------------------- json_encoded arg_str ---------------------------------------')
-    print(arg_str)
-    print()
-
     if (arg_str and arg_str[0] == '@'):
         try:
             with open(arg_str[1:], 'r') as json_file:

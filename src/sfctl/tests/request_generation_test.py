@@ -14,7 +14,6 @@ from os import (remove, path)
 import json
 import logging
 import vcr
-from os import path
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
@@ -54,6 +53,11 @@ class ServiceFabricRequestTests(ScenarioTest):
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command_succeeds(self, command):
+        """
+        Validate that the given command runs and returns with success
+        :param command: str - see command parameter for validate_command method
+        :return: None
+        """
         try:
             self.cmd(command)
         except Exception as exception:  # pylint: disable=broad-except
@@ -160,7 +164,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             if body is not None and body_verifier is not None:
                 actual_obj = json.loads(recording_body)
                 expected_obj = None
-                if type(body) == str:
+                if isinstance(body, str):
                     expected_obj = json.loads(body)
                 else:
                     expected_obj = body
@@ -454,9 +458,9 @@ class ServiceFabricRequestTests(ScenarioTest):
                 'ParameterList': [[('Key', 'Key'), ('Value', 'Value')]],
                 'MinNodes': 2,
                 'MaxNodes': 3,
-                'ApplicationMetricDescriptions': [[('Name','some_name'), ('MaximumCapacity',5),
-                                                   ('ReservationCapacity',3),
-                                                   ('TotalApplicationCapacity',8)]]
+                'ApplicationMetricDescriptions': [[('MaximumCapacity', 5), ('Name', 'some_name'),
+                                                   ('ReservationCapacity', 3),
+                                                   ('TotalApplicationCapacity', 8)]]
             },
             validate_create_application)
 
