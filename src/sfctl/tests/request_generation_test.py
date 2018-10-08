@@ -14,13 +14,15 @@ from os import (remove, path)
 import json
 import logging
 import vcr
+from os import path
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
-from sfctl.tests.request_generation_body_validation import validate_flat_dictionary
+from sfctl.tests.request_generation_body_validation import validate_flat_dictionary, \
+    validate_create_application
 
 
 class ServiceFabricRequestTests(ScenarioTest):
@@ -81,11 +83,14 @@ class ServiceFabricRequestTests(ScenarioTest):
                 command line, then use string 'application list'.
         method (str): The method of the HTTP request.
                 For example, GET, POST, PUT, etc.
-        body (str): The body as a string. Set value to None if
+        body (str or dict): The body as a string. Set value to None if
                 no validation is required. What format this string should be in
                 depends on the body_verifier function which is passed in. If a
                 function is not passed, but this value is not None, then a simple
                 string comparison will be done.
+                If the format is a str, it will be turned into an object via json.loads. Otherwise,
+                an object/dict is expected and no conversion will be done. It will be passed
+                directly to the body verifier in that case.
         body_verifier (function): A function which returns true if the passed
                 in body (str) passes validation. The method should take:
                     1. Command being run as a string (e.g. 'cluster report-health'),
@@ -154,7 +159,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             # recording_body is the actual value
             if body is not None and body_verifier is not None:
                 actual_obj = json.loads(recording_body)
-                expected_obj = json.loads(body)
+                expected_obj = None
+                if type(body) == str:
+                    expected_obj = json.loads(body)
+                else:
+                    expected_obj = body
                 self.assertTrue(body_verifier(command, actual_obj, expected_obj),
                                 msg='body_verifier command failed. The command should either print error'
                                     'messages, or call its own asserts.')
@@ -417,17 +426,44 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Application upgrade  and create is not tested for all parameters
         # application upload tested as part of a custom command as well
 
+        # Get current directory
+        dir_path = path.dirname(path.realpath(__file__))
+        dir_path_sample_json = path.join(dir_path, 'sample_json')
+        app_capacity_metrics = path.join(dir_path_sample_json, 'sample_application_capacity_metric_descriptions.txt')
+        app_parameters = path.join(dir_path_sample_json, 'sample_application_parameters.txt')
+
+        # While in commandline, you can pass in something like --metrics=C:/SomeFolder/file.txt,
+        # in the strings below, we need to escape the "\"
+        app_capacity_metrics = app_capacity_metrics.replace('\\', '\\\\')
+        app_parameters = app_parameters.replace('\\', '\\\\')
+
+        dir_path_one_file = path.join(dir_path, 'one_file')
+        dir_path_one_file = dir_path_one_file.replace('\\', '\\\\')
+
         self.validate_command(  # create
-            'application create --app-name=fabric:/application1 --app-type=applicationType --app-verion=1 '
-            '--max-node-count=3 --min-node-count=2 --metrics={"some_metric": 3} --parameters={"key": "value"}',
+            'application create --app-name=fabric:/application1 --app-type=applicationType --app-version=1 --max-node-count=3 --min-node-count=2 '
+            '--metrics=@' + app_capacity_metrics +
+            ' --parameters=@' + app_parameters,
             'POST',
             '/Applications/$/Create',
             ['api-version=6.0'],
-            ('{"TypeName": "applicationType", '
-             '"TypeVersion": "1"}'),
-            validate_flat_dictionary)
+            {
+                'Name': 'fabric:/application1',
+                'TypeName': 'applicationType',
+                'TypeVersion': '1',
+                'ParameterList': [[('Key', 'Key'), ('Value', 'Value')]],
+                'MinNodes': 2,
+                'MaxNodes': 3,
+                'ApplicationMetricDescriptions': [[('Name','some_name'), ('MaximumCapacity',5),
+                                                   ('ReservationCapacity',3),
+                                                   ('TotalApplicationCapacity',8)]]
+            },
+            validate_create_application)
+
+        # Running this test with more than one file in the folder will cause some JSON
+        # deserialization errors.
         self.validate_command(  # upload
-            'application upload --path=path_to_file',
+            'application upload --path=' + dir_path_one_file,  # We don't need a real app pkg
             'PUT',
             '/ImageStore',
             ['api-version=6.1'])
