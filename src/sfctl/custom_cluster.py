@@ -56,7 +56,9 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, specify also an absolute
-    path to a CA bundle file or directory of trusted CA certs.
+    path to a CA bundle file or directory of trusted CA certs. If using a
+    directory of CA certs, `c_rehash <directory>` must be run first to compute
+    the certificate hashes.
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix
     :param str cert: Absolute path to a client certificate file
