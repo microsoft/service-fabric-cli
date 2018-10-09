@@ -48,9 +48,9 @@ def mesh_volume_create(_):
 def mesh_service_create(_):
     """Create a client for mesh service APIs."""
     client = create(_)
-    return client.mesh_volume
+    return client.mesh_service
 
 def mesh_service_replica_create(_):
     """Create a client for mesh service-replica APIs."""
     client = create(_)
-    return client.mesh_volume
+    return client.mesh_service_replica
