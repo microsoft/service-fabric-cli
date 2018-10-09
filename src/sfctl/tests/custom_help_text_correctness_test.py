@@ -18,8 +18,15 @@ from os import listdir
 from os.path import dirname, join, abspath, pardir
 from sys import path as sys_path
 
-sys_path.insert(0, abspath('..'))
-from scripts import check_and_use_custom_sdk as custom_sdk_helper
+CURRENT_DIR = dirname(abspath(__file__))  # This should be <location>/src/sfctl/tests
+SRC_PARENT_DIR = dirname(dirname(dirname(CURRENT_DIR)))
+SCRIPTS_DIR = join(SRC_PARENT_DIR, 'scripts')
+
+print("-------------- adding to path ----------------")
+print(str(SCRIPTS_DIR))
+
+sys_path.insert(0, SCRIPTS_DIR)
+from scripts import check_and_use_custom_sdk as custom_sdk_helper  # pylint: disable=wrong-import-position
 
 
 class CustomHelpTextCorrectnessTests(unittest.TestCase):
