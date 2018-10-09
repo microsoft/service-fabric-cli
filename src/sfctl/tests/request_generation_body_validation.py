@@ -9,7 +9,6 @@ according to that request's expectations."""
 
 from __future__ import print_function
 from sys import stderr
-from collections import OrderedDict
 
 
 def _check_and_print_matching_error(command, dict_key, actual, expected):
