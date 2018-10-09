@@ -43,23 +43,23 @@ class ContainerCodePackageProperties(Model):
     :type labels: list[~azure.servicefabric.models.ContainerLabel]
     :param endpoints: The endpoints exposed by this container.
     :type endpoints: list[~azure.servicefabric.models.EndpointProperties]
-    :param resources: This type describes the resource requirements for a
-     container or a service.
+    :param resources: The resources required by this container.
     :type resources: ~azure.servicefabric.models.ResourceRequirements
-    :param volume_refs: Volumes to be attached to the container.
-     The lifetime of these volumes is independent of the application's
-     lifetime.
+    :param volume_refs: Volumes to be attached to the container. The lifetime
+     of these volumes is independent of the application's lifetime.
     :type volume_refs: list[~azure.servicefabric.models.VolumeReference]
-    :param volumes: Volumes to be attached to the container.
-     The lifetime of these volumes is scoped to the application's lifetime.
+    :param volumes: Volumes to be attached to the container. The lifetime of
+     these volumes is scoped to the application's lifetime.
     :type volumes: list[~azure.servicefabric.models.ApplicationScopedVolume]
-    :ivar instance_view: Runtime information of a container instance.
-    :vartype instance_view: ~azure.servicefabric.models.ContainerInstanceView
     :param diagnostics: Reference to sinks in DiagnosticsDescription.
     :type diagnostics: ~azure.servicefabric.models.DiagnosticsRef
-    :param reliable_collections_refs:
+    :param reliable_collections_refs: A list of ReliableCollection resources
+     used by this particular code package. Please refer to
+     ReliablecollectionsRef for more details.
     :type reliable_collections_refs:
      list[~azure.servicefabric.models.ReliableCollectionsRef]
+    :ivar instance_view: Runtime information of a container instance.
+    :vartype instance_view: ~azure.servicefabric.models.ContainerInstanceView
     """
 
     _validation = {
@@ -82,9 +82,9 @@ class ContainerCodePackageProperties(Model):
         'resources': {'key': 'resources', 'type': 'ResourceRequirements'},
         'volume_refs': {'key': 'volumeRefs', 'type': '[VolumeReference]'},
         'volumes': {'key': 'volumes', 'type': '[ApplicationScopedVolume]'},
-        'instance_view': {'key': 'instanceView', 'type': 'ContainerInstanceView'},
         'diagnostics': {'key': 'diagnostics', 'type': 'DiagnosticsRef'},
         'reliable_collections_refs': {'key': 'reliableCollectionsRefs', 'type': '[ReliableCollectionsRef]'},
+        'instance_view': {'key': 'instanceView', 'type': 'ContainerInstanceView'},
     }
 
     def __init__(self, name, image, resources, image_registry_credential=None, entrypoint=None, commands=None, environment_variables=None, settings=None, labels=None, endpoints=None, volume_refs=None, volumes=None, diagnostics=None, reliable_collections_refs=None):
@@ -101,6 +101,6 @@ class ContainerCodePackageProperties(Model):
         self.resources = resources
         self.volume_refs = volume_refs
         self.volumes = volumes
-        self.instance_view = None
         self.diagnostics = diagnostics
         self.reliable_collections_refs = reliable_collections_refs
+        self.instance_view = None
