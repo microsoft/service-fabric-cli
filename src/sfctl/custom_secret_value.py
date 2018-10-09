@@ -6,6 +6,7 @@
 
 """Commands related to Service Fabric Mesh secret value commands and operations"""
 
+
 def get_secret_value(client, secret_resource_name, secret_value_resource_name, show_value):
     secret_data = client.get(secret_resource_name, secret_value_resource_name)
     if show_value:
