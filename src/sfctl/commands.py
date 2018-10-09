@@ -253,6 +253,27 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('get', 'get_property_info')
             group.command('delete', 'delete_property')
 
+        with CommandGroup(self, 'mesh app', mesh_application_func_path,
+                          client_factory=mesh_app_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh volume', mesh_volume_func_path,
+                          client_factory=mesh_volume_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh service', mesh_service_func_path,
+                          client_factory=mesh_service_create) as group:
+            group.command('show', 'get')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh service-replica', mesh_service_replica_func_path,
+                          client_factory=mesh_service_replica_create) as group:
+            group.command('list', 'list')
+            group.command('show', 'get')
         # ---------------
         # Mesh standard commands
         # ---------------
