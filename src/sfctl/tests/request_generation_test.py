@@ -547,6 +547,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/ComposeDeployments/deploymentName/$/GetUpgradeProgress',
             ['api-version=6.0-preview'])
+        self.validate_command(  # upgrade-rollback
+            'compose upgrade-rollback --deployment-name=deploymentName',
+            'POST',
+            '/ComposeDeployments/deploymentName/$/RollbackUpgrade',
+            ['api-version=6.4-preview'])
 
         # IS:
         self.validate_command(  # command
@@ -575,7 +580,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'partition list --service-id=fabric:/app/id --continuation-token=ct',
             'GET',
             '/Services/fabric:/app/id/$/GetPartitions',
-            ['api-version=6.0', 'ContinuationToken=ct'])
+            ['api-version=6.4', 'ContinuationToken=ct'])
         self.validate_command(  # load
             'partition load --partition-id=id',
             'GET',
