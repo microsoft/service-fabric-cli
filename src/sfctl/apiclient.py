@@ -46,12 +46,6 @@ def create(_):
 
     return client
 
-# •	code-package
-# •	gateway
-# •	secret
-# •	secret-value
-# •	network
-
 
 def mesh_code_package_create(_):
     """Create a client for mesh code package APIs."""
