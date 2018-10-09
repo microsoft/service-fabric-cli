@@ -93,3 +93,28 @@ helps['property'] = """
     type: group
     short-summary: Store and query properties under Service Fabric names
 """
+
+helps['mesh gateway'] = """
+    type: group
+    short-summary: Get and delete mesh gateway resources
+"""
+
+helps['mesh network'] = """
+    type: group
+    short-summary: Get and delete mesh network resources
+"""
+
+helps['mesh code-package'] = """
+    type: group
+    short-summary: Gets the logs for the container of the specified code package of the service replica.
+"""
+
+helps['mesh secret'] = """
+    type: group
+    short-summary: Get and delete mesh secret resources
+"""
+
+helps['mesh secretvalue'] = """
+    type: group
+    short-summary: Get and delete mesh secret value resources
+"""

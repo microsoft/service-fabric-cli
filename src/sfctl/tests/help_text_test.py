@@ -345,3 +345,23 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
+
+        self.validate_output(
+            'sfctl mesh gateway',
+            commands=('delete', 'show', 'list'))
+
+        self.validate_output(
+            'sfctl mesh network',
+            commands=('delete', 'show', 'list'))
+
+        self.validate_output(
+            'sfctl mesh code-package',
+            commands='show')
+
+        self.validate_output(
+            'sfctl mesh secret',
+            commands=('delete', 'show', 'list'))
+
+        self.validate_output(
+            'sfctl mesh secretvalue',
+            commands=('show', 'list', 'delete'))

@@ -45,3 +45,35 @@ def create(_):
     client.config.retry_policy.policy.status_forcelist = None
 
     return client
+
+# •	code-package
+# •	gateway
+# •	secret
+# •	secret-value
+# •	network
+
+
+def mesh_code_package_create(_):
+    """Create a client for mesh code package APIs."""
+    client = create(_)
+    return client.mesh_code_package
+
+def mesh_gateway_create(_):
+    """Create a client for mesh gateway APIs."""
+    client = create(_)
+    return client.mesh_gateway
+
+def mesh_secret_create(_):
+    """Create a client for mesh secret APIs."""
+    client = create(_)
+    return client.mesh_secret
+
+def mesh_secret_value_create(_):
+    """Create a client for mesh secret value APIs."""
+    client = create(_)
+    return client.mesh_secret_value
+
+def mesh_network_create(_):
+    """Create a client for mesh network APIs."""
+    client = create(_)
+    return client.mesh_network
