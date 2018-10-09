@@ -13,14 +13,16 @@ from msrest.serialization import Model
 
 
 class ServiceResourceDescription(Model):
-    """Describes a service fabric service resource.
+    """This type describes a service resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param os_type: The Operating system type required by the code in service.
+    :param name: Name of the Service resource.
+    :type name: str
+    :param os_type: The operation system required by the code in service.
      Possible values include: 'Linux', 'Windows'
-    :type os_type: str or ~azure.servicefabric.models.OperatingSystemTypes
+    :type os_type: str or ~azure.servicefabric.models.OperatingSystemType
     :param code_packages: Describes the set of code packages that forms the
      service. A code package describes the container and the properties for
      running it. All the code packages are started together on the same host
@@ -40,25 +42,33 @@ class ServiceResourceDescription(Model):
     :param auto_scaling_policies: Auto scaling policies
     :type auto_scaling_policies:
      list[~azure.servicefabric.models.AutoScalingPolicy]
-    :param health_state: Describes the health state of an services resource.
+    :ivar status: Status of the service. Possible values include: 'Unknown',
+     'Ready', 'Upgrading', 'Creating', 'Deleting', 'Failed'
+    :vartype status: str or ~azure.servicefabric.models.ResourceStatus
+    :ivar status_details: Gives additional information about the current
+     status of the service.
+    :vartype status_details: str
+    :ivar health_state: Describes the health state of an application resource.
      Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-    :type health_state: str or ~azure.servicefabric.models.HealthState
-    :ivar status: Represents the status of the service. Possible values
-     include: 'Unknown', 'Active', 'Upgrading', 'Deleting', 'Creating',
-     'Failed'
-    :vartype status: str or ~azure.servicefabric.models.ServiceResourceStatus
-    :param name: Service resource name.
-    :type name: str
+    :vartype health_state: str or ~azure.servicefabric.models.HealthState
+    :ivar unhealthy_evaluation: When the service's health state is not 'Ok',
+     this additional details from service fabric Health Manager for the user to
+     know why the service is marked unhealthy.
+    :vartype unhealthy_evaluation: str
     """
 
     _validation = {
+        'name': {'required': True},
         'os_type': {'required': True},
         'code_packages': {'required': True},
         'status': {'readonly': True},
-        'name': {'required': True},
+        'status_details': {'readonly': True},
+        'health_state': {'readonly': True},
+        'unhealthy_evaluation': {'readonly': True},
     }
 
     _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
         'os_type': {'key': 'properties.osType', 'type': 'str'},
         'code_packages': {'key': 'properties.codePackages', 'type': '[ContainerCodePackageProperties]'},
         'network_refs': {'key': 'properties.networkRefs', 'type': '[NetworkRef]'},
@@ -66,13 +76,15 @@ class ServiceResourceDescription(Model):
         'description': {'key': 'properties.description', 'type': 'str'},
         'replica_count': {'key': 'properties.replicaCount', 'type': 'int'},
         'auto_scaling_policies': {'key': 'properties.autoScalingPolicies', 'type': '[AutoScalingPolicy]'},
-        'health_state': {'key': 'properties.healthState', 'type': 'str'},
         'status': {'key': 'properties.status', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
+        'status_details': {'key': 'properties.statusDetails', 'type': 'str'},
+        'health_state': {'key': 'properties.healthState', 'type': 'str'},
+        'unhealthy_evaluation': {'key': 'properties.unhealthyEvaluation', 'type': 'str'},
     }
 
-    def __init__(self, os_type, code_packages, name, network_refs=None, diagnostics=None, description=None, replica_count=None, auto_scaling_policies=None, health_state=None):
+    def __init__(self, name, os_type, code_packages, network_refs=None, diagnostics=None, description=None, replica_count=None, auto_scaling_policies=None):
         super(ServiceResourceDescription, self).__init__()
+        self.name = name
         self.os_type = os_type
         self.code_packages = code_packages
         self.network_refs = network_refs
@@ -80,6 +92,7 @@ class ServiceResourceDescription(Model):
         self.description = description
         self.replica_count = replica_count
         self.auto_scaling_policies = auto_scaling_policies
-        self.health_state = health_state
         self.status = None
-        self.name = name
+        self.status_details = None
+        self.health_state = None
+        self.unhealthy_evaluation = None
