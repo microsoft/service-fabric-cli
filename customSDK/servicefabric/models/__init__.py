@@ -76,6 +76,7 @@ from .cluster_health_policy import ClusterHealthPolicy
 from .cluster_health_chunk_query_description import ClusterHealthChunkQueryDescription
 from .cluster_health_policies import ClusterHealthPolicies
 from .cluster_manifest import ClusterManifest
+from .cluster_version import ClusterVersion
 from .container_api_request_body import ContainerApiRequestBody
 from .container_api_result import ContainerApiResult
 from .container_api_response import ContainerApiResponse
@@ -103,7 +104,6 @@ from .entity_health_state import EntityHealthState
 from .entity_health_state_chunk import EntityHealthStateChunk
 from .entity_health_state_chunk_list import EntityHealthStateChunkList
 from .epoch import Epoch
-from .backup_epoch import BackupEpoch
 from .event_health_evaluation import EventHealthEvaluation
 from .fabric_event import FabricEvent
 from .fabric_code_version_info import FabricCodeVersionInfo
@@ -317,8 +317,11 @@ from .successful_property_batch_info import SuccessfulPropertyBatchInfo
 from .failed_property_batch_info import FailedPropertyBatchInfo
 from .backup_schedule_description import BackupScheduleDescription
 from .backup_storage_description import BackupStorageDescription
+from .retention_policy_description import RetentionPolicyDescription
 from .backup_policy_description import BackupPolicyDescription
 from .paged_backup_policy_description_list import PagedBackupPolicyDescriptionList
+from .basic_retention_policy_description import BasicRetentionPolicyDescription
+from .disable_backup_description import DisableBackupDescription
 from .application_backup_configuration_info import ApplicationBackupConfigurationInfo
 from .service_backup_configuration_info import ServiceBackupConfigurationInfo
 from .backup_suspension_info import BackupSuspensionInfo
@@ -376,10 +379,8 @@ from .deployed_application_health_report_expired_event import DeployedApplicatio
 from .process_deactivated_event import ProcessDeactivatedEvent
 from .container_deactivated_event import ContainerDeactivatedEvent
 from .node_aborted_event import NodeAbortedEvent
-from .node_aborting_event import NodeAbortingEvent
 from .node_added_event import NodeAddedEvent
 from .node_close_event import NodeCloseEvent
-from .node_closing_event import NodeClosingEvent
 from .node_deactivate_complete_event import NodeDeactivateCompleteEvent
 from .node_deactivate_start_event import NodeDeactivateStartEvent
 from .node_down_event import NodeDownEvent
@@ -387,7 +388,6 @@ from .node_health_report_created_event import NodeHealthReportCreatedEvent
 from .node_health_report_expired_event import NodeHealthReportExpiredEvent
 from .node_opened_success_event import NodeOpenedSuccessEvent
 from .node_open_failed_event import NodeOpenFailedEvent
-from .node_opening_event import NodeOpeningEvent
 from .node_removed_event import NodeRemovedEvent
 from .node_up_event import NodeUpEvent
 from .partition_health_report_created_event import PartitionHealthReportCreatedEvent
@@ -413,15 +413,66 @@ from .cluster_upgrade_rollback_start_event import ClusterUpgradeRollbackStartEve
 from .cluster_upgrade_start_event import ClusterUpgradeStartEvent
 from .chaos_stopped_event import ChaosStoppedEvent
 from .chaos_started_event import ChaosStartedEvent
-from .chaos_restart_node_fault_completed_event import ChaosRestartNodeFaultCompletedEvent
 from .chaos_restart_code_package_fault_scheduled_event import ChaosRestartCodePackageFaultScheduledEvent
-from .chaos_restart_code_package_fault_completed_event import ChaosRestartCodePackageFaultCompletedEvent
 from .chaos_remove_replica_fault_scheduled_event import ChaosRemoveReplicaFaultScheduledEvent
-from .chaos_remove_replica_fault_completed_event import ChaosRemoveReplicaFaultCompletedEvent
 from .chaos_move_secondary_fault_scheduled_event import ChaosMoveSecondaryFaultScheduledEvent
 from .chaos_move_primary_fault_scheduled_event import ChaosMovePrimaryFaultScheduledEvent
 from .chaos_restart_replica_fault_scheduled_event import ChaosRestartReplicaFaultScheduledEvent
 from .chaos_restart_node_fault_scheduled_event import ChaosRestartNodeFaultScheduledEvent
+from .auto_scaling_trigger import AutoScalingTrigger
+from .auto_scaling_mechanism import AutoScalingMechanism
+from .auto_scaling_policy import AutoScalingPolicy
+from .service_resource_description import ServiceResourceDescription
+from .diagnostics_sink_properties import DiagnosticsSinkProperties
+from .diagnostics_description import DiagnosticsDescription
+from .application_resource_description import ApplicationResourceDescription
+from .application_scoped_volume_creation_parameters import ApplicationScopedVolumeCreationParameters
+from .application_scoped_volume_creation_parameters_service_fabric_volume_disk import ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk
+from .paged_service_resource_description_list import PagedServiceResourceDescriptionList
+from .service_replica_description import ServiceReplicaDescription
+from .paged_service_replica_description_list import PagedServiceReplicaDescriptionList
+from .volume_provider_parameters_azure_file import VolumeProviderParametersAzureFile
+from .volume_resource_description import VolumeResourceDescription
+from .image_registry_credential import ImageRegistryCredential
+from .environment_variable import EnvironmentVariable
+from .setting import Setting
+from .container_label import ContainerLabel
+from .endpoint_properties import EndpointProperties
+from .resource_requests import ResourceRequests
+from .resource_limits import ResourceLimits
+from .resource_requirements import ResourceRequirements
+from .volume_reference import VolumeReference
+from .application_scoped_volume import ApplicationScopedVolume
+from .container_state import ContainerState
+from .container_event import ContainerEvent
+from .container_instance_view import ContainerInstanceView
+from .diagnostics_ref import DiagnosticsRef
+from .reliable_collections_ref import ReliableCollectionsRef
+from .container_code_package_properties import ContainerCodePackageProperties
+from .network_ref import NetworkRef
+from .service_replica_properties import ServiceReplicaProperties
+from .auto_scaling_metric import AutoScalingMetric
+from .average_load_scaling_trigger import AverageLoadScalingTrigger
+from .add_remove_replica_scaling_mechanism import AddRemoveReplicaScalingMechanism
+from .auto_scaling_resource_metric import AutoScalingResourceMetric
+from .secret_resource_properties import SecretResourceProperties
+from .simple_secret_resource_properties import SimpleSecretResourceProperties
+from .secret_value_properties import SecretValueProperties
+from .secret_resource_properties_base import SecretResourcePropertiesBase
+from .secret_resource_description import SecretResourceDescription
+from .paged_secret_resource_description_list import PagedSecretResourceDescriptionList
+from .secret_value_resource_description import SecretValueResourceDescription
+from .paged_secret_value_resource_description_list import PagedSecretValueResourceDescriptionList
+from .gateway_destination import GatewayDestination
+from .tcp_config import TcpConfig
+from .http_route_match_path import HttpRouteMatchPath
+from .http_route_match_header import HttpRouteMatchHeader
+from .http_route_match_rule import HttpRouteMatchRule
+from .http_route_config import HttpRouteConfig
+from .http_host_config import HttpHostConfig
+from .http_config import HttpConfig
+from .gateway_resource_description import GatewayResourceDescription
+from .paged_gateway_resource_description_list import PagedGatewayResourceDescriptionList
 from .service_fabric_client_ap_is_enums import (
     ApplicationDefinitionKind,
     HealthState,
@@ -486,6 +537,7 @@ from .service_fabric_client_ap_is_enums import (
     PropertyValueKind,
     PropertyBatchOperationKind,
     PropertyBatchInfoKind,
+    RetentionPolicyType,
     BackupStorageKind,
     BackupScheduleKind,
     BackupPolicyScope,
@@ -504,6 +556,18 @@ from .service_fabric_client_ap_is_enums import (
     RepairTaskHealthCheckState,
     ScalingTriggerKind,
     ScalingMechanismKind,
+    ServiceResourceStatus,
+    ApplicationResourceStatus,
+    ApplicationScopedVolumeKind,
+    SizeTypes,
+    DiagnosticsSinkKind,
+    OperatingSystemTypes,
+    AutoScalingMechanismKind,
+    AutoScalingTriggerKind,
+    AutoScalingMetricKind,
+    SecretKind,
+    HeaderMatchType,
+    GatewayResourceStatus,
     NodeStatusFilter,
     ReplicaHealthReportServiceKind,
     DataLossMode,
@@ -580,6 +644,7 @@ __all__ = [
     'ClusterHealthChunkQueryDescription',
     'ClusterHealthPolicies',
     'ClusterManifest',
+    'ClusterVersion',
     'ContainerApiRequestBody',
     'ContainerApiResult',
     'ContainerApiResponse',
@@ -607,7 +672,6 @@ __all__ = [
     'EntityHealthStateChunk',
     'EntityHealthStateChunkList',
     'Epoch',
-    'BackupEpoch',
     'EventHealthEvaluation',
     'FabricEvent',
     'FabricCodeVersionInfo',
@@ -821,8 +885,11 @@ __all__ = [
     'FailedPropertyBatchInfo',
     'BackupScheduleDescription',
     'BackupStorageDescription',
+    'RetentionPolicyDescription',
     'BackupPolicyDescription',
     'PagedBackupPolicyDescriptionList',
+    'BasicRetentionPolicyDescription',
+    'DisableBackupDescription',
     'ApplicationBackupConfigurationInfo',
     'ServiceBackupConfigurationInfo',
     'BackupSuspensionInfo',
@@ -880,10 +947,8 @@ __all__ = [
     'ProcessDeactivatedEvent',
     'ContainerDeactivatedEvent',
     'NodeAbortedEvent',
-    'NodeAbortingEvent',
     'NodeAddedEvent',
     'NodeCloseEvent',
-    'NodeClosingEvent',
     'NodeDeactivateCompleteEvent',
     'NodeDeactivateStartEvent',
     'NodeDownEvent',
@@ -891,7 +956,6 @@ __all__ = [
     'NodeHealthReportExpiredEvent',
     'NodeOpenedSuccessEvent',
     'NodeOpenFailedEvent',
-    'NodeOpeningEvent',
     'NodeRemovedEvent',
     'NodeUpEvent',
     'PartitionHealthReportCreatedEvent',
@@ -917,15 +981,66 @@ __all__ = [
     'ClusterUpgradeStartEvent',
     'ChaosStoppedEvent',
     'ChaosStartedEvent',
-    'ChaosRestartNodeFaultCompletedEvent',
     'ChaosRestartCodePackageFaultScheduledEvent',
-    'ChaosRestartCodePackageFaultCompletedEvent',
     'ChaosRemoveReplicaFaultScheduledEvent',
-    'ChaosRemoveReplicaFaultCompletedEvent',
     'ChaosMoveSecondaryFaultScheduledEvent',
     'ChaosMovePrimaryFaultScheduledEvent',
     'ChaosRestartReplicaFaultScheduledEvent',
     'ChaosRestartNodeFaultScheduledEvent',
+    'AutoScalingTrigger',
+    'AutoScalingMechanism',
+    'AutoScalingPolicy',
+    'ServiceResourceDescription',
+    'DiagnosticsSinkProperties',
+    'DiagnosticsDescription',
+    'ApplicationResourceDescription',
+    'ApplicationScopedVolumeCreationParameters',
+    'ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk',
+    'PagedServiceResourceDescriptionList',
+    'ServiceReplicaDescription',
+    'PagedServiceReplicaDescriptionList',
+    'VolumeProviderParametersAzureFile',
+    'VolumeResourceDescription',
+    'ImageRegistryCredential',
+    'EnvironmentVariable',
+    'Setting',
+    'ContainerLabel',
+    'EndpointProperties',
+    'ResourceRequests',
+    'ResourceLimits',
+    'ResourceRequirements',
+    'VolumeReference',
+    'ApplicationScopedVolume',
+    'ContainerState',
+    'ContainerEvent',
+    'ContainerInstanceView',
+    'DiagnosticsRef',
+    'ReliableCollectionsRef',
+    'ContainerCodePackageProperties',
+    'NetworkRef',
+    'ServiceReplicaProperties',
+    'AutoScalingMetric',
+    'AverageLoadScalingTrigger',
+    'AddRemoveReplicaScalingMechanism',
+    'AutoScalingResourceMetric',
+    'SecretResourceProperties',
+    'SimpleSecretResourceProperties',
+    'SecretValueProperties',
+    'SecretResourcePropertiesBase',
+    'SecretResourceDescription',
+    'PagedSecretResourceDescriptionList',
+    'SecretValueResourceDescription',
+    'PagedSecretValueResourceDescriptionList',
+    'GatewayDestination',
+    'TcpConfig',
+    'HttpRouteMatchPath',
+    'HttpRouteMatchHeader',
+    'HttpRouteMatchRule',
+    'HttpRouteConfig',
+    'HttpHostConfig',
+    'HttpConfig',
+    'GatewayResourceDescription',
+    'PagedGatewayResourceDescriptionList',
     'ApplicationDefinitionKind',
     'HealthState',
     'ApplicationStatus',
@@ -989,6 +1104,7 @@ __all__ = [
     'PropertyValueKind',
     'PropertyBatchOperationKind',
     'PropertyBatchInfoKind',
+    'RetentionPolicyType',
     'BackupStorageKind',
     'BackupScheduleKind',
     'BackupPolicyScope',
@@ -1007,6 +1123,18 @@ __all__ = [
     'RepairTaskHealthCheckState',
     'ScalingTriggerKind',
     'ScalingMechanismKind',
+    'ServiceResourceStatus',
+    'ApplicationResourceStatus',
+    'ApplicationScopedVolumeKind',
+    'SizeTypes',
+    'DiagnosticsSinkKind',
+    'OperatingSystemTypes',
+    'AutoScalingMechanismKind',
+    'AutoScalingTriggerKind',
+    'AutoScalingMetricKind',
+    'SecretKind',
+    'HeaderMatchType',
+    'GatewayResourceStatus',
     'NodeStatusFilter',
     'ReplicaHealthReportServiceKind',
     'DataLossMode',

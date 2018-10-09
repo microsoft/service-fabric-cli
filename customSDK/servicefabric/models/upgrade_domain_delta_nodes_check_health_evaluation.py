@@ -18,7 +18,6 @@ class UpgradeDomainDeltaNodesCheckHealthEvaluation(HealthEvaluation):
     impacted current aggregated health state.
     Can be returned during cluster upgrade when cluster aggregated health state
     is Warning or Error.
-    .
 
     :param aggregated_health_state: The health state of a Service Fabric
      entity such as Cluster, Node, Application, Service, Partition, Replica

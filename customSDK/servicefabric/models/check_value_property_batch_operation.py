@@ -19,7 +19,6 @@ class CheckValuePropertyBatchOperation(PropertyBatchOperation):
     for the write operations in the batch.
     Note that if one PropertyBatchOperation in a PropertyBatch fails,
     the entire batch fails and cannot be committed in a transactional manner.
-    .
 
     :param property_name: The name of the Service Fabric property.
     :type property_name: str

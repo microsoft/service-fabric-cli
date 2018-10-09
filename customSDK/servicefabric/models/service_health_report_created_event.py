@@ -17,6 +17,8 @@ class ServiceHealthReportCreatedEvent(ServiceEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -24,7 +26,7 @@ class ServiceHealthReportCreatedEvent(ServiceEvent):
     :type has_correlated_events: bool
     :param kind: Constant filled by server.
     :type kind: str
-    :param service_id: The identity of the service. This is an encoded
+    :param service_id: The identity of the service. This ID is an encoded
      representation of the service name. This is used in the REST APIs to
      identify the service resource.
      Starting in version 6.0, hierarchical names are delimited with the "\\~"
@@ -70,6 +72,7 @@ class ServiceHealthReportCreatedEvent(ServiceEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -85,8 +88,8 @@ class ServiceHealthReportCreatedEvent(ServiceEvent):
         'source_utc_timestamp': {'key': 'SourceUtcTimestamp', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, service_id, instance_id, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, has_correlated_events=None):
-        super(ServiceHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, service_id=service_id)
+    def __init__(self, event_instance_id, time_stamp, service_id, instance_id, source_id, property, health_state, time_to_live_ms, sequence_number, description, remove_when_expired, source_utc_timestamp, category=None, has_correlated_events=None):
+        super(ServiceHealthReportCreatedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, service_id=service_id)
         self.instance_id = instance_id
         self.source_id = source_id
         self.property = property
@@ -96,4 +99,4 @@ class ServiceHealthReportCreatedEvent(ServiceEvent):
         self.description = description
         self.remove_when_expired = remove_when_expired
         self.source_utc_timestamp = source_utc_timestamp
-        self.kind = 'ServiceHealthReportCreated'
+        self.kind = 'ServiceNewHealthReport'

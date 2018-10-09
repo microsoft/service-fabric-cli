@@ -14,7 +14,6 @@ from msrest.serialization import Model
 
 class ServiceTypeHealthPolicyMapItem(Model):
     """Defines an item in ServiceTypeHealthPolicyMap.
-    .
 
     :param key: The key of the service type health policy map item. This is
      the name of the service type.

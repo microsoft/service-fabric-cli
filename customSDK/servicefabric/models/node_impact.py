@@ -16,7 +16,6 @@ class NodeImpact(Model):
     """Describes the expected impact of a repair to a particular node.
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
-    .
 
     :param node_name: The name of the impacted node.
     :type node_name: str

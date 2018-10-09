@@ -10,29 +10,34 @@ import os
 import xml.etree.ElementTree as ET
 from mock import MagicMock
 
+def get_mock_endpoint():
+    """Get the endpoint for a mock cluster."""
+    return os.environ.get('SF_TEST_ENDPOINT', False)
+
+def set_mock_endpoint(endpoint):
+    """Set the endpoint for a mock cluster.
+    param endpoint: string"""
+    os.environ['SF_TEST_ENDPOINT'] = endpoint
 
 APP_PATH = os.environ.get('SF_TEST_APP_PATH', False)
-ENDPOINT = os.environ.get('SF_TEST_ENDPOINT', False)
+ENDPOINT = get_mock_endpoint()
 
 MOCK_CONFIG = MagicMock()
-
 
 def mock_config_values(section, name, fallback):
     """Validate and mock config returns"""
     if section != 'servicefabric':
         raise ValueError('Cannot retrieve non service fabric config value')
     if name == 'endpoint':
-        return os.environ.get('SF_TEST_ENDPOINT', False)
+        return get_mock_endpoint()
     if name == 'security':
         return 'none'
     return fallback
-
 
 MOCK_CONFIG.return_value.get.side_effect = mock_config_values
 
 # XMLNS for fabric manifests
 XML_NS = {'fabric': 'http://schemas.microsoft.com/2011/01/fabric'}
-
 
 def parse_app_version(xml_file):
     """Parse application type version from application manifest"""

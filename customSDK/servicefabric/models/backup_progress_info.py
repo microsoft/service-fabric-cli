@@ -16,9 +16,8 @@ class BackupProgressInfo(Model):
     """Describes the progress of a partition's backup.
 
     :param backup_state: Represents the current state of the partition backup
-     operation.
-     . Possible values include: 'Invalid', 'Accepted', 'BackupInProgress',
-     'Success', 'Failure', 'Timeout'
+     operation. Possible values include: 'Invalid', 'Accepted',
+     'BackupInProgress', 'Success', 'Failure', 'Timeout'
     :type backup_state: str or ~azure.servicefabric.models.BackupState
     :param time_stamp_utc: TimeStamp in UTC when operation succeeded or
      failed.
@@ -30,7 +29,7 @@ class BackupProgressInfo(Model):
     :type backup_location: str
     :param epoch_of_last_backup_record: Specifies the epoch of the last record
      included in backup.
-    :type epoch_of_last_backup_record: ~azure.servicefabric.models.BackupEpoch
+    :type epoch_of_last_backup_record: ~azure.servicefabric.models.Epoch
     :param lsn_of_last_backup_record: The LSN of last record included in
      backup.
     :type lsn_of_last_backup_record: str
@@ -44,7 +43,7 @@ class BackupProgressInfo(Model):
         'time_stamp_utc': {'key': 'TimeStampUtc', 'type': 'iso-8601'},
         'backup_id': {'key': 'BackupId', 'type': 'str'},
         'backup_location': {'key': 'BackupLocation', 'type': 'str'},
-        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'BackupEpoch'},
+        'epoch_of_last_backup_record': {'key': 'EpochOfLastBackupRecord', 'type': 'Epoch'},
         'lsn_of_last_backup_record': {'key': 'LsnOfLastBackupRecord', 'type': 'str'},
         'failure_error': {'key': 'FailureError', 'type': 'FabricErrorError'},
     }

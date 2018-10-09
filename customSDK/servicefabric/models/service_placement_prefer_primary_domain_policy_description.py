@@ -23,7 +23,6 @@ class ServicePlacementPreferPrimaryDomainPolicyDescription(ServicePlacementPolic
     regional or datacenter boundaries. Note that since this is an optimization
     it is possible that the Primary replica may not end up located in this
     domain due to failures, capacity limits, or other constraints.
-    .
 
     :param type: Constant filled by server.
     :type type: str

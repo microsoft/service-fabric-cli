@@ -15,7 +15,6 @@ from msrest.serialization import Model
 class ServiceFromTemplateDescription(Model):
     """Defines description for creating a Service Fabric service from a template
     defined in the application manifest.
-    .
 
     :param application_name: The name of the application, including the
      'fabric:' URI scheme.

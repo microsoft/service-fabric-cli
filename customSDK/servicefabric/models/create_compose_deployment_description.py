@@ -14,7 +14,6 @@ from msrest.serialization import Model
 
 class CreateComposeDeploymentDescription(Model):
     """Defines description for creating a Service Fabric compose deployment.
-    .
 
     :param deployment_name: The name of the deployment.
     :type deployment_name: str

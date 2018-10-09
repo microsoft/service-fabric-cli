@@ -17,7 +17,6 @@ class EventHealthEvaluation(HealthEvaluation):
     entity.
     The health evaluation is returned when evaluating health of an entity
     results in Error or Warning.
-    .
 
     :param aggregated_health_state: The health state of a Service Fabric
      entity such as Cluster, Node, Application, Service, Partition, Replica

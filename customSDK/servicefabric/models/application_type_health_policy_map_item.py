@@ -14,7 +14,6 @@ from msrest.serialization import Model
 
 class ApplicationTypeHealthPolicyMapItem(Model):
     """Defines an item in ApplicationTypeHealthPolicyMap.
-    .
 
     :param key: The key of the application type health policy map item. This
      is the name of the application type.

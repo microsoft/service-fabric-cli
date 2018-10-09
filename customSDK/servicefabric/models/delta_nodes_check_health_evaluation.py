@@ -17,7 +17,6 @@ class DeltaNodesCheckHealthEvaluation(HealthEvaluation):
     for each unhealthy node that impacted current aggregated health state.
     Can be returned during cluster upgrade when the aggregated health state of
     the cluster is Warning or Error.
-    .
 
     :param aggregated_health_state: The health state of a Service Fabric
      entity such as Cluster, Node, Application, Service, Partition, Replica

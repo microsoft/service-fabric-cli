@@ -14,7 +14,6 @@ from msrest.serialization import Model
 
 class ChaosParametersDictionaryItem(Model):
     """Defines an item in ChaosParametersDictionary of the Chaos Schedule.
-    .
 
     :param key: The key identifying the Chaos Parameter in the dictionary.
      This key is referenced by Chaos Schedule Jobs.

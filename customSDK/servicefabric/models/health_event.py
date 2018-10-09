@@ -15,10 +15,9 @@ from .health_information import HealthInformation
 class HealthEvent(HealthInformation):
     """Represents health information reported on a health entity, such as cluster,
     application or node, with additional metadata added by the Health Manager.
-    .
 
-    :param source_id: The source name which identifies the
-     client/watchdog/system component which generated the health information.
+    :param source_id: The source name that identifies the
+     client/watchdog/system component that generated the health information.
     :type source_id: str
     :param property: The property of the health information. An entity can
      have health reports for different properties.
@@ -77,7 +76,7 @@ class HealthEvent(HealthInformation):
      of this property is false by default.
      When clients report periodically, they should set RemoveWhenExpired false
      (default).
-     This way, is the reporter has issues (eg. deadlock) and can't report, the
+     This way, if the reporter has issues (e.g. deadlock) and can't report, the
      entity is evaluated at error when the health report expires.
      This flags the entity as being in Error health state.
     :type remove_when_expired: bool

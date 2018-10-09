@@ -18,7 +18,6 @@ class TestErrorChaosEvent(ChaosEvent):
     For example, due to the cluster snapshot being inconsistent, while faulting
     an entity, Chaos found that the entity was already faulted -- which would
     be an unexpected event.
-    .
 
     :param time_stamp_utc: The UTC timestamp when this Chaos event was
      generated.

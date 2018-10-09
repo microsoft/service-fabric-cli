@@ -15,6 +15,7 @@ from sfctl.custom_exceptions import SFCTLInternalException
 # function to be called upon from within the generated SDK.
 # pylint: disable=protected-access
 
+
 def provision_application_type(client, #pylint: disable=too-many-locals,invalid-name,too-many-arguments
                                external_provision=False,
                                no_wait=False,
@@ -117,5 +118,3 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
 
     if response.status_code not in [200, 202]:
         raise FabricErrorException(client._deserialize, response)
-
-    return None

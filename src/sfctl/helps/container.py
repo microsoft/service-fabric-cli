@@ -23,7 +23,7 @@ helps['container invoke-api'] = """
           short-summary: service manifest name
         - name: --code-package-name
           type: string
-          short-summary: code packge name
+          short-summary: code package name
         - name: --code-package-instance-id
           type: string
           short-summary: code package instance ID, which can be retrieved by 'service code-package-list'
@@ -56,7 +56,7 @@ helps['container logs'] = """
           short-summary: service manifest name
         - name: --code-package-name
           type: string
-          short-summary: code packge name
+          short-summary: code package name
         - name: --code-package-instance-id
           type: string
           short-summary: code package instance ID, which can be retrieved by 'service code-package-list'

@@ -21,6 +21,8 @@ class FabricEvent(Model):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -38,6 +40,7 @@ class FabricEvent(Model):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -47,9 +50,10 @@ class FabricEvent(Model):
         'kind': {'ApplicationEvent': 'ApplicationEvent', 'ClusterEvent': 'ClusterEvent', 'ContainerInstanceEvent': 'ContainerInstanceEvent', 'NodeEvent': 'NodeEvent', 'PartitionEvent': 'PartitionEvent', 'ReplicaEvent': 'ReplicaEvent', 'ServiceEvent': 'ServiceEvent'}
     }
 
-    def __init__(self, event_instance_id, time_stamp, has_correlated_events=None):
+    def __init__(self, event_instance_id, time_stamp, category=None, has_correlated_events=None):
         super(FabricEvent, self).__init__()
         self.event_instance_id = event_instance_id
+        self.category = category
         self.time_stamp = time_stamp
         self.has_correlated_events = has_correlated_events
         self.kind = None

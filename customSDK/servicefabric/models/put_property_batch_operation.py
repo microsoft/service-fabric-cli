@@ -16,7 +16,6 @@ class PutPropertyBatchOperation(PropertyBatchOperation):
     """Puts the specified property under the specified name.
     Note that if one PropertyBatchOperation in a PropertyBatch fails,
     the entire batch fails and cannot be committed in a transactional manner.
-    .
 
     :param property_name: The name of the Service Fabric property.
     :type property_name: str
@@ -24,7 +23,7 @@ class PutPropertyBatchOperation(PropertyBatchOperation):
     :type kind: str
     :param value: Describes a Service Fabric property value.
     :type value: ~azure.servicefabric.models.PropertyValue
-    :param custom_type_id: The property's custom type id. Using this property,
+    :param custom_type_id: The property's custom type ID. Using this property,
      the user is able to tag the type of the value of the property.
     :type custom_type_id: str
     """

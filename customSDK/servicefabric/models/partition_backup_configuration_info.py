@@ -20,9 +20,8 @@ class PartitionBackupConfigurationInfo(BackupConfigurationInfo):
      this Service Fabric application or service or partition.
     :type policy_name: str
     :param policy_inherited_from: Specifies the scope at which the backup
-     policy is applied.
-     . Possible values include: 'Invalid', 'Partition', 'Service',
-     'Application'
+     policy is applied. Possible values include: 'Invalid', 'Partition',
+     'Service', 'Application'
     :type policy_inherited_from: str or
      ~azure.servicefabric.models.BackupPolicyScope
     :param suspension_info: Describes the backup suspension details.
@@ -32,11 +31,7 @@ class PartitionBackupConfigurationInfo(BackupConfigurationInfo):
     :param service_name: The full name of the service with 'fabric:' URI
      scheme.
     :type service_name: str
-    :param partition_id: An internal ID used by Service Fabric to uniquely
-     identify a partition. This is a randomly generated GUID when the service
-     was created. The partition ID is unique and does not change for the
-     lifetime of the service. If the same service was deleted and recreated the
-     IDs of its partitions would be different.
+    :param partition_id: The partition ID indentifying the partition.
     :type partition_id: str
     """
 

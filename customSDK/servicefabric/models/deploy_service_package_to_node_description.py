@@ -15,7 +15,6 @@ from msrest.serialization import Model
 class DeployServicePackageToNodeDescription(Model):
     """Defines description for downloading packages associated with a service
     manifest to image cache on a Service Fabric node.
-    .
 
     :param service_manifest_name: The name of service manifest whose packages
      need to be downloaded.

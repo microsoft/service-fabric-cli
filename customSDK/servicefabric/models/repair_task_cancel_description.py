@@ -16,7 +16,6 @@ class RepairTaskCancelDescription(Model):
     """Describes a request to cancel a repair task.
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
-    .
 
     :param task_id: The ID of the repair task.
     :type task_id: str

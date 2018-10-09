@@ -15,7 +15,6 @@ from msrest.serialization import Model
 class RestartDeployedCodePackageDescription(Model):
     """Defines description for restarting a deployed code package on Service
     Fabric node.
-    .
 
     :param service_manifest_name: The name of service manifest that specified
      this code package.

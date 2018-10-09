@@ -16,7 +16,6 @@ class RepairTaskDeleteDescription(Model):
     """Describes a request to delete a completed repair task.
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
-    .
 
     :param task_id: The ID of the completed repair task to be deleted.
     :type task_id: str

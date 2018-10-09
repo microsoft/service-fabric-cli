@@ -19,10 +19,10 @@ def validate_app_path(app_path):
     abspath = os.path.abspath(app_path)
     if os.path.isdir(abspath):
         return abspath
-    else:
-        raise ValueError(
-            'Invalid path to application directory: {0}'.format(abspath)
-        )
+
+    raise ValueError(
+        'Invalid path to application directory: {0}'.format(abspath)
+    )
 
 def print_progress(current, total, rel_file_path, show_progress):
     """Display progress for uploading"""

@@ -17,7 +17,6 @@ class GetPropertyBatchOperation(PropertyBatchOperation):
     exists.
     Note that if one PropertyBatchOperation in a PropertyBatch fails,
     the entire batch fails and cannot be committed in a transactional manner.
-    .
 
     :param property_name: The name of the Service Fabric property.
     :type property_name: str
@@ -26,8 +25,7 @@ class GetPropertyBatchOperation(PropertyBatchOperation):
     :param include_value: Whether or not to return the property value with the
      metadata.
      True if values should be returned with the metadata; False to return only
-     property metadata.
-     . Default value: False .
+     property metadata. Default value: False .
     :type include_value: bool
     """
 

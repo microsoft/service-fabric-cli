@@ -16,7 +16,6 @@ class ServicePlacementNonPartiallyPlaceServicePolicyDescription(ServicePlacement
     """Describes the policy to be used for placement of a Service Fabric service
     where all replicas must be able to be placed in order for any replicas to
     be created.
-    .
 
     :param type: Constant filled by server.
     :type type: str

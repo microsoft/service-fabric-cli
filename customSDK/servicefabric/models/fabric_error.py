@@ -17,7 +17,6 @@ class FabricError(Model):
     """The REST API operations for Service Fabric return standard HTTP status
     codes. This type defines the additional information returned from the
     Service Fabric API operations that are not successful.
-    .
 
     :param error: Error object containing error code and error message.
     :type error: ~azure.servicefabric.models.FabricErrorError

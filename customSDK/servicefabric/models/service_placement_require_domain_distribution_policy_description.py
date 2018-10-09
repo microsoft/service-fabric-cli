@@ -24,7 +24,6 @@ class ServicePlacementRequireDomainDistributionPolicyDescription(ServicePlacemen
     the replica that was placed in that datacenter will be packed into one of
     the remaining datacenters. If this is not desirable then this policy should
     be set.
-    .
 
     :param type: Constant filled by server.
     :type type: str
