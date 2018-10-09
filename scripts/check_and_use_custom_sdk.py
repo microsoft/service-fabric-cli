@@ -2,7 +2,7 @@ from os import path, pardir
 from shutil import rmtree, copytree
 import pip
 
-# !Note: The methods in this file depend on the file structure. Specifically, the methods:
+# !Note: The methods in this file depend on the folder structure. Specifically, the methods:
 # - get_path_to_readme
 # - get_custom_sdk_path
 

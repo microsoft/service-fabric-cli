@@ -16,11 +16,14 @@ from __future__ import print_function
 import unittest
 from os import listdir
 from os.path import dirname, join, abspath, pardir
-import scripts.check_and_use_custom_sdk as custom_sdk_helper
+from sys import path as sys_path
+
+sys_path.insert(0, abspath('..'))
+from scripts import check_and_use_custom_sdk as custom_sdk_helper
 
 
 class CustomHelpTextCorrectnessTests(unittest.TestCase):
-    """Tests that the text provided as custom help text is always up tp date."""
+    """Tests that the text provided as custom help text is always up to date."""
 
     # If a line from a customs helps file starts with the following, do not validate.
     # This list should eventually become empty
@@ -214,8 +217,16 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             print()
             print(line)
 
+        allowable_lines_not_found = 71
+
         print()
         print('The total number of lines compared is ' + str(len(custom_help_lines)))
+        print('The total number of lines not found is ' + str(len(lines_not_found)))
+        print('The total number of allowable lines not found is ' + str(allowable_lines_not_found))
+        print('The total number of excluded lines is ' +
+              str(len(CustomHelpTextCorrectnessTests.exclusion_list)))
 
         # Assert if there are any lines which do not match.
-        self.assertLess(len(lines_not_found), 80)
+        self.assertEqual(len(lines_not_found), allowable_lines_not_found,
+                         msg='The allowable mismatched documentation lines does not match '
+                             'the actual number.')

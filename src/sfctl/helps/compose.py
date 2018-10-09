@@ -80,7 +80,11 @@ helps['compose upgrade'] = """
             before starting the health checks process.
         - name: --health-check-stable
           type: string
-          short-summary: The length of time that the application or cluster must remain healthy.
+          short-summary: The amount of time that the application or cluster must remain healthy 
+            before the upgrade proceeds to the next upgrade domain.
+          long-summary: It is first interpreted as a string representing an ISO 8601 duration. 
+            If that fails, then it is interpreted as a number representing the total number 
+            of milliseconds.
         - name: --health-check-retry
           type: string
           short-summary: The length of time between attempts to perform health checks if 
