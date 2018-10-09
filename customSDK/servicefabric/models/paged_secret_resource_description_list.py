@@ -12,11 +12,11 @@
 from msrest.serialization import Model
 
 
-class PagedServiceResourceReplicaDescriptionList(Model):
-    """The list of service resources in the cluster. The list is paged when all of
-    the results cannot fit in a single message. The next set of results can be
-    obtained by executing the same query with the continuation token provided
-    in this list.
+class PagedSecretResourceDescriptionList(Model):
+    """The list of secret resources, paged if the number of results exceeds the
+    limits of a single message. The next set of results can be obtained by
+    executing the same query with the continuation token provided in the
+    previous page.
 
     :param continuation_token: The continuation token parameter is used to
      obtain next set of results. The continuation token is included in the
@@ -25,17 +25,16 @@ class PagedServiceResourceReplicaDescriptionList(Model):
      returns next set of results. If there are no further results, then the
      continuation token is not included in the response.
     :type continuation_token: str
-    :param items: List of service resource description.
-    :type items:
-     list[~azure.servicefabric.models.ServiceResourceReplicaDescription]
+    :param items: One page of the list.
+    :type items: list[~azure.servicefabric.models.SecretResourceDescription]
     """
 
     _attribute_map = {
         'continuation_token': {'key': 'ContinuationToken', 'type': 'str'},
-        'items': {'key': 'Items', 'type': '[ServiceResourceReplicaDescription]'},
+        'items': {'key': 'Items', 'type': '[SecretResourceDescription]'},
     }
 
     def __init__(self, continuation_token=None, items=None):
-        super(PagedServiceResourceReplicaDescriptionList, self).__init__()
+        super(PagedSecretResourceDescriptionList, self).__init__()
         self.continuation_token = continuation_token
         self.items = items

@@ -17,6 +17,8 @@ class ApplicationUpgradeDomainCompleteEvent(ApplicationEvent):
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
+    :param category: The category of event.
+    :type category: str
     :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
@@ -62,6 +64,7 @@ class ApplicationUpgradeDomainCompleteEvent(ApplicationEvent):
 
     _attribute_map = {
         'event_instance_id': {'key': 'EventInstanceId', 'type': 'str'},
+        'category': {'key': 'Category', 'type': 'str'},
         'time_stamp': {'key': 'TimeStamp', 'type': 'iso-8601'},
         'has_correlated_events': {'key': 'HasCorrelatedEvents', 'type': 'bool'},
         'kind': {'key': 'Kind', 'type': 'str'},
@@ -74,12 +77,12 @@ class ApplicationUpgradeDomainCompleteEvent(ApplicationEvent):
         'upgrade_domain_elapsed_time_in_ms': {'key': 'UpgradeDomainElapsedTimeInMs', 'type': 'float'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, application_type_name, current_application_type_version, application_type_version, upgrade_state, upgrade_domains, upgrade_domain_elapsed_time_in_ms, has_correlated_events=None):
-        super(ApplicationUpgradeDomainCompleteEvent, self).__init__(event_instance_id=event_instance_id, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
+    def __init__(self, event_instance_id, time_stamp, application_id, application_type_name, current_application_type_version, application_type_version, upgrade_state, upgrade_domains, upgrade_domain_elapsed_time_in_ms, category=None, has_correlated_events=None):
+        super(ApplicationUpgradeDomainCompleteEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
         self.application_type_name = application_type_name
         self.current_application_type_version = current_application_type_version
         self.application_type_version = application_type_version
         self.upgrade_state = upgrade_state
         self.upgrade_domains = upgrade_domains
         self.upgrade_domain_elapsed_time_in_ms = upgrade_domain_elapsed_time_in_ms
-        self.kind = 'ApplicationUpgradeDomainComplete'
+        self.kind = 'ApplicationUpgradeDomainCompleted'
