@@ -17,7 +17,7 @@ class ServiceEvent(FabricEvent):
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: ServiceCreatedEvent, ServiceDeletedEvent,
-    ServiceHealthReportCreatedEvent, ServiceHealthReportExpiredEvent
+    ServiceNewHealthReportEvent, ServiceHealthReportExpiredEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
@@ -57,7 +57,7 @@ class ServiceEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'ServiceCreated': 'ServiceCreatedEvent', 'ServiceDeleted': 'ServiceDeletedEvent', 'ServiceNewHealthReport': 'ServiceHealthReportCreatedEvent', 'ServiceHealthReportExpired': 'ServiceHealthReportExpiredEvent'}
+        'kind': {'ServiceCreated': 'ServiceCreatedEvent', 'ServiceDeleted': 'ServiceDeletedEvent', 'ServiceNewHealthReport': 'ServiceNewHealthReportEvent', 'ServiceHealthReportExpired': 'ServiceHealthReportExpiredEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, service_id, category=None, has_correlated_events=None):

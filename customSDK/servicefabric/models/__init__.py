@@ -9,6 +9,9 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
+from .fabric_error_error import FabricErrorError
+from .fabric_error import FabricError, FabricErrorException
+from .container_logs import ContainerLogs
 from .aad_metadata import AadMetadata
 from .aad_metadata_object import AadMetadataObject
 from .analysis_event_metadata import AnalysisEventMetadata
@@ -108,8 +111,6 @@ from .event_health_evaluation import EventHealthEvaluation
 from .fabric_event import FabricEvent
 from .fabric_code_version_info import FabricCodeVersionInfo
 from .fabric_config_version_info import FabricConfigVersionInfo
-from .fabric_error_error import FabricErrorError
-from .fabric_error import FabricError, FabricErrorException
 from .cluster_configuration_upgrade_status_info import ClusterConfigurationUpgradeStatusInfo
 from .health_information import HealthInformation
 from .int64_range_partition_information import Int64RangePartitionInformation
@@ -360,109 +361,87 @@ from .repair_task_update_info import RepairTaskUpdateInfo
 from .upload_chunk_range import UploadChunkRange
 from .upload_session_info import UploadSessionInfo
 from .upload_session import UploadSession
-from .container_logs import ContainerLogs
 from .average_partition_load_scaling_trigger import AveragePartitionLoadScalingTrigger
 from .average_service_load_scaling_trigger import AverageServiceLoadScalingTrigger
 from .partition_instance_count_scale_mechanism import PartitionInstanceCountScaleMechanism
 from .add_remove_incremental_named_partition_scaling_mechanism import AddRemoveIncrementalNamedPartitionScalingMechanism
 from .application_created_event import ApplicationCreatedEvent
 from .application_deleted_event import ApplicationDeletedEvent
-from .application_health_report_created_event import ApplicationHealthReportCreatedEvent
+from .application_new_health_report_event import ApplicationNewHealthReportEvent
 from .application_health_report_expired_event import ApplicationHealthReportExpiredEvent
-from .application_upgrade_complete_event import ApplicationUpgradeCompleteEvent
-from .application_upgrade_domain_complete_event import ApplicationUpgradeDomainCompleteEvent
-from .application_upgrade_rollback_complete_event import ApplicationUpgradeRollbackCompleteEvent
-from .application_upgrade_rollback_start_event import ApplicationUpgradeRollbackStartEvent
-from .application_upgrade_start_event import ApplicationUpgradeStartEvent
-from .deployed_application_health_report_created_event import DeployedApplicationHealthReportCreatedEvent
+from .application_upgrade_completed_event import ApplicationUpgradeCompletedEvent
+from .application_upgrade_domain_completed_event import ApplicationUpgradeDomainCompletedEvent
+from .application_upgrade_rollback_completed_event import ApplicationUpgradeRollbackCompletedEvent
+from .application_upgrade_rollback_started_event import ApplicationUpgradeRollbackStartedEvent
+from .application_upgrade_started_event import ApplicationUpgradeStartedEvent
+from .deployed_application_new_health_report_event import DeployedApplicationNewHealthReportEvent
 from .deployed_application_health_report_expired_event import DeployedApplicationHealthReportExpiredEvent
-from .process_deactivated_event import ProcessDeactivatedEvent
-from .container_deactivated_event import ContainerDeactivatedEvent
+from .application_process_exited_event import ApplicationProcessExitedEvent
+from .application_container_instance_exited_event import ApplicationContainerInstanceExitedEvent
 from .node_aborted_event import NodeAbortedEvent
-from .node_added_event import NodeAddedEvent
-from .node_close_event import NodeCloseEvent
-from .node_deactivate_complete_event import NodeDeactivateCompleteEvent
-from .node_deactivate_start_event import NodeDeactivateStartEvent
+from .node_added_to_cluster_event import NodeAddedToClusterEvent
+from .node_closed_event import NodeClosedEvent
+from .node_deactivate_completed_event import NodeDeactivateCompletedEvent
+from .node_deactivate_started_event import NodeDeactivateStartedEvent
 from .node_down_event import NodeDownEvent
-from .node_health_report_created_event import NodeHealthReportCreatedEvent
+from .node_new_health_report_event import NodeNewHealthReportEvent
 from .node_health_report_expired_event import NodeHealthReportExpiredEvent
-from .node_opened_success_event import NodeOpenedSuccessEvent
+from .node_open_succeeded_event import NodeOpenSucceededEvent
 from .node_open_failed_event import NodeOpenFailedEvent
-from .node_removed_event import NodeRemovedEvent
+from .node_removed_from_cluster_event import NodeRemovedFromClusterEvent
 from .node_up_event import NodeUpEvent
-from .partition_health_report_created_event import PartitionHealthReportCreatedEvent
+from .partition_new_health_report_event import PartitionNewHealthReportEvent
 from .partition_health_report_expired_event import PartitionHealthReportExpiredEvent
-from .partition_reconfiguration_completed_event import PartitionReconfigurationCompletedEvent
+from .partition_reconfigured_event import PartitionReconfiguredEvent
 from .partition_primary_move_analysis_event import PartitionPrimaryMoveAnalysisEvent
 from .service_created_event import ServiceCreatedEvent
 from .service_deleted_event import ServiceDeletedEvent
-from .service_health_report_created_event import ServiceHealthReportCreatedEvent
+from .service_new_health_report_event import ServiceNewHealthReportEvent
 from .service_health_report_expired_event import ServiceHealthReportExpiredEvent
-from .deployed_service_health_report_created_event import DeployedServiceHealthReportCreatedEvent
-from .deployed_service_health_report_expired_event import DeployedServiceHealthReportExpiredEvent
-from .stateful_replica_health_report_created_event import StatefulReplicaHealthReportCreatedEvent
+from .deployed_service_package_new_health_report_event import DeployedServicePackageNewHealthReportEvent
+from .deployed_service_package_health_report_expired_event import DeployedServicePackageHealthReportExpiredEvent
+from .stateful_replica_new_health_report_event import StatefulReplicaNewHealthReportEvent
 from .stateful_replica_health_report_expired_event import StatefulReplicaHealthReportExpiredEvent
-from .stateless_replica_health_report_created_event import StatelessReplicaHealthReportCreatedEvent
+from .stateless_replica_new_health_report_event import StatelessReplicaNewHealthReportEvent
 from .stateless_replica_health_report_expired_event import StatelessReplicaHealthReportExpiredEvent
-from .cluster_health_report_created_event import ClusterHealthReportCreatedEvent
+from .cluster_new_health_report_event import ClusterNewHealthReportEvent
 from .cluster_health_report_expired_event import ClusterHealthReportExpiredEvent
-from .cluster_upgrade_complete_event import ClusterUpgradeCompleteEvent
-from .cluster_upgrade_domain_complete_event import ClusterUpgradeDomainCompleteEvent
-from .cluster_upgrade_rollback_complete_event import ClusterUpgradeRollbackCompleteEvent
-from .cluster_upgrade_rollback_start_event import ClusterUpgradeRollbackStartEvent
-from .cluster_upgrade_start_event import ClusterUpgradeStartEvent
+from .cluster_upgrade_completed_event import ClusterUpgradeCompletedEvent
+from .cluster_upgrade_domain_completed_event import ClusterUpgradeDomainCompletedEvent
+from .cluster_upgrade_rollback_completed_event import ClusterUpgradeRollbackCompletedEvent
+from .cluster_upgrade_rollback_started_event import ClusterUpgradeRollbackStartedEvent
+from .cluster_upgrade_started_event import ClusterUpgradeStartedEvent
 from .chaos_stopped_event import ChaosStoppedEvent
 from .chaos_started_event import ChaosStartedEvent
-from .chaos_restart_code_package_fault_scheduled_event import ChaosRestartCodePackageFaultScheduledEvent
-from .chaos_remove_replica_fault_scheduled_event import ChaosRemoveReplicaFaultScheduledEvent
-from .chaos_move_secondary_fault_scheduled_event import ChaosMoveSecondaryFaultScheduledEvent
-from .chaos_move_primary_fault_scheduled_event import ChaosMovePrimaryFaultScheduledEvent
-from .chaos_restart_replica_fault_scheduled_event import ChaosRestartReplicaFaultScheduledEvent
-from .chaos_restart_node_fault_scheduled_event import ChaosRestartNodeFaultScheduledEvent
-from .auto_scaling_trigger import AutoScalingTrigger
-from .auto_scaling_mechanism import AutoScalingMechanism
-from .auto_scaling_policy import AutoScalingPolicy
-from .service_resource_description import ServiceResourceDescription
-from .diagnostics_sink_properties import DiagnosticsSinkProperties
-from .diagnostics_description import DiagnosticsDescription
-from .application_resource_description import ApplicationResourceDescription
-from .application_scoped_volume_creation_parameters import ApplicationScopedVolumeCreationParameters
-from .application_scoped_volume_creation_parameters_service_fabric_volume_disk import ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk
-from .paged_service_resource_description_list import PagedServiceResourceDescriptionList
-from .service_replica_description import ServiceReplicaDescription
-from .paged_service_replica_description_list import PagedServiceReplicaDescriptionList
-from .volume_provider_parameters_azure_file import VolumeProviderParametersAzureFile
-from .volume_resource_description import VolumeResourceDescription
-from .image_registry_credential import ImageRegistryCredential
-from .environment_variable import EnvironmentVariable
-from .setting import Setting
-from .container_label import ContainerLabel
-from .endpoint_properties import EndpointProperties
-from .resource_requests import ResourceRequests
-from .resource_limits import ResourceLimits
-from .resource_requirements import ResourceRequirements
-from .volume_reference import VolumeReference
-from .application_scoped_volume import ApplicationScopedVolume
-from .container_state import ContainerState
-from .container_event import ContainerEvent
-from .container_instance_view import ContainerInstanceView
-from .diagnostics_ref import DiagnosticsRef
-from .reliable_collections_ref import ReliableCollectionsRef
-from .container_code_package_properties import ContainerCodePackageProperties
-from .network_ref import NetworkRef
-from .service_replica_properties import ServiceReplicaProperties
-from .auto_scaling_metric import AutoScalingMetric
-from .average_load_scaling_trigger import AverageLoadScalingTrigger
-from .add_remove_replica_scaling_mechanism import AddRemoveReplicaScalingMechanism
-from .auto_scaling_resource_metric import AutoScalingResourceMetric
+from .chaos_code_package_restart_scheduled_event import ChaosCodePackageRestartScheduledEvent
+from .chaos_replica_removal_scheduled_event import ChaosReplicaRemovalScheduledEvent
+from .chaos_partition_secondary_move_scheduled_event import ChaosPartitionSecondaryMoveScheduledEvent
+from .chaos_partition_primary_move_scheduled_event import ChaosPartitionPrimaryMoveScheduledEvent
+from .chaos_replica_restart_scheduled_event import ChaosReplicaRestartScheduledEvent
+from .chaos_node_restart_scheduled_event import ChaosNodeRestartScheduledEvent
 from .secret_resource_properties import SecretResourceProperties
-from .simple_secret_resource_properties import SimpleSecretResourceProperties
-from .secret_value_properties import SecretValueProperties
-from .secret_resource_properties_base import SecretResourcePropertiesBase
+from .inlined_value_secret_resource_properties import InlinedValueSecretResourceProperties
 from .secret_resource_description import SecretResourceDescription
 from .paged_secret_resource_description_list import PagedSecretResourceDescriptionList
+from .secret_resource_properties_base import SecretResourcePropertiesBase
+from .secret_value import SecretValue
+from .secret_value_properties import SecretValueProperties
 from .secret_value_resource_description import SecretValueResourceDescription
 from .paged_secret_value_resource_description_list import PagedSecretValueResourceDescriptionList
+from .volume_provider_parameters_azure_file import VolumeProviderParametersAzureFile
+from .volume_reference import VolumeReference
+from .application_scoped_volume_creation_parameters import ApplicationScopedVolumeCreationParameters
+from .application_scoped_volume import ApplicationScopedVolume
+from .application_scoped_volume_creation_parameters_service_fabric_volume_disk import ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk
+from .volume_resource_description import VolumeResourceDescription
+from .paged_volume_resource_description_list import PagedVolumeResourceDescriptionList
+from .network_resource_properties import NetworkResourceProperties
+from .local_network_resource_properties import LocalNetworkResourceProperties
+from .endpoint_ref import EndpointRef
+from .network_ref import NetworkRef
+from .network_resource_description import NetworkResourceDescription
+from .network_resource_properties_base import NetworkResourcePropertiesBase
+from .paged_network_resource_description_list import PagedNetworkResourceDescriptionList
 from .gateway_destination import GatewayDestination
 from .tcp_config import TcpConfig
 from .http_route_match_path import HttpRouteMatchPath
@@ -473,9 +452,42 @@ from .http_host_config import HttpHostConfig
 from .http_config import HttpConfig
 from .gateway_resource_description import GatewayResourceDescription
 from .paged_gateway_resource_description_list import PagedGatewayResourceDescriptionList
+from .image_registry_credential import ImageRegistryCredential
+from .environment_variable import EnvironmentVariable
+from .setting import Setting
+from .container_label import ContainerLabel
+from .endpoint_properties import EndpointProperties
+from .resource_requests import ResourceRequests
+from .resource_limits import ResourceLimits
+from .resource_requirements import ResourceRequirements
+from .diagnostics_ref import DiagnosticsRef
+from .reliable_collections_ref import ReliableCollectionsRef
+from .container_state import ContainerState
+from .container_event import ContainerEvent
+from .container_instance_view import ContainerInstanceView
+from .container_code_package_properties import ContainerCodePackageProperties
+from .auto_scaling_trigger import AutoScalingTrigger
+from .auto_scaling_mechanism import AutoScalingMechanism
+from .auto_scaling_policy import AutoScalingPolicy
+from .service_resource_description import ServiceResourceDescription
+from .diagnostics_sink_properties import DiagnosticsSinkProperties
+from .diagnostics_description import DiagnosticsDescription
+from .azure_internal_monitoring_pipeline_sink_description import AzureInternalMonitoringPipelineSinkDescription
+from .add_remove_replica_scaling_mechanism import AddRemoveReplicaScalingMechanism
+from .auto_scaling_metric import AutoScalingMetric
+from .auto_scaling_resource_metric import AutoScalingResourceMetric
+from .service_properties import ServiceProperties
+from .service_replica_properties import ServiceReplicaProperties
+from .service_replica_description import ServiceReplicaDescription
+from .average_load_scaling_trigger import AverageLoadScalingTrigger
+from .paged_service_resource_description_list import PagedServiceResourceDescriptionList
+from .paged_service_replica_description_list import PagedServiceReplicaDescriptionList
+from .application_resource_description import ApplicationResourceDescription
+from .paged_application_resource_description_list import PagedApplicationResourceDescriptionList
 from .service_fabric_client_ap_is_enums import (
-    ApplicationDefinitionKind,
     HealthState,
+    FabricErrorCodes,
+    ApplicationDefinitionKind,
     ApplicationStatus,
     ApplicationPackageCleanupPolicy,
     ApplicationTypeDefinitionKind,
@@ -494,7 +506,6 @@ from .service_fabric_client_ap_is_enums import (
     ReconfigurationPhase,
     ReconfigurationType,
     EntityKind,
-    FabricErrorCodes,
     FabricEventKind,
     HealthEvaluationKind,
     NodeDeactivationIntent,
@@ -556,18 +567,19 @@ from .service_fabric_client_ap_is_enums import (
     RepairTaskHealthCheckState,
     ScalingTriggerKind,
     ScalingMechanismKind,
-    ServiceResourceStatus,
-    ApplicationResourceStatus,
-    ApplicationScopedVolumeKind,
-    SizeTypes,
-    DiagnosticsSinkKind,
-    OperatingSystemTypes,
-    AutoScalingMechanismKind,
-    AutoScalingTriggerKind,
-    AutoScalingMetricKind,
+    ResourceStatus,
     SecretKind,
+    VolumeProvider,
+    SizeTypes,
+    ApplicationScopedVolumeKind,
+    NetworkKind,
     HeaderMatchType,
-    GatewayResourceStatus,
+    OperatingSystemType,
+    DiagnosticsSinkKind,
+    AutoScalingMechanismKind,
+    AutoScalingMetricKind,
+    AutoScalingResourceMetricName,
+    AutoScalingTriggerKind,
     NodeStatusFilter,
     ReplicaHealthReportServiceKind,
     DataLossMode,
@@ -577,6 +589,9 @@ from .service_fabric_client_ap_is_enums import (
 )
 
 __all__ = [
+    'FabricErrorError',
+    'FabricError', 'FabricErrorException',
+    'ContainerLogs',
     'AadMetadata',
     'AadMetadataObject',
     'AnalysisEventMetadata',
@@ -676,8 +691,6 @@ __all__ = [
     'FabricEvent',
     'FabricCodeVersionInfo',
     'FabricConfigVersionInfo',
-    'FabricErrorError',
-    'FabricError', 'FabricErrorException',
     'ClusterConfigurationUpgradeStatusInfo',
     'HealthInformation',
     'Int64RangePartitionInformation',
@@ -928,109 +941,87 @@ __all__ = [
     'UploadChunkRange',
     'UploadSessionInfo',
     'UploadSession',
-    'ContainerLogs',
     'AveragePartitionLoadScalingTrigger',
     'AverageServiceLoadScalingTrigger',
     'PartitionInstanceCountScaleMechanism',
     'AddRemoveIncrementalNamedPartitionScalingMechanism',
     'ApplicationCreatedEvent',
     'ApplicationDeletedEvent',
-    'ApplicationHealthReportCreatedEvent',
+    'ApplicationNewHealthReportEvent',
     'ApplicationHealthReportExpiredEvent',
-    'ApplicationUpgradeCompleteEvent',
-    'ApplicationUpgradeDomainCompleteEvent',
-    'ApplicationUpgradeRollbackCompleteEvent',
-    'ApplicationUpgradeRollbackStartEvent',
-    'ApplicationUpgradeStartEvent',
-    'DeployedApplicationHealthReportCreatedEvent',
+    'ApplicationUpgradeCompletedEvent',
+    'ApplicationUpgradeDomainCompletedEvent',
+    'ApplicationUpgradeRollbackCompletedEvent',
+    'ApplicationUpgradeRollbackStartedEvent',
+    'ApplicationUpgradeStartedEvent',
+    'DeployedApplicationNewHealthReportEvent',
     'DeployedApplicationHealthReportExpiredEvent',
-    'ProcessDeactivatedEvent',
-    'ContainerDeactivatedEvent',
+    'ApplicationProcessExitedEvent',
+    'ApplicationContainerInstanceExitedEvent',
     'NodeAbortedEvent',
-    'NodeAddedEvent',
-    'NodeCloseEvent',
-    'NodeDeactivateCompleteEvent',
-    'NodeDeactivateStartEvent',
+    'NodeAddedToClusterEvent',
+    'NodeClosedEvent',
+    'NodeDeactivateCompletedEvent',
+    'NodeDeactivateStartedEvent',
     'NodeDownEvent',
-    'NodeHealthReportCreatedEvent',
+    'NodeNewHealthReportEvent',
     'NodeHealthReportExpiredEvent',
-    'NodeOpenedSuccessEvent',
+    'NodeOpenSucceededEvent',
     'NodeOpenFailedEvent',
-    'NodeRemovedEvent',
+    'NodeRemovedFromClusterEvent',
     'NodeUpEvent',
-    'PartitionHealthReportCreatedEvent',
+    'PartitionNewHealthReportEvent',
     'PartitionHealthReportExpiredEvent',
-    'PartitionReconfigurationCompletedEvent',
+    'PartitionReconfiguredEvent',
     'PartitionPrimaryMoveAnalysisEvent',
     'ServiceCreatedEvent',
     'ServiceDeletedEvent',
-    'ServiceHealthReportCreatedEvent',
+    'ServiceNewHealthReportEvent',
     'ServiceHealthReportExpiredEvent',
-    'DeployedServiceHealthReportCreatedEvent',
-    'DeployedServiceHealthReportExpiredEvent',
-    'StatefulReplicaHealthReportCreatedEvent',
+    'DeployedServicePackageNewHealthReportEvent',
+    'DeployedServicePackageHealthReportExpiredEvent',
+    'StatefulReplicaNewHealthReportEvent',
     'StatefulReplicaHealthReportExpiredEvent',
-    'StatelessReplicaHealthReportCreatedEvent',
+    'StatelessReplicaNewHealthReportEvent',
     'StatelessReplicaHealthReportExpiredEvent',
-    'ClusterHealthReportCreatedEvent',
+    'ClusterNewHealthReportEvent',
     'ClusterHealthReportExpiredEvent',
-    'ClusterUpgradeCompleteEvent',
-    'ClusterUpgradeDomainCompleteEvent',
-    'ClusterUpgradeRollbackCompleteEvent',
-    'ClusterUpgradeRollbackStartEvent',
-    'ClusterUpgradeStartEvent',
+    'ClusterUpgradeCompletedEvent',
+    'ClusterUpgradeDomainCompletedEvent',
+    'ClusterUpgradeRollbackCompletedEvent',
+    'ClusterUpgradeRollbackStartedEvent',
+    'ClusterUpgradeStartedEvent',
     'ChaosStoppedEvent',
     'ChaosStartedEvent',
-    'ChaosRestartCodePackageFaultScheduledEvent',
-    'ChaosRemoveReplicaFaultScheduledEvent',
-    'ChaosMoveSecondaryFaultScheduledEvent',
-    'ChaosMovePrimaryFaultScheduledEvent',
-    'ChaosRestartReplicaFaultScheduledEvent',
-    'ChaosRestartNodeFaultScheduledEvent',
-    'AutoScalingTrigger',
-    'AutoScalingMechanism',
-    'AutoScalingPolicy',
-    'ServiceResourceDescription',
-    'DiagnosticsSinkProperties',
-    'DiagnosticsDescription',
-    'ApplicationResourceDescription',
-    'ApplicationScopedVolumeCreationParameters',
-    'ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk',
-    'PagedServiceResourceDescriptionList',
-    'ServiceReplicaDescription',
-    'PagedServiceReplicaDescriptionList',
-    'VolumeProviderParametersAzureFile',
-    'VolumeResourceDescription',
-    'ImageRegistryCredential',
-    'EnvironmentVariable',
-    'Setting',
-    'ContainerLabel',
-    'EndpointProperties',
-    'ResourceRequests',
-    'ResourceLimits',
-    'ResourceRequirements',
-    'VolumeReference',
-    'ApplicationScopedVolume',
-    'ContainerState',
-    'ContainerEvent',
-    'ContainerInstanceView',
-    'DiagnosticsRef',
-    'ReliableCollectionsRef',
-    'ContainerCodePackageProperties',
-    'NetworkRef',
-    'ServiceReplicaProperties',
-    'AutoScalingMetric',
-    'AverageLoadScalingTrigger',
-    'AddRemoveReplicaScalingMechanism',
-    'AutoScalingResourceMetric',
+    'ChaosCodePackageRestartScheduledEvent',
+    'ChaosReplicaRemovalScheduledEvent',
+    'ChaosPartitionSecondaryMoveScheduledEvent',
+    'ChaosPartitionPrimaryMoveScheduledEvent',
+    'ChaosReplicaRestartScheduledEvent',
+    'ChaosNodeRestartScheduledEvent',
     'SecretResourceProperties',
-    'SimpleSecretResourceProperties',
-    'SecretValueProperties',
-    'SecretResourcePropertiesBase',
+    'InlinedValueSecretResourceProperties',
     'SecretResourceDescription',
     'PagedSecretResourceDescriptionList',
+    'SecretResourcePropertiesBase',
+    'SecretValue',
+    'SecretValueProperties',
     'SecretValueResourceDescription',
     'PagedSecretValueResourceDescriptionList',
+    'VolumeProviderParametersAzureFile',
+    'VolumeReference',
+    'ApplicationScopedVolumeCreationParameters',
+    'ApplicationScopedVolume',
+    'ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk',
+    'VolumeResourceDescription',
+    'PagedVolumeResourceDescriptionList',
+    'NetworkResourceProperties',
+    'LocalNetworkResourceProperties',
+    'EndpointRef',
+    'NetworkRef',
+    'NetworkResourceDescription',
+    'NetworkResourcePropertiesBase',
+    'PagedNetworkResourceDescriptionList',
     'GatewayDestination',
     'TcpConfig',
     'HttpRouteMatchPath',
@@ -1041,8 +1032,41 @@ __all__ = [
     'HttpConfig',
     'GatewayResourceDescription',
     'PagedGatewayResourceDescriptionList',
-    'ApplicationDefinitionKind',
+    'ImageRegistryCredential',
+    'EnvironmentVariable',
+    'Setting',
+    'ContainerLabel',
+    'EndpointProperties',
+    'ResourceRequests',
+    'ResourceLimits',
+    'ResourceRequirements',
+    'DiagnosticsRef',
+    'ReliableCollectionsRef',
+    'ContainerState',
+    'ContainerEvent',
+    'ContainerInstanceView',
+    'ContainerCodePackageProperties',
+    'AutoScalingTrigger',
+    'AutoScalingMechanism',
+    'AutoScalingPolicy',
+    'ServiceResourceDescription',
+    'DiagnosticsSinkProperties',
+    'DiagnosticsDescription',
+    'AzureInternalMonitoringPipelineSinkDescription',
+    'AddRemoveReplicaScalingMechanism',
+    'AutoScalingMetric',
+    'AutoScalingResourceMetric',
+    'ServiceProperties',
+    'ServiceReplicaProperties',
+    'ServiceReplicaDescription',
+    'AverageLoadScalingTrigger',
+    'PagedServiceResourceDescriptionList',
+    'PagedServiceReplicaDescriptionList',
+    'ApplicationResourceDescription',
+    'PagedApplicationResourceDescriptionList',
     'HealthState',
+    'FabricErrorCodes',
+    'ApplicationDefinitionKind',
     'ApplicationStatus',
     'ApplicationPackageCleanupPolicy',
     'ApplicationTypeDefinitionKind',
@@ -1061,7 +1085,6 @@ __all__ = [
     'ReconfigurationPhase',
     'ReconfigurationType',
     'EntityKind',
-    'FabricErrorCodes',
     'FabricEventKind',
     'HealthEvaluationKind',
     'NodeDeactivationIntent',
@@ -1123,18 +1146,19 @@ __all__ = [
     'RepairTaskHealthCheckState',
     'ScalingTriggerKind',
     'ScalingMechanismKind',
-    'ServiceResourceStatus',
-    'ApplicationResourceStatus',
-    'ApplicationScopedVolumeKind',
-    'SizeTypes',
-    'DiagnosticsSinkKind',
-    'OperatingSystemTypes',
-    'AutoScalingMechanismKind',
-    'AutoScalingTriggerKind',
-    'AutoScalingMetricKind',
+    'ResourceStatus',
     'SecretKind',
+    'VolumeProvider',
+    'SizeTypes',
+    'ApplicationScopedVolumeKind',
+    'NetworkKind',
     'HeaderMatchType',
-    'GatewayResourceStatus',
+    'OperatingSystemType',
+    'DiagnosticsSinkKind',
+    'AutoScalingMechanismKind',
+    'AutoScalingMetricKind',
+    'AutoScalingResourceMetricName',
+    'AutoScalingTriggerKind',
     'NodeStatusFilter',
     'ReplicaHealthReportServiceKind',
     'DataLossMode',

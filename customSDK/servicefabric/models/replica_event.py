@@ -16,12 +16,11 @@ class ReplicaEvent(FabricEvent):
     """Represents the base for all Replica Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: StatefulReplicaHealthReportCreatedEvent,
+    sub-classes are: StatefulReplicaNewHealthReportEvent,
     StatefulReplicaHealthReportExpiredEvent,
-    StatelessReplicaHealthReportCreatedEvent,
+    StatelessReplicaNewHealthReportEvent,
     StatelessReplicaHealthReportExpiredEvent,
-    ChaosRemoveReplicaFaultScheduledEvent,
-    ChaosRestartReplicaFaultScheduledEvent
+    ChaosReplicaRemovalScheduledEvent, ChaosReplicaRestartScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
@@ -69,7 +68,7 @@ class ReplicaEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'StatefulReplicaNewHealthReport': 'StatefulReplicaHealthReportCreatedEvent', 'StatefulReplicaHealthReportExpired': 'StatefulReplicaHealthReportExpiredEvent', 'StatelessReplicaNewHealthReport': 'StatelessReplicaHealthReportCreatedEvent', 'StatelessReplicaHealthReportExpired': 'StatelessReplicaHealthReportExpiredEvent', 'ChaosReplicaRemovalScheduled': 'ChaosRemoveReplicaFaultScheduledEvent', 'ChaosReplicaRestartScheduled': 'ChaosRestartReplicaFaultScheduledEvent'}
+        'kind': {'StatefulReplicaNewHealthReport': 'StatefulReplicaNewHealthReportEvent', 'StatefulReplicaHealthReportExpired': 'StatefulReplicaHealthReportExpiredEvent', 'StatelessReplicaNewHealthReport': 'StatelessReplicaNewHealthReportEvent', 'StatelessReplicaHealthReportExpired': 'StatelessReplicaHealthReportExpiredEvent', 'ChaosReplicaRemovalScheduled': 'ChaosReplicaRemovalScheduledEvent', 'ChaosReplicaRestartScheduled': 'ChaosReplicaRestartScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, partition_id, replica_id, category=None, has_correlated_events=None):
