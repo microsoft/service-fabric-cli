@@ -17,15 +17,16 @@ class ApplicationEvent(FabricEvent):
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: ApplicationCreatedEvent, ApplicationDeletedEvent,
-    ApplicationHealthReportCreatedEvent, ApplicationHealthReportExpiredEvent,
-    ApplicationUpgradeCompleteEvent, ApplicationUpgradeDomainCompleteEvent,
-    ApplicationUpgradeRollbackCompleteEvent,
-    ApplicationUpgradeRollbackStartEvent, ApplicationUpgradeStartEvent,
-    DeployedApplicationHealthReportCreatedEvent,
-    DeployedApplicationHealthReportExpiredEvent, ProcessDeactivatedEvent,
-    ContainerDeactivatedEvent, DeployedServiceHealthReportCreatedEvent,
-    DeployedServiceHealthReportExpiredEvent,
-    ChaosRestartCodePackageFaultScheduledEvent
+    ApplicationNewHealthReportEvent, ApplicationHealthReportExpiredEvent,
+    ApplicationUpgradeCompletedEvent, ApplicationUpgradeDomainCompletedEvent,
+    ApplicationUpgradeRollbackCompletedEvent,
+    ApplicationUpgradeRollbackStartedEvent, ApplicationUpgradeStartedEvent,
+    DeployedApplicationNewHealthReportEvent,
+    DeployedApplicationHealthReportExpiredEvent, ApplicationProcessExitedEvent,
+    ApplicationContainerInstanceExitedEvent,
+    DeployedServicePackageNewHealthReportEvent,
+    DeployedServicePackageHealthReportExpiredEvent,
+    ChaosCodePackageRestartScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
@@ -65,7 +66,7 @@ class ApplicationEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'ApplicationCreated': 'ApplicationCreatedEvent', 'ApplicationDeleted': 'ApplicationDeletedEvent', 'ApplicationNewHealthReport': 'ApplicationHealthReportCreatedEvent', 'ApplicationHealthReportExpired': 'ApplicationHealthReportExpiredEvent', 'ApplicationUpgradeCompleted': 'ApplicationUpgradeCompleteEvent', 'ApplicationUpgradeDomainCompleted': 'ApplicationUpgradeDomainCompleteEvent', 'ApplicationUpgradeRollbackCompleted': 'ApplicationUpgradeRollbackCompleteEvent', 'ApplicationUpgradeRollbackStarted': 'ApplicationUpgradeRollbackStartEvent', 'ApplicationUpgradeStarted': 'ApplicationUpgradeStartEvent', 'DeployedApplicationNewHealthReport': 'DeployedApplicationHealthReportCreatedEvent', 'DeployedApplicationHealthReportExpired': 'DeployedApplicationHealthReportExpiredEvent', 'ApplicationProcessExited': 'ProcessDeactivatedEvent', 'ApplicationContainerInstanceExited': 'ContainerDeactivatedEvent', 'DeployedServiceNewHealthReport': 'DeployedServiceHealthReportCreatedEvent', 'DeployedServiceHealthReportExpired': 'DeployedServiceHealthReportExpiredEvent', 'ChaosCodePackageRestartScheduled': 'ChaosRestartCodePackageFaultScheduledEvent'}
+        'kind': {'ApplicationCreated': 'ApplicationCreatedEvent', 'ApplicationDeleted': 'ApplicationDeletedEvent', 'ApplicationNewHealthReport': 'ApplicationNewHealthReportEvent', 'ApplicationHealthReportExpired': 'ApplicationHealthReportExpiredEvent', 'ApplicationUpgradeCompleted': 'ApplicationUpgradeCompletedEvent', 'ApplicationUpgradeDomainCompleted': 'ApplicationUpgradeDomainCompletedEvent', 'ApplicationUpgradeRollbackCompleted': 'ApplicationUpgradeRollbackCompletedEvent', 'ApplicationUpgradeRollbackStarted': 'ApplicationUpgradeRollbackStartedEvent', 'ApplicationUpgradeStarted': 'ApplicationUpgradeStartedEvent', 'DeployedApplicationNewHealthReport': 'DeployedApplicationNewHealthReportEvent', 'DeployedApplicationHealthReportExpired': 'DeployedApplicationHealthReportExpiredEvent', 'ApplicationProcessExited': 'ApplicationProcessExitedEvent', 'ApplicationContainerInstanceExited': 'ApplicationContainerInstanceExitedEvent', 'DeployedServicePackageNewHealthReport': 'DeployedServicePackageNewHealthReportEvent', 'DeployedServicePackageHealthReportExpired': 'DeployedServicePackageHealthReportExpiredEvent', 'ChaosCodePackageRestartScheduled': 'ChaosCodePackageRestartScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, application_id, category=None, has_correlated_events=None):
