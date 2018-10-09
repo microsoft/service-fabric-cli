@@ -15,6 +15,9 @@ from msrest.serialization import Model
 class DiagnosticsSinkProperties(Model):
     """Properties of a DiagnosticsSink.
 
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: AzureInternalMonitoringPipelineSinkDescription
+
     :param name: Name of the sink. This value is referenced by
      DiagnosticsReferenceDescription
     :type name: str
@@ -32,6 +35,10 @@ class DiagnosticsSinkProperties(Model):
         'name': {'key': 'name', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
         'kind': {'key': 'kind', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'AzureInternalMonitoringPipeline': 'AzureInternalMonitoringPipelineSinkDescription'}
     }
 
     def __init__(self, name=None, description=None):

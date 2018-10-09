@@ -19,10 +19,19 @@ class SimpleSecretResourceProperties(SecretResourceProperties):
     encrypted, and delivered as plaintext into the context of applications
     referencing it.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param kind: Constant filled by server.
     :type kind: str
-    :param description: Description of the secret resource.
+    :param description: User readable description of the secret.
     :type description: str
+    :param status: Status of the secret. Possible values include: 'Unknown',
+     'Ready', 'Upgrading', 'Creating', 'Deleting', 'Failed'
+    :type status: str or ~azure.servicefabric.models.SecretStatus
+    :ivar status_details: Gives additional information about the current
+     status of the secret.
+    :vartype status_details: str
     :param content_type: The type of the content stored in the secret value.
      The value of this property is opaque to Service Fabric. Once set, the
      value of this property cannot be changed.
@@ -31,8 +40,9 @@ class SimpleSecretResourceProperties(SecretResourceProperties):
 
     _validation = {
         'kind': {'required': True},
+        'status_details': {'readonly': True},
     }
 
-    def __init__(self, description=None, content_type=None):
-        super(SimpleSecretResourceProperties, self).__init__(description=description, content_type=content_type)
+    def __init__(self, description=None, status=None, content_type=None):
+        super(SimpleSecretResourceProperties, self).__init__(description=description, status=status, content_type=content_type)
         self.kind = 'inlinedValue'
