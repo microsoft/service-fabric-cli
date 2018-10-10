@@ -1,9 +1,9 @@
 import json
 from collections import OrderedDict
-from azext_mesh.sfmergeutility.property_names import PropertyNames
-from azext_mesh.sfmergeutility.constants import Constants
-from azext_mesh.sfmergeutility.schema import Schema
-from azext_mesh.sfmergeutility.arm_parameter import ArmParameter
+from property_names import PropertyNames
+from constants import Constants
+from schema import Schema
+from arm_parameter import ArmParameter
 
 # pylint: disable=line-too-long
 

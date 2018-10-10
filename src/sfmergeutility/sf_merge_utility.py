@@ -6,11 +6,11 @@ import json
 import os
 import re
 import yaml
-from azext_mesh.sfmergeutility.constants import Constants
-from azext_mesh.sfmergeutility.schema import Schema
-from azext_mesh.sfmergeutility.sf_yaml_merge import YamlMerge, PartialDocument
-from azext_mesh.sfmergeutility.sf_yaml_to_json import YamlToJson
-from azext_mesh.sfmergeutility.arm_document_creator import ArmDocumentGenerator
+from constants import Constants
+from schema import Schema
+from sf_yaml_merge import YamlMerge, PartialDocument
+from sf_yaml_to_json import YamlToJson
+from arm_document_creator import ArmDocumentGenerator
 
 # pylint: disable=line-too-long
 

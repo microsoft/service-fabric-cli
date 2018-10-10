@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azext_mesh.sfmergeutility.constants import Constants
+from constants import Constants
 class Schema(object):
     HierarchichalSbzResourceNameBuilderMap = {
         Constants.MicrosoftServiceFabricMesh + "/" + Constants.SecretValues:

@@ -142,4 +142,7 @@ helps['mesh secret'] = """
 helps['mesh secretvalue'] = """
     type: group
     short-summary: Get and delete mesh secretvalue resources
+helps['mesh deployment'] = """
+    type: group
+    short-summary: Create a Service Fabric Mesh resources.
 """

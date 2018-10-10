@@ -321,6 +321,9 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl mesh service-replica',
             commands=('list', 'show'))
+        self.validate_output(
+            'sfctl mesh deployment',
+            commands=('create'))
 
         self.validate_output(
             'sfctl node',
