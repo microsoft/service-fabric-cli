@@ -16,17 +16,15 @@ from __future__ import print_function
 import unittest
 from os import listdir
 from os.path import dirname, join, abspath, pardir
-from sys import path as sys_path
+from imp import load_source
 
 CURRENT_DIR = dirname(abspath(__file__))  # This should be <location>/src/sfctl/tests
 SRC_PARENT_DIR = dirname(dirname(dirname(CURRENT_DIR)))
-SCRIPTS_DIR = join(SRC_PARENT_DIR, 'scripts')
+CUSTOM_SDK_HELPER_FILE = join(SRC_PARENT_DIR, 'scripts', 'check_and_use_custom_sdk.py')
 
-print("-------------- adding to path ----------------")
-print(str(SCRIPTS_DIR))
+load_source('custom_sdk_helper', CUSTOM_SDK_HELPER_FILE)
 
-sys_path.insert(0, SCRIPTS_DIR)
-from scripts import check_and_use_custom_sdk as custom_sdk_helper  # pylint: disable=wrong-import-position
+import custom_sdk_helper  # pylint: disable=wrong-import-position,import-error
 
 
 class CustomHelpTextCorrectnessTests(unittest.TestCase):
@@ -153,9 +151,9 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
 
         # Read each file
         for python_file_path in help_files_path:
-            with open(python_file_path) as file:
+            with open(python_file_path) as python_file:
 
-                lines = file.readlines()
+                lines = python_file.readlines()
                 current_string = ''
                 ignoring = True  # Start with true because there is code in the file first
 
