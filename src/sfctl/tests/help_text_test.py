@@ -307,11 +307,11 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl mesh app',
-            commands=('delete', 'show'))
+            commands=('delete', 'list', 'show'))
 
         self.validate_output(
             'sfctl mesh volume',
-            commands=('delete', 'show'))
+            commands=('delete', 'list', 'show'))
 
         self.validate_output(
             'sfctl mesh service',
