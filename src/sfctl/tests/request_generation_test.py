@@ -862,4 +862,111 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
              '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
             validate_flat_dictionary)
-            
+
+
+        self.validate_command(  # show application resource
+            'mesh app show --application-resource-name some~application~resource~name',
+            'GET',
+            '/Resources/Applications/some~application~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        # Mesh Resource Commands:
+        self.validate_command( #show gateway resource
+            'mesh gateway show --gateway_resource_name some~gate~resource~name',
+            'GET',
+            '/Resources/Gateways/some~gate~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #delete gateway resource
+            'mesh gateway delete --gateway_resource_name some~gate~resource~name',
+            'DELETE',
+            '/Resources/Gateways/some~gate~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #list gateway resource
+            'mesh gateway list',
+            'GET',
+            '/Resources/Gateways',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #show network resource
+            'mesh network show --network_resource_name some~network~resource~name',
+            'GET',
+            '/Resources/Networks/some~network~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #delete network resource
+            'mesh network delete --network_resource_name some~network~resource~name',
+            'DELETE',
+            '/Resources/Networks/some~network~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #list network resource
+            'mesh network list',
+            'GET',
+            '/Resources/Networks',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #show code-package resource
+            'mesh code-package show --application_resource_name some~application~resource~name --service_resource_name some~service --replica_name 0 --code_package_name some~package',
+            'GET',
+            '/Resources/Applications/some~application~resource~name/Services/some~service/Replicas/0/CodePackages/some~package/Logs',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #show secret resource
+            'mesh secret show --secret_resource_name some~secret~resource~name',
+            'GET',
+            '/Resources/Secrets/some~secret~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #delete secret resource
+            'mesh secret delete --secret_resource_name some~secret~resource~name',
+            'DELETE',
+            '/Resources/Secrets/some~secret~resource~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #list secret resource
+            'mesh secret list',
+            'GET',
+            '/Resources/Secrets',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #show secretvalue resource
+            'mesh secretvalue show --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name',
+            'GET',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #delete secretvalue resource
+            'mesh secretvalue delete --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name',
+            'DELETE',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command( #list secretvalue resource
+            'mesh secretvalue list --secret_resource_name some~secret~resource~name',
+            'GET',
+            '/Resources/Secrets/some~secret~resource~name/values',
+            ['api-version=6.4-preview']
+        )
+
+        # check on this one
+        self.validate_command( #show secretvalue show value resource
+            'mesh secretvalue show --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name --show_value',
+            'GET',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            ['api-version=6.4-preview']
+        )
