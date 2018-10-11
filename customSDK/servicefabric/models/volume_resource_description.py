@@ -13,39 +13,51 @@ from msrest.serialization import Model
 
 
 class VolumeResourceDescription(Model):
-    """Describes a service fabric volume resource.
+    """This type describes a volume resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
+    :param name: Name of the Volume resource.
+    :type name: str
     :param description: User readable description of the volume.
     :type description: str
+    :ivar status: Status of the volume. Possible values include: 'Unknown',
+     'Ready', 'Upgrading', 'Creating', 'Deleting', 'Failed'
+    :vartype status: str or ~azure.servicefabric.models.ResourceStatus
+    :ivar status_details: Gives additional information about the current
+     status of the volume.
+    :vartype status_details: str
     :ivar provider: Provider of the volume. Default value: "SFAzureFile" .
     :vartype provider: str
     :param azure_file_parameters: This type describes a volume provided by an
      Azure Files file share.
     :type azure_file_parameters:
      ~azure.servicefabric.models.VolumeProviderParametersAzureFile
-    :param name: Volume resource name.
-    :type name: str
     """
 
     _validation = {
-        'provider': {'required': True, 'constant': True},
         'name': {'required': True},
+        'status': {'readonly': True},
+        'status_details': {'readonly': True},
+        'provider': {'required': True, 'constant': True},
     }
 
     _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
+        'status': {'key': 'properties.status', 'type': 'str'},
+        'status_details': {'key': 'properties.statusDetails', 'type': 'str'},
         'provider': {'key': 'properties.provider', 'type': 'str'},
         'azure_file_parameters': {'key': 'properties.azureFileParameters', 'type': 'VolumeProviderParametersAzureFile'},
-        'name': {'key': 'name', 'type': 'str'},
     }
 
     provider = "SFAzureFile"
 
     def __init__(self, name, description=None, azure_file_parameters=None):
         super(VolumeResourceDescription, self).__init__()
-        self.description = description
-        self.azure_file_parameters = azure_file_parameters
         self.name = name
+        self.description = description
+        self.status = None
+        self.status_details = None
+        self.azure_file_parameters = azure_file_parameters

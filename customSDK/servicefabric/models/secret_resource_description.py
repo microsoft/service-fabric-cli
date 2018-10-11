@@ -15,23 +15,23 @@ from msrest.serialization import Model
 class SecretResourceDescription(Model):
     """This type describes a secret resource.
 
-    :param kind: Constant filled by server.
-    :type kind: str
-    :param name: Secret resource name.
+    :param properties: Describes the properties of a secret resource.
+    :type properties: ~azure.servicefabric.models.SecretResourceProperties
+    :param name: Name of the Secret resource.
     :type name: str
     """
 
     _validation = {
-        'kind': {'required': True},
+        'properties': {'required': True},
         'name': {'required': True},
     }
 
     _attribute_map = {
-        'kind': {'key': 'properties.kind', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'SecretResourceProperties'},
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, kind, name):
+    def __init__(self, properties, name):
         super(SecretResourceDescription, self).__init__()
-        self.kind = kind
+        self.properties = properties
         self.name = name
