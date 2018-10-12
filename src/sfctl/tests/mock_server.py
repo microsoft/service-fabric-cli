@@ -9,9 +9,9 @@
 from threading import Thread
 import socket
 try:
-    from urllib.parse import parse
+    from urllib.parse import urlparse
 except ImportError:
-     from urllib import parse
+    from urlparse import urlparse
 from future.backports.http.server import (BaseHTTPRequestHandler, HTTPServer)
 import requests
 

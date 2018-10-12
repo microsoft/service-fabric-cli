@@ -8,10 +8,11 @@
 
 import unittest
 import os
+
 try:
-    from urllib.parse import parse
+    from urllib.parse import urlparse
 except ImportError:
-     from urllib import parse
+    from urlparse import urlparse
 from mock import patch, MagicMock
 import requests
 import vcr
