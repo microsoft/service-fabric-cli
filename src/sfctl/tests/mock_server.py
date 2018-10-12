@@ -59,7 +59,6 @@ class MockServer(BaseHTTPRequestHandler):
 
             while counter < int(query['timeout'][0]) and counter < 2:
                 time.sleep(1)
-                print(counter)
                 counter += 1
 
         self.send_response(requests.codes.ok)

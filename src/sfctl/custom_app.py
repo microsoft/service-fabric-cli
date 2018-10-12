@@ -119,19 +119,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                      'timeout': current_time_left})
                 url = urlunparse(url_parsed)
 
-                print()
-                # print('------------------ sending request ------------------')
-                print(url)
-                print()
-
-
-
                 res = sesh.put(url, data=file_opened)
-
-                # print()
-                # print('------------------ finished request ------------------')
-                # print(res)
-                # print()
 
                 res.raise_for_status()
                 current_files_count += 1
@@ -168,10 +156,6 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                               cert_info)
     import requests
 
-    print('--------------------------------')
-    print('Starting upload with timeout of ' + str(timeout))
-    print('--------------------------------')
-
     abspath = validate_app_path(path)
     basename = os.path.basename(abspath)
 
@@ -205,10 +189,6 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                                          'timeout duration.')
 
     elif imagestore_string == 'fabric:ImageStore':
-
-        print('--------------------------------')
-        print('Uploading to ImageStore ')
-        print('--------------------------------')
 
         with requests.Session() as sesh:
             sesh.verify = ca_cert
