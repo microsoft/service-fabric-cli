@@ -20,7 +20,7 @@ def set_mock_endpoint(endpoint):
     if endpoint is not None:
         os.environ['SF_TEST_ENDPOINT'] = endpoint
     else:
-        os.environ.unsetenv('SF_TEST_ENDPOINT')
+        del os.environ['SF_TEST_ENDPOINT']
 
 APP_PATH = os.environ.get('SF_TEST_APP_PATH', False)
 ENDPOINT = get_mock_endpoint()

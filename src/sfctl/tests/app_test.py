@@ -8,7 +8,10 @@
 
 import unittest
 import os
-from urllib import parse
+try:
+    from urllib.parse import parse
+except ImportError:
+     from urllib import parse
 from mock import patch, MagicMock
 import requests
 import vcr
