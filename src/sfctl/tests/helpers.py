@@ -20,7 +20,11 @@ def set_mock_endpoint(endpoint):
     if endpoint is not None:
         os.environ['SF_TEST_ENDPOINT'] = endpoint
     else:
-        del os.environ['SF_TEST_ENDPOINT']
+        try:
+            del os.environ['SF_TEST_ENDPOINT']
+        except KeyError:
+            # Do nothing if the key doesn't exist
+            pass
 
 APP_PATH = os.environ.get('SF_TEST_APP_PATH', False)
 ENDPOINT = get_mock_endpoint()
