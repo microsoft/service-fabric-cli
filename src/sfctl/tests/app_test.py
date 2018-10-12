@@ -230,7 +230,7 @@ class AppTests(unittest.TestCase):
             vcr_recording = decode(json_str)
 
             requests_list = vcr_recording['interactions']
-            self.assertEqual(len(requests_list), 8, msg='Appliication upload test: '
+            self.assertEqual(len(requests_list), 8, msg='Application upload test: '
                                                         'An incorrect number of requests '
                                                         'was generated.')
 
@@ -240,6 +240,9 @@ class AppTests(unittest.TestCase):
                 parsed_url = parse.urlparse(uri)
                 query = parse.parse_qs(parsed_url.query)
                 query_timeout = query['timeout']
+
+                print('-------------------------- request ------------------------------')
+                print(request)
 
                 # here 3 is the response time in seconds from the mock server
                 self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
