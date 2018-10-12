@@ -8,9 +8,9 @@
 
 from threading import Thread
 import socket
+from urllib import parse
 from future.backports.http.server import (BaseHTTPRequestHandler, HTTPServer)
 import requests
-from urllib import parse
 
 
 class MockServer(BaseHTTPRequestHandler):
@@ -57,7 +57,7 @@ class MockServer(BaseHTTPRequestHandler):
             counter = 0
             import time
 
-            while counter < int(query['timeout'][0]) and counter < 5:
+            while counter < int(query['timeout'][0]) and counter < 2:
                 time.sleep(1)
                 print(counter)
                 counter += 1

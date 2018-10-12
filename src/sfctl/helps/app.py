@@ -42,14 +42,9 @@ helps['application upload'] = """
           type: string
           short-summary: Destination image store to upload the application
             package to
-          long-summary: To upload to a file location, start this parameter with 'file\:'.
+          long-summary: To upload to a file location, start this parameter with 'file:'.
             Otherwise the value should be the image store connection string, such as the default
             value.
-        - name: --timeout
-          type: int
-          short-summary: The total timeout in seconds. Upload will fail and return error after
-            the upload timeout duration has passed. This timeout applies to the entire application
-            package. The default is 60 seconds per file, with no overall timeout.
 """
 
 helps['application upgrade'] = """

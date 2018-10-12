@@ -73,14 +73,15 @@ def upload_to_fileshare(source, dest, show_progress):
 
 def get_timeout_left(target_timeout):
     """
-    Return the number of seconds until timeout is reached.
+    Return the number of seconds until timeout is reached, given a target_timeout which represents
+      the time at which the timer should stop.
     :param target_timeout: time measured as from epoch in seconds
     :return: int
     """
     current_time = int(time())  # time from epoch in seconds
     return target_timeout - current_time
 
-def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals
+def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
                                 show_progress, timeout):
     """
     Upload the application package to cluster
@@ -98,14 +99,12 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
 
 
     target_timeout = int(time()) + timeout
-    current_time_left = timeout  # an int representing seconds
-
 
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
         for single_file in files:
 
-            current_time_left = get_timeout_left(target_timeout)
+            current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
 
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
@@ -164,6 +163,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         print('Complete', file=sys.stderr)
 
 def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=None):  # pylint: disable=too-many-locals,missing-docstring
+
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     import requests
@@ -205,6 +205,11 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                                          'timeout duration.')
 
     elif imagestore_string == 'fabric:ImageStore':
+
+        print('--------------------------------')
+        print('Uploading to ImageStore ')
+        print('--------------------------------')
+
         with requests.Session() as sesh:
             sesh.verify = ca_cert
             sesh.cert = cert
@@ -216,7 +221,7 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
             process.join(timeout)
 
             if process.is_alive():
-                # process.terminate()  # This will leave any children of process orphaned.
+                process.terminate()  # This will leave any children of process orphaned.
                 raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
                                              'timeout duration.')
 

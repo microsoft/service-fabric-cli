@@ -8,6 +8,7 @@
 
 import unittest
 import os
+from urllib import parse
 from mock import patch, MagicMock
 import requests
 import vcr
@@ -15,27 +16,27 @@ from jsonpickle import decode
 import sfctl.custom_app as sf_c
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.custom_exceptions import SFCTLInternalException
-from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint, ENDPOINT)
+from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 
 
 class AppTests(unittest.TestCase):
     """App tests"""
 
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
         """A class method called before tests in an individual class are run"""
         # self.old_endpoint = get_mock_endpoint()
-        self.port = find_localhost_free_port()
-        self.old_endpoint = get_mock_endpoint()
+        cls.port = find_localhost_free_port()
+        cls.old_endpoint = get_mock_endpoint()
 
         # Start mock server
-        start_mock_server(self.port)
+        start_mock_server(cls.port)
 
     @classmethod
-    def tearDownClass(self):
+    def tearDownClass(cls):
         """A class method called after tests in an individual class have run"""
 
-        set_mock_endpoint(self.old_endpoint)
+        set_mock_endpoint(cls.old_endpoint)
 
     def test_app_path_absolute(self):
         """App path returns absolute path always"""
@@ -136,10 +137,16 @@ class AppTests(unittest.TestCase):
         shutil.rmtree(os.path.dirname(temp_file.name))
         shutil.rmtree(temp_dst_dir)
 
-    # @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def test_upload_to_native_image_store_timeout_overall(self):
+
+    def test_upload_image_store_timeout_overall(self):  #pylint: disable=invalid-name
         """
-        Test to make sure that we end the overall upload process when it times out
+        Test to make sure that we end the overall upload process when it times out.
+
+        Things we check for:
+        - Where the timeout is not sufficient - too small for one file
+            - Should get SFCTLInternalException
+            - Manually make sure there is only one outgoing request with the correct timeout
+              since it's hard to record the http request from another process.
         """
 
         # Doing patch here because patching outside of the function does not work
@@ -151,77 +158,37 @@ class AppTests(unittest.TestCase):
             endpoint = 'http://localhost:' + str(self.port)
             set_mock_endpoint(endpoint)
 
-            generated_file_path = 'native_image_store_upload_test.json'
+            # Mock server will take 3 seconds to respond to each request, simulating
+            # a large file.
 
-            with requests.Session() as sesh:
-                # Session does not need any security
+            exception_triggered = False
+            try:
+                timeout = 2
+                sf_c.upload(path_to_upload_file, timeout=timeout)
+            except SFCTLInternalException as ex:
+                self.assertIn(
+                    'Upload has timed out. Consider passing a longer timeout duration.',
+                    ex.message,
+                    msg='Application upload to image store returned the incorrect timeout message')
+                exception_triggered = True
+            # ConnectionResetError will be returned when the process cuts off, but we expect
+            # upload to swallow that and return SFCTLInternalException
 
-                print('--------------------------------')
-                print('Testing shot timeout - 2 seconds')
-                print('--------------------------------')
+            self.assertTrue(exception_triggered, msg='A timeout exception is expected during '
+                                                     'application upload timeout test with '
+                                                     'response time 2 on the server side. '
+                                                     'And timeout 2 overall.')
 
-                exception_triggered = False
-                try:
-                    timeout = 3  # Timeout set to 60 seconds.
-                    sf_c.upload(path_to_upload_file, timeout=timeout)
-                except SFCTLInternalException as e:
-                    self.assertIn(
-                        'Upload has timed out. Consider passing a longer timeout duration.',
-                        e.message,
-                        msg='Application upload to image store returned the incorrect timeout message')
-                    exception_triggered = True
-                except ConnectionResetError:
-                    pass  # this will be returned when the process cuts off
-
-                self.assertTrue(exception_triggered, msg='A timeout exception is expected during '
-                                                         'application upload timeout test with '
-                                                         'timeout 5 on the server side. And timeout '
-                                                         '5 overall.')
-
-                import time
-                time.sleep(15)
-
-                print('--------------------------------')
-                print('Testing should timeout - 12 seconds')
-                print('--------------------------------')
-
-                # In case this file was created and not deleted by a previous test,
-                # delete it here
-                try:
-                    os.remove(generated_file_path)
-                except OSError:
-                    # if the file doesn't exist, then there's nothing for us to do here
-                    pass
-
-                try:
-                    timeout = 12  # upload should not finish
-                    with vcr.use_cassette(generated_file_path, record_mode='all',
-                                          serializer='json'):
-                        sf_c.upload(path_to_upload_file, timeout=timeout)
-                except Exception as e:
-                    exception_triggered = True
-
-                self.assertTrue(exception_triggered, msg='An exception is not expected during '
-                                                          'application upload timeout test with '
-                                                          'timeout 12 overall')
-
-                with open(generated_file_path, 'r') as http_recording_file:
-                    json_str = http_recording_file.read()
-                    vcr_recording = decode(json_str)
-
-                    # The responses create an array of request and other objects.
-                    # the numbers (for indexing) represent which request was made
-                    # first. The ordering is determined by the ordering of calls to self.cmd.
-                    # see outputted JSON file at generated_file_path for more details.
-                    recording = vcr_recording['interactions'][0]['request']
-
-            # Read in the json file to make sure that each file waited ~5 seconds, and not much more
-            # or less.
-
-    # @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
-    def test_upload_to_native_image_store_timeout_single(self):
+    def test_upload_image_store_timeout_long(self):  #pylint: disable=too-many-locals,invalid-name
         """Test function upload_to_native_imagestore to check that is it sending each
-        file upload with the appropriate timeout. Does not look at overall timeout"""
+        file upload with the appropriate timeout. Does not look at overall timeout
+
+        Test to make sure that we end the overall upload process when it times out.
+
+        Things we check for:
+        - Where the timeout is sufficient to completing the task.
+            - Make sure the # of requests is correct - # of files + # of dirs
+            - Make sure that each URL shows a decreasing amount of time left"""
 
         current_directory = os.path.dirname(os.path.realpath(__file__))
         # 4 files total in sample_nested_folders
@@ -234,9 +201,7 @@ class AppTests(unittest.TestCase):
         with requests.Session() as sesh:
             # Session does not need any security
 
-            print('-----------------------------------------------')
-            print('Testing long timeout - expect upload completion')
-            print('-----------------------------------------------')
+            # Testing long timeout - expect upload completion
 
             # In case this file was created and not deleted by a previous test,
             # delete it here
@@ -246,15 +211,33 @@ class AppTests(unittest.TestCase):
                 # if the file doesn't exist, then there's nothing for us to do here
                 pass
 
-            timeout = 60  # upload should complete
+            timeout = 65  # upload should complete
             with vcr.use_cassette(generated_file_path, record_mode='all',
                                   serializer='json'):
 
-                sf_c.upload(path_to_upload_file, timeout=timeout)
+                sf_c.upload_to_native_imagestore(sesh, endpoint, path_to_upload_file, basename,
+                                                 show_progress=False, timeout=timeout)
 
-            # Read in the json file to make sure that each file waited ~5 seconds, and not much more
-            # or less.
+        # Read in the json file to make sure that each file waited ~3 seconds, and not much more
+        # or less.
 
+        with open(generated_file_path, 'r') as http_recording_file:
+            json_str = http_recording_file.read()
+            vcr_recording = decode(json_str)
 
+            requests_list = vcr_recording['interactions']
+            self.assertEqual(len(requests_list), 8, msg='Appliication upload test: '
+                                                        'An incorrect number of requests '
+                                                        'was generated.')
 
+            iteration = 0
+            for request in requests_list:
+                uri = request['request']['uri']
+                parsed_url = parse.urlparse(uri)
+                query = parse.parse_qs(parsed_url.query)
+                query_timeout = query['timeout']
 
+                # here 3 is the response time in seconds from the mock server
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
+
+                iteration += 1
