@@ -45,3 +45,23 @@ def create(_):
     client.config.retry_policy.policy.status_forcelist = None
 
     return client
+
+def mesh_app_create(_):
+    """Create a client for mesh application APIs."""
+    client = create(_)
+    return client.mesh_application
+
+def mesh_volume_create(_):
+    """Create a client for mesh volume APIs."""
+    client = create(_)
+    return client.mesh_volume
+
+def mesh_service_create(_):
+    """Create a client for mesh service APIs."""
+    client = create(_)
+    return client.mesh_service
+
+def mesh_service_replica_create(_):
+    """Create a client for mesh service-replica APIs."""
+    client = create(_)
+    return client.mesh_service_replica
