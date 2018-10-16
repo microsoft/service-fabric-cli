@@ -16,11 +16,11 @@ class NodeEvent(FabricEvent):
     """Represents the base for all Node Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: NodeAbortedEvent, NodeAddedEvent, NodeCloseEvent,
-    NodeDeactivateCompleteEvent, NodeDeactivateStartEvent, NodeDownEvent,
-    NodeHealthReportCreatedEvent, NodeHealthReportExpiredEvent,
-    NodeOpenedSuccessEvent, NodeOpenFailedEvent, NodeRemovedEvent, NodeUpEvent,
-    ChaosRestartNodeFaultScheduledEvent
+    sub-classes are: NodeAbortedEvent, NodeAddedToClusterEvent,
+    NodeClosedEvent, NodeDeactivateCompletedEvent, NodeDeactivateStartedEvent,
+    NodeDownEvent, NodeNewHealthReportEvent, NodeHealthReportExpiredEvent,
+    NodeOpenSucceededEvent, NodeOpenFailedEvent, NodeRemovedFromClusterEvent,
+    NodeUpEvent, ChaosNodeRestartScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
@@ -54,7 +54,7 @@ class NodeEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'NodeAborted': 'NodeAbortedEvent', 'NodeAddedToCluster': 'NodeAddedEvent', 'NodeClosed': 'NodeCloseEvent', 'NodeDeactivateCompleted': 'NodeDeactivateCompleteEvent', 'NodeDeactivateStarted': 'NodeDeactivateStartEvent', 'NodeDown': 'NodeDownEvent', 'NodeNewHealthReport': 'NodeHealthReportCreatedEvent', 'NodeHealthReportExpired': 'NodeHealthReportExpiredEvent', 'NodeOpenSucceeded': 'NodeOpenedSuccessEvent', 'NodeOpenFailed': 'NodeOpenFailedEvent', 'NodeRemovedFromCluster': 'NodeRemovedEvent', 'NodeUp': 'NodeUpEvent', 'ChaosNodeRestartScheduled': 'ChaosRestartNodeFaultScheduledEvent'}
+        'kind': {'NodeAborted': 'NodeAbortedEvent', 'NodeAddedToCluster': 'NodeAddedToClusterEvent', 'NodeClosed': 'NodeClosedEvent', 'NodeDeactivateCompleted': 'NodeDeactivateCompletedEvent', 'NodeDeactivateStarted': 'NodeDeactivateStartedEvent', 'NodeDown': 'NodeDownEvent', 'NodeNewHealthReport': 'NodeNewHealthReportEvent', 'NodeHealthReportExpired': 'NodeHealthReportExpiredEvent', 'NodeOpenSucceeded': 'NodeOpenSucceededEvent', 'NodeOpenFailed': 'NodeOpenFailedEvent', 'NodeRemovedFromCluster': 'NodeRemovedFromClusterEvent', 'NodeUp': 'NodeUpEvent', 'ChaosNodeRestartScheduled': 'ChaosNodeRestartScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, node_name, category=None, has_correlated_events=None):

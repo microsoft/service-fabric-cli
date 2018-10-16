@@ -16,10 +16,10 @@ class ClusterEvent(FabricEvent):
     """Represents the base for all Cluster Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: ClusterHealthReportCreatedEvent,
-    ClusterHealthReportExpiredEvent, ClusterUpgradeCompleteEvent,
-    ClusterUpgradeDomainCompleteEvent, ClusterUpgradeRollbackCompleteEvent,
-    ClusterUpgradeRollbackStartEvent, ClusterUpgradeStartEvent,
+    sub-classes are: ClusterNewHealthReportEvent,
+    ClusterHealthReportExpiredEvent, ClusterUpgradeCompletedEvent,
+    ClusterUpgradeDomainCompletedEvent, ClusterUpgradeRollbackCompletedEvent,
+    ClusterUpgradeRollbackStartedEvent, ClusterUpgradeStartedEvent,
     ChaosStoppedEvent, ChaosStartedEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
@@ -42,7 +42,7 @@ class ClusterEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'ClusterNewHealthReport': 'ClusterHealthReportCreatedEvent', 'ClusterHealthReportExpired': 'ClusterHealthReportExpiredEvent', 'ClusterUpgradeCompleted': 'ClusterUpgradeCompleteEvent', 'ClusterUpgradeDomainCompleted': 'ClusterUpgradeDomainCompleteEvent', 'ClusterUpgradeRollbackCompleted': 'ClusterUpgradeRollbackCompleteEvent', 'ClusterUpgradeRollbackStarted': 'ClusterUpgradeRollbackStartEvent', 'ClusterUpgradeStarted': 'ClusterUpgradeStartEvent', 'ChaosStopped': 'ChaosStoppedEvent', 'ChaosStarted': 'ChaosStartedEvent'}
+        'kind': {'ClusterNewHealthReport': 'ClusterNewHealthReportEvent', 'ClusterHealthReportExpired': 'ClusterHealthReportExpiredEvent', 'ClusterUpgradeCompleted': 'ClusterUpgradeCompletedEvent', 'ClusterUpgradeDomainCompleted': 'ClusterUpgradeDomainCompletedEvent', 'ClusterUpgradeRollbackCompleted': 'ClusterUpgradeRollbackCompletedEvent', 'ClusterUpgradeRollbackStarted': 'ClusterUpgradeRollbackStartedEvent', 'ClusterUpgradeStarted': 'ClusterUpgradeStartedEvent', 'ChaosStopped': 'ChaosStoppedEvent', 'ChaosStarted': 'ChaosStartedEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, category=None, has_correlated_events=None):

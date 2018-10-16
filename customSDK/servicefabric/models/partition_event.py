@@ -16,9 +16,10 @@ class PartitionEvent(FabricEvent):
     """Represents the base for all Partition Events.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: PartitionAnalysisEvent, PartitionHealthReportCreatedEvent,
-    PartitionHealthReportExpiredEvent, PartitionReconfigurationCompletedEvent,
-    ChaosMoveSecondaryFaultScheduledEvent, ChaosMovePrimaryFaultScheduledEvent
+    sub-classes are: PartitionAnalysisEvent, PartitionNewHealthReportEvent,
+    PartitionHealthReportExpiredEvent, PartitionReconfiguredEvent,
+    ChaosPartitionSecondaryMoveScheduledEvent,
+    ChaosPartitionPrimaryMoveScheduledEvent
 
     :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
@@ -56,7 +57,7 @@ class PartitionEvent(FabricEvent):
     }
 
     _subtype_map = {
-        'kind': {'PartitionAnalysisEvent': 'PartitionAnalysisEvent', 'PartitionNewHealthReport': 'PartitionHealthReportCreatedEvent', 'PartitionHealthReportExpired': 'PartitionHealthReportExpiredEvent', 'PartitionReconfigured': 'PartitionReconfigurationCompletedEvent', 'ChaosPartitionSecondaryMoveScheduled': 'ChaosMoveSecondaryFaultScheduledEvent', 'ChaosPartitionPrimaryMoveScheduled': 'ChaosMovePrimaryFaultScheduledEvent'}
+        'kind': {'PartitionAnalysisEvent': 'PartitionAnalysisEvent', 'PartitionNewHealthReport': 'PartitionNewHealthReportEvent', 'PartitionHealthReportExpired': 'PartitionHealthReportExpiredEvent', 'PartitionReconfigured': 'PartitionReconfiguredEvent', 'ChaosPartitionSecondaryMoveScheduled': 'ChaosPartitionSecondaryMoveScheduledEvent', 'ChaosPartitionPrimaryMoveScheduled': 'ChaosPartitionPrimaryMoveScheduledEvent'}
     }
 
     def __init__(self, event_instance_id, time_stamp, partition_id, category=None, has_correlated_events=None):
