@@ -55,10 +55,10 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     Connects to a Service Fabric cluster endpoint.
     If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
-    Optionally, if connecting to a secure cluster, specify also an absolute
+    Optionally, if connecting to a secure cluster, also specify an absolute
     path to a CA bundle file or directory of trusted CA certs. If using a
-    directory of CA certs, `c_rehash <directory>` must be run first to compute
-    the certificate hashes.
+    directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
+    the certificate hashes and create the appropriate symbolics links.
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix
     :param str cert: Absolute path to a client certificate file
