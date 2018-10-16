@@ -862,4 +862,65 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"MaxPercentUpgradeDomainDeltaUnhealthyNodes": 0, '
              '"ApplicationHealthPolicies": {"ApplicationHealthPolicyMap": [{"Key": "fabric:/System", "Value": {"ConsiderWarningAsError": true}}]}}'),
             validate_flat_dictionary)
-            
+
+        # Resource Commands:
+        self.validate_command( #show application resource
+            'mesh app show --application-resource-name some~application~resource~name',
+            'GET',
+            '/Resources/Applications/some~application~resource~name',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #delete application resource
+            'mesh app delete --application-resource-name some~application~resource~name',
+            'DELETE',
+            '/Resources/Applications/some~application~resource~name',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #delete application resource
+            'mesh app list',
+            'GET',
+            '/Resources/Applications',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #show volume resource
+            'mesh volume show --volume-resource-name some~volume~resource~name',
+            'GET',
+            '/Resources/Volumes/some~volume~resource~name',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #delete volume resource
+            'mesh volume delete --volume-resource-name some~volume~resource~name',
+            'DELETE',
+            '/Resources/Volumes/some~volume~resource~name',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #delete application resource
+            'mesh volume list',
+            'GET',
+            '/Resources/Volumes',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #list service resources
+            'mesh service list --application-resource-name some~application~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #show service resource
+            'mesh service show --application-resource-name some~application~name --service-resource-name some~service~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #list service-replica
+            'mesh service-replica list --application-resource-name some~application~name --service-resource-name some~service~name',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name/Replicas',
+            ['api-version=6.4-preview']
+        )
+        self.validate_command( #show service-replica
+            'mesh service-replica show --application-resource-name some~application~name --service-resource-name some~service~name --replica-name 0',
+            'GET',
+            '/Resources/Applications/some~application~name/Services/some~service~name/Replicas/0',
+            ['api-version=6.4-preview']
+        )
