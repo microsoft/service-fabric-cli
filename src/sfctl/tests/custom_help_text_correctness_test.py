@@ -31,7 +31,9 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
     """Tests that the text provided as custom help text is always up to date."""
 
     # If a line from a customs helps file starts with the following, do not validate.
-    # This list should eventually become empty
+    # This list should eventually become empty since we want to validate all help
+    # text. These are lines which we know will fail validation, but through various
+    # fixes in the future, should pass.
     exclusion_list = [
         '"possible values include',
         'possible values include',
