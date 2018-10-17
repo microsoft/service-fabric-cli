@@ -934,14 +934,14 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # Mesh Resource Commands:
         self.validate_command( # show gateway resource
-            'mesh gateway show --gateway_resource_name some~gate~resource~name',
+            'mesh gateway show --gateway-resource-name some~gate~resource~name',
             'GET',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete gateway resource
-            'mesh gateway delete --gateway_resource_name some~gate~resource~name',
+            'mesh gateway delete --gateway-resource-name some~gate~resource~name',
             'DELETE',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
@@ -955,14 +955,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show network resource
-            'mesh network show --network_resource_name some~network~resource~name',
+            'mesh network show --network-resource-name some~network~resource~name',
             'GET',
             '/Resources/Networks/some~network~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete network resource
-            'mesh network delete --network_resource_name some~network~resource~name',
+            'mesh network delete --network-resource-name some~network~resource~name',
             'DELETE',
             '/Resources/Networks/some~network~resource~name',
             ['api-version=6.4-preview']
@@ -983,14 +983,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secret resource
-            'mesh secret show --secret_resource_name some~secret~resource~name',
+            'mesh secret show --secret-resource-name some~secret~resource~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secret resource
-            'mesh secret delete --secret_resource_name some~secret~resource~name',
+            'mesh secret delete --secret-resource-name some~secret~resource~name',
             'DELETE',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
@@ -1004,28 +1004,28 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secretvalue resource
-            'mesh secretvalue show --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name',
+            'mesh secretvalue show --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secretvalue resource
-            'mesh secretvalue delete --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name',
+            'mesh secretvalue delete --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name',
             'DELETE',
             '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # list secretvalue resource
-            'mesh secretvalue list --secret_resource_name some~secret~resource~name',
+            'mesh secretvalue list --secret-resource-name some~secret~resource~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name/values',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # show secretvalue show value
-            'mesh secretvalue show --secret_resource_name some~secret~resource~name --secret_value_resource_name secret~value~name --show_value',
+            'mesh secretvalue show --secret_resource-name some~secret~resource~name --secret-value-resource-name secret~value~name --show-value',
             'POST',
             '/Resources/Secrets/some~secret~resource~name/values/secret~value~name/list_value',
             ['api-version=6.4-preview']
