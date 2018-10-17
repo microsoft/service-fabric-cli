@@ -94,6 +94,31 @@ helps['property'] = """
     short-summary: Store and query properties under Service Fabric names
 """
 
+helps['mesh'] = """
+    type: group
+    short-summary: Delete and manage Service Fabric Mesh applications
+"""
+
+helps['mesh app'] = """
+    type: group
+    short-summary: Get and delete application resources
+"""
+
+helps['mesh service'] = """
+    type: group
+    short-summary: Get service details and list services of an application resource
+"""
+
+helps['mesh service-replica'] = """
+    type: group
+    short-summary: Get replica details and list replicas of a given service in an application resource
+"""
+
+helps['mesh volume'] = """
+    type: group
+    short-summary: Get and delete volume resources
+"""
+
 helps['mesh gateway'] = """
     type: group
     short-summary: Get and delete mesh gateway resources

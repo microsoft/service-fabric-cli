@@ -71,3 +71,23 @@ def mesh_network_create(_):
     """Create a client for mesh network APIs."""
     client = create(_)
     return client.mesh_network
+
+def mesh_app_create(_):
+    """Create a client for mesh application APIs."""
+    client = create(_)
+    return client.mesh_application
+
+def mesh_volume_create(_):
+    """Create a client for mesh volume APIs."""
+    client = create(_)
+    return client.mesh_volume
+
+def mesh_service_create(_):
+    """Create a client for mesh service APIs."""
+    client = create(_)
+    return client.mesh_service
+
+def mesh_service_replica_create(_):
+    """Create a client for mesh service-replica APIs."""
+    client = create(_)
+    return client.mesh_service_replica

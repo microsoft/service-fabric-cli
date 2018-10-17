@@ -7,7 +7,8 @@
 """Custom parameter handling for commands"""
 from __future__ import print_function
 import json
-from knack.arguments import (ArgumentsContext, CLIArgumentType)
+from knack.arguments import ArgumentsContext, CLIArgumentType
+
 
 def json_encoded(arg_str):
     """Convert from argument JSON string to complex object.
@@ -15,7 +16,7 @@ def json_encoded(arg_str):
     File paths should be prefixed by '@'
     Path can be relative path or absolute path."""
 
-    if (arg_str and arg_str[0] == '@'):
+    if arg_str and arg_str[0] == '@':
         try:
             with open(arg_str[1:], 'r') as json_file:
                 json_str = json_file.read()
@@ -30,11 +31,11 @@ def json_encoded(arg_str):
     try:
         return json.loads(arg_str)
     except ValueError as ex:
-        print(('Loading JSON from string input failed. '
-               'You can also pass the json argument in a .txt file. \n'
-               'To do so, set argument value to the absolute path of the text file '
-               'prefixed by "@". \nIf you have passed in a file name, please ensure that the JSON '
-               'is correct. Error: \n{0}').format(ex))
+        print('Loading JSON from string input failed. '
+              'You can also pass the json argument in a .txt file. \n'
+              'To do so, set argument value to the absolute path of the text file '
+              'prefixed by "@". \nIf you have passed in a file name, please ensure that the JSON '
+              'is correct. Error: \n{0}'.format(ex))
         raise
 
 

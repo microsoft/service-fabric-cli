@@ -114,4 +114,4 @@ class DeployedServiceHealthReportCreatedEvent(ApplicationEvent):
         self.description = description
         self.remove_when_expired = remove_when_expired
         self.source_utc_timestamp = source_utc_timestamp
-        self.kind = 'DeployedServiceNewHealthReport'
+        self.kind = 'DeployedServicePackageNewHealthReport'

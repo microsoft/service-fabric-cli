@@ -3,6 +3,8 @@
 Command-line interface for interacting with Azure Service Fabric clusters and
 their related entities.
 
+[![Coverage Status](https://coveralls.io/repos/github/Microsoft/service-fabric-cli/badge.svg?branch=master)](https://coveralls.io/github/Microsoft/service-fabric-cli?branch=master)
+
 ## Installation
 
 ```bash

@@ -15,7 +15,7 @@ from .volume_reference import VolumeReference
 class ApplicationScopedVolume(VolumeReference):
     """Describes a volume whose lifetime is scoped to the application's lifetime.
 
-    :param name: Name of the volume.
+    :param name: Name of the volume being referenced.
     :type name: str
     :param read_only: The flag indicating whether the volume is read only.
      Default is 'false'.

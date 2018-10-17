@@ -14,7 +14,7 @@ from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandGroup
 from knack.help import CLIHelp
 from sfctl.apiclient import create as client_create
-from sfctl.apiclient import mesh_network_create, mesh_code_package_create, mesh_gateway_create, mesh_secret_create, mesh_secret_value_create #pylint: disable=line-too-long
+from sfctl.apiclient import mesh_app_create, mesh_volume_create, mesh_service_create, mesh_service_replica_create,  mesh_network_create, mesh_code_package_create, mesh_gateway_create, mesh_secret_create, mesh_secret_value_create #pylint: disable=line-too-long
 # Need to import so global help dict gets updated
 import sfctl.helps.app  # pylint: disable=unused-import
 import sfctl.helps.main  # pylint: disable=unused-import
@@ -61,7 +61,10 @@ class SFCommandLoader(CLICommandsLoader):
         mesh_secret_func_path = 'azure.servicefabric.operations#MeshSecretOperations.{}'
         mesh_secret_value_func_path = 'azure.servicefabric.operations#MeshSecretValueOperations.{}'
         mesh_network_func_path = 'azure.servicefabric.operations#MeshNetworkOperations.{}'
-
+        mesh_application_func_path = 'azure.servicefabric.operations#MeshApplicationOperations.{}'
+        mesh_volume_func_path = 'azure.servicefabric.operations#MeshVolumeOperations.{}'
+        mesh_service_func_path = 'azure.servicefabric.operations#MeshServiceOperations.{}'
+        mesh_service_replica_func_path = 'azure.servicefabric.operations#MeshServiceReplicaOperations.{}' #pylint: disable=line-too-long
 
         with CommandGroup(self, 'rpm', client_func_path,
                           client_factory=client_create) as group:
@@ -277,6 +280,27 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('delete', 'delete')
             group.command('list', 'list')
 
+        with CommandGroup(self, 'mesh app', mesh_application_func_path,
+                          client_factory=mesh_app_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh volume', mesh_volume_func_path,
+                          client_factory=mesh_volume_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh service', mesh_service_func_path,
+                          client_factory=mesh_service_create) as group:
+            group.command('show', 'get')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh service-replica', mesh_service_replica_func_path,
+                          client_factory=mesh_service_replica_create) as group:
+            group.command('list', 'list')
+            group.command('show', 'get')
         # ---------------
         # Custom commands
         # ---------------

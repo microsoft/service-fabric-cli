@@ -13,6 +13,7 @@ from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
 
+
 def cli():
     """Create CLI environment"""
     return VersionedCLI(cli_name=SF_CLI_NAME,
@@ -20,6 +21,7 @@ def cli():
                         config_env_var_prefix=SF_CLI_ENV_VAR_PREFIX,
                         commands_loader_cls=SFCommandLoader,
                         help_cls=SFCommandHelp)
+
 
 def launch():
     """Entry point for Service Fabric CLI.
