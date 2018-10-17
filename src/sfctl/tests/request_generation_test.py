@@ -4,7 +4,7 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-# pylint: disable=line-too-long
+# pylint: disable=line-too-long, too-many-lines
 
 """Tests that the HTTP request generated is correct.
 This does not require a cluster connection, except the test for provision application type."""

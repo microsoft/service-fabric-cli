@@ -8,7 +8,8 @@
 
 
 def get_secret_value(client, secret_resource_name, secret_value_resource_name, show_value):
-    # structure is meant to make testing easier because testing does not assume for 2 requests from one command
+    """structure is meant to make testing easier because testing
+        does not assume for 2 requests from one command"""
     secret_value = None
     if show_value:
         secret_value = client.show(secret_resource_name, secret_value_resource_name)
@@ -18,4 +19,3 @@ def get_secret_value(client, secret_resource_name, secret_value_resource_name, s
     if secret_value:
         secret_data.value = secret_value['value']
     return secret_data
-
