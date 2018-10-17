@@ -6,7 +6,7 @@ Changes include:
 -
 -
 
-Verifed:
+Verified:
 
 - [ ] Build and test CI passes
 - [ ] History and readme updated to reflect changes
