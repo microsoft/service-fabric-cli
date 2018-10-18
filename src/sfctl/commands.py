@@ -14,7 +14,9 @@ from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandGroup
 from knack.help import CLIHelp
 from sfctl.apiclient import create as client_create
-from sfctl.apiclient import mesh_app_create, mesh_volume_create, mesh_service_create, mesh_service_replica_create, mesh_network_create, mesh_code_package_create, mesh_gateway_create, mesh_secret_create, mesh_secret_value_create #pylint: disable=line-too-long
+from sfctl.apiclient import (mesh_app_create, mesh_volume_create, mesh_service_create, mesh_service_replica_create,
+                             mesh_network_create, mesh_code_package_create, mesh_gateway_create, mesh_secret_create,
+                             mesh_secret_value_create)
 # Need to import so global help dict gets updated
 import sfctl.helps.app  # pylint: disable=unused-import
 import sfctl.helps.main  # pylint: disable=unused-import

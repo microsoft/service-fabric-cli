@@ -976,7 +976,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show code-package resource
-            'mesh code-package show --application_resource_name some~application~resource~name --service_resource_name some~service --replica_name 0 --code_package_name some~package',
+            'mesh code-package show --application-resource-name some~application~resource~name --service-resource-name some~service --replica-name 0 --code-package-name some~package',
             'GET',
             '/Resources/Applications/some~application~resource~name/Services/some~service/Replicas/0/CodePackages/some~package/Logs',
             ['api-version=6.4-preview']
