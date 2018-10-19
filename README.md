@@ -1,9 +1,11 @@
 # Service Fabric CLI (sfctl)
 
+[![PyPi Version](https://img.shields.io/pypi/v/sfctl.svg)](https://pypi.org/project/sfctl/)
+[![License](https://img.shields.io/pypi/l/sfctl.svg)](https://github.com/Microsoft/service-fabric-cli/blob/master/LICENSE)
+[![Coverage Status](https://coveralls.io/repos/github/Microsoft/service-fabric-cli/badge.svg?branch=master)](https://coveralls.io/github/Microsoft/service-fabric-cli?branch=master)
+
 Command-line interface for interacting with Azure Service Fabric clusters and
 their related entities.
-
-[![Coverage Status](https://coveralls.io/repos/github/Microsoft/service-fabric-cli/badge.svg?branch=master)](https://coveralls.io/github/Microsoft/service-fabric-cli?branch=master)
 
 ## Installation
 
