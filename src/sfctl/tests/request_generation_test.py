@@ -1025,7 +1025,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secretvalue show value
-            'mesh secretvalue show --secret_resource-name some~secret~resource~name --secret-value-resource-name secret~value~name --show-value',
+            'mesh secretvalue show --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name --show-value',
             'POST',
             '/Resources/Secrets/some~secret~resource~name/values/secret~value~name/list_value',
             ['api-version=6.4-preview']

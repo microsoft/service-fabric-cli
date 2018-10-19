@@ -235,7 +235,7 @@ class HelpTextTests(unittest.TestCase):
                              msg=('Not all commands listed in help text for '
                                   + help_command
                                   + '. This may be a problem due incorrect expected ordering. '
-                                    'I.e ("delete", "show", "list")  != ("show", "delete", "list")'))
+                                    'I.e ("delete", "show", "list") != ("show", "delete", "list")'))
             self.assertEqual(len(subgroups), subgroups_index,
                              msg=('Not all subgroups listed in help text for '
                                   + help_command
@@ -372,7 +372,7 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl mesh code-package',
-            commands='show')
+            commands=('show',))
 
         self.validate_output(
             'sfctl mesh secret',
