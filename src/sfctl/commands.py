@@ -29,7 +29,7 @@ import sfctl.helps.property  # pylint: disable=unused-import
 import sfctl.helps.app_type  # pylint: disable=unused-import
 import sfctl.helps.chaos  # pylint: disable=unused-import
 import sfctl.helps.infrastructure  # pylint: disable=unused-import
-
+import sfctl.helps.secretvalue  # pylint: disable=unused-import
 EXCLUDED_PARAMS = ['self', 'raw', 'custom_headers', 'operation_config',
                    'content_version', 'kwargs', 'client']
 

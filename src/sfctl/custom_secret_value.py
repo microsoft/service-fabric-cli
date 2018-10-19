@@ -7,9 +7,8 @@
 """Commands related to Service Fabric Mesh secret value commands and operations"""
 
 
-def get_secret_value(client, secret_resource_name, secret_value_resource_name, show_value):
-    """structure is meant to make testing easier because testing
-        does not assume for 2 requests from one command"""
+def get_secret_value(client, secret_resource_name, secret_value_resource_name, show_value=False):
+    """Retrieve the value of a specified version of a secret resource"""
     secret_value = None
     if show_value:
         secret_value = client.show(secret_resource_name, secret_value_resource_name)
