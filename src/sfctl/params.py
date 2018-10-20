@@ -209,3 +209,8 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
         # expect the parameter command_input in the python method as --command in commandline.
         arg_context.argument('command_input',
                              CLIArgumentType(options_list='--command'))
+
+    with ArgumentsContext(self, 'mesh secretvalue show') as arg_context:
+        arg_context.argument('secret_resource_name')
+        arg_context.argument('secret_value_resource_name')
+        arg_context.argument('show_value')
