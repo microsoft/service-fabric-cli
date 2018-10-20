@@ -131,7 +131,7 @@ helps['mesh network'] = """
 
 helps['mesh code-package'] = """
     type: group
-    short-summary: Gets the logs for the container of the specified code package of the service replica.
+    short-summary: Get the logs for the container of the specified code package for the given service replica.
 """
 
 helps['mesh secret'] = """
@@ -141,5 +141,5 @@ helps['mesh secret'] = """
 
 helps['mesh secretvalue'] = """
     type: group
-    short-summary: Get and delete mesh secret value resources
+    short-summary: Get and delete mesh secretvalue resources
 """

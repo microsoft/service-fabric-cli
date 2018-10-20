@@ -20,8 +20,6 @@ from knack.help_files import helps
 helps['mesh secretvalue show'] = """
     type: command
     short-summary: Retrieve the value of a specified version of a secret resource
-    long-summary: Retrieve the value of a specified version of a secret resource. 
-      Use the --show-value flag to see the actual value
     parameters:
         - name: --secret-resource-name
           type: string
@@ -29,8 +27,7 @@ helps['mesh secretvalue show'] = """
         - name: --secret-value-resource-name
           type: string
           short-summary: Version identifier of the secret value
-            package to
         - name: --show-value
           type: bool
-          short-summary: Show file upload progress for large packages
+          short-summary: Show the actual value of the secret version
 """
