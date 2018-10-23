@@ -14,7 +14,10 @@ from collections import OrderedDict
 from knack.commands import CLICommandsLoader, CommandGroup
 from knack.help import CLIHelp
 from sfctl.apiclient import create as client_create
-from sfctl.apiclient import mesh_app_create, mesh_volume_create, mesh_service_create, mesh_service_replica_create #pylint: disable=line-too-long
+from sfctl.apiclient import (mesh_app_create, mesh_volume_create, mesh_service_create,
+                             mesh_service_replica_create, mesh_network_create,
+                             mesh_code_package_create, mesh_gateway_create,
+                             mesh_secret_create, mesh_secret_value_create)
 # Need to import so global help dict gets updated
 import sfctl.helps.app  # pylint: disable=unused-import
 import sfctl.helps.main  # pylint: disable=unused-import
@@ -26,7 +29,7 @@ import sfctl.helps.property  # pylint: disable=unused-import
 import sfctl.helps.app_type  # pylint: disable=unused-import
 import sfctl.helps.chaos  # pylint: disable=unused-import
 import sfctl.helps.infrastructure  # pylint: disable=unused-import
-
+import sfctl.helps.secretvalue  # pylint: disable=unused-import
 EXCLUDED_PARAMS = ['self', 'raw', 'custom_headers', 'operation_config',
                    'content_version', 'kwargs', 'client']
 
@@ -56,7 +59,11 @@ class SFCommandLoader(CLICommandsLoader):
         # -----------------
 
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
-        mesh_application_func_path = 'azure.servicefabric.operations#MeshApplicationOperations.{}'
+        mesh_code_package_func_path = 'azure.servicefabric.operations#MeshCodePackageOperations.{}'
+        mesh_gateway_func_path = 'azure.servicefabric.operations#MeshGatewayOperations.{}'
+        mesh_secret_func_path = 'azure.servicefabric.operations#MeshSecretOperations.{}'
+        mesh_secret_value_func_path = 'azure.servicefabric.operations#MeshSecretValueOperations.{}'
+        mesh_network_func_path = 'azure.servicefabric.operations#MeshNetworkOperations.{}'
         mesh_application_func_path = 'azure.servicefabric.operations#MeshApplicationOperations.{}'
         mesh_volume_func_path = 'azure.servicefabric.operations#MeshVolumeOperations.{}'
         mesh_service_func_path = 'azure.servicefabric.operations#MeshServiceOperations.{}'
@@ -246,6 +253,36 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('get', 'get_property_info')
             group.command('delete', 'delete_property')
 
+        # ---------------
+        # Mesh standard commands
+        # ---------------
+        with CommandGroup(self, 'mesh gateway', mesh_gateway_func_path,
+                          client_factory=mesh_gateway_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh network', mesh_network_func_path,
+                          client_factory=mesh_network_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh code-package', mesh_code_package_func_path,
+                          client_factory=mesh_code_package_create) as group:
+            group.command('show', 'get_container_logs')
+
+        with CommandGroup(self, 'mesh secret', mesh_secret_func_path,
+                          client_factory=mesh_secret_create) as group:
+            group.command('show', 'get')
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
+        with CommandGroup(self, 'mesh secretvalue', mesh_secret_value_func_path,
+                          client_factory=mesh_secret_value_create) as group:
+            group.command('delete', 'delete')
+            group.command('list', 'list')
+
         with CommandGroup(self, 'mesh app', mesh_application_func_path,
                           client_factory=mesh_app_create) as group:
             group.command('show', 'get')
@@ -355,6 +392,13 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandGroup(self, 'cluster', client_func_path_health,
                           client_factory=client_create) as group:
             group.command('report-health', 'report_cluster_health')
+
+        # ---------------
+        # Mesh custom commands
+        # ---------------
+        with CommandGroup(self, 'mesh secretvalue', 'sfctl.custom_secret_value#{}',
+                          client_factory=mesh_secret_value_create) as group:
+            group.command('show', 'get_secret_value')
 
         return OrderedDict(self.command_table)
 

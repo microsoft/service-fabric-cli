@@ -72,6 +72,13 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     HTTPS, note: this is an insecure option and should not be used for
     production environments
     """
+
+    # Regarding c_rehash:
+    # The c_rehash is needed when specifying a CA certs directory
+    # because requests.Sessions which is used underneath requires
+    # the c_rehash operation to be performed.
+    # See http://docs.python-requests.org/en/master/user/advanced/
+
     from sfctl.config import (set_ca_cert, set_auth, set_aad_cache,
                               set_cluster_endpoint,
                               set_no_verify)

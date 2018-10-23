@@ -118,3 +118,28 @@ helps['mesh volume'] = """
     type: group
     short-summary: Get and delete volume resources
 """
+
+helps['mesh gateway'] = """
+    type: group
+    short-summary: Get and delete mesh gateway resources
+"""
+
+helps['mesh network'] = """
+    type: group
+    short-summary: Get and delete mesh network resources
+"""
+
+helps['mesh code-package'] = """
+    type: group
+    short-summary: Get the logs for the container of the specified code package for the given service replica.
+"""
+
+helps['mesh secret'] = """
+    type: group
+    short-summary: Get and delete mesh secret resources
+"""
+
+helps['mesh secretvalue'] = """
+    type: group
+    short-summary: Get and delete mesh secretvalue resources
+"""
