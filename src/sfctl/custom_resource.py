@@ -68,7 +68,7 @@ def load_json(file_path):
         json_obj = json.loads(json.loads(json.dumps(content)))
     return json_obj
 
-def mesh_deploy(client, yaml_files_or_directory):
+def mesh_deploy(client, input_yaml_files_path):
     """ This function
         1.SFMergeUtility to merging, converting and
             ordering the resources.
@@ -76,10 +76,10 @@ def mesh_deploy(client, yaml_files_or_directory):
     """
     file_path_list = []
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
-    if os.path.isdir(yaml_files_or_directory):
-        file_path_list = list_files_directory(yaml_files_or_directory, ".yaml")
+    if os.path.isdir(input_yaml_files_path):
+        file_path_list = list_files_directory(input_yaml_files_path, ".yaml")
     else:
-        file_path_list = yaml_files_or_directory.split(',')
+        file_path_list = input_yaml_files_path.split(',')
     SFMergeUtility.SFMergeUtility(file_path_list, "SF_SBZ_JSON", parameterFile=None, outputDir=output_dir, prefix="", region="westus") # pylint: disable=line-too-long
     resources = list_files_directory(output_dir, ".json")
     resources.sort()
