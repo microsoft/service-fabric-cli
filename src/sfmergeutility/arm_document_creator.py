@@ -1,9 +1,9 @@
 import json
 from collections import OrderedDict
-from property_names import PropertyNames
-from constants import Constants
-from schema import Schema
-from arm_parameter import ArmParameter
+from sfmergeutility.property_names import PropertyNames
+from sfmergeutility.constants import Constants
+from sfmergeutility.schema import Schema
+from sfmergeutility.arm_parameter import ArmParameter
 
 # pylint: disable=line-too-long
 

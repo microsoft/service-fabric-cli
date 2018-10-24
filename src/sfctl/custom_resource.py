@@ -83,7 +83,6 @@ def mesh_deploy(client, yaml_files_or_directory):
     SFMergeUtility.SFMergeUtility(file_path_list, "SF_SBZ_JSON", parameterFile=None, outputDir=output_dir, prefix="", region="westus") # pylint: disable=line-too-long
     resources = list_files_directory(output_dir, ".json")
     resources.sort()
-    print resources
     for resource in resources:
         resource_type = get_resource_type(os.path.basename(resource))
         resource_name = get_resource_name(os.path.basename(resource))

@@ -41,8 +41,10 @@ setup(
     packages=[
         'sfctl',
         'sfctl.helps',
-        'sfctl.tests'
+        'sfctl.tests',
+        'sfmergeutility'
     ],
+    package_data={'': ['sfmergeutility/settings.json']},
     install_requires=[
         'knack==0.4.2',
         'msrest>=0.4.26',
