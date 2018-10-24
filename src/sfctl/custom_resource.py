@@ -9,6 +9,7 @@
 import enum
 import json
 import os
+import shutil
 from knack.util import CLIError
 from sfmergeutility.sf_merge_utility import SFMergeUtility
 
@@ -26,7 +27,10 @@ class ResourceType(enum.Enum):
 def get_resource_type(file_name):
     """ Gets the resource type form the file name
     """
+    file_name = os.path.basename(file_name)
     file_name = file_name.split('_')
+    if len(file_name) < 3:
+        raise CLIError('Invalid resource file name %s' %(file_name))
     resource_type = file_name[1]
     if resource_type == "application":
         return ResourceType.application
@@ -36,6 +40,8 @@ def get_resource_type(file_name):
         return ResourceType.network
     elif resource_type == "secret":
         return ResourceType.secret
+    elif resource_type == "secretValue":
+        return ResourceType.secretValue
     elif resource_type == "gateway":
         return ResourceType.gateway
     return None
@@ -43,7 +49,10 @@ def get_resource_type(file_name):
 def get_resource_name(file_name):
     """ Gets resource name form the file name
     """
+    file_name = os.path.basename(file_name)
     file_name = file_name.split('_')
+    if len(file_name) < 3:
+        raise CLIError('Invalid resource file name %s' %(file_name))
     file_name_with_extension = file_name[2]
     resource_name = file_name_with_extension.split('.')
     return resource_name[0]
@@ -76,33 +85,37 @@ def mesh_deploy(client, input_yaml_files_path):
     """
     file_path_list = []
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
+    if not os.path.exists(input_yaml_files_path):
+        raise CLIError("The specified file path %s does not exist" %(input_yaml_files_path))
     if os.path.isdir(input_yaml_files_path):
         file_path_list = list_files_directory(input_yaml_files_path, ".yaml")
     else:
         file_path_list = input_yaml_files_path.split(',')
-    SFMergeUtility.SFMergeUtility(file_path_list, "SF_SBZ_JSON", parameterFile=None, outputDir=output_dir, prefix="", region="westus") # pylint: disable=line-too-long
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir, ignore_errors=True)
+    SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=None, output_dir=output_dir, prefix="", region="westus") # pylint: disable=line-too-long
     resources = list_files_directory(output_dir, ".json")
     resources.sort()
     for resource in resources:
-        resource_type = get_resource_type(os.path.basename(resource))
-        resource_name = get_resource_name(os.path.basename(resource))
+        resource_type = get_resource_type(resource)
+        resource_name = get_resource_name(resource)
         if resource_type == ResourceType.application:
             application_description = load_json(resource)
             client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.volume:
             volume_description = load_json(resource)
-            client.mesh_application.create_or_update(resource_name, volume_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_volume.create_or_update(resource_name, volume_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.network:
             network_description = load_json(resource)
             client.mesh_network.create_or_update(resource_name, network_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secret:
             secret_description = load_json(resource)
-            client.mesh_application.create_or_update(resource_name, secret_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_secret.create_or_update(resource_name, secret_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secretValue:
             secret_value_description = load_json(resource)
-            client.mesh_application.create_or_update(resource_name, secret_value_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_secret_value.create_or_update(resource_name, secret_value_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.gateway:
             gateway_description = load_json(resource)
-            client.mesh_application.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
         else:
             raise CLIError('Invalid resource type found %s' %(resource))
