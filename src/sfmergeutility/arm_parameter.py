@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-class ArmParameter(object):
+class ArmParameter(object): # pylint: disable=too-few-public-methods
     default_value = None
     type_param = None
     meta_data = None
@@ -15,7 +15,7 @@ class ArmParameter(object):
     def to_dict(self):
         return {"defaultValue": self.default_value, "type": self.type_param, "metadata": self.meta_data.to_dict()}
 
-class MetaData(object):
+class MetaData(object): # pylint: disable=too-few-public-methods
     description = None
     def __init__(self, description):
         self.description = description

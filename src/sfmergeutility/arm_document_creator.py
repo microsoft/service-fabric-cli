@@ -49,11 +49,15 @@ class ArmDocumentGenerator(object):
             sf_resource = sf_json_resources[sf_json_resource_iter]
             kind = sf_json_resource_iter[0]
             description = sf_resource.get(kind)
+            # Process resources specifically which need a specific handling of properties or resource references, all others use the generic method.
             if kind == Constants.Application:
                 writer = ArmDocumentGenerator.process_application(writer, description, dependencies, property_value_map)
+            elif kind == Constants.Gateway:
+                writer = ArmDocumentGenerator.process_sf_resource(writer, description, kind, dependencies,
+                                                                  property_value_map, ArmDocumentGenerator.process_resource_refs_for_gateway)
             else:
                 writer = ArmDocumentGenerator.process_sf_resource(writer, description, kind,
-                                                                  dependencies, property_value_map)
+                                                                  dependencies, property_value_map, ArmDocumentGenerator.process_resource_refs)
         return writer
 
     @staticmethod
@@ -61,7 +65,7 @@ class ArmDocumentGenerator(object):
         return ArmParameter(region, "String", "Location of the resources.")
 
     @staticmethod
-    def get_dependencies(sf_json_resources):
+    def get_dependencies(sf_json_resources): # pylint: disable=too-many-branches
         dependencies = OrderedDict()
         resource_types = OrderedDict()
         for sf_json_resource in sf_json_resources:
@@ -88,6 +92,7 @@ class ArmDocumentGenerator(object):
         secrets = resource_types.get(Constants.Secret, [])
         secret_values = resource_types.get(Constants.SecretValue, [])
         volumes = resource_types.get(Constants.Volume, [])
+        gateways = resource_types.get(Constants.Gateway, [])
 
         if not applications == []:
             for application in applications:
@@ -110,6 +115,12 @@ class ArmDocumentGenerator(object):
                 dependencies[secret_value] = []
                 if not secrets == []:
                     dependencies[secret_value] += secrets
+
+        if not gateways == []:
+            for gateway in gateways:
+                dependencies[gateway] = []
+                if not networks == []:
+                    dependencies[gateway] += networks
 
         return dependencies
 
@@ -222,7 +233,22 @@ class ArmDocumentGenerator(object):
         return properties
 
     @staticmethod
-    def process_sf_resource(writer, sf_resource, resource_kind, dependencies, property_value_map):
+    def process_resource_refs_for_gateway(properties, schema_version):
+        #  Process resources which are specified as {resourceKind}Refs
+        properties = ArmDocumentGenerator.process_resource_refs(properties, schema_version)
+        # networkRefs in Gateways are specified as sourceNetwork & destinationNetwork
+        for resource in ["sourceNetwork", "destinationNetwork"]:
+            resource_ref = properties.get(resource, "")
+            if resource_ref != "":
+                ref_value = resource_ref[PropertyNames.Name]
+                # Do not add reference for Open
+                if ref_value.lower() == "open":
+                    properties[resource]["name"] = "[resourceId('{0}','{1}')]".format(ArmDocumentGenerator.get_sbz_resource_type(Constants.Network, schema_version), ref_value)
+        return properties
+
+
+    @staticmethod
+    def process_sf_resource(writer, sf_resource, resource_kind, dependencies, property_value_map, function_delegate):
         sf_resource_writer = OrderedDict()
         if not PropertyNames.Name in sf_resource:
             raise ValueError("name is not specified for %s resource" % resource_kind)
@@ -254,7 +280,7 @@ class ArmDocumentGenerator(object):
         for prop in sf_resource.keys():
             if prop == PropertyNames.Properties:
                 properties = sf_resource.get(prop)
-                properties = ArmDocumentGenerator.process_resource_refs(properties, schema_version)
+                function_delegate(properties, schema_version)
                 sf_resource_writer[prop] = properties
             else:
                 sf_resource_writer[prop] = sf_resource.get(prop)
@@ -277,6 +303,8 @@ class ArmDocumentGenerator(object):
             return Schema.SchemaVersionSupportedResourcesTypeMap[schema_version][Constants.Volumes]
         elif resource_type == Constants.Application:
             return Schema.SchemaVersionSupportedResourcesTypeMap[schema_version][Constants.Applications]
+        elif resource_type == Constants.Gateway:
+            return Schema.SchemaVersionSupportedResourcesTypeMap[schema_version][Constants.Gateways]
         else:
             raise ValueError("Unknown SF resource %s" %(resource_type))
 
@@ -286,5 +314,4 @@ class ArmDocumentGenerator(object):
             resource_format_string = Schema.HierarchichalSbzResourceNameBuilderMap[resource_type]
             name = name.split('/')
             return resource_format_string.format(name[0], name[1])
-        else:
-            return "{0}/{1}".format(resource_type, name)
+        return "{0}/{1}".format(resource_type, name)

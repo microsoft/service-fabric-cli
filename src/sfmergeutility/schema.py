@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from sfmergeutility.constants import Constants
-class Schema(object):
+class Schema(object): # pylint: disable=too-few-public-methods
     HierarchichalSbzResourceNameBuilderMap = {
         Constants.MicrosoftServiceFabricMesh + "/" + Constants.SecretValues:
         Constants.MicrosoftServiceFabricMesh + "/" + Constants.Secrets + "/{0}/" + Constants.Values + "/{1}"

@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-class Constants(object):
+class Constants(object): # pylint: disable=too-few-public-methods
     SouthCentralUS = "SouthCentralUS"
     ArmSchemaVersion = "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json"
     ContentVersion = "1.0.0.0"
@@ -47,4 +47,3 @@ class Constants(object):
     Services = "services"
     Gateways = "gateways"
     Values = "values"
-    

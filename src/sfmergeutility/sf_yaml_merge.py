@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import yaml
+import yaml # pylint: disable=import-error
 
 class ArgumentException(Exception):
     def __init__(self, expression, message):
@@ -11,12 +11,12 @@ class ArgumentException(Exception):
         self.expression = expression
         self.message = message
 
-class PartialDocument(object):
+class PartialDocument(object): # pylint: disable=too-few-public-methods
     def __init__(self, document, name):
         self.document = document
         self.name = name
 
-class PartialYamlObject(object):
+class PartialYamlObject(object): # pylint: disable=too-few-public-methods
     def __init__(self, name, node):
         self.name = name
         self.node = node
@@ -33,161 +33,163 @@ class YamlMerge(object):
     YAML_ERR_UNSUPPORTED_NODE_TYPE = 'Node type is not supported'
 
     @staticmethod
-    def Merge(partialDocuments, objectIdentifier, objectPrimaryKey):
+    def Merge(partial_documents, object_identifier, object_primary_key):
         # Nothing to merge
-        if not partialDocuments:
-            return
+        if not partial_documents:
+            return None
 
-        partialNodes = []
+        partial_nodes = []
 
-        for doc in partialDocuments:
+        for doc in partial_documents:
             if isinstance(doc.document, yaml.MappingNode):
                 if len(doc.document.value) != 1:
                     raise ArgumentException(YamlMerge.YAML_ERR_DOCUMENT_NO_OBJECT, doc.name)
 
-                childKeyNode, childValNode = doc.document.value[0]
+                child_key_node, child_val_node = doc.document.value[0]
 
-                if childKeyNode.value != objectIdentifier and not isinstance(childValNode, yaml.MappingNode):
+                if child_key_node.value != object_identifier and not isinstance(child_val_node, yaml.MappingNode):
                     raise ArgumentException(YamlMerge.YAML_ERR_DOCUMENT_NO_OBJECT, doc.name)
 
-                partialNode = PartialYamlObject(doc.name, childValNode)
-                partialNodes.append(partialNode)
+                partial_node = PartialYamlObject(doc.name, child_val_node)
+                partial_nodes.append(partial_node)
             else:
                 raise ArgumentException(YamlMerge.YAML_ERR_DOCUMENT_NO_OBJECT, doc.name)
 
-        mergedNode = YamlMerge.MergePartialNodes(partialNodes, objectPrimaryKey)
-        mergedRootNode = yaml.MappingNode(YamlMerge.TAG_MAP,
-                                          [(yaml.ScalarNode(YamlMerge.TAG_STR, objectIdentifier), mergedNode)])
+        merged_node = YamlMerge.merge_partial_nodes(partial_nodes, object_primary_key)
+        merged_root_node = yaml.MappingNode(YamlMerge.TAG_MAP,
+                                            [(yaml.ScalarNode(YamlMerge.TAG_STR, object_identifier), merged_node)])
 
-        return mergedRootNode
+        return merged_root_node
 
     @staticmethod
-    def EnsureSameObjectPrimaryKey(partialNodes, objectPrimaryKey):
-        primaryKeyValue = None
-        for partialNode in partialNodes:
+    def ensure_same_object_primary_key(partial_nodes, object_primary_key):
+        primary_key_value = None
+        for partial_node in partial_nodes:
             key_found_flag = False
-            for nodeChildKey, nodeChildVal in partialNode.node.value:
-                if nodeChildKey.value == objectPrimaryKey:
+            for node_child_key, node_child_val in partial_node.node.value:
+                if node_child_key.value == object_primary_key:
                     key_found_flag = True
 
-                    if not isinstance(nodeChildKey, yaml.ScalarNode):
+                    if not isinstance(node_child_key, yaml.ScalarNode):
                         raise ArgumentException(YamlMerge.YAML_ERR_OBJECT_PRIMARY_KEY_NOT_SCALAR,
-                                                partialNode.name)
+                                                partial_node.name)
 
-                    if not primaryKeyValue:
-                        primaryKeyValue = nodeChildVal.value
+                    if not primary_key_value:
+                        primary_key_value = node_child_val.value
                     else:
-                        if primaryKeyValue != nodeChildVal.value:
+                        if primary_key_value != node_child_val.value:
                             raise ArgumentException(YamlMerge.YAML_ERR_OBJECT_PRIMARY_KEY_DIFFERENT,
-                                                    partialNode.name)
+                                                    partial_node.name)
 
             if not key_found_flag:
                 raise ArgumentException(YamlMerge.YAML_ERR_OBJECT_DOES_NOT_HAVE_PRIMARY_KEY,
-                                        partialNode.name)
+                                        partial_node.name)
 
 
     @staticmethod
-    def MergePartialNodes(partialNodes, objectPrimaryKey):
-        if objectPrimaryKey:
-            YamlMerge.EnsureSameObjectPrimaryKey(partialNodes, objectPrimaryKey)
+    def merge_partial_nodes(partial_nodes, object_primary_key):
+        if object_primary_key:
+            YamlMerge.ensure_same_object_primary_key(partial_nodes, object_primary_key)
 
-        destNode = YamlMerge.CreateDestNode(yaml.MappingNode('', None), "")
-        for node in partialNodes:
-            YamlMerge.MergeMappingNodes(destNode, node.node, node.name, objectPrimaryKey)
+        dest_node = YamlMerge.create_dest_node(yaml.MappingNode('', None), "")
+        for node in partial_nodes:
+            YamlMerge.merge_mapping_nodes(dest_node, node.node, node.name, object_primary_key)
 
-        return destNode
+        return dest_node
 
     @staticmethod
-    def GetChildNode(parent, key):
+    def get_child_node(parent, key):
         for k, v in parent.value:
             if k.value == key:
                 return v
+        return None
 
     @staticmethod
-    def GetChildFromSeqNode(node, key):
-        for childnode in node.value:
+    def get_child_from_seq_node(node, key):
+        for child_node in node.value:
             # if mapping node's scalar node's value is key
-            if childnode.value[0].value == key:
-                return childnode
+            if child_node.value[0].value == key:
+                return child_node
+        return None
 
     @staticmethod
-    def MergeMappingNodes(destNode, srcNode, srcIdentifier, objectPrimaryKey):
-        destKeySet = set(map(lambda x: x[0].value, destNode.value))
-        for keyNode, valNode in srcNode.value:
-            if keyNode.value not in destKeySet:
-                destChildNode = YamlMerge.CreateDestNode(valNode, srcIdentifier)
-                destNode.value.append((yaml.ScalarNode(YamlMerge.TAG_STR, keyNode.value), destChildNode))
+    def merge_mapping_nodes(dest_node, src_node, src_identifier, object_primary_key):
+        dest_key_set = set(map(lambda x: x[0].value, dest_node.value))
+        for key_node, val_node in src_node.value:
+            if key_node.value not in dest_key_set:
+                dest_child_node = YamlMerge.create_dest_node(val_node, src_identifier)
+                dest_node.value.append((yaml.ScalarNode(YamlMerge.TAG_STR, key_node.value), dest_child_node))
             else:
-                destChildNode = YamlMerge.GetChildNode(destNode, keyNode.value)
-            YamlMerge.MergeNodes(destChildNode, valNode, srcIdentifier, objectPrimaryKey)
+                dest_child_node = YamlMerge.get_child_node(dest_node, key_node.value)
+            YamlMerge.merge_nodes(dest_child_node, val_node, src_identifier, object_primary_key)
 
     @staticmethod
-    def MergeNodes(dest, src, srcIdentifier, objectPrimaryKey):
-        destType = type(dest)
-        srcType = type(src)
-        if destType != srcType:
+    def merge_nodes(dest, src, src_identifier, object_primary_key):
+        dest_type = type(dest)
+        src_type = type(src)
+        if dest_type != src_type:
             raise ArgumentException(YamlMerge.YAML_ERR_SRC_AND_DEST_NODE_DIFFERENT,
-                                    srcIdentifier)
+                                    src_identifier)
 
         if isinstance(src, yaml.ScalarNode):
-            YamlMerge.MergeScalarNodes(dest, src)
+            YamlMerge.merge_scalar_nodes(dest, src)
         elif isinstance(src, yaml.SequenceNode):
-            YamlMerge.MergeSequenceNodes(dest, src, srcIdentifier, objectPrimaryKey)
+            YamlMerge.merge_sequence_nodes(dest, src, src_identifier, object_primary_key)
         elif isinstance(src, yaml.MappingNode):
-            YamlMerge.MergeMappingNodes(dest, src, srcIdentifier, objectPrimaryKey)
+            YamlMerge.merge_mapping_nodes(dest, src, src_identifier, object_primary_key)
         else:
             raise ArgumentException(YamlMerge.YAML_ERR_UNSUPPORTED_NODE_TYPE,
-                                    srcIdentifier)
+                                    src_identifier)
 
     @staticmethod
-    def MergeScalarNodes(dest, src):
+    def merge_scalar_nodes(dest, src):
         dest.value = src.value
 
     @staticmethod
-    def SeqNodeContains(node, key):
+    def seq_node_contains(node, key):
         keys = set(map(lambda x: x.value[0].value, node.value))
         return key in keys
 
     @staticmethod
-    def MergeSequenceNodes(dest, src, srcIdentifier, objectPrimaryKey):
-        if isinstance(src.value[0], yaml.MappingNode) and not objectPrimaryKey:
+    def merge_sequence_nodes(dest, src, src_identifier, object_primary_key):
+        if isinstance(src.value[0], yaml.MappingNode) and not object_primary_key:
             # add it to the list of mapping nodes
-            for srcChildNode in src.value:
-                srcChildKey = srcChildNode.value
-                if YamlMerge.SeqNodeContains(dest, srcChildKey):
-                    destChildNode = YamlMerge.CreateDestNode(srcChildNode, srcIdentifier)
-                    dest.value.append(destChildNode)
+            for src_child_node in src.value:
+                src_child_key = src_child_node.value
+                if YamlMerge.seq_node_contains(dest, src_child_key):
+                    dest_child_node = YamlMerge.create_dest_node(src_child_node, src_identifier)
+                    dest.value.append(dest_child_node)
                 else:
-                    destChildNode = YamlMerge.GetChildFromSeqNode(dest, srcChildKey)
-                YamlMerge.MergeNodes(destChildNode, srcChildNode, srcIdentifier, objectPrimaryKey)
+                    dest_child_node = YamlMerge.get_child_from_seq_node(dest, src_child_key)
+                YamlMerge.merge_nodes(dest_child_node, src_child_node, src_identifier, object_primary_key)
         else:
             # just combine the sequence
-            for srcChildNode in src.value:
-                destChildNode = YamlMerge.CreateDestNode(srcChildNode, srcIdentifier)
-                dest.value.append(destChildNode)
-                YamlMerge.MergeNodes(destChildNode, srcChildNode, srcIdentifier, objectPrimaryKey)
+            for src_child_node in src.value:
+                dest_child_node = YamlMerge.create_dest_node(src_child_node, src_identifier)
+                dest.value.append(dest_child_node)
+                YamlMerge.merge_nodes(dest_child_node, src_child_node, src_identifier, object_primary_key)
 
     @staticmethod
-    def CreateDestNode(srcNode, srcIdentifier):
-        if isinstance(srcNode, yaml.ScalarNode):
+    def create_dest_node(src_node, src_identifier):
+        if isinstance(src_node, yaml.ScalarNode):
             return yaml.ScalarNode(YamlMerge.TAG_STR, '')
-        elif isinstance(srcNode, yaml.MappingNode):
+        elif isinstance(src_node, yaml.MappingNode):
             return yaml.MappingNode(YamlMerge.TAG_MAP, [])
-        elif isinstance(srcNode, yaml.SequenceNode):
+        elif isinstance(src_node, yaml.SequenceNode):
             return yaml.SequenceNode(YamlMerge.TAG_SEQ, [])
         else:
             raise ArgumentException(YamlMerge.YAML_ERR_UNSUPPORTED_NODE_TYPE,
-                                    srcIdentifier)
+                                    src_identifier)
 
     @staticmethod
-    def Test_YamlMerge():
-        filesample = '../samples/Input/counterApp-sfbd.yaml'
-        filesample2 = '../samples/Input/service.yaml'
+    def test_yaml_merge():
+        file_sample = '../samples/Input/counterApp-sfbd.yaml'
+        file_sample2 = '../samples/Input/service.yaml'
 
-        with open(filesample, 'r') as f:
+        with open(file_sample, 'r') as f:
             text = f.read()
 
-        with open(filesample2, 'r') as f:
+        with open(file_sample2, 'r') as f:
             text2 = f.read()
 
         pds = []
