@@ -23,7 +23,7 @@ helps['chaos start'] = """
             (System.UInt32.MaxValue).
         - name: --warning-as-error
           type: bool
-          short-summary: Sets the health policy to treat warning as errors.
+          short-summary: Indicates whether warnings are treated with the same severity as errors.
         - name: --max-cluster-stabilization
           type: int
           short-summary: The maximum amount of time to wait
@@ -187,9 +187,8 @@ helps['chaos start'] = """
 
 helps['chaos schedule set'] = """
     type: command
-    short-summary: Set the Chaos Schedule to be used by Chaos.
-    long-summary: Set the Chaos Schedule currently in use by Chaos. Chaos will
-        automatically schedule runs based on the Chaos Schedule.
+    short-summary: Set the schedule used by Chaos.
+    long-summary: Chaos will automatically schedule runs based on the Chaos Schedule.
         The version in the provided input schedule must match the version of
         the Chaos Schedule on the server.
         If the version provided does not match the version on the server, the

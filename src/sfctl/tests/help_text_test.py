@@ -5,7 +5,8 @@
 # -----------------------------------------------------------------------------
 
 """Tests that -h does not return error and has all required text.
-This only tests for commands/subgroups which are specified in this file."""
+This only tests for commands/subgroups which are specified in this file.
+This does not test the correctness of help text content."""
 
 from __future__ import print_function
 import unittest
