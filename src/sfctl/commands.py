@@ -359,7 +359,8 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('upload', 'upload')
 
         # Need an empty client for the select and upload operations
-        with CommandGroup(self, 'cluster', 'sfctl.custom_cluster#{}') as group:
+        with CommandGroup(self, 'cluster', 'sfctl.custom_cluster#{}',
+                          client_factory=client_create) as group:
             group.command('select', 'select')
             group.command('show-connection', 'show_connection')
 
