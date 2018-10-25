@@ -32,19 +32,20 @@ def get_resource_type(file_name):
     if len(file_name) < 3:
         raise CLIError('Invalid resource file name %s' %(file_name))
     resource_type = file_name[1]
+    resource_type_to_return = None
     if resource_type == "application":
-        return ResourceType.application
+        resource_type_to_return = ResourceType.application
     elif resource_type == "volume":
-        return ResourceType.volume
+        resource_type_to_return = ResourceType.volume
     elif resource_type == "network":
-        return ResourceType.network
+        resource_type_to_return = ResourceType.network
     elif resource_type == "secret":
-        return ResourceType.secret
+        resource_type_to_return = ResourceType.secret
     elif resource_type == "secretValue":
-        return ResourceType.secretValue
+        resource_type_to_return = ResourceType.secretValue
     elif resource_type == "gateway":
-        return ResourceType.gateway
-    return None
+        resource_type_to_return = ResourceType.gateway
+    return resource_type_to_return
 
 def get_resource_name(file_name):
     """ Gets resource name form the file name

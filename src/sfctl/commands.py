@@ -359,8 +359,7 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('upload', 'upload')
 
         # Need an empty client for the select and upload operations
-        with CommandGroup(self, 'cluster', 'sfctl.custom_cluster#{}',
-                          client_factory=client_create) as group:
+        with CommandGroup(self, 'cluster', 'sfctl.custom_cluster#{}') as group:
             group.command('select', 'select')
             group.command('show-connection', 'show_connection')
 
@@ -417,20 +416,17 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('report-health', 'report_cluster_health')
 
-<<<<<<< HEAD
         # ---------------
         # Mesh custom commands
         # ---------------
         with CommandGroup(self, 'mesh secretvalue', 'sfctl.custom_secret_value#{}',
                           client_factory=mesh_secret_value_create) as group:
             group.command('show', 'get_secret_value')
-=======
-        client_func_path_mesh = 'sfctl.custom_resource#{}'
 
+        client_func_path_mesh = 'sfctl.custom_deployment#{}'
         with CommandGroup(self, 'mesh deployment', client_func_path_mesh,
                           client_factory=client_create) as group:
             group.command('create', 'mesh_deploy')
->>>>>>> mesh deployment command commit #2
 
         return OrderedDict(self.command_table)
 

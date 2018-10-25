@@ -11,12 +11,25 @@ import json
 import os
 import shutil
 from knack.util import CLIError
-import sfctl.custom_resource as sf_r
-from sfctl.custom_resource import ResourceType
+import sfctl.custom_deployment as sf_r
+from sfctl.custom_deployment import ResourceType
 from sfmergeutility.sf_merge_utility import SFMergeUtility
 
 class MeshTests(unittest.TestCase):
     """Mesh command tests """
+
+    def get_actual_json_file(self, actual_json_files, generated_json_file):
+        """Gets the actual json file w.r.t the generated json file"""
+        resource_name = sf_r.get_resource_name(generated_json_file)
+        generated_resource_type = sf_r.get_resource_type(generated_json_file)
+        return_file = None
+        for actual_json_file in actual_json_files:
+            actual_resource_type = sf_r.get_resource_type(actual_json_file)
+            if resource_name in actual_json_file and generated_resource_type == actual_resource_type: # pylint: disable=line-too-long
+                return_file = actual_json_file
+                break
+        self.assertNotEqual(return_file, None)
+        return return_file
 
     def test_merge_utility(self):
         """Test merge utility if it is generating the correct jsons"""
@@ -31,19 +44,11 @@ class MeshTests(unittest.TestCase):
             generated_json_file_fp = open(generated_json_file, "r")
             generated_json = json.load(generated_json_file_fp)
             generated_json_file_fp.close()
-            resource_name = sf_r.get_resource_name(generated_json_file)
-            generated_resource_type = sf_r.get_resource_type(generated_json_file)
-            found_flag = 0
-            for actual_json_file in actual_json_files:
-                actual_resource_type = sf_r.get_resource_type(actual_json_file)
-                if resource_name in actual_json_file and generated_resource_type == actual_resource_type: # pylint: disable=line-too-long
-                    actual_json_file_fp = open(actual_json_file, "r")
-                    actual_json = json.load(actual_json_file_fp)
-                    actual_json_file_fp.close()
-                    self.assertEqual(ordered_json(generated_json), ordered_json(actual_json))
-                    found_flag = 1
-                    break
-            self.assertEqual(found_flag, 1)
+            actual_json_file = self.get_actual_json_file(actual_json_files, generated_json_file)
+            actual_json_file_fp = open(actual_json_file, "r")
+            actual_json = json.load(actual_json_file_fp)
+            actual_json_file_fp.close()
+            self.assertEqual(generated_json, actual_json)
         shutil.rmtree(output_dir, ignore_errors=True)
 
     def test_resource_type(self):
@@ -83,9 +88,4 @@ def ordered_json(json_dict):
         return sorted((k, ordered_json(v)) for k, v in json_dict.items())
     if isinstance(json_dict, list):
         return sorted(ordered_json(x) for x in json_dict)
-    else:
-        return json_dict
-
-if __name__ == "__main__":
-    unittest.main()
-        
+    return json_dict
