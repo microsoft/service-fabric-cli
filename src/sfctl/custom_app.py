@@ -148,7 +148,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=None):  # pylint: disable=too-many-locals,missing-docstring
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=300):  # pylint: disable=too-many-locals,missing-docstring
 
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
@@ -177,9 +177,7 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                           args=(abspath, os.path.join(dest_path, basename), show_progress))
 
         process.start()
-        print('starting process')
         process.join(timeout)  # If timeout is None then there is no timeout.
-        print('called process join')
 
         if process.is_alive():
             process.terminate()  # This will leave any children of process orphaned.
