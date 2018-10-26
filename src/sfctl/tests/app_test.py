@@ -29,7 +29,6 @@ class AppTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """A class method called before tests in an individual class are run"""
-        # self.old_endpoint = get_mock_endpoint()
         cls.port = find_localhost_free_port()
         cls.old_endpoint = get_mock_endpoint()
 
@@ -187,11 +186,9 @@ class AppTests(unittest.TestCase):
         """Test function upload_to_native_imagestore to check that is it sending each
         file upload with the appropriate timeout. Does not look at overall timeout
 
-        Test to make sure that we end the overall upload process when it times out.
-
         Things we check for:
         - Where the timeout is sufficient to completing the task.
-            - Make sure the # of requests is correct - # of files + # of dirs
+            - Make sure the # of requests is correct -> # of files + # of dirs
             - Make sure that each URL shows a decreasing amount of time left"""
 
         current_directory = os.path.dirname(os.path.realpath(__file__))

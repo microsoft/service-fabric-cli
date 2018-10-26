@@ -51,13 +51,9 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
         arg_context.argument('timeout', type=int, options_list=('-t', '--timeout'),
                              help='The total timeout in seconds. '
                                   'Upload will fail and return error after the upload timeout '
-                                  'duration has passed. If provided, this timeout applies to '
+                                  'duration has passed. This timeout applies to '
                                   'the entire application package, and individual file timeouts '
-                                  'will equal the remaining timeout duration. '
-                                  'For image store upload, the default is 60 seconds per file, '
-                                  'with no overall timeout. '
-                                  'For uploading to a file share, there is only an '
-                                  'overall timeout.')
+                                  'will equal the remaining timeout duration. ')
 
     with ArgumentsContext(self, 'application create') as arg_context:
         arg_context.argument('parameters', type=json_encoded)

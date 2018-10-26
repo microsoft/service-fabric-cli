@@ -51,7 +51,6 @@ class MockServer(BaseHTTPRequestHandler):
     def do_PUT(self):  # pylint: disable=C0103,missing-docstring
         # Return 200 as the default response
 
-
         if self.path.startswith('/ImageStore/') and self.path.find('sample_nested_folders') != -1:
 
             parsed_url = parse.urlparse(self.path)
@@ -60,7 +59,7 @@ class MockServer(BaseHTTPRequestHandler):
             counter = 0
             import time
 
-            while counter < int(query['timeout'][0]) and counter < 2:
+            while counter < int(query['timeout'][0]) and counter < 3:
                 time.sleep(1)
                 counter += 1
 
