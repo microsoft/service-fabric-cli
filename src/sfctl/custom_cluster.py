@@ -55,8 +55,10 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     Connects to a Service Fabric cluster endpoint.
     If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
-    Optionally, if connecting to a secure cluster, specify also an absolute
-    path to a CA bundle file or directory of trusted CA certs.
+    Optionally, if connecting to a secure cluster, also specify an absolute
+    path to a CA bundle file or directory of trusted CA certs. If using a
+    directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
+    the certificate hashes and create the appropriate symbolics links.
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix
     :param str cert: Absolute path to a client certificate file
@@ -70,6 +72,13 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     HTTPS, note: this is an insecure option and should not be used for
     production environments
     """
+
+    # Regarding c_rehash:
+    # The c_rehash is needed when specifying a CA certs directory
+    # because requests.Sessions which is used underneath requires
+    # the c_rehash operation to be performed.
+    # See http://docs.python-requests.org/en/master/user/advanced/
+
     from sfctl.config import (set_ca_cert, set_auth, set_aad_cache,
                               set_cluster_endpoint,
                               set_no_verify)

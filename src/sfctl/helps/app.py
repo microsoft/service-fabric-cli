@@ -19,7 +19,11 @@ from knack.help_files import helps
 
 helps['compose create'] = """
     type: command
-    short-summary: Creates a Service Fabric application from a Compose file
+    short-summary: Creates a Service Fabric compose deployment
+    long-summary: Compose is a file format that describes multi-container applications. 
+      This API allows deploying container based applications defined in compose format in a 
+      Service Fabric cluster. Once the deployment is created, its status can be 
+      tracked via the `GetComposeDeploymentStatus` API.
     parameters:
         - name: --repo-pass
           type: string
@@ -61,16 +65,18 @@ helps['application upgrade'] = """
     parameters:
         - name: --application-id
           type: string
+          name: --application-id
+          type: string
           short-summary: The identity of the application.
-          long-summary: "This is typically the full name of the application
-            without the 'fabric:' URI scheme. Starting from version 6.0,
-            hierarchical names are delimited with the '~' character. For
-            example, if the application name is 'fabric:/myapp/app1', the
-            application identity would be 'myapp~app1' in 6.0+ and 'myapp/app1'
-            in previous versions."
+          long-summary: This is typically the full name of the application without the 
+            'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited 
+            with the "~" character. For example, if the application name is "fabric:/myapp/app1", 
+            the application identity would be "myapp~app1" in 6.0+ and 
+            "myapp/app1" in previous versions.
         - name: --application-version
           type: string
-          short-summary: Target application version
+          short-summary: The target application type version 
+            (found in the application manifest) for the application upgrade.
         - name: --parameters
           type: string
           short-summary: A JSON encoded list of application parameter overrides
@@ -94,30 +100,36 @@ helps['application upgrade'] = """
             encounters monitoring policy or health policy violations
         - name: --health-check-wait-duration
           type: string
-          short-summary: The amount of time to wait after completing an upgrade
-            domain before applying health policies. Measured in milliseconds.
+          short-summary: The length of time to wait after completing an upgrade domain 
+            before starting the health checks process.
         - name: --health-check-stable-duration
           type: string
-          short-summary: The amount of time that the application or cluster
-            must remain healthy before the upgrade proceeds to the next
-            upgrade domain. Measured in milliseconds.
+          short-summary: The amount of time that the application or cluster must remain healthy 
+            before the upgrade proceeds to the next upgrade domain.
+          long-summary: It is first interpreted as a string representing an ISO 8601 duration. 
+            If that fails, then it is interpreted as a number representing the total number 
+            of milliseconds.
         - name: --health-check-retry-timeout
           type: string
-          short-summary: The amount of time to retry health evaluations when
-            the application or cluster is unhealthy before the failure action
-            is executed. Measured in milliseconds.
+          short-summary: The length of time between attempts to perform health checks if 
+            the application or cluster is not healthy.
         - name: --upgrade-timeout
           type: string
-          short-summary: The amount of time the overall upgrade has to complete
-            before FailureAction is executed. Measured in milliseconds.
+          short-summary: The amount of time the overall upgrade has to complete before 
+            FailureAction is executed. 
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --upgrade-domain-timeout
           type: string
-          short-summary: The amount of time each upgrade domain has to complete
-            before FailureAction is executed. Measured in milliseconds.
+          short-summary: The amount of time each upgrade domain has to complete before 
+            FailureAction is executed.
+          long-summary: It is first interpreted as a string representing an 
+            ISO 8601 duration. If that fails, then it is interpreted as a number 
+            representing the total number of milliseconds.
         - name: --warning-as-error
           type: bool
-          short-summary: Treat health evaluation warnings with the same
-            severity as errors
+          short-summary: Indicates whether warnings are treated with the same severity as errors.
         - name: --max-unhealthy-apps
           type: int
           short-summary: The maximum allowed percentage of unhealthy deployed
