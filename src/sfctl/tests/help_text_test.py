@@ -5,7 +5,8 @@
 # -----------------------------------------------------------------------------
 
 """Tests that -h does not return error and has all required text.
-This only tests for commands/subgroups which are specified in this file."""
+This only tests for commands/subgroups which are specified in this file.
+This does not test the correctness of help text content."""
 
 from __future__ import print_function
 import unittest
@@ -234,7 +235,8 @@ class HelpTextTests(unittest.TestCase):
             self.assertEqual(len(commands), commands_index,
                              msg=('Not all commands listed in help text for '
                                   + help_command
-                                  + '. This may be a problem due incorrect expected ordering.'))
+                                  + '. This may be a problem due incorrect expected ordering. '
+                                    'I.e ("delete", "show", "list") != ("show", "delete", "list")'))
             self.assertEqual(len(subgroups), subgroups_index,
                              msg=('Not all subgroups listed in help text for '
                                   + help_command
@@ -360,3 +362,23 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
+
+        self.validate_output(
+            'sfctl mesh gateway',
+            commands=('delete', 'list', 'show'))
+
+        self.validate_output(
+            'sfctl mesh network',
+            commands=('delete', 'list', 'show'))
+
+        self.validate_output(
+            'sfctl mesh code-package',
+            commands=('show',))
+
+        self.validate_output(
+            'sfctl mesh secret',
+            commands=('delete', 'list', 'show'))
+
+        self.validate_output(
+            'sfctl mesh secretvalue',
+            commands=('delete', 'list', 'show'))
