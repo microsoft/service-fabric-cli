@@ -238,7 +238,7 @@ class AppTests(unittest.TestCase):
                 query = parse.parse_qs(parsed_url.query)
                 query_timeout = query['timeout']
 
-                # here 2 is the response time in seconds from the mock server
-                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*2, delta=2)
+                # here 3 is the response time in seconds from the mock server
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
 
                 iteration += 1
