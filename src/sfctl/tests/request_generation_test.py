@@ -130,7 +130,7 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # Reduce noise in test output for this test only
         logging.disable(logging.INFO)
-        with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
+        with vcr.use_cassette(generated_file_path, record_mode='all', serializer='json'):
             try:
                 self.cmd(command)
             except Exception as exception:  # pylint: disable=broad-except
