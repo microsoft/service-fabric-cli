@@ -13,8 +13,8 @@ from __future__ import print_function
 from os import (remove, path)
 import json
 import logging
-import vcr
 from shutil import rmtree
+import vcr
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
