@@ -219,6 +219,8 @@ class ServiceFabricRequestTests(ScenarioTest):
         self.validate_command_succeeds('cluster select --endpoint=' + get_mock_endpoint())
         self.validate_command_succeeds('cluster show-connection')
 
+        # Testing CI
+
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
             'application provision --application-type-build-path=test_path',
