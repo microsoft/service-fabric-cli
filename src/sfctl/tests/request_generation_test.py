@@ -14,6 +14,7 @@ from os import (remove, path)
 import json
 import logging
 import vcr
+from shutil import rmtree
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
@@ -47,9 +48,26 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Start mock server
         start_mock_server(self.port)
 
+        # Delete the generated vcr files before running
+        try:
+            rmtree(path.join(path.dirname(__file__), 'recordings'))
+        except OSError:
+            # if the folder doesn't exist, then there's nothing for us to do here
+            pass
+
     def __exit__(self, exception_type, exception_value, traceback):
         # Revert the environment variables we changed during the test to what the user set.
         set_mock_endpoint(self.old_endpoint)
+
+        generated_file_path = 'paths_generation_test.json'
+
+        # In case this file was created and not deleted by a previous test,
+        # delete it here (for example if the test crashed)
+        try:
+            remove(generated_file_path)
+        except OSError:
+            # if the file doesn't exist, then there's nothing for us to do here
+            pass
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command_succeeds(self, command):
@@ -218,8 +236,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Specifically, cluster select and show-connection
         self.validate_command_succeeds('cluster select --endpoint=' + get_mock_endpoint())
         self.validate_command_succeeds('cluster show-connection')
-
-        # Testing CI
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
