@@ -12,8 +12,8 @@ import os
 import shutil
 from knack.util import CLIError
 import sfctl.custom_deployment as sf_r
+from sfmergeutility import SFMergeUtility
 from sfctl.custom_deployment import ResourceType
-from sfmergeutility.sf_merge_utility import SFMergeUtility
 
 class MeshTests(unittest.TestCase):
     """Mesh command tests """

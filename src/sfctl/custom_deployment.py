@@ -11,7 +11,7 @@ import json
 import os
 import shutil
 from knack.util import CLIError
-from sfmergeutility.sf_merge_utility import SFMergeUtility
+from sfmergeutility import SFMergeUtility
 
 class ResourceType(enum.Enum):
     """ Defines the valid yaml resource types
@@ -78,7 +78,7 @@ def load_json(file_path):
         json_obj = json.loads(json.loads(json.dumps(content)))
     return json_obj
 
-def mesh_deploy(client, input_yaml_files_path):
+def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function
         1.SFMergeUtility to merging, converting and
             ordering the resources.
@@ -86,15 +86,15 @@ def mesh_deploy(client, input_yaml_files_path):
     """
     file_path_list = []
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
-    if not os.path.exists(input_yaml_files_path):
-        raise CLIError("The specified file path %s does not exist" %(input_yaml_files_path))
-    if os.path.isdir(input_yaml_files_path):
-        file_path_list = list_files_directory(input_yaml_files_path, ".yaml")
+    if not os.path.exists(input_yaml_file_paths):
+        raise CLIError("The specified file path %s does not exist" %(input_yaml_file_paths))
+    if os.path.isdir(input_yaml_file_paths):
+        file_path_list = list_files_directory(input_yaml_file_paths, ".yaml")
     else:
-        file_path_list = input_yaml_files_path.split(',')
+        file_path_list = input_yaml_file_paths.split(',')
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
-    SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=None, output_dir=output_dir, prefix="", region="westus") # pylint: disable=line-too-long
+    SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
     resources = list_files_directory(output_dir, ".json")
     resources.sort()
     for resource in resources:
@@ -111,10 +111,10 @@ def mesh_deploy(client, input_yaml_files_path):
             client.mesh_network.create_or_update(resource_name, network_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secret:
             secret_description = load_json(resource)
-            client.mesh_secret.create_or_update(resource_name, secret_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_secret.create_or_update(resource_name, secret_description.get('description').get('properties'), secret_description.get('description').get('name')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secretValue:
             secret_value_description = load_json(resource)
-            client.mesh_secret_value.create_or_update(resource_name, secret_value_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_secret_value.add_value(resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.gateway:
             gateway_description = load_json(resource)
             client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long

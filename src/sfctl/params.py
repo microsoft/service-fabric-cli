@@ -214,3 +214,7 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
         arg_context.argument('secret_resource_name')
         arg_context.argument('secret_value_resource_name')
         arg_context.argument('show_value')
+
+    with ArgumentsContext(self, 'mesh deployment create') as arg_context:
+        arg_context.argument('input_yaml_file_paths')
+        arg_context.argument('parameters')

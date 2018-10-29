@@ -41,10 +41,9 @@ setup(
     packages=[
         'sfctl',
         'sfctl.helps',
-        'sfctl.tests',
-        'sfmergeutility'
+        'sfctl.tests'
     ],
-    package_data={'': ['sfmergeutility/settings.json']},
+    package_data={},
     install_requires=[
         'knack==0.4.2',
         'msrest>=0.4.26',
@@ -53,7 +52,8 @@ setup(
         'azure-servicefabric==6.3.0.0',
         'jsonpickle',
         'adal',
-        'future'
+        'future',
+        'sfmergeutility'
     ],
     extras_require={
         'test': [
