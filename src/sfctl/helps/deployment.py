@@ -19,8 +19,8 @@ helps['mesh deployment create'] = """
           type: string
           short-summary: A json file which contains the parameters which need to be overridden
     examples:
-        - name: Consolidates and deploys all the resources to a cluster endpoint
+        - name: Consolidates and deploys all the resources to cluster
           text: sfctl mesh deployment create --input-yaml-file-paths ./app.yaml,./network.yaml
-        - name: Consolidates and deploys all the resources in a directory to a cluster
+        - name: Consolidates and deploys all the resources in a directory to cluster
           text: sfctl mesh deployment create --input-yaml-file-paths ./resources
 """

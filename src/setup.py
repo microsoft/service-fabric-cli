@@ -43,7 +43,6 @@ setup(
         'sfctl.helps',
         'sfctl.tests'
     ],
-    package_data={},
     install_requires=[
         'knack==0.4.2',
         'msrest>=0.4.26',
