@@ -214,10 +214,36 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
 
+        # Get current directory
+        dir_path = path.dirname(path.realpath(__file__))
+        dir_path_sample_json = path.join(dir_path, 'sample_json')
+        app_capacity_metrics = path.join(dir_path_sample_json, 'sample_application_capacity_metric_descriptions.txt')
+        app_parameters = path.join(dir_path_sample_json, 'sample_application_parameters.txt')
+
+        # While in commandline, you can pass in something like --metrics=C:/SomeFolder/file.txt,
+        # in the strings below, we need to escape the "\"
+        app_capacity_metrics = app_capacity_metrics.replace('\\', '\\\\')
+        app_parameters = app_parameters.replace('\\', '\\\\')
+
+        dir_path_one_file = path.join(dir_path, 'one_file')
+        dir_path_one_file = dir_path_one_file.replace('\\', '\\\\')
+
         # The commands which don't affect or query the cluster
         # Specifically, cluster select and show-connection
         self.validate_command_succeeds('cluster select --endpoint=' + get_mock_endpoint())
         self.validate_command_succeeds('cluster show-connection')
+        # This test (app upload) will no longer work in paths generation because I've put it in a
+        # separate process,
+        # so it's unable to be caught by vcr. Move this to just checking that it runs without
+        # crashing.
+        # TODO: make sure that if the command returns an error, that the process returns error
+        # If we're removing the paths generation test, we should have a way to test that it works somehow.
+        self.validate_command_succeeds('cluster show-connection')
+        self.validate_command(  # upload
+            'application upload --path=' + dir_path_one_file,  # We don't need a real app pkg
+            'PUT',
+            '/ImageStore',
+            ['api-version=6.1'])
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -430,20 +456,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Application upgrade  and create is not tested for all parameters
         # application upload tested as part of a custom command as well
 
-        # Get current directory
-        dir_path = path.dirname(path.realpath(__file__))
-        dir_path_sample_json = path.join(dir_path, 'sample_json')
-        app_capacity_metrics = path.join(dir_path_sample_json, 'sample_application_capacity_metric_descriptions.txt')
-        app_parameters = path.join(dir_path_sample_json, 'sample_application_parameters.txt')
-
-        # While in commandline, you can pass in something like --metrics=C:/SomeFolder/file.txt,
-        # in the strings below, we need to escape the "\"
-        app_capacity_metrics = app_capacity_metrics.replace('\\', '\\\\')
-        app_parameters = app_parameters.replace('\\', '\\\\')
-
-        dir_path_one_file = path.join(dir_path, 'one_file')
-        dir_path_one_file = dir_path_one_file.replace('\\', '\\\\')
-
         self.validate_command(  # create
             'application create --app-name=fabric:/application1 --app-type=applicationType --app-version=1 --max-node-count=3 --min-node-count=2 '
             '--metrics=@' + app_capacity_metrics +
@@ -466,11 +478,6 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # Running this test with more than one file in the folder will cause some JSON
         # deserialization errors.
-        self.validate_command(  # upload
-            'application upload --path=' + dir_path_one_file,  # We don't need a real app pkg
-            'PUT',
-            '/ImageStore',
-            ['api-version=6.1'])
         self.validate_command(  # delete
             'application delete --application-id=application~Id --force-remove=true',
             'POST',
