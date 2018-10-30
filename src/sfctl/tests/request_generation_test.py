@@ -236,14 +236,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         # separate process,
         # so it's unable to be caught by vcr. Move this to just checking that it runs without
         # crashing.
-        # TODO: make sure that if the command returns an error, that the process returns error
-        # If we're removing the paths generation test, we should have a way to test that it works somehow.
-        self.validate_command_succeeds('cluster show-connection')
-        self.validate_command(  # upload
-            'application upload --path=' + dir_path_one_file,  # We don't need a real app pkg
-            'PUT',
-            '/ImageStore',
-            ['api-version=6.1'])
+        self.validate_command_succeeds('application upload --path=' + dir_path_one_file)
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
