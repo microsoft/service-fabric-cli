@@ -108,13 +108,13 @@ def mesh_deploy(client, input_yaml_file_paths, parameters=None):
             client.mesh_volume.create_or_update(resource_name, volume_description.get('description')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.network:
             network_description = load_json(resource)
-            client.mesh_network.create_or_update(resource_name, network_description.get('description')) # pylint: disable=line-too-long
+            client.mesh_network.create_or_update(resource_name, network_description.get('description').get('name'), network_description.get('description').get('properties')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secret:
             secret_description = load_json(resource)
             client.mesh_secret.create_or_update(resource_name, secret_description.get('description').get('properties'), secret_description.get('description').get('name')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secretValue:
             secret_value_description = load_json(resource)
-            client.mesh_secret_value.add_value(resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
+            client.mesh_secret_value.add_value(secret_value_description.get('fullyQualifiedResourceName'), resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.gateway:
             gateway_description = load_json(resource)
             client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long

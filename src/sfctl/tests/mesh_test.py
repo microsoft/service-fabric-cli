@@ -11,8 +11,8 @@ import json
 import os
 import shutil
 from knack.util import CLIError
-import sfctl.custom_deployment as sf_r
 from sfmergeutility import SFMergeUtility
+import sfctl.custom_deployment as sf_r
 from sfctl.custom_deployment import ResourceType
 
 class MeshTests(unittest.TestCase):
