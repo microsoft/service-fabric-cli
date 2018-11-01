@@ -15,7 +15,6 @@ from msrest.serialization import Model
 class ApplicationHealthPolicy(Model):
     """Defines a health policy used to evaluate the health of an application or
     one of its children entities.
-    .
 
     :param consider_warning_as_error: Indicates whether warnings are treated
      with the same severity as errors. Default value: False .
@@ -30,15 +29,16 @@ class ApplicationHealthPolicy(Model):
      applications over the number of nodes where the application is currently
      deployed on in the cluster.
      The computation rounds up to tolerate one failure on small numbers of
-     nodes. Default percentage is zero.
-     . Default value: 0 .
+     nodes. Default percentage is zero. Default value: 0 .
     :type max_percent_unhealthy_deployed_applications: int
-    :param default_service_type_health_policy:
+    :param default_service_type_health_policy: The health policy used by
+     default to evaluate the health of a service type.
     :type default_service_type_health_policy:
-     ~azure.mgmt.servicefabric.models.ServiceTypeHealthPolicy
-    :param service_type_health_policy_map:
+     ~azure.servicefabric.models.ServiceTypeHealthPolicy
+    :param service_type_health_policy_map: The map with service type health
+     policy per service type name. The map is empty by default.
     :type service_type_health_policy_map:
-     list[~azure.mgmt.servicefabric.models.ServiceTypeHealthPolicyMapItem]
+     list[~azure.servicefabric.models.ServiceTypeHealthPolicyMapItem]
     """
 
     _attribute_map = {

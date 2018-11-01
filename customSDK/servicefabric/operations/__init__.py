@@ -9,20 +9,24 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .clusters_operations import ClustersOperations
-from .cluster_versions_operations import ClusterVersionsOperations
-from .operations import Operations
-from .application_type_operations import ApplicationTypeOperations
-from .version_operations import VersionOperations
-from .application_operations import ApplicationOperations
-from .service_operations import ServiceOperations
+from .mesh_secret_operations import MeshSecretOperations
+from .mesh_secret_value_operations import MeshSecretValueOperations
+from .mesh_volume_operations import MeshVolumeOperations
+from .mesh_network_operations import MeshNetworkOperations
+from .mesh_application_operations import MeshApplicationOperations
+from .mesh_service_operations import MeshServiceOperations
+from .mesh_code_package_operations import MeshCodePackageOperations
+from .mesh_service_replica_operations import MeshServiceReplicaOperations
+from .mesh_gateway_operations import MeshGatewayOperations
 
 __all__ = [
-    'ClustersOperations',
-    'ClusterVersionsOperations',
-    'Operations',
-    'ApplicationTypeOperations',
-    'VersionOperations',
-    'ApplicationOperations',
-    'ServiceOperations',
+    'MeshSecretOperations',
+    'MeshSecretValueOperations',
+    'MeshVolumeOperations',
+    'MeshNetworkOperations',
+    'MeshApplicationOperations',
+    'MeshServiceOperations',
+    'MeshCodePackageOperations',
+    'MeshServiceReplicaOperations',
+    'MeshGatewayOperations',
 ]

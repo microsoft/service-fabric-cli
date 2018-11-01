@@ -9,75 +9,61 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .service_properties_base_py3 import ServicePropertiesBase
+from msrest.serialization import Model
 
 
-class ServiceProperties(ServicePropertiesBase):
-    """The service resource properties.
-
-    You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: StatelessServiceProperties, StatefulServiceProperties
+class ServiceProperties(Model):
+    """Describes properties of a service resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param placement_constraints: The placement constraints as a string.
-     Placement constraints are boolean expressions on node properties and allow
-     for restricting a service to particular nodes based on the service
-     requirements. For example, to place a service on nodes where NodeType is
-     blue specify the following: "NodeColor == blue)".
-    :type placement_constraints: str
-    :param correlation_scheme:
-    :type correlation_scheme:
-     list[~azure.mgmt.servicefabric.models.ServiceCorrelationDescription]
-    :param service_load_metrics:
-    :type service_load_metrics:
-     list[~azure.mgmt.servicefabric.models.ServiceLoadMetricDescription]
-    :param service_placement_policies:
-    :type service_placement_policies:
-     list[~azure.mgmt.servicefabric.models.ServicePlacementPolicyDescription]
-    :param default_move_cost: Possible values include: 'Zero', 'Low',
-     'Medium', 'High'
-    :type default_move_cost: str or ~azure.mgmt.servicefabric.models.enum
-    :ivar provisioning_state: The current deployment or provisioning state,
-     which only appears in the response
-    :vartype provisioning_state: str
-    :param service_type_name: The name of the service type
-    :type service_type_name: str
-    :param partition_description:
-    :type partition_description:
-     ~azure.mgmt.servicefabric.models.PartitionSchemeDescription
-    :param service_kind: Required. Constant filled by server.
-    :type service_kind: str
+    :param description: User readable description of the service.
+    :type description: str
+    :param replica_count: The number of replicas of the service to create.
+     Defaults to 1 if not specified.
+    :type replica_count: int
+    :param auto_scaling_policies: Auto scaling policies
+    :type auto_scaling_policies:
+     list[~azure.servicefabric.models.AutoScalingPolicy]
+    :ivar status: Status of the service. Possible values include: 'Unknown',
+     'Ready', 'Upgrading', 'Creating', 'Deleting', 'Failed'
+    :vartype status: str or ~azure.servicefabric.models.ResourceStatus
+    :ivar status_details: Gives additional information about the current
+     status of the service.
+    :vartype status_details: str
+    :ivar health_state: Describes the health state of an application resource.
+     Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
+    :vartype health_state: str or ~azure.servicefabric.models.HealthState
+    :ivar unhealthy_evaluation: When the service's health state is not 'Ok',
+     this additional details from service fabric Health Manager for the user to
+     know why the service is marked unhealthy.
+    :vartype unhealthy_evaluation: str
     """
 
     _validation = {
-        'provisioning_state': {'readonly': True},
-        'service_kind': {'required': True},
+        'status': {'readonly': True},
+        'status_details': {'readonly': True},
+        'health_state': {'readonly': True},
+        'unhealthy_evaluation': {'readonly': True},
     }
 
     _attribute_map = {
-        'placement_constraints': {'key': 'placementConstraints', 'type': 'str'},
-        'correlation_scheme': {'key': 'correlationScheme', 'type': '[ServiceCorrelationDescription]'},
-        'service_load_metrics': {'key': 'serviceLoadMetrics', 'type': '[ServiceLoadMetricDescription]'},
-        'service_placement_policies': {'key': 'servicePlacementPolicies', 'type': '[ServicePlacementPolicyDescription]'},
-        'default_move_cost': {'key': 'defaultMoveCost', 'type': 'str'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
-        'service_type_name': {'key': 'serviceTypeName', 'type': 'str'},
-        'partition_description': {'key': 'partitionDescription', 'type': 'PartitionSchemeDescription'},
-        'service_kind': {'key': 'serviceKind', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'replica_count': {'key': 'replicaCount', 'type': 'int'},
+        'auto_scaling_policies': {'key': 'autoScalingPolicies', 'type': '[AutoScalingPolicy]'},
+        'status': {'key': 'status', 'type': 'str'},
+        'status_details': {'key': 'statusDetails', 'type': 'str'},
+        'health_state': {'key': 'healthState', 'type': 'str'},
+        'unhealthy_evaluation': {'key': 'unhealthyEvaluation', 'type': 'str'},
     }
 
-    _subtype_map = {
-        'service_kind': {'Stateless': 'StatelessServiceProperties', 'Stateful': 'StatefulServiceProperties'}
-    }
-
-    def __init__(self, *, placement_constraints: str=None, correlation_scheme=None, service_load_metrics=None, service_placement_policies=None, default_move_cost=None, service_type_name: str=None, partition_description=None, **kwargs) -> None:
-        super(ServiceProperties, self).__init__(placement_constraints=placement_constraints, correlation_scheme=correlation_scheme, service_load_metrics=service_load_metrics, service_placement_policies=service_placement_policies, default_move_cost=default_move_cost, **kwargs)
-        self.provisioning_state = None
-        self.service_type_name = service_type_name
-        self.partition_description = partition_description
-        self.service_kind = None
-        self.service_kind = 'ServiceProperties'
+    def __init__(self, *, description: str=None, replica_count: int=None, auto_scaling_policies=None, **kwargs) -> None:
+        super(ServiceProperties, self).__init__(**kwargs)
+        self.description = description
+        self.replica_count = replica_count
+        self.auto_scaling_policies = auto_scaling_policies
+        self.status = None
+        self.status_details = None
+        self.health_state = None
+        self.unhealthy_evaluation = None
