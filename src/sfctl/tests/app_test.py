@@ -239,6 +239,8 @@ class AppTests(unittest.TestCase):
                 query_timeout = query['timeout']
 
                 # here 3 is the response time in seconds from the mock server
-                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
+                # however, the mock server is a bit slow, taking an extra second from receiving
+                # the request to start processing it.
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*4, delta=2)
 
                 iteration += 1

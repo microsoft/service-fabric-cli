@@ -59,7 +59,7 @@ class MockServer(BaseHTTPRequestHandler):
             counter = 0
             import time
 
-            while counter < int(query['timeout'][0]) and counter < 3:
+            while 0 < int(query['timeout'][0]) and counter < 3:
                 time.sleep(1)
                 counter += 1
 
