@@ -37,14 +37,14 @@ setup(
         'Programming Language :: Python :: 3.7'
     ],
     keywords='servicefabric azure',
-    python_requires='>=2.7,!=3.4,!=3.3,!=3.2,!=3.1,!=3.0,<=3.7',
+    python_requires='>=2.7,!=3.4,!=3.3,!=3.2,!=3.1,!=3.0,<3.8',
     packages=[
         'sfctl',
         'sfctl.helps',
         'sfctl.tests'
     ],
     install_requires=[
-        'knack==0.1.1',
+        'knack==0.4.5',
         'msrest>=0.4.26',
         'msrestazure',
         'requests',

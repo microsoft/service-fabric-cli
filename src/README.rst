@@ -19,7 +19,12 @@ Change Log
 Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
-- Add a check to ensure sfctl version is compatible with the connected cluster version. This check is run periodically and on failures (#123)
+- Upgrade the knack package dependency to version 0.4.2 (#122)
+- Add a check to ensure sfctl version is compatible with the connected cluster version. This check is run periodically and on failures. Upgrade knack package dependency to version 0.4.5 (#123)
+- Remove retry on failed commands, such as 500 status codes being returned. This allows the proper error message to propogate through (#125)
+- Add Mesh app, volume, service, and service-replica commands (#129)
+- Add Mesh network, gateway, code package, secret, and secretvalue commands (#141)
+- Allow any Python 3.7.x versions rather than only 3.7.0 (#142)
 
 6.0.1
 -----

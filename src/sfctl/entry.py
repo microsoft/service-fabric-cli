@@ -15,6 +15,7 @@ from sfctl.commands import SFCommandLoader, SFCommandHelp
 from sfctl.custom_cluster import check_cluster_version
 
 
+
 def cli():
     """Create CLI environment"""
     return VersionedCLI(cli_name=SF_CLI_NAME,
