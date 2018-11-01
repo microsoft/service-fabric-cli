@@ -15,7 +15,13 @@ from msrest.serialization import Model
 class ClusterConfigurationUpgradeDescription(Model):
     """Describes the parameters for a standalone cluster configuration upgrade.
 
-    :param cluster_config: The cluster configuration.
+    All required parameters must be populated in order to send to Azure.
+
+    :param cluster_config: Required. The cluster configuration as a JSON
+     string. For example, [this
+     file](https://github.com/Azure-Samples/service-fabric-dotnet-standalone-cluster-configuration/blob/master/Samples/ClusterConfig.Unsecure.DevCluster.json)
+     contains JSON describing the [nodes and other properties of the
+     cluster](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-manifest).
     :type cluster_config: str
     :param health_check_retry_timeout: The length of time between attempts to
      perform health checks if the application or cluster is not healthy.
@@ -77,16 +83,16 @@ class ClusterConfigurationUpgradeDescription(Model):
         'application_health_policies': {'key': 'ApplicationHealthPolicies', 'type': 'ApplicationHealthPolicies'},
     }
 
-    def __init__(self, cluster_config, health_check_retry_timeout="PT0H0M0S", health_check_wait_duration_in_seconds="PT0H0M0S", health_check_stable_duration_in_seconds="PT0H0M0S", upgrade_domain_timeout_in_seconds="PT0H0M0S", upgrade_timeout_in_seconds="PT0H0M0S", max_percent_unhealthy_applications=0, max_percent_unhealthy_nodes=0, max_percent_delta_unhealthy_nodes=0, max_percent_upgrade_domain_delta_unhealthy_nodes=0, application_health_policies=None):
-        super(ClusterConfigurationUpgradeDescription, self).__init__()
-        self.cluster_config = cluster_config
-        self.health_check_retry_timeout = health_check_retry_timeout
-        self.health_check_wait_duration_in_seconds = health_check_wait_duration_in_seconds
-        self.health_check_stable_duration_in_seconds = health_check_stable_duration_in_seconds
-        self.upgrade_domain_timeout_in_seconds = upgrade_domain_timeout_in_seconds
-        self.upgrade_timeout_in_seconds = upgrade_timeout_in_seconds
-        self.max_percent_unhealthy_applications = max_percent_unhealthy_applications
-        self.max_percent_unhealthy_nodes = max_percent_unhealthy_nodes
-        self.max_percent_delta_unhealthy_nodes = max_percent_delta_unhealthy_nodes
-        self.max_percent_upgrade_domain_delta_unhealthy_nodes = max_percent_upgrade_domain_delta_unhealthy_nodes
-        self.application_health_policies = application_health_policies
+    def __init__(self, **kwargs):
+        super(ClusterConfigurationUpgradeDescription, self).__init__(**kwargs)
+        self.cluster_config = kwargs.get('cluster_config', None)
+        self.health_check_retry_timeout = kwargs.get('health_check_retry_timeout', "PT0H0M0S")
+        self.health_check_wait_duration_in_seconds = kwargs.get('health_check_wait_duration_in_seconds', "PT0H0M0S")
+        self.health_check_stable_duration_in_seconds = kwargs.get('health_check_stable_duration_in_seconds', "PT0H0M0S")
+        self.upgrade_domain_timeout_in_seconds = kwargs.get('upgrade_domain_timeout_in_seconds', "PT0H0M0S")
+        self.upgrade_timeout_in_seconds = kwargs.get('upgrade_timeout_in_seconds', "PT0H0M0S")
+        self.max_percent_unhealthy_applications = kwargs.get('max_percent_unhealthy_applications', 0)
+        self.max_percent_unhealthy_nodes = kwargs.get('max_percent_unhealthy_nodes', 0)
+        self.max_percent_delta_unhealthy_nodes = kwargs.get('max_percent_delta_unhealthy_nodes', 0)
+        self.max_percent_upgrade_domain_delta_unhealthy_nodes = kwargs.get('max_percent_upgrade_domain_delta_unhealthy_nodes', 0)
+        self.application_health_policies = kwargs.get('application_health_policies', None)

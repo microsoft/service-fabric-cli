@@ -18,9 +18,11 @@ class ContainerCodePackageProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param name: The name of the code package.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the code package.
     :type name: str
-    :param image: The Container image to use.
+    :param image: Required. The Container image to use.
     :type image: str
     :param image_registry_credential: Image registry credential.
     :type image_registry_credential:
@@ -43,7 +45,7 @@ class ContainerCodePackageProperties(Model):
     :type labels: list[~azure.servicefabric.models.ContainerLabel]
     :param endpoints: The endpoints exposed by this container.
     :type endpoints: list[~azure.servicefabric.models.EndpointProperties]
-    :param resources: The resources required by this container.
+    :param resources: Required. The resources required by this container.
     :type resources: ~azure.servicefabric.models.ResourceRequirements
     :param volume_refs: Volumes to be attached to the container. The lifetime
      of these volumes is independent of the application's lifetime.
@@ -87,20 +89,20 @@ class ContainerCodePackageProperties(Model):
         'instance_view': {'key': 'instanceView', 'type': 'ContainerInstanceView'},
     }
 
-    def __init__(self, name, image, resources, image_registry_credential=None, entrypoint=None, commands=None, environment_variables=None, settings=None, labels=None, endpoints=None, volume_refs=None, volumes=None, diagnostics=None, reliable_collections_refs=None):
-        super(ContainerCodePackageProperties, self).__init__()
-        self.name = name
-        self.image = image
-        self.image_registry_credential = image_registry_credential
-        self.entrypoint = entrypoint
-        self.commands = commands
-        self.environment_variables = environment_variables
-        self.settings = settings
-        self.labels = labels
-        self.endpoints = endpoints
-        self.resources = resources
-        self.volume_refs = volume_refs
-        self.volumes = volumes
-        self.diagnostics = diagnostics
-        self.reliable_collections_refs = reliable_collections_refs
+    def __init__(self, **kwargs):
+        super(ContainerCodePackageProperties, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.image = kwargs.get('image', None)
+        self.image_registry_credential = kwargs.get('image_registry_credential', None)
+        self.entrypoint = kwargs.get('entrypoint', None)
+        self.commands = kwargs.get('commands', None)
+        self.environment_variables = kwargs.get('environment_variables', None)
+        self.settings = kwargs.get('settings', None)
+        self.labels = kwargs.get('labels', None)
+        self.endpoints = kwargs.get('endpoints', None)
+        self.resources = kwargs.get('resources', None)
+        self.volume_refs = kwargs.get('volume_refs', None)
+        self.volumes = kwargs.get('volumes', None)
+        self.diagnostics = kwargs.get('diagnostics', None)
+        self.reliable_collections_refs = kwargs.get('reliable_collections_refs', None)
         self.instance_view = None
