@@ -238,9 +238,10 @@ class AppTests(unittest.TestCase):
                 query = parse.parse_qs(parsed_url.query)
                 query_timeout = query['timeout']
 
-                # here 3 is the response time in seconds from the mock server
-                # however, the mock server is a bit slow, taking an extra second from receiving
-                # the request to start processing it.
-                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*4, delta=2)
+                # Here 3 is the response time in seconds from the mock server
+                # however, the mock server can be a bit slow, taking an extra second from receiving
+                # the request to start processing it. Linux does not seem to have this problem.
+                # Issue seen on Windows only. If testing on windows, change the 3 seconds to 4.
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
 
                 iteration += 1
