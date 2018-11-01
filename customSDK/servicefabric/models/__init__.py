@@ -9,1160 +9,179 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .fabric_error_error import FabricErrorError
-from .fabric_error import FabricError, FabricErrorException
-from .container_logs import ContainerLogs
-from .aad_metadata import AadMetadata
-from .aad_metadata_object import AadMetadataObject
-from .analysis_event_metadata import AnalysisEventMetadata
-from .application_event import ApplicationEvent
-from .service_health_state import ServiceHealthState
-from .deployed_application_health_state import DeployedApplicationHealthState
-from .application_health import ApplicationHealth
-from .health_evaluation import HealthEvaluation
-from .health_evaluation_wrapper import HealthEvaluationWrapper
-from .application_health_evaluation import ApplicationHealthEvaluation
-from .service_type_health_policy import ServiceTypeHealthPolicy
-from .service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem
-from .application_health_policy import ApplicationHealthPolicy
-from .application_health_policy_map_item import ApplicationHealthPolicyMapItem
-from .application_health_policies import ApplicationHealthPolicies
-from .application_health_state import ApplicationHealthState
-from .replica_health_state_chunk import ReplicaHealthStateChunk
-from .replica_health_state_chunk_list import ReplicaHealthStateChunkList
-from .partition_health_state_chunk import PartitionHealthStateChunk
-from .partition_health_state_chunk_list import PartitionHealthStateChunkList
-from .service_health_state_chunk import ServiceHealthStateChunk
-from .service_health_state_chunk_list import ServiceHealthStateChunkList
-from .deployed_service_package_health_state_chunk import DeployedServicePackageHealthStateChunk
-from .deployed_service_package_health_state_chunk_list import DeployedServicePackageHealthStateChunkList
-from .deployed_application_health_state_chunk import DeployedApplicationHealthStateChunk
-from .deployed_application_health_state_chunk_list import DeployedApplicationHealthStateChunkList
-from .application_health_state_chunk import ApplicationHealthStateChunk
-from .application_health_state_chunk_list import ApplicationHealthStateChunkList
-from .replica_health_state_filter import ReplicaHealthStateFilter
-from .partition_health_state_filter import PartitionHealthStateFilter
-from .service_health_state_filter import ServiceHealthStateFilter
-from .deployed_service_package_health_state_filter import DeployedServicePackageHealthStateFilter
-from .deployed_application_health_state_filter import DeployedApplicationHealthStateFilter
-from .application_health_state_filter import ApplicationHealthStateFilter
-from .application_parameter import ApplicationParameter
-from .application_info import ApplicationInfo
-from .application_metric_description import ApplicationMetricDescription
-from .application_load_info import ApplicationLoadInfo
-from .application_name_info import ApplicationNameInfo
-from .applications_health_evaluation import ApplicationsHealthEvaluation
-from .application_type_applications_health_evaluation import ApplicationTypeApplicationsHealthEvaluation
-from .application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem
-from .application_type_info import ApplicationTypeInfo
-from .paged_application_type_info_list import PagedApplicationTypeInfoList
-from .application_type_manifest import ApplicationTypeManifest
-from .monitoring_policy_description import MonitoringPolicyDescription
-from .application_upgrade_description import ApplicationUpgradeDescription
-from .upgrade_domain_info import UpgradeDomainInfo
-from .safety_check import SafetyCheck
-from .safety_check_wrapper import SafetyCheckWrapper
-from .node_upgrade_progress_info import NodeUpgradeProgressInfo
-from .current_upgrade_domain_progress_info import CurrentUpgradeDomainProgressInfo
-from .failure_upgrade_domain_progress_info import FailureUpgradeDomainProgressInfo
-from .application_upgrade_progress_info import ApplicationUpgradeProgressInfo
-from .cluster_configuration import ClusterConfiguration
-from .cluster_event import ClusterEvent
-from .node_id import NodeId
-from .node_health_state import NodeHealthState
-from .cluster_health import ClusterHealth
-from .node_health_state_chunk import NodeHealthStateChunk
-from .node_health_state_chunk_list import NodeHealthStateChunkList
-from .cluster_health_chunk import ClusterHealthChunk
-from .node_health_state_filter import NodeHealthStateFilter
-from .cluster_health_policy import ClusterHealthPolicy
-from .cluster_health_chunk_query_description import ClusterHealthChunkQueryDescription
-from .cluster_health_policies import ClusterHealthPolicies
-from .cluster_manifest import ClusterManifest
-from .cluster_version import ClusterVersion
-from .container_api_request_body import ContainerApiRequestBody
-from .container_api_result import ContainerApiResult
-from .container_api_response import ContainerApiResponse
-from .container_instance_event import ContainerInstanceEvent
-from .deactivation_intent_description import DeactivationIntentDescription
-from .delta_nodes_check_health_evaluation import DeltaNodesCheckHealthEvaluation
-from .deployed_service_package_health_state import DeployedServicePackageHealthState
-from .deployed_application_health import DeployedApplicationHealth
-from .deployed_application_health_evaluation import DeployedApplicationHealthEvaluation
-from .deployed_application_info import DeployedApplicationInfo
-from .deployed_applications_health_evaluation import DeployedApplicationsHealthEvaluation
-from .deployed_service_package_health import DeployedServicePackageHealth
-from .deployed_service_package_health_evaluation import DeployedServicePackageHealthEvaluation
-from .deployed_service_packages_health_evaluation import DeployedServicePackagesHealthEvaluation
-from .deployed_service_replica_info import DeployedServiceReplicaInfo
-from .reconfiguration_information import ReconfigurationInformation
-from .deployed_stateful_service_replica_info import DeployedStatefulServiceReplicaInfo
-from .deployed_stateless_service_instance_info import DeployedStatelessServiceInstanceInfo
-from .health_event import HealthEvent
-from .health_state_count import HealthStateCount
-from .entity_kind_health_state_count import EntityKindHealthStateCount
-from .health_statistics import HealthStatistics
-from .entity_health import EntityHealth
-from .entity_health_state import EntityHealthState
-from .entity_health_state_chunk import EntityHealthStateChunk
-from .entity_health_state_chunk_list import EntityHealthStateChunkList
-from .epoch import Epoch
-from .event_health_evaluation import EventHealthEvaluation
-from .fabric_event import FabricEvent
-from .fabric_code_version_info import FabricCodeVersionInfo
-from .fabric_config_version_info import FabricConfigVersionInfo
-from .cluster_configuration_upgrade_status_info import ClusterConfigurationUpgradeStatusInfo
-from .health_information import HealthInformation
-from .int64_range_partition_information import Int64RangePartitionInformation
-from .named_partition_information import NamedPartitionInformation
-from .node_deactivation_task_id import NodeDeactivationTaskId
-from .node_deactivation_task import NodeDeactivationTask
-from .node_deactivation_info import NodeDeactivationInfo
-from .node_event import NodeEvent
-from .node_health import NodeHealth
-from .node_health_evaluation import NodeHealthEvaluation
-from .node_info import NodeInfo
-from .node_load_metric_information import NodeLoadMetricInformation
-from .node_load_info import NodeLoadInfo
-from .nodes_health_evaluation import NodesHealthEvaluation
-from .paged_application_info_list import PagedApplicationInfoList
-from .paged_deployed_application_info_list import PagedDeployedApplicationInfoList
-from .paged_node_info_list import PagedNodeInfoList
-from .partition_information import PartitionInformation
-from .service_partition_info import ServicePartitionInfo
-from .paged_service_partition_info_list import PagedServicePartitionInfoList
-from .replica_info import ReplicaInfo
-from .paged_replica_info_list import PagedReplicaInfoList
-from .service_info import ServiceInfo
-from .paged_service_info_list import PagedServiceInfoList
-from .partition_analysis_event import PartitionAnalysisEvent
-from .partition_event import PartitionEvent
-from .replica_health_state import ReplicaHealthState
-from .partition_health import PartitionHealth
-from .partition_health_evaluation import PartitionHealthEvaluation
-from .partition_health_state import PartitionHealthState
-from .provision_fabric_description import ProvisionFabricDescription
-from .provision_application_type_description_base import ProvisionApplicationTypeDescriptionBase
-from .provision_application_type_description import ProvisionApplicationTypeDescription
-from .external_store_provision_application_type_description import ExternalStoreProvisionApplicationTypeDescription
-from .unprovision_fabric_description import UnprovisionFabricDescription
-from .resume_cluster_upgrade_description import ResumeClusterUpgradeDescription
-from .cluster_upgrade_health_policy_object import ClusterUpgradeHealthPolicyObject
-from .start_cluster_upgrade_description import StartClusterUpgradeDescription
-from .rolling_upgrade_update_description import RollingUpgradeUpdateDescription
-from .update_cluster_upgrade_description import UpdateClusterUpgradeDescription
-from .partition_safety_check import PartitionSafetyCheck
-from .ensure_availability_safety_check import EnsureAvailabilitySafetyCheck
-from .ensure_partition_qurum_safety_check import EnsurePartitionQurumSafetyCheck
-from .seed_node_safety_check import SeedNodeSafetyCheck
-from .partitions_health_evaluation import PartitionsHealthEvaluation
-from .replica_event import ReplicaEvent
-from .replica_health import ReplicaHealth
-from .replica_health_evaluation import ReplicaHealthEvaluation
-from .replicas_health_evaluation import ReplicasHealthEvaluation
-from .restart_node_description import RestartNodeDescription
-from .service_event import ServiceEvent
-from .service_from_template_description import ServiceFromTemplateDescription
-from .service_health_evaluation import ServiceHealthEvaluation
-from .service_health import ServiceHealth
-from .service_name_info import ServiceNameInfo
-from .service_placement_invalid_domain_policy_description import ServicePlacementInvalidDomainPolicyDescription
-from .service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription
-from .service_placement_policy_description import ServicePlacementPolicyDescription
-from .service_placement_prefer_primary_domain_policy_description import ServicePlacementPreferPrimaryDomainPolicyDescription
-from .service_placement_required_domain_policy_description import ServicePlacementRequiredDomainPolicyDescription
-from .service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription
-from .services_health_evaluation import ServicesHealthEvaluation
-from .service_load_metric_description import ServiceLoadMetricDescription
-from .service_type_extension_description import ServiceTypeExtensionDescription
-from .service_type_description import ServiceTypeDescription
-from .service_type_info import ServiceTypeInfo
-from .service_type_manifest import ServiceTypeManifest
-from .singleton_partition_information import SingletonPartitionInformation
-from .stateful_service_info import StatefulServiceInfo
-from .stateful_service_partition_info import StatefulServicePartitionInfo
-from .stateful_service_replica_health import StatefulServiceReplicaHealth
-from .stateful_service_replica_health_state import StatefulServiceReplicaHealthState
-from .stateful_service_type_description import StatefulServiceTypeDescription
-from .stateless_service_info import StatelessServiceInfo
-from .stateless_service_instance_health import StatelessServiceInstanceHealth
-from .stateless_service_instance_health_state import StatelessServiceInstanceHealthState
-from .stateless_service_partition_info import StatelessServicePartitionInfo
-from .stateless_service_type_description import StatelessServiceTypeDescription
-from .system_application_health_evaluation import SystemApplicationHealthEvaluation
-from .upgrade_domain_delta_nodes_check_health_evaluation import UpgradeDomainDeltaNodesCheckHealthEvaluation
-from .upgrade_domain_nodes_health_evaluation import UpgradeDomainNodesHealthEvaluation
-from .wait_for_inbuild_replica_safety_check import WaitForInbuildReplicaSafetyCheck
-from .wait_for_primary_placement_safety_check import WaitForPrimaryPlacementSafetyCheck
-from .wait_for_primary_swap_safety_check import WaitForPrimarySwapSafetyCheck
-from .wait_for_reconfiguration_safety_check import WaitForReconfigurationSafetyCheck
-from .load_metric_report import LoadMetricReport
-from .partition_load_information import PartitionLoadInformation
-from .stateful_service_replica_info import StatefulServiceReplicaInfo
-from .stateless_service_instance_info import StatelessServiceInstanceInfo
-from .cluster_upgrade_description_object import ClusterUpgradeDescriptionObject
-from .failed_upgrade_domain_progress_object import FailedUpgradeDomainProgressObject
-from .cluster_upgrade_progress_object import ClusterUpgradeProgressObject
-from .cluster_configuration_upgrade_description import ClusterConfigurationUpgradeDescription
-from .upgrade_orchestration_service_state import UpgradeOrchestrationServiceState
-from .upgrade_orchestration_service_state_summary import UpgradeOrchestrationServiceStateSummary
-from .application_type_image_store_path import ApplicationTypeImageStorePath
-from .unprovision_application_type_description_info import UnprovisionApplicationTypeDescriptionInfo
-from .code_package_entry_point_statistics import CodePackageEntryPointStatistics
-from .code_package_entry_point import CodePackageEntryPoint
-from .deployed_code_package_info import DeployedCodePackageInfo
-from .chaos_context import ChaosContext
-from .chaos_target_filter import ChaosTargetFilter
-from .chaos_parameters import ChaosParameters
-from .chaos import Chaos
-from .chaos_parameters_dictionary_item import ChaosParametersDictionaryItem
-from .chaos_event import ChaosEvent
-from .chaos_event_wrapper import ChaosEventWrapper
-from .chaos_events_segment import ChaosEventsSegment
-from .chaos_schedule_job_active_days_of_week import ChaosScheduleJobActiveDaysOfWeek
-from .time_of_day import TimeOfDay
-from .time_range import TimeRange
-from .chaos_schedule_job import ChaosScheduleJob
-from .chaos_schedule import ChaosSchedule
-from .chaos_schedule_description import ChaosScheduleDescription
-from .executing_faults_chaos_event import ExecutingFaultsChaosEvent
-from .started_chaos_event import StartedChaosEvent
-from .stopped_chaos_event import StoppedChaosEvent
-from .test_error_chaos_event import TestErrorChaosEvent
-from .validation_failed_chaos_event import ValidationFailedChaosEvent
-from .waiting_chaos_event import WaitingChaosEvent
-from .application_capacity_description import ApplicationCapacityDescription
-from .application_description import ApplicationDescription
-from .compose_deployment_status_info import ComposeDeploymentStatusInfo
-from .registry_credential import RegistryCredential
-from .compose_deployment_upgrade_description import ComposeDeploymentUpgradeDescription
-from .compose_deployment_upgrade_progress_info import ComposeDeploymentUpgradeProgressInfo
-from .paged_compose_deployment_status_info_list import PagedComposeDeploymentStatusInfoList
-from .create_compose_deployment_description import CreateComposeDeploymentDescription
-from .deployed_service_package_info import DeployedServicePackageInfo
-from .service_correlation_description import ServiceCorrelationDescription
-from .partition_scheme_description import PartitionSchemeDescription
-from .named_partition_scheme_description import NamedPartitionSchemeDescription
-from .singleton_partition_scheme_description import SingletonPartitionSchemeDescription
-from .uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription
-from .scaling_trigger_description import ScalingTriggerDescription
-from .scaling_mechanism_description import ScalingMechanismDescription
-from .scaling_policy_description import ScalingPolicyDescription
-from .service_description import ServiceDescription
-from .stateful_service_description import StatefulServiceDescription
-from .stateless_service_description import StatelessServiceDescription
-from .replicator_queue_status import ReplicatorQueueStatus
-from .replicator_status import ReplicatorStatus
-from .remote_replicator_acknowledgement_detail import RemoteReplicatorAcknowledgementDetail
-from .remote_replicator_acknowledgement_status import RemoteReplicatorAcknowledgementStatus
-from .remote_replicator_status import RemoteReplicatorStatus
-from .primary_replicator_status import PrimaryReplicatorStatus
-from .secondary_replicator_status import SecondaryReplicatorStatus
-from .secondary_active_replicator_status import SecondaryActiveReplicatorStatus
-from .secondary_idle_replicator_status import SecondaryIdleReplicatorStatus
-from .load_metric_report_info import LoadMetricReportInfo
-from .deployed_service_replica_detail_info import DeployedServiceReplicaDetailInfo
-from .key_value_store_replica_status import KeyValueStoreReplicaStatus
-from .deployed_stateful_service_replica_detail_info import DeployedStatefulServiceReplicaDetailInfo
-from .deployed_stateless_service_instance_detail_info import DeployedStatelessServiceInstanceDetailInfo
-from .replica_status_base import ReplicaStatusBase
-from .service_update_description import ServiceUpdateDescription
-from .stateful_service_update_description import StatefulServiceUpdateDescription
-from .stateless_service_update_description import StatelessServiceUpdateDescription
-from .file_version import FileVersion
-from .file_info import FileInfo
-from .folder_info import FolderInfo
-from .image_store_content import ImageStoreContent
-from .image_store_copy_description import ImageStoreCopyDescription
-from .restart_deployed_code_package_description import RestartDeployedCodePackageDescription
-from .deployed_service_type_info import DeployedServiceTypeInfo
-from .resolved_service_endpoint import ResolvedServiceEndpoint
-from .resolved_service_partition import ResolvedServicePartition
-from .selected_partition import SelectedPartition
-from .invoke_data_loss_result import InvokeDataLossResult
-from .invoke_quorum_loss_result import InvokeQuorumLossResult
-from .node_result import NodeResult
-from .node_transition_result import NodeTransitionResult
-from .node_transition_progress import NodeTransitionProgress
-from .operation_status import OperationStatus
-from .partition_data_loss_progress import PartitionDataLossProgress
-from .partition_quorum_loss_progress import PartitionQuorumLossProgress
-from .restart_partition_result import RestartPartitionResult
-from .partition_restart_progress import PartitionRestartProgress
-from .package_sharing_policy_info import PackageSharingPolicyInfo
-from .deploy_service_package_to_node_description import DeployServicePackageToNodeDescription
-from .resume_application_upgrade_description import ResumeApplicationUpgradeDescription
-from .application_upgrade_update_description import ApplicationUpgradeUpdateDescription
-from .name_description import NameDescription
-from .paged_sub_name_info_list import PagedSubNameInfoList
-from .property_value import PropertyValue
-from .binary_property_value import BinaryPropertyValue
-from .int64_property_value import Int64PropertyValue
-from .double_property_value import DoublePropertyValue
-from .string_property_value import StringPropertyValue
-from .guid_property_value import GuidPropertyValue
-from .property_metadata import PropertyMetadata
-from .property_info import PropertyInfo
-from .paged_property_info_list import PagedPropertyInfoList
-from .property_description import PropertyDescription
-from .property_batch_operation import PropertyBatchOperation
-from .property_batch_description_list import PropertyBatchDescriptionList
-from .check_exists_property_batch_operation import CheckExistsPropertyBatchOperation
-from .check_sequence_property_batch_operation import CheckSequencePropertyBatchOperation
-from .check_value_property_batch_operation import CheckValuePropertyBatchOperation
-from .delete_property_batch_operation import DeletePropertyBatchOperation
-from .get_property_batch_operation import GetPropertyBatchOperation
-from .put_property_batch_operation import PutPropertyBatchOperation
-from .property_batch_info import PropertyBatchInfo
-from .successful_property_batch_info import SuccessfulPropertyBatchInfo
-from .failed_property_batch_info import FailedPropertyBatchInfo
-from .backup_schedule_description import BackupScheduleDescription
-from .backup_storage_description import BackupStorageDescription
-from .retention_policy_description import RetentionPolicyDescription
-from .backup_policy_description import BackupPolicyDescription
-from .paged_backup_policy_description_list import PagedBackupPolicyDescriptionList
-from .basic_retention_policy_description import BasicRetentionPolicyDescription
-from .disable_backup_description import DisableBackupDescription
-from .application_backup_configuration_info import ApplicationBackupConfigurationInfo
-from .service_backup_configuration_info import ServiceBackupConfigurationInfo
-from .backup_suspension_info import BackupSuspensionInfo
-from .backup_configuration_info import BackupConfigurationInfo
-from .paged_backup_configuration_info_list import PagedBackupConfigurationInfoList
-from .restore_partition_description import RestorePartitionDescription
-from .restore_progress_info import RestoreProgressInfo
-from .backup_partition_description import BackupPartitionDescription
-from .backup_info import BackupInfo
-from .paged_backup_info_list import PagedBackupInfoList
-from .azure_blob_backup_storage_description import AzureBlobBackupStorageDescription
-from .file_share_backup_storage_description import FileShareBackupStorageDescription
-from .frequency_based_backup_schedule_description import FrequencyBasedBackupScheduleDescription
-from .time_based_backup_schedule_description import TimeBasedBackupScheduleDescription
-from .backup_progress_info import BackupProgressInfo
-from .partition_backup_configuration_info import PartitionBackupConfigurationInfo
-from .backup_entity import BackupEntity
-from .application_backup_entity import ApplicationBackupEntity
-from .service_backup_entity import ServiceBackupEntity
-from .partition_backup_entity import PartitionBackupEntity
-from .enable_backup_description import EnableBackupDescription
-from .paged_backup_entity_list import PagedBackupEntityList
-from .get_backup_by_storage_query_description import GetBackupByStorageQueryDescription
-from .node_impact import NodeImpact
-from .node_repair_impact_description import NodeRepairImpactDescription
-from .node_repair_target_description import NodeRepairTargetDescription
-from .repair_impact_description_base import RepairImpactDescriptionBase
-from .repair_target_description_base import RepairTargetDescriptionBase
-from .repair_task_history import RepairTaskHistory
-from .repair_task import RepairTask
-from .repair_task_approve_description import RepairTaskApproveDescription
-from .repair_task_cancel_description import RepairTaskCancelDescription
-from .repair_task_delete_description import RepairTaskDeleteDescription
-from .repair_task_update_health_policy_description import RepairTaskUpdateHealthPolicyDescription
-from .repair_task_update_info import RepairTaskUpdateInfo
-from .upload_chunk_range import UploadChunkRange
-from .upload_session_info import UploadSessionInfo
-from .upload_session import UploadSession
-from .average_partition_load_scaling_trigger import AveragePartitionLoadScalingTrigger
-from .average_service_load_scaling_trigger import AverageServiceLoadScalingTrigger
-from .partition_instance_count_scale_mechanism import PartitionInstanceCountScaleMechanism
-from .add_remove_incremental_named_partition_scaling_mechanism import AddRemoveIncrementalNamedPartitionScalingMechanism
-from .application_created_event import ApplicationCreatedEvent
-from .application_deleted_event import ApplicationDeletedEvent
-from .application_new_health_report_event import ApplicationNewHealthReportEvent
-from .application_health_report_expired_event import ApplicationHealthReportExpiredEvent
-from .application_upgrade_completed_event import ApplicationUpgradeCompletedEvent
-from .application_upgrade_domain_completed_event import ApplicationUpgradeDomainCompletedEvent
-from .application_upgrade_rollback_completed_event import ApplicationUpgradeRollbackCompletedEvent
-from .application_upgrade_rollback_started_event import ApplicationUpgradeRollbackStartedEvent
-from .application_upgrade_started_event import ApplicationUpgradeStartedEvent
-from .deployed_application_new_health_report_event import DeployedApplicationNewHealthReportEvent
-from .deployed_application_health_report_expired_event import DeployedApplicationHealthReportExpiredEvent
-from .application_process_exited_event import ApplicationProcessExitedEvent
-from .application_container_instance_exited_event import ApplicationContainerInstanceExitedEvent
-from .node_aborted_event import NodeAbortedEvent
-from .node_added_to_cluster_event import NodeAddedToClusterEvent
-from .node_closed_event import NodeClosedEvent
-from .node_deactivate_completed_event import NodeDeactivateCompletedEvent
-from .node_deactivate_started_event import NodeDeactivateStartedEvent
-from .node_down_event import NodeDownEvent
-from .node_new_health_report_event import NodeNewHealthReportEvent
-from .node_health_report_expired_event import NodeHealthReportExpiredEvent
-from .node_open_succeeded_event import NodeOpenSucceededEvent
-from .node_open_failed_event import NodeOpenFailedEvent
-from .node_removed_from_cluster_event import NodeRemovedFromClusterEvent
-from .node_up_event import NodeUpEvent
-from .partition_new_health_report_event import PartitionNewHealthReportEvent
-from .partition_health_report_expired_event import PartitionHealthReportExpiredEvent
-from .partition_reconfigured_event import PartitionReconfiguredEvent
-from .partition_primary_move_analysis_event import PartitionPrimaryMoveAnalysisEvent
-from .service_created_event import ServiceCreatedEvent
-from .service_deleted_event import ServiceDeletedEvent
-from .service_new_health_report_event import ServiceNewHealthReportEvent
-from .service_health_report_expired_event import ServiceHealthReportExpiredEvent
-from .deployed_service_package_new_health_report_event import DeployedServicePackageNewHealthReportEvent
-from .deployed_service_package_health_report_expired_event import DeployedServicePackageHealthReportExpiredEvent
-from .stateful_replica_new_health_report_event import StatefulReplicaNewHealthReportEvent
-from .stateful_replica_health_report_expired_event import StatefulReplicaHealthReportExpiredEvent
-from .stateless_replica_new_health_report_event import StatelessReplicaNewHealthReportEvent
-from .stateless_replica_health_report_expired_event import StatelessReplicaHealthReportExpiredEvent
-from .cluster_new_health_report_event import ClusterNewHealthReportEvent
-from .cluster_health_report_expired_event import ClusterHealthReportExpiredEvent
-from .cluster_upgrade_completed_event import ClusterUpgradeCompletedEvent
-from .cluster_upgrade_domain_completed_event import ClusterUpgradeDomainCompletedEvent
-from .cluster_upgrade_rollback_completed_event import ClusterUpgradeRollbackCompletedEvent
-from .cluster_upgrade_rollback_started_event import ClusterUpgradeRollbackStartedEvent
-from .cluster_upgrade_started_event import ClusterUpgradeStartedEvent
-from .chaos_stopped_event import ChaosStoppedEvent
-from .chaos_started_event import ChaosStartedEvent
-from .chaos_code_package_restart_scheduled_event import ChaosCodePackageRestartScheduledEvent
-from .chaos_replica_removal_scheduled_event import ChaosReplicaRemovalScheduledEvent
-from .chaos_partition_secondary_move_scheduled_event import ChaosPartitionSecondaryMoveScheduledEvent
-from .chaos_partition_primary_move_scheduled_event import ChaosPartitionPrimaryMoveScheduledEvent
-from .chaos_replica_restart_scheduled_event import ChaosReplicaRestartScheduledEvent
-from .chaos_node_restart_scheduled_event import ChaosNodeRestartScheduledEvent
-from .secret_resource_properties import SecretResourceProperties
-from .inlined_value_secret_resource_properties import InlinedValueSecretResourceProperties
-from .secret_resource_description import SecretResourceDescription
-from .paged_secret_resource_description_list import PagedSecretResourceDescriptionList
-from .secret_resource_properties_base import SecretResourcePropertiesBase
-from .secret_value import SecretValue
-from .secret_value_properties import SecretValueProperties
-from .secret_value_resource_description import SecretValueResourceDescription
-from .paged_secret_value_resource_description_list import PagedSecretValueResourceDescriptionList
-from .volume_provider_parameters_azure_file import VolumeProviderParametersAzureFile
-from .volume_reference import VolumeReference
-from .application_scoped_volume_creation_parameters import ApplicationScopedVolumeCreationParameters
-from .application_scoped_volume import ApplicationScopedVolume
-from .application_scoped_volume_creation_parameters_service_fabric_volume_disk import ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk
-from .volume_resource_description import VolumeResourceDescription
-from .paged_volume_resource_description_list import PagedVolumeResourceDescriptionList
-from .network_resource_properties import NetworkResourceProperties
-from .local_network_resource_properties import LocalNetworkResourceProperties
-from .endpoint_ref import EndpointRef
-from .network_ref import NetworkRef
-from .network_resource_description import NetworkResourceDescription
-from .network_resource_properties_base import NetworkResourcePropertiesBase
-from .paged_network_resource_description_list import PagedNetworkResourceDescriptionList
-from .gateway_destination import GatewayDestination
-from .tcp_config import TcpConfig
-from .http_route_match_path import HttpRouteMatchPath
-from .http_route_match_header import HttpRouteMatchHeader
-from .http_route_match_rule import HttpRouteMatchRule
-from .http_route_config import HttpRouteConfig
-from .http_host_config import HttpHostConfig
-from .http_config import HttpConfig
-from .gateway_resource_description import GatewayResourceDescription
-from .paged_gateway_resource_description_list import PagedGatewayResourceDescriptionList
-from .image_registry_credential import ImageRegistryCredential
-from .environment_variable import EnvironmentVariable
-from .setting import Setting
-from .container_label import ContainerLabel
-from .endpoint_properties import EndpointProperties
-from .resource_requests import ResourceRequests
-from .resource_limits import ResourceLimits
-from .resource_requirements import ResourceRequirements
-from .diagnostics_ref import DiagnosticsRef
-from .reliable_collections_ref import ReliableCollectionsRef
-from .container_state import ContainerState
-from .container_event import ContainerEvent
-from .container_instance_view import ContainerInstanceView
-from .container_code_package_properties import ContainerCodePackageProperties
-from .auto_scaling_trigger import AutoScalingTrigger
-from .auto_scaling_mechanism import AutoScalingMechanism
-from .auto_scaling_policy import AutoScalingPolicy
-from .service_resource_description import ServiceResourceDescription
-from .diagnostics_sink_properties import DiagnosticsSinkProperties
-from .diagnostics_description import DiagnosticsDescription
-from .azure_internal_monitoring_pipeline_sink_description import AzureInternalMonitoringPipelineSinkDescription
-from .add_remove_replica_scaling_mechanism import AddRemoveReplicaScalingMechanism
-from .auto_scaling_metric import AutoScalingMetric
-from .auto_scaling_resource_metric import AutoScalingResourceMetric
-from .service_properties import ServiceProperties
-from .service_replica_properties import ServiceReplicaProperties
-from .service_replica_description import ServiceReplicaDescription
-from .average_load_scaling_trigger import AverageLoadScalingTrigger
-from .paged_service_resource_description_list import PagedServiceResourceDescriptionList
-from .paged_service_replica_description_list import PagedServiceReplicaDescriptionList
-from .application_resource_description import ApplicationResourceDescription
-from .paged_application_resource_description_list import PagedApplicationResourceDescriptionList
-from .service_fabric_client_ap_is_enums import (
-    HealthState,
-    FabricErrorCodes,
-    ApplicationDefinitionKind,
-    ApplicationStatus,
-    ApplicationPackageCleanupPolicy,
-    ApplicationTypeDefinitionKind,
-    ApplicationTypeStatus,
-    UpgradeKind,
-    UpgradeMode,
-    FailureAction,
-    UpgradeDomainState,
-    UpgradeState,
-    NodeUpgradePhase,
-    FailureReason,
-    DeactivationIntent,
-    DeployedApplicationStatus,
-    ReplicaStatus,
-    ReplicaRole,
-    ReconfigurationPhase,
-    ReconfigurationType,
-    EntityKind,
-    FabricEventKind,
-    HealthEvaluationKind,
-    NodeDeactivationIntent,
-    NodeDeactivationStatus,
-    NodeDeactivationTaskType,
-    NodeStatus,
-    ServicePartitionStatus,
-    ServiceStatus,
-    ProvisionApplicationTypeKind,
-    UpgradeType,
-    SafetyCheckKind,
-    CreateFabricDump,
-    ServicePackageActivationMode,
-    ServiceKind,
-    ServicePartitionKind,
-    ServicePlacementPolicyType,
-    ServiceLoadMetricWeight,
-    HostType,
-    HostIsolationMode,
-    DeploymentStatus,
-    EntryPointStatus,
-    ChaosStatus,
-    ChaosScheduleStatus,
-    ChaosEventKind,
-    ComposeDeploymentStatus,
-    ComposeDeploymentUpgradeState,
-    ServiceCorrelationScheme,
-    MoveCost,
-    PartitionScheme,
-    ServiceOperationName,
-    ReplicatorOperationName,
-    PartitionAccessStatus,
-    FabricReplicaStatus,
-    ReplicaKind,
-    ServiceTypeRegistrationStatus,
-    ServiceEndpointRole,
-    OperationState,
-    OperationType,
-    PackageSharingPolicyScope,
-    PropertyValueKind,
-    PropertyBatchOperationKind,
-    PropertyBatchInfoKind,
-    RetentionPolicyType,
-    BackupStorageKind,
-    BackupScheduleKind,
-    BackupPolicyScope,
-    BackupSuspensionScope,
-    RestoreState,
-    BackupType,
-    BackupScheduleFrequencyType,
-    DayOfWeek,
-    BackupState,
-    BackupEntityKind,
-    ImpactLevel,
-    RepairImpactKind,
-    RepairTargetKind,
-    State,
-    ResultStatus,
-    RepairTaskHealthCheckState,
-    ScalingTriggerKind,
-    ScalingMechanismKind,
-    ResourceStatus,
-    SecretKind,
-    VolumeProvider,
-    SizeTypes,
-    ApplicationScopedVolumeKind,
-    NetworkKind,
-    HeaderMatchType,
-    OperatingSystemType,
-    DiagnosticsSinkKind,
-    AutoScalingMechanismKind,
-    AutoScalingMetricKind,
-    AutoScalingResourceMetricName,
-    AutoScalingTriggerKind,
-    NodeStatusFilter,
-    ReplicaHealthReportServiceKind,
-    DataLossMode,
-    NodeTransitionType,
-    QuorumLossMode,
-    RestartPartitionMode,
+try:
+    from .service_type_health_policy_py3 import ServiceTypeHealthPolicy
+    from .service_type_health_policy_map_item_py3 import ServiceTypeHealthPolicyMapItem
+    from .application_health_policy_py3 import ApplicationHealthPolicy
+    from .application_metric_description_py3 import ApplicationMetricDescription
+    from .application_parameter_py3 import ApplicationParameter
+    from .service_correlation_description_py3 import ServiceCorrelationDescription
+    from .service_load_metric_description_py3 import ServiceLoadMetricDescription
+    from .service_placement_policy_description_py3 import ServicePlacementPolicyDescription
+    from .partition_scheme_description_py3 import PartitionSchemeDescription
+    from .named_partition_scheme_description_py3 import NamedPartitionSchemeDescription
+    from .singleton_partition_scheme_description_py3 import SingletonPartitionSchemeDescription
+    from .uniform_int64_range_partition_scheme_description_py3 import UniformInt64RangePartitionSchemeDescription
+    from .application_type_resource_py3 import ApplicationTypeResource
+    from .application_type_resource_list_py3 import ApplicationTypeResourceList
+    from .version_resource_py3 import VersionResource
+    from .version_resource_list_py3 import VersionResourceList
+    from .application_resource_py3 import ApplicationResource
+    from .application_resource_list_py3 import ApplicationResourceList
+    from .rolling_upgrade_monitoring_policy_py3 import RollingUpgradeMonitoringPolicy
+    from .application_upgrade_policy_py3 import ApplicationUpgradePolicy
+    from .application_resource_update_py3 import ApplicationResourceUpdate
+    from .service_properties_py3 import ServiceProperties
+    from .service_resource_py3 import ServiceResource
+    from .service_resource_list_py3 import ServiceResourceList
+    from .service_properties_base_py3 import ServicePropertiesBase
+    from .service_update_properties_py3 import ServiceUpdateProperties
+    from .service_resource_update_py3 import ServiceResourceUpdate
+    from .stateless_service_properties_py3 import StatelessServiceProperties
+    from .stateless_service_update_properties_py3 import StatelessServiceUpdateProperties
+    from .stateful_service_properties_py3 import StatefulServiceProperties
+    from .stateful_service_update_properties_py3 import StatefulServiceUpdateProperties
+    from .available_operation_display_py3 import AvailableOperationDisplay
+    from .azure_active_directory_py3 import AzureActiveDirectory
+    from .certificate_description_py3 import CertificateDescription
+    from .client_certificate_common_name_py3 import ClientCertificateCommonName
+    from .client_certificate_thumbprint_py3 import ClientCertificateThumbprint
+    from .cluster_version_details_py3 import ClusterVersionDetails
+    from .settings_parameter_description_py3 import SettingsParameterDescription
+    from .settings_section_description_py3 import SettingsSectionDescription
+    from .endpoint_range_description_py3 import EndpointRangeDescription
+    from .node_type_description_py3 import NodeTypeDescription
+    from .diagnostics_storage_account_config_py3 import DiagnosticsStorageAccountConfig
+    from .cluster_health_policy_py3 import ClusterHealthPolicy
+    from .cluster_upgrade_delta_health_policy_py3 import ClusterUpgradeDeltaHealthPolicy
+    from .cluster_upgrade_policy_py3 import ClusterUpgradePolicy
+    from .cluster_py3 import Cluster
+    from .cluster_code_versions_result_py3 import ClusterCodeVersionsResult
+    from .cluster_code_versions_list_result_py3 import ClusterCodeVersionsListResult
+    from .cluster_list_result_py3 import ClusterListResult
+    from .cluster_update_parameters_py3 import ClusterUpdateParameters
+    from .error_model_py3 import ErrorModel, ErrorModelException
+    from .operation_result_py3 import OperationResult
+    from .proxy_resource_py3 import ProxyResource
+    from .resource_py3 import Resource
+    from .service_type_delta_health_policy_py3 import ServiceTypeDeltaHealthPolicy
+except (SyntaxError, ImportError):
+    from .service_type_health_policy import ServiceTypeHealthPolicy
+    from .service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem
+    from .application_health_policy import ApplicationHealthPolicy
+    from .application_metric_description import ApplicationMetricDescription
+    from .application_parameter import ApplicationParameter
+    from .service_correlation_description import ServiceCorrelationDescription
+    from .service_load_metric_description import ServiceLoadMetricDescription
+    from .service_placement_policy_description import ServicePlacementPolicyDescription
+    from .partition_scheme_description import PartitionSchemeDescription
+    from .named_partition_scheme_description import NamedPartitionSchemeDescription
+    from .singleton_partition_scheme_description import SingletonPartitionSchemeDescription
+    from .uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription
+    from .application_type_resource import ApplicationTypeResource
+    from .application_type_resource_list import ApplicationTypeResourceList
+    from .version_resource import VersionResource
+    from .version_resource_list import VersionResourceList
+    from .application_resource import ApplicationResource
+    from .application_resource_list import ApplicationResourceList
+    from .rolling_upgrade_monitoring_policy import RollingUpgradeMonitoringPolicy
+    from .application_upgrade_policy import ApplicationUpgradePolicy
+    from .application_resource_update import ApplicationResourceUpdate
+    from .service_properties import ServiceProperties
+    from .service_resource import ServiceResource
+    from .service_resource_list import ServiceResourceList
+    from .service_properties_base import ServicePropertiesBase
+    from .service_update_properties import ServiceUpdateProperties
+    from .service_resource_update import ServiceResourceUpdate
+    from .stateless_service_properties import StatelessServiceProperties
+    from .stateless_service_update_properties import StatelessServiceUpdateProperties
+    from .stateful_service_properties import StatefulServiceProperties
+    from .stateful_service_update_properties import StatefulServiceUpdateProperties
+    from .available_operation_display import AvailableOperationDisplay
+    from .azure_active_directory import AzureActiveDirectory
+    from .certificate_description import CertificateDescription
+    from .client_certificate_common_name import ClientCertificateCommonName
+    from .client_certificate_thumbprint import ClientCertificateThumbprint
+    from .cluster_version_details import ClusterVersionDetails
+    from .settings_parameter_description import SettingsParameterDescription
+    from .settings_section_description import SettingsSectionDescription
+    from .endpoint_range_description import EndpointRangeDescription
+    from .node_type_description import NodeTypeDescription
+    from .diagnostics_storage_account_config import DiagnosticsStorageAccountConfig
+    from .cluster_health_policy import ClusterHealthPolicy
+    from .cluster_upgrade_delta_health_policy import ClusterUpgradeDeltaHealthPolicy
+    from .cluster_upgrade_policy import ClusterUpgradePolicy
+    from .cluster import Cluster
+    from .cluster_code_versions_result import ClusterCodeVersionsResult
+    from .cluster_code_versions_list_result import ClusterCodeVersionsListResult
+    from .cluster_list_result import ClusterListResult
+    from .cluster_update_parameters import ClusterUpdateParameters
+    from .error_model import ErrorModel, ErrorModelException
+    from .operation_result import OperationResult
+    from .proxy_resource import ProxyResource
+    from .resource import Resource
+    from .service_type_delta_health_policy import ServiceTypeDeltaHealthPolicy
+from .operation_result_paged import OperationResultPaged
+from .service_fabric_management_client_enums import (
+    ProvisioningState,
 )
 
 __all__ = [
-    'FabricErrorError',
-    'FabricError', 'FabricErrorException',
-    'ContainerLogs',
-    'AadMetadata',
-    'AadMetadataObject',
-    'AnalysisEventMetadata',
-    'ApplicationEvent',
-    'ServiceHealthState',
-    'DeployedApplicationHealthState',
-    'ApplicationHealth',
-    'HealthEvaluation',
-    'HealthEvaluationWrapper',
-    'ApplicationHealthEvaluation',
     'ServiceTypeHealthPolicy',
     'ServiceTypeHealthPolicyMapItem',
     'ApplicationHealthPolicy',
-    'ApplicationHealthPolicyMapItem',
-    'ApplicationHealthPolicies',
-    'ApplicationHealthState',
-    'ReplicaHealthStateChunk',
-    'ReplicaHealthStateChunkList',
-    'PartitionHealthStateChunk',
-    'PartitionHealthStateChunkList',
-    'ServiceHealthStateChunk',
-    'ServiceHealthStateChunkList',
-    'DeployedServicePackageHealthStateChunk',
-    'DeployedServicePackageHealthStateChunkList',
-    'DeployedApplicationHealthStateChunk',
-    'DeployedApplicationHealthStateChunkList',
-    'ApplicationHealthStateChunk',
-    'ApplicationHealthStateChunkList',
-    'ReplicaHealthStateFilter',
-    'PartitionHealthStateFilter',
-    'ServiceHealthStateFilter',
-    'DeployedServicePackageHealthStateFilter',
-    'DeployedApplicationHealthStateFilter',
-    'ApplicationHealthStateFilter',
-    'ApplicationParameter',
-    'ApplicationInfo',
     'ApplicationMetricDescription',
-    'ApplicationLoadInfo',
-    'ApplicationNameInfo',
-    'ApplicationsHealthEvaluation',
-    'ApplicationTypeApplicationsHealthEvaluation',
-    'ApplicationTypeHealthPolicyMapItem',
-    'ApplicationTypeInfo',
-    'PagedApplicationTypeInfoList',
-    'ApplicationTypeManifest',
-    'MonitoringPolicyDescription',
-    'ApplicationUpgradeDescription',
-    'UpgradeDomainInfo',
-    'SafetyCheck',
-    'SafetyCheckWrapper',
-    'NodeUpgradeProgressInfo',
-    'CurrentUpgradeDomainProgressInfo',
-    'FailureUpgradeDomainProgressInfo',
-    'ApplicationUpgradeProgressInfo',
-    'ClusterConfiguration',
-    'ClusterEvent',
-    'NodeId',
-    'NodeHealthState',
-    'ClusterHealth',
-    'NodeHealthStateChunk',
-    'NodeHealthStateChunkList',
-    'ClusterHealthChunk',
-    'NodeHealthStateFilter',
-    'ClusterHealthPolicy',
-    'ClusterHealthChunkQueryDescription',
-    'ClusterHealthPolicies',
-    'ClusterManifest',
-    'ClusterVersion',
-    'ContainerApiRequestBody',
-    'ContainerApiResult',
-    'ContainerApiResponse',
-    'ContainerInstanceEvent',
-    'DeactivationIntentDescription',
-    'DeltaNodesCheckHealthEvaluation',
-    'DeployedServicePackageHealthState',
-    'DeployedApplicationHealth',
-    'DeployedApplicationHealthEvaluation',
-    'DeployedApplicationInfo',
-    'DeployedApplicationsHealthEvaluation',
-    'DeployedServicePackageHealth',
-    'DeployedServicePackageHealthEvaluation',
-    'DeployedServicePackagesHealthEvaluation',
-    'DeployedServiceReplicaInfo',
-    'ReconfigurationInformation',
-    'DeployedStatefulServiceReplicaInfo',
-    'DeployedStatelessServiceInstanceInfo',
-    'HealthEvent',
-    'HealthStateCount',
-    'EntityKindHealthStateCount',
-    'HealthStatistics',
-    'EntityHealth',
-    'EntityHealthState',
-    'EntityHealthStateChunk',
-    'EntityHealthStateChunkList',
-    'Epoch',
-    'EventHealthEvaluation',
-    'FabricEvent',
-    'FabricCodeVersionInfo',
-    'FabricConfigVersionInfo',
-    'ClusterConfigurationUpgradeStatusInfo',
-    'HealthInformation',
-    'Int64RangePartitionInformation',
-    'NamedPartitionInformation',
-    'NodeDeactivationTaskId',
-    'NodeDeactivationTask',
-    'NodeDeactivationInfo',
-    'NodeEvent',
-    'NodeHealth',
-    'NodeHealthEvaluation',
-    'NodeInfo',
-    'NodeLoadMetricInformation',
-    'NodeLoadInfo',
-    'NodesHealthEvaluation',
-    'PagedApplicationInfoList',
-    'PagedDeployedApplicationInfoList',
-    'PagedNodeInfoList',
-    'PartitionInformation',
-    'ServicePartitionInfo',
-    'PagedServicePartitionInfoList',
-    'ReplicaInfo',
-    'PagedReplicaInfoList',
-    'ServiceInfo',
-    'PagedServiceInfoList',
-    'PartitionAnalysisEvent',
-    'PartitionEvent',
-    'ReplicaHealthState',
-    'PartitionHealth',
-    'PartitionHealthEvaluation',
-    'PartitionHealthState',
-    'ProvisionFabricDescription',
-    'ProvisionApplicationTypeDescriptionBase',
-    'ProvisionApplicationTypeDescription',
-    'ExternalStoreProvisionApplicationTypeDescription',
-    'UnprovisionFabricDescription',
-    'ResumeClusterUpgradeDescription',
-    'ClusterUpgradeHealthPolicyObject',
-    'StartClusterUpgradeDescription',
-    'RollingUpgradeUpdateDescription',
-    'UpdateClusterUpgradeDescription',
-    'PartitionSafetyCheck',
-    'EnsureAvailabilitySafetyCheck',
-    'EnsurePartitionQurumSafetyCheck',
-    'SeedNodeSafetyCheck',
-    'PartitionsHealthEvaluation',
-    'ReplicaEvent',
-    'ReplicaHealth',
-    'ReplicaHealthEvaluation',
-    'ReplicasHealthEvaluation',
-    'RestartNodeDescription',
-    'ServiceEvent',
-    'ServiceFromTemplateDescription',
-    'ServiceHealthEvaluation',
-    'ServiceHealth',
-    'ServiceNameInfo',
-    'ServicePlacementInvalidDomainPolicyDescription',
-    'ServicePlacementNonPartiallyPlaceServicePolicyDescription',
-    'ServicePlacementPolicyDescription',
-    'ServicePlacementPreferPrimaryDomainPolicyDescription',
-    'ServicePlacementRequiredDomainPolicyDescription',
-    'ServicePlacementRequireDomainDistributionPolicyDescription',
-    'ServicesHealthEvaluation',
-    'ServiceLoadMetricDescription',
-    'ServiceTypeExtensionDescription',
-    'ServiceTypeDescription',
-    'ServiceTypeInfo',
-    'ServiceTypeManifest',
-    'SingletonPartitionInformation',
-    'StatefulServiceInfo',
-    'StatefulServicePartitionInfo',
-    'StatefulServiceReplicaHealth',
-    'StatefulServiceReplicaHealthState',
-    'StatefulServiceTypeDescription',
-    'StatelessServiceInfo',
-    'StatelessServiceInstanceHealth',
-    'StatelessServiceInstanceHealthState',
-    'StatelessServicePartitionInfo',
-    'StatelessServiceTypeDescription',
-    'SystemApplicationHealthEvaluation',
-    'UpgradeDomainDeltaNodesCheckHealthEvaluation',
-    'UpgradeDomainNodesHealthEvaluation',
-    'WaitForInbuildReplicaSafetyCheck',
-    'WaitForPrimaryPlacementSafetyCheck',
-    'WaitForPrimarySwapSafetyCheck',
-    'WaitForReconfigurationSafetyCheck',
-    'LoadMetricReport',
-    'PartitionLoadInformation',
-    'StatefulServiceReplicaInfo',
-    'StatelessServiceInstanceInfo',
-    'ClusterUpgradeDescriptionObject',
-    'FailedUpgradeDomainProgressObject',
-    'ClusterUpgradeProgressObject',
-    'ClusterConfigurationUpgradeDescription',
-    'UpgradeOrchestrationServiceState',
-    'UpgradeOrchestrationServiceStateSummary',
-    'ApplicationTypeImageStorePath',
-    'UnprovisionApplicationTypeDescriptionInfo',
-    'CodePackageEntryPointStatistics',
-    'CodePackageEntryPoint',
-    'DeployedCodePackageInfo',
-    'ChaosContext',
-    'ChaosTargetFilter',
-    'ChaosParameters',
-    'Chaos',
-    'ChaosParametersDictionaryItem',
-    'ChaosEvent',
-    'ChaosEventWrapper',
-    'ChaosEventsSegment',
-    'ChaosScheduleJobActiveDaysOfWeek',
-    'TimeOfDay',
-    'TimeRange',
-    'ChaosScheduleJob',
-    'ChaosSchedule',
-    'ChaosScheduleDescription',
-    'ExecutingFaultsChaosEvent',
-    'StartedChaosEvent',
-    'StoppedChaosEvent',
-    'TestErrorChaosEvent',
-    'ValidationFailedChaosEvent',
-    'WaitingChaosEvent',
-    'ApplicationCapacityDescription',
-    'ApplicationDescription',
-    'ComposeDeploymentStatusInfo',
-    'RegistryCredential',
-    'ComposeDeploymentUpgradeDescription',
-    'ComposeDeploymentUpgradeProgressInfo',
-    'PagedComposeDeploymentStatusInfoList',
-    'CreateComposeDeploymentDescription',
-    'DeployedServicePackageInfo',
+    'ApplicationParameter',
     'ServiceCorrelationDescription',
+    'ServiceLoadMetricDescription',
+    'ServicePlacementPolicyDescription',
     'PartitionSchemeDescription',
     'NamedPartitionSchemeDescription',
     'SingletonPartitionSchemeDescription',
     'UniformInt64RangePartitionSchemeDescription',
-    'ScalingTriggerDescription',
-    'ScalingMechanismDescription',
-    'ScalingPolicyDescription',
-    'ServiceDescription',
-    'StatefulServiceDescription',
-    'StatelessServiceDescription',
-    'ReplicatorQueueStatus',
-    'ReplicatorStatus',
-    'RemoteReplicatorAcknowledgementDetail',
-    'RemoteReplicatorAcknowledgementStatus',
-    'RemoteReplicatorStatus',
-    'PrimaryReplicatorStatus',
-    'SecondaryReplicatorStatus',
-    'SecondaryActiveReplicatorStatus',
-    'SecondaryIdleReplicatorStatus',
-    'LoadMetricReportInfo',
-    'DeployedServiceReplicaDetailInfo',
-    'KeyValueStoreReplicaStatus',
-    'DeployedStatefulServiceReplicaDetailInfo',
-    'DeployedStatelessServiceInstanceDetailInfo',
-    'ReplicaStatusBase',
-    'ServiceUpdateDescription',
-    'StatefulServiceUpdateDescription',
-    'StatelessServiceUpdateDescription',
-    'FileVersion',
-    'FileInfo',
-    'FolderInfo',
-    'ImageStoreContent',
-    'ImageStoreCopyDescription',
-    'RestartDeployedCodePackageDescription',
-    'DeployedServiceTypeInfo',
-    'ResolvedServiceEndpoint',
-    'ResolvedServicePartition',
-    'SelectedPartition',
-    'InvokeDataLossResult',
-    'InvokeQuorumLossResult',
-    'NodeResult',
-    'NodeTransitionResult',
-    'NodeTransitionProgress',
-    'OperationStatus',
-    'PartitionDataLossProgress',
-    'PartitionQuorumLossProgress',
-    'RestartPartitionResult',
-    'PartitionRestartProgress',
-    'PackageSharingPolicyInfo',
-    'DeployServicePackageToNodeDescription',
-    'ResumeApplicationUpgradeDescription',
-    'ApplicationUpgradeUpdateDescription',
-    'NameDescription',
-    'PagedSubNameInfoList',
-    'PropertyValue',
-    'BinaryPropertyValue',
-    'Int64PropertyValue',
-    'DoublePropertyValue',
-    'StringPropertyValue',
-    'GuidPropertyValue',
-    'PropertyMetadata',
-    'PropertyInfo',
-    'PagedPropertyInfoList',
-    'PropertyDescription',
-    'PropertyBatchOperation',
-    'PropertyBatchDescriptionList',
-    'CheckExistsPropertyBatchOperation',
-    'CheckSequencePropertyBatchOperation',
-    'CheckValuePropertyBatchOperation',
-    'DeletePropertyBatchOperation',
-    'GetPropertyBatchOperation',
-    'PutPropertyBatchOperation',
-    'PropertyBatchInfo',
-    'SuccessfulPropertyBatchInfo',
-    'FailedPropertyBatchInfo',
-    'BackupScheduleDescription',
-    'BackupStorageDescription',
-    'RetentionPolicyDescription',
-    'BackupPolicyDescription',
-    'PagedBackupPolicyDescriptionList',
-    'BasicRetentionPolicyDescription',
-    'DisableBackupDescription',
-    'ApplicationBackupConfigurationInfo',
-    'ServiceBackupConfigurationInfo',
-    'BackupSuspensionInfo',
-    'BackupConfigurationInfo',
-    'PagedBackupConfigurationInfoList',
-    'RestorePartitionDescription',
-    'RestoreProgressInfo',
-    'BackupPartitionDescription',
-    'BackupInfo',
-    'PagedBackupInfoList',
-    'AzureBlobBackupStorageDescription',
-    'FileShareBackupStorageDescription',
-    'FrequencyBasedBackupScheduleDescription',
-    'TimeBasedBackupScheduleDescription',
-    'BackupProgressInfo',
-    'PartitionBackupConfigurationInfo',
-    'BackupEntity',
-    'ApplicationBackupEntity',
-    'ServiceBackupEntity',
-    'PartitionBackupEntity',
-    'EnableBackupDescription',
-    'PagedBackupEntityList',
-    'GetBackupByStorageQueryDescription',
-    'NodeImpact',
-    'NodeRepairImpactDescription',
-    'NodeRepairTargetDescription',
-    'RepairImpactDescriptionBase',
-    'RepairTargetDescriptionBase',
-    'RepairTaskHistory',
-    'RepairTask',
-    'RepairTaskApproveDescription',
-    'RepairTaskCancelDescription',
-    'RepairTaskDeleteDescription',
-    'RepairTaskUpdateHealthPolicyDescription',
-    'RepairTaskUpdateInfo',
-    'UploadChunkRange',
-    'UploadSessionInfo',
-    'UploadSession',
-    'AveragePartitionLoadScalingTrigger',
-    'AverageServiceLoadScalingTrigger',
-    'PartitionInstanceCountScaleMechanism',
-    'AddRemoveIncrementalNamedPartitionScalingMechanism',
-    'ApplicationCreatedEvent',
-    'ApplicationDeletedEvent',
-    'ApplicationNewHealthReportEvent',
-    'ApplicationHealthReportExpiredEvent',
-    'ApplicationUpgradeCompletedEvent',
-    'ApplicationUpgradeDomainCompletedEvent',
-    'ApplicationUpgradeRollbackCompletedEvent',
-    'ApplicationUpgradeRollbackStartedEvent',
-    'ApplicationUpgradeStartedEvent',
-    'DeployedApplicationNewHealthReportEvent',
-    'DeployedApplicationHealthReportExpiredEvent',
-    'ApplicationProcessExitedEvent',
-    'ApplicationContainerInstanceExitedEvent',
-    'NodeAbortedEvent',
-    'NodeAddedToClusterEvent',
-    'NodeClosedEvent',
-    'NodeDeactivateCompletedEvent',
-    'NodeDeactivateStartedEvent',
-    'NodeDownEvent',
-    'NodeNewHealthReportEvent',
-    'NodeHealthReportExpiredEvent',
-    'NodeOpenSucceededEvent',
-    'NodeOpenFailedEvent',
-    'NodeRemovedFromClusterEvent',
-    'NodeUpEvent',
-    'PartitionNewHealthReportEvent',
-    'PartitionHealthReportExpiredEvent',
-    'PartitionReconfiguredEvent',
-    'PartitionPrimaryMoveAnalysisEvent',
-    'ServiceCreatedEvent',
-    'ServiceDeletedEvent',
-    'ServiceNewHealthReportEvent',
-    'ServiceHealthReportExpiredEvent',
-    'DeployedServicePackageNewHealthReportEvent',
-    'DeployedServicePackageHealthReportExpiredEvent',
-    'StatefulReplicaNewHealthReportEvent',
-    'StatefulReplicaHealthReportExpiredEvent',
-    'StatelessReplicaNewHealthReportEvent',
-    'StatelessReplicaHealthReportExpiredEvent',
-    'ClusterNewHealthReportEvent',
-    'ClusterHealthReportExpiredEvent',
-    'ClusterUpgradeCompletedEvent',
-    'ClusterUpgradeDomainCompletedEvent',
-    'ClusterUpgradeRollbackCompletedEvent',
-    'ClusterUpgradeRollbackStartedEvent',
-    'ClusterUpgradeStartedEvent',
-    'ChaosStoppedEvent',
-    'ChaosStartedEvent',
-    'ChaosCodePackageRestartScheduledEvent',
-    'ChaosReplicaRemovalScheduledEvent',
-    'ChaosPartitionSecondaryMoveScheduledEvent',
-    'ChaosPartitionPrimaryMoveScheduledEvent',
-    'ChaosReplicaRestartScheduledEvent',
-    'ChaosNodeRestartScheduledEvent',
-    'SecretResourceProperties',
-    'InlinedValueSecretResourceProperties',
-    'SecretResourceDescription',
-    'PagedSecretResourceDescriptionList',
-    'SecretResourcePropertiesBase',
-    'SecretValue',
-    'SecretValueProperties',
-    'SecretValueResourceDescription',
-    'PagedSecretValueResourceDescriptionList',
-    'VolumeProviderParametersAzureFile',
-    'VolumeReference',
-    'ApplicationScopedVolumeCreationParameters',
-    'ApplicationScopedVolume',
-    'ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk',
-    'VolumeResourceDescription',
-    'PagedVolumeResourceDescriptionList',
-    'NetworkResourceProperties',
-    'LocalNetworkResourceProperties',
-    'EndpointRef',
-    'NetworkRef',
-    'NetworkResourceDescription',
-    'NetworkResourcePropertiesBase',
-    'PagedNetworkResourceDescriptionList',
-    'GatewayDestination',
-    'TcpConfig',
-    'HttpRouteMatchPath',
-    'HttpRouteMatchHeader',
-    'HttpRouteMatchRule',
-    'HttpRouteConfig',
-    'HttpHostConfig',
-    'HttpConfig',
-    'GatewayResourceDescription',
-    'PagedGatewayResourceDescriptionList',
-    'ImageRegistryCredential',
-    'EnvironmentVariable',
-    'Setting',
-    'ContainerLabel',
-    'EndpointProperties',
-    'ResourceRequests',
-    'ResourceLimits',
-    'ResourceRequirements',
-    'DiagnosticsRef',
-    'ReliableCollectionsRef',
-    'ContainerState',
-    'ContainerEvent',
-    'ContainerInstanceView',
-    'ContainerCodePackageProperties',
-    'AutoScalingTrigger',
-    'AutoScalingMechanism',
-    'AutoScalingPolicy',
-    'ServiceResourceDescription',
-    'DiagnosticsSinkProperties',
-    'DiagnosticsDescription',
-    'AzureInternalMonitoringPipelineSinkDescription',
-    'AddRemoveReplicaScalingMechanism',
-    'AutoScalingMetric',
-    'AutoScalingResourceMetric',
+    'ApplicationTypeResource',
+    'ApplicationTypeResourceList',
+    'VersionResource',
+    'VersionResourceList',
+    'ApplicationResource',
+    'ApplicationResourceList',
+    'RollingUpgradeMonitoringPolicy',
+    'ApplicationUpgradePolicy',
+    'ApplicationResourceUpdate',
     'ServiceProperties',
-    'ServiceReplicaProperties',
-    'ServiceReplicaDescription',
-    'AverageLoadScalingTrigger',
-    'PagedServiceResourceDescriptionList',
-    'PagedServiceReplicaDescriptionList',
-    'ApplicationResourceDescription',
-    'PagedApplicationResourceDescriptionList',
-    'HealthState',
-    'FabricErrorCodes',
-    'ApplicationDefinitionKind',
-    'ApplicationStatus',
-    'ApplicationPackageCleanupPolicy',
-    'ApplicationTypeDefinitionKind',
-    'ApplicationTypeStatus',
-    'UpgradeKind',
-    'UpgradeMode',
-    'FailureAction',
-    'UpgradeDomainState',
-    'UpgradeState',
-    'NodeUpgradePhase',
-    'FailureReason',
-    'DeactivationIntent',
-    'DeployedApplicationStatus',
-    'ReplicaStatus',
-    'ReplicaRole',
-    'ReconfigurationPhase',
-    'ReconfigurationType',
-    'EntityKind',
-    'FabricEventKind',
-    'HealthEvaluationKind',
-    'NodeDeactivationIntent',
-    'NodeDeactivationStatus',
-    'NodeDeactivationTaskType',
-    'NodeStatus',
-    'ServicePartitionStatus',
-    'ServiceStatus',
-    'ProvisionApplicationTypeKind',
-    'UpgradeType',
-    'SafetyCheckKind',
-    'CreateFabricDump',
-    'ServicePackageActivationMode',
-    'ServiceKind',
-    'ServicePartitionKind',
-    'ServicePlacementPolicyType',
-    'ServiceLoadMetricWeight',
-    'HostType',
-    'HostIsolationMode',
-    'DeploymentStatus',
-    'EntryPointStatus',
-    'ChaosStatus',
-    'ChaosScheduleStatus',
-    'ChaosEventKind',
-    'ComposeDeploymentStatus',
-    'ComposeDeploymentUpgradeState',
-    'ServiceCorrelationScheme',
-    'MoveCost',
-    'PartitionScheme',
-    'ServiceOperationName',
-    'ReplicatorOperationName',
-    'PartitionAccessStatus',
-    'FabricReplicaStatus',
-    'ReplicaKind',
-    'ServiceTypeRegistrationStatus',
-    'ServiceEndpointRole',
-    'OperationState',
-    'OperationType',
-    'PackageSharingPolicyScope',
-    'PropertyValueKind',
-    'PropertyBatchOperationKind',
-    'PropertyBatchInfoKind',
-    'RetentionPolicyType',
-    'BackupStorageKind',
-    'BackupScheduleKind',
-    'BackupPolicyScope',
-    'BackupSuspensionScope',
-    'RestoreState',
-    'BackupType',
-    'BackupScheduleFrequencyType',
-    'DayOfWeek',
-    'BackupState',
-    'BackupEntityKind',
-    'ImpactLevel',
-    'RepairImpactKind',
-    'RepairTargetKind',
-    'State',
-    'ResultStatus',
-    'RepairTaskHealthCheckState',
-    'ScalingTriggerKind',
-    'ScalingMechanismKind',
-    'ResourceStatus',
-    'SecretKind',
-    'VolumeProvider',
-    'SizeTypes',
-    'ApplicationScopedVolumeKind',
-    'NetworkKind',
-    'HeaderMatchType',
-    'OperatingSystemType',
-    'DiagnosticsSinkKind',
-    'AutoScalingMechanismKind',
-    'AutoScalingMetricKind',
-    'AutoScalingResourceMetricName',
-    'AutoScalingTriggerKind',
-    'NodeStatusFilter',
-    'ReplicaHealthReportServiceKind',
-    'DataLossMode',
-    'NodeTransitionType',
-    'QuorumLossMode',
-    'RestartPartitionMode',
+    'ServiceResource',
+    'ServiceResourceList',
+    'ServicePropertiesBase',
+    'ServiceUpdateProperties',
+    'ServiceResourceUpdate',
+    'StatelessServiceProperties',
+    'StatelessServiceUpdateProperties',
+    'StatefulServiceProperties',
+    'StatefulServiceUpdateProperties',
+    'AvailableOperationDisplay',
+    'AzureActiveDirectory',
+    'CertificateDescription',
+    'ClientCertificateCommonName',
+    'ClientCertificateThumbprint',
+    'ClusterVersionDetails',
+    'SettingsParameterDescription',
+    'SettingsSectionDescription',
+    'EndpointRangeDescription',
+    'NodeTypeDescription',
+    'DiagnosticsStorageAccountConfig',
+    'ClusterHealthPolicy',
+    'ClusterUpgradeDeltaHealthPolicy',
+    'ClusterUpgradePolicy',
+    'Cluster',
+    'ClusterCodeVersionsResult',
+    'ClusterCodeVersionsListResult',
+    'ClusterListResult',
+    'ClusterUpdateParameters',
+    'ErrorModel', 'ErrorModelException',
+    'OperationResult',
+    'ProxyResource',
+    'Resource',
+    'ServiceTypeDeltaHealthPolicy',
+    'OperationResultPaged',
+    'ProvisioningState',
 ]
