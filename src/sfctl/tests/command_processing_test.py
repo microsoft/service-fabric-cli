@@ -75,7 +75,7 @@ class CommandsProcessTests(unittest.TestCase):
         with redirect_stdout(str_io):
             try:
                 json_encoded(file_path_empty_file)
-            except Exception:  # pylint: disable=broad-except
+            except:  # pylint: disable=broad-except
                 pass
 
         printed_output = str_io.getvalue()
@@ -92,7 +92,7 @@ class CommandsProcessTests(unittest.TestCase):
         with redirect_stdout(str_io):
             try:
                 json_encoded(file_path_incorrect_json)
-            except Exception:  # pylint: disable=broad-except
+            except:  # pylint: disable=broad-except
                 pass
 
         printed_output = str_io.getvalue()
@@ -108,7 +108,7 @@ class CommandsProcessTests(unittest.TestCase):
         with redirect_stdout(str_io):
             try:
                 json_encoded(file_path_nonexistent)
-            except Exception:  # pylint: disable=broad-except
+            except:  # pylint: disable=broad-except
                 pass
 
         printed_output = str_io.getvalue()
@@ -133,7 +133,7 @@ class CommandsProcessTests(unittest.TestCase):
         with redirect_stdout(str_io):
             try:
                 json_encoded('')
-            except Exception:  # pylint: disable=broad-except
+            except:  # pylint: disable=broad-except
                 pass
 
         printed_output = str_io.getvalue()
@@ -147,7 +147,7 @@ class CommandsProcessTests(unittest.TestCase):
         with redirect_stdout(str_io):
             try:
                 json_encoded('{3.14 : "pie"}')
-            except Exception:  # pylint: disable=broad-except
+            except:  # pylint: disable=broad-except
                 pass
 
         printed_output = str_io.getvalue()

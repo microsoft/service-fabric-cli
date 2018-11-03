@@ -20,12 +20,13 @@ Unreleased
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
 - Upgrade the knack package dependency to version 0.4.2 (#122)
-- Remove retry on failed commands, such as 500 status codes being returned. This allows the proper error message to propogate through (#125)
+- Remove retry on failed commands, such as 500 status codes being returned. This allows the proper error message to propagate through (#125)
 - Add Mesh app, volume, service, and service-replica commands (#129)
 - Add Mesh network, gateway, code package, secret, and secretvalue commands (#141)
 - Allow any Python 3.7.x versions rather than only 3.7.0 (#142)
 - Fix missing option of "Error" health state in health reporting (#151)
 - Add the command "sfctl mesh deployment create", which takes resource description yaml files as input and deploys the corresponding mesh resources (#146)
+- Add telemetry. The following data is collected: Command name without parameters provided or their values, sfctl version, OS, python version, the success or failure of the command, and if the command failed, the error message returned (#)
 
 6.0.1
 -----

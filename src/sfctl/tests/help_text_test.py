@@ -242,7 +242,7 @@ class HelpTextTests(unittest.TestCase):
                                   + help_command
                                   + '. This may be a problem due incorrect expected ordering.'))
 
-        except Exception as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # pylint: disable=broad-except
             if not err:
                 self.fail(msg='ERROR: Command {0} returned error at execution. Output: {1} Error: {2}'.format(help_command, returned_string, str(exception)))  # pylint: disable=line-too-long
             else:
@@ -270,7 +270,7 @@ class HelpTextTests(unittest.TestCase):
             'sfctl',
             subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'mesh', 'node',
                        'partition', 'property', 'replica', 'rpm', 'sa-cluster',
-                       'service', 'store'))
+                       'service', 'store', 'settings'))
 
         self.validate_output(
             'sfctl application',
@@ -367,6 +367,10 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
+
+        self.validate_output(
+            'sfctl settings telemetry',
+            commands=('set_telemetry'))
 
         self.validate_output(
             'sfctl mesh gateway',

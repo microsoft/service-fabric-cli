@@ -44,7 +44,7 @@ setup(
         'sfctl.tests'
     ],
     install_requires=[
-        'knack==0.4.2',
+        'knack==0.5.1',
         'msrest>=0.4.26',
         'msrestazure',
         'requests',
@@ -52,7 +52,9 @@ setup(
         'jsonpickle',
         'adal',
         'future',
-        'sfmergeutility'
+        'applicationinsights',
+        'sfmergeutility',
+        'psutil'
     ],
     extras_require={
         'test': [
