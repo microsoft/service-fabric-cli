@@ -32,7 +32,7 @@ class ChaosEventsSegment(Model):
         'history': {'key': 'History', 'type': '[ChaosEventWrapper]'},
     }
 
-    def __init__(self, continuation_token=None, history=None):
-        super(ChaosEventsSegment, self).__init__()
-        self.continuation_token = continuation_token
-        self.history = history
+    def __init__(self, **kwargs):
+        super(ChaosEventsSegment, self).__init__(**kwargs)
+        self.continuation_token = kwargs.get('continuation_token', None)
+        self.history = kwargs.get('history', None)

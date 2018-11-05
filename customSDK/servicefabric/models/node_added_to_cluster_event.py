@@ -15,30 +15,33 @@ from .node_event import NodeEvent
 class NodeAddedToClusterEvent(NodeEvent):
     """Node Added event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param node_name: The name of a Service Fabric node.
+    :param node_name: Required. The name of a Service Fabric node.
     :type node_name: str
-    :param node_id: Id of Node.
+    :param node_id: Required. Id of Node.
     :type node_id: str
-    :param node_instance: Id of Node instance.
+    :param node_instance: Required. Id of Node instance.
     :type node_instance: long
-    :param node_type: Type of Node.
+    :param node_type: Required. Type of Node.
     :type node_type: str
-    :param fabric_version: Fabric version.
+    :param fabric_version: Required. Fabric version.
     :type fabric_version: str
-    :param ip_address_or_fqdn: IP address or FQDN.
+    :param ip_address_or_fqdn: Required. IP address or FQDN.
     :type ip_address_or_fqdn: str
-    :param node_capacities: Capacities.
+    :param node_capacities: Required. Capacities.
     :type node_capacities: str
     """
 
@@ -70,12 +73,12 @@ class NodeAddedToClusterEvent(NodeEvent):
         'node_capacities': {'key': 'NodeCapacities', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, node_id, node_instance, node_type, fabric_version, ip_address_or_fqdn, node_capacities, category=None, has_correlated_events=None):
-        super(NodeAddedToClusterEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
-        self.node_id = node_id
-        self.node_instance = node_instance
-        self.node_type = node_type
-        self.fabric_version = fabric_version
-        self.ip_address_or_fqdn = ip_address_or_fqdn
-        self.node_capacities = node_capacities
+    def __init__(self, **kwargs):
+        super(NodeAddedToClusterEvent, self).__init__(**kwargs)
+        self.node_id = kwargs.get('node_id', None)
+        self.node_instance = kwargs.get('node_instance', None)
+        self.node_type = kwargs.get('node_type', None)
+        self.fabric_version = kwargs.get('fabric_version', None)
+        self.ip_address_or_fqdn = kwargs.get('ip_address_or_fqdn', None)
+        self.node_capacities = kwargs.get('node_capacities', None)
         self.kind = 'NodeAddedToCluster'

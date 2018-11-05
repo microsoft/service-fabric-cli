@@ -18,7 +18,9 @@ class AutoScalingTrigger(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: AverageLoadScalingTrigger
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
     """
 
@@ -34,6 +36,6 @@ class AutoScalingTrigger(Model):
         'kind': {'AverageLoad': 'AverageLoadScalingTrigger'}
     }
 
-    def __init__(self):
-        super(AutoScalingTrigger, self).__init__()
+    def __init__(self, **kwargs):
+        super(AutoScalingTrigger, self).__init__(**kwargs)
         self.kind = None

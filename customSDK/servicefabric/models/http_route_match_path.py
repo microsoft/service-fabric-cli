@@ -18,11 +18,14 @@ class HttpRouteMatchPath(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param value: Uri path to match for request.
+    All required parameters must be populated in order to send to Azure.
+
+    :param value: Required. Uri path to match for request.
     :type value: str
     :param rewrite: replacement string for matched part of the Uri.
     :type rewrite: str
-    :ivar type: how to match value in the Uri. Default value: "prefix" .
+    :ivar type: Required. how to match value in the Uri. Default value:
+     "prefix" .
     :vartype type: str
     """
 
@@ -39,7 +42,7 @@ class HttpRouteMatchPath(Model):
 
     type = "prefix"
 
-    def __init__(self, value, rewrite=None):
-        super(HttpRouteMatchPath, self).__init__()
-        self.value = value
-        self.rewrite = rewrite
+    def __init__(self, **kwargs):
+        super(HttpRouteMatchPath, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.rewrite = kwargs.get('rewrite', None)

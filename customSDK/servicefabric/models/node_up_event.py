@@ -15,22 +15,25 @@ from .node_event import NodeEvent
 class NodeUpEvent(NodeEvent):
     """Node Up event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param node_name: The name of a Service Fabric node.
+    :param node_name: Required. The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance: Id of Node instance.
+    :param node_instance: Required. Id of Node instance.
     :type node_instance: long
-    :param last_node_down_at: Time when Node was last down.
+    :param last_node_down_at: Required. Time when Node was last down.
     :type last_node_down_at: datetime
     """
 
@@ -54,8 +57,8 @@ class NodeUpEvent(NodeEvent):
         'last_node_down_at': {'key': 'LastNodeDownAt', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, node_instance, last_node_down_at, category=None, has_correlated_events=None):
-        super(NodeUpEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
-        self.node_instance = node_instance
-        self.last_node_down_at = last_node_down_at
+    def __init__(self, **kwargs):
+        super(NodeUpEvent, self).__init__(**kwargs)
+        self.node_instance = kwargs.get('node_instance', None)
+        self.last_node_down_at = kwargs.get('last_node_down_at', None)
         self.kind = 'NodeUp'

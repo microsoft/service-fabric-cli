@@ -18,15 +18,17 @@ class ServiceResourceDescription(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param name: Name of the Service resource.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the Service resource.
     :type name: str
-    :param os_type: The operation system required by the code in service.
-     Possible values include: 'Linux', 'Windows'
+    :param os_type: Required. The operation system required by the code in
+     service. Possible values include: 'Linux', 'Windows'
     :type os_type: str or ~azure.servicefabric.models.OperatingSystemType
-    :param code_packages: Describes the set of code packages that forms the
-     service. A code package describes the container and the properties for
-     running it. All the code packages are started together on the same host
-     and share the same context (network, process etc.).
+    :param code_packages: Required. Describes the set of code packages that
+     forms the service. A code package describes the container and the
+     properties for running it. All the code packages are started together on
+     the same host and share the same context (network, process etc.).
     :type code_packages:
      list[~azure.servicefabric.models.ContainerCodePackageProperties]
     :param network_refs: The names of the private networks that this service
@@ -82,16 +84,16 @@ class ServiceResourceDescription(Model):
         'unhealthy_evaluation': {'key': 'properties.unhealthyEvaluation', 'type': 'str'},
     }
 
-    def __init__(self, name, os_type, code_packages, network_refs=None, diagnostics=None, description=None, replica_count=None, auto_scaling_policies=None):
-        super(ServiceResourceDescription, self).__init__()
-        self.name = name
-        self.os_type = os_type
-        self.code_packages = code_packages
-        self.network_refs = network_refs
-        self.diagnostics = diagnostics
-        self.description = description
-        self.replica_count = replica_count
-        self.auto_scaling_policies = auto_scaling_policies
+    def __init__(self, **kwargs):
+        super(ServiceResourceDescription, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.os_type = kwargs.get('os_type', None)
+        self.code_packages = kwargs.get('code_packages', None)
+        self.network_refs = kwargs.get('network_refs', None)
+        self.diagnostics = kwargs.get('diagnostics', None)
+        self.description = kwargs.get('description', None)
+        self.replica_count = kwargs.get('replica_count', None)
+        self.auto_scaling_policies = kwargs.get('auto_scaling_policies', None)
         self.status = None
         self.status_details = None
         self.health_state = None

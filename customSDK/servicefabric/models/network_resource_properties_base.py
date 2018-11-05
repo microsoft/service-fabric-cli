@@ -19,7 +19,9 @@ class NetworkResourcePropertiesBase(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: NetworkResourceProperties
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
     """
 
@@ -35,6 +37,6 @@ class NetworkResourcePropertiesBase(Model):
         'kind': {'NetworkResourceProperties': 'NetworkResourceProperties'}
     }
 
-    def __init__(self):
-        super(NetworkResourcePropertiesBase, self).__init__()
+    def __init__(self, **kwargs):
+        super(NetworkResourcePropertiesBase, self).__init__(**kwargs)
         self.kind = None

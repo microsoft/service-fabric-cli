@@ -15,7 +15,9 @@ from msrest.serialization import Model
 class EndpointProperties(Model):
     """Describes a container endpoint.
 
-    :param name: The name of the endpoint.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the endpoint.
     :type name: str
     :param port: Port used by the container.
     :type port: int
@@ -30,7 +32,7 @@ class EndpointProperties(Model):
         'port': {'key': 'port', 'type': 'int'},
     }
 
-    def __init__(self, name, port=None):
-        super(EndpointProperties, self).__init__()
-        self.name = name
-        self.port = port
+    def __init__(self, **kwargs):
+        super(EndpointProperties, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.port = kwargs.get('port', None)

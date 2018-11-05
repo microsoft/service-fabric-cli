@@ -15,26 +15,29 @@ from .cluster_event import ClusterEvent
 class ClusterUpgradeStartedEvent(ClusterEvent):
     """Cluster Upgrade Started event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param current_cluster_version: Current Cluster version.
+    :param current_cluster_version: Required. Current Cluster version.
     :type current_cluster_version: str
-    :param target_cluster_version: Target Cluster version.
+    :param target_cluster_version: Required. Target Cluster version.
     :type target_cluster_version: str
-    :param upgrade_type: Type of upgrade.
+    :param upgrade_type: Required. Type of upgrade.
     :type upgrade_type: str
-    :param rolling_upgrade_mode: Mode of upgrade.
+    :param rolling_upgrade_mode: Required. Mode of upgrade.
     :type rolling_upgrade_mode: str
-    :param failure_action: Action if failed.
+    :param failure_action: Required. Action if failed.
     :type failure_action: str
     """
 
@@ -62,11 +65,11 @@ class ClusterUpgradeStartedEvent(ClusterEvent):
         'failure_action': {'key': 'FailureAction', 'type': 'str'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, current_cluster_version, target_cluster_version, upgrade_type, rolling_upgrade_mode, failure_action, category=None, has_correlated_events=None):
-        super(ClusterUpgradeStartedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
-        self.current_cluster_version = current_cluster_version
-        self.target_cluster_version = target_cluster_version
-        self.upgrade_type = upgrade_type
-        self.rolling_upgrade_mode = rolling_upgrade_mode
-        self.failure_action = failure_action
+    def __init__(self, **kwargs):
+        super(ClusterUpgradeStartedEvent, self).__init__(**kwargs)
+        self.current_cluster_version = kwargs.get('current_cluster_version', None)
+        self.target_cluster_version = kwargs.get('target_cluster_version', None)
+        self.upgrade_type = kwargs.get('upgrade_type', None)
+        self.rolling_upgrade_mode = kwargs.get('rolling_upgrade_mode', None)
+        self.failure_action = kwargs.get('failure_action', None)
         self.kind = 'ClusterUpgradeStarted'
