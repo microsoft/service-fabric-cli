@@ -15,15 +15,17 @@ from .volume_reference import VolumeReference
 class ApplicationScopedVolume(VolumeReference):
     """Describes a volume whose lifetime is scoped to the application's lifetime.
 
-    :param name: Name of the volume being referenced.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the volume being referenced.
     :type name: str
     :param read_only: The flag indicating whether the volume is read only.
      Default is 'false'.
     :type read_only: bool
-    :param destination_path: The path within the container at which the volume
-     should be mounted. Only valid path characters are allowed.
+    :param destination_path: Required. The path within the container at which
+     the volume should be mounted. Only valid path characters are allowed.
     :type destination_path: str
-    :param creation_parameters: Describes parameters for creating
+    :param creation_parameters: Required. Describes parameters for creating
      application-scoped volumes.
     :type creation_parameters:
      ~azure.servicefabric.models.ApplicationScopedVolumeCreationParameters
@@ -42,6 +44,6 @@ class ApplicationScopedVolume(VolumeReference):
         'creation_parameters': {'key': 'creationParameters', 'type': 'ApplicationScopedVolumeCreationParameters'},
     }
 
-    def __init__(self, name, destination_path, creation_parameters, read_only=None):
-        super(ApplicationScopedVolume, self).__init__(name=name, read_only=read_only, destination_path=destination_path)
-        self.creation_parameters = creation_parameters
+    def __init__(self, **kwargs):
+        super(ApplicationScopedVolume, self).__init__(**kwargs)
+        self.creation_parameters = kwargs.get('creation_parameters', None)

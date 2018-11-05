@@ -15,12 +15,15 @@ from msrest.serialization import Model
 class TcpConfig(Model):
     """Describes the tcp configuration for external connectivity for this network.
 
-    :param name: tcp gateway config name.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. tcp gateway config name.
     :type name: str
-    :param port: Specifies the port at which the service endpoint below needs
-     to be exposed.
+    :param port: Required. Specifies the port at which the service endpoint
+     below needs to be exposed.
     :type port: int
-    :param destination: Describes destination endpoint for routing traffic.
+    :param destination: Required. Describes destination endpoint for routing
+     traffic.
     :type destination: ~azure.servicefabric.models.GatewayDestination
     """
 
@@ -36,8 +39,8 @@ class TcpConfig(Model):
         'destination': {'key': 'destination', 'type': 'GatewayDestination'},
     }
 
-    def __init__(self, name, port, destination):
-        super(TcpConfig, self).__init__()
-        self.name = name
-        self.port = port
-        self.destination = destination
+    def __init__(self, **kwargs):
+        super(TcpConfig, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.port = kwargs.get('port', None)
+        self.destination = kwargs.get('destination', None)

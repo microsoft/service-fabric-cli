@@ -15,7 +15,10 @@ from msrest.serialization import Model
 class ResourceRequirements(Model):
     """This type describes the resource requirements for a container or a service.
 
-    :param requests: Describes the requested resources for a given container.
+    All required parameters must be populated in order to send to Azure.
+
+    :param requests: Required. Describes the requested resources for a given
+     container.
     :type requests: ~azure.servicefabric.models.ResourceRequests
     :param limits: Describes the maximum limits on the resources for a given
      container.
@@ -31,7 +34,7 @@ class ResourceRequirements(Model):
         'limits': {'key': 'limits', 'type': 'ResourceLimits'},
     }
 
-    def __init__(self, requests, limits=None):
-        super(ResourceRequirements, self).__init__()
-        self.requests = requests
-        self.limits = limits
+    def __init__(self, **kwargs):
+        super(ResourceRequirements, self).__init__(**kwargs)
+        self.requests = kwargs.get('requests', None)
+        self.limits = kwargs.get('limits', None)
