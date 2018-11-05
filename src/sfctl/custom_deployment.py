@@ -27,7 +27,7 @@ class ResourceType(enum.Enum):
     gateway = 6
 
 def get_resource_type(file_name):
-    """ Gets the resource type form the file name
+    """ Gets the resource type from the file name
     :param file_name: The name of the file
     """
     file_name = os.path.basename(file_name)
@@ -36,12 +36,12 @@ def get_resource_type(file_name):
         raise CLIError('Invalid resource file name %s. The file name should be of format id_resourcetype_resourcename.json' %(file_name)) # pylint: disable=line-too-long
     resource_type = file_name_splitted[1]
     try:
-        return ResourceType(resource_type)
+        return ResourceType[resource_type]
     except:
         raise CLIError('The resource type %s is unknown' %(resource_type))
 
 def get_resource_name(file_name):
-    """ Gets resource name form the file name
+    """ Gets resource name from the file name
     :param file_name: The name of the file
     """
     file_name = os.path.basename(file_name)
@@ -74,14 +74,44 @@ def load_json(file_path):
         json_obj = json.loads(json.loads(json.dumps(content)))
     return json_obj
 
-def mesh_deploy(client, input_yaml_file_paths, parameters=None): #pylint: disable=too-many-branches
+def deploy_resource(client, resource):
+    """ Deploys the specified resource to cluster
+    :param client: Auto generated client
+    :param resource: Path of the resource file
+    """
+    resource_type = get_resource_type(resource)
+    resource_name = get_resource_name(resource)
+    print("Creating resource: ", resource_name, "of type: ", resource_type.name)
+    if resource_type == ResourceType.application:
+        application_description = load_json(resource)
+        client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
+    elif resource_type == ResourceType.volume:
+        volume_description = load_json(resource)
+        client.mesh_volume.create_or_update(resource_name, volume_description.get('description')) # pylint: disable=line-too-long
+    elif resource_type == ResourceType.network:
+        network_description = load_json(resource)
+        client.mesh_network.create_or_update(resource_name, network_description.get('description').get('name'), network_description.get('description').get('properties')) # pylint: disable=line-too-long
+    elif resource_type == ResourceType.secret:
+        secret_description = load_json(resource)
+        client.mesh_secret.create_or_update(resource_name, secret_description.get('description').get('properties'), secret_description.get('description').get('name')) # pylint: disable=line-too-long
+    elif resource_type == ResourceType.secretValue:
+        secret_value_description = load_json(resource)
+        fully_qualified_resource_name = secret_value_description.get('fullyQualifiedResourceName').split('/') # pylint: disable=line-too-long
+        secret_value_resource_name = fully_qualified_resource_name[1]
+        client.mesh_secret_value.add_value(resource_name, secret_value_resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
+    elif resource_type == ResourceType.gateway:
+        gateway_description = load_json(resource)
+        client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
+    else:
+        raise CLIError('Invalid resource type found %s' %(resource))
+
+def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function
         1.Uses sfmergeutility to merge, convert and
             order the resources.
         2. Deploys the resources in the order suggested by the utility
     """
     file_path_list = []
-    output_dir = os.path.join(os.getcwd(), "meshDeploy")
     if os.path.isdir(input_yaml_file_paths):
         if not os.path.exists(input_yaml_file_paths):
             raise CLIError("The specified directory %s does not exist or you do not have access to it" %(input_yaml_file_paths)) # pylint: disable=line-too-long
@@ -91,35 +121,11 @@ def mesh_deploy(client, input_yaml_file_paths, parameters=None): #pylint: disabl
         for file_path in file_path_list:
             if not os.path.exists(file_path):
                 raise CLIError("The specified file %s does not exist or you do not have access to it" %(file_path)) # pylint: disable=line-too-long
+    output_dir = os.path.join(os.getcwd(), "meshDeploy")
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
     SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
     resources = list_files_in_directory(output_dir, ".json")
     resources.sort()
     for resource in resources:
-        resource_type = get_resource_type(resource)
-        resource_name = get_resource_name(resource)
-        resource_type_name = str(resource_type).split('.')[1]
-        print("Creating resource: ", resource_name, "of type: ", resource_type_name)
-        if resource_type == ResourceType.application:
-            application_description = load_json(resource)
-            client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
-        elif resource_type == ResourceType.volume:
-            volume_description = load_json(resource)
-            client.mesh_volume.create_or_update(resource_name, volume_description.get('description')) # pylint: disable=line-too-long
-        elif resource_type == ResourceType.network:
-            network_description = load_json(resource)
-            client.mesh_network.create_or_update(resource_name, network_description.get('description').get('name'), network_description.get('description').get('properties')) # pylint: disable=line-too-long
-        elif resource_type == ResourceType.secret:
-            secret_description = load_json(resource)
-            client.mesh_secret.create_or_update(resource_name, secret_description.get('description').get('properties'), secret_description.get('description').get('name')) # pylint: disable=line-too-long
-        elif resource_type == ResourceType.secretValue:
-            secret_value_description = load_json(resource)
-            fully_qualified_resource_name = secret_value_description.get('fullyQualifiedResourceName').split('/') # pylint: disable=line-too-long
-            secret_value_resource_name = fully_qualified_resource_name[1]
-            client.mesh_secret_value.add_value(resource_name, secret_value_resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
-        elif resource_type == ResourceType.gateway:
-            gateway_description = load_json(resource)
-            client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
-        else:
-            raise CLIError('Invalid resource type found %s' %(resource))
+        deploy_resource(client, resource)
