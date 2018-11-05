@@ -24,6 +24,7 @@ Unreleased
 - Add Mesh app, volume, service, and service-replica commands (#129)
 - Add Mesh network, gateway, code package, secret, and secretvalue commands (#141)
 - Allow any Python 3.7.x versions rather than only 3.7.0 (#142)
+- Fix missing option of "Error" health state in health reporting (#151)
 
 6.0.1
 -----

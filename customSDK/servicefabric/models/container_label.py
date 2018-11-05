@@ -15,9 +15,11 @@ from msrest.serialization import Model
 class ContainerLabel(Model):
     """Describes a container label.
 
-    :param name: The name of the container label.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the container label.
     :type name: str
-    :param value: The value of the container label.
+    :param value: Required. The value of the container label.
     :type value: str
     """
 
@@ -31,7 +33,7 @@ class ContainerLabel(Model):
         'value': {'key': 'value', 'type': 'str'},
     }
 
-    def __init__(self, name, value):
-        super(ContainerLabel, self).__init__()
-        self.name = name
-        self.value = value
+    def __init__(self, **kwargs):
+        super(ContainerLabel, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)

@@ -15,20 +15,22 @@ from .backup_schedule_description import BackupScheduleDescription
 class TimeBasedBackupScheduleDescription(BackupScheduleDescription):
     """Describes the time based backup schedule.
 
-    :param schedule_kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param schedule_kind: Required. Constant filled by server.
     :type schedule_kind: str
-    :param schedule_frequency_type: Describes the frequency with which to run
-     the time based backup schedule. Possible values include: 'Invalid',
-     'Daily', 'Weekly'
+    :param schedule_frequency_type: Required. Describes the frequency with
+     which to run the time based backup schedule. Possible values include:
+     'Invalid', 'Daily', 'Weekly'
     :type schedule_frequency_type: str or
      ~azure.servicefabric.models.BackupScheduleFrequencyType
     :param run_days: List of days of a week when to trigger the periodic
      backup. This is valid only when the backup schedule frequency type is
      weekly.
     :type run_days: list[str or ~azure.servicefabric.models.DayOfWeek]
-    :param run_times: Represents the list of exact time during the day in
-     ISO8601 format. Like '19:00:00' will represent '7PM' during the day. Date
-     specified along with time will be ignored.
+    :param run_times: Required. Represents the list of exact time during the
+     day in ISO8601 format. Like '19:00:00' will represent '7PM' during the
+     day. Date specified along with time will be ignored.
     :type run_times: list[datetime]
     """
 
@@ -45,9 +47,9 @@ class TimeBasedBackupScheduleDescription(BackupScheduleDescription):
         'run_times': {'key': 'RunTimes', 'type': '[iso-8601]'},
     }
 
-    def __init__(self, schedule_frequency_type, run_times, run_days=None):
-        super(TimeBasedBackupScheduleDescription, self).__init__()
-        self.schedule_frequency_type = schedule_frequency_type
-        self.run_days = run_days
-        self.run_times = run_times
+    def __init__(self, **kwargs):
+        super(TimeBasedBackupScheduleDescription, self).__init__(**kwargs)
+        self.schedule_frequency_type = kwargs.get('schedule_frequency_type', None)
+        self.run_days = kwargs.get('run_days', None)
+        self.run_times = kwargs.get('run_times', None)
         self.schedule_kind = 'TimeBased'

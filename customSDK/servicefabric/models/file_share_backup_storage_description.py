@@ -16,12 +16,14 @@ class FileShareBackupStorageDescription(BackupStorageDescription):
     """Describes the parameters for file share storage used for storing or
     enumerating backups.
 
+    All required parameters must be populated in order to send to Azure.
+
     :param friendly_name: Friendly name for this backup storage.
     :type friendly_name: str
-    :param storage_kind: Constant filled by server.
+    :param storage_kind: Required. Constant filled by server.
     :type storage_kind: str
-    :param path: UNC path of the file share where to store or enumerate
-     backups from.
+    :param path: Required. UNC path of the file share where to store or
+     enumerate backups from.
     :type path: str
     :param primary_user_name: Primary user name to access the file share.
     :type primary_user_name: str
@@ -48,11 +50,11 @@ class FileShareBackupStorageDescription(BackupStorageDescription):
         'secondary_password': {'key': 'SecondaryPassword', 'type': 'str'},
     }
 
-    def __init__(self, path, friendly_name=None, primary_user_name=None, primary_password=None, secondary_user_name=None, secondary_password=None):
-        super(FileShareBackupStorageDescription, self).__init__(friendly_name=friendly_name)
-        self.path = path
-        self.primary_user_name = primary_user_name
-        self.primary_password = primary_password
-        self.secondary_user_name = secondary_user_name
-        self.secondary_password = secondary_password
+    def __init__(self, **kwargs):
+        super(FileShareBackupStorageDescription, self).__init__(**kwargs)
+        self.path = kwargs.get('path', None)
+        self.primary_user_name = kwargs.get('primary_user_name', None)
+        self.primary_password = kwargs.get('primary_password', None)
+        self.secondary_user_name = kwargs.get('secondary_user_name', None)
+        self.secondary_password = kwargs.get('secondary_password', None)
         self.storage_kind = 'FileShare'

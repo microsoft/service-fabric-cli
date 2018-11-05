@@ -15,12 +15,14 @@ from msrest.serialization import Model
 class ScalingPolicyDescription(Model):
     """Describes how the scaling should be performed.
 
-    :param scaling_trigger: Specifies the trigger associated with this scaling
-     policy
+    All required parameters must be populated in order to send to Azure.
+
+    :param scaling_trigger: Required. Specifies the trigger associated with
+     this scaling policy
     :type scaling_trigger:
      ~azure.servicefabric.models.ScalingTriggerDescription
-    :param scaling_mechanism: Specifies the mechanism associated with this
-     scaling policy
+    :param scaling_mechanism: Required. Specifies the mechanism associated
+     with this scaling policy
     :type scaling_mechanism:
      ~azure.servicefabric.models.ScalingMechanismDescription
     """
@@ -35,7 +37,7 @@ class ScalingPolicyDescription(Model):
         'scaling_mechanism': {'key': 'ScalingMechanism', 'type': 'ScalingMechanismDescription'},
     }
 
-    def __init__(self, scaling_trigger, scaling_mechanism):
-        super(ScalingPolicyDescription, self).__init__()
-        self.scaling_trigger = scaling_trigger
-        self.scaling_mechanism = scaling_mechanism
+    def __init__(self, **kwargs):
+        super(ScalingPolicyDescription, self).__init__(**kwargs)
+        self.scaling_trigger = kwargs.get('scaling_trigger', None)
+        self.scaling_mechanism = kwargs.get('scaling_mechanism', None)
