@@ -28,7 +28,7 @@ class ResourceType(enum.Enum):
 
 def get_resource_type(file_name):
     """ Gets the resource type from the file name
-    :param file_name: The name of the file
+    :param file_name: Path of the file
     """
     file_name = os.path.basename(file_name)
     file_name_splitted = file_name.split('_')
@@ -42,7 +42,7 @@ def get_resource_type(file_name):
 
 def get_resource_name(file_name):
     """ Gets resource name from the file name
-    :param file_name: The name of the file
+    :param file_name: Path of the file
     """
     file_name = os.path.basename(file_name)
     file_name_splitted = file_name.split('_')

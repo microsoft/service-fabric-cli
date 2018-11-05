@@ -20,7 +20,7 @@ helps['mesh deployment create'] = """
           short-summary: A json file which contains the parameters that need to be overridden
     examples:
         - name: Consolidates and deploys all the resources to cluster by overriding the parameters mentioned in the param.json file
-          text: sfctl mesh deployment create --input-yaml-file-paths ./app.yaml,./network.yaml --parameters param.json
+          text: sfctl mesh deployment create --input-yaml-file-paths ./app.yaml,./network.yaml --parameters ./param.json
         - name: Consolidates and deploys all the resources in a directory to cluster by overriding the parameters mentioned in the param.json file
-          text: sfctl mesh deployment create --input-yaml-file-paths ./resources --parameters param.json
+          text: sfctl mesh deployment create --input-yaml-file-paths ./resources --parameters ./param.json
 """
