@@ -28,7 +28,7 @@ class Setting(Model):
         'value': {'key': 'value', 'type': 'str'},
     }
 
-    def __init__(self, name=None, value=None):
-        super(Setting, self).__init__()
-        self.name = name
-        self.value = value
+    def __init__(self, **kwargs):
+        super(Setting, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)

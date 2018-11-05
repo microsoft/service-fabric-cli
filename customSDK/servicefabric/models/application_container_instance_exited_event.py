@@ -15,48 +15,53 @@ from .application_event import ApplicationEvent
 class ApplicationContainerInstanceExitedEvent(ApplicationEvent):
     """Container Exited event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param application_id: The identity of the application. This is an encoded
-     representation of the application name. This is used in the REST APIs to
-     identify the application resource.
+    :param application_id: Required. The identity of the application. This is
+     an encoded representation of the application name. This is used in the
+     REST APIs to identify the application resource.
      Starting in version 6.0, hierarchical names are delimited with the "\\~"
      character. For example, if the application name is "fabric:/myapp/app1",
      the application identity would be "myapp\\~app1" in 6.0+ and "myapp/app1"
      in previous versions.
     :type application_id: str
-    :param service_name: Name of Service.
+    :param service_name: Required. Name of Service.
     :type service_name: str
-    :param service_package_name: Name of Service package.
+    :param service_package_name: Required. Name of Service package.
     :type service_package_name: str
-    :param service_package_activation_id: Activation Id of Service package.
+    :param service_package_activation_id: Required. Activation Id of Service
+     package.
     :type service_package_activation_id: str
-    :param is_exclusive: Indicates IsExclusive flag.
+    :param is_exclusive: Required. Indicates IsExclusive flag.
     :type is_exclusive: bool
-    :param code_package_name: Name of Code package.
+    :param code_package_name: Required. Name of Code package.
     :type code_package_name: str
-    :param entry_point_type: Type of EntryPoint.
+    :param entry_point_type: Required. Type of EntryPoint.
     :type entry_point_type: str
-    :param image_name: Name of Container image.
+    :param image_name: Required. Name of Container image.
     :type image_name: str
-    :param container_name: Name of Container.
+    :param container_name: Required. Name of Container.
     :type container_name: str
-    :param host_id: Host Id.
+    :param host_id: Required. Host Id.
     :type host_id: str
-    :param exit_code: Exit code of process.
+    :param exit_code: Required. Exit code of process.
     :type exit_code: long
-    :param unexpected_termination: Indicates if termination is unexpected.
+    :param unexpected_termination: Required. Indicates if termination is
+     unexpected.
     :type unexpected_termination: bool
-    :param start_time: Start time of process.
+    :param start_time: Required. Start time of process.
     :type start_time: datetime
     """
 
@@ -100,18 +105,18 @@ class ApplicationContainerInstanceExitedEvent(ApplicationEvent):
         'start_time': {'key': 'StartTime', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, application_id, service_name, service_package_name, service_package_activation_id, is_exclusive, code_package_name, entry_point_type, image_name, container_name, host_id, exit_code, unexpected_termination, start_time, category=None, has_correlated_events=None):
-        super(ApplicationContainerInstanceExitedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, application_id=application_id)
-        self.service_name = service_name
-        self.service_package_name = service_package_name
-        self.service_package_activation_id = service_package_activation_id
-        self.is_exclusive = is_exclusive
-        self.code_package_name = code_package_name
-        self.entry_point_type = entry_point_type
-        self.image_name = image_name
-        self.container_name = container_name
-        self.host_id = host_id
-        self.exit_code = exit_code
-        self.unexpected_termination = unexpected_termination
-        self.start_time = start_time
+    def __init__(self, **kwargs):
+        super(ApplicationContainerInstanceExitedEvent, self).__init__(**kwargs)
+        self.service_name = kwargs.get('service_name', None)
+        self.service_package_name = kwargs.get('service_package_name', None)
+        self.service_package_activation_id = kwargs.get('service_package_activation_id', None)
+        self.is_exclusive = kwargs.get('is_exclusive', None)
+        self.code_package_name = kwargs.get('code_package_name', None)
+        self.entry_point_type = kwargs.get('entry_point_type', None)
+        self.image_name = kwargs.get('image_name', None)
+        self.container_name = kwargs.get('container_name', None)
+        self.host_id = kwargs.get('host_id', None)
+        self.exit_code = kwargs.get('exit_code', None)
+        self.unexpected_termination = kwargs.get('unexpected_termination', None)
+        self.start_time = kwargs.get('start_time', None)
         self.kind = 'ApplicationContainerInstanceExited'

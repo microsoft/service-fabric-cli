@@ -22,7 +22,9 @@ class InlinedValueSecretResourceProperties(SecretResourceProperties):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
     :param description: User readable description of the secret.
     :type description: str
@@ -44,6 +46,14 @@ class InlinedValueSecretResourceProperties(SecretResourceProperties):
         'status_details': {'readonly': True},
     }
 
-    def __init__(self, description=None, content_type=None):
-        super(InlinedValueSecretResourceProperties, self).__init__(description=description, content_type=content_type)
+    _attribute_map = {
+        'kind': {'key': 'kind', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'status': {'key': 'status', 'type': 'str'},
+        'status_details': {'key': 'statusDetails', 'type': 'str'},
+        'content_type': {'key': 'contentType', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(InlinedValueSecretResourceProperties, self).__init__(**kwargs)
         self.kind = 'inlinedValue'

@@ -15,7 +15,9 @@ from msrest.serialization import Model
 class HttpRouteMatchHeader(Model):
     """Describes header information for http route matching.
 
-    :param name: Name of header to match in request.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of header to match in request.
     :type name: str
     :param value: Value of header to match in request.
     :type value: str
@@ -33,8 +35,8 @@ class HttpRouteMatchHeader(Model):
         'type': {'key': 'type', 'type': 'str'},
     }
 
-    def __init__(self, name, value=None, type=None):
-        super(HttpRouteMatchHeader, self).__init__()
-        self.name = name
-        self.value = value
-        self.type = type
+    def __init__(self, **kwargs):
+        super(HttpRouteMatchHeader, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)
+        self.type = kwargs.get('type', None)

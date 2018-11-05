@@ -27,7 +27,7 @@ class NetworkRef(Model):
         'endpoint_refs': {'key': 'endpointRefs', 'type': '[EndpointRef]'},
     }
 
-    def __init__(self, name=None, endpoint_refs=None):
-        super(NetworkRef, self).__init__()
-        self.name = name
-        self.endpoint_refs = endpoint_refs
+    def __init__(self, **kwargs):
+        super(NetworkRef, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.endpoint_refs = kwargs.get('endpoint_refs', None)

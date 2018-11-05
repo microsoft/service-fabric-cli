@@ -15,12 +15,14 @@ from .diagnostics_sink_properties import DiagnosticsSinkProperties
 class AzureInternalMonitoringPipelineSinkDescription(DiagnosticsSinkProperties):
     """Diagnostics settings for Geneva.
 
+    All required parameters must be populated in order to send to Azure.
+
     :param name: Name of the sink. This value is referenced by
      DiagnosticsReferenceDescription
     :type name: str
     :param description: A description of the sink.
     :type description: str
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
     :param account_name: Azure Internal monitoring pipeline account.
     :type account_name: str
@@ -51,11 +53,11 @@ class AzureInternalMonitoringPipelineSinkDescription(DiagnosticsSinkProperties):
         'auto_key_config_url': {'key': 'autoKeyConfigUrl', 'type': 'str'},
     }
 
-    def __init__(self, name=None, description=None, account_name=None, namespace=None, ma_config_url=None, fluentd_config_url=None, auto_key_config_url=None):
-        super(AzureInternalMonitoringPipelineSinkDescription, self).__init__(name=name, description=description)
-        self.account_name = account_name
-        self.namespace = namespace
-        self.ma_config_url = ma_config_url
-        self.fluentd_config_url = fluentd_config_url
-        self.auto_key_config_url = auto_key_config_url
+    def __init__(self, **kwargs):
+        super(AzureInternalMonitoringPipelineSinkDescription, self).__init__(**kwargs)
+        self.account_name = kwargs.get('account_name', None)
+        self.namespace = kwargs.get('namespace', None)
+        self.ma_config_url = kwargs.get('ma_config_url', None)
+        self.fluentd_config_url = kwargs.get('fluentd_config_url', None)
+        self.auto_key_config_url = kwargs.get('auto_key_config_url', None)
         self.kind = 'AzureInternalMonitoringPipeline'

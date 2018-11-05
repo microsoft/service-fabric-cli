@@ -15,7 +15,9 @@ from msrest.serialization import Model
 class HttpRouteMatchRule(Model):
     """Describes a rule for http route matching.
 
-    :param path: Path to match for routing.
+    All required parameters must be populated in order to send to Azure.
+
+    :param path: Required. Path to match for routing.
     :type path: ~azure.servicefabric.models.HttpRouteMatchPath
     :param headers: headers and their values to match in request.
     :type headers: list[~azure.servicefabric.models.HttpRouteMatchHeader]
@@ -30,7 +32,7 @@ class HttpRouteMatchRule(Model):
         'headers': {'key': 'headers', 'type': '[HttpRouteMatchHeader]'},
     }
 
-    def __init__(self, path, headers=None):
-        super(HttpRouteMatchRule, self).__init__()
-        self.path = path
-        self.headers = headers
+    def __init__(self, **kwargs):
+        super(HttpRouteMatchRule, self).__init__(**kwargs)
+        self.path = kwargs.get('path', None)
+        self.headers = kwargs.get('headers', None)
