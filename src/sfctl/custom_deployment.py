@@ -28,41 +28,35 @@ class ResourceType(enum.Enum):
 
 def get_resource_type(file_name):
     """ Gets the resource type form the file name
+    :param file_name: The name of the file
     """
     file_name = os.path.basename(file_name)
-    file_name = file_name.split('_')
-    if len(file_name) < 3:
-        raise CLIError('Invalid resource file name %s' %(file_name))
-    resource_type = file_name[1]
-    resource_type_to_return = None
-    if resource_type == "application":
-        resource_type_to_return = ResourceType.application
-    elif resource_type == "volume":
-        resource_type_to_return = ResourceType.volume
-    elif resource_type == "network":
-        resource_type_to_return = ResourceType.network
-    elif resource_type == "secret":
-        resource_type_to_return = ResourceType.secret
-    elif resource_type == "secretValue":
-        resource_type_to_return = ResourceType.secretValue
-    elif resource_type == "gateway":
-        resource_type_to_return = ResourceType.gateway
-    return resource_type_to_return
+    file_name_splitted = file_name.split('_')
+    if len(file_name_splitted) < 3:
+        raise CLIError('Invalid resource file name %s. The file name should be of format id_resourcetype_resourcename.json' %(file_name)) # pylint: disable=line-too-long
+    resource_type = file_name_splitted[1]
+    try:
+        return ResourceType(resource_type)
+    except:
+        raise CLIError('The resource type %s is unknown' %(resource_type))
 
 def get_resource_name(file_name):
     """ Gets resource name form the file name
+    :param file_name: The name of the file
     """
     file_name = os.path.basename(file_name)
-    file_name = file_name.split('_')
-    if len(file_name) < 3:
-        raise CLIError('Invalid resource file name %s' %(file_name))
-    file_name_with_extension = file_name[2]
+    file_name_splitted = file_name.split('_')
+    if len(file_name_splitted) < 3:
+        raise CLIError('Invalid resource file name %s. The file name should be of format id_resourcetype_resourcename.json' %(file_name)) # pylint: disable=line-too-long
+    file_name_with_extension = file_name_splitted[2]
     resource_name = file_name_with_extension.split('.')
     return resource_name[0]
 
-def list_files_directory(directory, extension):
+def list_files_in_directory(directory, extension):
     """ List files of a directory recursively w.r.t
         the extension provided
+    :param directory: The directory path for which you want to list files
+    :param extension: The file extension of the files you want to return
     """
     file_path_list = []
     for root, _, files in os.walk(directory):
@@ -73,37 +67,40 @@ def list_files_directory(directory, extension):
 
 def load_json(file_path):
     """ Converts the yaml content to json object
-    :param content: Content to be converted to object
+    :param content: Content to be converted to json object
     """
     with open(file_path, 'r') as file_pointer:
         content = file_pointer.read()
         json_obj = json.loads(json.loads(json.dumps(content)))
     return json_obj
 
-def mesh_deploy(client, input_yaml_file_paths, parameters=None):
+def mesh_deploy(client, input_yaml_file_paths, parameters=None): #pylint: disable=too-many-branches
     """ This function
-        1.SFMergeUtility to merging, converting and
-            ordering the resources.
+        1.Uses sfmergeutility to merge, convert and
+            order the resources.
         2. Deploys the resources in the order suggested by the utility
     """
     file_path_list = []
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
-    if not os.path.exists(input_yaml_file_paths):
-        raise CLIError("The specified file path %s does not exist" %(input_yaml_file_paths))
     if os.path.isdir(input_yaml_file_paths):
-        file_path_list = list_files_directory(input_yaml_file_paths, ".yaml")
+        if not os.path.exists(input_yaml_file_paths):
+            raise CLIError("The specified directory %s does not exist or you do not have access to it" %(input_yaml_file_paths)) # pylint: disable=line-too-long
+        file_path_list = list_files_in_directory(input_yaml_file_paths, ".yaml")
     else:
         file_path_list = input_yaml_file_paths.split(',')
+        for file_path in file_path_list:
+            if not os.path.exists(file_path):
+                raise CLIError("The specified file %s does not exist or you do not have access to it" %(file_path)) # pylint: disable=line-too-long
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
     SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
-    resources = list_files_directory(output_dir, ".json")
+    resources = list_files_in_directory(output_dir, ".json")
     resources.sort()
     for resource in resources:
         resource_type = get_resource_type(resource)
         resource_name = get_resource_name(resource)
         resource_type_name = str(resource_type).split('.')[1]
-        print("Creating resource:", resource_name, "of type:", resource_type_name)
+        print("Creating resource: ", resource_name, "of type: ", resource_type_name)
         if resource_type == ResourceType.application:
             application_description = load_json(resource)
             client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
@@ -118,7 +115,7 @@ def mesh_deploy(client, input_yaml_file_paths, parameters=None):
             client.mesh_secret.create_or_update(resource_name, secret_description.get('description').get('properties'), secret_description.get('description').get('name')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.secretValue:
             secret_value_description = load_json(resource)
-            fully_qualified_resource_name = secret_value_description.get('fullyQualifiedResourceName').split('/')
+            fully_qualified_resource_name = secret_value_description.get('fullyQualifiedResourceName').split('/') # pylint: disable=line-too-long
             secret_value_resource_name = fully_qualified_resource_name[1]
             client.mesh_secret_value.add_value(resource_name, secret_value_resource_name, secret_value_description.get('description').get('name'), secret_value_description.get('description').get('properties').get('value')) # pylint: disable=line-too-long
         elif resource_type == ResourceType.gateway:
