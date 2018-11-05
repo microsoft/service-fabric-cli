@@ -17,10 +17,10 @@ helps['mesh deployment create'] = """
           short-summary: Comma separated file paths of all the yaml files or the directory (recursive) which contain yaml files
         - name: --parameters
           type: string
-          short-summary: A json file which contains the parameters which need to be overridden
+          short-summary: A json file which contains the parameters that need to be overridden
     examples:
-        - name: Consolidates and deploys all the resources to cluster
-          text: sfctl mesh deployment create --input-yaml-file-paths ./app.yaml,./network.yaml
-        - name: Consolidates and deploys all the resources in a directory to cluster
-          text: sfctl mesh deployment create --input-yaml-file-paths ./resources
+        - name: Consolidates and deploys all the resources to cluster by overriding the parameters mentioned in the param.json file
+          text: sfctl mesh deployment create --input-yaml-file-paths ./app.yaml,./network.yaml --parameters ./param.json
+        - name: Consolidates and deploys all the resources in a directory to cluster by overriding the parameters mentioned in the param.json file
+          text: sfctl mesh deployment create --input-yaml-file-paths ./resources --parameters ./param.json
 """
