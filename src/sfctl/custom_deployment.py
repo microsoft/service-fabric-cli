@@ -28,7 +28,7 @@ class ResourceType(enum.Enum):
 
 def get_resource_type(file_name):
     """ Gets the resource type from the file name
-    :param file_name: Path of the file
+    :param str file_name: Path of the file
     """
     file_name = os.path.basename(file_name)
     file_name_splitted = file_name.split('_')
@@ -42,7 +42,7 @@ def get_resource_type(file_name):
 
 def get_resource_name(file_name):
     """ Gets resource name from the file name
-    :param file_name: Path of the file
+    :param str file_name: Path of the file
     """
     file_name = os.path.basename(file_name)
     file_name_splitted = file_name.split('_')
@@ -55,8 +55,8 @@ def get_resource_name(file_name):
 def list_files_in_directory(directory, extension):
     """ List files of a directory recursively w.r.t
         the extension provided
-    :param directory: The directory path for which you want to list files
-    :param extension: The file extension of the files you want to return
+    :param str directory: The directory path for which you want to list files
+    :param str extension: The file extension of the files you want to return
     """
     file_path_list = []
     for root, _, files in os.walk(directory):
@@ -76,8 +76,8 @@ def load_json(file_path):
 
 def deploy_resource(client, resource):
     """ Deploys the specified resource to cluster
-    :param client: Auto generated client
-    :param resource: Path of the resource file
+    :param obj client: Auto generated client
+    :param str resource: Path of the resource file
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
