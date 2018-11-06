@@ -21,7 +21,7 @@ def deploy_resource(client, resource):
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
-    print("Creating resource: ", resource_name, "of type: ", resource_type.name)
+    print('Creating resource: ', resource_name, 'of type: ', resource_type.name)
     if resource_type == ResourceType.application:
         application_description = load_json(resource)
         client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
