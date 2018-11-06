@@ -218,7 +218,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Call test
         self.paths_generation_helper()
 
-    def paths_generation_helper(self):  # pylint: disable=too-many-statements
+    def paths_generation_helper(self):  # pylint: disable=too-many-statements, too-many-locals
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
