@@ -8,21 +8,11 @@
 
 from __future__ import print_function
 
-import json
 import os
 import shutil
 from knack.util import CLIError
 from sfmergeutility import SFMergeUtility
-from sfmergeutility.utility import ResourceType, get_resource_name, get_resource_type, list_files_in_directory # pylint: disable=line-too-long
-
-def load_json(file_path):
-    """ Converts the yaml content to json object
-    :param content: Content to be converted to json object
-    """
-    with open(file_path, 'r') as file_pointer:
-        content = file_pointer.read()
-        json_obj = json.loads(json.loads(json.dumps(content)))
-    return json_obj
+from sfmergeutility.utility import ResourceType, get_resource_name, get_resource_type, list_files_in_directory, load_json # pylint: disable=line-too-long
 
 def deploy_resource(client, resource):
     """ Deploys the specified resource to cluster
