@@ -15,9 +15,9 @@ from sfmergeutility import SFMergeUtility
 from sfmergeutility.utility import ResourceType, get_resource_name, get_resource_type, list_files_in_directory, load_json # pylint: disable=line-too-long
 
 def deploy_resource(client, resource):
-    """ Deploys the specified resource to cluster connected to by the instance of sfctl
+    """ Deploys the specified resource to the connected cluster
     :param class client: Auto generated client from swagger specification
-    :param str resource: Relative/Absolute Path of the resource file
+    :param str resource: Relative/absolute path of the resource file
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
@@ -45,11 +45,11 @@ def deploy_resource(client, resource):
 
 def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function
-        1.Uses sfmergeutility to merge, convert and,
+        1.Uses sfmergeutility to merge, convert, and
         order the resources
         2. Deploys the resources in the order suggested by the utility
     :param class client: Auto generated client from swagger specification
-    :param str input_yaml_file_paths: Relative/Absolute directory path or comma seperated relative/absolute file paths of the yaml resource files # pylint: disable=line-too-long
+    :param str input_yaml_file_paths: Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files # pylint: disable=line-too-long
     """
     file_path_list = []
     if os.path.isdir(input_yaml_file_paths):
