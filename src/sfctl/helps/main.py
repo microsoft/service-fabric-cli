@@ -29,7 +29,7 @@ helps['sa-cluster'] = """
 
 helps['application'] = """
     type: group
-    short-summary: Create, delete, and manage applications and application types.
+    short-summary: Create, delete, and manage applications and application types
 """
 
 helps['chaos'] = """
@@ -106,7 +106,7 @@ helps['mesh app'] = """
 
 helps['mesh deployment'] = """
     type: group
-    short-summary: Create Service Fabric Mesh resources.
+    short-summary: Create Service Fabric Mesh resources
 """
 
 helps['mesh service'] = """
