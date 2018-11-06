@@ -15,9 +15,9 @@ from sfmergeutility import SFMergeUtility
 from sfmergeutility.utility import ResourceType, get_resource_name, get_resource_type, list_files_in_directory, load_json # pylint: disable=line-too-long
 
 def deploy_resource(client, resource):
-    """ Deploys the specified resource to cluster
-    :param obj client: Auto generated client
-    :param str resource: Path of the resource file
+    """ Deploys the specified resource to cluster connected to by the instance of sfctl
+    :param class client: Auto generated client from swagger specification
+    :param str resource: Relative/Absolute Path of the resource file
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
@@ -45,20 +45,22 @@ def deploy_resource(client, resource):
 
 def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function
-        1.Uses sfmergeutility to merge, convert and
-            order the resources.
+        1.Uses sfmergeutility to merge, convert and,
+        order the resources
         2. Deploys the resources in the order suggested by the utility
+    :param class client: Auto generated client from swagger specification
+    :param str input_yaml_file_paths: Relative/Absolute directory path or comma seperated relative/absolute file paths of the yaml resource files # pylint: disable=line-too-long
     """
     file_path_list = []
     if os.path.isdir(input_yaml_file_paths):
         if not os.path.exists(input_yaml_file_paths):
-            raise CLIError("The specified directory %s does not exist or you do not have access to it" %(input_yaml_file_paths)) # pylint: disable=line-too-long
+            raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_file_paths)) # pylint: disable=line-too-long
         file_path_list = list_files_in_directory(input_yaml_file_paths, ".yaml")
     else:
         file_path_list = input_yaml_file_paths.split(',')
         for file_path in file_path_list:
             if not os.path.exists(file_path):
-                raise CLIError("The specified file %s does not exist or you do not have access to it" %(file_path)) # pylint: disable=line-too-long
+                raise CLIError('The specified file "%s" does not exist or you do not have access to it' %(file_path)) # pylint: disable=line-too-long
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
