@@ -110,3 +110,6 @@ ENV/
 
 # Ignore recordings to keep tests local
 recordings
+
+# Ignore meshDeploy folder
+meshDeploy
