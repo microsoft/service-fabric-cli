@@ -42,8 +42,6 @@ def deploy_resource(client, resource):
     elif resource_type == ResourceType.gateway:
         gateway_description = load_json(resource)
         client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
-    else:
-        raise CLIError('Invalid resource type found %s' %(resource))
 
 def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function

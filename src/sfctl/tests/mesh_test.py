@@ -19,8 +19,3 @@ class MeshTests(unittest.TestCase):
             sf_resource.mesh_deploy(None, "some-dummy-file-path")
         with self.assertRaises(CLIError):
             sf_resource.mesh_deploy(None, "some-dummy-file-path,another-dummy-file-path")
-
-    def test_resource_type_invalid(self):
-        """Test to check if mesh deployment command fails if invalid resource file is provided"""
-        with self.assertRaises(CLIError):
-            sf_resource.deploy_resource(None, "merged-0005_something_counterAppGateway.json")

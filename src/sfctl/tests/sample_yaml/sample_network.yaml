@@ -1,0 +1,7 @@
+network:
+  schemaVersion: 1.0.0-preview2
+  name: someNetwork
+  properties:
+    kind: Local
+    description: someNetwork description.
+    networkAddressPrefix: 8.0.0.0/16
