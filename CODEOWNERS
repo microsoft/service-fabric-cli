@@ -50,3 +50,14 @@ src/sfctl/helps/cluster_upgrade.py @jkochhar
 
 # Version
 src/sfctl/custom_version.py @jeffj6123
+
+# Mesh Deployment
+src/sfctl/custom_deployment.py @rapatchi @ashank
+src/sfctl/helps/deployment.py @rapatchi @ashank
+src/sfctl/tests/mesh_test.py @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_app.yaml @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_gateway.yaml @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_network.yaml @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_secret.yaml @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_secret_value.yaml @rapatchi @ashank
+src/sfctl/tests/sample_yaml/sample_volume.yaml @rapatchi @ashank
