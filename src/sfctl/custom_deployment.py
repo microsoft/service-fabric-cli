@@ -16,12 +16,14 @@ from sfmergeutility.utility import ResourceType, get_resource_name, get_resource
 
 def deploy_resource(client, resource):
     """ Deploys the specified resource to the connected cluster
-    :param class client: Auto generated client from swagger specification
-    :param str resource: Relative/absolute path of the resource file
+    :param client: (class) Auto generated client from swagger specification
+    :param resource: (str) Relative/absolute path of the resource file
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
+    
     print('Creating resource: ', resource_name, 'of type: ', resource_type.name)
+    
     if resource_type == ResourceType.application:
         application_description = load_json(resource)
         client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
@@ -45,25 +47,29 @@ def deploy_resource(client, resource):
 
 def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     """ This function
-        1.Uses sfmergeutility to merge, convert, and
+        1. Uses sfmergeutility to merge, convert, and
         order the resources
         2. Deploys the resources in the order suggested by the utility
-    :param class client: Auto generated client from swagger specification
-    :param str input_yaml_file_paths: Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files # pylint: disable=line-too-long
+    :param client: (class) Auto generated client from swagger specification
+    :param input_yaml_file_paths: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
     """
     file_path_list = []
+    
     if os.path.isdir(input_yaml_file_paths):
         if not os.path.exists(input_yaml_file_paths):
             raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_file_paths)) # pylint: disable=line-too-long
         file_path_list = list_files_in_directory(input_yaml_file_paths, ".yaml")
+        
     else:
         file_path_list = input_yaml_file_paths.split(',')
         for file_path in file_path_list:
             if not os.path.exists(file_path):
                 raise CLIError('The specified file "%s" does not exist or you do not have access to it' %(file_path)) # pylint: disable=line-too-long
+                
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
+        
     SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
     resources = list_files_in_directory(output_dir, ".json")
     resources.sort()
