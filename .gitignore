@@ -111,5 +111,5 @@ ENV/
 # Ignore recordings to keep tests local
 recordings
 
-# Ignore meshDeploy folder as this is used to store the generated JSON files for resource deploytment
+# Ignore meshDeploy folder as this is used to store the generated JSON files for resource deployment
 meshDeploy
