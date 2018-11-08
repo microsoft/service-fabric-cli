@@ -21,9 +21,9 @@ def deploy_resource(client, resource):
     """
     resource_type = get_resource_type(resource)
     resource_name = get_resource_name(resource)
-    
+
     print('Creating resource: ', resource_name, 'of type: ', resource_type.name)
-    
+
     if resource_type == ResourceType.application:
         application_description = load_json(resource)
         client.mesh_application.create_or_update(resource_name, application_description.get('description')) # pylint: disable=line-too-long
@@ -54,22 +54,22 @@ def mesh_deploy(client, input_yaml_file_paths, parameters=None):
     :param input_yaml_file_paths: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
     """
     file_path_list = []
-    
+
     if os.path.isdir(input_yaml_file_paths):
         if not os.path.exists(input_yaml_file_paths):
             raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_file_paths)) # pylint: disable=line-too-long
         file_path_list = list_files_in_directory(input_yaml_file_paths, ".yaml")
-        
+
     else:
         file_path_list = input_yaml_file_paths.split(',')
         for file_path in file_path_list:
             if not os.path.exists(file_path):
                 raise CLIError('The specified file "%s" does not exist or you do not have access to it' %(file_path)) # pylint: disable=line-too-long
-                
+
     output_dir = os.path.join(os.getcwd(), "meshDeploy")
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
-        
+
     SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
     resources = list_files_in_directory(output_dir, ".json")
     resources.sort()
