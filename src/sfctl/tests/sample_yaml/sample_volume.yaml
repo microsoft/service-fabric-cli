@@ -1,0 +1,10 @@
+volume:
+  schemaVersion: 1.0.0-preview2
+  name: someVolume
+  properties:
+    description: Azure Files storage volume for someApp.
+    provider: SFAzureFile
+    azureFileParameters:
+      shareName: volshare
+      accountName: someName
+      accountKey: "[reference('secrets/someSecret/values/v1')]"
