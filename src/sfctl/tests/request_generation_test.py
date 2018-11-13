@@ -218,12 +218,13 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Call test
         self.paths_generation_helper()
 
-    def paths_generation_helper(self):  # pylint: disable=too-many-statements
+    def paths_generation_helper(self):  # pylint: disable=too-many-statements, too-many-locals
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
+        sample_yaml_base = '@' + path.join(path.dirname(__file__), 'sample_yaml')
 
         # The commands which don't affect or query the cluster
         # Specifically, cluster select and show-connection
@@ -1106,5 +1107,54 @@ class ServiceFabricRequestTests(ScenarioTest):
             'mesh secretvalue show --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name --show-value',
             'POST',
             '/Resources/Secrets/some~secret~resource~name/values/secret~value~name/list_value',
+            ['api-version=6.4-preview']
+        )
+
+        sample_network = path.join(sample_yaml_base, 'sample_network.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_secret = path.join(sample_yaml_base, 'sample_secret.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_secret_value = path.join(sample_yaml_base, 'sample_secret_value.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_volume = path.join(sample_yaml_base, 'sample_volume.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_gateway = path.join(sample_yaml_base, 'sample_gateway.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_app = path.join(sample_yaml_base, 'sample_app.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_network),
+            'PUT',
+            '/Resources/Networks/someNetwork',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_secret),
+            'PUT',
+            '/Resources/Secrets/someSecret',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_secret_value),
+            'PUT',
+            '/Resources/Secrets/someSecret/values/v1',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_volume),
+            'PUT',
+            '/Resources/Volumes/someVolume',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_gateway),
+            'PUT',
+            '/Resources/Gateways/someGateway',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_app),
+            'PUT',
+            '/Resources/Applications/someApp',
             ['api-version=6.4-preview']
         )

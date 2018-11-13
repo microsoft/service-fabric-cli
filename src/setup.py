@@ -51,7 +51,8 @@ setup(
         'azure-servicefabric==6.3.0.0',
         'jsonpickle',
         'adal',
-        'future'
+        'future',
+        'sfmergeutility'
     ],
     extras_require={
         'test': [

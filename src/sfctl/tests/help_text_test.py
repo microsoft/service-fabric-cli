@@ -312,15 +312,20 @@ class HelpTextTests(unittest.TestCase):
             commands=('delete', 'list', 'show'))
 
         self.validate_output(
-            'sfctl mesh volume',
-            commands=('delete', 'list', 'show'))
+            'sfctl mesh deployment',
+            commands=('create',))
 
         self.validate_output(
             'sfctl mesh service',
             commands=('list', 'show'))
+
         self.validate_output(
             'sfctl mesh service-replica',
             commands=('list', 'show'))
+
+        self.validate_output(
+            'sfctl mesh volume',
+            commands=('delete', 'list', 'show'))
 
         self.validate_output(
             'sfctl node',
