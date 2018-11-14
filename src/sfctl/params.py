@@ -215,27 +215,27 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
                              options_list=('--app-name', '--application-name'),
                              help="The name of the application", id_part='application_name')
         arg_context.argument('service_resource_name', options_list=('--service-name'),
-                             help="The name of the service", id_part='service_resource_name')
+                             help="The name of the service")
 
     with ArgumentsContext(self, 'mesh app') as arg_context:
         arg_context.argument('application_resource_name', options_list=('--name', '-n'),
-                             help="The name of the application", id_part='name')
+                             help="The name of the application")
 
     with ArgumentsContext(self, 'mesh service') as arg_context:
         arg_context.argument('service_resource_name', options_list=('--name', '-n'),
-                             help="The name of the service", id_part='service_resource_name')
+                             help="The name of the service")
 
     with ArgumentsContext(self, 'mesh service-replica') as arg_context:
         arg_context.argument('replica_name', options_list=('--name', '-n'),
-                             help="The name of the service replica", id_part='replica_name')
+                             help="The name of the service replica")
 
     with ArgumentsContext(self, 'mesh codepackage') as arg_context:
         arg_context.argument('code_package_name', options_list=('--name', '-n'),
-                             help="The name of the code package", id_part='code_package_name')
+                             help="The name of the code package")
 
     with ArgumentsContext(self, 'mesh network') as arg_context:
-        arg_context.argument('network_resource_name', help="The name of the network",
-                             options_list=('--name', '-n'), id_part='network_name')
+        arg_context.argument('network_resource_name', options_list=('--name', '-n'),
+                             help="The name of the network")
 
     with ArgumentsContext(self, 'mesh volume') as arg_context:
         arg_context.argument('volume_resource_name', options_list=('--name', '-n'),
@@ -246,18 +246,16 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
                              help="The name of the service replica", id_part='replica_name')
 
     with ArgumentsContext(self, 'mesh secret') as arg_context:
-        arg_context.argument('secret_resource_name', options_list=('-n', '--secret-name'),
+        arg_context.argument('secret_resource_name', options_list=('-n', '--name'),
                              help="The name of the secret", id_part='secret_resource_name')
 
     with ArgumentsContext(self, 'mesh secretvalue') as arg_context:
         arg_context.argument('secret_resource_name', options_list=('-n', '--secret-name'),
                              help="The name of the secret resource", id_part='secret_name')
         arg_context.argument('secret_value_resource_name', options_list=('-v', '--version'),
-                             help="The name of the secret version",
-                             id_part='secret_value_resource_name')
+                             help="The name of the secret version")
 
     with ArgumentsContext(self, 'mesh gateway') as arg_context:
         arg_context.argument('gateway_resource_name',
-                             options_list=('-n', '--gateway-name'),
-                             help="The name of the gateway resource",
-                             id_part='gateway_resource_name')
+                             options_list=('-n', '--name'),
+                             help="The name of the gateway resource")

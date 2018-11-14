@@ -1006,14 +1006,14 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # Mesh Resource Commands:
         self.validate_command( # show gateway resource
-            'mesh gateway show --gateway-name some~gate~resource~name',
+            'mesh gateway show --name some~gate~resource~name',
             'GET',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete gateway resource
-            'mesh gateway delete --gateway-name some~gate~resource~name',
+            'mesh gateway delete --name some~gate~resource~name',
             'DELETE',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
@@ -1055,14 +1055,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secret resource
-            'mesh secret show --secret-name some~secret~resource~name',
+            'mesh secret show --name some~secret~resource~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secret resource
-            'mesh secret delete --secret-name some~secret~resource~name',
+            'mesh secret delete --name some~secret~resource~name',
             'DELETE',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
