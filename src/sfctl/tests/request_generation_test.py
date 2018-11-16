@@ -1076,16 +1076,16 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secretvalue resource
-            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~name',
+            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~version',
             'GET',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secretvalue resource
-            'mesh secretvalue delete --secret-name some~secret~resource~name --version secret~value~name',
+            'mesh secretvalue delete --secret-name some~secret~resource~name --version secret~value~version',
             'DELETE',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version',
             ['api-version=6.4-preview']
         )
 
@@ -1097,9 +1097,9 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secretvalue show value
-            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~name --show-value',
+            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~version --show-value',
             'POST',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name/list_value',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version/list_value',
             ['api-version=6.4-preview']
         )
 
@@ -1111,42 +1111,42 @@ class ServiceFabricRequestTests(ScenarioTest):
         sample_app = path.join(sample_yaml_base, 'sample_app.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_network),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_network),
             'PUT',
             '/Resources/Networks/someNetwork',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_secret),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_secret),
             'PUT',
             '/Resources/Secrets/someSecret',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_secret_value),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_secret_value),
             'PUT',
             '/Resources/Secrets/someSecret/values/v1',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_volume),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_volume),
             'PUT',
             '/Resources/Volumes/someVolume',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_gateway),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_gateway),
             'PUT',
             '/Resources/Gateways/someGateway',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-file-paths {0}'.format(sample_app),
+            'mesh deployment create --input-yaml-paths {0}'.format(sample_app),
             'PUT',
             '/Resources/Applications/someApp',
             ['api-version=6.4-preview']

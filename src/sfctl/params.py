@@ -213,7 +213,7 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
     with ArgumentsContext(self, 'mesh') as arg_context:
         arg_context.argument('application_resource_name',
                              options_list=('--app-name', '--application-name'),
-                             help="The name of the application", id_part='application_name')
+                             help="The name of the application")
         arg_context.argument('service_resource_name', options_list=('--service-name'),
                              help="The name of the service")
 
