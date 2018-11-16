@@ -239,19 +239,19 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
 
     with ArgumentsContext(self, 'mesh volume') as arg_context:
         arg_context.argument('volume_resource_name', options_list=('--name', '-n'),
-                             help="The name of the volume", id_part='name')
+                             help="The name of the volume")
 
     with ArgumentsContext(self, 'mesh service-replica') as arg_context:
         arg_context.argument('replica_name', options_list=('--name', '-n'),
-                             help="The name of the service replica", id_part='replica_name')
+                             help="The name of the service replica")
 
     with ArgumentsContext(self, 'mesh secret') as arg_context:
         arg_context.argument('secret_resource_name', options_list=('-n', '--name'),
-                             help="The name of the secret", id_part='secret_resource_name')
+                             help="The name of the secret")
 
     with ArgumentsContext(self, 'mesh secretvalue') as arg_context:
         arg_context.argument('secret_resource_name', options_list=('-n', '--secret-name'),
-                             help="The name of the secret resource", id_part='secret_name')
+                             help="The name of the secret resource")
         arg_context.argument('secret_value_resource_name', options_list=('-v', '--version'),
                              help="The name of the secret version")
 
