@@ -26,6 +26,7 @@ Unreleased
 - Allow any Python 3.7.x versions rather than only 3.7.0 (#142)
 - Fix missing option of "Error" health state in health reporting (#151)
 - Add the command "sfctl mesh deployment create", which takes resource description yaml files as input and deploys the corresponding mesh resources (#146)
+- Renaming mesh commands params for acheiving parity with az mesh commands (#155)
 
 6.0.1
 -----
