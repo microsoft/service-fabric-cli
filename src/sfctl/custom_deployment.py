@@ -45,23 +45,23 @@ def deploy_resource(client, resource):
         gateway_description = load_json(resource)
         client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
 
-def mesh_deploy(client, input_yaml_file_paths, parameters=None):
+def mesh_deploy(client, input_yaml_paths, parameters=None):
     """ This function
         1. Uses sfmergeutility to merge, convert, and
         order the resources
         2. Deploys the resources in the order suggested by the utility
     :param client: (class) Auto generated client from swagger specification
-    :param input_yaml_file_paths: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
+    :param input_yaml_paths: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
     """
     file_path_list = []
 
-    if os.path.isdir(input_yaml_file_paths):
-        if not os.path.exists(input_yaml_file_paths):
-            raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_file_paths)) # pylint: disable=line-too-long
-        file_path_list = list_files_in_directory(input_yaml_file_paths, ".yaml")
+    if os.path.isdir(input_yaml_paths):
+        if not os.path.exists(input_yaml_paths):
+            raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_paths)) # pylint: disable=line-too-long
+        file_path_list = list_files_in_directory(input_yaml_paths, ".yaml")
 
     else:
-        file_path_list = input_yaml_file_paths.split(',')
+        file_path_list = input_yaml_paths.split(',')
         for file_path in file_path_list:
             if not os.path.exists(file_path):
                 raise CLIError('The specified file "%s" does not exist or you do not have access to it' %(file_path)) # pylint: disable=line-too-long
