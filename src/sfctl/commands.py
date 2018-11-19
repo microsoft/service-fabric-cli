@@ -270,9 +270,9 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('delete', 'delete')
             group.command('list', 'list')
 
-        with CommandGroup(self, 'mesh code-package', mesh_code_package_func_path,
+        with CommandGroup(self, 'mesh code-package-log', mesh_code_package_func_path,
                           client_factory=mesh_code_package_create) as group:
-            group.command('show', 'get_container_logs')
+            group.command('get', 'get_container_logs')
 
         with CommandGroup(self, 'mesh secret', mesh_secret_func_path,
                           client_factory=mesh_secret_create) as group:

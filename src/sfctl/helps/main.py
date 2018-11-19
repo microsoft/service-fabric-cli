@@ -134,7 +134,7 @@ helps['mesh network'] = """
     short-summary: Get and delete mesh network resources
 """
 
-helps['mesh code-package'] = """
+helps['mesh code-package-log'] = """
     type: group
     short-summary: Get the logs for the container of the specified code package for the given service replica.
 """

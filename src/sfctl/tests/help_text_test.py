@@ -377,8 +377,8 @@ class HelpTextTests(unittest.TestCase):
             commands=('delete', 'list', 'show'))
 
         self.validate_output(
-            'sfctl mesh code-package',
-            commands=('show',))
+            'sfctl mesh code-package-log',
+            commands=('get',))
 
         self.validate_output(
             'sfctl mesh secret',
