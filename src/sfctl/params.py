@@ -259,3 +259,6 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
         arg_context.argument('gateway_resource_name',
                              options_list=('-n', '--name'),
                              help="The name of the gateway resource")
+    with ArgumentsContext(self, 'mesh deployment create') as arg_context:
+        from argcomplete.completers import FilesCompleter
+        arg_context.argument('parameters', action='append', nargs='+', completer=FilesCompleter())
