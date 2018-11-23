@@ -16,5 +16,5 @@ def get_secret_value(client, secret_resource_name, secret_value_resource_name, s
     secret_data = client.get(secret_resource_name, secret_value_resource_name)
 
     if secret_value:
-        secret_data.value = secret_value['value']
+        secret_data.value = secret_value.value
     return secret_data
