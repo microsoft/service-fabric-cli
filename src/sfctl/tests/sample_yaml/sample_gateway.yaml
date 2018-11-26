@@ -1,0 +1,16 @@
+gateway:
+  schemaVersion: 1.0.0-preview2
+  name: someGateway
+  properties:
+    description: Gateway to connect to public internet.
+    sourceNetwork:
+        name: Open
+    destinationNetwork:
+        name: someNetwork
+    tcp:
+      - name: PublicConnection
+        port: 80
+        destination:
+            applicationName: someApp
+            serviceName: someService
+            endpointName: someListener

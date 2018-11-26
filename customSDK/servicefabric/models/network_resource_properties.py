@@ -21,7 +21,9 @@ class NetworkResourceProperties(NetworkResourcePropertiesBase):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
     :param description: User readable description of the network.
     :type description: str
@@ -50,9 +52,9 @@ class NetworkResourceProperties(NetworkResourcePropertiesBase):
         'kind': {'Local': 'LocalNetworkResourceProperties'}
     }
 
-    def __init__(self, description=None):
-        super(NetworkResourceProperties, self).__init__()
-        self.description = description
+    def __init__(self, **kwargs):
+        super(NetworkResourceProperties, self).__init__(**kwargs)
+        self.description = kwargs.get('description', None)
         self.status = None
         self.status_details = None
         self.kind = 'NetworkResourceProperties'

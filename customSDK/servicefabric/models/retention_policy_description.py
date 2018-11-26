@@ -18,7 +18,9 @@ class RetentionPolicyDescription(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: BasicRetentionPolicyDescription
 
-    :param retention_policy_type: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param retention_policy_type: Required. Constant filled by server.
     :type retention_policy_type: str
     """
 
@@ -34,6 +36,6 @@ class RetentionPolicyDescription(Model):
         'retention_policy_type': {'Basic': 'BasicRetentionPolicyDescription'}
     }
 
-    def __init__(self):
-        super(RetentionPolicyDescription, self).__init__()
+    def __init__(self, **kwargs):
+        super(RetentionPolicyDescription, self).__init__(**kwargs)
         self.retention_policy_type = None

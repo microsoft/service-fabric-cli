@@ -16,16 +16,18 @@ class AddRemoveReplicaScalingMechanism(AutoScalingMechanism):
     """Describes the horizontal auto scaling mechanism that adds or removes
     replicas (containers or container groups).
 
-    :param kind: Constant filled by server.
+    All required parameters must be populated in order to send to Azure.
+
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param min_count: Minimum number of containers (scale down won't be
-     performed below this number).
+    :param min_count: Required. Minimum number of containers (scale down won't
+     be performed below this number).
     :type min_count: int
-    :param max_count: Maximum number of containers (scale up won't be
-     performed above this number).
+    :param max_count: Required. Maximum number of containers (scale up won't
+     be performed above this number).
     :type max_count: int
-    :param scale_increment: Each time auto scaling is performed, this number
-     of containers will be added or removed.
+    :param scale_increment: Required. Each time auto scaling is performed,
+     this number of containers will be added or removed.
     :type scale_increment: int
     """
 
@@ -43,9 +45,9 @@ class AddRemoveReplicaScalingMechanism(AutoScalingMechanism):
         'scale_increment': {'key': 'scaleIncrement', 'type': 'int'},
     }
 
-    def __init__(self, min_count, max_count, scale_increment):
-        super(AddRemoveReplicaScalingMechanism, self).__init__()
-        self.min_count = min_count
-        self.max_count = max_count
-        self.scale_increment = scale_increment
+    def __init__(self, **kwargs):
+        super(AddRemoveReplicaScalingMechanism, self).__init__(**kwargs)
+        self.min_count = kwargs.get('min_count', None)
+        self.max_count = kwargs.get('max_count', None)
+        self.scale_increment = kwargs.get('scale_increment', None)
         self.kind = 'AddRemoveReplica'

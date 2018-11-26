@@ -30,6 +30,8 @@ import sfctl.helps.app_type  # pylint: disable=unused-import
 import sfctl.helps.chaos  # pylint: disable=unused-import
 import sfctl.helps.infrastructure  # pylint: disable=unused-import
 import sfctl.helps.secretvalue  # pylint: disable=unused-import
+import sfctl.helps.deployment # pylint: disable=unused-import
+
 EXCLUDED_PARAMS = ['self', 'raw', 'custom_headers', 'operation_config',
                    'content_version', 'kwargs', 'client']
 
@@ -268,9 +270,9 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('delete', 'delete')
             group.command('list', 'list')
 
-        with CommandGroup(self, 'mesh code-package', mesh_code_package_func_path,
+        with CommandGroup(self, 'mesh code-package-log', mesh_code_package_func_path,
                           client_factory=mesh_code_package_create) as group:
-            group.command('show', 'get_container_logs')
+            group.command('get', 'get_container_logs')
 
         with CommandGroup(self, 'mesh secret', mesh_secret_func_path,
                           client_factory=mesh_secret_create) as group:
@@ -399,6 +401,11 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandGroup(self, 'mesh secretvalue', 'sfctl.custom_secret_value#{}',
                           client_factory=mesh_secret_value_create) as group:
             group.command('show', 'get_secret_value')
+
+        client_func_path_mesh = 'sfctl.custom_deployment#{}'
+        with CommandGroup(self, 'mesh deployment', client_func_path_mesh,
+                          client_factory=client_create) as group:
+            group.command('create', 'mesh_deploy')
 
         return OrderedDict(self.command_table)
 

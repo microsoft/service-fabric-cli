@@ -15,11 +15,14 @@ from msrest.serialization import Model
 class GatewayDestination(Model):
     """Describes destination endpoint for routing traffic.
 
-    :param application_name: Name of the service fabric Mesh application.
+    All required parameters must be populated in order to send to Azure.
+
+    :param application_name: Required. Name of the service fabric Mesh
+     application.
     :type application_name: str
-    :param service_name: service that contains the endpoint.
+    :param service_name: Required. service that contains the endpoint.
     :type service_name: str
-    :param endpoint_name: name of the endpoint in the service.
+    :param endpoint_name: Required. name of the endpoint in the service.
     :type endpoint_name: str
     """
 
@@ -35,8 +38,8 @@ class GatewayDestination(Model):
         'endpoint_name': {'key': 'endpointName', 'type': 'str'},
     }
 
-    def __init__(self, application_name, service_name, endpoint_name):
-        super(GatewayDestination, self).__init__()
-        self.application_name = application_name
-        self.service_name = service_name
-        self.endpoint_name = endpoint_name
+    def __init__(self, **kwargs):
+        super(GatewayDestination, self).__init__(**kwargs)
+        self.application_name = kwargs.get('application_name', None)
+        self.service_name = kwargs.get('service_name', None)
+        self.endpoint_name = kwargs.get('endpoint_name', None)

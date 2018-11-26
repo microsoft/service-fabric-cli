@@ -29,7 +29,7 @@ helps['sa-cluster'] = """
 
 helps['application'] = """
     type: group
-    short-summary: Create, delete, and manage applications and application types.
+    short-summary: Create, delete, and manage applications and application types
 """
 
 helps['chaos'] = """
@@ -104,6 +104,11 @@ helps['mesh app'] = """
     short-summary: Get and delete application resources
 """
 
+helps['mesh deployment'] = """
+    type: group
+    short-summary: Create Service Fabric Mesh resources
+"""
+
 helps['mesh service'] = """
     type: group
     short-summary: Get service details and list services of an application resource
@@ -129,7 +134,7 @@ helps['mesh network'] = """
     short-summary: Get and delete mesh network resources
 """
 
-helps['mesh code-package'] = """
+helps['mesh code-package-log'] = """
     type: group
     short-summary: Get the logs for the container of the specified code package for the given service replica.
 """

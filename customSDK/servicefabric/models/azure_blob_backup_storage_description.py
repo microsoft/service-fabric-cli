@@ -16,15 +16,17 @@ class AzureBlobBackupStorageDescription(BackupStorageDescription):
     """Describes the parameters for Azure blob store used for storing and
     enumerating backups.
 
+    All required parameters must be populated in order to send to Azure.
+
     :param friendly_name: Friendly name for this backup storage.
     :type friendly_name: str
-    :param storage_kind: Constant filled by server.
+    :param storage_kind: Required. Constant filled by server.
     :type storage_kind: str
-    :param connection_string: The connection string to connect to the Azure
-     blob store.
+    :param connection_string: Required. The connection string to connect to
+     the Azure blob store.
     :type connection_string: str
-    :param container_name: The name of the container in the blob store to
-     store and enumerate backups from.
+    :param container_name: Required. The name of the container in the blob
+     store to store and enumerate backups from.
     :type container_name: str
     """
 
@@ -41,8 +43,8 @@ class AzureBlobBackupStorageDescription(BackupStorageDescription):
         'container_name': {'key': 'ContainerName', 'type': 'str'},
     }
 
-    def __init__(self, connection_string, container_name, friendly_name=None):
-        super(AzureBlobBackupStorageDescription, self).__init__(friendly_name=friendly_name)
-        self.connection_string = connection_string
-        self.container_name = container_name
+    def __init__(self, **kwargs):
+        super(AzureBlobBackupStorageDescription, self).__init__(**kwargs)
+        self.connection_string = kwargs.get('connection_string', None)
+        self.container_name = kwargs.get('container_name', None)
         self.storage_kind = 'AzureBlobStore'
