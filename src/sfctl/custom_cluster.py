@@ -128,7 +128,8 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
 def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None):
     """ Check that the cluster version of sfctl is compatible with that of the cluster.
 
-    Failures in making the API call will be ignored and the time tracker
+    Failures in making the API call (to check the cluster version)
+    will be ignored and the time tracker
     will be reset to the current time. This is because we have no way of knowing if the
     API call failed because it doesn't exist on the cluster, or because of some other reason.
     We set the time tracker to the current time to avoid calling the API continuously
@@ -218,6 +219,8 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
 
         return True if cluster_version.startswith('6.4') else False
 
+    # If we forget to update this code before a new release, the tests which call this method
+    # will fail.
     raise SFCTLInternalException(str.format(
         'Invalid sfctl version {0} provided for check against cluster version {1}.',
         sfctl_version,

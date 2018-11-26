@@ -16,7 +16,7 @@ SF_CLI_NAME = 'sfctl'
 SF_CLI_CONFIG_DIR = os.path.join('~', '.{0}'.format(SF_CLI_NAME))
 SF_CLI_ENV_VAR_PREFIX = SF_CLI_NAME
 
-# How often to check sfctl version and cluster version for compatibility with each other. In hours.
+# How often to check sfctl version and cluster version for compatibility with each other (in hours).
 SF_CLI_VERSION_CHECK_INTERVAL = 24
 
 

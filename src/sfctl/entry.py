@@ -37,6 +37,7 @@ def launch():
     invoke_return_value = cli_env.invoke(sys.argv[1:])
 
     if invoke_return_value != 0 or ('cluster' and 'select' in sys.argv[1:]):
+        # invoke_return_value is 0 on success
         check_cluster_version(on_failure_or_connection=True, dummy_cluster_version='invalid')
     else:
         check_cluster_version(on_failure_or_connection=False, dummy_cluster_version='invalid')
