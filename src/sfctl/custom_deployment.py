@@ -45,23 +45,23 @@ def deploy_resource(client, resource):
         gateway_description = load_json(resource)
         client.mesh_gateway.create_or_update(resource_name, gateway_description.get('description')) # pylint: disable=line-too-long
 
-def mesh_deploy(client, input_yaml_paths, parameters=None):
+def mesh_deploy(client, input_yaml_files, parameters=None):
     """ This function
         1. Uses sfmergeutility to merge, convert, and
         order the resources
         2. Deploys the resources in the order suggested by the utility
     :param client: (class) Auto generated client from swagger specification
-    :param input_yaml_paths: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
+    :param input_yaml_files: (str) Relative/absolute directory path or comma seperated relative/absolute file paths of the yaml resource files  # pylint: disable=line-too-long
     """
     file_path_list = []
 
-    if os.path.isdir(input_yaml_paths):
-        if not os.path.exists(input_yaml_paths):
-            raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_paths)) # pylint: disable=line-too-long
-        file_path_list = list_files_in_directory(input_yaml_paths, ".yaml")
+    if os.path.isdir(input_yaml_files):
+        if not os.path.exists(input_yaml_files):
+            raise CLIError('The specified directory "%s" does not exist or you do not have access to it' %(input_yaml_files)) # pylint: disable=line-too-long
+        file_path_list = list_files_in_directory(input_yaml_files, ".yaml")
 
     else:
-        file_path_list = input_yaml_paths.split(',')
+        file_path_list = input_yaml_files.split(',')
         for file_path in file_path_list:
             if not os.path.exists(file_path):
                 raise CLIError('The specified file "%s" does not exist or you do not have access to it' %(file_path)) # pylint: disable=line-too-long
@@ -70,7 +70,7 @@ def mesh_deploy(client, input_yaml_paths, parameters=None):
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir, ignore_errors=True)
 
-    SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameter_file=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
+    SFMergeUtility.sf_merge_utility(file_path_list, "SF_SBZ_JSON", parameters=parameters, output_dir=output_dir, prefix="") # pylint: disable=line-too-long
     resources = list_files_in_directory(output_dir, ".json")
     resources.sort()
     for resource in resources:
