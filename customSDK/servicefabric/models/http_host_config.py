@@ -15,13 +15,11 @@ from msrest.serialization import Model
 class HttpHostConfig(Model):
     """Describes the hostname properties for http routing.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. http hostname config name.
+    :param name: http hostname config name.
     :type name: str
-    :param routes: Required. Route information to use for routing. Routes are
-     processed in the order they are specified. Specify routes that are more
-     specific before routes that can hamdle general cases.
+    :param routes: Route information to use for routing. Routes are processed
+     in the order they are specified. Specify routes that are more specific
+     before routes that can hamdle general cases.
     :type routes: list[~azure.servicefabric.models.HttpRouteConfig]
     """
 
@@ -35,7 +33,7 @@ class HttpHostConfig(Model):
         'routes': {'key': 'routes', 'type': '[HttpRouteConfig]'},
     }
 
-    def __init__(self, **kwargs):
-        super(HttpHostConfig, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.routes = kwargs.get('routes', None)
+    def __init__(self, name, routes):
+        super(HttpHostConfig, self).__init__()
+        self.name = name
+        self.routes = routes

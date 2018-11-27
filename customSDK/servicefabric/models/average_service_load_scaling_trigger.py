@@ -16,21 +16,19 @@ class AverageServiceLoadScalingTrigger(ScalingTriggerDescription):
     """Represents a scaling policy related to an average load of a metric/resource
     of a service.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param metric_name: Required. The name of the metric for which usage
-     should be tracked.
+    :param metric_name: The name of the metric for which usage should be
+     tracked.
     :type metric_name: str
-    :param lower_load_threshold: Required. The lower limit of the load below
-     which a scale in operation should be performed.
+    :param lower_load_threshold: The lower limit of the load below which a
+     scale in operation should be performed.
     :type lower_load_threshold: str
-    :param upper_load_threshold: Required. The upper limit of the load beyond
-     which a scale out operation should be performed.
+    :param upper_load_threshold: The upper limit of the load beyond which a
+     scale out operation should be performed.
     :type upper_load_threshold: str
-    :param scale_interval_in_seconds: Required. The period in seconds on which
-     a decision is made whether to scale or not.
+    :param scale_interval_in_seconds: The period in seconds on which a
+     decision is made whether to scale or not.
     :type scale_interval_in_seconds: long
     """
 
@@ -50,10 +48,10 @@ class AverageServiceLoadScalingTrigger(ScalingTriggerDescription):
         'scale_interval_in_seconds': {'key': 'ScaleIntervalInSeconds', 'type': 'long'},
     }
 
-    def __init__(self, **kwargs):
-        super(AverageServiceLoadScalingTrigger, self).__init__(**kwargs)
-        self.metric_name = kwargs.get('metric_name', None)
-        self.lower_load_threshold = kwargs.get('lower_load_threshold', None)
-        self.upper_load_threshold = kwargs.get('upper_load_threshold', None)
-        self.scale_interval_in_seconds = kwargs.get('scale_interval_in_seconds', None)
+    def __init__(self, metric_name, lower_load_threshold, upper_load_threshold, scale_interval_in_seconds):
+        super(AverageServiceLoadScalingTrigger, self).__init__()
+        self.metric_name = metric_name
+        self.lower_load_threshold = lower_load_threshold
+        self.upper_load_threshold = upper_load_threshold
+        self.scale_interval_in_seconds = scale_interval_in_seconds
         self.kind = 'AverageServiceLoad'

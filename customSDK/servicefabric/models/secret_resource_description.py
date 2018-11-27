@@ -15,12 +15,9 @@ from msrest.serialization import Model
 class SecretResourceDescription(Model):
     """This type describes a secret resource.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param properties: Required. Describes the properties of a secret
-     resource.
+    :param properties: Describes the properties of a secret resource.
     :type properties: ~azure.servicefabric.models.SecretResourceProperties
-    :param name: Required. Name of the Secret resource.
+    :param name: Name of the Secret resource.
     :type name: str
     """
 
@@ -34,7 +31,7 @@ class SecretResourceDescription(Model):
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(SecretResourceDescription, self).__init__(**kwargs)
-        self.properties = kwargs.get('properties', None)
-        self.name = kwargs.get('name', None)
+    def __init__(self, properties, name):
+        super(SecretResourceDescription, self).__init__()
+        self.properties = properties
+        self.name = name

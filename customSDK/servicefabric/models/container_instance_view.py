@@ -33,9 +33,9 @@ class ContainerInstanceView(Model):
         'events': {'key': 'events', 'type': '[ContainerEvent]'},
     }
 
-    def __init__(self, **kwargs):
-        super(ContainerInstanceView, self).__init__(**kwargs)
-        self.restart_count = kwargs.get('restart_count', None)
-        self.current_state = kwargs.get('current_state', None)
-        self.previous_state = kwargs.get('previous_state', None)
-        self.events = kwargs.get('events', None)
+    def __init__(self, restart_count=None, current_state=None, previous_state=None, events=None):
+        super(ContainerInstanceView, self).__init__()
+        self.restart_count = restart_count
+        self.current_state = current_state
+        self.previous_state = previous_state
+        self.events = events

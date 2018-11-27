@@ -15,11 +15,9 @@ from .property_value import PropertyValue
 class GuidPropertyValue(PropertyValue):
     """Describes a Service Fabric property value of type Guid.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param data: Required. The data of the property value.
+    :param data: The data of the property value.
     :type data: str
     """
 
@@ -33,7 +31,7 @@ class GuidPropertyValue(PropertyValue):
         'data': {'key': 'Data', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(GuidPropertyValue, self).__init__(**kwargs)
-        self.data = kwargs.get('data', None)
+    def __init__(self, data):
+        super(GuidPropertyValue, self).__init__()
+        self.data = data
         self.kind = 'Guid'

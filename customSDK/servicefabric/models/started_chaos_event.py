@@ -15,12 +15,10 @@ from .chaos_event import ChaosEvent
 class StartedChaosEvent(ChaosEvent):
     """Describes a Chaos event that gets generated when Chaos is started.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param time_stamp_utc: Required. The UTC timestamp when this Chaos event
-     was generated.
+    :param time_stamp_utc: The UTC timestamp when this Chaos event was
+     generated.
     :type time_stamp_utc: datetime
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param chaos_parameters: Defines all the parameters to configure a Chaos
      run.
@@ -38,7 +36,7 @@ class StartedChaosEvent(ChaosEvent):
         'chaos_parameters': {'key': 'ChaosParameters', 'type': 'ChaosParameters'},
     }
 
-    def __init__(self, **kwargs):
-        super(StartedChaosEvent, self).__init__(**kwargs)
-        self.chaos_parameters = kwargs.get('chaos_parameters', None)
+    def __init__(self, time_stamp_utc, chaos_parameters=None):
+        super(StartedChaosEvent, self).__init__(time_stamp_utc=time_stamp_utc)
+        self.chaos_parameters = chaos_parameters
         self.kind = 'Started'

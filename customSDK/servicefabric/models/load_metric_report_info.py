@@ -33,9 +33,9 @@ class LoadMetricReportInfo(Model):
         'last_reported_utc': {'key': 'LastReportedUtc', 'type': 'iso-8601'},
     }
 
-    def __init__(self, **kwargs):
-        super(LoadMetricReportInfo, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.value = kwargs.get('value', None)
-        self.current_value = kwargs.get('current_value', None)
-        self.last_reported_utc = kwargs.get('last_reported_utc', None)
+    def __init__(self, name=None, value=None, current_value=None, last_reported_utc=None):
+        super(LoadMetricReportInfo, self).__init__()
+        self.name = name
+        self.value = value
+        self.current_value = current_value
+        self.last_reported_utc = last_reported_utc

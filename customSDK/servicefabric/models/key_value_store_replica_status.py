@@ -15,9 +15,7 @@ from .replica_status_base import ReplicaStatusBase
 class KeyValueStoreReplicaStatus(ReplicaStatusBase):
     """Key value store related information for the replica.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param database_row_count_estimate: Value indicating the estimated number
      of rows in the underlying database.
@@ -51,11 +49,11 @@ class KeyValueStoreReplicaStatus(ReplicaStatusBase):
         'status_details': {'key': 'StatusDetails', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(KeyValueStoreReplicaStatus, self).__init__(**kwargs)
-        self.database_row_count_estimate = kwargs.get('database_row_count_estimate', None)
-        self.database_logical_size_estimate = kwargs.get('database_logical_size_estimate', None)
-        self.copy_notification_current_key_filter = kwargs.get('copy_notification_current_key_filter', None)
-        self.copy_notification_current_progress = kwargs.get('copy_notification_current_progress', None)
-        self.status_details = kwargs.get('status_details', None)
+    def __init__(self, database_row_count_estimate=None, database_logical_size_estimate=None, copy_notification_current_key_filter=None, copy_notification_current_progress=None, status_details=None):
+        super(KeyValueStoreReplicaStatus, self).__init__()
+        self.database_row_count_estimate = database_row_count_estimate
+        self.database_logical_size_estimate = database_logical_size_estimate
+        self.copy_notification_current_key_filter = copy_notification_current_key_filter
+        self.copy_notification_current_progress = copy_notification_current_progress
+        self.status_details = status_details
         self.kind = 'KeyValueStore'

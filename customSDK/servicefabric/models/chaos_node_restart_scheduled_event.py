@@ -15,27 +15,24 @@ from .node_event import NodeEvent
 class ChaosNodeRestartScheduledEvent(NodeEvent):
     """Chaos Restart Node Fault Scheduled event.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param event_instance_id: Required. The identifier for the FabricEvent
-     instance.
+    :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: Required. The time event was logged.
+    :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param node_name: Required. The name of a Service Fabric node.
+    :param node_name: The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance_id: Required. Id of Node instance.
+    :param node_instance_id: Id of Node instance.
     :type node_instance_id: long
-    :param fault_group_id: Required. Id of fault group.
+    :param fault_group_id: Id of fault group.
     :type fault_group_id: str
-    :param fault_id: Required. Id of fault.
+    :param fault_id: Id of fault.
     :type fault_id: str
     """
 
@@ -61,9 +58,9 @@ class ChaosNodeRestartScheduledEvent(NodeEvent):
         'fault_id': {'key': 'FaultId', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosNodeRestartScheduledEvent, self).__init__(**kwargs)
-        self.node_instance_id = kwargs.get('node_instance_id', None)
-        self.fault_group_id = kwargs.get('fault_group_id', None)
-        self.fault_id = kwargs.get('fault_id', None)
+    def __init__(self, event_instance_id, time_stamp, node_name, node_instance_id, fault_group_id, fault_id, category=None, has_correlated_events=None):
+        super(ChaosNodeRestartScheduledEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
+        self.node_instance_id = node_instance_id
+        self.fault_group_id = fault_group_id
+        self.fault_id = fault_id
         self.kind = 'ChaosNodeRestartScheduled'

@@ -15,13 +15,11 @@ from .backup_schedule_description import BackupScheduleDescription
 class FrequencyBasedBackupScheduleDescription(BackupScheduleDescription):
     """Describes the frequency based backup schedule.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param schedule_kind: Required. Constant filled by server.
+    :param schedule_kind: Constant filled by server.
     :type schedule_kind: str
-    :param interval: Required. Defines the interval with which backups are
-     periodically taken. It should be specified in ISO8601 format. Timespan in
-     seconds is not supported and will be ignored while creating the policy.
+    :param interval: Defines the interval with which backups are periodically
+     taken. It should be specified in ISO8601 format. Timespan in seconds is
+     not supported and will be ignored while creating the policy.
     :type interval: timedelta
     """
 
@@ -35,7 +33,7 @@ class FrequencyBasedBackupScheduleDescription(BackupScheduleDescription):
         'interval': {'key': 'Interval', 'type': 'duration'},
     }
 
-    def __init__(self, **kwargs):
-        super(FrequencyBasedBackupScheduleDescription, self).__init__(**kwargs)
-        self.interval = kwargs.get('interval', None)
+    def __init__(self, interval):
+        super(FrequencyBasedBackupScheduleDescription, self).__init__()
+        self.interval = interval
         self.schedule_kind = 'FrequencyBased'

@@ -15,11 +15,9 @@ from .property_value import PropertyValue
 class DoublePropertyValue(PropertyValue):
     """Describes a Service Fabric property value of type Double.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param data: Required. The data of the property value.
+    :param data: The data of the property value.
     :type data: float
     """
 
@@ -33,7 +31,7 @@ class DoublePropertyValue(PropertyValue):
         'data': {'key': 'Data', 'type': 'float'},
     }
 
-    def __init__(self, **kwargs):
-        super(DoublePropertyValue, self).__init__(**kwargs)
-        self.data = kwargs.get('data', None)
+    def __init__(self, data):
+        super(DoublePropertyValue, self).__init__()
+        self.data = data
         self.kind = 'Double'

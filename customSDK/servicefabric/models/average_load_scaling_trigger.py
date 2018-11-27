@@ -15,21 +15,18 @@ from .auto_scaling_trigger import AutoScalingTrigger
 class AverageLoadScalingTrigger(AutoScalingTrigger):
     """Describes the average load trigger used for auto scaling.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param metric: Required. Description of the metric that is used for
-     scaling.
+    :param metric: Description of the metric that is used for scaling.
     :type metric: ~azure.servicefabric.models.AutoScalingMetric
-    :param lower_load_threshold: Required. Lower load threshold (if average
-     load is below this threshold, service will scale down).
+    :param lower_load_threshold: Lower load threshold (if average load is
+     below this threshold, service will scale down).
     :type lower_load_threshold: float
-    :param upper_load_threshold: Required. Upper load threshold (if average
-     load is above this threshold, service will scale up).
+    :param upper_load_threshold: Upper load threshold (if average load is
+     above this threshold, service will scale up).
     :type upper_load_threshold: float
-    :param scale_interval_in_seconds: Required. Scale interval that indicates
-     how often will this trigger be checked.
+    :param scale_interval_in_seconds: Scale interval that indicates how often
+     will this trigger be checked.
     :type scale_interval_in_seconds: int
     """
 
@@ -49,10 +46,10 @@ class AverageLoadScalingTrigger(AutoScalingTrigger):
         'scale_interval_in_seconds': {'key': 'scaleIntervalInSeconds', 'type': 'int'},
     }
 
-    def __init__(self, **kwargs):
-        super(AverageLoadScalingTrigger, self).__init__(**kwargs)
-        self.metric = kwargs.get('metric', None)
-        self.lower_load_threshold = kwargs.get('lower_load_threshold', None)
-        self.upper_load_threshold = kwargs.get('upper_load_threshold', None)
-        self.scale_interval_in_seconds = kwargs.get('scale_interval_in_seconds', None)
+    def __init__(self, metric, lower_load_threshold, upper_load_threshold, scale_interval_in_seconds):
+        super(AverageLoadScalingTrigger, self).__init__()
+        self.metric = metric
+        self.lower_load_threshold = lower_load_threshold
+        self.upper_load_threshold = upper_load_threshold
+        self.scale_interval_in_seconds = scale_interval_in_seconds
         self.kind = 'AverageLoad'

@@ -15,45 +15,42 @@ from .service_event import ServiceEvent
 class ServiceDeletedEvent(ServiceEvent):
     """Service Deleted event.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param event_instance_id: Required. The identifier for the FabricEvent
-     instance.
+    :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: Required. The time event was logged.
+    :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param service_id: Required. The identity of the service. This ID is an
-     encoded representation of the service name. This is used in the REST APIs
-     to identify the service resource.
+    :param service_id: The identity of the service. This ID is an encoded
+     representation of the service name. This is used in the REST APIs to
+     identify the service resource.
      Starting in version 6.0, hierarchical names are delimited with the "\\~"
      character. For example, if the service name is "fabric:/myapp/app1/svc1",
      the service identity would be "myapp~app1\\~svc1" in 6.0+ and
      "myapp/app1/svc1" in previous versions.
     :type service_id: str
-    :param service_type_name: Required. Service type name.
+    :param service_type_name: Service type name.
     :type service_type_name: str
-    :param application_name: Required. Application name.
+    :param application_name: Application name.
     :type application_name: str
-    :param application_type_name: Required. Application type name.
+    :param application_type_name: Application type name.
     :type application_type_name: str
-    :param service_instance: Required. Id of Service instance.
+    :param service_instance: Id of Service instance.
     :type service_instance: long
-    :param is_stateful: Required. Indicates if Service is stateful.
+    :param is_stateful: Indicates if Service is stateful.
     :type is_stateful: bool
-    :param partition_count: Required. Number of partitions.
+    :param partition_count: Number of partitions.
     :type partition_count: int
-    :param target_replica_set_size: Required. Size of target replicas set.
+    :param target_replica_set_size: Size of target replicas set.
     :type target_replica_set_size: int
-    :param min_replica_set_size: Required. Minimum size of replicas set.
+    :param min_replica_set_size: Minimum size of replicas set.
     :type min_replica_set_size: int
-    :param service_package_version: Required. Version of Service package.
+    :param service_package_version: Version of Service package.
     :type service_package_version: str
     """
 
@@ -91,15 +88,15 @@ class ServiceDeletedEvent(ServiceEvent):
         'service_package_version': {'key': 'ServicePackageVersion', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ServiceDeletedEvent, self).__init__(**kwargs)
-        self.service_type_name = kwargs.get('service_type_name', None)
-        self.application_name = kwargs.get('application_name', None)
-        self.application_type_name = kwargs.get('application_type_name', None)
-        self.service_instance = kwargs.get('service_instance', None)
-        self.is_stateful = kwargs.get('is_stateful', None)
-        self.partition_count = kwargs.get('partition_count', None)
-        self.target_replica_set_size = kwargs.get('target_replica_set_size', None)
-        self.min_replica_set_size = kwargs.get('min_replica_set_size', None)
-        self.service_package_version = kwargs.get('service_package_version', None)
+    def __init__(self, event_instance_id, time_stamp, service_id, service_type_name, application_name, application_type_name, service_instance, is_stateful, partition_count, target_replica_set_size, min_replica_set_size, service_package_version, category=None, has_correlated_events=None):
+        super(ServiceDeletedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, service_id=service_id)
+        self.service_type_name = service_type_name
+        self.application_name = application_name
+        self.application_type_name = application_type_name
+        self.service_instance = service_instance
+        self.is_stateful = is_stateful
+        self.partition_count = partition_count
+        self.target_replica_set_size = target_replica_set_size
+        self.min_replica_set_size = min_replica_set_size
+        self.service_package_version = service_package_version
         self.kind = 'ServiceDeleted'
