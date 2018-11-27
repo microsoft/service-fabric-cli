@@ -15,6 +15,9 @@ from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL
 from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
+from knack.log import get_logger
+
+logger = get_logger(__name__)
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
@@ -185,7 +188,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None
         # is that the corresponding get_cluster_version API on the cluster doesn't exist.
         try:
             cluster_version = client.get_cluster_version().Version
-        except Exception:
+        except Exception as ex:
+            logger.info('Check cluster version failed due to error: %s', str(ex))
             return True
     else:
         cluster_version = dummy_cluster_version

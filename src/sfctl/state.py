@@ -26,6 +26,8 @@ DATETIME_FORMAT = "Year %Y Month %m Day %d %H:%M:%S:%f %Z"
 
 def get_state_path():
 
+    # This is the same as
+    # self.config_path = os.path.join(self.config_dir, CLIConfig._CONFIG_FILE_NAME)
     return CLIConfig(SF_CLI_STATE_DIR, SF_CLI_NAME, 'state').config_path
 
 

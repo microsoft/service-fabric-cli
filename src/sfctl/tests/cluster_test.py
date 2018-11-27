@@ -79,7 +79,7 @@ class ClusterTests(unittest.TestCase):
             - On connection to a new cluster even
                 if time since last check is less than SF_CLI_VERSION_CHECK_INTERVAL
             - The last check time (in state) was greater than
-                config.py - SF_CLI_VERSION_CHECK_INTERVAL
+                config.py's SF_CLI_VERSION_CHECK_INTERVAL
 
         NOTE: this is a unit test only, which relies on the
         custom_cluster.py - check_cluster_version
@@ -177,12 +177,12 @@ class ClusterTests(unittest.TestCase):
         adjusted_hour = current_utc_time.hour
         adjusted_minute = current_utc_time.minute
         adjusted_day = current_utc_time.day
-        if current_utc_time.minute <= 5:
-            adjusted_minute = current_utc_time.minute - 5
-        elif current_utc_time.hour >= 1:
-            adjusted_hour = current_utc_time.hour - 1
+        if adjusted_minute >= 5:
+            adjusted_minute = adjusted_minute - 5
+        elif adjusted_hour >= 1:
+            adjusted_hour = adjusted_hour - 1
         else:
-            adjusted_day = current_utc_time.day - 1
+            adjusted_day = adjusted_day- 1
             adjusted_hour = 23
 
         utc_time_past = datetime(
