@@ -15,12 +15,10 @@ from msrest.serialization import Model
 class ImageRegistryCredential(Model):
     """Image registry credential.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param server: Required. Docker image registry server, without protocol
-     such as `http` and `https`.
+    :param server: Docker image registry server, without protocol such as
+     `http` and `https`.
     :type server: str
-    :param username: Required. The username for the private registry.
+    :param username: The username for the private registry.
     :type username: str
     :param password: The password for the private registry. The password is
      required for create or update operations, however it is not returned in
@@ -39,8 +37,8 @@ class ImageRegistryCredential(Model):
         'password': {'key': 'password', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ImageRegistryCredential, self).__init__(**kwargs)
-        self.server = kwargs.get('server', None)
-        self.username = kwargs.get('username', None)
-        self.password = kwargs.get('password', None)
+    def __init__(self, server, username, password=None):
+        super(ImageRegistryCredential, self).__init__()
+        self.server = server
+        self.username = username
+        self.password = password

@@ -22,9 +22,7 @@ class ServicePlacementPolicyDescription(Model):
     ServicePlacementRequiredDomainPolicyDescription,
     ServicePlacementRequireDomainDistributionPolicyDescription
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param type: Required. Constant filled by server.
+    :param type: Constant filled by server.
     :type type: str
     """
 
@@ -40,6 +38,6 @@ class ServicePlacementPolicyDescription(Model):
         'type': {'InvalidDomain': 'ServicePlacementInvalidDomainPolicyDescription', 'NonPartiallyPlaceService': 'ServicePlacementNonPartiallyPlaceServicePolicyDescription', 'PreferredPrimaryDomain': 'ServicePlacementPreferPrimaryDomainPolicyDescription', 'RequiredDomain': 'ServicePlacementRequiredDomainPolicyDescription', 'RequiredDomainDistribution': 'ServicePlacementRequireDomainDistributionPolicyDescription'}
     }
 
-    def __init__(self, **kwargs):
-        super(ServicePlacementPolicyDescription, self).__init__(**kwargs)
+    def __init__(self):
+        super(ServicePlacementPolicyDescription, self).__init__()
         self.type = None

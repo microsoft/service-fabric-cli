@@ -18,14 +18,12 @@ class DiagnosticsSinkProperties(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: AzureInternalMonitoringPipelineSinkDescription
 
-    All required parameters must be populated in order to send to Azure.
-
     :param name: Name of the sink. This value is referenced by
      DiagnosticsReferenceDescription
     :type name: str
     :param description: A description of the sink.
     :type description: str
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -43,8 +41,8 @@ class DiagnosticsSinkProperties(Model):
         'kind': {'AzureInternalMonitoringPipeline': 'AzureInternalMonitoringPipelineSinkDescription'}
     }
 
-    def __init__(self, **kwargs):
-        super(DiagnosticsSinkProperties, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.description = kwargs.get('description', None)
+    def __init__(self, name=None, description=None):
+        super(DiagnosticsSinkProperties, self).__init__()
+        self.name = name
+        self.description = description
         self.kind = None

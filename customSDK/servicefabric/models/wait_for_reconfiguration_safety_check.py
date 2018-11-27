@@ -16,9 +16,7 @@ class WaitForReconfigurationSafetyCheck(PartitionSafetyCheck):
     """Safety check that waits for the current reconfiguration of the partition to
     be completed before starting an upgrade.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param partition_id: Id of the partition which is undergoing the safety
      check.
@@ -29,11 +27,6 @@ class WaitForReconfigurationSafetyCheck(PartitionSafetyCheck):
         'kind': {'required': True},
     }
 
-    _attribute_map = {
-        'kind': {'key': 'Kind', 'type': 'str'},
-        'partition_id': {'key': 'PartitionId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(WaitForReconfigurationSafetyCheck, self).__init__(**kwargs)
+    def __init__(self, partition_id=None):
+        super(WaitForReconfigurationSafetyCheck, self).__init__(partition_id=partition_id)
         self.kind = 'WaitForReconfiguration'

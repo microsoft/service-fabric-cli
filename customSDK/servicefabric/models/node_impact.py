@@ -17,9 +17,7 @@ class NodeImpact(Model):
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param node_name: Required. The name of the impacted node.
+    :param node_name: The name of the impacted node.
     :type node_name: str
     :param impact_level: The level of impact expected. Possible values
      include: 'Invalid', 'None', 'Restart', 'RemoveData', 'RemoveNode'
@@ -35,7 +33,7 @@ class NodeImpact(Model):
         'impact_level': {'key': 'ImpactLevel', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(NodeImpact, self).__init__(**kwargs)
-        self.node_name = kwargs.get('node_name', None)
-        self.impact_level = kwargs.get('impact_level', None)
+    def __init__(self, node_name, impact_level=None):
+        super(NodeImpact, self).__init__()
+        self.node_name = node_name
+        self.impact_level = impact_level

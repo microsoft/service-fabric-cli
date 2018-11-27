@@ -15,15 +15,13 @@ from msrest.serialization import Model
 class VolumeReference(Model):
     """Describes a reference to a volume resource.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the volume being referenced.
+    :param name: Name of the volume being referenced.
     :type name: str
     :param read_only: The flag indicating whether the volume is read only.
      Default is 'false'.
     :type read_only: bool
-    :param destination_path: Required. The path within the container at which
-     the volume should be mounted. Only valid path characters are allowed.
+    :param destination_path: The path within the container at which the volume
+     should be mounted. Only valid path characters are allowed.
     :type destination_path: str
     """
 
@@ -38,8 +36,8 @@ class VolumeReference(Model):
         'destination_path': {'key': 'destinationPath', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(VolumeReference, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.read_only = kwargs.get('read_only', None)
-        self.destination_path = kwargs.get('destination_path', None)
+    def __init__(self, name, destination_path, read_only=None):
+        super(VolumeReference, self).__init__()
+        self.name = name
+        self.read_only = read_only
+        self.destination_path = destination_path

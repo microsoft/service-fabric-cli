@@ -19,12 +19,10 @@ class TestErrorChaosEvent(ChaosEvent):
     an entity, Chaos found that the entity was already faulted -- which would
     be an unexpected event.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param time_stamp_utc: Required. The UTC timestamp when this Chaos event
-     was generated.
+    :param time_stamp_utc: The UTC timestamp when this Chaos event was
+     generated.
     :type time_stamp_utc: datetime
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param reason: Describes why TestErrorChaosEvent was generated. For
      example, Chaos tries to fault a partition but finds that the partition is
@@ -44,7 +42,7 @@ class TestErrorChaosEvent(ChaosEvent):
         'reason': {'key': 'Reason', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(TestErrorChaosEvent, self).__init__(**kwargs)
-        self.reason = kwargs.get('reason', None)
+    def __init__(self, time_stamp_utc, reason=None):
+        super(TestErrorChaosEvent, self).__init__(time_stamp_utc=time_stamp_utc)
+        self.reason = reason
         self.kind = 'TestError'

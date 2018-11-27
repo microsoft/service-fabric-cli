@@ -29,7 +29,7 @@ class ResourceLimits(Model):
         'cpu': {'key': 'cpu', 'type': 'float'},
     }
 
-    def __init__(self, **kwargs):
-        super(ResourceLimits, self).__init__(**kwargs)
-        self.memory_in_gb = kwargs.get('memory_in_gb', None)
-        self.cpu = kwargs.get('cpu', None)
+    def __init__(self, memory_in_gb=None, cpu=None):
+        super(ResourceLimits, self).__init__()
+        self.memory_in_gb = memory_in_gb
+        self.cpu = cpu

@@ -20,9 +20,7 @@ class PartitionSchemeDescription(Model):
     SingletonPartitionSchemeDescription,
     UniformInt64RangePartitionSchemeDescription
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param partition_scheme: Required. Constant filled by server.
+    :param partition_scheme: Constant filled by server.
     :type partition_scheme: str
     """
 
@@ -38,6 +36,6 @@ class PartitionSchemeDescription(Model):
         'partition_scheme': {'Named': 'NamedPartitionSchemeDescription', 'Singleton': 'SingletonPartitionSchemeDescription', 'UniformInt64Range': 'UniformInt64RangePartitionSchemeDescription'}
     }
 
-    def __init__(self, **kwargs):
-        super(PartitionSchemeDescription, self).__init__(**kwargs)
+    def __init__(self):
+        super(PartitionSchemeDescription, self).__init__()
         self.partition_scheme = None

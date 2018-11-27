@@ -15,13 +15,11 @@ from msrest.serialization import Model
 class ApplicationHealthPolicyMapItem(Model):
     """Defines an item in ApplicationHealthPolicyMap.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param key: Required. The key of the application health policy map item.
-     This is the name of the application.
+    :param key: The key of the application health policy map item. This is the
+     name of the application.
     :type key: str
-    :param value: Required. The value of the application health policy map
-     item. This is the ApplicationHealthPolicy for this application.
+    :param value: The value of the application health policy map item. This is
+     the ApplicationHealthPolicy for this application.
     :type value: ~azure.servicefabric.models.ApplicationHealthPolicy
     """
 
@@ -35,7 +33,7 @@ class ApplicationHealthPolicyMapItem(Model):
         'value': {'key': 'Value', 'type': 'ApplicationHealthPolicy'},
     }
 
-    def __init__(self, **kwargs):
-        super(ApplicationHealthPolicyMapItem, self).__init__(**kwargs)
-        self.key = kwargs.get('key', None)
-        self.value = kwargs.get('value', None)
+    def __init__(self, key, value):
+        super(ApplicationHealthPolicyMapItem, self).__init__()
+        self.key = key
+        self.value = value

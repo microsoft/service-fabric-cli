@@ -16,18 +16,14 @@ class PartitionInstanceCountScaleMechanism(ScalingMechanismDescription):
     """Represents a scaling mechanism for adding or removing instances of
     stateless service partition.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param min_instance_count: Required. Minimum number of instances of the
-     partition.
+    :param min_instance_count: Minimum number of instances of the partition.
     :type min_instance_count: int
-    :param max_instance_count: Required. Maximum number of instances of the
-     partition.
+    :param max_instance_count: Maximum number of instances of the partition.
     :type max_instance_count: int
-    :param scale_increment: Required. The number of instances to add or remove
-     during a scaling operation.
+    :param scale_increment: The number of instances to add or remove during a
+     scaling operation.
     :type scale_increment: int
     """
 
@@ -45,9 +41,9 @@ class PartitionInstanceCountScaleMechanism(ScalingMechanismDescription):
         'scale_increment': {'key': 'ScaleIncrement', 'type': 'int'},
     }
 
-    def __init__(self, **kwargs):
-        super(PartitionInstanceCountScaleMechanism, self).__init__(**kwargs)
-        self.min_instance_count = kwargs.get('min_instance_count', None)
-        self.max_instance_count = kwargs.get('max_instance_count', None)
-        self.scale_increment = kwargs.get('scale_increment', None)
+    def __init__(self, min_instance_count, max_instance_count, scale_increment):
+        super(PartitionInstanceCountScaleMechanism, self).__init__()
+        self.min_instance_count = min_instance_count
+        self.max_instance_count = max_instance_count
+        self.scale_increment = scale_increment
         self.kind = 'PartitionInstanceCount'

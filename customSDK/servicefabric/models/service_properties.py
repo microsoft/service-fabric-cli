@@ -58,11 +58,11 @@ class ServiceProperties(Model):
         'unhealthy_evaluation': {'key': 'unhealthyEvaluation', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ServiceProperties, self).__init__(**kwargs)
-        self.description = kwargs.get('description', None)
-        self.replica_count = kwargs.get('replica_count', None)
-        self.auto_scaling_policies = kwargs.get('auto_scaling_policies', None)
+    def __init__(self, description=None, replica_count=None, auto_scaling_policies=None):
+        super(ServiceProperties, self).__init__()
+        self.description = description
+        self.replica_count = replica_count
+        self.auto_scaling_policies = auto_scaling_policies
         self.status = None
         self.status_details = None
         self.health_state = None

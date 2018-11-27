@@ -15,13 +15,10 @@ from msrest.serialization import Model
 class ChaosParametersDictionaryItem(Model):
     """Defines an item in ChaosParametersDictionary of the Chaos Schedule.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param key: Required. The key identifying the Chaos Parameter in the
-     dictionary. This key is referenced by Chaos Schedule Jobs.
+    :param key: The key identifying the Chaos Parameter in the dictionary.
+     This key is referenced by Chaos Schedule Jobs.
     :type key: str
-    :param value: Required. Defines all the parameters to configure a Chaos
-     run.
+    :param value: Defines all the parameters to configure a Chaos run.
     :type value: ~azure.servicefabric.models.ChaosParameters
     """
 
@@ -35,7 +32,7 @@ class ChaosParametersDictionaryItem(Model):
         'value': {'key': 'Value', 'type': 'ChaosParameters'},
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosParametersDictionaryItem, self).__init__(**kwargs)
-        self.key = kwargs.get('key', None)
-        self.value = kwargs.get('value', None)
+    def __init__(self, key, value):
+        super(ChaosParametersDictionaryItem, self).__init__()
+        self.key = key
+        self.value = value

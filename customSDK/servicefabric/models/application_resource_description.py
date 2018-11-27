@@ -18,9 +18,7 @@ class ApplicationResourceDescription(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the Application resource.
+    :param name: Name of the Application resource.
     :type name: str
     :param description: User readable description of the application.
     :type description: str
@@ -75,13 +73,13 @@ class ApplicationResourceDescription(Model):
         'unhealthy_evaluation': {'key': 'properties.unhealthyEvaluation', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ApplicationResourceDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.description = kwargs.get('description', None)
-        self.services = kwargs.get('services', None)
-        self.diagnostics = kwargs.get('diagnostics', None)
-        self.debug_params = kwargs.get('debug_params', None)
+    def __init__(self, name, description=None, services=None, diagnostics=None, debug_params=None):
+        super(ApplicationResourceDescription, self).__init__()
+        self.name = name
+        self.description = description
+        self.services = services
+        self.diagnostics = diagnostics
+        self.debug_params = debug_params
         self.service_names = None
         self.status = None
         self.status_details = None

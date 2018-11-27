@@ -16,13 +16,11 @@ class HealthEvent(HealthInformation):
     """Represents health information reported on a health entity, such as cluster,
     application or node, with additional metadata added by the Health Manager.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param source_id: Required. The source name that identifies the
+    :param source_id: The source name that identifies the
      client/watchdog/system component that generated the health information.
     :type source_id: str
-    :param property: Required. The property of the health information. An
-     entity can have health reports for different properties.
+    :param property: The property of the health information. An entity can
+     have health reports for different properties.
      The property is a string and not a fixed enumeration to allow the reporter
      flexibility to categorize the state condition that triggers the report.
      For example, a reporter with SourceId "LocalWatchdog" can monitor the
@@ -35,9 +33,9 @@ class HealthEvent(HealthInformation):
      Together with the SourceId, the property uniquely identifies the health
      information.
     :type property: str
-    :param health_state: Required. The health state of a Service Fabric entity
-     such as Cluster, Node, Application, Service, Partition, Replica etc.
-     Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
+    :param health_state: The health state of a Service Fabric entity such as
+     Cluster, Node, Application, Service, Partition, Replica etc. Possible
+     values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
     :type health_state: str or ~azure.servicefabric.models.HealthState
     :param time_to_live_in_milli_seconds: The duration for which this health
      report is valid. This field uses ISO8601 format for specifying the
@@ -147,11 +145,11 @@ class HealthEvent(HealthInformation):
         'last_error_transition_at': {'key': 'LastErrorTransitionAt', 'type': 'iso-8601'},
     }
 
-    def __init__(self, **kwargs):
-        super(HealthEvent, self).__init__(**kwargs)
-        self.is_expired = kwargs.get('is_expired', None)
-        self.source_utc_timestamp = kwargs.get('source_utc_timestamp', None)
-        self.last_modified_utc_timestamp = kwargs.get('last_modified_utc_timestamp', None)
-        self.last_ok_transition_at = kwargs.get('last_ok_transition_at', None)
-        self.last_warning_transition_at = kwargs.get('last_warning_transition_at', None)
-        self.last_error_transition_at = kwargs.get('last_error_transition_at', None)
+    def __init__(self, source_id, property, health_state, time_to_live_in_milli_seconds=None, description=None, sequence_number=None, remove_when_expired=None, is_expired=None, source_utc_timestamp=None, last_modified_utc_timestamp=None, last_ok_transition_at=None, last_warning_transition_at=None, last_error_transition_at=None):
+        super(HealthEvent, self).__init__(source_id=source_id, property=property, health_state=health_state, time_to_live_in_milli_seconds=time_to_live_in_milli_seconds, description=description, sequence_number=sequence_number, remove_when_expired=remove_when_expired)
+        self.is_expired = is_expired
+        self.source_utc_timestamp = source_utc_timestamp
+        self.last_modified_utc_timestamp = last_modified_utc_timestamp
+        self.last_ok_transition_at = last_ok_transition_at
+        self.last_warning_transition_at = last_warning_transition_at
+        self.last_error_transition_at = last_error_transition_at

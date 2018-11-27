@@ -23,6 +23,6 @@ class EndpointRef(Model):
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(EndpointRef, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
+    def __init__(self, name=None):
+        super(EndpointRef, self).__init__()
+        self.name = name

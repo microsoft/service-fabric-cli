@@ -15,12 +15,10 @@ from .auto_scaling_metric import AutoScalingMetric
 class AutoScalingResourceMetric(AutoScalingMetric):
     """Describes the resource that is used for triggering auto scaling.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param name: Required. Name of the resource. Possible values include:
-     'cpu', 'memoryInGB'
+    :param name: Name of the resource. Possible values include: 'cpu',
+     'memoryInGB'
     :type name: str or
      ~azure.servicefabric.models.AutoScalingResourceMetricName
     """
@@ -35,7 +33,7 @@ class AutoScalingResourceMetric(AutoScalingMetric):
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(AutoScalingResourceMetric, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
+    def __init__(self, name):
+        super(AutoScalingResourceMetric, self).__init__()
+        self.name = name
         self.kind = 'Resource'

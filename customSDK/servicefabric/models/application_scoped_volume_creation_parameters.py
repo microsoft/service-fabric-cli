@@ -19,11 +19,9 @@ class ApplicationScopedVolumeCreationParameters(Model):
     sub-classes are:
     ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk
 
-    All required parameters must be populated in order to send to Azure.
-
     :param description: User readable description of the volume.
     :type description: str
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -40,7 +38,7 @@ class ApplicationScopedVolumeCreationParameters(Model):
         'kind': {'ServiceFabricVolumeDisk': 'ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk'}
     }
 
-    def __init__(self, **kwargs):
-        super(ApplicationScopedVolumeCreationParameters, self).__init__(**kwargs)
-        self.description = kwargs.get('description', None)
+    def __init__(self, description=None):
+        super(ApplicationScopedVolumeCreationParameters, self).__init__()
+        self.description = description
         self.kind = None

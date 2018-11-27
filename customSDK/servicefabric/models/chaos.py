@@ -33,8 +33,8 @@ class Chaos(Model):
         'schedule_status': {'key': 'ScheduleStatus', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(Chaos, self).__init__(**kwargs)
-        self.chaos_parameters = kwargs.get('chaos_parameters', None)
-        self.status = kwargs.get('status', None)
-        self.schedule_status = kwargs.get('schedule_status', None)
+    def __init__(self, chaos_parameters=None, status=None, schedule_status=None):
+        super(Chaos, self).__init__()
+        self.chaos_parameters = chaos_parameters
+        self.status = status
+        self.schedule_status = schedule_status
