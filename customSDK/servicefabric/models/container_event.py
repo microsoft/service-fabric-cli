@@ -38,11 +38,11 @@ class ContainerEvent(Model):
         'type': {'key': 'type', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ContainerEvent, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.count = kwargs.get('count', None)
-        self.first_timestamp = kwargs.get('first_timestamp', None)
-        self.last_timestamp = kwargs.get('last_timestamp', None)
-        self.message = kwargs.get('message', None)
-        self.type = kwargs.get('type', None)
+    def __init__(self, name=None, count=None, first_timestamp=None, last_timestamp=None, message=None, type=None):
+        super(ContainerEvent, self).__init__()
+        self.name = name
+        self.count = count
+        self.first_timestamp = first_timestamp
+        self.last_timestamp = last_timestamp
+        self.message = message
+        self.type = type

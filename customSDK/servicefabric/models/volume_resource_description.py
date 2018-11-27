@@ -18,9 +18,7 @@ class VolumeResourceDescription(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the Volume resource.
+    :param name: Name of the Volume resource.
     :type name: str
     :param description: User readable description of the volume.
     :type description: str
@@ -30,8 +28,7 @@ class VolumeResourceDescription(Model):
     :ivar status_details: Gives additional information about the current
      status of the volume.
     :vartype status_details: str
-    :ivar provider: Required. Provider of the volume. Default value:
-     "SFAzureFile" .
+    :ivar provider: Provider of the volume. Default value: "SFAzureFile" .
     :vartype provider: str
     :param azure_file_parameters: This type describes a volume provided by an
      Azure Files file share.
@@ -57,10 +54,10 @@ class VolumeResourceDescription(Model):
 
     provider = "SFAzureFile"
 
-    def __init__(self, **kwargs):
-        super(VolumeResourceDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.description = kwargs.get('description', None)
+    def __init__(self, name, description=None, azure_file_parameters=None):
+        super(VolumeResourceDescription, self).__init__()
+        self.name = name
+        self.description = description
         self.status = None
         self.status_details = None
-        self.azure_file_parameters = kwargs.get('azure_file_parameters', None)
+        self.azure_file_parameters = azure_file_parameters

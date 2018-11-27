@@ -15,13 +15,11 @@ from .retention_policy_description import RetentionPolicyDescription
 class BasicRetentionPolicyDescription(RetentionPolicyDescription):
     """Describes basic retention policy.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param retention_policy_type: Required. Constant filled by server.
+    :param retention_policy_type: Constant filled by server.
     :type retention_policy_type: str
-    :param retention_duration: Required. It is the minimum duration for which
-     a backup created, will remain stored in the storage and might get deleted
-     after that span of time. It should be specified in ISO8601 format.
+    :param retention_duration: It is the minimum duration for which a backup
+     created, will remain stored in the storage and might get deleted after
+     that span of time. It should be specified in ISO8601 format.
     :type retention_duration: timedelta
     :param minimum_number_of_backups: It is the minimum number of backups to
      be retained at any point of time. If specified with a non zero value,
@@ -42,8 +40,8 @@ class BasicRetentionPolicyDescription(RetentionPolicyDescription):
         'minimum_number_of_backups': {'key': 'MinimumNumberOfBackups', 'type': 'int'},
     }
 
-    def __init__(self, **kwargs):
-        super(BasicRetentionPolicyDescription, self).__init__(**kwargs)
-        self.retention_duration = kwargs.get('retention_duration', None)
-        self.minimum_number_of_backups = kwargs.get('minimum_number_of_backups', None)
+    def __init__(self, retention_duration, minimum_number_of_backups=None):
+        super(BasicRetentionPolicyDescription, self).__init__()
+        self.retention_duration = retention_duration
+        self.minimum_number_of_backups = minimum_number_of_backups
         self.retention_policy_type = 'Basic'

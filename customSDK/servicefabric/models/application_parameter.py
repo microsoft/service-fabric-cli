@@ -16,11 +16,9 @@ class ApplicationParameter(Model):
     """Describes an application parameter override to be applied when creating or
     upgrading an application.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param key: Required. The name of the parameter.
+    :param key: The name of the parameter.
     :type key: str
-    :param value: Required. The value of the parameter.
+    :param value: The value of the parameter.
     :type value: str
     """
 
@@ -34,7 +32,7 @@ class ApplicationParameter(Model):
         'value': {'key': 'Value', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ApplicationParameter, self).__init__(**kwargs)
-        self.key = kwargs.get('key', None)
-        self.value = kwargs.get('value', None)
+    def __init__(self, key, value):
+        super(ApplicationParameter, self).__init__()
+        self.key = key
+        self.value = value

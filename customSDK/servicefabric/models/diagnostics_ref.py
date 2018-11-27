@@ -27,7 +27,7 @@ class DiagnosticsRef(Model):
         'sink_refs': {'key': 'sinkRefs', 'type': '[str]'},
     }
 
-    def __init__(self, **kwargs):
-        super(DiagnosticsRef, self).__init__(**kwargs)
-        self.enabled = kwargs.get('enabled', None)
-        self.sink_refs = kwargs.get('sink_refs', None)
+    def __init__(self, enabled=None, sink_refs=None):
+        super(DiagnosticsRef, self).__init__()
+        self.enabled = enabled
+        self.sink_refs = sink_refs

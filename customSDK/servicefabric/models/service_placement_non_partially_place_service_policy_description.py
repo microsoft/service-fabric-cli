@@ -17,9 +17,7 @@ class ServicePlacementNonPartiallyPlaceServicePolicyDescription(ServicePlacement
     where all replicas must be able to be placed in order for any replicas to
     be created.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param type: Required. Constant filled by server.
+    :param type: Constant filled by server.
     :type type: str
     """
 
@@ -27,10 +25,6 @@ class ServicePlacementNonPartiallyPlaceServicePolicyDescription(ServicePlacement
         'type': {'required': True},
     }
 
-    _attribute_map = {
-        'type': {'key': 'Type', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ServicePlacementNonPartiallyPlaceServicePolicyDescription, self).__init__(**kwargs)
+    def __init__(self):
+        super(ServicePlacementNonPartiallyPlaceServicePolicyDescription, self).__init__()
         self.type = 'NonPartiallyPlaceService'

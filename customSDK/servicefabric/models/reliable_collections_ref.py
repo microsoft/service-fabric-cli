@@ -15,10 +15,8 @@ from msrest.serialization import Model
 class ReliableCollectionsRef(Model):
     """Specifying this parameter adds support for reliable collections.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of ReliableCollection resource. Right now it's
-     not used and you can use any string.
+    :param name: Name of ReliableCollection resource. Right now it's not used
+     and you can use any string.
     :type name: str
     :param do_not_persist_state: False (the default) if ReliableCollections
      state is persisted to disk as usual. True if you do not want to persist
@@ -36,7 +34,7 @@ class ReliableCollectionsRef(Model):
         'do_not_persist_state': {'key': 'doNotPersistState', 'type': 'bool'},
     }
 
-    def __init__(self, **kwargs):
-        super(ReliableCollectionsRef, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.do_not_persist_state = kwargs.get('do_not_persist_state', None)
+    def __init__(self, name, do_not_persist_state=None):
+        super(ReliableCollectionsRef, self).__init__()
+        self.name = name
+        self.do_not_persist_state = do_not_persist_state

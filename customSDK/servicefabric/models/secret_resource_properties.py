@@ -21,9 +21,7 @@ class SecretResourceProperties(SecretResourcePropertiesBase):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param description: User readable description of the secret.
     :type description: str
@@ -57,10 +55,10 @@ class SecretResourceProperties(SecretResourcePropertiesBase):
         'kind': {'inlinedValue': 'InlinedValueSecretResourceProperties'}
     }
 
-    def __init__(self, **kwargs):
-        super(SecretResourceProperties, self).__init__(**kwargs)
-        self.description = kwargs.get('description', None)
+    def __init__(self, description=None, content_type=None):
+        super(SecretResourceProperties, self).__init__()
+        self.description = description
         self.status = None
         self.status_details = None
-        self.content_type = kwargs.get('content_type', None)
+        self.content_type = content_type
         self.kind = 'SecretResourceProperties'

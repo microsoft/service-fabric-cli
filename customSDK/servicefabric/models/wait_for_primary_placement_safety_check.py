@@ -16,9 +16,7 @@ class WaitForPrimaryPlacementSafetyCheck(PartitionSafetyCheck):
     """Safety check that waits for the primary replica that was moved out of the
     node due to upgrade to be placed back again on that node.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param partition_id: Id of the partition which is undergoing the safety
      check.
@@ -29,11 +27,6 @@ class WaitForPrimaryPlacementSafetyCheck(PartitionSafetyCheck):
         'kind': {'required': True},
     }
 
-    _attribute_map = {
-        'kind': {'key': 'Kind', 'type': 'str'},
-        'partition_id': {'key': 'PartitionId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(WaitForPrimaryPlacementSafetyCheck, self).__init__(**kwargs)
+    def __init__(self, partition_id=None):
+        super(WaitForPrimaryPlacementSafetyCheck, self).__init__(partition_id=partition_id)
         self.kind = 'WaitForPrimaryPlacement'
