@@ -30,8 +30,6 @@ class HealthEvaluation(Model):
     UpgradeDomainDeltaNodesCheckHealthEvaluation,
     UpgradeDomainNodesHealthEvaluation
 
-    All required parameters must be populated in order to send to Azure.
-
     :param aggregated_health_state: The health state of a Service Fabric
      entity such as Cluster, Node, Application, Service, Partition, Replica
      etc. Possible values include: 'Invalid', 'Ok', 'Warning', 'Error',
@@ -41,7 +39,7 @@ class HealthEvaluation(Model):
     :param description: Description of the health evaluation, which represents
      a summary of the evaluation process.
     :type description: str
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -59,8 +57,8 @@ class HealthEvaluation(Model):
         'kind': {'Application': 'ApplicationHealthEvaluation', 'Applications': 'ApplicationsHealthEvaluation', 'ApplicationTypeApplications': 'ApplicationTypeApplicationsHealthEvaluation', 'DeltaNodesCheck': 'DeltaNodesCheckHealthEvaluation', 'DeployedApplication': 'DeployedApplicationHealthEvaluation', 'DeployedApplications': 'DeployedApplicationsHealthEvaluation', 'DeployedServicePackage': 'DeployedServicePackageHealthEvaluation', 'DeployedServicePackages': 'DeployedServicePackagesHealthEvaluation', 'Event': 'EventHealthEvaluation', 'Node': 'NodeHealthEvaluation', 'Nodes': 'NodesHealthEvaluation', 'Partition': 'PartitionHealthEvaluation', 'Partitions': 'PartitionsHealthEvaluation', 'Replica': 'ReplicaHealthEvaluation', 'Replicas': 'ReplicasHealthEvaluation', 'Service': 'ServiceHealthEvaluation', 'Services': 'ServicesHealthEvaluation', 'SystemApplication': 'SystemApplicationHealthEvaluation', 'UpgradeDomainDeltaNodesCheck': 'UpgradeDomainDeltaNodesCheckHealthEvaluation', 'UpgradeDomainNodes': 'UpgradeDomainNodesHealthEvaluation'}
     }
 
-    def __init__(self, **kwargs):
-        super(HealthEvaluation, self).__init__(**kwargs)
-        self.aggregated_health_state = kwargs.get('aggregated_health_state', None)
-        self.description = kwargs.get('description', None)
+    def __init__(self, aggregated_health_state=None, description=None):
+        super(HealthEvaluation, self).__init__()
+        self.aggregated_health_state = aggregated_health_state
+        self.description = description
         self.kind = None

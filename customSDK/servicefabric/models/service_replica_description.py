@@ -15,15 +15,13 @@ from .service_replica_properties import ServiceReplicaProperties
 class ServiceReplicaDescription(ServiceReplicaProperties):
     """Describes a replica of a service resource.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param os_type: Required. The operation system required by the code in
-     service. Possible values include: 'Linux', 'Windows'
+    :param os_type: The operation system required by the code in service.
+     Possible values include: 'Linux', 'Windows'
     :type os_type: str or ~azure.servicefabric.models.OperatingSystemType
-    :param code_packages: Required. Describes the set of code packages that
-     forms the service. A code package describes the container and the
-     properties for running it. All the code packages are started together on
-     the same host and share the same context (network, process etc.).
+    :param code_packages: Describes the set of code packages that forms the
+     service. A code package describes the container and the properties for
+     running it. All the code packages are started together on the same host
+     and share the same context (network, process etc.).
     :type code_packages:
      list[~azure.servicefabric.models.ContainerCodePackageProperties]
     :param network_refs: The names of the private networks that this service
@@ -31,7 +29,7 @@ class ServiceReplicaDescription(ServiceReplicaProperties):
     :type network_refs: list[~azure.servicefabric.models.NetworkRef]
     :param diagnostics: Reference to sinks in DiagnosticsDescription.
     :type diagnostics: ~azure.servicefabric.models.DiagnosticsRef
-    :param replica_name: Required. Name of the replica.
+    :param replica_name: Name of the replica.
     :type replica_name: str
     """
 
@@ -49,6 +47,6 @@ class ServiceReplicaDescription(ServiceReplicaProperties):
         'replica_name': {'key': 'replicaName', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ServiceReplicaDescription, self).__init__(**kwargs)
-        self.replica_name = kwargs.get('replica_name', None)
+    def __init__(self, os_type, code_packages, replica_name, network_refs=None, diagnostics=None):
+        super(ServiceReplicaDescription, self).__init__(os_type=os_type, code_packages=code_packages, network_refs=network_refs, diagnostics=diagnostics)
+        self.replica_name = replica_name

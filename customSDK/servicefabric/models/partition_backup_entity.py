@@ -15,9 +15,7 @@ from .backup_entity import BackupEntity
 class PartitionBackupEntity(BackupEntity):
     """Identifies the Service Fabric stateful partition which is being backed up.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param entity_kind: Required. Constant filled by server.
+    :param entity_kind: Constant filled by server.
     :type entity_kind: str
     :param service_name: The full name of the service with 'fabric:' URI
      scheme.
@@ -36,8 +34,8 @@ class PartitionBackupEntity(BackupEntity):
         'partition_id': {'key': 'PartitionId', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(PartitionBackupEntity, self).__init__(**kwargs)
-        self.service_name = kwargs.get('service_name', None)
-        self.partition_id = kwargs.get('partition_id', None)
+    def __init__(self, service_name=None, partition_id=None):
+        super(PartitionBackupEntity, self).__init__()
+        self.service_name = service_name
+        self.partition_id = partition_id
         self.entity_kind = 'Partition'

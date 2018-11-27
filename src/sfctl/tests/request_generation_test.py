@@ -1130,42 +1130,42 @@ class ServiceFabricRequestTests(ScenarioTest):
         sample_app = path.join(sample_yaml_base, 'sample_app.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_network),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_network),
             'PUT',
             '/Resources/Networks/someNetwork',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_secret),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_secret),
             'PUT',
             '/Resources/Secrets/someSecret',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_secret_value),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_secret_value),
             'PUT',
             '/Resources/Secrets/someSecret/values/v1',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_volume),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_volume),
             'PUT',
             '/Resources/Volumes/someVolume',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_gateway),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_gateway),
             'PUT',
             '/Resources/Gateways/someGateway',
             ['api-version=6.4-preview']
         )
 
         self.validate_command(
-            'mesh deployment create --input-yaml-paths {0}'.format(sample_app),
+            'mesh deployment create --input-yaml-files {0}'.format(sample_app),
             'PUT',
             '/Resources/Applications/someApp',
             ['api-version=6.4-preview']

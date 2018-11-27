@@ -20,12 +20,10 @@ class ChaosEvent(Model):
     StoppedChaosEvent, TestErrorChaosEvent, ValidationFailedChaosEvent,
     WaitingChaosEvent
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param time_stamp_utc: Required. The UTC timestamp when this Chaos event
-     was generated.
+    :param time_stamp_utc: The UTC timestamp when this Chaos event was
+     generated.
     :type time_stamp_utc: datetime
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     """
 
@@ -43,7 +41,7 @@ class ChaosEvent(Model):
         'kind': {'ExecutingFaults': 'ExecutingFaultsChaosEvent', 'Started': 'StartedChaosEvent', 'Stopped': 'StoppedChaosEvent', 'TestError': 'TestErrorChaosEvent', 'ValidationFailed': 'ValidationFailedChaosEvent', 'Waiting': 'WaitingChaosEvent'}
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosEvent, self).__init__(**kwargs)
-        self.time_stamp_utc = kwargs.get('time_stamp_utc', None)
+    def __init__(self, time_stamp_utc):
+        super(ChaosEvent, self).__init__()
+        self.time_stamp_utc = time_stamp_utc
         self.kind = None

@@ -30,8 +30,8 @@ class DiagnosticsDescription(Model):
         'default_sink_refs': {'key': 'defaultSinkRefs', 'type': '[str]'},
     }
 
-    def __init__(self, **kwargs):
-        super(DiagnosticsDescription, self).__init__(**kwargs)
-        self.sinks = kwargs.get('sinks', None)
-        self.enabled = kwargs.get('enabled', None)
-        self.default_sink_refs = kwargs.get('default_sink_refs', None)
+    def __init__(self, sinks=None, enabled=None, default_sink_refs=None):
+        super(DiagnosticsDescription, self).__init__()
+        self.sinks = sinks
+        self.enabled = enabled
+        self.default_sink_refs = default_sink_refs

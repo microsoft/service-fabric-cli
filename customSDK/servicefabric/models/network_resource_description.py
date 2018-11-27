@@ -15,11 +15,9 @@ from msrest.serialization import Model
 class NetworkResourceDescription(Model):
     """This type describes a network resource.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the Network resource.
+    :param name: Name of the Network resource.
     :type name: str
-    :param properties: Required. Describes properties of a network resource.
+    :param properties: Describes properties of a network resource.
     :type properties: ~azure.servicefabric.models.NetworkResourceProperties
     """
 
@@ -33,7 +31,7 @@ class NetworkResourceDescription(Model):
         'properties': {'key': 'properties', 'type': 'NetworkResourceProperties'},
     }
 
-    def __init__(self, **kwargs):
-        super(NetworkResourceDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.properties = kwargs.get('properties', None)
+    def __init__(self, name, properties):
+        super(NetworkResourceDescription, self).__init__()
+        self.name = name
+        self.properties = properties

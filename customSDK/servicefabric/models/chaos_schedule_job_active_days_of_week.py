@@ -48,12 +48,12 @@ class ChaosScheduleJobActiveDaysOfWeek(Model):
         'saturday': {'key': 'Saturday', 'type': 'bool'},
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosScheduleJobActiveDaysOfWeek, self).__init__(**kwargs)
-        self.sunday = kwargs.get('sunday', False)
-        self.monday = kwargs.get('monday', False)
-        self.tuesday = kwargs.get('tuesday', False)
-        self.wednesday = kwargs.get('wednesday', False)
-        self.thursday = kwargs.get('thursday', False)
-        self.friday = kwargs.get('friday', False)
-        self.saturday = kwargs.get('saturday', False)
+    def __init__(self, sunday=False, monday=False, tuesday=False, wednesday=False, thursday=False, friday=False, saturday=False):
+        super(ChaosScheduleJobActiveDaysOfWeek, self).__init__()
+        self.sunday = sunday
+        self.monday = monday
+        self.tuesday = tuesday
+        self.wednesday = wednesday
+        self.thursday = thursday
+        self.friday = friday
+        self.saturday = saturday

@@ -15,15 +15,12 @@ from msrest.serialization import Model
 class AutoScalingPolicy(Model):
     """Describes the auto scaling policy.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. The name of the auto scaling policy.
+    :param name: The name of the auto scaling policy.
     :type name: str
-    :param trigger: Required. Determines when auto scaling operation will be
-     invoked.
+    :param trigger: Determines when auto scaling operation will be invoked.
     :type trigger: ~azure.servicefabric.models.AutoScalingTrigger
-    :param mechanism: Required. The mechanism that is used to scale when auto
-     scaling operation is invoked.
+    :param mechanism: The mechanism that is used to scale when auto scaling
+     operation is invoked.
     :type mechanism: ~azure.servicefabric.models.AutoScalingMechanism
     """
 
@@ -39,8 +36,8 @@ class AutoScalingPolicy(Model):
         'mechanism': {'key': 'mechanism', 'type': 'AutoScalingMechanism'},
     }
 
-    def __init__(self, **kwargs):
-        super(AutoScalingPolicy, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.trigger = kwargs.get('trigger', None)
-        self.mechanism = kwargs.get('mechanism', None)
+    def __init__(self, name, trigger, mechanism):
+        super(AutoScalingPolicy, self).__init__()
+        self.name = name
+        self.trigger = trigger
+        self.mechanism = mechanism

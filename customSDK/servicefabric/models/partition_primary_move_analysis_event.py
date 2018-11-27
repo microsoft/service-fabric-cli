@@ -15,37 +15,34 @@ from .partition_analysis_event import PartitionAnalysisEvent
 class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
     """Partition Primary Move Analysis event.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param event_instance_id: Required. The identifier for the FabricEvent
-     instance.
+    :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: Required. The time event was logged.
+    :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param partition_id: Required. An internal ID used by Service Fabric to
-     uniquely identify a partition. This is a randomly generated GUID when the
-     service was created. The partition ID is unique and does not change for
-     the lifetime of the service. If the same service was deleted and recreated
-     the IDs of its partitions would be different.
+    :param partition_id: An internal ID used by Service Fabric to uniquely
+     identify a partition. This is a randomly generated GUID when the service
+     was created. The partition ID is unique and does not change for the
+     lifetime of the service. If the same service was deleted and recreated the
+     IDs of its partitions would be different.
     :type partition_id: str
-    :param metadata: Required. Metadata about an Analysis Event.
+    :param metadata: Metadata about an Analysis Event.
     :type metadata: ~azure.servicefabric.models.AnalysisEventMetadata
-    :param when_move_completed: Required. Time when the move was completed.
+    :param when_move_completed: Time when the move was completed.
     :type when_move_completed: datetime
-    :param previous_node: Required. The name of a Service Fabric node.
+    :param previous_node: The name of a Service Fabric node.
     :type previous_node: str
-    :param current_node: Required. The name of a Service Fabric node.
+    :param current_node: The name of a Service Fabric node.
     :type current_node: str
-    :param move_reason: Required. Move reason.
+    :param move_reason: Move reason.
     :type move_reason: str
-    :param relevant_traces: Required. Relevant traces.
+    :param relevant_traces: Relevant traces.
     :type relevant_traces: str
     """
 
@@ -77,11 +74,11 @@ class PartitionPrimaryMoveAnalysisEvent(PartitionAnalysisEvent):
         'relevant_traces': {'key': 'RelevantTraces', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(PartitionPrimaryMoveAnalysisEvent, self).__init__(**kwargs)
-        self.when_move_completed = kwargs.get('when_move_completed', None)
-        self.previous_node = kwargs.get('previous_node', None)
-        self.current_node = kwargs.get('current_node', None)
-        self.move_reason = kwargs.get('move_reason', None)
-        self.relevant_traces = kwargs.get('relevant_traces', None)
+    def __init__(self, event_instance_id, time_stamp, partition_id, metadata, when_move_completed, previous_node, current_node, move_reason, relevant_traces, category=None, has_correlated_events=None):
+        super(PartitionPrimaryMoveAnalysisEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id, metadata=metadata)
+        self.when_move_completed = when_move_completed
+        self.previous_node = previous_node
+        self.current_node = current_node
+        self.move_reason = move_reason
+        self.relevant_traces = relevant_traces
         self.kind = 'PartitionPrimaryMoveAnalysis'

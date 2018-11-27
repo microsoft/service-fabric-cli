@@ -15,8 +15,6 @@ from .service_partition_info import ServicePartitionInfo
 class StatefulServicePartitionInfo(ServicePartitionInfo):
     """Information about a partition of a stateful Service Fabric service..
 
-    All required parameters must be populated in order to send to Azure.
-
     :param health_state: The health state of a Service Fabric entity such as
      Cluster, Node, Application, Service, Partition, Replica etc. Possible
      values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
@@ -30,7 +28,7 @@ class StatefulServicePartitionInfo(ServicePartitionInfo):
      partitioning scheme and keys supported by it.
     :type partition_information:
      ~azure.servicefabric.models.PartitionInformation
-    :param service_kind: Required. Constant filled by server.
+    :param service_kind: Constant filled by server.
     :type service_kind: str
     :param target_replica_set_size: The target replica set size as a number.
     :type target_replica_set_size: long
@@ -64,10 +62,10 @@ class StatefulServicePartitionInfo(ServicePartitionInfo):
         'primary_epoch': {'key': 'PrimaryEpoch', 'type': 'Epoch'},
     }
 
-    def __init__(self, **kwargs):
-        super(StatefulServicePartitionInfo, self).__init__(**kwargs)
-        self.target_replica_set_size = kwargs.get('target_replica_set_size', None)
-        self.min_replica_set_size = kwargs.get('min_replica_set_size', None)
-        self.last_quorum_loss_duration = kwargs.get('last_quorum_loss_duration', None)
-        self.primary_epoch = kwargs.get('primary_epoch', None)
+    def __init__(self, health_state=None, partition_status=None, partition_information=None, target_replica_set_size=None, min_replica_set_size=None, last_quorum_loss_duration=None, primary_epoch=None):
+        super(StatefulServicePartitionInfo, self).__init__(health_state=health_state, partition_status=partition_status, partition_information=partition_information)
+        self.target_replica_set_size = target_replica_set_size
+        self.min_replica_set_size = min_replica_set_size
+        self.last_quorum_loss_duration = last_quorum_loss_duration
+        self.primary_epoch = primary_epoch
         self.service_kind = 'Stateful'

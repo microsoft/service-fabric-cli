@@ -35,7 +35,7 @@ class PagedSecretValueResourceDescriptionList(Model):
         'items': {'key': 'Items', 'type': '[SecretValueResourceDescription]'},
     }
 
-    def __init__(self, **kwargs):
-        super(PagedSecretValueResourceDescriptionList, self).__init__(**kwargs)
-        self.continuation_token = kwargs.get('continuation_token', None)
-        self.items = kwargs.get('items', None)
+    def __init__(self, continuation_token=None, items=None):
+        super(PagedSecretValueResourceDescriptionList, self).__init__()
+        self.continuation_token = continuation_token
+        self.items = items

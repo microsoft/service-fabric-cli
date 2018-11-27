@@ -15,15 +15,13 @@ from msrest.serialization import Model
 class ServiceReplicaProperties(Model):
     """Describes the properties of a service replica.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param os_type: Required. The operation system required by the code in
-     service. Possible values include: 'Linux', 'Windows'
+    :param os_type: The operation system required by the code in service.
+     Possible values include: 'Linux', 'Windows'
     :type os_type: str or ~azure.servicefabric.models.OperatingSystemType
-    :param code_packages: Required. Describes the set of code packages that
-     forms the service. A code package describes the container and the
-     properties for running it. All the code packages are started together on
-     the same host and share the same context (network, process etc.).
+    :param code_packages: Describes the set of code packages that forms the
+     service. A code package describes the container and the properties for
+     running it. All the code packages are started together on the same host
+     and share the same context (network, process etc.).
     :type code_packages:
      list[~azure.servicefabric.models.ContainerCodePackageProperties]
     :param network_refs: The names of the private networks that this service
@@ -45,9 +43,9 @@ class ServiceReplicaProperties(Model):
         'diagnostics': {'key': 'diagnostics', 'type': 'DiagnosticsRef'},
     }
 
-    def __init__(self, **kwargs):
-        super(ServiceReplicaProperties, self).__init__(**kwargs)
-        self.os_type = kwargs.get('os_type', None)
-        self.code_packages = kwargs.get('code_packages', None)
-        self.network_refs = kwargs.get('network_refs', None)
-        self.diagnostics = kwargs.get('diagnostics', None)
+    def __init__(self, os_type, code_packages, network_refs=None, diagnostics=None):
+        super(ServiceReplicaProperties, self).__init__()
+        self.os_type = os_type
+        self.code_packages = code_packages
+        self.network_refs = network_refs
+        self.diagnostics = diagnostics

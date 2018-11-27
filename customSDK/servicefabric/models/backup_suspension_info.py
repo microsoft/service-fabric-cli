@@ -30,7 +30,7 @@ class BackupSuspensionInfo(Model):
         'suspension_inherited_from': {'key': 'SuspensionInheritedFrom', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(BackupSuspensionInfo, self).__init__(**kwargs)
-        self.is_suspended = kwargs.get('is_suspended', None)
-        self.suspension_inherited_from = kwargs.get('suspension_inherited_from', None)
+    def __init__(self, is_suspended=None, suspension_inherited_from=None):
+        super(BackupSuspensionInfo, self).__init__()
+        self.is_suspended = is_suspended
+        self.suspension_inherited_from = suspension_inherited_from

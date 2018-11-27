@@ -17,8 +17,6 @@ class ApplicationBackupConfigurationInfo(BackupConfigurationInfo):
     specifying what backup policy is being applied and suspend description, if
     any.
 
-    All required parameters must be populated in order to send to Azure.
-
     :param policy_name: The name of the backup policy which is applicable to
      this Service Fabric application or service or partition.
     :type policy_name: str
@@ -29,7 +27,7 @@ class ApplicationBackupConfigurationInfo(BackupConfigurationInfo):
      ~azure.servicefabric.models.BackupPolicyScope
     :param suspension_info: Describes the backup suspension details.
     :type suspension_info: ~azure.servicefabric.models.BackupSuspensionInfo
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
     :param application_name: The name of the application, including the
      'fabric:' URI scheme.
@@ -48,7 +46,7 @@ class ApplicationBackupConfigurationInfo(BackupConfigurationInfo):
         'application_name': {'key': 'ApplicationName', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ApplicationBackupConfigurationInfo, self).__init__(**kwargs)
-        self.application_name = kwargs.get('application_name', None)
+    def __init__(self, policy_name=None, policy_inherited_from=None, suspension_info=None, application_name=None):
+        super(ApplicationBackupConfigurationInfo, self).__init__(policy_name=policy_name, policy_inherited_from=policy_inherited_from, suspension_info=suspension_info)
+        self.application_name = application_name
         self.kind = 'Application'

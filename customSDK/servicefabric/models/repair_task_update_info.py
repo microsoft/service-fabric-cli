@@ -17,9 +17,7 @@ class RepairTaskUpdateInfo(Model):
     This type supports the Service Fabric platform; it is not meant to be used
     directly from your code.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param version: Required. The new version of the repair task.
+    :param version: The new version of the repair task.
     :type version: str
     """
 
@@ -31,6 +29,6 @@ class RepairTaskUpdateInfo(Model):
         'version': {'key': 'Version', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(RepairTaskUpdateInfo, self).__init__(**kwargs)
-        self.version = kwargs.get('version', None)
+    def __init__(self, version):
+        super(RepairTaskUpdateInfo, self).__init__()
+        self.version = version

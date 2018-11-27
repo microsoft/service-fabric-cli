@@ -16,9 +16,7 @@ class SecretValueResourceDescription(Model):
     """This type describes a value of a secret resource. The name of this resource
     is the version identifier corresponding to this secret value.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Version identifier of the secret value.
+    :param name: Version identifier of the secret value.
     :type name: str
     :param value: The actual value of the secret.
     :type value: str
@@ -33,7 +31,7 @@ class SecretValueResourceDescription(Model):
         'value': {'key': 'properties.value', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(SecretValueResourceDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.value = kwargs.get('value', None)
+    def __init__(self, name, value=None):
+        super(SecretValueResourceDescription, self).__init__()
+        self.name = name
+        self.value = value

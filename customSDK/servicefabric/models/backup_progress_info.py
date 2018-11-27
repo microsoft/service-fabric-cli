@@ -48,12 +48,12 @@ class BackupProgressInfo(Model):
         'failure_error': {'key': 'FailureError', 'type': 'FabricErrorError'},
     }
 
-    def __init__(self, **kwargs):
-        super(BackupProgressInfo, self).__init__(**kwargs)
-        self.backup_state = kwargs.get('backup_state', None)
-        self.time_stamp_utc = kwargs.get('time_stamp_utc', None)
-        self.backup_id = kwargs.get('backup_id', None)
-        self.backup_location = kwargs.get('backup_location', None)
-        self.epoch_of_last_backup_record = kwargs.get('epoch_of_last_backup_record', None)
-        self.lsn_of_last_backup_record = kwargs.get('lsn_of_last_backup_record', None)
-        self.failure_error = kwargs.get('failure_error', None)
+    def __init__(self, backup_state=None, time_stamp_utc=None, backup_id=None, backup_location=None, epoch_of_last_backup_record=None, lsn_of_last_backup_record=None, failure_error=None):
+        super(BackupProgressInfo, self).__init__()
+        self.backup_state = backup_state
+        self.time_stamp_utc = time_stamp_utc
+        self.backup_id = backup_id
+        self.backup_location = backup_location
+        self.epoch_of_last_backup_record = epoch_of_last_backup_record
+        self.lsn_of_last_backup_record = lsn_of_last_backup_record
+        self.failure_error = failure_error

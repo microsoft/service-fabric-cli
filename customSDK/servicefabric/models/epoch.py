@@ -35,7 +35,7 @@ class Epoch(Model):
         'data_loss_version': {'key': 'DataLossVersion', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(Epoch, self).__init__(**kwargs)
-        self.configuration_version = kwargs.get('configuration_version', None)
-        self.data_loss_version = kwargs.get('data_loss_version', None)
+    def __init__(self, configuration_version=None, data_loss_version=None):
+        super(Epoch, self).__init__()
+        self.configuration_version = configuration_version
+        self.data_loss_version = data_loss_version

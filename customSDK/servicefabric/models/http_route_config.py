@@ -15,14 +15,11 @@ from msrest.serialization import Model
 class HttpRouteConfig(Model):
     """Describes the hostname properties for http routing.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. http route name.
+    :param name: http route name.
     :type name: str
-    :param match: Required. Describes a rule for http route matching.
+    :param match: Describes a rule for http route matching.
     :type match: ~azure.servicefabric.models.HttpRouteMatchRule
-    :param destination: Required. Describes destination endpoint for routing
-     traffic.
+    :param destination: Describes destination endpoint for routing traffic.
     :type destination: ~azure.servicefabric.models.GatewayDestination
     """
 
@@ -38,8 +35,8 @@ class HttpRouteConfig(Model):
         'destination': {'key': 'destination', 'type': 'GatewayDestination'},
     }
 
-    def __init__(self, **kwargs):
-        super(HttpRouteConfig, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.match = kwargs.get('match', None)
-        self.destination = kwargs.get('destination', None)
+    def __init__(self, name, match, destination):
+        super(HttpRouteConfig, self).__init__()
+        self.name = name
+        self.match = match
+        self.destination = destination

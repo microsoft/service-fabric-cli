@@ -16,14 +16,12 @@ class HttpConfig(Model):
     """Describes the http configuration for external connectivity for this
     network.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. http gateway config name.
+    :param name: http gateway config name.
     :type name: str
-    :param port: Required. Specifies the port at which the service endpoint
-     below needs to be exposed.
+    :param port: Specifies the port at which the service endpoint below needs
+     to be exposed.
     :type port: int
-    :param hosts: Required. description for routing.
+    :param hosts: description for routing.
     :type hosts: list[~azure.servicefabric.models.HttpHostConfig]
     """
 
@@ -39,8 +37,8 @@ class HttpConfig(Model):
         'hosts': {'key': 'hosts', 'type': '[HttpHostConfig]'},
     }
 
-    def __init__(self, **kwargs):
-        super(HttpConfig, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.port = kwargs.get('port', None)
-        self.hosts = kwargs.get('hosts', None)
+    def __init__(self, name, port, hosts):
+        super(HttpConfig, self).__init__()
+        self.name = name
+        self.port = port
+        self.hosts = hosts

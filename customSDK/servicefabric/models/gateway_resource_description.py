@@ -18,17 +18,13 @@ class GatewayResourceDescription(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the Gateway resource.
+    :param name: Name of the Gateway resource.
     :type name: str
     :param description: User readable description of the gateway.
     :type description: str
-    :param source_network: Required. Network the gateway should listen on for
-     requests.
+    :param source_network: Network the gateway should listen on for requests.
     :type source_network: ~azure.servicefabric.models.NetworkRef
-    :param destination_network: Required. Network that the Application is
-     using.
+    :param destination_network: Network that the Application is using.
     :type destination_network: ~azure.servicefabric.models.NetworkRef
     :param tcp: Configuration for tcp connectivity for this gateway.
     :type tcp: list[~azure.servicefabric.models.TcpConfig]
@@ -66,14 +62,14 @@ class GatewayResourceDescription(Model):
         'ip_address': {'key': 'properties.ipAddress', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(GatewayResourceDescription, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.description = kwargs.get('description', None)
-        self.source_network = kwargs.get('source_network', None)
-        self.destination_network = kwargs.get('destination_network', None)
-        self.tcp = kwargs.get('tcp', None)
-        self.http = kwargs.get('http', None)
+    def __init__(self, name, source_network, destination_network, description=None, tcp=None, http=None):
+        super(GatewayResourceDescription, self).__init__()
+        self.name = name
+        self.description = description
+        self.source_network = source_network
+        self.destination_network = destination_network
+        self.tcp = tcp
+        self.http = http
         self.status = None
         self.status_details = None
         self.ip_address = None

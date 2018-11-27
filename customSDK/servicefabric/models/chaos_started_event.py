@@ -15,44 +15,39 @@ from .cluster_event import ClusterEvent
 class ChaosStartedEvent(ClusterEvent):
     """Chaos Started event.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param event_instance_id: Required. The identifier for the FabricEvent
-     instance.
+    :param event_instance_id: The identifier for the FabricEvent instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: Required. The time event was logged.
+    :param time_stamp: The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Required. Constant filled by server.
+    :param kind: Constant filled by server.
     :type kind: str
-    :param max_concurrent_faults: Required. Maximum number of concurrent
-     faults.
+    :param max_concurrent_faults: Maximum number of concurrent faults.
     :type max_concurrent_faults: long
-    :param time_to_run_in_seconds: Required. Time to run in seconds.
+    :param time_to_run_in_seconds: Time to run in seconds.
     :type time_to_run_in_seconds: float
-    :param max_cluster_stabilization_timeout_in_seconds: Required. Maximum
-     timeout for cluster stabilization in seconds.
+    :param max_cluster_stabilization_timeout_in_seconds: Maximum timeout for
+     cluster stabilization in seconds.
     :type max_cluster_stabilization_timeout_in_seconds: float
-    :param wait_time_between_iterations_in_seconds: Required. Wait time
-     between iterations in seconds.
+    :param wait_time_between_iterations_in_seconds: Wait time between
+     iterations in seconds.
     :type wait_time_between_iterations_in_seconds: float
-    :param wait_time_between_fautls_in_seconds: Required. Wait time between
-     faults in seconds.
+    :param wait_time_between_fautls_in_seconds: Wait time between faults in
+     seconds.
     :type wait_time_between_fautls_in_seconds: float
-    :param move_replica_fault_enabled: Required. Indicates MoveReplica fault
-     is enabled.
+    :param move_replica_fault_enabled: Indicates MoveReplica fault is enabled.
     :type move_replica_fault_enabled: bool
-    :param included_node_type_list: Required. List of included Node types.
+    :param included_node_type_list: List of included Node types.
     :type included_node_type_list: str
-    :param included_application_list: Required. List of included Applications.
+    :param included_application_list: List of included Applications.
     :type included_application_list: str
-    :param cluster_health_policy: Required. Health policy.
+    :param cluster_health_policy: Health policy.
     :type cluster_health_policy: str
-    :param chaos_context: Required. Chaos Context.
+    :param chaos_context: Chaos Context.
     :type chaos_context: str
     """
 
@@ -90,16 +85,16 @@ class ChaosStartedEvent(ClusterEvent):
         'chaos_context': {'key': 'ChaosContext', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
-        super(ChaosStartedEvent, self).__init__(**kwargs)
-        self.max_concurrent_faults = kwargs.get('max_concurrent_faults', None)
-        self.time_to_run_in_seconds = kwargs.get('time_to_run_in_seconds', None)
-        self.max_cluster_stabilization_timeout_in_seconds = kwargs.get('max_cluster_stabilization_timeout_in_seconds', None)
-        self.wait_time_between_iterations_in_seconds = kwargs.get('wait_time_between_iterations_in_seconds', None)
-        self.wait_time_between_fautls_in_seconds = kwargs.get('wait_time_between_fautls_in_seconds', None)
-        self.move_replica_fault_enabled = kwargs.get('move_replica_fault_enabled', None)
-        self.included_node_type_list = kwargs.get('included_node_type_list', None)
-        self.included_application_list = kwargs.get('included_application_list', None)
-        self.cluster_health_policy = kwargs.get('cluster_health_policy', None)
-        self.chaos_context = kwargs.get('chaos_context', None)
+    def __init__(self, event_instance_id, time_stamp, max_concurrent_faults, time_to_run_in_seconds, max_cluster_stabilization_timeout_in_seconds, wait_time_between_iterations_in_seconds, wait_time_between_fautls_in_seconds, move_replica_fault_enabled, included_node_type_list, included_application_list, cluster_health_policy, chaos_context, category=None, has_correlated_events=None):
+        super(ChaosStartedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events)
+        self.max_concurrent_faults = max_concurrent_faults
+        self.time_to_run_in_seconds = time_to_run_in_seconds
+        self.max_cluster_stabilization_timeout_in_seconds = max_cluster_stabilization_timeout_in_seconds
+        self.wait_time_between_iterations_in_seconds = wait_time_between_iterations_in_seconds
+        self.wait_time_between_fautls_in_seconds = wait_time_between_fautls_in_seconds
+        self.move_replica_fault_enabled = move_replica_fault_enabled
+        self.included_node_type_list = included_node_type_list
+        self.included_application_list = included_application_list
+        self.cluster_health_policy = cluster_health_policy
+        self.chaos_context = chaos_context
         self.kind = 'ChaosStarted'
