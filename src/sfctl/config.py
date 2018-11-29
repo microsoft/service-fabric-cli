@@ -155,6 +155,11 @@ def get_telemetry_config():
     return get_config_bool('use_telemetry', fallback=True)
 
 def get_cli_version_from_pkg():
+    """
+    Reads and returns the version number of sfctl. This is the version sfctl is released with.
+    For example, 6.0.0.
+    :return: str
+    """
     import pkg_resources
 
     pkg = pkg_resources.get_distribution("sfctl")

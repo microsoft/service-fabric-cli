@@ -6,10 +6,10 @@
 
 """Commands to configure settings in sfctl"""
 
-from sfctl.config import set_telemetry_config
 from knack.util import CLIError
+from sfctl.config import set_telemetry_config
 
-def set_telemetry(on=False, off=False):
+def set_telemetry(on=False, off=False):  # pylint: disable=invalid-name
     """Turn telemetry on or off."""
 
     # Check that both properties are not set to the same thing

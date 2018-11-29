@@ -8,34 +8,49 @@
 This process should end itself in SINGLE_UPLOAD_TIMEOUT seconds for single telemetry calls."""
 
 import sys
-from applicationinsights import TelemetryClient
 from uuid import uuid4
 from multiprocessing import Process
+from applicationinsights import TelemetryClient
 from sfctl.config import get_cli_version_from_pkg
 
-instrumentation_key = '5b9ab102-e26b-4b75-919e-f448c521ff11'
+INSTRUMENTATION = '5b9ab102-e26b-4b75-919e-f448c521ff11'
 SINGLE_UPLOAD_TIMEOUT = 15
 
 
-def send_telemetry_best_attempt(command, telemetry_data):
+def send_telemetry_best_attempt(command_name, telemetry_data):
+    """
+    Sends telemetry without retry. On failure, telemetry data is lost, and no records are kept.
 
-    tc = TelemetryClient(instrumentation_key)
+    :param command_name: (str) the command_name being called, without parameters.
+        For example, 'node show'
+    :param telemetry_data: (dict) Dict containing the following data, where all inputs are str
+        {'success': call_success,
+         'operating_system': platform,
+         'python_version': python_version,
+         'operation_id': operation_id,
+         'error_msg': error_msg,
+         'sfctl_version': version}
+
+    :return: None
+    """
+
+    telemetry_client = TelemetryClient(INSTRUMENTATION)
     # This information is also repeated in telemetry_data for ease of search.
     # This may be moved from one area to another
-    tc.context.application.ver = get_cli_version_from_pkg()
+    telemetry_client.context.application.ver = get_cli_version_from_pkg()
 
-    tc.track_event(command, telemetry_data)
+    telemetry_client.track_event(command_name, telemetry_data)
 
     # This will never end if there is no internet connection, for example.
-    tc.flush()
+    telemetry_client.flush()
 
-
+# pylint: disable=invalid-name
 if __name__ == '__main__':
 
     try:
 
         command = sys.argv[1]
-        call_success  = sys.argv[2]
+        call_success = sys.argv[2]
         platform = sys.argv[3]
         python_version = sys.argv[4]
         error_msg = sys.argv[5]
@@ -44,18 +59,18 @@ if __name__ == '__main__':
 
         # operation_id is used to ID one instance of a user calling a command.
 
-        telemetry_data = {'success': call_success,
-                          'operating_system': platform,
-                          'python_version': python_version,
-                          'operation_id': operation_id,
-                          'error_msg': error_msg,
-                          'sfctl_version': get_cli_version_from_pkg()}
+        telemetry_data_input = {'success': call_success,
+                                'operating_system': platform,
+                                'python_version': python_version,
+                                'operation_id': operation_id,
+                                'error_msg': error_msg,
+                                'sfctl_version': get_cli_version_from_pkg()}
 
         # Using a process because we can kill that on a timer. We cannot kill threads the same way.
         telemetry_name = 'sfctl_telemetry'
         send_current_telemetry_process = Process(target=send_telemetry_best_attempt,
                                                  name=telemetry_name,
-                                                 args=(command, telemetry_data))
+                                                 args=(command, telemetry_data_input))
         send_current_telemetry_process.name = telemetry_name
 
         send_current_telemetry_process.start()
@@ -66,7 +81,7 @@ if __name__ == '__main__':
         if send_current_telemetry_process.is_alive():
             send_current_telemetry_process.terminate()
 
-    except:
+    except:  # pylint: disable=bare-except
         # Developers testing the telemetry code can trace out the error messages here
         # ex = sys.exc_info()[0]
         pass

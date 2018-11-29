@@ -11,17 +11,13 @@ from subprocess import Popen
 import inspect
 import os
 import psutil
+from knack.log import get_logger
 from sfctl.config import get_telemetry_config
-
 
 # knack CLIConfig has been re-purposed to handle state instead.
 SF_CLI_NAME = 'sfctl'
 SF_CLI_TELEMETRY_DIR = os.path.join('~', '.{0}'.format(SF_CLI_NAME))
 TELEMETRY_FILE_NAME = 'telemetry'
-
-from knack.log import get_logger
-logger = get_logger(__name__)
-
 
 def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
     """
@@ -37,6 +33,8 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
 
     :return: None
     """
+
+    logger = get_logger(__name__)
 
     if get_telemetry_config():
 
@@ -56,21 +54,21 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
                             'allowable number')
                 return
 
-            # In the background, do some work on checking and sending telemetry for the current call.
+            # In the background, do some work on checking and sending telemetry for the current call
             command_return_tuple = (invocation_ret_val, str(exception))
 
             send_telemetry(args_list, command_return_tuple)
 
-        except:  # pylint: disable=broad-except
+        except:  # pylint: disable=bare-except
 
             import sys
             ex = sys.exc_info()[0]
 
             # Allow telemetry to fail silently.
-            logger.info('Not sending telemetry because python process due to error: ' + str(ex))
+            logger.info(
+                str.format('Not sending telemetry because python process due to error: {0}', ex))
             return
 
-        return
 
 def send_telemetry(command, command_return):
     """
@@ -78,7 +76,7 @@ def send_telemetry(command, command_return):
         previously unsent telemetry for offline work.
 
     :param command: list representing the command which is given, including the parameters.
-        For example, ['node', 'list']
+        For example, ['node', 'list', '--max-results', '10']
     :param command_return: (int, str). int is the returned code,
         str is the error message on command failure.
 

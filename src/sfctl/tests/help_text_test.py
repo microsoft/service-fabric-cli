@@ -270,7 +270,7 @@ class HelpTextTests(unittest.TestCase):
             'sfctl',
             subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'mesh', 'node',
                        'partition', 'property', 'replica', 'rpm', 'sa-cluster',
-                       'service', 'store', 'settings'))
+                       'service', 'settings', 'store'))
 
         self.validate_output(
             'sfctl application',

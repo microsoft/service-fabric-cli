@@ -38,7 +38,8 @@ def launch():
         invocation_ret_val = cli_env.invoke(args_list)
         check_and_send_telemetry(args_list, invocation_ret_val, cli_env.result.error)
 
-    except:  # Cannot use except BaseException until python 2.7 support is dropped
+    # Cannot use except BaseException until python 2.7 support is dropped
+    except:  # pylint: disable=bare-except
         ex = sys.exc_info()[0]
 
         # We don't get a very useful message from SystemExit, which are the errors which are
