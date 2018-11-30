@@ -148,3 +148,16 @@ helps['mesh secretvalue'] = """
     type: group
     short-summary: Get and delete mesh secretvalue resources
 """
+
+helps['settings'] = """
+    type: group
+    short-summary: Configure settings local to this instance of sfctl
+"""
+
+helps['settings telemetry'] = """
+    type: group
+    short-summary: Configure telemetry settings local to this instance of sfctl
+    long-summary: Sfctl telemetry collects command name without parameters provided or their values,
+        sfctl version, OS type, python version, the success or failure of the command,
+        the error message returned
+"""

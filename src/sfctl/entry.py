@@ -12,6 +12,7 @@ import sys
 from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
+from sfctl.telemetry import check_and_send_telemetry
 
 
 def cli():
@@ -29,5 +30,23 @@ def launch():
     Configures and invokes CLI with arguments passed during the time the python
     session is launched"""
 
+    args_list = sys.argv[1:]
+
     cli_env = cli()
-    return cli_env.invoke(sys.argv[1:])
+
+    try:
+        invocation_ret_val = cli_env.invoke(args_list)
+        check_and_send_telemetry(args_list, invocation_ret_val, cli_env.result.error)
+
+    # Cannot use except BaseException until python 2.7 support is dropped
+    except:  # pylint: disable=bare-except
+        ex = sys.exc_info()[0]
+
+        # We don't get a very useful message from SystemExit, which are the errors which are
+        # returned locally to the user, for example, if the command doesn't exist in sfctl.
+        check_and_send_telemetry(args_list, -1, str(ex))
+
+        # Log the exception and pass it back to the user
+        raise
+
+    return invocation_ret_val

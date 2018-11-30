@@ -25,11 +25,11 @@ def get_config_value(name, fallback=None):
 
     return cli_config.get('servicefabric', name, fallback)
 
-def get_config_bool(name):
+def get_config_bool(name, fallback=False):
     """Checks if a config value is set to a valid bool value."""
 
     cli_config = CLIConfig(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
-    return cli_config.getboolean('servicefabric', name, False)
+    return cli_config.getboolean('servicefabric', name, fallback)
 
 def set_config_value(name, value):
     """Set a config by name to a value."""
@@ -135,11 +135,38 @@ def set_auth(pem=None, cert=None, key=None, aad=False):
     else:
         set_config_value('security', 'none')
 
+def set_telemetry_config(telemetry_on):
+    """
+    Sets whether or not telemetry is turned on in the configuration file.
+    :param telemetry_on: bool. True means telemetry should be on.
+    :return: None
+    """
+    if telemetry_on:
+        set_config_value('use_telemetry', 'true')
+    else:
+        set_config_value('use_telemetry', 'false')
+
+def get_telemetry_config():
+    """
+    Gets whether or not telemetry is turned on
+    Returns True if no value is set.
+    :return: bool. True if telemetry is on. False otherwise.
+    """
+    return get_config_bool('use_telemetry', fallback=True)
+
+def get_cli_version_from_pkg():
+    """
+    Reads and returns the version number of sfctl. This is the version sfctl is released with.
+    For example, 6.0.0.
+    :return: str
+    """
+    import pkg_resources
+
+    pkg = pkg_resources.get_distribution("sfctl")
+    sfctl_version = pkg.version
+    return '{0}'.format(sfctl_version)
+
 class VersionedCLI(CLI):
     """Extend CLI to override get_cli_version."""
     def get_cli_version(self):
-        import pkg_resources
-
-        pkg = pkg_resources.get_distribution("sfctl")
-        sfctl_version = pkg.version
-        return '{0}'.format(sfctl_version)
+        return get_cli_version_from_pkg()

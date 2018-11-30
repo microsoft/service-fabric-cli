@@ -71,7 +71,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         """
         try:
             self.cmd(command)
-        except Exception as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # pylint: disable=broad-except
             self.fail(
                 'ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
 
@@ -144,7 +144,7 @@ class ServiceFabricRequestTests(ScenarioTest):
         with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
             try:
                 self.cmd(command)
-            except Exception as exception:  # pylint: disable=broad-except
+            except BaseException as exception:  # pylint: disable=broad-except
                 self.fail('ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
 
         # re-enable logging
@@ -230,6 +230,12 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Specifically, cluster select and show-connection
         self.validate_command_succeeds('cluster select --endpoint=' + get_mock_endpoint())
         self.validate_command_succeeds('cluster show-connection')
+
+        # Settings
+        # Note: always run the -off command last so that tests don't crowd our telemetry
+        # Before testing starts, telemetry is turned off
+        self.validate_command_succeeds('sfctl settings telemetry set-telemetry --on')
+        self.validate_command_succeeds('sfctl settings telemetry set-telemetry --off')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
