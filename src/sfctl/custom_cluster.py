@@ -8,7 +8,7 @@
 
 from __future__ import print_function
 from sys import exc_info
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import adal
 from knack.util import CLIError
 from knack.log import get_logger
@@ -179,7 +179,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
         if last_check_time is not None:
             # If we've already checked the cluster version before, see how long ago it has been
             time_since_last_check = datetime.now(timezone.utc) - last_check_time
-            allowable_time = datetime.timedelta(hours=SF_CLI_VERSION_CHECK_INTERVAL)
+            allowable_time = timedelta(hours=SF_CLI_VERSION_CHECK_INTERVAL)
             if allowable_time > time_since_last_check:
                 # Don't perform any checks
                 return True

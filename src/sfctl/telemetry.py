@@ -13,6 +13,7 @@ import os
 import psutil
 from knack.log import get_logger
 from sfctl.config import get_telemetry_config
+from sfctl.util import is_help_command
 
 # knack CLIConfig has been re-purposed to handle state instead.
 SF_CLI_NAME = 'sfctl'
@@ -88,13 +89,11 @@ def send_telemetry(command, command_return):
     command_without_params = []
 
     # Mark commands which retrieve help text (ex. sfctl -h or sfctl node list -h)
-    is_help_command = False
+    is_help_cmd = is_help_command(command)
 
     # Remove the parameters and keep only the command name
     # Do this by finding the first item which starts with "-"
     for segment in command:
-        if segment in ('-h', '--help'):
-            is_help_command = True
         if segment.startswith('-'):
             break
         command_without_params.append(segment)
@@ -102,7 +101,7 @@ def send_telemetry(command, command_return):
     # If the commands_without_params is empty, this means that
     # either sfctl is called, or sfctl -h is called. Don't record this.
     # Don't record commands asking for help.
-    if is_help_command or not command_without_params:
+    if is_help_cmd or not command_without_params:
         # Do not send telemetry
         return
 
