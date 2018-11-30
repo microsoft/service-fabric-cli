@@ -52,7 +52,9 @@ setup(
         'jsonpickle',
         'adal',
         'future',
-        'sfmergeutility'
+        'applicationinsights',
+        'sfmergeutility',
+        'psutil'
     ],
     extras_require={
         'test': [

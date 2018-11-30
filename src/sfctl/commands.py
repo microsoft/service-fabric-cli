@@ -20,6 +20,7 @@ from sfctl.apiclient import (mesh_app_create, mesh_volume_create, mesh_service_c
                              mesh_secret_create, mesh_secret_value_create)
 # Need to import so global help dict gets updated
 import sfctl.helps.app  # pylint: disable=unused-import
+import sfctl.helps.settings  # pylint: disable=unused-import
 import sfctl.helps.main  # pylint: disable=unused-import
 import sfctl.helps.health  # pylint: disable=unused-import
 import sfctl.helps.cluster_upgrade  # pylint: disable=unused-import
@@ -406,6 +407,13 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandGroup(self, 'mesh deployment', client_func_path_mesh,
                           client_factory=client_create) as group:
             group.command('create', 'mesh_deploy')
+
+        # ---------------
+        # Settings
+        # ---------------
+
+        with CommandGroup(self, 'settings telemetry', 'sfctl.custom_settings#{}') as group:
+            group.command('set-telemetry', 'set_telemetry')
 
         return OrderedDict(self.command_table)
 

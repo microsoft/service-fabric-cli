@@ -13,7 +13,7 @@ from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
 from sfctl.custom_cluster import check_cluster_version
-
+from sfctl.telemetry import check_and_send_telemetry
 
 
 def cli():
@@ -33,8 +33,26 @@ def launch():
 
     This is run every time a sfctl command is invoked."""
 
+    args_list = sys.argv[1:]
+
     cli_env = cli()
-    invoke_return_value = cli_env.invoke(sys.argv[1:])
+
+    invoke_return_value = None
+
+    try:
+        invoke_return_value = cli_env.invoke(args_list)
+        check_and_send_telemetry(args_list, invoke_return_value, cli_env.result.error)
+
+    # Cannot use except BaseException until python 2.7 support is dropped
+    except:  # pylint: disable=bare-except
+        ex = sys.exc_info()[0]
+
+        # We don't get a very useful message from SystemExit, which are the errors which are
+        # returned locally to the user, for example, if the command doesn't exist in sfctl.
+        check_and_send_telemetry(args_list, -1, str(ex))
+
+        # Log the exception and pass it back to the user
+        raise
 
     try:
         if invoke_return_value != 0 or ('cluster' and 'select' in sys.argv[1:]):
