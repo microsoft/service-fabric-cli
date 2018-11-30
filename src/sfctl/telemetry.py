@@ -114,15 +114,16 @@ def send_telemetry(command, command_return):
         call_success = False
 
     # Get the path of where this file (telemetry.py) is.
-    abs_send_telemetry_background_root = \
+    current_file_location = \
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-    abs_send_telemetry_background_path = \
-        os.path.join(abs_send_telemetry_background_root, 'send_telemetry_background.py')
+    # This is the absolute path.
+    send_telemetry_background_path = \
+        os.path.join(current_file_location, 'send_telemetry_background.py')
 
     # subprocess.run is the newer version of the call command (python 3.5)
     # If you close the terminal, this process will end as well.
-    Popen(['python', abs_send_telemetry_background_path, command_as_str,
+    Popen(['python', send_telemetry_background_path, command_as_str,
            str(call_success), platform, version, command_return_msg], close_fds=True)
 
     return

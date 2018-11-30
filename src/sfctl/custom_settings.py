@@ -16,9 +16,10 @@ def set_telemetry(on=False, off=False):  # pylint: disable=invalid-name
     if on == off:
         raise CLIError('Only one of --on or --off should be set.')
 
+    # Note: remove pylint disable superfluous-parens when python 2.7 support is gone.
     if on:
         set_telemetry_config(True)
-        print('Telemetry has been turned on')
+        print('Telemetry has been turned on')  # pylint: disable=superfluous-parens
     else:
         set_telemetry_config(False)
-        print('Telemetry has been turned off')
+        print('Telemetry has been turned off')  # pylint: disable=superfluous-parens
