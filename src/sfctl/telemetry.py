@@ -67,7 +67,6 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
             # Allow telemetry to fail silently.
             logger.info(
                 str.format('Not sending telemetry because python process due to error: {0}', ex))
-            return
 
 
 def send_telemetry(command, command_return):
@@ -94,7 +93,7 @@ def send_telemetry(command, command_return):
     # Remove the parameters and keep only the command name
     # Do this by finding the first item which starts with "-"
     for segment in command:
-        if segment == '-h' or segment == '--help':
+        if segment in ('-h', '--help'):
             is_help_command = True
         if segment.startswith('-'):
             break
