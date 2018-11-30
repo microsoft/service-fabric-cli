@@ -149,8 +149,7 @@ class ClusterTests(unittest.TestCase):
             day=20,
             hour=0,
             minute=0,
-            second=0,
-            tzinfo=timezone.utc
+            second=0
         )
 
         sfctl_state.set_cluster_version_check_time(utc_time_past)

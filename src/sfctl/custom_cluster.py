@@ -13,17 +13,16 @@ import adal
 from knack.util import CLIError
 from knack.log import get_logger
 from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
-from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth
+from msrest import ServiceClient, Configuration
+from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
-from msrest import ServiceClient, Configuration
 from sfctl.auth import ClientCertAuthentication, AdalAuthentication
-from sfctl.config import set_aad_cache
 
 
 logger = get_logger(__name__)  # pylint: disable=invalid-name
 
-def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
+def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify):  # pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
 
     if not (endpoint.lower().startswith('http')
@@ -60,7 +59,7 @@ def show_connection():
 
     return endpoint
 
-def _get_client_cert_auth(pem, cert, key, ca, no_verify):
+def _get_client_cert_auth(pem, cert, key, ca, no_verify): # pylint: disable=invalid-name
     """
     Return a ClientCertAuthentication based on given credentials
 
@@ -81,7 +80,7 @@ def _get_client_cert_auth(pem, cert, key, ca, no_verify):
     return ClientCertAuthentication(client_cert, ca, no_verify)
 
 
-def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
+def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint: disable=invalid-name, too-many-arguments
                      aad=False, no_verify=False):
     """
     Get the rest client to send a http request with secured connections
@@ -270,9 +269,6 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
 def get_aad_token(endpoint, no_verify):
     #pylint: disable-msg=too-many-locals
     """Get AAD token"""
-
-    from sfctl.auth import ClientCertAuthentication
-    from sfctl.config import set_aad_metadata
 
     auth = ClientCertAuthentication(None, None, no_verify)
 
