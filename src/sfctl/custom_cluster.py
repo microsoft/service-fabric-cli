@@ -95,8 +95,6 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint
     :return: ServiceClient from msrest
     """
 
-
-
     if aad:
         new_token, new_cache = get_aad_token(endpoint, no_verify)
         set_aad_cache(new_token, new_cache)

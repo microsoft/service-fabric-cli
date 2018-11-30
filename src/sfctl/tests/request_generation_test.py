@@ -27,7 +27,6 @@ from sfctl.tests.request_generation_body_validation import validate_flat_diction
     validate_create_application
 
 
-
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
     This class requires a live connection to a cluster for some tests.
