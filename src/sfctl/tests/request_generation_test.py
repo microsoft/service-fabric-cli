@@ -232,8 +232,10 @@ class ServiceFabricRequestTests(ScenarioTest):
         self.validate_command_succeeds('cluster show-connection')
 
         # Settings
-        self.validate_command_succeeds('sfctl settings telemetry set_telemetry --off')
+        # Note: always run the -off command last so that tests don't crowd our telemetry
+        # Before testing starts, telemetry is turned off
         self.validate_command_succeeds('sfctl settings telemetry set_telemetry --on')
+        self.validate_command_succeeds('sfctl settings telemetry set_telemetry --off')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store

@@ -413,7 +413,7 @@ class SFCommandLoader(CLICommandsLoader):
         # ---------------
 
         with CommandGroup(self, 'settings telemetry', 'sfctl.custom_settings#{}') as group:
-            group.command('set_telemetry', 'set_telemetry')
+            group.command('set-telemetry', 'set_telemetry')
 
         return OrderedDict(self.command_table)
 

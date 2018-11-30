@@ -17,17 +17,17 @@ from knack.help_files import helps
 #    1. text
 #    2. text
 
-helps['settings telemetry set_telemetry'] = """
+helps['settings telemetry set-telemetry'] = """
     type: command
     short-summary: Turn on or off telemetry.
-    parameters:
-        - name: --on
-          type: bool
-          short-summary: Turn on telemetry. This is the default value.
     parameters:
         - name: --off
           type: bool
           short-summary: Turn off telemetry. 
+        - name: --on
+          type: bool
+          short-summary: Turn on telemetry. This is the default value.
+        
 
     examples: 
         - name: Turn off telemetry.

@@ -148,6 +148,8 @@ class HelpTextTests(unittest.TestCase):
                      If a test entry is not added here, then that entry will not be
                      verified.
 
+                     The first word of the line should not match a command name
+
         command_input (string): This represents the command for which you want to get the help text.
             For example, "sfctl" or "sfctl application" or "sfctl application list".
             Parameter command_input should not include the "-h" to get the help text, as this
@@ -235,12 +237,18 @@ class HelpTextTests(unittest.TestCase):
             self.assertEqual(len(commands), commands_index,
                              msg=('Not all commands listed in help text for '
                                   + help_command
-                                  + '. This may be a problem due incorrect expected ordering. '
-                                    'I.e ("delete", "show", "list") != ("show", "delete", "list")'))
+                                  + '. \nThis may be a problem due incorrect expected ordering. '
+                                    'I.e ("delete", "show", "list") != ("show", "delete", "list"). '
+                                    '\nFirst diagnosis should be to run the help cmd yourself. \n'
+                                    'If you passed in a single value to the tuple in validate '
+                                    'output: commands=(set-telemetry,), like the example shown, '
+                                    'you must pass in a comma after in the tuple, otherwise it '
+                                    'will not be recognized as a tuple.'))
             self.assertEqual(len(subgroups), subgroups_index,
                              msg=('Not all subgroups listed in help text for '
                                   + help_command
-                                  + '. This may be a problem due incorrect expected ordering.'))
+                                  + '. This may be a problem due incorrect expected ordering. '
+                                    'First diagnosis should be to run the help cmd yourself.'))
 
         except BaseException as exception:  # pylint: disable=broad-except
             if not err:
@@ -273,6 +281,14 @@ class HelpTextTests(unittest.TestCase):
                        'service', 'settings', 'store'))
 
         self.validate_output(
+            'sfctl chaos schedule',
+            commands=('get', 'set'))
+
+        self.validate_output(
+            'sfctl settings telemetry',
+            commands=('set-telemetry',))
+
+        self.validate_output(
             'sfctl application',
             commands=('create', 'delete', 'deployed', 'deployed-health', 'deployed-list',
                       'health', 'info', 'list', 'load', 'manifest', 'provision',
@@ -282,10 +298,6 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl chaos',
             commands=('events', 'get', 'start', 'stop'))
-
-        self.validate_output(
-            'sfctl chaos schedule',
-            commands=('get', 'set'))
 
         self.validate_output(
             'sfctl cluster',
@@ -367,10 +379,6 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
-
-        self.validate_output(
-            'sfctl settings telemetry',
-            commands=('set_telemetry'))
 
         self.validate_output(
             'sfctl mesh gateway',

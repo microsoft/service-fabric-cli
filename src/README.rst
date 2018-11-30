@@ -26,7 +26,7 @@ Unreleased
 - Allow any Python 3.7.x versions rather than only 3.7.0 (#142)
 - Fix missing option of "Error" health state in health reporting (#151)
 - Add the command "sfctl mesh deployment create", which takes resource description yaml files as input and deploys the corresponding mesh resources (#146)
-- Add telemetry. The following data is collected: Command name without parameters provided or their values, sfctl version, OS, python version, the success or failure of the command, and if the command failed, the error message returned (#)
+- Add telemetry. The following data is collected: Command name without parameters provided or their values, sfctl version, OS, python version, the success or failure of the command, and if the command failed, the error message returned (#152)
 
 6.0.1
 -----
