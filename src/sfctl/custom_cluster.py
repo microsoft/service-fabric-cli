@@ -8,7 +8,7 @@
 
 from __future__ import print_function
 from sys import exc_info
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import adal
 from knack.util import CLIError
 from knack.log import get_logger
@@ -16,6 +16,9 @@ from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientA
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
+from msrest import ServiceClient, Configuration
+from sfctl.auth import ClientCertAuthentication, AdalAuthentication
+from sfctl.config import set_aad_cache
 
 
 logger = get_logger(__name__)  # pylint: disable=invalid-name
@@ -57,6 +60,27 @@ def show_connection():
 
     return endpoint
 
+def _get_client_cert_auth(pem, cert, key, ca, no_verify):
+    """
+    Return a ClientCertAuthentication based on given credentials
+
+    :param pem: See select command in this file
+    :param cert: See select command in this file
+    :param key: See select command in this file
+    :param ca: See select command in this file
+    :param no_verify: See select command in this file
+
+    :return: ClientCertAuthentication
+    """
+    client_cert = None
+    if pem:
+        client_cert = pem
+    elif cert:
+        client_cert = (cert, key)
+
+    return ClientCertAuthentication(client_cert, ca, no_verify)
+
+
 def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
                      aad=False, no_verify=False):
     """
@@ -72,9 +96,7 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: 
     :return: ServiceClient from msrest
     """
 
-    from msrest import ServiceClient, Configuration
-    from sfctl.auth import ClientCertAuthentication, AdalAuthentication
-    from sfctl.config import set_aad_cache
+
 
     if aad:
         new_token, new_cache = get_aad_token(endpoint, no_verify)
@@ -82,14 +104,9 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: 
         return ServiceClient(AdalAuthentication(no_verify), Configuration(endpoint))
 
     # If the code reaches here, it is not AAD
-    client_cert = None
-    if pem:
-        client_cert = pem
-    elif cert:
-        client_cert = (cert, key)
 
     return ServiceClient(
-        ClientCertAuthentication(client_cert, ca, no_verify),
+        _get_client_cert_auth(pem, cert, key, ca, no_verify),
         Configuration(endpoint)
     )
 
@@ -178,7 +195,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
         last_check_time = get_cluster_version_check_time()
         if last_check_time is not None:
             # If we've already checked the cluster version before, see how long ago it has been
-            time_since_last_check = datetime.now(timezone.utc) - last_check_time
+            time_since_last_check = datetime.utcnow() - last_check_time
             allowable_time = timedelta(hours=SF_CLI_VERSION_CHECK_INTERVAL)
             if allowable_time > time_since_last_check:
                 # Don't perform any checks
@@ -188,9 +205,10 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
             # been checked. Set the initial value.
             set_cluster_version_check_time()
 
-    rest_client = _get_rest_client(get_cluster_auth())
+    cluster_auth = get_cluster_auth()
 
-    auth = rest_client._creds
+    auth = _get_client_cert_auth(cluster_auth['pem'], cluster_auth['cert'], cluster_auth['key'],
+                                 cluster_auth['ca'], cluster_auth['no_verify'])
 
     client = ServiceFabricClientAPIs(auth, base_url=client_endpoint())
 

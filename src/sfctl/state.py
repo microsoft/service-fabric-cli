@@ -7,7 +7,7 @@
 """Read and modify state related to the CLI"""
 
 import os
-from datetime import datetime, timezone
+from datetime import datetime
 from knack.config import CLIConfig
 from pkg_resources import get_distribution
 
@@ -21,7 +21,7 @@ SF_CLI_STATE_DIR = os.path.join('~', '.{0}'.format(SF_CLI_NAME))
 STATE_FILE_NAME = 'state'
 
 # Format: Year, month, day, hour, minute, second, microsecond, timezone
-DATETIME_FORMAT = "Year %Y Month %m Day %d %H:%M:%S:%f %Z"
+DATETIME_FORMAT = "Year %Y Month %m Day %d %H:%M:%S:%f"
 
 
 def get_state_path():
@@ -62,8 +62,7 @@ def get_cluster_version_check_time():
     if datetime_str is None:
         return None
 
-    # Need to manually add timezone information since strptime truncates it away
-    return datetime.strptime(datetime_str, DATETIME_FORMAT).replace(tzinfo=timezone.utc)
+    return datetime.strptime(datetime_str, DATETIME_FORMAT)
 
 
 def set_cluster_version_check_time(custom_time=None):
@@ -73,7 +72,7 @@ def set_cluster_version_check_time(custom_time=None):
     :type custom_time: datetime.datetime object"""
 
     if custom_time is None:
-        set_state_value('datetime', datetime.now(timezone.utc).strftime(DATETIME_FORMAT))
+        set_state_value('datetime', datetime.utcnow().strftime(DATETIME_FORMAT))
     else:
         set_state_value('datetime', custom_time.strftime(DATETIME_FORMAT))
 

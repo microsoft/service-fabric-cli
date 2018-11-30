@@ -7,7 +7,7 @@
 """Custom cluster command tests"""
 
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime
 from knack.util import CLIError
 from knack.testsdk import ScenarioTest
 from mock import patch
@@ -101,7 +101,7 @@ class ClusterTests(unittest.TestCase):
             if line.strip():
                 content_trimmed.append(line)
 
-        self.assertLess(len(content_trimmed), 3, 
+        self.assertLess(len(content_trimmed), 3,
                         'sfctl state file should not have more than 2 lines. '
                         'Content: ' + str(content_trimmed))
 
@@ -111,7 +111,7 @@ class ClusterTests(unittest.TestCase):
         # Create cluster version object.
         cluster_version = 'invalid_version'
 
-        current_utc_time = datetime.now(timezone.utc)
+        current_utc_time = datetime.utcnow()
 
         # Check cluster version. This should update the last updated time (in state)
         checks_passed_or_not_done = check_cluster_version(
@@ -179,7 +179,7 @@ class ClusterTests(unittest.TestCase):
         This test assumes SF_CLI_VERSION_CHECK_INTERVAL = 24 hours
         """
 
-        current_utc_time = datetime.now(timezone.utc)
+        current_utc_time = datetime.utcnow()
 
         adjusted_hour = current_utc_time.hour
         adjusted_minute = current_utc_time.minute
@@ -197,8 +197,7 @@ class ClusterTests(unittest.TestCase):
             month=current_utc_time.month,
             day=adjusted_day,
             hour=adjusted_hour,
-            minute=adjusted_minute,
-            tzinfo=timezone.utc
+            minute=adjusted_minute
         )
 
         cluster_version = 'invalid_version'
@@ -223,7 +222,7 @@ class ClusterTests(unittest.TestCase):
         # Run check_cluster_version
         # Check that the values in the state file of the last checked time is correct
 
-        current_utc_time = datetime.now(timezone.utc)
+        current_utc_time = datetime.utcnow()
         sfctl_state.set_cluster_version_check_time(current_utc_time)
 
         checks_passed_or_not_done = check_cluster_version(
