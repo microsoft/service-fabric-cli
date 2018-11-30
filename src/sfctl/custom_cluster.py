@@ -7,17 +7,18 @@
 """Cluster level Service Fabric commands"""
 
 from __future__ import print_function
-from knack.util import CLIError
-import adal
+from sys import exc_info
 from datetime import datetime, timezone
-import sfctl.config
-from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL
+import adal
+from knack.util import CLIError
+from knack.log import get_logger
 from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
+from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
-from knack.log import get_logger
 
-logger = get_logger(__name__)
+
+logger = get_logger(__name__)  # pylint: disable=invalid-name
 
 def select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify): #pylint: disable=invalid-name,too-many-arguments
     """Verify arguments for select command"""
@@ -56,8 +57,20 @@ def show_connection():
 
     return endpoint
 
-def get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
-           aad=False, no_verify=False):
+def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
+                     aad=False, no_verify=False):
+    """
+    Get the rest client to send a http request with secured connections
+
+    :param endpoint: See select command in this file
+    :param cert: See select command in this file
+    :param key: See select command in this file
+    :param pem: See select command in this file
+    :param ca: See select command in this file
+    :param aad: See select command in this file
+    :param no_verify: See select command in this file
+    :return: ServiceClient from msrest
+    """
 
     from msrest import ServiceClient, Configuration
     from sfctl.auth import ClientCertAuthentication, AdalAuthentication
@@ -68,17 +81,17 @@ def get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: d
         set_aad_cache(new_token, new_cache)
         return ServiceClient(AdalAuthentication(no_verify), Configuration(endpoint))
 
-    else:
-        client_cert = None
-        if pem:
-            client_cert = pem
-        elif cert:
-            client_cert = (cert, key)
+    # If the code reaches here, it is not AAD
+    client_cert = None
+    if pem:
+        client_cert = pem
+    elif cert:
+        client_cert = (cert, key)
 
-        return ServiceClient(
-            ClientCertAuthentication(client_cert, ca, no_verify),
-            Configuration(endpoint)
-        )
+    return ServiceClient(
+        ClientCertAuthentication(client_cert, ca, no_verify),
+        Configuration(endpoint)
+    )
 
 
 def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
@@ -112,14 +125,14 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     # the c_rehash operation to be performed.
     # See http://docs.python-requests.org/en/master/user/advanced/
 
-    from sfctl.config import (set_ca_cert, set_auth, set_aad_cache,
+    from sfctl.config import (set_ca_cert, set_auth,
                               set_cluster_endpoint,
                               set_no_verify)
 
     select_arg_verify(endpoint, cert, key, pem, ca, aad, no_verify)
 
     # Make sure basic GET request succeeds
-    rest_client = get_rest_client(endpoint, cert, key, pem, ca, aad, no_verify)
+    rest_client = _get_rest_client(endpoint, cert, key, pem, ca, aad, no_verify)
     rest_client.send(rest_client.get('/')).raise_for_status()
 
     set_cluster_endpoint(endpoint)
@@ -128,7 +141,7 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     set_auth(pem, cert, key, aad)
 
 
-def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None):
+def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
     """ Check that the cluster version of sfctl is compatible with that of the cluster.
 
     Failures in making the API call (to check the cluster version)
@@ -171,11 +184,11 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None
                 # Don't perform any checks
                 return True
 
-    rest_client = get_rest_client(sfctl.config.get_cluster_auth())
+    rest_client = _get_rest_client(get_cluster_auth())
 
     auth = rest_client.creds
 
-    client = ServiceFabricClientAPIs(auth, base_url=sfctl.config.client_endpoint())
+    client = ServiceFabricClientAPIs(auth, base_url=client_endpoint())
 
     sfctl_version = get_sfctl_version()
     cluster_version = None
@@ -188,7 +201,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None
         # is that the corresponding get_cluster_version API on the cluster doesn't exist.
         try:
             cluster_version = client.get_cluster_version().Version
-        except Exception as ex:
+        except:  # pylint: disable=bare-except
+            ex = exc_info()[0]
             logger.info('Check cluster version failed due to error: %s', str(ex))
             return True
     else:
@@ -199,13 +213,13 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version = None
         # because the API doesn't exist.
         return True
 
-    elif not sfctl_cluster_version_matches(cluster_version, sfctl_version):
+    if not sfctl_cluster_version_matches(cluster_version, sfctl_version):
         warn(str.format(
             'CLI sfctl has version "{0}" which does not match the cluster version "{1}". '
-            'See https://docs.microsoft.com/azure/service-fabric/service-fabric-cli#service-fabric-target-runtime '
+            'See https://docs.microsoft.com/azure/service-fabric/service-fabric-cli#service-fabric-target-runtime '  # pylint: disable=line-too-long
             'for version compatibility. Upgrade to a compatible version for the best experience.',
-        sfctl_version,
-        cluster_version))
+            sfctl_version,
+            cluster_version))
         return False
 
     return True

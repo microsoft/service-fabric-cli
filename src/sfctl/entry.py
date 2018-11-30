@@ -42,11 +42,13 @@ def launch():
             check_cluster_version(on_failure_or_connection=True, dummy_cluster_version='invalid')
         else:
             check_cluster_version(on_failure_or_connection=False, dummy_cluster_version='invalid')
-    except Exception as ex:
+
+    except:  # pylint: disable=bare-except
         # Catch any exceptions from checking cluster version. For example, if we are not able
         # to read the state file due to corruption, fail silently.
         from knack.log import get_logger
         logger = get_logger(__name__)
+        ex = sys.exc_info()[0]
         logger.info('Check cluster version failed due to error: %s', str(ex))
 
     return invoke_return_value

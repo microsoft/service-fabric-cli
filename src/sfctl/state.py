@@ -25,6 +25,10 @@ DATETIME_FORMAT = "Year %Y Month %m Day %d %H:%M:%S:%f %Z"
 
 
 def get_state_path():
+    """
+    Returns the path of where the state file of sfctl is stored.
+    :return: str
+    """
 
     # This is the same as
     # self.config_path = os.path.join(self.config_dir, CLIConfig._CONFIG_FILE_NAME)
@@ -53,7 +57,9 @@ def get_cluster_version_check_time():
     Return as a datetime.datetime object which represents a UTC time."""
 
     datetime_str = get_state_value('datetime', None)
-    return datetime.strptime(datetime_str, DATETIME_FORMAT)
+
+    # Need to manually add timezone information since strptime truncates it away
+    return datetime.strptime(datetime_str, DATETIME_FORMAT).replace(tzinfo=timezone.utc)
 
 
 def set_cluster_version_check_time(custom_time=None):
@@ -69,5 +75,9 @@ def set_cluster_version_check_time(custom_time=None):
 
 
 def get_sfctl_version():
+    """
+    Get the version of the sfctl. For example, 6.0.0
+    :return: str
+    """
     pkg = get_distribution("sfctl")
     return pkg.version

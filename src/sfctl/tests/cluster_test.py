@@ -11,7 +11,6 @@ from datetime import datetime, timezone
 from knack.util import CLIError
 from knack.testsdk import ScenarioTest
 from mock import patch
-from azure.servicefabric.models import ClusterVersion
 import sfctl.custom_cluster as sf_c
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.entry import cli
@@ -96,7 +95,8 @@ class ClusterTests(unittest.TestCase):
         # only that one line.
         with open(state_file_path) as file:
             content = file.readlines()
-        self.assertLess(len(content), 3, 'sfctl state file should not have more than 2 lines.')
+        self.assertLess(len(content), 3, 'sfctl state file should not have more than 2 lines. '
+                                         'Content: ' + str(content))
 
         # empty the file
         open(state_file_path, 'w').close()
