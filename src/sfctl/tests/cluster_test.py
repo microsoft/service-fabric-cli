@@ -52,7 +52,7 @@ class ClusterTests(unittest.TestCase):
             sf_c.select_arg_verify('http://test.com:190800', 'test.crt',
                                    'test.key', None, None, True, False)
 
-    def test_sfctl_cluster_version_matches(self):
+    def test_sfctl_cluster_version_matches(self):  # pylint: disable=invalid-name
         """
         Test that the latest version of sfctl has a corresponding service fabric cluster
         version that it matches with.
@@ -93,8 +93,8 @@ class ClusterTests(unittest.TestCase):
         # If the state file ends up being used for anything else
         # other than last checked API version time, then modify this test then to remove
         # only that one line.
-        with open(state_file_path) as file:
-            content = file.readlines()
+        with open(state_file_path) as state_file:
+            content = state_file.readlines()
 
         content_trimmed = []
         for line in content:
@@ -165,7 +165,7 @@ class ClusterTests(unittest.TestCase):
                            'last checked time such that the time in state is greater than our '
                            'time.')
 
-    def test_version_check_not_triggered(self):
+    def test_version_check_not_triggered(self):  # pylint: disable=invalid-name
         """Test that under the following circumstances, a cluster version & sfctl version
         compatibility check is NOT triggered and if the last check time was left in a good state
         after the call:

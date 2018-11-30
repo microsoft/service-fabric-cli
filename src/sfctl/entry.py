@@ -63,6 +63,7 @@ def launch():
     # there is something wrong with their command input, such as missing a required parameter.
     # This is not the same as an error returned from the server, which does not raise an exception.
     # We should also not hit the cluster in the cases of the user inputting a help command (-h)
+
     if is_help_command(args_list):
         return invocation_return_value
 

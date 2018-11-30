@@ -159,16 +159,16 @@ def using_aad():
     """
     :return: True if security type is 'aad'. False otherwise
     """
-    if security_type() == 'aad':
-        return True
-    return False
+    return security_type() == 'aad'
 
 
 def get_cluster_auth():
     """
-    Return what information was added to config by function select cluster
+    Return the information that was added to config file by the function select cluster.
+
     :return: a dictionary with keys: endpoint, cert, key, pem, ca, aad, no_verify
     """
+
     cluster_auth = dict()
     cluster_auth['endpoint'] = client_endpoint()
     cluster_auth['cert'] = get_config_value('cert_path')

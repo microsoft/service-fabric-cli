@@ -8,7 +8,7 @@
 
 def is_help_command(command):
     """
-    Checks is the user inputted command is a help command, which will not go over the wire.
+    Checks that the user inputted command is a help command, which will not go over the wire.
     This is a command with -h or --help.
 
     The help functionality is triggered no matter where the -h appears in the command (arg ordering)
