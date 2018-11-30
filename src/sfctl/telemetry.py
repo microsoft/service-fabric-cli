@@ -88,12 +88,24 @@ def send_telemetry(command, command_return):
 
     command_without_params = []
 
+    # Mark commands which retrieve help text (ex. sfctl -h or sfctl node list -h)
+    is_help_command = False
+
     # Remove the parameters and keep only the command name
     # Do this by finding the first item which starts with "-"
     for segment in command:
+        if segment == '-h' or segment == '--help':
+            is_help_command = True
         if segment.startswith('-'):
             break
         command_without_params.append(segment)
+
+    # If the commands_without_params is empty, this means that
+    # either sfctl is called, or sfctl -h is called. Don't record this.
+    # Don't record commands asking for help.
+    if is_help_command or not command_without_params:
+        # Do not send telemetry
+        return
 
     command_as_str = ' '.join(command_without_params)
 
