@@ -101,8 +101,9 @@ class ClusterTests(unittest.TestCase):
             if line.strip():
                 content_trimmed.append(line)
 
-        self.assertLess(len(content_trimmed), 3, 'sfctl state file should not have more than 2 lines. '
-                                         'Content: ' + str(content_trimmed))
+        self.assertLess(len(content_trimmed), 3, 
+                        'sfctl state file should not have more than 2 lines. '
+                        'Content: ' + str(content_trimmed))
 
         # empty the file
         open(state_file_path, 'w').close()

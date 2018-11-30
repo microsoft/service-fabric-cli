@@ -183,10 +183,14 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
             if allowable_time > time_since_last_check:
                 # Don't perform any checks
                 return True
+        else:
+            # If last_check_time is None, this means that we've not yet set a time, so it's never
+            # been checked. Set the initial value.
+            set_cluster_version_check_time()
 
     rest_client = _get_rest_client(get_cluster_auth())
 
-    auth = rest_client.creds
+    auth = rest_client._creds
 
     client = ServiceFabricClientAPIs(auth, base_url=client_endpoint())
 

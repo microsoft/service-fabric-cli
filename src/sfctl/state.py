@@ -54,9 +54,13 @@ def set_state_value(name, value):
 
 def get_cluster_version_check_time():
     """Get the time that the cluster version was last checked.
-    Return as a datetime.datetime object which represents a UTC time."""
+    Return as a datetime.datetime object which represents a UTC time.
+    Return None if the value does not exist in state"""
 
     datetime_str = get_state_value('datetime', None)
+
+    if datetime_str is None:
+        return None
 
     # Need to manually add timezone information since strptime truncates it away
     return datetime.strptime(datetime_str, DATETIME_FORMAT).replace(tzinfo=timezone.utc)
