@@ -13,7 +13,7 @@ from multiprocessing import Process
 from applicationinsights import TelemetryClient
 from sfctl.config import get_cli_version_from_pkg
 
-INSTRUMENTATION = '5b9ab102-e26b-4b75-919e-f448c521ff11'
+INSTRUMENTATION = '482faeea-c22b-4c75-a1af-5bfe79f36cb7'
 SINGLE_UPLOAD_TIMEOUT = 15
 
 
