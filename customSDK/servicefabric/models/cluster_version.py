@@ -23,6 +23,6 @@ class ClusterVersion(Model):
         'version': {'key': 'Version', 'type': 'str'},
     }
 
-    def __init__(self, version=None):
-        super(ClusterVersion, self).__init__()
-        self.version = version
+    def __init__(self, **kwargs):
+        super(ClusterVersion, self).__init__(**kwargs)
+        self.version = kwargs.get('version', None)

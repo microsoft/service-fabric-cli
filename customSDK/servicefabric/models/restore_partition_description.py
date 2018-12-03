@@ -16,10 +16,12 @@ class RestorePartitionDescription(Model):
     """Specifies the parameters needed to trigger a restore of a specific
     partition.
 
-    :param backup_id: Unique backup ID.
+    All required parameters must be populated in order to send to Azure.
+
+    :param backup_id: Required. Unique backup ID.
     :type backup_id: str
-    :param backup_location: Location of the backup relative to the backup
-     storage specified/ configured.
+    :param backup_location: Required. Location of the backup relative to the
+     backup storage specified/ configured.
     :type backup_location: str
     :param backup_storage: Location of the backup from where the partition
      will be restored.
@@ -37,8 +39,8 @@ class RestorePartitionDescription(Model):
         'backup_storage': {'key': 'BackupStorage', 'type': 'BackupStorageDescription'},
     }
 
-    def __init__(self, backup_id, backup_location, backup_storage=None):
-        super(RestorePartitionDescription, self).__init__()
-        self.backup_id = backup_id
-        self.backup_location = backup_location
-        self.backup_storage = backup_storage
+    def __init__(self, **kwargs):
+        super(RestorePartitionDescription, self).__init__(**kwargs)
+        self.backup_id = kwargs.get('backup_id', None)
+        self.backup_location = kwargs.get('backup_location', None)
+        self.backup_storage = kwargs.get('backup_storage', None)

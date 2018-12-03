@@ -33,8 +33,8 @@ class ChaosScheduleJob(Model):
         'times': {'key': 'Times', 'type': '[TimeRange]'},
     }
 
-    def __init__(self, chaos_parameters=None, days=None, times=None):
-        super(ChaosScheduleJob, self).__init__()
-        self.chaos_parameters = chaos_parameters
-        self.days = days
-        self.times = times
+    def __init__(self, **kwargs):
+        super(ChaosScheduleJob, self).__init__(**kwargs)
+        self.chaos_parameters = kwargs.get('chaos_parameters', None)
+        self.days = kwargs.get('days', None)
+        self.times = kwargs.get('times', None)

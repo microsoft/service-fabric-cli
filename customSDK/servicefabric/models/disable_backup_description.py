@@ -16,9 +16,11 @@ class DisableBackupDescription(Model):
     """It describes the body parameters while disabling backup of a backup
     entity(Application/Service/Partition).
 
-    :param clean_backup: Boolean flag to delete backups. It can be set to true
-     for deleting all the backups which were created for the backup entity that
-     is getting disabled for backup.
+    All required parameters must be populated in order to send to Azure.
+
+    :param clean_backup: Required. Boolean flag to delete backups. It can be
+     set to true for deleting all the backups which were created for the backup
+     entity that is getting disabled for backup.
     :type clean_backup: bool
     """
 
@@ -30,6 +32,6 @@ class DisableBackupDescription(Model):
         'clean_backup': {'key': 'CleanBackup', 'type': 'bool'},
     }
 
-    def __init__(self, clean_backup):
-        super(DisableBackupDescription, self).__init__()
-        self.clean_backup = clean_backup
+    def __init__(self, **kwargs):
+        super(DisableBackupDescription, self).__init__(**kwargs)
+        self.clean_backup = kwargs.get('clean_backup', None)
