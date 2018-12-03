@@ -19,10 +19,13 @@ class ResourceRequests(Model):
     limits before being restarted. Currently, the requested resources are
     treated as limits.
 
-    :param memory_in_gb: The memory request in GB for this container.
+    All required parameters must be populated in order to send to Azure.
+
+    :param memory_in_gb: Required. The memory request in GB for this
+     container.
     :type memory_in_gb: float
-    :param cpu: Requested number of CPU cores. At present, only full cores are
-     supported.
+    :param cpu: Required. Requested number of CPU cores. At present, only full
+     cores are supported.
     :type cpu: float
     """
 
@@ -36,7 +39,7 @@ class ResourceRequests(Model):
         'cpu': {'key': 'cpu', 'type': 'float'},
     }
 
-    def __init__(self, memory_in_gb, cpu):
-        super(ResourceRequests, self).__init__()
-        self.memory_in_gb = memory_in_gb
-        self.cpu = cpu
+    def __init__(self, **kwargs):
+        super(ResourceRequests, self).__init__(**kwargs)
+        self.memory_in_gb = kwargs.get('memory_in_gb', None)
+        self.cpu = kwargs.get('cpu', None)

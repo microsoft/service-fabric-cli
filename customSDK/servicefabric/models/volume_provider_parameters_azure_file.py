@@ -15,13 +15,16 @@ from msrest.serialization import Model
 class VolumeProviderParametersAzureFile(Model):
     """This type describes a volume provided by an Azure Files file share.
 
-    :param account_name: Name of the Azure storage account for the File Share.
+    All required parameters must be populated in order to send to Azure.
+
+    :param account_name: Required. Name of the Azure storage account for the
+     File Share.
     :type account_name: str
     :param account_key: Access key of the Azure storage account for the File
      Share.
     :type account_key: str
-    :param share_name: Name of the Azure Files file share that provides
-     storage for the volume.
+    :param share_name: Required. Name of the Azure Files file share that
+     provides storage for the volume.
     :type share_name: str
     """
 
@@ -36,8 +39,8 @@ class VolumeProviderParametersAzureFile(Model):
         'share_name': {'key': 'shareName', 'type': 'str'},
     }
 
-    def __init__(self, account_name, share_name, account_key=None):
-        super(VolumeProviderParametersAzureFile, self).__init__()
-        self.account_name = account_name
-        self.account_key = account_key
-        self.share_name = share_name
+    def __init__(self, **kwargs):
+        super(VolumeProviderParametersAzureFile, self).__init__(**kwargs)
+        self.account_name = kwargs.get('account_name', None)
+        self.account_key = kwargs.get('account_key', None)
+        self.share_name = kwargs.get('share_name', None)

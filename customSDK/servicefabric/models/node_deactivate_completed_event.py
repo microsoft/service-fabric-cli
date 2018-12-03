@@ -15,26 +15,29 @@ from .node_event import NodeEvent
 class NodeDeactivateCompletedEvent(NodeEvent):
     """Node Deactivate Completed event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param node_name: The name of a Service Fabric node.
+    :param node_name: Required. The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance: Id of Node instance.
+    :param node_instance: Required. Id of Node instance.
     :type node_instance: long
-    :param effective_deactivate_intent: Describes deactivate intent.
+    :param effective_deactivate_intent: Required. Describes deactivate intent.
     :type effective_deactivate_intent: str
-    :param batch_ids_with_deactivate_intent: Batch Ids.
+    :param batch_ids_with_deactivate_intent: Required. Batch Ids.
     :type batch_ids_with_deactivate_intent: str
-    :param start_time: Start time.
+    :param start_time: Required. Start time.
     :type start_time: datetime
     """
 
@@ -62,10 +65,10 @@ class NodeDeactivateCompletedEvent(NodeEvent):
         'start_time': {'key': 'StartTime', 'type': 'iso-8601'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, node_name, node_instance, effective_deactivate_intent, batch_ids_with_deactivate_intent, start_time, category=None, has_correlated_events=None):
-        super(NodeDeactivateCompletedEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, node_name=node_name)
-        self.node_instance = node_instance
-        self.effective_deactivate_intent = effective_deactivate_intent
-        self.batch_ids_with_deactivate_intent = batch_ids_with_deactivate_intent
-        self.start_time = start_time
+    def __init__(self, **kwargs):
+        super(NodeDeactivateCompletedEvent, self).__init__(**kwargs)
+        self.node_instance = kwargs.get('node_instance', None)
+        self.effective_deactivate_intent = kwargs.get('effective_deactivate_intent', None)
+        self.batch_ids_with_deactivate_intent = kwargs.get('batch_ids_with_deactivate_intent', None)
+        self.start_time = kwargs.get('start_time', None)
         self.kind = 'NodeDeactivateCompleted'

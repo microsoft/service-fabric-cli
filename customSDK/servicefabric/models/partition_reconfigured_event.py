@@ -15,48 +15,51 @@ from .partition_event import PartitionEvent
 class PartitionReconfiguredEvent(PartitionEvent):
     """Partition Reconfiguration event.
 
-    :param event_instance_id: The identifier for the FabricEvent instance.
+    All required parameters must be populated in order to send to Azure.
+
+    :param event_instance_id: Required. The identifier for the FabricEvent
+     instance.
     :type event_instance_id: str
     :param category: The category of event.
     :type category: str
-    :param time_stamp: The time event was logged.
+    :param time_stamp: Required. The time event was logged.
     :type time_stamp: datetime
     :param has_correlated_events: Shows there is existing related events
      available.
     :type has_correlated_events: bool
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param partition_id: An internal ID used by Service Fabric to uniquely
-     identify a partition. This is a randomly generated GUID when the service
-     was created. The partition ID is unique and does not change for the
-     lifetime of the service. If the same service was deleted and recreated the
-     IDs of its partitions would be different.
+    :param partition_id: Required. An internal ID used by Service Fabric to
+     uniquely identify a partition. This is a randomly generated GUID when the
+     service was created. The partition ID is unique and does not change for
+     the lifetime of the service. If the same service was deleted and recreated
+     the IDs of its partitions would be different.
     :type partition_id: str
-    :param node_name: The name of a Service Fabric node.
+    :param node_name: Required. The name of a Service Fabric node.
     :type node_name: str
-    :param node_instance_id: Id of Node instance.
+    :param node_instance_id: Required. Id of Node instance.
     :type node_instance_id: str
-    :param service_type: Type of Service.
+    :param service_type: Required. Type of Service.
     :type service_type: str
-    :param cc_epoch_data_loss_version: CcEpochDataLoss version.
+    :param cc_epoch_data_loss_version: Required. CcEpochDataLoss version.
     :type cc_epoch_data_loss_version: long
-    :param cc_epoch_config_version: CcEpochConfig version.
+    :param cc_epoch_config_version: Required. CcEpochConfig version.
     :type cc_epoch_config_version: long
-    :param reconfig_type: Type of reconfiguration.
+    :param reconfig_type: Required. Type of reconfiguration.
     :type reconfig_type: str
-    :param result: Describes reconfiguration result.
+    :param result: Required. Describes reconfiguration result.
     :type result: str
-    :param phase0_duration_ms: Duration of Phase0 in milli-seconds.
+    :param phase0_duration_ms: Required. Duration of Phase0 in milli-seconds.
     :type phase0_duration_ms: float
-    :param phase1_duration_ms: Duration of Phase1 in milli-seconds.
+    :param phase1_duration_ms: Required. Duration of Phase1 in milli-seconds.
     :type phase1_duration_ms: float
-    :param phase2_duration_ms: Duration of Phase2 in milli-seconds.
+    :param phase2_duration_ms: Required. Duration of Phase2 in milli-seconds.
     :type phase2_duration_ms: float
-    :param phase3_duration_ms: Duration of Phase3 in milli-seconds.
+    :param phase3_duration_ms: Required. Duration of Phase3 in milli-seconds.
     :type phase3_duration_ms: float
-    :param phase4_duration_ms: Duration of Phase4 in milli-seconds.
+    :param phase4_duration_ms: Required. Duration of Phase4 in milli-seconds.
     :type phase4_duration_ms: float
-    :param total_duration_ms: Total duration in milli-seconds.
+    :param total_duration_ms: Required. Total duration in milli-seconds.
     :type total_duration_ms: float
     """
 
@@ -102,19 +105,19 @@ class PartitionReconfiguredEvent(PartitionEvent):
         'total_duration_ms': {'key': 'TotalDurationMs', 'type': 'float'},
     }
 
-    def __init__(self, event_instance_id, time_stamp, partition_id, node_name, node_instance_id, service_type, cc_epoch_data_loss_version, cc_epoch_config_version, reconfig_type, result, phase0_duration_ms, phase1_duration_ms, phase2_duration_ms, phase3_duration_ms, phase4_duration_ms, total_duration_ms, category=None, has_correlated_events=None):
-        super(PartitionReconfiguredEvent, self).__init__(event_instance_id=event_instance_id, category=category, time_stamp=time_stamp, has_correlated_events=has_correlated_events, partition_id=partition_id)
-        self.node_name = node_name
-        self.node_instance_id = node_instance_id
-        self.service_type = service_type
-        self.cc_epoch_data_loss_version = cc_epoch_data_loss_version
-        self.cc_epoch_config_version = cc_epoch_config_version
-        self.reconfig_type = reconfig_type
-        self.result = result
-        self.phase0_duration_ms = phase0_duration_ms
-        self.phase1_duration_ms = phase1_duration_ms
-        self.phase2_duration_ms = phase2_duration_ms
-        self.phase3_duration_ms = phase3_duration_ms
-        self.phase4_duration_ms = phase4_duration_ms
-        self.total_duration_ms = total_duration_ms
+    def __init__(self, **kwargs):
+        super(PartitionReconfiguredEvent, self).__init__(**kwargs)
+        self.node_name = kwargs.get('node_name', None)
+        self.node_instance_id = kwargs.get('node_instance_id', None)
+        self.service_type = kwargs.get('service_type', None)
+        self.cc_epoch_data_loss_version = kwargs.get('cc_epoch_data_loss_version', None)
+        self.cc_epoch_config_version = kwargs.get('cc_epoch_config_version', None)
+        self.reconfig_type = kwargs.get('reconfig_type', None)
+        self.result = kwargs.get('result', None)
+        self.phase0_duration_ms = kwargs.get('phase0_duration_ms', None)
+        self.phase1_duration_ms = kwargs.get('phase1_duration_ms', None)
+        self.phase2_duration_ms = kwargs.get('phase2_duration_ms', None)
+        self.phase3_duration_ms = kwargs.get('phase3_duration_ms', None)
+        self.phase4_duration_ms = kwargs.get('phase4_duration_ms', None)
+        self.total_duration_ms = kwargs.get('total_duration_ms', None)
         self.kind = 'PartitionReconfigured'

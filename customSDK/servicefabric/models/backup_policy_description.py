@@ -15,24 +15,26 @@ from msrest.serialization import Model
 class BackupPolicyDescription(Model):
     """Describes a backup policy for configuring periodic backup.
 
-    :param name: The unique name identifying this backup policy.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The unique name identifying this backup policy.
     :type name: str
-    :param auto_restore_on_data_loss: Specifies whether to trigger restore
-     automatically using the latest available backup in case the partition
-     experiences a data loss event.
+    :param auto_restore_on_data_loss: Required. Specifies whether to trigger
+     restore automatically using the latest available backup in case the
+     partition experiences a data loss event.
     :type auto_restore_on_data_loss: bool
-    :param max_incremental_backups: Defines the maximum number of incremental
-     backups to be taken between two full backups. This is just the upper
-     limit. A full backup may be taken before specified number of incremental
-     backups are completed in one of the following conditions
+    :param max_incremental_backups: Required. Defines the maximum number of
+     incremental backups to be taken between two full backups. This is just the
+     upper limit. A full backup may be taken before specified number of
+     incremental backups are completed in one of the following conditions
      - The replica has never taken a full backup since it has become primary,
      - Some of the log records since the last backup has been truncated, or
      - Replica passed the MaxAccumulatedBackupLogSizeInMB limit.
     :type max_incremental_backups: int
-    :param schedule: Describes the backup schedule parameters.
+    :param schedule: Required. Describes the backup schedule parameters.
     :type schedule: ~azure.servicefabric.models.BackupScheduleDescription
-    :param storage: Describes the details of backup storage where to store the
-     periodic backups.
+    :param storage: Required. Describes the details of backup storage where to
+     store the periodic backups.
     :type storage: ~azure.servicefabric.models.BackupStorageDescription
     :param retention_policy: Describes the policy to retain backups in
      storage.
@@ -57,11 +59,11 @@ class BackupPolicyDescription(Model):
         'retention_policy': {'key': 'RetentionPolicy', 'type': 'RetentionPolicyDescription'},
     }
 
-    def __init__(self, name, auto_restore_on_data_loss, max_incremental_backups, schedule, storage, retention_policy=None):
-        super(BackupPolicyDescription, self).__init__()
-        self.name = name
-        self.auto_restore_on_data_loss = auto_restore_on_data_loss
-        self.max_incremental_backups = max_incremental_backups
-        self.schedule = schedule
-        self.storage = storage
-        self.retention_policy = retention_policy
+    def __init__(self, **kwargs):
+        super(BackupPolicyDescription, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.auto_restore_on_data_loss = kwargs.get('auto_restore_on_data_loss', None)
+        self.max_incremental_backups = kwargs.get('max_incremental_backups', None)
+        self.schedule = kwargs.get('schedule', None)
+        self.storage = kwargs.get('storage', None)
+        self.retention_policy = kwargs.get('retention_policy', None)
