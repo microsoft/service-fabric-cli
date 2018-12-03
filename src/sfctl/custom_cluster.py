@@ -222,7 +222,6 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
         # is that the corresponding get_cluster_version API on the cluster doesn't exist.
         try:
             logger.info('Performing cluster version check')
-            print('Performing cluster version check')
             cluster_version = client.get_cluster_version().version
 
         except:  # pylint: disable=bare-except
