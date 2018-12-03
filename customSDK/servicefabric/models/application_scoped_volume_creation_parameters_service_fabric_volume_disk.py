@@ -16,12 +16,14 @@ class ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk(Applicati
     """Describes parameters for creating application-scoped volumes provided by
     Service Fabric Volume Disks.
 
+    All required parameters must be populated in order to send to Azure.
+
     :param description: User readable description of the volume.
     :type description: str
-    :param kind: Constant filled by server.
+    :param kind: Required. Constant filled by server.
     :type kind: str
-    :param size_disk: Volume size. Possible values include: 'Small', 'Medium',
-     'Large'
+    :param size_disk: Required. Volume size. Possible values include: 'Small',
+     'Medium', 'Large'
     :type size_disk: str or ~azure.servicefabric.models.SizeTypes
     """
 
@@ -36,7 +38,7 @@ class ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk(Applicati
         'size_disk': {'key': 'sizeDisk', 'type': 'str'},
     }
 
-    def __init__(self, size_disk, description=None):
-        super(ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk, self).__init__(description=description)
-        self.size_disk = size_disk
+    def __init__(self, **kwargs):
+        super(ApplicationScopedVolumeCreationParametersServiceFabricVolumeDisk, self).__init__(**kwargs)
+        self.size_disk = kwargs.get('size_disk', None)
         self.kind = 'ServiceFabricVolumeDisk'
