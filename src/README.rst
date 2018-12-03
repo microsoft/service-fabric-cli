@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
+7.0.0
 ----------
 - Add upgrade-rollback command for compose deployment (#119)
 - Upgrade the knack package dependency to version 0.4.2 (#122)
@@ -28,6 +28,7 @@ Unreleased
 - Add the command "sfctl mesh deployment create", which takes resource description yaml files as input and deploys the corresponding mesh resources (#146)
 - Fix missing option of "Error" health state in health reporting (#151)
 - Add telemetry. The following data is collected: Command name without parameters provided or their values, sfctl version, OS, python version, the success or failure of the command, and if the command failed, the error message returned. Upgrade knack package dependency to version 0.5.1 (#152)
+- Update to 6.4 Service Fabric runtime (#)
 
 6.0.1
 -----
