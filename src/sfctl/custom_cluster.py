@@ -262,7 +262,7 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
 
     if sfctl_version == '7.0.0':
 
-        return cluster_version.startswith('6.5')
+        return cluster_version.startswith('6.4')
 
     # If we forget to update this code before a new release, the tests which call this method
     # will fail.
