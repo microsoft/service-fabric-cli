@@ -70,9 +70,9 @@ def launch():
     try:
         if invocation_return_value != 0 or ('cluster' and 'select' in sys.argv[1:]):
             # invocation_return_value is 0 on success
-            check_cluster_version(on_failure_or_connection=True, dummy_cluster_version='invalid')
+            check_cluster_version(on_failure_or_connection=True)
         else:
-            check_cluster_version(on_failure_or_connection=False, dummy_cluster_version='invalid')
+            check_cluster_version(on_failure_or_connection=False)
 
     except:  # pylint: disable=bare-except
         # Catch any exceptions from checking cluster version. For example, if we are not able

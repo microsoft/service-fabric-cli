@@ -61,13 +61,45 @@ class ClusterTests(unittest.TestCase):
 
         # An exception will be raised if the current cluster version doesn't exist in the function
         try:
-            sfctl_cluster_version_matches('6.4.0.0', current_sfctl_version)
+            sfctl_cluster_version_matches('6.4', current_sfctl_version)
         except SFCTLInternalException as ex:
             # Give a more test appropriate error message
             self.fail(ex.message + ' You are most likely getting this error because we need to '
                                    'update the method sfctl_cluster_version_matches in '
                                    'custom_cluster so that it works with the '
                                    'current version of sfctl, or we need to update this test.')
+
+    def test_version_check_older_cluster(self):
+        """
+        Test that when hitting an older cluster without a cluster version, the time is updated and
+        we mark the cluster check as passed/not done.
+
+        We don't actually hit a live cluster, so we will enter a dummy value of None to the
+        function call, which is what the result will be http gateway returns error.
+        """
+
+        state_file_path = sfctl_state.get_state_path()
+
+        # empty the file
+        open(state_file_path, 'w').close()
+
+        current_utc_time = datetime.utcnow()
+
+        # Check cluster version. This should update the last updated time (in state)
+        checks_passed_or_not_done = check_cluster_version(
+            False, dummy_cluster_version='NoResult')
+
+        self.assertTrue(checks_passed_or_not_done, 'check_cluster_version should return True '
+                                                    'because checks should not be performed, '
+                                                    'since we are simulating that we are a newer '
+                                                    'sfctl hitting a cluster without the '
+                                                    'get cluster version API.')
+
+        self.assertGreater(sfctl_state.get_cluster_version_check_time(), current_utc_time,
+                           'check_cluster_version command should have modified the '
+                           'last checked time such that the time in state is greater than our '
+                           'time.')
+
 
     def test_version_check_triggered(self):
         """Test that under the following circumstances, a cluster version & sfctl version

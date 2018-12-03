@@ -159,8 +159,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
     """ Check that the cluster version of sfctl is compatible with that of the cluster.
 
     Failures in making the API call (to check the cluster version)
-    will be ignored and the time tracker
-    will be reset to the current time. This is because we have no way of knowing if the
+    will be ignored and the time tracker will be reset to the current time.
+    This is because we have no way of knowing if the
     API call failed because it doesn't exist on the cluster, or because of some other reason.
     We set the time tracker to the current time to avoid calling the API continuously
     for clusters without this API.
@@ -177,6 +177,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
     :param dummy_cluster_version: Used for testing purposes only. This is passed
         in to replace a call to the service fabric cluster to get the cluster version, in order to
         keep tests local.
+        By default this value is None. If you would like to simulate the cluster call returning
+        None, then enter 'NoResult' as a string
     :type dummy_cluster_version: str
 
     :returns: True if versions match, or if the check is not performed. False otherwise.
@@ -186,7 +188,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
     from warnings import warn
 
     # Before doing anything, see if a check needs to be triggered.
-    if not on_failure_or_connection:  # always trigger version check if on failure or connection
+    # Always trigger version check if on failure or connection
+    if not on_failure_or_connection:
 
         # Check if sufficient time has passed since last check
         last_check_time = get_cluster_version_check_time()
@@ -210,7 +213,6 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
     client = ServiceFabricClientAPIs(auth, base_url=client_endpoint())
 
     sfctl_version = get_sfctl_version()
-    cluster_version = None
 
     # Update the timestamp of the last cluster version check
     set_cluster_version_check_time()
@@ -219,13 +221,19 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
         # This command may fail for various reasons. Most common reason as of writing this comment
         # is that the corresponding get_cluster_version API on the cluster doesn't exist.
         try:
-            cluster_version = client.get_cluster_version().Version
+            logger.info('Performing cluster version check')
+            print('Performing cluster version check')
+            cluster_version = client.get_cluster_version().version
+
         except:  # pylint: disable=bare-except
             ex = exc_info()[0]
             logger.info('Check cluster version failed due to error: %s', str(ex))
             return True
     else:
-        cluster_version = dummy_cluster_version
+        if dummy_cluster_version == 'NoResult':
+            cluster_version = None
+        else:
+            cluster_version = dummy_cluster_version
 
     if cluster_version is None:
         # Do no checks if the get cluster version API fails, since most likely it failed
@@ -234,7 +242,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
 
     if not sfctl_cluster_version_matches(cluster_version, sfctl_version):
         warn(str.format(
-            'CLI sfctl has version "{0}" which does not match the cluster version "{1}". '
+            'sfctl has version "{0}" which does not match the cluster version "{1}". '
             'See https://docs.microsoft.com/azure/service-fabric/service-fabric-cli#service-fabric-target-runtime '  # pylint: disable=line-too-long
             'for version compatibility. Upgrade to a compatible version for the best experience.',
             sfctl_version,
@@ -247,6 +255,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
 def sfctl_cluster_version_matches(cluster_version, sfctl_version):
     """
     Check if the sfctl version and the cluster version is compatible with each other.
+
     :param cluster_version: str representing the cluster runtime version of the connected cluster
     :param sfctl_version: str representing this sfctl distribution version
     :return: True if they are a match. False otherwise.
@@ -254,7 +263,7 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
 
     if sfctl_version == '7.0.0':
 
-        return cluster_version.startswith('6.4')
+        return cluster_version.startswith('6.5')
 
     # If we forget to update this code before a new release, the tests which call this method
     # will fail.
