@@ -15,9 +15,11 @@ import json
 import logging
 from shutil import rmtree
 import vcr
+from msrest.authentication import Authentication
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
+from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
@@ -77,7 +79,7 @@ class ServiceFabricRequestTests(ScenarioTest):
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
-                         body_verifier=None):
+                         body_verifier=None, command_as_func=False, command_args=None):
         """
         This method takes the command passed in and runs the sfctl command specified.
         It records the input and output in a text file. It then validates the contexts of
@@ -122,6 +124,11 @@ class ServiceFabricRequestTests(ScenarioTest):
                 of the URI. Follows the format of ["parameter_name=parameter_value", ...].
                 Make sure to include the API version of the HTTP request if
                 required.
+        command_as_func (bool): Indicates that the command parameter passed in is a function
+                rather than a string. Call the function directly, with optional command_args.
+        command_args (kwargs): Applicable only if command_as_func is True.
+                Dictionary of name value pairs to be passed in a arguments
+                to the command function.
         """
 
         # For testing purposes, write to stderr with color
@@ -143,8 +150,11 @@ class ServiceFabricRequestTests(ScenarioTest):
         logging.disable(logging.INFO)
         with vcr.use_cassette('paths_generation_test.json', record_mode='all', serializer='json'):
             try:
-                self.cmd(command)
-            except BaseException as exception:  # pylint: disable=broad-except
+                if not command_as_func:
+                    self.cmd(command)
+                else:
+                    command(command_args)
+            except BaseException as exception:  # pylint: disable=bare-except
                 self.fail('ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
 
         # re-enable logging
@@ -265,6 +275,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Cluster commands:
         # Select command tested elsewhere.
         # Cluster upgrade and upgrade-update test to be added later
+        self.validate_command(  # get-cluster-version
+            ServiceFabricClientAPIs.get_cluster_version,
+            'GET',
+            '/$/GetClusterVersion',
+            ['api-version=6.4'],
+            command_as_func=True,
+            command_args=ServiceFabricClientAPIs(credentials=Authentication(),
+                                                 base_url=get_mock_endpoint()))
         self.validate_command(   # config-versions
             'sfctl cluster config-versions --config-version=version',
             'GET',
