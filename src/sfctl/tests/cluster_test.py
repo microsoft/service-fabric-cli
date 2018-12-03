@@ -90,10 +90,10 @@ class ClusterTests(unittest.TestCase):
             False, dummy_cluster_version='NoResult')
 
         self.assertTrue(checks_passed_or_not_done, 'check_cluster_version should return True '
-                                                    'because checks should not be performed, '
-                                                    'since we are simulating that we are a newer '
-                                                    'sfctl hitting a cluster without the '
-                                                    'get cluster version API.')
+                                                   'because checks should not be performed, '
+                                                   'since we are simulating that we are a newer '
+                                                   'sfctl hitting a cluster without the '
+                                                   'get cluster version API.')
 
         self.assertGreater(sfctl_state.get_cluster_version_check_time(), current_utc_time,
                            'check_cluster_version command should have modified the '
