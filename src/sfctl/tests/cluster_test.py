@@ -69,7 +69,7 @@ class ClusterTests(unittest.TestCase):
                                    'custom_cluster so that it works with the '
                                    'current version of sfctl, or we need to update this test.')
 
-    def test_version_check_older_cluster(self):
+    def test_version_check_older_cluster(self):  # pylint: disable=invalid-name
         """
         Test that when hitting an older cluster without a cluster version, the time is updated and
         we mark the cluster check as passed/not done.
