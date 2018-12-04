@@ -61,7 +61,11 @@ class ClusterTests(unittest.TestCase):
 
         # An exception will be raised if the current cluster version doesn't exist in the function
         try:
-            sfctl_cluster_version_matches('6.4', current_sfctl_version)
+            self.assertTrue(sfctl_cluster_version_matches('6.4', current_sfctl_version),
+                            msg='You are most likely getting this error because we need to '
+                                'update the method sfctl_cluster_version_matches in '
+                                'custom_cluster so that it works with the '
+                                'current version of sfctl, or we need to update this test.')
         except SFCTLInternalException as ex:
             # Give a more test appropriate error message
             self.fail(ex.message + ' You are most likely getting this error because we need to '
