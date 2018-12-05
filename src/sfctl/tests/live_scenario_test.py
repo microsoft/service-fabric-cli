@@ -46,7 +46,7 @@ class ServiceFabricLiveTests(ScenarioTest):
         # Upload application
         if not os.path.isdir(APP_PATH):
             raise ValueError(
-                'Invalid path to application specified: {0}'.format(APP_PATH)
+                'Invalid path to application specified (must be dir): {0}'.format(APP_PATH)
             )
         folder_name = os.path.basename(os.path.dirname(APP_PATH))
         app_manifest = os.path.join(APP_PATH, 'ApplicationManifest.xml')
