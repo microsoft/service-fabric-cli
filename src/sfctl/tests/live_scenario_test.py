@@ -109,11 +109,9 @@ class ServiceFabricLiveTests(ScenarioTest):
                  checks=[NoneCheck()])
 
         # Unprovision application
-        # Remove expect_failure once issue #6 fixed
         unprovision_cmd = ('application unprovision --application-type-name '
                            '{0} --application-type-version {1}')
-        self.cmd(unprovision_cmd.format(app_type, app_ver),
-                 expect_failure=True)
+        self.cmd(unprovision_cmd.format(app_type, app_ver))
 
         # Delete application package folder
         self.cmd('store delete --content-path {0}'.format(folder_name),
