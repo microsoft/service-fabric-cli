@@ -32,8 +32,8 @@ def read_telemetry_entries():
     return_tuples = []
 
     # Mode r starts at the beginning of the file
-    with portalocker.Lock(TELEMETRY_FILE_PATH, timeout=1, fail_when_locked=True, mode='r') as file:
-        all_lines = file.readlines()
+    with portalocker.Lock(TELEMETRY_FILE_PATH, timeout=1, fail_when_locked=True, mode='r') as telemetry_file:  # pylint: disable=line-too-long
+        all_lines = telemetry_file.readlines()
 
         # Parse the lines. The lines have format {0}, {1}
         for line in all_lines:

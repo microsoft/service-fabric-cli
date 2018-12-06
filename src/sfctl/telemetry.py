@@ -112,17 +112,17 @@ def batch_or_send_telemetry(command_as_str, command_return):
     # Open file with mode a+
     # Opens in append and read mode. Pointer is at end of file. Creates new file if files does not
     # exist
-    with portalocker.Lock(TELEMETRY_FILE_PATH, timeout=1, fail_when_locked=True, mode='a+') as file:
+    with portalocker.Lock(TELEMETRY_FILE_PATH, timeout=1, fail_when_locked=True, mode='a+') as telemetry_file:  # pylint: disable=line-too-long
 
-        file.seek(0)  # Read from the start of the file
-        all_lines = file.readlines() # This moves pointer back to the end of the file
+        telemetry_file.seek(0)  # Read from the start of the file
+        all_lines = telemetry_file.readlines() # This moves pointer back to the end of the file
         total_lines = len(all_lines)
 
         if total_lines == TELEMETRY_BATCH_CUTOFF - 1:  # Last write to file. Sending telemetry
-            file.write('{0}, {1}\n'.format(command_as_str, json.dumps(telemetry_json)))
+            telemetry_file.write('{0}, {1}\n'.format(command_as_str, json.dumps(telemetry_json)))
             send_telemetry()
         elif total_lines < TELEMETRY_BATCH_CUTOFF - 1:  # Writing to file. Not sending telemetry
-            file.write('{0}, {1}\n'.format(command_as_str, json.dumps(telemetry_json)))
+            telemetry_file.write('{0}, {1}\n'.format(command_as_str, json.dumps(telemetry_json)))
         else: # If total lines > TELEMETRY_BATCH_CUTOFF - 1.
             # Not writing to file. Calling send_telemetry
             send_telemetry()

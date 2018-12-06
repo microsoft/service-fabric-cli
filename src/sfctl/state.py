@@ -115,7 +115,7 @@ def set_telemetry_send_retry_count(retry_count):
     set_state_value('telemetry_retry_count', str(retry_count))
 
 
-def increment_telemetry_send_retry_count():
+def increment_telemetry_send_retry_count():  # pylint: disable=invalid-name
     """
     Gets the current telemetry send retry count and increments the value by 1.
     If no value is currently set, set the value to 1.
