@@ -54,7 +54,8 @@ setup(
         'future',
         'applicationinsights',
         'sfmergeutility',
-        'psutil'
+        'psutil',
+        'portalocker'
     ],
     extras_require={
         'test': [

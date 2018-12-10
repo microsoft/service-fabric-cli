@@ -44,17 +44,25 @@ def launch():
 
     cli_env = cli()
 
+    is_help_cmd = is_help_command(args_list)
+
     try:
         invocation_return_value = cli_env.invoke(args_list)
-        check_and_send_telemetry(args_list, invocation_return_value, cli_env.result.error)
+
+        # Do not record help commands in telemetry
+        if not is_help_cmd:
+            check_and_send_telemetry(args_list, invocation_return_value, cli_env.result.error)
 
     # Cannot use except BaseException until python 2.7 support is dropped
     except:  # pylint: disable=bare-except
-        ex = sys.exc_info()[0]
 
-        # We don't get a very useful message from SystemExit, which are the errors which are
-        # returned locally to the user, for example, if the command doesn't exist in sfctl.
-        check_and_send_telemetry(args_list, -1, str(ex))
+        # Do not record help commands in telemetry
+        if not is_help_cmd:
+            ex = sys.exc_info()[0]
+
+            # We don't get a very useful message from SystemExit, which are the errors which are
+            # returned locally to the user, for example, if the command doesn't exist in sfctl.
+            check_and_send_telemetry(args_list, -1, str(ex))
 
         # Log the exception and pass it back to the user
         raise
@@ -64,7 +72,7 @@ def launch():
     # This is not the same as an error returned from the server, which does not raise an exception.
     # We should also not hit the cluster in the cases of the user inputting a help command (-h)
 
-    if is_help_command(args_list):
+    if is_help_cmd:
         return invocation_return_value
 
     try:
