@@ -46,7 +46,7 @@ class ServiceFabricLiveTests(ScenarioTest):
         # Upload application
         if not os.path.isdir(APP_PATH):
             raise ValueError(
-                'Invalid path to application specified: {0}'.format(APP_PATH)
+                'Invalid path to application specified (must be dir): {0}'.format(APP_PATH)
             )
         folder_name = os.path.basename(os.path.dirname(APP_PATH))
         app_manifest = os.path.join(APP_PATH, 'ApplicationManifest.xml')
@@ -109,11 +109,9 @@ class ServiceFabricLiveTests(ScenarioTest):
                  checks=[NoneCheck()])
 
         # Unprovision application
-        # Remove expect_failure once issue #6 fixed
         unprovision_cmd = ('application unprovision --application-type-name '
                            '{0} --application-type-version {1}')
-        self.cmd(unprovision_cmd.format(app_type, app_ver),
-                 expect_failure=True)
+        self.cmd(unprovision_cmd.format(app_type, app_ver))
 
         # Delete application package folder
         self.cmd('store delete --content-path {0}'.format(folder_name),

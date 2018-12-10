@@ -48,13 +48,14 @@ setup(
         'msrest>=0.4.26',
         'msrestazure',
         'requests',
-        'azure-servicefabric==6.3.0.0',
+        'azure-servicefabric==6.4.0.0',
         'jsonpickle',
         'adal',
         'future',
         'applicationinsights',
         'sfmergeutility',
-        'psutil'
+        'psutil',
+        'portalocker'
     ],
     extras_require={
         'test': [
