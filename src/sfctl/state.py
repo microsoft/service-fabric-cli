@@ -17,7 +17,7 @@ from pkg_resources import get_distribution
 
 # Default names
 SF_CLI_NAME = 'sfctl'
-SF_CLI_STATE_DIR = os.path.join('~', '.{0}'.format(SF_CLI_NAME))
+SF_CLI_STATE_DIR = os.path.expanduser(os.path.join('~', '.{0}'.format(SF_CLI_NAME)))
 STATE_FILE_NAME = 'state'
 
 # Format: Year, month, day, hour, minute, second, microsecond
