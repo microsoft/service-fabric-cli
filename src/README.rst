@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+7.0.1
+----------
+- Fix bug where an empty directory is generated in the current location (#)
+
 7.0.0
 ----------
 - Add upgrade-rollback command for compose deployment (#119)

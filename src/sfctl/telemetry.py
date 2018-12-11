@@ -20,6 +20,7 @@ from sfctl.state import increment_telemetry_send_retry_count
 
 # knack CLIConfig has been re-purposed to handle state instead.
 SF_CLI_TELEMETRY_NAME = 'sfctl'
+# Should not use SF_CLI_TELEMETRY_DIR directly without calling os.path.expanduser first.
 SF_CLI_TELEMETRY_DIR = os.path.join('~', '.{0}'.format(SF_CLI_TELEMETRY_NAME))
 TELEMETRY_FILE_NAME = 'telemetry'
 TELEMETRY_BATCH_CUTOFF = 50  # The number of entries which can be in one telemetry file.
