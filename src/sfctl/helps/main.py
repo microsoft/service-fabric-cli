@@ -11,7 +11,7 @@ from knack.help_files import helps
 helps[''] = """
     type: group
     short-summary: Commands for managing Service Fabric clusters
-        and entities. This version is compatible with Service Fabric 6.3
+        and entities. This version is compatible with Service Fabric 6.4
         runtime.
     long-summary: Commands follow the noun-verb pattern. See subgroups for more
         information.
@@ -29,7 +29,7 @@ helps['sa-cluster'] = """
 
 helps['application'] = """
     type: group
-    short-summary: Create, delete, and manage applications and application types.
+    short-summary: Create, delete, and manage applications and application types
 """
 
 helps['chaos'] = """
@@ -104,6 +104,11 @@ helps['mesh app'] = """
     short-summary: Get and delete application resources
 """
 
+helps['mesh deployment'] = """
+    type: group
+    short-summary: Create Service Fabric Mesh resources
+"""
+
 helps['mesh service'] = """
     type: group
     short-summary: Get service details and list services of an application resource
@@ -129,7 +134,7 @@ helps['mesh network'] = """
     short-summary: Get and delete mesh network resources
 """
 
-helps['mesh code-package'] = """
+helps['mesh code-package-log'] = """
     type: group
     short-summary: Get the logs for the container of the specified code package for the given service replica.
 """
@@ -142,4 +147,17 @@ helps['mesh secret'] = """
 helps['mesh secretvalue'] = """
     type: group
     short-summary: Get and delete mesh secretvalue resources
+"""
+
+helps['settings'] = """
+    type: group
+    short-summary: Configure settings local to this instance of sfctl
+"""
+
+helps['settings telemetry'] = """
+    type: group
+    short-summary: Configure telemetry settings local to this instance of sfctl
+    long-summary: Sfctl telemetry collects command name without parameters provided or their values,
+        sfctl version, OS type, python version, the success or failure of the command,
+        the error message returned
 """

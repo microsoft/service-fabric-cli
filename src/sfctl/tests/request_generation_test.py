@@ -15,9 +15,11 @@ import json
 import logging
 from shutil import rmtree
 import vcr
+from msrest.authentication import Authentication
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
+from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
@@ -71,13 +73,13 @@ class ServiceFabricRequestTests(ScenarioTest):
         """
         try:
             self.cmd(command)
-        except Exception as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # pylint: disable=broad-except
             self.fail(
                 'ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
 
     @patch('sfctl.config.CLIConfig', new=MOCK_CONFIG)
     def validate_command(self, command, method, url_path, query, body=None,  # pylint: disable=too-many-locals, too-many-arguments
-                         body_verifier=None):
+                         body_verifier=None, command_as_func=False, command_args=None):
         """
         This method takes the command passed in and runs the sfctl command specified.
         It records the input and output in a text file. It then validates the contexts of
@@ -122,6 +124,11 @@ class ServiceFabricRequestTests(ScenarioTest):
                 of the URI. Follows the format of ["parameter_name=parameter_value", ...].
                 Make sure to include the API version of the HTTP request if
                 required.
+        command_as_func (bool): Indicates that the command parameter passed in is a function
+                rather than a string. Call the function directly, with optional command_args.
+        command_args (kwargs): Applicable only if command_as_func is True.
+                Dictionary of name value pairs to be passed in a arguments
+                to the command function.
         """
 
         # For testing purposes, write to stderr with color
@@ -143,8 +150,11 @@ class ServiceFabricRequestTests(ScenarioTest):
         logging.disable(logging.INFO)
         with vcr.use_cassette(generated_file_path, record_mode='all', serializer='json'):
             try:
-                self.cmd(command)
-            except Exception as exception:  # pylint: disable=broad-except
+                if not command_as_func:
+                    self.cmd(command)
+                else:
+                    command(command_args)
+            except BaseException as exception:  # pylint: disable=bare-except
                 self.fail('ERROR while running command "{0}". Error: "{1}"'.format(command, str(exception)))
 
         # re-enable logging
@@ -218,12 +228,13 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Call test
         self.paths_generation_helper()
 
-    def paths_generation_helper(self):  # pylint: disable=too-many-statements
+    def paths_generation_helper(self):  # pylint: disable=too-many-statements, too-many-locals
         """ Lists all the commands to be tested and their expected values.
         Expected values here refer to the expected URI that is generated
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
+        sample_yaml_base = '@' + path.join(path.dirname(__file__), 'sample_yaml')
 
         # Get current directory
         dir_path = path.dirname(path.realpath(__file__))
@@ -248,6 +259,12 @@ class ServiceFabricRequestTests(ScenarioTest):
         # so it's unable to be caught by vcr. Move this to just checking that it runs without
         # crashing.
         self.validate_command_succeeds('application upload --path=' + dir_path_one_file)
+
+        # Settings
+        # Note: always run the -off command last so that tests don't crowd our telemetry
+        # Before testing starts, telemetry is turned off
+        self.validate_command_succeeds('sfctl settings telemetry set-telemetry --on')
+        self.validate_command_succeeds('sfctl settings telemetry set-telemetry --off')
 
         # Application Type Commands
         self.validate_command(  # provision-application-type image-store
@@ -277,6 +294,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         # Cluster commands:
         # Select command tested elsewhere.
         # Cluster upgrade and upgrade-update test to be added later
+        self.validate_command(  # get-cluster-version
+            ServiceFabricClientAPIs.get_cluster_version,
+            'GET',
+            '/$/GetClusterVersion',
+            ['api-version=6.4'],
+            command_as_func=True,
+            command_args=ServiceFabricClientAPIs(credentials=Authentication(),
+                                                 base_url=get_mock_endpoint()))
         self.validate_command(   # config-versions
             'sfctl cluster config-versions --config-version=version',
             'GET',
@@ -943,13 +968,13 @@ class ServiceFabricRequestTests(ScenarioTest):
 
         # Resource Commands:
         self.validate_command( #show application resource
-            'mesh app show --application-resource-name some~application~resource~name',
+            'mesh app show --name some~application~resource~name',
             'GET',
             '/Resources/Applications/some~application~resource~name',
             ['api-version=6.4-preview']
         )
         self.validate_command( #delete application resource
-            'mesh app delete --application-resource-name some~application~resource~name',
+            'mesh app delete --name some~application~resource~name',
             'DELETE',
             '/Resources/Applications/some~application~resource~name',
             ['api-version=6.4-preview']
@@ -961,13 +986,13 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.4-preview']
         )
         self.validate_command( #show volume resource
-            'mesh volume show --volume-resource-name some~volume~resource~name',
+            'mesh volume show --name some~volume~resource~name',
             'GET',
             '/Resources/Volumes/some~volume~resource~name',
             ['api-version=6.4-preview']
         )
         self.validate_command( #delete volume resource
-            'mesh volume delete --volume-resource-name some~volume~resource~name',
+            'mesh volume delete --name some~volume~resource~name',
             'DELETE',
             '/Resources/Volumes/some~volume~resource~name',
             ['api-version=6.4-preview']
@@ -979,47 +1004,40 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.4-preview']
         )
         self.validate_command( #list service resources
-            'mesh service list --application-resource-name some~application~name',
+            'mesh service list --application-name some~application~name',
             'GET',
             '/Resources/Applications/some~application~name/Services',
             ['api-version=6.4-preview']
         )
         self.validate_command( #show service resource
-            'mesh service show --application-resource-name some~application~name --service-resource-name some~service~name',
+            'mesh service show --application-name some~application~name --name some~service~name',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name',
             ['api-version=6.4-preview']
         )
         self.validate_command( #list service-replica
-            'mesh service-replica list --application-resource-name some~application~name --service-resource-name some~service~name',
+            'mesh service-replica list --application-name some~application~name --service-name some~service~name',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name/Replicas',
             ['api-version=6.4-preview']
         )
         self.validate_command( #show service-replica
-            'mesh service-replica show --application-resource-name some~application~name --service-resource-name some~service~name --replica-name 0',
+            'mesh service-replica show --application-name some~application~name --service-name some~service~name --name 0',
             'GET',
             '/Resources/Applications/some~application~name/Services/some~service~name/Replicas/0',
             ['api-version=6.4-preview']
         )
 
-        self.validate_command(  # show application resource
-            'mesh app show --application-resource-name some~application~resource~name',
-            'GET',
-            '/Resources/Applications/some~application~resource~name',
-            ['api-version=6.4-preview']
-        )
-
         # Mesh Resource Commands:
         self.validate_command( # show gateway resource
-            'mesh gateway show --gateway-resource-name some~gate~resource~name',
+            'mesh gateway show --name some~gate~resource~name',
             'GET',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete gateway resource
-            'mesh gateway delete --gateway-resource-name some~gate~resource~name',
+            'mesh gateway delete --name some~gate~resource~name',
             'DELETE',
             '/Resources/Gateways/some~gate~resource~name',
             ['api-version=6.4-preview']
@@ -1033,14 +1051,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show network resource
-            'mesh network show --network-resource-name some~network~resource~name',
+            'mesh network show --name some~network~resource~name',
             'GET',
             '/Resources/Networks/some~network~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete network resource
-            'mesh network delete --network-resource-name some~network~resource~name',
+            'mesh network delete --name some~network~resource~name',
             'DELETE',
             '/Resources/Networks/some~network~resource~name',
             ['api-version=6.4-preview']
@@ -1053,22 +1071,22 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=6.4-preview']
         )
 
-        self.validate_command( # show code-package resource
-            'mesh code-package show --application-resource-name some~application~resource~name --service-resource-name some~service --replica-name 0 --code-package-name some~package',
+        self.validate_command( # get code-package-log
+            'mesh code-package-log get --application-name some~application~resource~name --service-name some~service --replica-name 0 --code-package-name some~package',
             'GET',
             '/Resources/Applications/some~application~resource~name/Services/some~service/Replicas/0/CodePackages/some~package/Logs',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # show secret resource
-            'mesh secret show --secret-resource-name some~secret~resource~name',
+            'mesh secret show --name some~secret~resource~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secret resource
-            'mesh secret delete --secret-resource-name some~secret~resource~name',
+            'mesh secret delete --name some~secret~resource~name',
             'DELETE',
             '/Resources/Secrets/some~secret~resource~name',
             ['api-version=6.4-preview']
@@ -1082,29 +1100,78 @@ class ServiceFabricRequestTests(ScenarioTest):
         )
 
         self.validate_command( # show secretvalue resource
-            'mesh secretvalue show --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name',
+            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~version',
             'GET',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # delete secretvalue resource
-            'mesh secretvalue delete --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name',
+            'mesh secretvalue delete --secret-name some~secret~resource~name --version secret~value~version',
             'DELETE',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # list secretvalue resource
-            'mesh secretvalue list --secret-resource-name some~secret~resource~name',
+            'mesh secretvalue list --secret-name some~secret~resource~name',
             'GET',
             '/Resources/Secrets/some~secret~resource~name/values',
             ['api-version=6.4-preview']
         )
 
         self.validate_command( # show secretvalue show value
-            'mesh secretvalue show --secret-resource-name some~secret~resource~name --secret-value-resource-name secret~value~name --show-value',
+            'mesh secretvalue show --secret-name some~secret~resource~name --version secret~value~version --show-value',
             'POST',
-            '/Resources/Secrets/some~secret~resource~name/values/secret~value~name/list_value',
+            '/Resources/Secrets/some~secret~resource~name/values/secret~value~version/list_value',
+            ['api-version=6.4-preview']
+        )
+
+        sample_network = path.join(sample_yaml_base, 'sample_network.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_secret = path.join(sample_yaml_base, 'sample_secret.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_secret_value = path.join(sample_yaml_base, 'sample_secret_value.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_volume = path.join(sample_yaml_base, 'sample_volume.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_gateway = path.join(sample_yaml_base, 'sample_gateway.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+        sample_app = path.join(sample_yaml_base, 'sample_app.yaml').replace('/', '//').replace('\\', '\\\\').replace('@', '')
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_network),
+            'PUT',
+            '/Resources/Networks/someNetwork',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_secret),
+            'PUT',
+            '/Resources/Secrets/someSecret',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_secret_value),
+            'PUT',
+            '/Resources/Secrets/someSecret/values/v1',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_volume),
+            'PUT',
+            '/Resources/Volumes/someVolume',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_gateway),
+            'PUT',
+            '/Resources/Gateways/someGateway',
+            ['api-version=6.4-preview']
+        )
+
+        self.validate_command(
+            'mesh deployment create --input-yaml-files {0}'.format(sample_app),
+            'PUT',
+            '/Resources/Applications/someApp',
             ['api-version=6.4-preview']
         )

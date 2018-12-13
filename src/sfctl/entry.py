@@ -12,6 +12,9 @@ import sys
 from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
+from sfctl.custom_cluster import check_cluster_version
+from sfctl.telemetry import check_and_send_telemetry
+from sfctl.util import is_help_command
 
 
 def cli():
@@ -27,7 +30,64 @@ def launch():
     """Entry point for Service Fabric CLI.
 
     Configures and invokes CLI with arguments passed during the time the python
-    session is launched"""
+    session is launched.
+
+    This is run every time a sfctl command is invoked.
+
+    If you have a local error, say the command is not recognized, then the invoke command will
+    raise an exception.
+    If you have success, it will return error code 0.
+    If the HTTP request returns an error, then an exception is not thrown, and error
+    code is not 0."""
+
+    args_list = sys.argv[1:]
 
     cli_env = cli()
-    return cli_env.invoke(sys.argv[1:])
+
+    is_help_cmd = is_help_command(args_list)
+
+    try:
+        invocation_return_value = cli_env.invoke(args_list)
+
+        # Do not record help commands in telemetry
+        if not is_help_cmd:
+            check_and_send_telemetry(args_list, invocation_return_value, cli_env.result.error)
+
+    # Cannot use except BaseException until python 2.7 support is dropped
+    except:  # pylint: disable=bare-except
+
+        # Do not record help commands in telemetry
+        if not is_help_cmd:
+            ex = sys.exc_info()[0]
+
+            # We don't get a very useful message from SystemExit, which are the errors which are
+            # returned locally to the user, for example, if the command doesn't exist in sfctl.
+            check_and_send_telemetry(args_list, -1, str(ex))
+
+        # Log the exception and pass it back to the user
+        raise
+
+    # We don't invoke cluster version checking when the user gets an exception, since it means that
+    # there is something wrong with their command input, such as missing a required parameter.
+    # This is not the same as an error returned from the server, which does not raise an exception.
+    # We should also not hit the cluster in the cases of the user inputting a help command (-h)
+
+    if is_help_cmd:
+        return invocation_return_value
+
+    try:
+        if invocation_return_value != 0 or ('cluster' and 'select' in sys.argv[1:]):
+            # invocation_return_value is 0 on success
+            check_cluster_version(on_failure_or_connection=True)
+        else:
+            check_cluster_version(on_failure_or_connection=False)
+
+    except:  # pylint: disable=bare-except
+        # Catch any exceptions from checking cluster version. For example, if we are not able
+        # to read the state file due to corruption, fail silently.
+        from knack.log import get_logger
+        logger = get_logger(__name__)
+        ex = sys.exc_info()[0]
+        logger.info('Check cluster version failed due to error: %s', str(ex))
+
+    return invocation_return_value

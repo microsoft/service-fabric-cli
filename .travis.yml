@@ -19,6 +19,7 @@ install:
   - pip install --ignore-installed -r requirements.txt
 before_script:
   - python scripts/check_and_use_custom_sdk.py
+  - sfctl settings telemetry set-telemetry --off
 script:
   - scripts/verify.sh test
   - scripts/verify.sh lint

@@ -13,8 +13,12 @@ from knack import CLI
 
 # Default names
 SF_CLI_NAME = 'sfctl'
-SF_CLI_CONFIG_DIR = os.path.join('~', '.{}'.format(SF_CLI_NAME))
+SF_CLI_CONFIG_DIR = os.path.expanduser(os.path.join('~', '.{0}'.format(SF_CLI_NAME)))
 SF_CLI_ENV_VAR_PREFIX = SF_CLI_NAME
+
+# How often to check sfctl version and cluster version for compatibility with each other (in hours).
+SF_CLI_VERSION_CHECK_INTERVAL = 24
+
 
 def get_config_value(name, fallback=None):
     """Gets a config by name.
@@ -25,11 +29,13 @@ def get_config_value(name, fallback=None):
 
     return cli_config.get('servicefabric', name, fallback)
 
-def get_config_bool(name):
+
+def get_config_bool(name, fallback=False):
     """Checks if a config value is set to a valid bool value."""
 
     cli_config = CLIConfig(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
-    return cli_config.getboolean('servicefabric', name, False)
+    return cli_config.getboolean('servicefabric', name, fallback)
+
 
 def set_config_value(name, value):
     """Set a config by name to a value."""
@@ -37,24 +43,29 @@ def set_config_value(name, value):
     cli_config = CLIConfig(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
     cli_config.set_value('servicefabric', name, value)
 
+
 def client_endpoint():
     """Cluster HTTP gateway endpoint address and port, represented as a URL."""
 
     return get_config_value('endpoint', None)
+
 
 def security_type():
     """The selected security type of client."""
 
     return get_config_value('security', None)
 
+
 def set_cluster_endpoint(endpoint):
     """Configure cluster endpoint"""
     set_config_value('endpoint', endpoint)
+
 
 def no_verify_setting():
     """True to skip certificate SSL validation and verification"""
 
     return get_config_bool('no_verify')
+
 
 def set_no_verify(no_verify):
     """Configure if cert verification should be skipped."""
@@ -63,12 +74,14 @@ def set_no_verify(no_verify):
     else:
         set_config_value('no_verify', 'false')
 
+
 def ca_cert_info():
     """CA certificate(s) path"""
 
     if get_config_bool('use_ca'):
         return get_config_value('ca_path', fallback=None)
     return None
+
 
 def set_ca_cert(ca_path=None):
     """Configure paths to CA cert(s)."""
@@ -77,6 +90,7 @@ def set_ca_cert(ca_path=None):
         set_config_value('use_ca', 'true')
     else:
         set_config_value('use_ca', 'false')
+
 
 def cert_info():
     """Path to certificate related files, either a single file path or a
@@ -92,15 +106,18 @@ def cert_info():
 
     return None
 
+
 def aad_cache():
     """AAD token cache."""
     return jsonpickle.decode(get_config_value('aad_token', fallback=None)), \
            jsonpickle.decode(get_config_value('aad_cache', fallback=None))
 
+
 def set_aad_cache(token, cache):
     """Set AAD token cache."""
     set_config_value('aad_token', jsonpickle.encode(token))
     set_config_value('aad_cache', jsonpickle.encode(cache))
+
 
 def aad_metadata():
     """AAD metadata."""
@@ -108,11 +125,13 @@ def aad_metadata():
            get_config_value('aad_resource', fallback=None), \
            get_config_value('aad_client', fallback=None)
 
+
 def set_aad_metadata(uri, resource, client):
     """Set AAD metadata."""
     set_config_value('authority_uri', uri)
     set_config_value('aad_resource', resource)
     set_config_value('aad_client', client)
+
 
 def set_auth(pem=None, cert=None, key=None, aad=False):
     """Set certificate usage paths"""
@@ -135,11 +154,68 @@ def set_auth(pem=None, cert=None, key=None, aad=False):
     else:
         set_config_value('security', 'none')
 
+
+def using_aad():
+    """
+    :return: True if security type is 'aad'. False otherwise
+    """
+    return security_type() == 'aad'
+
+
+def get_cluster_auth():
+    """
+    Return the information that was added to config file by the function select cluster.
+
+    :return: a dictionary with keys: endpoint, cert, key, pem, ca, aad, no_verify
+    """
+
+    cluster_auth = dict()
+    cluster_auth['endpoint'] = client_endpoint()
+    cluster_auth['cert'] = get_config_value('cert_path')
+    cluster_auth['key'] = get_config_value('key_path')
+    cluster_auth['pem'] = get_config_value('pem_path')
+    cluster_auth['ca'] = ca_cert_info()
+    cluster_auth['aad'] = using_aad()
+    cluster_auth['no_verify'] = no_verify_setting()
+
+    return cluster_auth
+
+
+def set_telemetry_config(telemetry_on):
+    """
+    Sets whether or not telemetry is turned on in the configuration file.
+    :param telemetry_on: bool. True means telemetry should be on.
+    :return: None
+    """
+    if telemetry_on:
+        set_config_value('use_telemetry', 'true')
+    else:
+        set_config_value('use_telemetry', 'false')
+
+
+def get_telemetry_config():
+    """
+    Gets whether or not telemetry is turned on
+    Returns True if no value is set.
+    :return: bool. True if telemetry is on. False otherwise.
+    """
+    return get_config_bool('use_telemetry', fallback=True)
+
+
+def get_cli_version_from_pkg():
+    """
+    Reads and returns the version number of sfctl. This is the version sfctl is released with.
+    For example, 6.0.0.
+    :return: str
+    """
+    from pkg_resources import get_distribution
+
+    pkg = get_distribution("sfctl")
+    sfctl_version = pkg.version
+    return '{0}'.format(sfctl_version)
+
+
 class VersionedCLI(CLI):
     """Extend CLI to override get_cli_version."""
     def get_cli_version(self):
-        import pkg_resources
-
-        pkg = pkg_resources.get_distribution("sfctl")
-        sfctl_version = pkg.version
-        return '{0}'.format(sfctl_version)
+        return get_cli_version_from_pkg()
