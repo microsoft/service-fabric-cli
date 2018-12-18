@@ -168,6 +168,10 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
     if all([no_verify_setting(), ca_cert_info()]):
         raise CLIError('Cannot specify both CA cert info and no verify')
 
+    # TODO: there is something weird here.
+    # TODO: the timeout occurs as expected, but if you ctrl+c, the timeout no longer happens
+    # See sfctl application upload --path C:\Users\bikang\Downloads\LKG\temp --show-progress --timeout 5
+    # It probably is ending some process inside
 
     # Upload to either to a folder, or native image store only
     if 'file:' in imagestore_string:
