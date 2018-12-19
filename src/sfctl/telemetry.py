@@ -15,7 +15,7 @@ import json
 from uuid import uuid4
 import portalocker
 from knack.log import get_logger
-from sfctl.config import get_telemetry_config, get_cli_version_from_pkg
+from sfctl.config import get_telemetry_config, set_telemetry_config, get_cli_version_from_pkg
 from sfctl.state import increment_telemetry_send_retry_count
 
 # knack CLIConfig has been re-purposed to handle state instead.
@@ -49,8 +49,10 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
     :return: None
     """
 
+    use_telemetry = get_telemetry_config()
+
     # Only send telemetry if user has configured it to be on
-    if get_telemetry_config():
+    if use_telemetry == True:
 
         try:
 
@@ -84,6 +86,53 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
 
             logger.info(
                 str.format('Not sending telemetry because python process due to error: {0}', ex))
+
+    # Prompt the user if there is no value set in the config file for whether or not telemetry
+    # should be sent. If use telemetry is set to False, then do nothing.
+    elif use_telemetry is None:
+
+        _prompt_for_telemetry(args_list, invocation_ret_val, exception)
+
+
+def _prompt_for_telemetry(args_list, invocation_ret_val, exception):
+    """
+    Ask users for a yes or no answer on collecting telemetry.
+
+    If the user says yes, set the value in config, then re-run the check_and_send_telemetry check.
+    If the user says no, set the value in config and return.
+
+    Inputs are the ones passed into check_and_send_telemetry. This just passes the information
+    along.
+
+    :return: None
+    """
+
+    user_response = None
+
+    while user_response not in ['y', 'yes', 'n', 'no']:
+        if user_response is None:  # Means this is the first time asking for the prompt
+            prompt = 'Hello! In order for us to improve the user experience, we would like to ' \
+                     'collect some data. Sfctl telemetry collects command name without parameters ' \
+                     'provided or their values, sfctl version, OS type, python version, ' \
+                     'the success or failure of the command, the error message returned. ' \
+                     + os.linesep + \
+                     'To give permission, enter "y" or "yes". To decline, enter "n" or "no": '
+        else:
+            prompt = 'Invalid response provided. Please enter "y" or "yes" to accept, ' \
+                     'and "n" or "no" to decline..'
+
+        try:  # raw_input is for python 2.x
+            user_response = raw_input(prompt)
+        except NameError:
+            user_response = input(prompt)
+
+        if user_response.lower() in ['y', 'yes']:
+            set_telemetry_config(True)
+            # Re-run this function
+            check_and_send_telemetry(args_list, invocation_ret_val, exception)
+
+        elif user_response.lower() in ['n', 'no']:
+            set_telemetry_config(False)
 
 
 def batch_or_send_telemetry(command_as_str, command_return):

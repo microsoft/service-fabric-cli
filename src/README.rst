@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+7.0.2
+----------
+- Prompt on first use for telemetry. Update code for 7.0.2 release (#)
+
 7.0.1
 ----------
 - Fix bug where an empty directory is generated in the current location. Update code for 7.0.1 release (#167)

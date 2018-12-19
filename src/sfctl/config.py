@@ -31,7 +31,8 @@ def get_config_value(name, fallback=None):
 
 
 def get_config_bool(name, fallback=False):
-    """Checks if a config value is set to a valid bool value."""
+    """Checks if a config value is set to a valid bool value.
+    Exception will be raised if the value is not convertible to true or false."""
 
     cli_config = CLIConfig(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
     return cli_config.getboolean('servicefabric', name, fallback)
@@ -188,18 +189,21 @@ def set_telemetry_config(telemetry_on):
     :return: None
     """
     if telemetry_on:
-        set_config_value('use_telemetry', 'true')
+        set_config_value('use_telemetry_v2', 'true')
     else:
-        set_config_value('use_telemetry', 'false')
+        set_config_value('use_telemetry_v2', 'false')
 
 
 def get_telemetry_config():
     """
     Gets whether or not telemetry is turned on
     Returns True if no value is set.
-    :return: bool. True if telemetry is on. False otherwise.
+    :return: bool. True if telemetry is on. False otherwise. Turn None if no values are found.
     """
-    return get_config_bool('use_telemetry', fallback=True)
+    if get_config_value('use_telemetry_v2') is None:
+        return None
+
+    return get_config_bool('use_telemetry_v2')
 
 
 def get_cli_version_from_pkg():

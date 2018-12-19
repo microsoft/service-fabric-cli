@@ -26,7 +26,7 @@ helps['settings telemetry set-telemetry'] = """
           short-summary: Turn off telemetry. 
         - name: --on
           type: bool
-          short-summary: Turn on telemetry. This is the default value.
+          short-summary: Turn on telemetry.
         
 
     examples: 
