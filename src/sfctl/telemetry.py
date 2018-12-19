@@ -52,7 +52,7 @@ def check_and_send_telemetry(args_list, invocation_ret_val, exception=None):
     use_telemetry = get_telemetry_config()
 
     # Only send telemetry if user has configured it to be on
-    if use_telemetry == True:
+    if use_telemetry:
 
         try:
 
@@ -111,15 +111,18 @@ def _prompt_for_telemetry(args_list, invocation_ret_val, exception):
 
     while user_response not in ['y', 'yes', 'n', 'no']:
         if user_response is None:  # Means this is the first time asking for the prompt
-            prompt = 'Hello! In order for us to improve the user experience, we would like to ' \
-                     'collect some data. Sfctl telemetry collects command name without parameters ' \
-                     'provided or their values, sfctl version, OS type, python version, ' \
-                     'the success or failure of the command, the error message returned. ' \
-                     + os.linesep + \
-                     'To give permission, enter "y" or "yes". To decline, enter "n" or "no": '
+            prompt = str.format('Hello! In order for us to improve the user experience, '
+                                'we would like to collect some data. Sfctl telemetry collects '
+                                'command name without parameters '
+                                'provided or their values, sfctl version, OS type, python version, '
+                                'the success or failure of the command, the error message '
+                                'returned.{0}'
+                                'To give permission, enter "y" or "yes". '
+                                'To decline, enter "n" or "no": ',
+                                os.linesep)
         else:
-            prompt = 'Invalid response provided. Please enter "y" or "yes" to accept, ' \
-                     'and "n" or "no" to decline..'
+            prompt = ('Invalid response provided. Please enter "y" or "yes" to accept, '
+                      'and "n" or "no" to decline: ')
 
         try:  # raw_input is for python 2.x
             user_response = raw_input(prompt)

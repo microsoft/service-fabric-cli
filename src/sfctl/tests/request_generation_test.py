@@ -232,15 +232,15 @@ class ServiceFabricRequestTests(ScenarioTest):
         (generating the correct URL). """
 
         try:  # Python 3
-            with patch('builtins.raw_input', return_value=ServiceFabricRequestTests._mock_raw_input()) as input_mock:
+            with patch('builtins.input', return_value=ServiceFabricRequestTests._mock_raw_input()):
                 # Set test URL path to that of our mock server
                 set_mock_endpoint('http://localhost:' + str(self.port))
 
                 # Call test
                 self.paths_generation_helper()
 
-        except:  # Python 2
-            with patch('__builtin__.input', return_value=ServiceFabricRequestTests._mock_raw_input()) as input_mock:
+        except NameError:  # Python 2
+            with patch('__builtin__.raw_input', return_value=ServiceFabricRequestTests._mock_raw_input()):
                 # Set test URL path to that of our mock server
                 set_mock_endpoint('http://localhost:' + str(self.port))
 
