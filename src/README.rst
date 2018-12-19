@@ -18,7 +18,7 @@ Change Log
 
 7.0.2
 ----------
-- Pause telemetry collection. Update code for 7.0.2 release (#171)
+- Pause telemetry collection. Update code for 7.0.2 release (#172)
 
 7.0.1
 ----------

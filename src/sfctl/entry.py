@@ -13,7 +13,6 @@ from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
 from sfctl.custom_cluster import check_cluster_version
-from sfctl.telemetry import check_and_send_telemetry
 from sfctl.util import is_help_command
 
 
