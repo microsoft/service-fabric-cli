@@ -11,6 +11,7 @@ This does not require a cluster connection, except the test for provision applic
 
 from __future__ import print_function
 from os import (remove, path)
+from random import choice
 import json
 import logging
 from shutil import rmtree
@@ -215,6 +216,14 @@ class ServiceFabricRequestTests(ScenarioTest):
         # If this test reaches here, then this test is successful.
         remove(generated_file_path)  # Clean up
 
+    @staticmethod
+    def _mock_raw_input():
+        random_yes_or_no = choice([True, False])
+        if random_yes_or_no:
+            return 'yes'
+
+        return 'no'
+
     def test_paths_generation(self):
         """ This test calls all commands that exist within sfctl.
         The commands are routed to a mock cluster which always returns
@@ -222,11 +231,21 @@ class ServiceFabricRequestTests(ScenarioTest):
         features to determine that the command is working as expected
         (generating the correct URL). """
 
-        # Set test URL path to that of our mock server
-        set_mock_endpoint('http://localhost:' + str(self.port))
+        try:  # Python 3
+            with patch('builtins.raw_input', return_value=ServiceFabricRequestTests._mock_raw_input()) as input_mock:
+                # Set test URL path to that of our mock server
+                set_mock_endpoint('http://localhost:' + str(self.port))
 
-        # Call test
-        self.paths_generation_helper()
+                # Call test
+                self.paths_generation_helper()
+
+        except:  # Python 2
+            with patch('__builtin__.input', return_value=ServiceFabricRequestTests._mock_raw_input()) as input_mock:
+                # Set test URL path to that of our mock server
+                set_mock_endpoint('http://localhost:' + str(self.port))
+
+                # Call test
+                self.paths_generation_helper()
 
     def paths_generation_helper(self):  # pylint: disable=too-many-statements, too-many-locals
         """ Lists all the commands to be tested and their expected values.

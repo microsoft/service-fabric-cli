@@ -198,7 +198,7 @@ def get_telemetry_config():
     """
     Gets whether or not telemetry is turned on
     Returns True if no value is set.
-    :return: bool. True if telemetry is on. False otherwise. Turn None if no values are found.
+    :return: bool. True if telemetry is on. False otherwise. Return None if no values are found.
     """
     if get_config_value('use_telemetry_v2') is None:
         return None
