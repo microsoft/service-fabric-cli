@@ -18,7 +18,7 @@ Change Log
 
 7.0.2
 ----------
-- Prompt on first use for telemetry. Update code for 7.0.2 release (#)
+- Prompt on first use for telemetry. Update code for 7.0.2 release (#170)
 
 7.0.1
 ----------

@@ -32,7 +32,7 @@ def get_config_value(name, fallback=None):
 
 def get_config_bool(name, fallback=False):
     """Checks if a config value is set to a valid bool value.
-    Exception will be raised if the value is not convertible to true or false."""
+    Exception will be raised if the value is not convertible to True or False."""
 
     cli_config = CLIConfig(SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX)
     return cli_config.getboolean('servicefabric', name, fallback)
