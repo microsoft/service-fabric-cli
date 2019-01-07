@@ -161,3 +161,8 @@ helps['settings telemetry'] = """
         sfctl version, OS type, python version, the success or failure of the command,
         the error message returned
 """
+
+helps['events'] = """
+    type: group
+    short-summary: Retrieve events from the events store (if EventStore service is already installed)
+"""

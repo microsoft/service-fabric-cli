@@ -14,13 +14,15 @@ from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
 from sfctl.custom_cluster import check_cluster_version
 from sfctl.util import is_help_command
-
+from knack.invocation import CommandInvoker
+from knack.util import CommandResultItem
 
 def cli():
     """Create CLI environment"""
     return VersionedCLI(cli_name=SF_CLI_NAME,
                         config_dir=SF_CLI_CONFIG_DIR,
                         config_env_var_prefix=SF_CLI_ENV_VAR_PREFIX,
+                        invocation_cls=SFInvoker,
                         commands_loader_cls=SFCommandLoader,
                         help_cls=SFCommandHelp)
 
@@ -71,3 +73,19 @@ def launch():
         logger.info('Check cluster version failed due to error: %s', str(ex))
 
     return invocation_return_value
+
+class SFInvoker(CommandInvoker):
+    """Extend Invoker to to handle when a system service is not installed (for example in BRS/EventStore cases)."""
+    def execute(self, args):
+        try:
+            return super(SFInvoker, self).execute(args)
+
+        # For exceptions happening while handling http requests, FabricErrorException is thrown with 'Internal Server Error' message,
+        # but here we handle the case where gateway is unable to find the service at all. 
+        except TypeError:
+            if args[0] == 'events':
+                from knack.log import get_logger
+                logger = get_logger(__name__)
+                logger.error('Service is not installed.')
+                return CommandResultItem(None, exit_code=0)
+            raise

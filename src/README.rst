@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+7.0.3
+----------
+- Add events commands (sfctl events) to retrieve events through EventStore service if installed.
+
 7.0.2
 ----------
 - Pause telemetry collection. Update code for 7.0.2 release (#172)
