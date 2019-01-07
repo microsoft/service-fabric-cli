@@ -9,13 +9,13 @@
 Handles creating and launching a CLI to handle a user command."""
 
 import sys
+from knack.invocation import CommandInvoker
+from knack.util import CommandResultItem
 from sfctl.config import VersionedCLI
 from sfctl.config import SF_CLI_CONFIG_DIR, SF_CLI_ENV_VAR_PREFIX, SF_CLI_NAME
 from sfctl.commands import SFCommandLoader, SFCommandHelp
 from sfctl.custom_cluster import check_cluster_version
 from sfctl.util import is_help_command
-from knack.invocation import CommandInvoker
-from knack.util import CommandResultItem
 
 def cli():
     """Create CLI environment"""
@@ -74,14 +74,14 @@ def launch():
 
     return invocation_return_value
 
-class SFInvoker(CommandInvoker):
+class SFInvoker(CommandInvoker):  # pylint: disable=too-few-public-methods
     """Extend Invoker to to handle when a system service is not installed (for example in BRS/EventStore cases)."""
     def execute(self, args):
         try:
             return super(SFInvoker, self).execute(args)
 
-        # For exceptions happening while handling http requests, FabricErrorException is thrown with 'Internal Server Error' message,
-        # but here we handle the case where gateway is unable to find the service at all. 
+        # For exceptions happening while handling http requests, FabricErrorException is thrown with
+        # 'Internal Server Error' message, but here we handle the case where gateway is unable to find the service.
         except TypeError:
             if args[0] == 'events':
                 from knack.log import get_logger
