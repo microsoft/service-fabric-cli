@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Improve help text on cluster select (#173)
+
 7.0.2
 ----------
 - Pause telemetry collection. Update code for 7.0.2 release (#172)
