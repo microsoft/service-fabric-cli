@@ -119,6 +119,9 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     path to a CA bundle file or directory of trusted CA certs. If using a
     directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
     the certificate hashes and create the appropriate symbolics links.
+
+    Typically, the endpoint will look something like https://<your-url>:19080
+
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix
     :param str cert: Absolute path to a client certificate file
