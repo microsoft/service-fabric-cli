@@ -16,9 +16,13 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-7.0.3
+Unreleased
 ----------
-- Add events commands (sfctl events) to retrieve events through EventStore service if installed.
+- Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174).
+
+Unreleased
+----------
+- Improve help text on cluster select (#173)
 
 7.0.2
 ----------
