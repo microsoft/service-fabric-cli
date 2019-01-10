@@ -1175,3 +1175,81 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/Resources/Applications/someApp',
             ['api-version=6.4-preview']
         )
+        
+        # Events commands:
+        self.validate_command(
+            'events cluster-list --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Cluster/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+        
+        self.validate_command(
+            'events all-nodes-list --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Nodes/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events node-list --node-name=somenode --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Nodes/somenode/$/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events all-applications-list --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Applications/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events application-list --application-id=someappid --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Applications/someappid/$/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events all-services-list --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Services/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events service-list --service-id=someserviceid --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Services/someserviceid/$/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events all-partitions-list --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Partitions/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events partition-list --partition-id=somepartitionid --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Partitions/somepartitionid/$/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events partition-all-replicas-list --partition-id=somepartitionid --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Partitions/somepartitionid/$/Replicas/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )
+
+        self.validate_command(
+            'events prtition-replica-list --partition-id=somepartitionid --replica-id=somereplicaid --start-time-utc=2018-01-01T00:00:00Z --end-time-utc=2018-02-01T00:00:00Z',
+            'GET',
+            '/EventsStore/Partitions/somepartitionid/$/Replicas/somereplicaid/$/Events',
+            ['api-version=6.4', 'startTimeUtc=2018-01-01T00:00:00Z', 'endTimeUtc=2018-02-01T00:00:00Z']
+        )

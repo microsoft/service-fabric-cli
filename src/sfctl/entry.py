@@ -75,13 +75,14 @@ def launch():
     return invocation_return_value
 
 class SFInvoker(CommandInvoker):  # pylint: disable=too-few-public-methods
-    """Extend Invoker to to handle when a system service is not installed (for example in BRS/EventStore cases)."""
+    """Extend Invoker to to handle when a system service is not installed (BRS/EventStore cases)."""
     def execute(self, args):
         try:
             return super(SFInvoker, self).execute(args)
 
         # For exceptions happening while handling http requests, FabricErrorException is thrown with
-        # 'Internal Server Error' message, but here we handle the case where gateway is unable to find the service.
+        # 'Internal Server Error' message, but here we handle the case where gateway is unable
+        # to find the service.
         except TypeError:
             if args[0] == 'events':
                 from knack.log import get_logger

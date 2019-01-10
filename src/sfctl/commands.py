@@ -258,17 +258,17 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandGroup(self, 'events', client_func_path,
                           client_factory=client_create) as group:
-            group.command('cluster', 'get_cluster_event_list')
-            group.command('all-nodes', 'get_nodes_event_list')
-            group.command('node', 'get_node_event_list')
-            group.command('all-applications', 'get_applications_event_list')
-            group.command('application', 'get_application_event_list')
-            group.command('all-services', 'get_services_event_list')
-            group.command('service', 'get_service_event_list')
-            group.command('all-partitions', 'get_partitions_event_list')
-            group.command('partition', 'get_partition_event_list')
-            group.command('partition-all-replicas', 'get_partition_replicas_event_list')
-            group.command('partition-replica', 'get_partition_replica_event_list')
+            group.command('cluster-list', 'get_cluster_event_list')
+            group.command('all-nodes-list', 'get_nodes_event_list')
+            group.command('node-list', 'get_node_event_list')
+            group.command('all-applications-list', 'get_applications_event_list')
+            group.command('application-list', 'get_application_event_list')
+            group.command('all-services-list', 'get_services_event_list')
+            group.command('service-list', 'get_service_event_list')
+            group.command('all-partitions-list', 'get_partitions_event_list')
+            group.command('partition-list', 'get_partition_event_list')
+            group.command('partition-all-replicas-list', 'get_partition_replicas_event_list')
+            group.command('partition-replica-list', 'get_partition_replica_event_list')
 
         # ---------------
         # Mesh standard commands
