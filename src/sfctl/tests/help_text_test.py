@@ -402,7 +402,8 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl events',
-            commands=('all-applications-list', 'all-nodes-list', 'all-partitions-list', 'all-services-list',
-                      'application-list', 'cluster-list', 'node-list', 'partition-list',
-                      'partition-all-replicas-list', 'partition-replica-list', 'service-list'))
-
+            commands=('all-applications-list', 'all-nodes-list', 'all-partitions-list',
+                      'all-services-list', 'application-list', 'cluster-list', 'node-list',
+                      'partition-all-replicas-list', 'partition-list', 'partition-replica-list',
+                      'service-list'))
+        
