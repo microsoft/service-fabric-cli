@@ -5,11 +5,15 @@
 # -----------------------------------------------------------------------------
 
 # pylint: disable=line-too-long, too-many-lines
-
 """Tests that the HTTP request generated is correct.
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
+# Needed at top for 2.7 support with the standard libs that got changed (like urllib.parse)
+# pylint: disable=wrong-import-order, wrong-import-position
+from future import standard_library
+standard_library.install_aliases()
+
 from os import (remove, path)
 import json
 import logging
@@ -21,13 +25,11 @@ from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
 from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
-from future import standard_library
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_body_validation import validate_flat_dictionary, \
     validate_create_application
-standard_library.install_aliases()
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
