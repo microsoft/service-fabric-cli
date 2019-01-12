@@ -9,15 +9,9 @@
 This does not require a cluster connection, except the test for provision application type."""
 
 from __future__ import print_function
-# Needed at top for 2.7 support with the standard libs that got changed (like urllib.parse)
-# pylint: disable=wrong-import-order, wrong-import-position
-from future import standard_library
-standard_library.install_aliases()
-
 from os import (remove, path)
 import json
 import logging
-import urllib.parse
 from shutil import rmtree
 import vcr
 from msrest.authentication import Authentication
@@ -30,6 +24,12 @@ from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoi
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_body_validation import validate_flat_dictionary, \
     validate_create_application
+# pylint: disable=import-error
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
+# pylint: enable=import-error
 
 class ServiceFabricRequestTests(ScenarioTest):
     """HTTP request generation tests for Service Fabric commands.
@@ -1186,8 +1186,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Cluster/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1195,8 +1195,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Nodes/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1204,8 +1204,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Nodes/somenode/$/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1213,8 +1213,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Applications/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1222,8 +1222,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Applications/someappid/$/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1231,8 +1231,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Services/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1240,8 +1240,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Services/someserviceid/$/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1249,8 +1249,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Partitions/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1258,8 +1258,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Partitions/somepartitionid/$/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1268,8 +1268,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Partitions/somepartitionid/$/Replicas/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
 
         self.validate_command(
@@ -1278,6 +1278,6 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/EventsStore/Partitions/somepartitionid/$/Replicas/somereplicaid/$/Events',
             ['api-version=6.4',
-             'StartTimeUtc=' + urllib.parse.quote('2018-01-01T00:00:00Z'),
-             'EndTimeUtc=' + urllib.parse.quote('2018-02-01T00:00:00Z')]
+             'StartTimeUtc=' + quote('2018-01-01T00:00:00Z'),
+             'EndTimeUtc=' + quote('2018-02-01T00:00:00Z')]
         )
