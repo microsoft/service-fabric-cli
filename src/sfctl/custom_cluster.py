@@ -108,7 +108,7 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint
     )
 
 
-def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
+def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):
     #pylint: disable-msg=too-many-locals
     """
@@ -116,20 +116,19 @@ def select(endpoint, cert=None, key=None, pem=None, ca=None, #pylint: disable=in
     If connecting to secure cluster, specify an absolute path to a cert (.crt)
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, also specify an absolute
-    path to a CA bundle file or directory of trusted CA certs. If using a
-    directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
-    the certificate hashes and create the appropriate symbolics links.
+    path to a CA bundle file or directory of trusted CA certs.
 
-    Typically, the endpoint will look something like https://<your-url>:19080
+    If no endpoint is given, it will default to http://localhost:19080.
 
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
-    prefix
+    prefix. Typically, the endpoint will look something like https://<your-url>:19080
     :param str cert: Absolute path to a client certificate file
     :param str key: Absolute path to client certificate key file
     :param str pem: Absolute path to client certificate, as a .pem file
     :param str ca: Absolute path to CA certs directory to treat as valid
-    or CA bundle
-    file
+    or CA bundle file. If using a
+    directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
+    the certificate hashes and create the appropriate symbolics links.
     :param bool aad: Use Azure Active Directory for authentication
     :param bool no_verify: Disable verification for certificates when using
     HTTPS, note: this is an insecure option and should not be used for

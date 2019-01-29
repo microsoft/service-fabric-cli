@@ -19,6 +19,7 @@ Change Log
 Unreleased
 ----------
 - Improve help text on cluster select (#173)
+- Cluster select defaults to endpoint http://localhost:19080 is none is provided (#)
 
 7.0.2
 ----------
