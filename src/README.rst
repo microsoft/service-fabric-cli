@@ -16,6 +16,14 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Improve help text on cluster select (#173)
+
+7.0.2
+----------
+- Pause telemetry collection. Update code for 7.0.2 release (#172)
+
 7.0.1
 ----------
 - Fix bug where an empty directory is generated in the current location. Update code for 7.0.1 release (#167)
