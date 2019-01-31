@@ -85,6 +85,8 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                                 show_progress, timeout):
     """
     Upload the application package to cluster
+
+    :param sesh: A requests session.
     """
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
@@ -119,6 +121,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                      'timeout': current_time_left})
                 url = urlunparse(url_parsed)
 
+                # timeout is connect and then read timeout
                 res = sesh.put(url, data=file_opened)
 
                 res.raise_for_status()
