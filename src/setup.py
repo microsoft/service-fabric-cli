@@ -53,7 +53,7 @@ setup(
         'adal',
         'future',
         'applicationinsights',
-        'sfmergeutility',
+        'sfmergeutility==0.1.5',
         'psutil',
         'portalocker'
     ],
