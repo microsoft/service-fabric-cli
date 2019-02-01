@@ -167,5 +167,5 @@ helps['events'] = """
     short-summary: Retrieve events from the events store (if EventStore service is already installed)
     long-summary: 'The EventStore system service can be added to any SFRP cluster running >=6.4
         through a config upgrade, please check the following url:
-        https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-diagnostics-eventstore'
+        https://docs.microsoft.com/azure/service-fabric/service-fabric-diagnostics-eventstore'
 """
