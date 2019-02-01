@@ -161,3 +161,11 @@ helps['settings telemetry'] = """
         sfctl version, OS type, python version, the success or failure of the command,
         the error message returned
 """
+
+helps['events'] = """
+    type: group
+    short-summary: Retrieve events from the events store (if EventStore service is already installed)
+    long-summary: 'The EventStore system service can be added through a config upgrade to any SFRP cluster running >=6.4.
+        Please check the following url:
+        https://docs.microsoft.com/azure/service-fabric/service-fabric-diagnostics-eventstore'
+"""
