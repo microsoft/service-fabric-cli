@@ -18,11 +18,8 @@ Change Log
 
 Unreleased
 ----------
-- Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174).
-
-Unreleased
-----------
 - Improve help text on cluster select (#173)
+- Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174)
 
 7.0.2
 ----------
