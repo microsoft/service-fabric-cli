@@ -108,6 +108,12 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
 
             current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
 
+            if current_time_left == 0:
+                raise SFCTLInternalException(str.format('Upload has timed out while uploading {}. '
+                                                        'Consider passing a longer '
+                                                        'timeout duration.',
+                                                        ))
+
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
                                               rel_path, single_file))
@@ -118,11 +124,11 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 url_parsed[2] = url_path
                 url_parsed[4] = urlencode(
                     {'api-version': '6.1',
-                     'timeout': current_time_left})
+                     'timeout': current_time_left-5})
                 url = urlunparse(url_parsed)
 
-                # timeout is connect and then read timeout
-                res = sesh.put(url, data=file_opened)
+                # timeout is (connect_timeout, read_timeout)
+                res = sesh.put(url, data=file_opened, timeout=(current_time_left, current_time_left))
 
                 res.raise_for_status()
                 current_files_count += 1
@@ -131,6 +137,10 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                                show_progress)
 
         current_time_left = get_timeout_left(target_timeout)
+
+        if current_time_left == 0:
+            raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                         'timeout duration.')
 
         url_path = (
             os.path.normpath(os.path.join('ImageStore', basename,
@@ -142,7 +152,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                                    'timeout': current_time_left})
         url = urlunparse(url_parsed)
 
-        res = sesh.put(url)
+        res = sesh.put(url, timeout=(current_time_left, current_time_left))
         res.raise_for_status()
         current_files_count += 1
         print_progress(current_files_count, total_files_count,
@@ -151,7 +161,8 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=300):  # pylint: disable=too-many-locals,missing-docstring
+# TODO: change the default timeout to 300, not 30
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=60):  # pylint: disable=too-many-locals,missing-docstring
 
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
@@ -197,16 +208,8 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
             sesh.verify = ca_cert
             sesh.cert = cert
 
-            process = Process(target=upload_to_native_imagestore,
-                              args=(sesh, endpoint, abspath, basename, show_progress, timeout))
-
-            process.start()
-            process.join(timeout)
-
-            if process.is_alive():
-                process.terminate()  # This will leave any children of process orphaned.
-                raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
-                                             'timeout duration.')
+            # There is no need for a new process here since
+            upload_to_native_imagestore(sesh, endpoint, abspath, basename, show_progress, timeout)
 
     else:
         raise CLIError('Unsupported image store connection string')
