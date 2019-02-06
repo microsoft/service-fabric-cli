@@ -49,7 +49,6 @@ setup(
         'msrestazure',
         'requests',
         'azure-servicefabric==6.4.0.0',
-        'jsonpickle',
         'adal',
         'future',
         'applicationinsights',
