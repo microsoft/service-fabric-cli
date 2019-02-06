@@ -79,5 +79,6 @@ def format_response(response):
     # (azure.servicefabric.models.container_api_response_py3.ContainerApiResponse), but instead,
     # printing only ContainerApiResult because it contains all the data, and we avoid the need
     # to use jsonpickle encoding
-    return json.dumps(response.container_api_result.__dict__, sort_keys=True, indent=4)
-    
+    if response and response.container_api_result:
+        return json.dumps(response.container_api_result.__dict__, sort_keys=True, indent=4)
+    return None

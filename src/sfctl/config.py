@@ -7,9 +7,9 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
+import json
 from knack.config import CLIConfig
 from knack import CLI
-import json
 from adal.token_cache import TokenCache
 
 # Default names
