@@ -20,6 +20,7 @@ Unreleased
 ----------
 - Improve help text on cluster select (#173)
 - Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174)
+- Change serializers (#179)
 
 7.0.2
 ----------
