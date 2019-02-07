@@ -63,7 +63,8 @@ setup(
             'pylint',
             'vcrpy',
             'mock',
-            'contextlib2'
+            'contextlib2',
+            'jsonpickle'
         ]
     },
     entry_points={
