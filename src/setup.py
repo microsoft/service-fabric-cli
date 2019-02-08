@@ -49,7 +49,6 @@ setup(
         'msrestazure',
         'requests',
         'azure-servicefabric==6.4.0.0',
-        'jsonpickle',
         'adal',
         'future',
         'applicationinsights',
@@ -64,7 +63,8 @@ setup(
             'pylint',
             'vcrpy',
             'mock',
-            'contextlib2'
+            'contextlib2',
+            'jsonpickle'
         ]
     },
     entry_points={
