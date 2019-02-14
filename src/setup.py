@@ -44,7 +44,7 @@ setup(
         'sfctl.tests'
     ],
     install_requires=[
-        'knack==0.5.1',
+        'knack==0.5.2',
         'msrest>=0.4.26',
         'msrestazure',
         'requests',
