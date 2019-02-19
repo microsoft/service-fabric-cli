@@ -8,7 +8,6 @@
 
 from __future__ import print_function
 import json
-import jsonpickle
 from azure.servicefabric.models.container_api_request_body import ContainerApiRequestBody
 
 def invoke_api( # pylint: disable=too-many-arguments
@@ -76,6 +75,10 @@ def logs( # pylint: disable=too-many-arguments
 
 def format_response(response):
     """ pretty print json response """
-    encoded = jsonpickle.encode(response, unpicklable=False)
-    return json.dumps(json.loads(encoded), indent=4)
-    
+    # Note: We are not printing the entire response type
+    # (azure.servicefabric.models.container_api_response_py3.ContainerApiResponse), but instead,
+    # printing only ContainerApiResult because it contains all the data, and we avoid the need
+    # to use jsonpickle encoding
+    if response and response.container_api_result:
+        return json.dumps(response.container_api_result.__dict__, sort_keys=True, indent=4)
+    return None
