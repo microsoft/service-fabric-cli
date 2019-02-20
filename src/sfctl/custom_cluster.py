@@ -263,7 +263,7 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
     :return: True if they are a match. False otherwise.
     """
 
-    if sfctl_version in ['7.0.0', '7.0.1', '7.0.2']:
+    if sfctl_version in ['7.0.0', '7.0.1', '7.0.2', '7.0.3']:
 
         return cluster_version.startswith('6.4')
 
