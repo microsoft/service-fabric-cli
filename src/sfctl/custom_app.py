@@ -81,13 +81,26 @@ def get_timeout_left(target_timeout):
     current_time = int(time())  # time from epoch in seconds
     return target_timeout - current_time
 
+def get_lesser(a, b):
+    """
+    Return the lesser of int a and int b
+    :param a: (int)
+    :param b: (int)
+    :return: Return the smaller of a or b.
+    """
+
+    if a <= b:
+        return a
+    return b
+
 def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
                                 show_progress, timeout):
     """
     Upload the application package to cluster
 
-    :param sesh: A requests session.
+    :param sesh: A requests (module) session object.
     """
+
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
     except ImportError:
@@ -99,9 +112,10 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         # Number of uploads is number of files plus number of directories
         total_files_count += (len(files) + 1)
 
-
     target_timeout = int(time()) + timeout
 
+    # Note: while we are raising some exceptions regarding upload timeout, we are leaving the
+    # timeouts raised by the requests library as is since it contains enough information
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
         for single_file in files:
@@ -124,11 +138,12 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 url_parsed[2] = url_path
                 url_parsed[4] = urlencode(
                     {'api-version': '6.1',
-                     'timeout': current_time_left-5})
+                     'timeout': current_time_left})
                 url = urlunparse(url_parsed)
 
                 # timeout is (connect_timeout, read_timeout)
-                res = sesh.put(url, data=file_opened, timeout=(current_time_left, current_time_left))
+                res = sesh.put(url, data=file_opened,
+                               timeout=(get_lesser(60, current_time_left), current_time_left))
 
                 res.raise_for_status()
                 current_files_count += 1
@@ -152,7 +167,8 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                                    'timeout': current_time_left})
         url = urlunparse(url_parsed)
 
-        res = sesh.put(url, timeout=(current_time_left, current_time_left))
+        res = sesh.put(url,
+                       timeout=(get_lesser(60, current_time_left), current_time_left))
         res.raise_for_status()
         current_files_count += 1
         print_progress(current_files_count, total_files_count,
@@ -161,8 +177,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-# TODO: change the default timeout to 300, not 30
-def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=60):  # pylint: disable=too-many-locals,missing-docstring
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=300):  # pylint: disable=too-many-locals,missing-docstring
 
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
@@ -182,10 +197,8 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
     if all([no_verify_setting(), ca_cert_info()]):
         raise CLIError('Cannot specify both CA cert info and no verify')
 
-    # TODO: there is something weird here.
-    # TODO: the timeout occurs as expected, but if you ctrl+c, the timeout no longer happens
-    # See sfctl application upload --path C:\Users\bikang\Downloads\LKG\temp --show-progress --timeout 5
-    # It probably is ending some process inside
+    # Note: pressing ctrl + C during upload does not end the current upload in progress, but only
+    # stops the next one from occurring. This will be fixed in the future.
 
     # Upload to either to a folder, or native image store only
     if 'file:' in imagestore_string:
