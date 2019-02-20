@@ -256,6 +256,20 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('get', 'get_property_info')
             group.command('delete', 'delete_property')
 
+        with CommandGroup(self, 'events', client_func_path,
+                          client_factory=client_create) as group:
+            group.command('cluster-list', 'get_cluster_event_list')
+            group.command('all-nodes-list', 'get_nodes_event_list')
+            group.command('node-list', 'get_node_event_list')
+            group.command('all-applications-list', 'get_applications_event_list')
+            group.command('application-list', 'get_application_event_list')
+            group.command('all-services-list', 'get_services_event_list')
+            group.command('service-list', 'get_service_event_list')
+            group.command('all-partitions-list', 'get_partitions_event_list')
+            group.command('partition-list', 'get_partition_event_list')
+            group.command('partition-all-replicas-list', 'get_partition_replicas_event_list')
+            group.command('partition-replica-list', 'get_partition_replica_event_list')
+
         # ---------------
         # Mesh standard commands
         # ---------------
