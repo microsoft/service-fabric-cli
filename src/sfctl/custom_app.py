@@ -27,13 +27,15 @@ def validate_app_path(app_path):
         'Invalid path to application directory: {0}'.format(abspath)
     )
 
-def print_progress(current, total, rel_file_path, show_progress):
+def print_progress(current, total, rel_file_path, show_progress, time_left=None):
     """Display progress for uploading"""
     if show_progress:
         print(
             '[{}/{}] files, {}'.format(current, total, rel_file_path),
             file=sys.stderr
         )
+        if time_left is not None:
+            print('Time left: {} seconds'.format(time_left))
 
 def path_from_imagestore_string(imagestore_connstr):
     """
@@ -123,10 +125,8 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
             current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
 
             if current_time_left == 0:
-                raise SFCTLInternalException(str.format('Upload has timed out while uploading {}. '
-                                                        'Consider passing a longer '
-                                                        'timeout duration.',
-                                                        ))
+                raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                             'timeout duration.')
 
             url_path = (
                 os.path.normpath(os.path.join('ImageStore', basename,
@@ -149,7 +149,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                 current_files_count += 1
                 print_progress(current_files_count, total_files_count,
                                os.path.normpath(os.path.join(rel_path, single_file)),
-                               show_progress)
+                               show_progress, get_timeout_left(target_timeout))
 
         current_time_left = get_timeout_left(target_timeout)
 
@@ -173,7 +173,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         current_files_count += 1
         print_progress(current_files_count, total_files_count,
                        os.path.normpath(os.path.join(rel_path, '_.dir')),
-                       show_progress)
+                       show_progress, get_timeout_left(target_timeout))
     if show_progress:
         print('Complete', file=sys.stderr)
 
