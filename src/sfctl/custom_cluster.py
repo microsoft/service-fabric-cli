@@ -117,11 +117,14 @@ def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, also specify an absolute
     path to a CA bundle file or directory of trusted CA certs.
-
-    If no endpoint is given, it will default to http://localhost:19080.
+    
+    There is no connection to a cluster without running this command first, including
+    a connection to localhost. However, no explicit endpoint is required for connecting
+    to a local cluster.
 
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
-    prefix. Typically, the endpoint will look something like https://<your-url>:19080
+    prefix. Typically, the endpoint will look something like https://<your-url>:19080.
+    If no endpoint is given, it will default to http://localhost:19080.
     :param str cert: Absolute path to a client certificate file
     :param str key: Absolute path to client certificate key file
     :param str pem: Absolute path to client certificate, as a .pem file
