@@ -16,11 +16,12 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
+7.1.0
 ----------
 - Increase default timeout of application upload to 300 seconds, and allow upload timeouts to be configurable. The new timeout will be an overall operation timeout for all uploads, rather than individual operation timeouts of 60 seconds as existed before. Improvements to help text (#131)
 - Improve help text on cluster select (#173)
 - Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174)
+- Cluster select defaults to endpoint http://localhost:19080 if none is provided (#178)
 - Change serializers, and change formatting of sfctl container invoke-api output (#179)
 - Update Knack version to 0.5.2 (#181)
 - Update sfmergeutility version to 0.1.6 (#183)
