@@ -20,9 +20,11 @@ def create(_):
     endpoint = client_endpoint()
 
     if not endpoint:
-        raise CLIError("Connection endpoint not found. "
-                       "Before running sfctl commands, connect to a cluster using "
-                       "the 'sfctl cluster select' command.")
+        raise CLIError('Connection endpoint not found. '
+                       'Before running sfctl commands, connect to a cluster using '
+                       'the "sfctl cluster select" command. '
+                       'If you are seeing this message on Linux after already selecting a cluster, '
+                       'you may need to run the command with sudo.')
 
     no_verify = no_verify_setting()
 
