@@ -117,7 +117,7 @@ def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=
     and key file (.key) or a single file with both (.pem). Do not specify both.
     Optionally, if connecting to a secure cluster, also specify an absolute
     path to a CA bundle file or directory of trusted CA certs.
-    
+
     There is no connection to a cluster without running this command first, including
     a connection to localhost. However, no explicit endpoint is required for connecting
     to a local cluster.
