@@ -7,9 +7,10 @@
 """Read and modify configuration settings related to the CLI"""
 
 import os
-import jsonpickle
+import json
 from knack.config import CLIConfig
 from knack import CLI
+from adal.token_cache import TokenCache
 
 # Default names
 SF_CLI_NAME = 'sfctl'
@@ -109,15 +110,21 @@ def cert_info():
 
 def aad_cache():
     """AAD token cache."""
-    return jsonpickle.decode(get_config_value('aad_token', fallback=None)), \
-           jsonpickle.decode(get_config_value('aad_cache', fallback=None))
+    token_cache = TokenCache()
+    token_cache.deserialize(get_config_value('aad_cache', fallback=None))
+    return json.loads(get_config_value('aad_token', fallback=None)), token_cache
 
 
 def set_aad_cache(token, cache):
-    """Set AAD token cache."""
-    set_config_value('aad_token', jsonpickle.encode(token))
-    set_config_value('aad_cache', jsonpickle.encode(cache))
+    """
+    Set AAD token cache.
+    :param token: dict with several keys, include "accessToken" and "refreshToken"
+    :param cache: adal.token_cache.TokenCache
+    :return: None
+    """
 
+    set_config_value('aad_token', json.dumps(token))
+    set_config_value('aad_cache', cache.serialize())
 
 def aad_metadata():
     """AAD metadata."""

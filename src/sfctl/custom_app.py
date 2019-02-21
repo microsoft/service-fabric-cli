@@ -140,7 +140,6 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False):  #
     if all([no_verify_setting(), ca_cert_info()]):
         raise CLIError('Cannot specify both CA cert info and no verify')
 
-
     # Upload to either to a folder, or native image store only
     if 'file:' in imagestore_string:
         dest_path = path_from_imagestore_string(imagestore_string)
