@@ -76,24 +76,31 @@ def upload_to_fileshare(source, dest, show_progress):
 def get_timeout_left(target_timeout):
     """
     Return the number of seconds until timeout is reached, given a target_timeout which represents
-      the time at which the timer should stop.
+      the time at which the timer should stop. If the time left is less than 0, return 0
     :param target_timeout: time measured as from epoch in seconds
     :return: int
     """
     current_time = int(time())  # time from epoch in seconds
-    return target_timeout - current_time
+    time_left = target_timeout - current_time
 
-def get_lesser(a, b):
+    if time_left <= 0:
+        return 0
+    return time_left
+
+def get_lesser(num_a, num_b):
     """
-    Return the lesser of int a and int b
-    :param a: (int)
-    :param b: (int)
-    :return: Return the smaller of a or b.
+    Return the lesser of int num_a and int num_b. If the lesser number is less than 0, return 0
+    :param num_a: (int)
+    :param num_b: (int)
+    :return: Return the smaller of num_a or num_b.
     """
 
-    if a <= b:
-        return a
-    return b
+    if num_a <= 0 or num_b <= 0:
+        return 0
+
+    if num_a <= num_b:
+        return num_a
+    return num_b
 
 def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
                                 show_progress, timeout):
