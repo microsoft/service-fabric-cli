@@ -95,12 +95,7 @@ def get_lesser(num_a, num_b):
     :return: Return the smaller of num_a or num_b.
     """
 
-    if num_a <= 0 or num_b <= 0:
-        return 0
-
-    if num_a <= num_b:
-        return num_a
-    return num_b
+    return max(0, min(num_a, num_b))
 
 def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
                                 show_progress, timeout):
