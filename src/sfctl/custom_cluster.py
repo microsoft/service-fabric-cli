@@ -129,6 +129,7 @@ def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=
     or CA bundle file. If using a
     directory of CA certs, `c_rehash <directory>` provided by OpenSSL must be run first to compute
     the certificate hashes and create the appropriate symbolics links.
+    This is used to verify that the certificate returned by the cluster is valid
     :param bool aad: Use Azure Active Directory for authentication
     :param bool no_verify: Disable verification for certificates when using
     HTTPS, note: this is an insecure option and should not be used for
