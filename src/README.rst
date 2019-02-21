@@ -16,7 +16,7 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
+7.1.0
 ----------
 - Improve help text on cluster select (#173)
 - Add events commands (sfctl events) to retrieve events through EventStore service if installed (#174)
