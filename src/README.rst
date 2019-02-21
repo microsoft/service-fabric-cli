@@ -23,6 +23,7 @@ Unreleased
 - Change serializers, and change formatting of sfctl container invoke-api output (#179)
 - Update Knack version to 0.5.2 (#181)
 - Update sfmergeutility version to 0.1.6 (#183)
+- Improve error message (#185)
 
 7.0.2
 ----------
