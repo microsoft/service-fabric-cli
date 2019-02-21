@@ -8,6 +8,10 @@
 
 from threading import Thread
 import socket
+try:
+    from urllib import parse
+except ImportError:
+    import urlparse as parse
 from future.backports.http.server import (BaseHTTPRequestHandler, HTTPServer)
 import requests
 
@@ -46,6 +50,19 @@ class MockServer(BaseHTTPRequestHandler):
 
     def do_PUT(self):  # pylint: disable=C0103,missing-docstring
         # Return 200 as the default response
+
+        if self.path.startswith('/ImageStore/') and self.path.find('sample_nested_folders') != -1:
+
+            parsed_url = parse.urlparse(self.path)
+            query = parse.parse_qs(parsed_url.query)  # This is a dict of lists
+
+            counter = 0
+            import time
+
+            while int(query['timeout'][0]) > 0 and counter < 3:
+                time.sleep(1)
+                counter += 1
+
         self.send_response(requests.codes.ok)
         self.end_headers()
 

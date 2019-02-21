@@ -42,14 +42,18 @@ def json_encoded(arg_str):
 def custom_arguments(self, _):  # pylint: disable=too-many-statements
     """Load specialized arguments for commands"""
 
-    # Global argument
-    with ArgumentsContext(self, '') as arg_context:
-        arg_context.argument('timeout', type=int, default=60,
-                             options_list=('-t', '--timeout'),
-                             help='Server timeout in seconds')
-        arg_context.ignore('raw')
-        arg_context.ignore('operation_config')
-        arg_context.ignore('client')
+    with ArgumentsContext(self, '') as arg_context:  # Global argument
+        arg_context.argument('timeout', type=int, options_list=('-t', '--timeout'))
+
+    # When the options_list is provided either for this timeout or the global timeout, the text
+    # in the help file is ignored, so we are putting the help text here instead.
+    with ArgumentsContext(self, 'application upload') as arg_context:
+        arg_context.argument('timeout', type=int, options_list=('-t', '--timeout'),
+                             help='The total timeout in seconds. '
+                                  'Upload will fail and return error after the upload timeout '
+                                  'duration has passed. This timeout applies to '
+                                  'the entire application package, and individual file timeouts '
+                                  'will equal the remaining timeout duration. ')
 
     with ArgumentsContext(self, 'application create') as arg_context:
         arg_context.argument('parameters', type=json_encoded)

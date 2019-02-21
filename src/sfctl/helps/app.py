@@ -46,6 +46,9 @@ helps['application upload'] = """
           type: string
           short-summary: Destination image store to upload the application
             package to
+          long-summary: To upload to a file location, start this parameter with 'file:'.
+            Otherwise the value should be the image store connection string, such as the default
+            value.
 """
 
 helps['application upgrade'] = """
