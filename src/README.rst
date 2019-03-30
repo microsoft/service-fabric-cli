@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#___)
+
+
 7.1.0
 ----------
 - Increase default timeout of application upload to 300 seconds, and allow upload timeouts to be configurable. The new timeout will be an overall operation timeout for all uploads, rather than individual operation timeouts of 60 seconds as existed before. Improvements to help text (#131)
