@@ -94,6 +94,10 @@ helps['application upgrade'] = """
           type: bool
           short-summary: Forcefully restart processes during upgrade even
             when the code version has not changed
+        - name: --sort-order
+          type: string
+          short-summary: "Defines the order in which an upgrade proceeds through the cluster.
+            Possible values: 'Default', 'Numeric', 'Lexicographical', 'ReverseNumeric', 'ReverseLexicographical'"
         - name: --failure-action
           type: string
           short-summary: The action to perform when a Monitored upgrade
