@@ -586,6 +586,7 @@ class ServiceFabricRequestTests(ScenarioTest):
              '--default-service-health-policy={1} '
              '--failure-action=Rollback '
              '--force-restart=true '
+             '--sort-order=Default '
              '--health-check-retry-timeout=PT0H21M0S '
              '--health-check-stable-duration=PT0H21M0S '
              '--health-check-wait-duration=PT0H21M0S '
