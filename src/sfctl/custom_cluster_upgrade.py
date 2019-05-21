@@ -201,4 +201,4 @@ def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-n
         application_health_policy_map=app_policies
     )
 
-    client.update_cluster_upgrade(update_desc, timeout=timeout) 
+    client.update_cluster_upgrade(update_desc, timeout=timeout)
