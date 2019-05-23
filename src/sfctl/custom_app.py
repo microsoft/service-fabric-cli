@@ -336,6 +336,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         client, application_id, application_version, parameters,
         mode="UnmonitoredAuto", replica_set_check_timeout=None,
         force_restart=None, failure_action=None,
+        sort_order="Default",
         health_check_wait_duration="0",
         health_check_stable_duration="PT0H2M0S",
         health_check_retry_timeout="PT0H10M0S",
@@ -388,6 +389,7 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         rolling_upgrade_mode=mode,
         upgrade_replica_set_check_timeout_in_seconds=replica_set_check_timeout,
         force_restart=force_restart,
+        sort_order=sort_order,
         monitoring_policy=monitoring_policy,
         application_health_policy=app_health_policy)
 

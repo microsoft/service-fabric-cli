@@ -104,7 +104,7 @@ def create_rolling_update_desc( #pylint: disable=too-many-arguments
 def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, code_version=None, config_version=None,
         rolling_upgrade_mode='UnmonitoredAuto', replica_set_check_timeout=None,
-        force_restart=False, failure_action=None, health_check_wait=None,
+        force_restart=False, sort_order='Default', failure_action=None, health_check_wait=None,
         health_check_stable=None, health_check_retry=None,
         upgrade_timeout=None, upgrade_domain_timeout=None,
         warning_as_error=False, unhealthy_nodes=0, unhealthy_applications=0,
@@ -130,7 +130,7 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too
         code_version=code_version, config_version=config_version,
         upgrade_kind='Rolling', rolling_upgrade_mode=rolling_upgrade_mode,
         upgrade_replica_set_check_timeout_in_seconds=replica_set_check_timeout,
-        force_restart=force_restart, monitoring_policy=mon_policy,
+        force_restart=force_restart, sort_order=sort_order, monitoring_policy=mon_policy,
         cluster_health_policy=cluster_policy,
         enable_delta_health_evaluation=delta_health_evaluation,
         cluster_upgrade_health_policy=cluster_upgrade_policy,

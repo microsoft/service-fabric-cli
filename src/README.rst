@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Placeholder text
+- Add support for specifying --sort-order for cluster upgrade and application upgrade commands (available with SF 6.5) (#192)
 
 7.1.0
 ----------
