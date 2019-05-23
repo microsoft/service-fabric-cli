@@ -41,8 +41,14 @@ helps['cluster upgrade'] = """
           long-summary: The upgrade only changes configuration or data
         - name: --sort-order
           type: string
-          short-summary: "Defines the order in which an upgrade proceeds through the cluster.
-            Possible values: 'Default', 'Numeric', 'Lexicographical', 'ReverseNumeric', 'ReverseLexicographical'"
+          short-summary: Defines the order in which an upgrade proceeds through the cluster.
+            Possible values: 'Default', 'Numeric', 'Lexicographical', 'ReverseNumeric', 'ReverseLexicographical'
+          long-summary: The following options are available:
+            Default: Indicates that the default sort order (as specified in cluster manifest) will be used.
+            Numeric: Indicates that forward numeric sort order (UD names sorted as numbers) will be used.
+            Lexicographical: Indicates that forward lexicographical sort order (UD names sorted as strings) will be used.
+            ReverseNumeric: Indicates that reverse numeric sort order (UD names sorted as numbers) will be used.
+            ReverseLexicographical: Indicates that reverse lexicographical sort order (UD names sorted as strings) will be used.
         - name: --failure-action
           type: string
           short-summary: "Possible values include: 'Invalid', 'Rollback',

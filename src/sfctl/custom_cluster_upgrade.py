@@ -83,7 +83,7 @@ def parse_app_health_policy(app_health_map):
     return ApplicationHealthPolicies(application_health_policy_map=policy_list)
 
 def create_rolling_update_desc( #pylint: disable=too-many-arguments
-        rolling_upgrade_mode, force_restart, sort_order, replica_set_check_timeout,
+        rolling_upgrade_mode, force_restart, replica_set_check_timeout,
         failure_action, health_check_wait, health_check_stable,
         health_check_retry, upgrade_timeout, upgrade_domain_timeout):
     """Create an update description for an upgrade rolling mode"""
@@ -93,7 +93,6 @@ def create_rolling_update_desc( #pylint: disable=too-many-arguments
     return RollingUpgradeUpdateDescription(
         rolling_upgrade_mode=rolling_upgrade_mode,
         force_restart=force_restart,
-        sort_order=sort_order,
         replica_set_check_timeout_in_milliseconds=replica_set_check_timeout, #pylint: disable=line-too-long
         failure_action=failure_action,
         health_check_wait_duration_in_milliseconds=health_check_wait,
