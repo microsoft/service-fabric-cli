@@ -18,8 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#___)
-
+- Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#191)
 
 7.1.0
 ----------
