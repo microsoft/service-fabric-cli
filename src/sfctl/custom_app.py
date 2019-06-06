@@ -1,3 +1,4 @@
+# coding=utf-8
 # -----------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for
@@ -14,6 +15,7 @@ from time import time
 import sys
 import zipfile
 import shutil
+import xml.etree.ElementTree as ET
 from knack.util import CLIError
 from sfctl.custom_exceptions import SFCTLInternalException
 from sfctl.util import get_user_confirmation
@@ -338,7 +340,7 @@ def _check_folder_structure_and_get_dirs(app_dir):
 
         o    ApplicationManifest.xml
 
-    The Code and Config folders should be compressed
+    The Code and Config folders should be compressed. These will be listed in the Application and Service manifests.
 
     :param app_dir: (str) An absolute path to an application package
     :return: A list of strings representing the absolute paths to directories which should
@@ -355,36 +357,50 @@ def _check_folder_structure_and_get_dirs(app_dir):
 
     # An application manifest file should exist directly under the directory passed in
     if not os.path.isfile(path_to_app_manifest):  # Casing does not matter
-        raise CLIError('Application package to be compressed is missing an application manifest')
+        raise CLIError('Application package to be compressed is missing ApplicationManifest.xml')
 
-    # Note: when doing a format validation check, if the ServiceManifest.xml doesn't exist,
-    # we have no way of knowing that that folder is a service package
+    # A list of the service packages. This should be the absolute path
+    service_packages = []
 
-    # Get a list of all the folders which exist under the app_dir
-    all_subdirs = os.listdir(app_dir)
-    for directory in all_subdirs:
-        abs_path_subdir = os.path.join(app_dir, directory)
-        # Since package name can be anything, look through all for ServiceManifest.xml
-        if os.path.isdir(abs_path_subdir):
-            # If ServiceManifest.xml exists, see if Code and Config exist
-            if os.path.isfile(os.path.join(abs_path_subdir, 'ServiceManifest.xml')):
-                code_path = os.path.join(abs_path_subdir, 'Code')
-                config_path = os.path.join(abs_path_subdir, 'Config')
-                if os.path.isdir(code_path):
-                    to_compress.append(_normalize_path(code_path))
-                else:
-                    raise CLIError('The following service package does not contain a '
-                                   'Code folder: ' + abs_path_subdir)
-                # Inside config, there should be a Settings.xml
-                # Config folder need not be present for a valid app package
-                if os.path.isfile(os.path.join(config_path, 'Settings.xml')):
-                    to_compress.append(_normalize_path(config_path))
+    # Parse the application manifest to find which folders should have the service manifest.
+    app_manifest_parsed = ET.parse(path_to_app_manifest).getroot()
+    for child in app_manifest_parsed:
+        # Use ends with, because the tags start with the xmlns
+        if child.tag.endswith("ServiceManifestImport"):
+            # We exect a child element that looks like:
+            # <ServiceManifestRef ServiceManifestName="CalculatorServicePackage" ServiceManifestVersion="1.0"/>
+            for inner_child in child:
+                if inner_child.tag.endswith("ServiceManifestRef"):
+                    path_to_service_package = os.path.join(app_dir, inner_child.attrib.get("ServiceManifestName"))
+                    service_packages.append(path_to_service_package)
+
+    # Go through each service package folder and search for the service manifest
+    # The service manifest defines which packages are the code, config, and data packages, which
+    # needs to be compressed.
+    for service_package_path in service_packages:
+        path_to_service_manifest = os.path.join(service_package_path, "ServiceManifest.xml")
+
+        if not os.path.isfile(path_to_service_manifest):  # Casing does not matter
+            raise CLIError('Service package to be compressed is missing ServiceManifest.xml in ' + service_package_path)
+
+        service_manifest_parsed = ET.parse(path_to_service_manifest).getroot()
+
+        for child in service_manifest_parsed:
+            if child.tag.endswith("CodePackage") or \
+                    child.tag.endswith("ConfigPackage") or child.tag.endswith("DataPackage"):
+
+                folder_name = child.attrib.get("Name")
+                folder_to_compress = os.path.join(service_package_path, folder_name)
+
+                if not os.path.isdir(folder_to_compress):  # Casing does not matter
+                    raise CLIError(str.format("{0} defined in {1} does not exist",
+                                              folder_to_compress, path_to_service_manifest))
+
+                to_compress.append(_normalize_path(folder_to_compress))
 
     if not to_compress:
         raise CLIError('Only Service Fabric application packages may be compressed. '
-                       'Application package to be compressed is not a valid format. '
-                       'Either it is missing all ServiceManifest.xml files, or it does '
-                       'not contain the Code folder.')
+                       'Application package to be compressed is not a valid format. ')
 
     return to_compress
 
