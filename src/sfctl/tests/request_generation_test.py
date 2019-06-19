@@ -18,7 +18,7 @@ from msrest.authentication import Authentication
 from mock import patch
 from knack.testsdk import ScenarioTest
 from jsonpickle import decode
-from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
+from azure.servicefabric import ServiceFabricClientAPIs
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)

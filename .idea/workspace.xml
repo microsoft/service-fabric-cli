@@ -1,0 +1,1211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5992a7f9-76c8-49c7-b11f-e4c5bc9393f2" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/customSDK/servicefabric/_configuration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customSDK/servicefabric/_service_fabric_client_ap_is.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customSDK/servicefabric/models/_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customSDK/servicefabric/models/_models_py3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customSDK/servicefabric/models/_service_fabric_client_ap_is_enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/aad_metadata.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/aad_metadata_object.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/add_remove_incremental_named_partition_scaling_mechanism.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/add_remove_replica_scaling_mechanism.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/analysis_event_metadata.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_backup_configuration_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_backup_entity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_capacity_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_container_instance_exited_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_deleted_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_policies.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_policy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_policy_map_item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_load_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_metric_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_name_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_parameter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_process_exited_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_scoped_volume.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_scoped_volume_creation_parameters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_scoped_volume_creation_parameters_service_fabric_volume_disk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_type_applications_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_type_health_policy_map_item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_type_image_store_path.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_type_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_type_manifest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_domain_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_domain_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_rollback_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_rollback_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_rollback_start_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_rollback_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_start_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/application_upgrade_update_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/applications_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/auto_scaling_mechanism.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/auto_scaling_metric.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/auto_scaling_policy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/auto_scaling_resource_metric.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/auto_scaling_trigger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/average_load_scaling_trigger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/average_partition_load_scaling_trigger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/average_service_load_scaling_trigger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/azure_blob_backup_storage_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/azure_internal_monitoring_pipeline_sink_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_configuration_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_entity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_partition_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_schedule_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_storage_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/backup_suspension_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/basic_retention_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/binary_property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_code_package_restart_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_event_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_events_segment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_move_primary_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_move_secondary_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_node_restart_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_parameters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_parameters_dictionary_item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_partition_primary_move_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_partition_secondary_move_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_remove_replica_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_replica_removal_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_replica_restart_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_restart_code_package_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_restart_node_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_restart_replica_fault_scheduled_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_schedule.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_schedule_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_schedule_job.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_schedule_job_active_days_of_week.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_stopped_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/chaos_target_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/check_exists_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/check_sequence_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/check_value_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_configuration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_configuration_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_configuration_upgrade_status_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_chunk_query_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_policies.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_policy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_load_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_manifest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_description_object.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_domain_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_domain_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_health_policy_object.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_progress_object.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_rollback_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_rollback_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_rollback_start_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_rollback_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_start_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_upgrade_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/cluster_version.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/code_package_entry_point.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/code_package_entry_point_statistics.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/compose_deployment_status_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/compose_deployment_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/compose_deployment_upgrade_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_api_request_body.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_api_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_api_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_code_package_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_deactivated_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_instance_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_instance_view.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_label.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_logs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/container_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/create_compose_deployment_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/current_upgrade_domain_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deactivation_intent_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/delete_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/delta_nodes_check_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deploy_service_package_to_node_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_application_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_applications_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_code_package_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_package_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_packages_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_replica_detail_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_replica_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_service_type_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_stateful_service_replica_detail_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_stateful_service_replica_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_stateless_service_instance_detail_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/deployed_stateless_service_instance_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/diagnostics_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/diagnostics_ref.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/diagnostics_sink_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/disable_backup_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/double_property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/enable_backup_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/endpoint_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/endpoint_ref.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/ensure_availability_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/ensure_partition_qurum_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/entity_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/entity_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/entity_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/entity_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/entity_kind_health_state_count.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/environment_variable.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/epoch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/event_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/executing_faults_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/external_store_provision_application_type_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/fabric_code_version_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/fabric_config_version_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/fabric_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/fabric_error_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/fabric_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/failed_property_batch_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/failed_upgrade_domain_progress_object.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/failure_upgrade_domain_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/file_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/file_share_backup_storage_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/file_version.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/folder_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/folder_size_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/frequency_based_backup_schedule_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/gateway_destination.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/gateway_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/get_backup_by_storage_query_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/get_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/guid_property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_evaluation_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_state_count.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/health_statistics.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_host_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_route_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_route_match_header.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_route_match_path.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/http_route_match_rule.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/identity_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/identity_item_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/image_registry_credential.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/image_store_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/image_store_copy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/ingress_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/inlined_value_secret_resource_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/int64_property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/int64_range_partition_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/invoke_data_loss_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/invoke_quorum_loss_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/key_value_store_replica_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/layer4_ingress_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/load_metric_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/load_metric_report.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/load_metric_report_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/local_network_resource_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/managed_application_identity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/managed_application_identity_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/monitoring_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/name_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/named_partition_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/named_partition_scheme_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/network_ref.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/network_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/network_resource_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/network_resource_properties_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_aborted_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_added_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_added_to_cluster_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_close_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_closed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivate_complete_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivate_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivate_start_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivate_started_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivation_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivation_task.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_deactivation_task_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_down_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_impact.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_load_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_load_metric_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_open_failed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_open_succeeded_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_opened_success_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_removed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_removed_from_cluster_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_repair_impact_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_repair_target_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_transition_progress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_transition_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_up_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/node_upgrade_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/nodes_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/operation_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/package_sharing_policy_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_application_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_application_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_application_type_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_backup_configuration_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_backup_entity_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_backup_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_backup_policy_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_compose_deployment_status_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_deployed_application_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_gateway_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_network_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_node_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_property_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_replica_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_secret_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_secret_value_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_service_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_service_partition_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_service_replica_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_service_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_sub_name_info_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/paged_volume_resource_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_analysis_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_backup_configuration_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_backup_entity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_data_loss_progress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_instance_count_scale_mechanism.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_load_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_primary_move_analysis_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_quorum_loss_progress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_reconfiguration_completed_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_reconfigured_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_restart_progress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partition_scheme_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/partitions_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/primary_replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/process_deactivated_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_batch_description_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_batch_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_metadata.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/provision_application_type_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/provision_application_type_description_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/provision_fabric_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/put_property_batch_operation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/reconfiguration_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/registry_credential.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/reliable_collections_ref.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/remote_replicator_acknowledgement_detail.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/remote_replicator_acknowledgement_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/remote_replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_impact_description_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_target_description_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_approve_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_cancel_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_delete_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_history.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_update_health_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/repair_task_update_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replica_status_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replicas_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replicator_queue_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resolved_service_endpoint.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resolved_service_partition.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resource_limits.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resource_requests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resource_requirements.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/restart_deployed_code_package_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/restart_node_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/restart_partition_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/restore_partition_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/restore_progress_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resume_application_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/resume_cluster_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/retention_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/rolling_upgrade_update_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/safety_check_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/scaling_mechanism_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/scaling_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/scaling_trigger_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secondary_active_replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secondary_idle_replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secondary_replicator_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_resource_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_resource_properties_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_value_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/secret_value_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/seed_node_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/selected_partition.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_backup_configuration_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_backup_entity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_correlation_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_deleted_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_fabric_client_ap_is_enums.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_from_template_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_state_chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_state_chunk_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_health_state_filter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_identity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_load_metric_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_name_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_partition_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_invalid_domain_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_non_partially_place_service_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_prefer_primary_domain_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_require_domain_distribution_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_placement_required_domain_policy_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_replica_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_replica_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_extension_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_health_policy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_health_policy_map_item.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_type_manifest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/service_update_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/services_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/setting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/simple_secret_resource_properties.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/singleton_partition_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/singleton_partition_scheme_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/start_cluster_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/started_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_replica_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_replica_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_replica_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_partition_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_replica_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_replica_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_replica_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_type_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateful_service_update_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_replica_health_report_created_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_replica_health_report_expired_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_replica_new_health_report_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_instance_health.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_instance_health_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_instance_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_partition_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_type_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stateless_service_update_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/stopped_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/string_property_value.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/successful_property_batch_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/system_application_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/tcp_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/test_error_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/time_based_backup_schedule_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/time_of_day.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/time_range.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/uniform_int64_range_partition_scheme_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/unplaced_replica_information.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/unprovision_application_type_description_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/unprovision_fabric_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/update_cluster_upgrade_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upgrade_domain_delta_nodes_check_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upgrade_domain_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upgrade_domain_nodes_health_evaluation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upgrade_orchestration_service_state.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upgrade_orchestration_service_state_summary.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upload_chunk_range.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upload_session.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/upload_session_info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/validation_failed_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/volume_provider_parameters_azure_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/volume_reference.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/volume_resource_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/wait_for_inbuild_replica_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/wait_for_primary_placement_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/wait_for_primary_swap_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/wait_for_reconfiguration_safety_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/models/waiting_chaos_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_application_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_application_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_code_package_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_code_package_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_gateway_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_gateway_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_network_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_network_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_secret_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_secret_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_secret_value_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_secret_value_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_service_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_service_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_service_replica_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_service_replica_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/operations/mesh_volume_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_mesh_volume_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/service_fabric_client_ap_is.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/operations/_service_fabric_client_ap_is_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customSDK/servicefabric/version.py" beforeDir="false" afterPath="$PROJECT_DIR$/customSDK/servicefabric/version.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/src/README.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/apiclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/apiclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_app_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_app_type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_chaos.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_chaos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_chaos_schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_chaos_schedule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_cluster.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_cluster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_cluster_upgrade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_cluster_upgrade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_compose.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_compose.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_health.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_health.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_property.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_property.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/custom_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/custom_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/helps/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/helps/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/app_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/app_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/chaos_schedule_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/chaos_schedule_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/chaos_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/chaos_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/cluster_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/cluster_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/custom_help_text_correctness_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/custom_help_text_correctness_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/health_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/health_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/request_generation_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/request_generation_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/service_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/service_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sfctl/tests/version_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sfctl/tests/version_test.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="request_generation_body_validation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/request_generation_body_validation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="4" selection-start-line="10" selection-end-line="10" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chaos_schedule_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/chaos_schedule_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1564">
+              <caret line="93" selection-start-line="93" selection-end-line="93" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_cluster.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/custom_cluster.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="268" column="31" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
+              <folding>
+                <element signature="e#363#400#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_help_text_correctness_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/custom_help_text_correctness_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="207" lean-forward="true" selection-start-line="207" selection-end-line="207" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cluster_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/cluster_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="63" column="62" selection-start-line="63" selection-start-column="62" selection-end-line="63" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chaos_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/chaos_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="e#360#375#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_app_type.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/custom_app_type.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-721">
+              <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+              <folding>
+                <element signature="e#366#401#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_compose.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/custom_compose.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sfctl/tests/app_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="100" selection-start-line="100" selection-end-line="100" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>upload_to_nativ</find>
+      <find>export_sf_</find>
+      <find>ContainerAPIRequestBody</find>
+      <find>gateway</find>
+      <find>mesh_gateway</find>
+      <find>from</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/README.rst" />
+        <option value="$PROJECT_DIR$/src/sfctl/helps/main.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/apiclient.py" />
+        <option value="$PROJECT_DIR$/src/setup.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_app.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_container.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/version_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/service_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/request_generation_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/health_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_service.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_chaos.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_chaos_schedule.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_cluster_upgrade.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_health.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_property.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/cluster_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_app_type.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_compose.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/app_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/chaos_schedule_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/chaos_test.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/custom_cluster.py" />
+        <option value="$PROJECT_DIR$/src/sfctl/tests/custom_help_text_correctness_test.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-2568" />
+    <option name="y" value="-5" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="customSDK" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="customSDK" type="462c0819:PsiDirectoryNode" />
+              <item name="servicefabric" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="azure" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="azure" type="462c0819:PsiDirectoryNode" />
+              <item name="servicefabric" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sfctl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="service-fabric-cli" type="b2602c69:ProjectViewProjectNode" />
+              <item name="service-fabric-cli" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sfctl" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\service-fabric-cli\customSDK\servicefabric" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5992a7f9-76c8-49c7-b11f-e4c5bc9393f2" name="Default" comment="" />
+      <created>1560792529419</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1560792529419</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-2568" y="-5" width="2576" height="1416" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24980299" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.4405321" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/env/Lib/site-packages/azure/servicefabric/service_fabric_client_ap_is.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/azure-servicefabric-6.5.0.0/azure-servicefabric-6.5.0.0/azure/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/azure-servicefabric-6.5.0.0/azure-servicefabric-6.5.0.0/azure/servicefabric/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+          <folding>
+            <element signature="e#397#406#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_azure-servicefabric-6.4.0.0 (1).zip/azure-servicefabric-6.4.0.0/azure/servicefabric/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_azure-servicefabric-6.4.0.0 (1).zip/azure-servicefabric-6.4.0.0/azure/servicefabric/models/aad_metadata.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/azure-servicefabric-6.5.0.0/azure-servicefabric-6.5.0.0/azure/servicefabric/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="1206" column="28" selection-start-line="1206" selection-start-column="5" selection-end-line="1206" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/commands.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6069">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#471#506#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5984">
+          <caret line="352" column="35" selection-start-line="352" selection-start-column="35" selection-end-line="352" selection-end-column="35" />
+          <folding>
+            <element signature="e#361#398#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_container.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/version_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/service_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-245">
+          <caret line="202" column="39" selection-start-line="202" selection-start-column="39" selection-end-line="202" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/scenario_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#357#388#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/request_generation_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="8" />
+          <folding>
+            <element signature="e#515#552#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/mock_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-680">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#361#389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/azure/servicefabric/service_fabric_client_ap_is.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="45" column="33" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/msrest/service_client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3905">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/apiclient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="16" />
+          <folding>
+            <element signature="e#365#396#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_chaos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="102" column="35" selection-start-line="102" selection-start-column="35" selection-end-line="102" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_chaos_schedule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="173" column="35" selection-start-line="173" selection-start-column="35" selection-end-line="173" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_cluster_upgrade.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="178" column="35" selection-start-line="178" selection-start-column="35" selection-end-line="178" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_exceptions.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_is.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_property.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_secret_value.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="651" column="35" selection-start-line="651" selection-start-column="35" selection-end-line="651" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_settings.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/entry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-738" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/params.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#366#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/util.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_health.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="77" column="35" selection-start-line="77" selection-start-column="35" selection-end-line="77" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_deployment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-466">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#384#421#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/auth.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#390#401#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/site-packages/azure/servicefabric/models/time_of_day.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/command_processing_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2132" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/health_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="75" column="39" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+          <folding>
+            <element signature="e#360#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/help_text_test.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/helpers.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/live_scenario_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1163">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#397#406#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/mesh_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#351#366#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/request_generation_body_validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_app_type.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-721">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+          <folding>
+            <element signature="e#366#401#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_compose.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/app_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/chaos_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#360#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/chaos_schedule_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1564">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/custom_cluster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="268" column="31" selection-start-line="268" selection-start-column="31" selection-end-line="268" selection-end-column="31" />
+          <folding>
+            <element signature="e#363#400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/cluster_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="63" column="62" selection-start-line="63" selection-start-column="62" selection-end-line="63" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/Lib/weakref.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1581" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sfctl/tests/custom_help_text_correctness_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="207" lean-forward="true" selection-start-line="207" selection-end-line="207" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -21,9 +21,7 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_time_of_day(self):
         """Parse a valid TimeOfDay"""
-        from azure.servicefabric.models.time_of_day import (
-            TimeOfDay
-        )
+        from azure.servicefabric.models import TimeOfDay
 
         res = sf_c.parse_time_of_day({
             'Hour': 23,
@@ -53,10 +51,8 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_time_range(self):
         """Parse a valid time range"""
-        from azure.servicefabric.models.time_range import (
-            TimeRange
-        )
-        from azure.servicefabric.models.time_of_day import (
+        from azure.servicefabric.models import (
+            TimeRange,
             TimeOfDay
         )
 
@@ -91,10 +87,8 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_time_ranges(self):
         """Parse a list of valid time ranges"""
-        from azure.servicefabric.models.time_range import (
-            TimeRange
-        )
-        from azure.servicefabric.models.time_of_day import (
+        from azure.servicefabric.models import (
+            TimeRange,
             TimeOfDay
         )
 
@@ -152,7 +146,7 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_days(self):
         """Parse a valid active days"""
-        from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
+        from azure.servicefabric.models import (
             ChaosScheduleJobActiveDaysOfWeek
         )
 
@@ -181,17 +175,11 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_job(self):
         """Parse a valid ChaosScheduleJob"""
-        from azure.servicefabric.models.time_range import (
-            TimeRange
-        )
-        from azure.servicefabric.models.time_of_day import (
-            TimeOfDay
-        )
-        from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
+        from azure.servicefabric.models import (
+            TimeRange,
+            ChaosScheduleJob,
+            TimeOfDay,
             ChaosScheduleJobActiveDaysOfWeek
-        )
-        from azure.servicefabric.models.chaos_schedule_job import (
-            ChaosScheduleJob
         )
 
         res = sf_c.parse_job({
@@ -269,18 +257,13 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_jobs(self):
         #pylint: disable=too-many-statements
         """Parse a valid list of ChaosScheduleJobs"""
-        from azure.servicefabric.models.time_range import (
-            TimeRange
-        )
-        from azure.servicefabric.models.time_of_day import (
-            TimeOfDay
-        )
-        from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
-            ChaosScheduleJobActiveDaysOfWeek
-        )
-        from azure.servicefabric.models.chaos_schedule_job import (
+        from azure.servicefabric.models import (
+            TimeRange,
+            ChaosScheduleJobActiveDaysOfWeek,
+            TimeOfDay,
             ChaosScheduleJob
         )
+
 
         res = sf_c.parse_jobs([
             {
@@ -403,19 +386,11 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_chaos_parameters_dictionary(self):
         #pylint: disable=too-many-statements
         """Parse a valid ChaosParametersDictionary"""
-        from azure.servicefabric.models.chaos_parameters_dictionary_item import (
-            ChaosParametersDictionaryItem
-        )
-        from azure.servicefabric.models.chaos_parameters import (
-            ChaosParameters
-        )
-        from azure.servicefabric.models.cluster_health_policy import (
-            ClusterHealthPolicy
-        )
-        from azure.servicefabric.models.chaos_target_filter import (
-            ChaosTargetFilter
-        )
-        from azure.servicefabric.models.chaos_context import (
+        from azure.servicefabric.models import (
+            ChaosParametersDictionaryItem,
+            ChaosParameters,
+            ClusterHealthPolicy,
+            ChaosTargetFilter,
             ChaosContext
         )
 
