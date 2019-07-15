@@ -69,9 +69,7 @@ def parse_active_days(active_days):
     ...
     "Saturday": bool
     """
-    from azure.servicefabric.models import (
-        ChaosScheduleJobActiveDaysOfWeek
-    )
+    from azure.servicefabric.models import ChaosScheduleJobActiveDaysOfWeek
 
     if active_days is None:
         return None
@@ -100,9 +98,7 @@ def parse_job(job):
     "Days": a dictionary like active_days
     "Times": a list like time_ranges
     """
-    from azure.servicefabric.models import (
-        ChaosScheduleJob
-    )
+    from azure.servicefabric.models import ChaosScheduleJob
 
     if job is None:
         return None
@@ -139,13 +135,8 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
     "Value": a dictionary of a chaos_parameters
     """
 
-    from azure.servicefabric.models import (
-        ChaosParametersDictionaryItem
-    )
-
-    from sfctl.custom_chaos import (
-        parse_chaos_parameters
-    )
+    from azure.servicefabric.models import ChaosParametersDictionaryItem
+    from sfctl.custom_chaos import parse_chaos_parameters
 
     if chaos_parameters_dictionary is None:
         return list()
@@ -171,9 +162,7 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
     Set the Chaos Schedule currently in use by Chaos.
     Chaos will automatically schedule runs based on the Chaos Schedule.
     """
-    from azure.servicefabric.models import (
-        ChaosSchedule
-    )
+    from azure.servicefabric.models import ChaosSchedule
 
     if chaos_parameters_dictionary is None:
         chaos_parameters_dictionary = list()

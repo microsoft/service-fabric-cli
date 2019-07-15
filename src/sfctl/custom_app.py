@@ -231,9 +231,7 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
 
 def parse_app_params(formatted_params):
     """Parse application parameters from string"""
-    from azure.servicefabric.models import (
-        ApplicationParameter
-    )
+    from azure.servicefabric.models import ApplicationParameter
 
     if formatted_params is None:
         return None
@@ -247,9 +245,7 @@ def parse_app_params(formatted_params):
 
 def parse_app_metrics(formatted_metrics):
     """Parse application metrics description from string"""
-    from azure.servicefabric.models import (
-        ApplicationMetricDescription
-    )
+    from azure.servicefabric.models import ApplicationMetricDescription
 
     if formatted_metrics is None:
         return None
@@ -300,12 +296,7 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
     descriptions. A metric is defined as a name, associated with a set of
     capacities for each node that the application exists on.
     """
-    from azure.servicefabric.models import (
-        ApplicationDescription
-    )
-    from azure.servicefabric.models import (
-        ApplicationCapacityDescription
-    )
+    from azure.servicefabric.models import  ApplicationDescription, ApplicationCapacityDescription
 
     if (any([min_node_count, max_node_count]) and
             not all([min_node_count, max_node_count])):
@@ -344,15 +335,10 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         warning_as_error=False,
         max_unhealthy_apps=0, default_service_health_policy=None,
         service_health_policy=None, timeout=60):
-    from azure.servicefabric.models import (
-        ApplicationUpgradeDescription
-    )
-    from azure.servicefabric.models import (
-        MonitoringPolicyDescription
-    )
-    from azure.servicefabric.models import (
-        ApplicationHealthPolicy
-    )
+    from azure.servicefabric.models import (ApplicationUpgradeDescription,
+                                            MonitoringPolicyDescription,
+                                            ApplicationHealthPolicy)
+
     from sfctl.custom_health import (parse_service_health_policy_map,
                                      parse_service_health_policy)
 
