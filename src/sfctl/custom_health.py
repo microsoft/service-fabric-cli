@@ -10,9 +10,7 @@ from knack.util import CLIError
 
 def parse_service_health_policy(policy):
     """Parse a health service policy from string"""
-    from azure.servicefabric.models import (
-        ServiceTypeHealthPolicy
-    )
+    from azure.servicefabric.models import ServiceTypeHealthPolicy
 
     if policy is None:
         return None

@@ -29,9 +29,9 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
         application package in the image store.
     """
 
-    from azure.servicefabric.models import ProvisionApplicationTypeDescription, \
-        ExternalStoreProvisionApplicationTypeDescription, FabricErrorException
-
+    from azure.servicefabric.models import (ProvisionApplicationTypeDescription,
+                                            ExternalStoreProvisionApplicationTypeDescription,
+                                            FabricErrorException)
 
     provision_description = None
 

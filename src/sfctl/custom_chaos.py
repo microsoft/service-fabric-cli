@@ -61,9 +61,7 @@ def parse_chaos_context(formatted_chaos_context):
 
 def parse_chaos_target_filter(formatted_chaos_target_filter):
     """"Parse a chaos target filter from a formatted filter"""
-    from azure.servicefabric.models import (
-        ChaosTargetFilter
-    )
+    from azure.servicefabric.models import ChaosTargetFilter
 
     if formatted_chaos_target_filter is None:
         return None
