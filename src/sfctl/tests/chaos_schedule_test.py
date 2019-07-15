@@ -51,10 +51,7 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_time_range(self):
         """Parse a valid time range"""
-        from azure.servicefabric.models import (
-            TimeRange,
-            TimeOfDay
-        )
+        from azure.servicefabric.models import TimeRange, TimeOfDay
 
         res = sf_c.parse_time_range({
             'StartTime': {
@@ -87,10 +84,7 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_time_ranges(self):
         """Parse a list of valid time ranges"""
-        from azure.servicefabric.models import (
-            TimeRange,
-            TimeOfDay
-        )
+        from azure.servicefabric.models import TimeRange, TimeOfDay
 
         res = sf_c.parse_active_time_ranges(
             [
@@ -146,9 +140,7 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_days(self):
         """Parse a valid active days"""
-        from azure.servicefabric.models import (
-            ChaosScheduleJobActiveDaysOfWeek
-        )
+        from azure.servicefabric.models import ChaosScheduleJobActiveDaysOfWeek
 
         res = sf_c.parse_active_days({
             'Monday': True,
@@ -175,12 +167,10 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_job(self):
         """Parse a valid ChaosScheduleJob"""
-        from azure.servicefabric.models import (
-            TimeRange,
-            ChaosScheduleJob,
-            TimeOfDay,
-            ChaosScheduleJobActiveDaysOfWeek
-        )
+        from azure.servicefabric.models import (TimeRange,
+                                                ChaosScheduleJob,
+                                                TimeOfDay,
+                                                ChaosScheduleJobActiveDaysOfWeek)
 
         res = sf_c.parse_job({
             'ChaosParameters': 'myParametersName',
@@ -257,12 +247,10 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_jobs(self):
         #pylint: disable=too-many-statements
         """Parse a valid list of ChaosScheduleJobs"""
-        from azure.servicefabric.models import (
-            TimeRange,
-            ChaosScheduleJobActiveDaysOfWeek,
-            TimeOfDay,
-            ChaosScheduleJob
-        )
+        from azure.servicefabric.models import (TimeRange,
+                                                ChaosScheduleJobActiveDaysOfWeek,
+                                                TimeOfDay,
+                                                ChaosScheduleJob)
 
 
         res = sf_c.parse_jobs([
@@ -386,13 +374,11 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_chaos_parameters_dictionary(self):
         #pylint: disable=too-many-statements
         """Parse a valid ChaosParametersDictionary"""
-        from azure.servicefabric.models import (
-            ChaosParametersDictionaryItem,
-            ChaosParameters,
-            ClusterHealthPolicy,
-            ChaosTargetFilter,
-            ChaosContext
-        )
+        from azure.servicefabric.models import (ChaosParametersDictionaryItem,
+                                                ChaosParameters,
+                                                ClusterHealthPolicy,
+                                                ChaosTargetFilter,
+                                                ChaosContext)
 
         res = sf_c.parse_chaos_params_dictionary([
             {

@@ -21,9 +21,7 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_svc_health_policy(self):
         """Parse single health policy item"""
-        from azure.servicefabric.models import (
-            ServiceTypeHealthPolicy
-        )
+        from azure.servicefabric.models import ServiceTypeHealthPolicy
 
         res = sf_c.parse_service_health_policy({
             'max_percent_unhealthy_partitions_per_service': 10,

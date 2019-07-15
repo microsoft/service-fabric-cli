@@ -238,6 +238,6 @@ class AppTests(unittest.TestCase):
                 # however, the mock server can be a bit slow, taking an extra second from receiving
                 # the request to start processing it. Linux does not seem to have this problem.
                 # Issue seen on Windows only. If testing on windows, change the 3 seconds to 4.
-                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*4, delta=2)
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
 
                 iteration += 1
