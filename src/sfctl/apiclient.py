@@ -7,9 +7,8 @@
 """Azure Service Fabric API client factory"""
 
 from knack.util import CLIError
-from azure.servicefabric.service_fabric_client_ap_is import (
-    ServiceFabricClientAPIs
-)
+from azure.servicefabric import ServiceFabricClientAPIs
+
 from sfctl.auth import (ClientCertAuthentication, AdalAuthentication)
 from sfctl.config import (security_type, ca_cert_info, cert_info,
                           client_endpoint, no_verify_setting)

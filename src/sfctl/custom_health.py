@@ -10,7 +10,7 @@ from knack.util import CLIError
 
 def parse_service_health_policy(policy):
     """Parse a health service policy from string"""
-    from azure.servicefabric.models.service_type_health_policy import (
+    from azure.servicefabric.models import (
         ServiceTypeHealthPolicy
     )
 
@@ -27,7 +27,7 @@ def parse_service_health_policy(policy):
 def parse_service_health_policy_map(formatted_policy):
     """Parse a service health policy map from a string"""
 
-    from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem  #pylint: disable=line-too-long
+    from azure.servicefabric.models import ServiceTypeHealthPolicyMapItem  #pylint: disable=line-too-long
 
     if formatted_policy is None:
         return None
@@ -52,7 +52,7 @@ def parse_service_health_policy_map(formatted_policy):
 def parse_app_health_map(formatted_map):
     """Parse application health map from string"""
 
-    from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem #pylint: disable=line-too-long
+    from azure.servicefabric.models import ApplicationTypeHealthPolicyMapItem #pylint: disable=line-too-long
 
     if not formatted_map:
         return None
@@ -75,7 +75,7 @@ def create_health_information(source_id, health_property, health_state, ttl, #py
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
-    from azure.servicefabric.models.health_information import HealthInformation
+    from azure.servicefabric.models import HealthInformation
 
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Error', 'Unknown']:
         raise CLIError('Invalid health state specified')

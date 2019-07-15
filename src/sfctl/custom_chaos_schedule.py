@@ -13,7 +13,7 @@ def parse_time_of_day(time_of_day):
     "Hour": int
     "Minute": int
     """
-    from azure.servicefabric.models.time_of_day import TimeOfDay
+    from azure.servicefabric.models import TimeOfDay
 
     if not time_of_day:
         return None
@@ -33,7 +33,7 @@ def parse_time_range(time_range):
     "StartTime": dictionary like time_of_day
     "EndTime": dictionary like time_of_day
     """
-    from azure.servicefabric.models.time_range import TimeRange
+    from azure.servicefabric.models import TimeRange
 
     if time_range is None:
         return None
@@ -69,7 +69,7 @@ def parse_active_days(active_days):
     ...
     "Saturday": bool
     """
-    from azure.servicefabric.models.chaos_schedule_job_active_days_of_week import (
+    from azure.servicefabric.models import (
         ChaosScheduleJobActiveDaysOfWeek
     )
 
@@ -100,7 +100,7 @@ def parse_job(job):
     "Days": a dictionary like active_days
     "Times": a list like time_ranges
     """
-    from azure.servicefabric.models.chaos_schedule_job import (
+    from azure.servicefabric.models import (
         ChaosScheduleJob
     )
 
@@ -139,7 +139,7 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
     "Value": a dictionary of a chaos_parameters
     """
 
-    from azure.servicefabric.models.chaos_parameters_dictionary_item import (
+    from azure.servicefabric.models import (
         ChaosParametersDictionaryItem
     )
 
@@ -171,7 +171,7 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
     Set the Chaos Schedule currently in use by Chaos.
     Chaos will automatically schedule runs based on the Chaos Schedule.
     """
-    from azure.servicefabric.models.chaos_schedule import (
+    from azure.servicefabric.models import (
         ChaosSchedule
     )
 

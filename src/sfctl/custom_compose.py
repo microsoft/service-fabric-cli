@@ -19,7 +19,7 @@ def read_file(file_path):
 
 def repo_creds(username, encrypted_password, has_pass):
     """Get a representation of the container repository credentials"""
-    from azure.servicefabric.models.registry_credential import RegistryCredential
+    from azure.servicefabric.models import RegistryCredential
     from getpass import getpass
 
     # Wonky since we allow empty string as an encrypted passphrase
@@ -50,7 +50,7 @@ def create_app_health_policy(
     """Create an application health policy description"""
     from sfctl.custom_health import (parse_service_health_policy,
                                      parse_service_health_policy_map)
-    from azure.servicefabric.models.application_health_policy import ApplicationHealthPolicy
+    from azure.servicefabric.models import ApplicationHealthPolicy
 
     default_svc_type_policy = parse_service_health_policy(
         default_svc_health_map
@@ -67,8 +67,7 @@ def create_app_health_policy(
 
 def create(client, deployment_name, file_path, user=None, has_pass=False, #pylint: disable=missing-docstring,too-many-arguments
            encrypted_pass=None, timeout=60):
-    from azure.servicefabric.models.create_compose_deployment_description \
-        import CreateComposeDeploymentDescription
+    from azure.servicefabric.models import CreateComposeDeploymentDescription
 
     file_contents = read_file(file_path)
     credentials = repo_creds(user, encrypted_pass, has_pass)
@@ -87,8 +86,7 @@ def upgrade(client, deployment_name, file_path, user=None, has_pass=False, #pyli
             warning_as_error=False, unhealthy_app=0,
             default_svc_type_health_map=None, svc_type_health_map=None,
             timeout=60):
-    from azure.servicefabric.models.compose_deployment_upgrade_description \
-        import ComposeDeploymentUpgradeDescription
+    from azure.servicefabric.models import ComposeDeploymentUpgradeDescription
     from sfctl.custom_cluster_upgrade import create_monitoring_policy
 
     file_contents = read_file(file_path)
