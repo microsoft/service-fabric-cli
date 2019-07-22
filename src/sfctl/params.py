@@ -251,7 +251,7 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
 
     with ArgumentsContext(self, 'mesh secret') as arg_context:
         arg_context.argument('secret_resource_name', options_list=('-n', '--name'),
-                             help="The name of the secret")
+                             help="The name of the secret resource")
 
     with ArgumentsContext(self, 'mesh secretvalue') as arg_context:
         arg_context.argument('secret_resource_name', options_list=('-n', '--secret-name'),

@@ -10,7 +10,7 @@ from knack.help_files import helps
 
 helps['compose create'] = """
     type: command
-    short-summary: Creates a Service Fabric compose deployment
+    short-summary: Creates a Service Fabric compose deployment.
     parameters:
         - name: --deployment-name
           type: string
