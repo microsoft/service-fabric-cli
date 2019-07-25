@@ -8,7 +8,7 @@
 
 from __future__ import print_function
 import json
-from azure.servicefabric.models.container_api_request_body import ContainerApiRequestBody
+from azure.servicefabric.models import ContainerApiRequestBody
 
 def invoke_api( # pylint: disable=too-many-arguments
         client,

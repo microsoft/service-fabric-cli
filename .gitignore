@@ -113,3 +113,6 @@ recordings
 
 # Ignore "meshDeploy" folder as this is used to store the generated JSON files for resource deployment
 meshDeploy
+
+#pycharm
+.idea/

@@ -11,9 +11,8 @@ from knack.util import CLIError
 
 def correlation_desc(correlated_service, correlation):
     """Get a service correlation description"""
-    from azure.servicefabric.models.service_correlation_description import (
-        ServiceCorrelationDescription
-    )
+    from azure.servicefabric.models import ServiceCorrelationDescription
+
     if not any([correlated_service, correlation]):
         return None
 
@@ -27,9 +26,7 @@ def correlation_desc(correlated_service, correlation):
 
 def parse_load_metrics(formatted_metrics):
     """Parse a service load metric description from a string"""
-    from azure.servicefabric.models.service_load_metric_description import (
-        ServiceLoadMetricDescription
-    )
+    from azure.servicefabric.models import ServiceLoadMetricDescription
 
     s_load_list = None
     if formatted_metrics:
@@ -55,15 +52,10 @@ def parse_load_metrics(formatted_metrics):
 def parse_placement_policies(formatted_placement_policies):
     """"Parse a placement policy description from a formatted policy"""
 
-    from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription  # pylint: disable=line-too-long
-
-    from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description \
-        import ServicePlacementPreferPrimaryDomainPolicyDescription
-
-    from azure.servicefabric.models.service_placement_required_domain_policy_description \
-        import ServicePlacementRequiredDomainPolicyDescription
-
-    from azure.servicefabric.models.service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription, # pylint: disable=line-too-long
+                                            ServicePlacementPreferPrimaryDomainPolicyDescription,
+                                            ServicePlacementRequiredDomainPolicyDescription,
+                                            ServicePlacementRequireDomainDistributionPolicyDescription) # pylint: disable=line-too-long
 
     if formatted_placement_policies:
         policy_list = []
@@ -191,9 +183,9 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,  # pylin
                            int_scheme_low, int_scheme_high, int_scheme_count,
                            singleton_scheme):
     """Create a partition scheme"""
-    from azure.servicefabric.models.named_partition_scheme_description import NamedPartitionSchemeDescription  # pylint: disable=line-too-long
-    from azure.servicefabric.models.singleton_partition_scheme_description import SingletonPartitionSchemeDescription  # pylint:disable=line-too-long
-    from azure.servicefabric.models.uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription  # pylint:disable=line-too-long
+    from azure.servicefabric.models import (NamedPartitionSchemeDescription,
+                                            SingletonPartitionSchemeDescription,
+                                            UniformInt64RangePartitionSchemeDescription)
 
     if named_scheme and not named_scheme_list:
         raise CLIError('When specifying named partition scheme, must include '
@@ -228,12 +220,8 @@ def validate_activation_mode(activation_mode):
 
 def parse_scaling_mechanism(scaling_mechanism):
     """"Parse a scaling mechanism description"""
-    from azure.servicefabric.models.add_remove_incremental_named_partition_scaling_mechanism import (  # pylint: disable=line-too-long
-        AddRemoveIncrementalNamedPartitionScalingMechanism
-    )
-    from azure.servicefabric.models.partition_instance_count_scale_mechanism import (
-        PartitionInstanceCountScaleMechanism
-    )
+    from azure.servicefabric.models import (AddRemoveIncrementalNamedPartitionScalingMechanism,
+                                            PartitionInstanceCountScaleMechanism)
 
     if scaling_mechanism:
         p_kind = scaling_mechanism.get('kind')
@@ -265,12 +253,8 @@ def parse_scaling_mechanism(scaling_mechanism):
 
 def parse_scaling_trigger(scaling_trigger):
     """"Parse a scaling trigger description"""
-    from azure.servicefabric.models.average_partition_load_scaling_trigger import (
-        AveragePartitionLoadScalingTrigger
-    )
-    from azure.servicefabric.models.average_service_load_scaling_trigger import (
-        AverageServiceLoadScalingTrigger
-    )
+    from azure.servicefabric.models import (AveragePartitionLoadScalingTrigger,
+                                            AverageServiceLoadScalingTrigger)
 
     if scaling_trigger:
         p_kind = scaling_trigger.get('kind')
@@ -307,7 +291,7 @@ def parse_scaling_trigger(scaling_trigger):
 
 def parse_scaling_policy(formatted_scaling_policy):
     """"Parse a scaling policy description from a formatted policy"""
-    from azure.servicefabric.models.scaling_policy_description import ScalingPolicyDescription
+    from azure.servicefabric.models import ScalingPolicyDescription
     scaling_list = None
     if formatted_scaling_policy:
         scaling_list = []
@@ -409,12 +393,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
     """
-    from azure.servicefabric.models.stateless_service_description import (
-        StatelessServiceDescription
-    )
-    from azure.servicefabric.models.stateful_service_description import (
-        StatefulServiceDescription
-    )
+    from azure.servicefabric.models import StatelessServiceDescription, StatefulServiceDescription
 
     validate_service_create_params(stateful, stateless, singleton_scheme,
                                    int_scheme, named_scheme, instance_count,
@@ -559,8 +538,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     applies to stateful services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
     """
-    from azure.servicefabric.models.stateful_service_update_description import StatefulServiceUpdateDescription  # pylint: disable=line-too-long
-    from azure.servicefabric.models.stateless_service_update_description import StatelessServiceUpdateDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import (StatefulServiceUpdateDescription,
+                                            StatelessServiceUpdateDescription)
 
     validate_update_service_params(stateless, stateful,
                                    target_replica_set_size,
@@ -612,9 +591,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
 def parse_package_sharing_policies(formatted_policies):
     """Parse package sharing policy description from a JSON encoded set of
     policies"""
-    from azure.servicefabric.models.package_sharing_policy_info import (
-        PackageSharingPolicyInfo
-    )
+    from azure.servicefabric.models import PackageSharingPolicyInfo
     if not formatted_policies:
         return None
 
@@ -649,7 +626,7 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
     is to be shared. The scope can be either 'None', 'All', 'Code', 'Config' or
     'Data'.
     """
-    from azure.servicefabric.models.deploy_service_package_to_node_description import DeployServicePackageToNodeDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import DeployServicePackageToNodeDescription
 
     list_psps = parse_package_sharing_policies(share_policy)
 

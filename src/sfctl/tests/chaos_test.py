@@ -20,9 +20,7 @@ class ChaosTests(unittest.TestCase):
 
     def test_parse_populated_context(self):
         """Parse context with contents"""
-        from azure.servicefabric.models.chaos_context import (
-            ChaosContext
-        )
+        from azure.servicefabric.models import ChaosContext
 
         wrapper = sf_c.parse_chaos_context({
             'key1': 'value1',

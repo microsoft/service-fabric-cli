@@ -78,9 +78,7 @@ class AppTests(unittest.TestCase):
 
     def test_parse_single_app_param(self):
         """Parse app params returns a single parameter successfully"""
-        from azure.servicefabric.models.application_parameter import (
-            ApplicationParameter
-        )
+        from azure.servicefabric.models import ApplicationParameter
 
         res = sf_c.parse_app_params({'test': 'test2'})
         self.assertEqual(len(res), 1)
@@ -99,9 +97,7 @@ class AppTests(unittest.TestCase):
 
     def test_parse_app_metrics_single(self):
         """Parse app metrics returns a single metric successfully"""
-        from azure.servicefabric.models.application_metric_description import (
-            ApplicationMetricDescription
-        )
+        from azure.servicefabric.models import ApplicationMetricDescription
 
         res = sf_c.parse_app_metrics([{'name': 'test',
                                        'maximum_capacity': '3',

@@ -12,13 +12,14 @@ from knack.help_files import helps
 helps['application provision'] = """
     type: command
     short-summary: Provisions or registers a Service Fabric application type with the
-        cluster using the .sfpkg package in the
-        external store or using the application package in the image store.
+        cluster using the '.sfpkg' package in the external store or using the
+        application package in the image store.
     long-summary:
-        Provisions a Service Fabric application type with the cluster.
-        This is required before any new applications can be instantiated.
-        The provision operation can be performed either on the application package specified
-        by the relativePathInImageStore, or by using the URI of the external .sfpkg.
+        Provisions a Service Fabric application type with the cluster. The
+        provision is required before any new applications can be instantiated.
+        The provision operation can be performed either on the application
+        package specified by the relativePathInImageStore, or by using the URI
+        of the external '.sfpkg'.
         Unless --external-provision is set, this command will expect image store provision.
     parameters:
         - name: --external-provision

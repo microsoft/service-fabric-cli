@@ -10,7 +10,7 @@
 def naming_property_put(client, name_id, property_name,  # pylint: disable=too-many-arguments
                         value, custom_id_type=None, timeout=60):
     """Custom commands for creating or updating a Service Fabric property"""
-    from azure.servicefabric.models.property_description import PropertyDescription
+    from azure.servicefabric.models import PropertyDescription
 
     desc = PropertyDescription(property_name=property_name,
                                value=value,

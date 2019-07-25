@@ -86,10 +86,10 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
     def test_parse_all_placement_policy_types(self):
         """Parse all placement policy types"""
 
-        from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description import ServicePlacementPreferPrimaryDomainPolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_required_domain_policy_description import ServicePlacementRequiredDomainPolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription  # pylint: disable=line-too-long
+        from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription,  # pylint: disable=line-too-long
+                                                ServicePlacementPreferPrimaryDomainPolicyDescription, # pylint: disable=line-too-long
+                                                ServicePlacementRequiredDomainPolicyDescription,  # pylint: disable=line-too-long
+                                                ServicePlacementRequireDomainDistributionPolicyDescription)  # pylint: disable=line-too-long
 
         res = sf_c.parse_placement_policies([{
             'type': 'NonPartiallyPlaceService'
@@ -198,9 +198,9 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
 
     def test_parse_valid_partition_policy(self):
         """Parsing valid partition polices returns correct policies"""
-        from azure.servicefabric.models.named_partition_scheme_description import NamedPartitionSchemeDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.singleton_partition_scheme_description import SingletonPartitionSchemeDescription  # pylint:disable=line-too-long
-        from azure.servicefabric.models.uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription  # pylint:disable=line-too-long
+        from azure.servicefabric.models import (NamedPartitionSchemeDescription,  # pylint: disable=line-too-long
+                                                SingletonPartitionSchemeDescription,  # pylint:disable=line-too-long
+                                                UniformInt64RangePartitionSchemeDescription)  # pylint:disable=line-too-long
 
         res = sf_c.parse_partition_policy(True, ['test'], False, None, None,
                                           None, False)
