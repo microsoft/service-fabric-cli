@@ -16,9 +16,9 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased	
-----------	
-- Placeholder text	
+Unreleased
+----------
+- Placeholder text
 
 7.1.0
 ----------
