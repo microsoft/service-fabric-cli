@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased	
+----------	
+- Placeholder text	
+
 7.1.0
 ----------
 - Increase default timeout of application upload to 300 seconds, and allow upload timeouts to be configurable. The new timeout will be an overall operation timeout for all uploads, rather than individual operation timeouts of 60 seconds as existed before. Improvements to help text (#131)
