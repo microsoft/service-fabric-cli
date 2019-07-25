@@ -20,6 +20,7 @@ helps['application provision'] = """
         The provision operation can be performed either on the application
         package specified by the relativePathInImageStore, or by using the URI
         of the external '.sfpkg'.
+        Unless --external-provision is set, this command will expect image store provision.
     parameters:
         - name: --external-provision
           type: string
