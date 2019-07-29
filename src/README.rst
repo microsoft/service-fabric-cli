@@ -22,7 +22,7 @@ Unreleased
 
 8.0.0
 ----------
-- Update imports for 6.5 (#195)
+- Update imports for Service fabric runtime version 6.5 (#195)
 
 7.1.0
 ----------
