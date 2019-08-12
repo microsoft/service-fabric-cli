@@ -389,6 +389,15 @@ def _check_folder_structure_and_get_dirs(app_dir):
             if child.tag.endswith("CodePackage") or \
                     child.tag.endswith("ConfigPackage") or child.tag.endswith("DataPackage"):
 
+                # TODO: we want to accept compressed packages.
+                # Check if the package is compressed (is there an API that tells you if it is? or is it looking
+                # for .zip? what about linux?)
+                # If it's already compressed, then mark a bool somewhere that says that this package is already
+                # compressed, and expect that we just upload the entire package without copying to any location
+                # In this case, we would not copy to output dir, and just upload. For partially compressed,
+                # we should compress just those and throw the compressed in the output folder
+                # For the case where there is no copy needed, we should print a statement letting the user know.
+
                 folder_name = child.attrib.get("Name")
                 folder_to_compress = os.path.join(service_package_path, folder_name)
 
@@ -454,8 +463,7 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                                                 '{0}. Allow? ["y", "n"]: ', created_dir_path)):
                 shutil.rmtree(created_dir_path)
             else:
-                # We can consider adding an option to number the packages, but I
-                # don't think that's worth the effort right now
+                # We can consider adding an option to number the packages in the future.
                 print('Stopping upload operation. Cannot compress to the following location '
                       'because the path already exists: ' + created_dir_path)
                 return
