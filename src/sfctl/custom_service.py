@@ -101,12 +101,12 @@ def parse_placement_policies(formatted_placement_policies):
 def validate_move_cost(move_cost):
     """Validate move cost argument"""
 
-    if move_cost not in [None, 'Zero', 'Low', 'Medium', 'High']:
+    if move_cost not in [None, 'Zero', 'Low', 'Medium', 'High', 'VeryHigh']:
         raise CLIError('Invalid move cost specified')
 
 
 def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
-                   standby_replica_keep=None):
+                   standby_replica_keep=None, service_placement_time=None):
     """Calculate an integer representation of flag arguments for stateful
     services"""
 
@@ -117,6 +117,8 @@ def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
         flag_sum += 2
     if standby_replica_keep is not None:
         flag_sum += 4
+    if service_placement_time is not None:
+        flag_sum += 8
     return flag_sum
 
 
@@ -124,7 +126,7 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
-        metrics=None, move_cost=None, scaling_policy=None):
+        metrics=None, move_cost=None, scaling_policy=None,service_placement_time=None):
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
@@ -151,6 +153,8 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         flag_sum += 512
     if scaling_policy is not None:
         flag_sum += 1024
+    if service_placement_time is not None:
+        flag_sum += 2048
     return flag_sum
 
 
@@ -321,7 +325,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         target_replica_set_size=None, min_replica_set_size=None,
         replica_restart_wait=None, quorum_loss_wait=None,
         stand_by_replica_keep=None, no_persisted_state=False,
-        instance_count=None, timeout=60, scaling_policies=None):
+        instance_count=None, timeout=60, scaling_policies=None, service_placement_time=None):
     """
     Creates the specified Service Fabric service.
     :param str app_id: The identity of the application. This is
@@ -368,7 +372,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param str correlated_service: Name of the target service to correlate
     with.
     :param str move_cost: Specifies the move cost for the service. Possible
-    values are: 'Zero', 'Low', 'Medium', 'High'.
+    values are: 'Zero', 'Low', 'Medium', 'High', 'VeryHigh'.
     :param str activation_mode: The activation mode for the service package.
     Possible values include: 'SharedProcess', 'ExclusiveProcess'.
     :param str dns_name: The DNS name of the service to be created. The Service
@@ -392,6 +396,9 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int service_placement_time: The duration for which replicas can stay
+    InBuild before reporting that build is stuck. This
+    applies to stateful services only.
     """
     from azure.servicefabric.models import StatelessServiceDescription, StatefulServiceDescription
 
@@ -429,7 +436,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
-                               stand_by_replica_keep)
+                               stand_by_replica_keep, service_placement_time)
         svc_desc = StatefulServiceDescription(
             service_name=name,
             service_type_name=service_type,
@@ -451,7 +458,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
             flags=flags,
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
+            service_placement_time_limit_seconds=service_placement_time)
 
     client.create_service(app_id, svc_desc, timeout)
 
@@ -459,7 +467,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 def validate_update_service_params(stateless, stateful, target_rep_set_size,  # pylint: disable=too-many-arguments
                                    min_rep_set_size, rep_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count):
+                                   instance_count, service_placement_time):
     """Validate update service parameters"""
 
     if sum([stateless, stateful]) != 1:
@@ -481,6 +489,9 @@ def validate_update_service_params(stateless, stateful, target_rep_set_size,  # 
         if stand_by_replica_keep is not None:
             raise CLIError('Cannot specify standby replica keep duration for '
                            'stateless service')
+        if service_placement_time is not None:
+            raise CLIError('Cannot specify service placement time limit for '
+                           'stateless service')
     if stateful:
         if instance_count is not None:
             raise CLIError('Cannot specify an instance count for a stateful '
@@ -492,7 +503,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
            load_metrics=None, placement_policy_list=None,
            move_cost=None, instance_count=None, target_replica_set_size=None,
            min_replica_set_size=None, replica_restart_wait=None,
-           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60, scaling_policies=None):
+           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60,
+           scaling_policies=None, service_placement_time=None):
     """
     Updates the specified service using the given update description.
     :param str service_id: The identity of the service. This is typically the
@@ -520,7 +532,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     more of: `NonPartiallyPlaceService`, `PreferPrimaryDomain`,
     `RequireDomain`, `RequireDomainDistribution`.
     :param str move_cost: Specifies the move cost for the service. Possible
-    values are: 'Zero', 'Low', 'Medium', 'High'.
+    values are: 'Zero', 'Low', 'Medium', 'High', 'VeryHigh'.
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param int target_replica_set_size: The target replica set size as a
@@ -537,6 +549,9 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int service_placement_time: The duration for which replicas can stay
+    InBuild before reporting that build is stuck. This
+    applies to stateful services only.
     """
     from azure.servicefabric.models import (StatefulServiceUpdateDescription,
                                             StatelessServiceUpdateDescription)
@@ -545,7 +560,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                    target_replica_set_size,
                                    min_replica_set_size, replica_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count)
+                                   instance_count, service_placement_time)
 
     cor_desc = correlation_desc(correlated_service, correlation)
     metric_desc = parse_load_metrics(load_metrics)
@@ -557,7 +572,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                  replica_restart_wait, quorum_loss_wait,
                                  stand_by_replica_keep, min_replica_set_size,
                                  constraints, place_desc, cor_desc,
-                                 metric_desc, move_cost, scaling_policy_description)
+                                 metric_desc, move_cost, scaling_policy_description, service_placement_time)
 
     update_desc = None
     if stateful:
@@ -573,7 +588,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
             min_replica_set_size=min_replica_set_size,
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
+            service_placement_time_limit_seconds=service_placement_time)
 
     if stateless:
         update_desc = StatelessServiceUpdateDescription(flags=flags,
