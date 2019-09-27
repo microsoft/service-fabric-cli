@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Placeholder text
+- Add min instance count/percentage configurations for stateless service update and create (#201)
 
 8.0.0
 ----------
