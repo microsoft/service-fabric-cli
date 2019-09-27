@@ -156,7 +156,8 @@ def service_update_flags(  # pylint: disable=too-many-arguments
 
 def validate_service_create_params(stateful, stateless, singleton_scheme,  # pylint: disable=too-many-arguments
                                    int_scheme, named_scheme, instance_count,
-                                   target_rep_set_size, min_rep_set_size):
+                                   target_rep_set_size, min_rep_set_size,
+                                   min_instance_count, min_instance_percentage):
     """Validate service creation arguments"""
     if sum([stateful, stateless]) != 1:
         raise CLIError(
@@ -177,6 +178,8 @@ def validate_service_create_params(stateful, stateless, singleton_scheme,  # pyl
         raise CLIError(
             'Cannot specify replica set sizes for stateless services'
         )
+    if stateful and (min_instance_count is not None or min_instance_percentage is not None):
+        raise CLIError('Cannot specify min instance count or min instance percentage for stateful services')
 
 
 def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,  # pylint: disable=too-many-arguments
@@ -321,7 +324,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         target_replica_set_size=None, min_replica_set_size=None,
         replica_restart_wait=None, quorum_loss_wait=None,
         stand_by_replica_keep=None, no_persisted_state=False,
-        instance_count=None, timeout=60, scaling_policies=None):
+        instance_count=None, timeout=60, scaling_policies=None,
+        min_instance_count=None, min_instance_percentage=None):
     """
     Creates the specified Service Fabric service.
     :param str app_id: The identity of the application. This is
@@ -392,13 +396,33 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int min_instance_count: Stateless service only.
+     MinInstanceCount is the minimum number of
+     instances that must be up to meet the EnsureAvailability safety check
+     during operations like upgrade or deactivate node.
+     The actual number that is used is max( MinInstanceCount, ceil(
+     MinInstancePercentage/100.0 * InstanceCount) ).
+     Note, if InstanceCount is set to -1, during MinInstanceCount computation
+     -1 is first converted into the number of nodes on which the instances are
+     allowed to be placed according to the placement constraints on the
+     service.
+    :param int min_instance_percentage: Stateless service only.
+     MinInstancePercentage is the minimum
+     percentage of InstanceCount that must be up to meet the EnsureAvailability
+     safety check during operations like upgrade or deactivate node.
+     The actual number that is used is max( MinInstanceCount, ceil(
+     MinInstancePercentage/100.0 * InstanceCount) ).
+     Note, if InstanceCount is set to -1, during MinInstancePercentage
+     computation, -1 is first converted into the number of nodes on which the
+     instances are allowed to be placed according to the placement constraints
+     on the service.
     """
     from azure.servicefabric.models import StatelessServiceDescription, StatefulServiceDescription
 
     validate_service_create_params(stateful, stateless, singleton_scheme,
                                    int_scheme, named_scheme, instance_count,
                                    target_replica_set_size,
-                                   min_replica_set_size)
+                                   min_replica_set_size, min_instance_count, min_instance_percentage)
     partition_desc = parse_partition_policy(named_scheme, named_scheme_list,
                                             int_scheme, int_scheme_low,
                                             int_scheme_high, int_scheme_count,
@@ -425,7 +449,9 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
                                                is_default_move_cost_specified=bool(move_cost),
                                                service_package_activation_mode=activation_mode,
                                                service_dns_name=dns_name,
-                                               scaling_policies=scaling_policy_description)
+                                               scaling_policies=scaling_policy_description,
+                                               min_instance_count=min_instance_count,
+                                               min_instance_percentage=min_instance_percentage)
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
@@ -459,7 +485,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 def validate_update_service_params(stateless, stateful, target_rep_set_size,  # pylint: disable=too-many-arguments
                                    min_rep_set_size, rep_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count):
+                                   instance_count, min_instance_count, min_instance_percentage):
     """Validate update service parameters"""
 
     if sum([stateless, stateful]) != 1:
@@ -486,13 +512,17 @@ def validate_update_service_params(stateless, stateful, target_rep_set_size,  # 
             raise CLIError('Cannot specify an instance count for a stateful '
                            'service')
 
+        if min_instance_count is not None or min_instance_percentage is not None:
+            raise CLIError('Cannot specify min instance count or min instance percentage for stateful services')
+
 
 def update(client, service_id, stateless=False, stateful=False,  # pylint: disable=too-many-locals,too-many-arguments
            constraints=None, correlation=None, correlated_service=None,
            load_metrics=None, placement_policy_list=None,
            move_cost=None, instance_count=None, target_replica_set_size=None,
            min_replica_set_size=None, replica_restart_wait=None,
-           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60, scaling_policies=None):
+           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60, scaling_policies=None,
+           min_instance_count=None, min_instance_percentage=None):
     """
     Updates the specified service using the given update description.
     :param str service_id: The identity of the service. This is typically the
@@ -537,6 +567,26 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int min_instance_count: Stateless service only.
+     MinInstanceCount is the minimum number of
+     instances that must be up to meet the EnsureAvailability safety check
+     during operations like upgrade or deactivate node.
+     The actual number that is used is max( MinInstanceCount, ceil(
+     MinInstancePercentage/100.0 * InstanceCount) ).
+     Note, if InstanceCount is set to -1, during MinInstanceCount computation
+     -1 is first converted into the number of nodes on which the instances are
+     allowed to be placed according to the placement constraints on the
+     service.
+    :param int min_instance_percentage: Stateless service only.
+     MinInstancePercentage is the minimum
+     percentage of InstanceCount that must be up to meet the EnsureAvailability
+     safety check during operations like upgrade or deactivate node.
+     The actual number that is used is max( MinInstanceCount, ceil(
+     MinInstancePercentage/100.0 * InstanceCount) ).
+     Note, if InstanceCount is set to -1, during MinInstancePercentage
+     computation, -1 is first converted into the number of nodes on which the
+     instances are allowed to be placed according to the placement constraints
+     on the service.
     """
     from azure.servicefabric.models import (StatefulServiceUpdateDescription,
                                             StatelessServiceUpdateDescription)
@@ -545,7 +595,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                    target_replica_set_size,
                                    min_replica_set_size, replica_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count)
+                                   instance_count, min_instance_count, min_instance_percentage)
 
     cor_desc = correlation_desc(correlated_service, correlation)
     metric_desc = parse_load_metrics(load_metrics)
@@ -583,7 +633,9 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                                         service_placement_policies=place_desc,
                                                         default_move_cost=move_cost,
                                                         scaling_policies=scaling_policy_description,
-                                                        instance_count=instance_count)
+                                                        instance_count=instance_count,
+                                                        min_instance_count=min_instance_count,
+                                                        min_instance_percentage=min_instance_percentage)
 
     client.update_service(service_id, update_desc, timeout)
 
