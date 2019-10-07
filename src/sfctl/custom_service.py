@@ -126,7 +126,7 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
-        metrics=None, move_cost=None, scaling_policy=None,service_placement_time=None):
+        metrics=None, move_cost=None, scaling_policy=None, service_placement_time=None):
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
@@ -572,7 +572,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                  replica_restart_wait, quorum_loss_wait,
                                  stand_by_replica_keep, min_replica_set_size,
                                  constraints, place_desc, cor_desc,
-                                 metric_desc, move_cost, scaling_policy_description, service_placement_time)
+                                 metric_desc, move_cost, scaling_policy_description,
+                                 service_placement_time)
 
     update_desc = None
     if stateful:
