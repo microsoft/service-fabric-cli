@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Placeholder text
+- Update Create and Update service with new parameter, ServicePlacementTimeLimit. (#200)
 
 8.0.0
 ----------
