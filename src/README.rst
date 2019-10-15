@@ -18,7 +18,7 @@ Change Log
 
 Unreleased
 ----------
-- Update Create and Update service with new parameter, ServicePlacementTimeLimit. (#200)
+- Update Create and Update service with new parameter, ServicePlacementTimeLimit (#200)
 
 8.0.0
 ----------
