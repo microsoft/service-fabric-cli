@@ -11,10 +11,13 @@ from knack.help_files import helps
 helps['chaos start'] = """
     type: command
     short-summary: Starts Chaos in the cluster.
-    long-summary: If Chaos is not already running in the cluster,
-        it starts Chaos with the passed in Chaos parameters.
-        If Chaos is already running when this call is made,
-        the call fails with the error code FABRIC_E_CHAOS_ALREADY_RUNNING.
+    long-summary: If Chaos is not already running in the cluster, it starts Chaos with
+        the passed in Chaos parameters.
+        If Chaos is already running when this call is made, the call fails with
+        the error code FABRIC_E_CHAOS_ALREADY_RUNNING.
+        Refer to the article [Induce controlled Chaos in Service Fabric
+        clusters](https://docs.microsoft.com/azure/service-fabric/service-fabric-controlled-chaos)
+        for more details.
     parameters:
         - name: --time-to-run
           type: string
@@ -188,14 +191,14 @@ helps['chaos start'] = """
 helps['chaos schedule set'] = """
     type: command
     short-summary: Set the schedule used by Chaos.
-    long-summary: Chaos will automatically schedule runs based on the Chaos Schedule.
-        The version in the provided input schedule must match the version of
-        the Chaos Schedule on the server.
-        If the version provided does not match the version on the server, the
-        Chaos Schedule is not updated.
-        If the version provided matches the version on the server, then the
-        Chaos Schedule is updated and the version of the Chaos Schedule on the
-        server is incremented up by one and wraps back to 0 after 2,147,483,647.
+    long-summary:
+        Chaos will automatically schedule runs based on the Chaos Schedule.
+        The Chaos Schedule will be updated if the provided version matches the
+        version on the server.
+        When updating the Chaos Schedule, the version on the server is
+        incremented by 1.
+        The version on the server will wrap back to 0 after reaching a large
+        number.
         If Chaos is running when this call is made, the call will fail.
     examples:
         - name: The following command sets a schedule (assuming the current schedule has version 0) that starts on 2016-01-01 and expires on 2038-01-01 that runs Chaos 24 hours of the day, 7 days a week. Chaos will be scheduled on the cluster for that time.

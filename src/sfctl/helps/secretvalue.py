@@ -19,7 +19,7 @@ from knack.help_files import helps
 
 helps['mesh secretvalue show'] = """
     type: command
-    short-summary: Retrieve the value of a specified version of a secret resource
+    short-summary: Lists the specified value of the secret resource.
     parameters:
         - name: --secret-resource-name
           type: string

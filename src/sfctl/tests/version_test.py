@@ -16,7 +16,7 @@ class VersionTests(unittest.TestCase):
 
         note: this will require changing the sfctl_version on releases
         """
-        sfctl_version = '7.1.0'
+        sfctl_version = '8.0.0'
 
         pipe = Popen('sfctl --version', shell=True, stdout=PIPE, stderr=PIPE)
         # returned_string and err are returned as bytes
