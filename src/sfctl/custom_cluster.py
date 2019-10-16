@@ -122,6 +122,12 @@ def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=
     a connection to localhost. However, no explicit endpoint is required for connecting
     to a local cluster.
 
+    If using a self signed cert, or other certificate not signed by a well known CA,
+    pass in the --ca parameter to ensure that validation passes. If not on a production
+    cluster, to bypass client side validation (useful for self signed or not well known
+    CA signed), use the --no-verify option. While possible, it is not recommended for
+    production clusters. A certificate verification error may result otherwise.
+
     :param str endpoint: Cluster endpoint URL, including port and HTTP or HTTPS
     prefix. Typically, the endpoint will look something like https://<your-url>:19080.
     If no endpoint is given, it will default to http://localhost:19080.
