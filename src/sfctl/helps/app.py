@@ -20,10 +20,11 @@ from knack.help_files import helps
 helps['compose create'] = """
     type: command
     short-summary: Creates a Service Fabric compose deployment
-    long-summary: Compose is a file format that describes multi-container applications. 
-      This API allows deploying container based applications defined in compose format in a 
-      Service Fabric cluster. Once the deployment is created, its status can be 
-      tracked via the `GetComposeDeploymentStatus` API.
+    long-summary: Compose is a file format that describes multi-container applications.
+        This API allows deploying container based applications defined in
+        compose format in a Service Fabric cluster. Once the deployment is
+        created, its status can be tracked via the `GetComposeDeploymentStatus`
+        API.
     parameters:
         - name: --repo-pass
           type: string

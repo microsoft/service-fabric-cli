@@ -11,9 +11,8 @@ from knack.util import CLIError
 
 def correlation_desc(correlated_service, correlation):
     """Get a service correlation description"""
-    from azure.servicefabric.models.service_correlation_description import (
-        ServiceCorrelationDescription
-    )
+    from azure.servicefabric.models import ServiceCorrelationDescription
+
     if not any([correlated_service, correlation]):
         return None
 
@@ -27,9 +26,7 @@ def correlation_desc(correlated_service, correlation):
 
 def parse_load_metrics(formatted_metrics):
     """Parse a service load metric description from a string"""
-    from azure.servicefabric.models.service_load_metric_description import (
-        ServiceLoadMetricDescription
-    )
+    from azure.servicefabric.models import ServiceLoadMetricDescription
 
     s_load_list = None
     if formatted_metrics:
@@ -55,15 +52,10 @@ def parse_load_metrics(formatted_metrics):
 def parse_placement_policies(formatted_placement_policies):
     """"Parse a placement policy description from a formatted policy"""
 
-    from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription  # pylint: disable=line-too-long
-
-    from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description \
-        import ServicePlacementPreferPrimaryDomainPolicyDescription
-
-    from azure.servicefabric.models.service_placement_required_domain_policy_description \
-        import ServicePlacementRequiredDomainPolicyDescription
-
-    from azure.servicefabric.models.service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription, # pylint: disable=line-too-long
+                                            ServicePlacementPreferPrimaryDomainPolicyDescription,
+                                            ServicePlacementRequiredDomainPolicyDescription,
+                                            ServicePlacementRequireDomainDistributionPolicyDescription) # pylint: disable=line-too-long
 
     if formatted_placement_policies:
         policy_list = []
@@ -109,12 +101,12 @@ def parse_placement_policies(formatted_placement_policies):
 def validate_move_cost(move_cost):
     """Validate move cost argument"""
 
-    if move_cost not in [None, 'Zero', 'Low', 'Medium', 'High']:
+    if move_cost not in [None, 'Zero', 'Low', 'Medium', 'High', 'VeryHigh']:
         raise CLIError('Invalid move cost specified')
 
 
 def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
-                   standby_replica_keep=None):
+                   standby_replica_keep=None, service_placement_time=None):
     """Calculate an integer representation of flag arguments for stateful
     services"""
 
@@ -125,6 +117,8 @@ def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
         flag_sum += 2
     if standby_replica_keep is not None:
         flag_sum += 4
+    if service_placement_time is not None:
+        flag_sum += 8
     return flag_sum
 
 
@@ -132,7 +126,7 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
-        metrics=None, move_cost=None, scaling_policy=None):
+        metrics=None, move_cost=None, scaling_policy=None, service_placement_time=None):
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
@@ -159,6 +153,8 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         flag_sum += 512
     if scaling_policy is not None:
         flag_sum += 1024
+    if service_placement_time is not None:
+        flag_sum += 2048
     return flag_sum
 
 
@@ -191,9 +187,9 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,  # pylin
                            int_scheme_low, int_scheme_high, int_scheme_count,
                            singleton_scheme):
     """Create a partition scheme"""
-    from azure.servicefabric.models.named_partition_scheme_description import NamedPartitionSchemeDescription  # pylint: disable=line-too-long
-    from azure.servicefabric.models.singleton_partition_scheme_description import SingletonPartitionSchemeDescription  # pylint:disable=line-too-long
-    from azure.servicefabric.models.uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription  # pylint:disable=line-too-long
+    from azure.servicefabric.models import (NamedPartitionSchemeDescription,
+                                            SingletonPartitionSchemeDescription,
+                                            UniformInt64RangePartitionSchemeDescription)
 
     if named_scheme and not named_scheme_list:
         raise CLIError('When specifying named partition scheme, must include '
@@ -228,12 +224,8 @@ def validate_activation_mode(activation_mode):
 
 def parse_scaling_mechanism(scaling_mechanism):
     """"Parse a scaling mechanism description"""
-    from azure.servicefabric.models.add_remove_incremental_named_partition_scaling_mechanism import (  # pylint: disable=line-too-long
-        AddRemoveIncrementalNamedPartitionScalingMechanism
-    )
-    from azure.servicefabric.models.partition_instance_count_scale_mechanism import (
-        PartitionInstanceCountScaleMechanism
-    )
+    from azure.servicefabric.models import (AddRemoveIncrementalNamedPartitionScalingMechanism,
+                                            PartitionInstanceCountScaleMechanism)
 
     if scaling_mechanism:
         p_kind = scaling_mechanism.get('kind')
@@ -265,12 +257,8 @@ def parse_scaling_mechanism(scaling_mechanism):
 
 def parse_scaling_trigger(scaling_trigger):
     """"Parse a scaling trigger description"""
-    from azure.servicefabric.models.average_partition_load_scaling_trigger import (
-        AveragePartitionLoadScalingTrigger
-    )
-    from azure.servicefabric.models.average_service_load_scaling_trigger import (
-        AverageServiceLoadScalingTrigger
-    )
+    from azure.servicefabric.models import (AveragePartitionLoadScalingTrigger,
+                                            AverageServiceLoadScalingTrigger)
 
     if scaling_trigger:
         p_kind = scaling_trigger.get('kind')
@@ -307,7 +295,7 @@ def parse_scaling_trigger(scaling_trigger):
 
 def parse_scaling_policy(formatted_scaling_policy):
     """"Parse a scaling policy description from a formatted policy"""
-    from azure.servicefabric.models.scaling_policy_description import ScalingPolicyDescription
+    from azure.servicefabric.models import ScalingPolicyDescription
     scaling_list = None
     if formatted_scaling_policy:
         scaling_list = []
@@ -337,7 +325,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         target_replica_set_size=None, min_replica_set_size=None,
         replica_restart_wait=None, quorum_loss_wait=None,
         stand_by_replica_keep=None, no_persisted_state=False,
-        instance_count=None, timeout=60, scaling_policies=None):
+        instance_count=None, timeout=60, scaling_policies=None, service_placement_time=None):
     """
     Creates the specified Service Fabric service.
     :param str app_id: The identity of the application. This is
@@ -384,7 +372,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param str correlated_service: Name of the target service to correlate
     with.
     :param str move_cost: Specifies the move cost for the service. Possible
-    values are: 'Zero', 'Low', 'Medium', 'High'.
+    values are: 'Zero', 'Low', 'Medium', 'High', 'VeryHigh'.
     :param str activation_mode: The activation mode for the service package.
     Possible values include: 'SharedProcess', 'ExclusiveProcess'.
     :param str dns_name: The DNS name of the service to be created. The Service
@@ -408,13 +396,11 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int service_placement_time: The duration for which replicas can stay
+    InBuild before reporting that build is stuck. This
+    applies to stateful services only.
     """
-    from azure.servicefabric.models.stateless_service_description import (
-        StatelessServiceDescription
-    )
-    from azure.servicefabric.models.stateful_service_description import (
-        StatefulServiceDescription
-    )
+    from azure.servicefabric.models import StatelessServiceDescription, StatefulServiceDescription
 
     validate_service_create_params(stateful, stateless, singleton_scheme,
                                    int_scheme, named_scheme, instance_count,
@@ -450,7 +436,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
-                               stand_by_replica_keep)
+                               stand_by_replica_keep, service_placement_time)
         svc_desc = StatefulServiceDescription(
             service_name=name,
             service_type_name=service_type,
@@ -472,7 +458,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
             flags=flags,
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
+            service_placement_time_limit_seconds=service_placement_time)
 
     client.create_service(app_id, svc_desc, timeout)
 
@@ -480,7 +467,7 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
 def validate_update_service_params(stateless, stateful, target_rep_set_size,  # pylint: disable=too-many-arguments
                                    min_rep_set_size, rep_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count):
+                                   instance_count, service_placement_time):
     """Validate update service parameters"""
 
     if sum([stateless, stateful]) != 1:
@@ -502,6 +489,9 @@ def validate_update_service_params(stateless, stateful, target_rep_set_size,  # 
         if stand_by_replica_keep is not None:
             raise CLIError('Cannot specify standby replica keep duration for '
                            'stateless service')
+        if service_placement_time is not None:
+            raise CLIError('Cannot specify service placement time limit for '
+                           'stateless service')
     if stateful:
         if instance_count is not None:
             raise CLIError('Cannot specify an instance count for a stateful '
@@ -513,7 +503,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
            load_metrics=None, placement_policy_list=None,
            move_cost=None, instance_count=None, target_replica_set_size=None,
            min_replica_set_size=None, replica_restart_wait=None,
-           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60, scaling_policies=None):
+           quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60,
+           scaling_policies=None, service_placement_time=None):
     """
     Updates the specified service using the given update description.
     :param str service_id: The identity of the service. This is typically the
@@ -541,7 +532,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     more of: `NonPartiallyPlaceService`, `PreferPrimaryDomain`,
     `RequireDomain`, `RequireDomainDistribution`.
     :param str move_cost: Specifies the move cost for the service. Possible
-    values are: 'Zero', 'Low', 'Medium', 'High'.
+    values are: 'Zero', 'Low', 'Medium', 'High', 'VeryHigh'.
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param int target_replica_set_size: The target replica set size as a
@@ -558,15 +549,18 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param int service_placement_time: The duration for which replicas can stay
+    InBuild before reporting that build is stuck. This
+    applies to stateful services only.
     """
-    from azure.servicefabric.models.stateful_service_update_description import StatefulServiceUpdateDescription  # pylint: disable=line-too-long
-    from azure.servicefabric.models.stateless_service_update_description import StatelessServiceUpdateDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import (StatefulServiceUpdateDescription,
+                                            StatelessServiceUpdateDescription)
 
     validate_update_service_params(stateless, stateful,
                                    target_replica_set_size,
                                    min_replica_set_size, replica_restart_wait,
                                    quorum_loss_wait, stand_by_replica_keep,
-                                   instance_count)
+                                   instance_count, service_placement_time)
 
     cor_desc = correlation_desc(correlated_service, correlation)
     metric_desc = parse_load_metrics(load_metrics)
@@ -578,7 +572,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                  replica_restart_wait, quorum_loss_wait,
                                  stand_by_replica_keep, min_replica_set_size,
                                  constraints, place_desc, cor_desc,
-                                 metric_desc, move_cost, scaling_policy_description)
+                                 metric_desc, move_cost, scaling_policy_description,
+                                 service_placement_time)
 
     update_desc = None
     if stateful:
@@ -594,7 +589,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
             min_replica_set_size=min_replica_set_size,
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep)
+            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
+            service_placement_time_limit_seconds=service_placement_time)
 
     if stateless:
         update_desc = StatelessServiceUpdateDescription(flags=flags,
@@ -612,9 +608,7 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
 def parse_package_sharing_policies(formatted_policies):
     """Parse package sharing policy description from a JSON encoded set of
     policies"""
-    from azure.servicefabric.models.package_sharing_policy_info import (
-        PackageSharingPolicyInfo
-    )
+    from azure.servicefabric.models import PackageSharingPolicyInfo
     if not formatted_policies:
         return None
 
@@ -649,7 +643,7 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
     is to be shared. The scope can be either 'None', 'All', 'Code', 'Config' or
     'Data'.
     """
-    from azure.servicefabric.models.deploy_service_package_to_node_description import DeployServicePackageToNodeDescription  # pylint: disable=line-too-long
+    from azure.servicefabric.models import DeployServicePackageToNodeDescription
 
     list_psps = parse_package_sharing_policies(share_policy)
 

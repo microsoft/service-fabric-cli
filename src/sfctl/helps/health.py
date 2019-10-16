@@ -11,15 +11,18 @@ from knack.help_files import helps
 helps['cluster report-health'] = """
     type: command
     short-summary: Sends a health report on the Service Fabric cluster.
-    long-summary: The report must contain the information about the source of
-        the health report and property on which it is reported. The report is
-        sent to a Service Fabric gateway node, which forwards to the health
-        store. The report may be accepted by the gateway, but rejected by the
-        health store after extra validation. For example, the health store may
-        reject the report because of an invalid parameter, like a stale
-        sequence number. To see whether the report was applied in the health
-        store, check that the report appears in the HealthEvents of the
-        cluster.
+    long-summary: Sends a health report on a Service Fabric cluster. The report must
+        contain the information about the source of the health report and
+        property on which it is reported.
+        The report is sent to a Service Fabric gateway node, which forwards to
+        the health store.
+        The report may be accepted by the gateway, but rejected by the health
+        store after extra validation.
+        For example, the health store may reject the report because of an
+        invalid parameter, like a stale sequence number.
+        To see whether the report was applied in the health store, run
+        GetClusterHealth and check that the report appears in the HealthEvents
+        section.
     parameters:
         - name: --source-id
           type: string

@@ -12,9 +12,9 @@ helps['cluster upgrade'] = """
     type: command
     short-summary: Start upgrading the code or configuration version of a
         Service Fabric cluster
-    long-summary: Validate the supplied upgrade parameters and start upgrading
-        the code or configuration version of a Service Fabric cluster if the
-        parameters are valid.
+    long-summary: Validate the supplied upgrade parameters and start upgrading the code
+        or configuration version of a Service Fabric cluster if the parameters
+        are valid.
     parameters:
         - name: --code-version
           type: string
@@ -141,8 +141,9 @@ helps['sa-cluster config-upgrade'] = """
     type: command
     short-summary: Start upgrading the configuration of a Service Fabric
         standalone cluster
-    long-summary: Validate the supplied configuration upgrade parameters and
-        start upgrading the cluster configuration if the parameters are valid.
+    long-summary: 
+        Validate the supplied configuration upgrade parameters and start
+        upgrading the cluster configuration if the parameters are valid.
     parameters:
         - name: --cluster-config
           type: string

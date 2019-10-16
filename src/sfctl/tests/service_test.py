@@ -86,10 +86,10 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
     def test_parse_all_placement_policy_types(self):
         """Parse all placement policy types"""
 
-        from azure.servicefabric.models.service_placement_non_partially_place_service_policy_description import ServicePlacementNonPartiallyPlaceServicePolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_prefer_primary_domain_policy_description import ServicePlacementPreferPrimaryDomainPolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_required_domain_policy_description import ServicePlacementRequiredDomainPolicyDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.service_placement_require_domain_distribution_policy_description import ServicePlacementRequireDomainDistributionPolicyDescription  # pylint: disable=line-too-long
+        from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription,  # pylint: disable=line-too-long
+                                                ServicePlacementPreferPrimaryDomainPolicyDescription, # pylint: disable=line-too-long
+                                                ServicePlacementRequiredDomainPolicyDescription,  # pylint: disable=line-too-long
+                                                ServicePlacementRequireDomainDistributionPolicyDescription)  # pylint: disable=line-too-long
 
         res = sf_c.parse_placement_policies([{
             'type': 'NonPartiallyPlaceService'
@@ -151,7 +151,8 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
                                                    placement_policy='',
                                                    correlation='',
                                                    metrics='',
-                                                   move_cost='high'), 1023)
+                                                   move_cost='high',
+                                                   service_placement_time=10), 3071)
 
     def test_service_create_missing_service_state(self):
         """Service create must specify exactly stateful or stateless"""
@@ -198,9 +199,9 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
 
     def test_parse_valid_partition_policy(self):
         """Parsing valid partition polices returns correct policies"""
-        from azure.servicefabric.models.named_partition_scheme_description import NamedPartitionSchemeDescription  # pylint: disable=line-too-long
-        from azure.servicefabric.models.singleton_partition_scheme_description import SingletonPartitionSchemeDescription  # pylint:disable=line-too-long
-        from azure.servicefabric.models.uniform_int64_range_partition_scheme_description import UniformInt64RangePartitionSchemeDescription  # pylint:disable=line-too-long
+        from azure.servicefabric.models import (NamedPartitionSchemeDescription,  # pylint: disable=line-too-long
+                                                SingletonPartitionSchemeDescription,  # pylint:disable=line-too-long
+                                                UniformInt64RangePartitionSchemeDescription)  # pylint:disable=line-too-long
 
         res = sf_c.parse_partition_policy(True, ['test'], False, None, None,
                                           None, False)
@@ -231,28 +232,31 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
         """Service update incorrectly specifying service state raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(False, False, 10, 0, 10,
-                                                10, 10, False)
+                                                10, 10, False, 10)
 
     def test_service_update_stateful_invalid_params(self):
         """Stateful service update with invalid args raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(False, True, 5, 3, 10,
-                                                10, 10, 1)
+                                                10, 10, 1, 10)
 
     def test_service_update_stateless_invalid_params(self):
         """Stateless service update with invalid args raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, 5, None, None,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, 1, None,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, 10,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, None,
-                                                10, None, 10)
+                                                10, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, None,
-                                                None, 5, 10)
+                                                None, 5, 10, None)
+        with self.assertRaises(CLIError):
+            sf_c.validate_update_service_params(True, False, None, None, None,
+                                                None, None, 10, 5)

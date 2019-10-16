@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 import adal
 from knack.util import CLIError
 from knack.log import get_logger
-from azure.servicefabric.service_fabric_client_ap_is import ServiceFabricClientAPIs
+from azure.servicefabric import ServiceFabricClientAPIs
 from msrest import ServiceClient, Configuration
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
@@ -272,9 +272,9 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
     :return: True if they are a match. False otherwise.
     """
 
-    if sfctl_version in ['7.0.0', '7.0.1', '7.0.2', '7.1.0']:
+    if sfctl_version in ['8.0.0']:
 
-        return cluster_version.startswith('6.4')
+        return cluster_version.startswith('6.5')
 
     # If we forget to update this code before a new release, the tests which call this method
     # will fail.
