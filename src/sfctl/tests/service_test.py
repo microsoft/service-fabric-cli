@@ -151,7 +151,8 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
                                                    placement_policy='',
                                                    correlation='',
                                                    metrics='',
-                                                   move_cost='high'), 1023)
+                                                   move_cost='high',
+                                                   service_placement_time=10), 3071)
 
     def test_service_create_missing_service_state(self):
         """Service create must specify exactly stateful or stateless"""
@@ -231,28 +232,31 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
         """Service update incorrectly specifying service state raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(False, False, 10, 0, 10,
-                                                10, 10, False)
+                                                10, 10, False, 10)
 
     def test_service_update_stateful_invalid_params(self):
         """Stateful service update with invalid args raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(False, True, 5, 3, 10,
-                                                10, 10, 1)
+                                                10, 10, 1, 10)
 
     def test_service_update_stateless_invalid_params(self):
         """Stateless service update with invalid args raises error"""
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, 5, None, None,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, 1, None,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, 10,
-                                                None, None, 10)
+                                                None, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, None,
-                                                10, None, 10)
+                                                10, None, 10, None)
         with self.assertRaises(CLIError):
             sf_c.validate_update_service_params(True, False, None, None, None,
-                                                None, 5, 10)
+                                                None, 5, 10, None)
+        with self.assertRaises(CLIError):
+            sf_c.validate_update_service_params(True, False, None, None, None,
+                                                None, None, 10, 5)
