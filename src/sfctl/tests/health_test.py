@@ -21,9 +21,7 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_svc_health_policy(self):
         """Parse single health policy item"""
-        from azure.servicefabric.models.service_type_health_policy import (
-            ServiceTypeHealthPolicy
-        )
+        from azure.servicefabric.models import ServiceTypeHealthPolicy
 
         res = sf_c.parse_service_health_policy({
             'max_percent_unhealthy_partitions_per_service': 10,
@@ -45,7 +43,7 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_svc_health_policy_map_item(self):
         """Parse single item service health policy map"""
-        from azure.servicefabric.models.service_type_health_policy_map_item import ServiceTypeHealthPolicyMapItem  # pylint: disable=line-too-long
+        from azure.servicefabric.models import ServiceTypeHealthPolicyMapItem  # pylint: disable=line-too-long
 
         res = sf_c.parse_service_health_policy_map([{
             'Key': 'test_svc',
@@ -73,7 +71,7 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_app_health_map_item(self):
         """Parse single item application health policy map"""
-        from azure.servicefabric.models.application_type_health_policy_map_item import ApplicationTypeHealthPolicyMapItem  # pylint: disable=line-too-long
+        from azure.servicefabric.models import ApplicationTypeHealthPolicyMapItem  # pylint: disable=line-too-long
 
         res = sf_c.parse_app_health_map([{'key': 'test_app', 'value': '30'}])
         self.assertEqual(len(res), 1)

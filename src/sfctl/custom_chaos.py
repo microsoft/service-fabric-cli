@@ -8,16 +8,7 @@
 
 def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
     """Parse ChaosParameters from string"""
-    from azure.servicefabric.models.chaos_parameters import (
-        ChaosParameters
-    )
-    from azure.servicefabric.models.chaos_context import (
-        ChaosContext
-    )
-
-    from azure.servicefabric.models.chaos_target_filter import (
-        ChaosTargetFilter
-    )
+    from azure.servicefabric.models import ChaosParameters, ChaosContext, ChaosTargetFilter
 
     from sfctl.custom_cluster_upgrade import create_cluster_health_policy
 
@@ -61,9 +52,7 @@ def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
 
 def parse_chaos_context(formatted_chaos_context):
     """"Parse a chaos context from a formatted context"""
-    from azure.servicefabric.models.chaos_context import (
-        ChaosContext
-    )
+    from azure.servicefabric.models import ChaosContext
 
     if formatted_chaos_context is None:
         return None
@@ -72,9 +61,7 @@ def parse_chaos_context(formatted_chaos_context):
 
 def parse_chaos_target_filter(formatted_chaos_target_filter):
     """"Parse a chaos target filter from a formatted filter"""
-    from azure.servicefabric.models.chaos_target_filter import (
-        ChaosTargetFilter
-    )
+    from azure.servicefabric.models import ChaosTargetFilter
 
     if formatted_chaos_target_filter is None:
         return None
@@ -97,12 +84,8 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
           chaos_target_filter=None,
           timeout=60):
 
-    from azure.servicefabric.models.chaos_parameters import (
-        ChaosParameters
-    )
-    from azure.servicefabric.models.cluster_health_policy import (
-        ClusterHealthPolicy
-    )
+    from azure.servicefabric.models import ChaosParameters, ClusterHealthPolicy
+
     from sfctl.custom_health import parse_app_health_map
 
     context = parse_chaos_context(context)

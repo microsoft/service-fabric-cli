@@ -19,6 +19,11 @@ Change Log
 Unreleased
 ----------
 - Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#191)
+- Update Create and Update service with new parameter, ServicePlacementTimeLimit (#200)
+
+8.0.0
+----------
+- Update imports for Service fabric runtime version 6.5 (#195)
 
 7.1.0
 ----------
