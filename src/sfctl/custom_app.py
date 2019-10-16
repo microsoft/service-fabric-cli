@@ -183,18 +183,19 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-class IgnoreCopy():  # pylint: disable=too-few-public-methods
+class IgnoreCopy(object):  # pylint: disable=too-few-public-methods
     """
     A class which contains information and methods for the shutil.copytree method's
     callback parameter.
     """
 
-    # Directories which will be ignored as part of the ignore_copy function
-    # If used for compressing application package:
-    # A list of strings representing the abs path of the dirs in an application package
-    # which need to be compressed
-    # Paths in dirs_to_ignore should normalized using the _normalize_path function before setting
-    dirs_to_ignore = []
+    def __init__(self):
+        # Directories which will be ignored as part of the ignore_copy function
+        # If used for compressing application package:
+        # A list of strings representing the abs path of the dirs in an application package
+        # which need to be compressed
+        # Paths in dirs_to_ignore should normalized using the _normalize_path function before setting
+        self.dirs_to_ignore = []
 
     def ignore_copy(self, directory_being_visited, list_of_dirs):
         """
