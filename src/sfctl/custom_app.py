@@ -232,6 +232,7 @@ def _normalize_path(path):
     path = os.path.abspath(path)
     return path
 
+# TODO: provide in place compress in the future
 def compress_package(app_dir, output_dir):
     """
     Compress to the location passed in (output_dir). Note that it is not the entire package
@@ -263,7 +264,8 @@ def compress_package(app_dir, output_dir):
 
     compress_copy = IgnoreCopy()
 
-    # Exception will be raised if the return value is to be an empty list
+    # Exception will be raised if the package isn't the correct structure
+    # This list may be empty in the case of an already compressed application package
     compress_copy.dirs_to_ignore = _check_folder_structure_and_get_dirs(app_dir)
 
     app_name = os.path.basename(app_dir)
@@ -318,6 +320,8 @@ def _check_folder_structure_and_get_dirs(app_dir):
     is valid, return a list of dirs (abs path, normalized using the
     _normalize_path function) to be compressed.
 
+    If the folder is already compressed, then return empty list.
+
     Example format:
 
     WordCountApp (this is the last segment of the app_dir path)
@@ -347,6 +351,9 @@ def _check_folder_structure_and_get_dirs(app_dir):
              be compressed. Return a CLIError if the provided path is not a dir
     """
 
+    # TODO: Future optimization: doon't copy already compressed packages. Just let the user know
+    # TODO: and upload. This should be an uncommon case, and isn't worth the effort now
+
     to_compress = []
 
     if not os.path.isdir(app_dir):
@@ -366,33 +373,34 @@ def _check_folder_structure_and_get_dirs(app_dir):
     app_manifest_parsed = ET.parse(path_to_app_manifest).getroot()
     for child in app_manifest_parsed:
         # Use ends with, because the tags start with the xmlns
-        if child.tag.endswith("ServiceManifestImport"):
-            # We exect a child element that looks like:
+        if child.tag.endswith('ServiceManifestImport'):
+            # We expect a child element that looks like:
             # <ServiceManifestRef ServiceManifestName="CalculatorServicePackage" ServiceManifestVersion="1.0"/>
             for inner_child in child:
-                if inner_child.tag.endswith("ServiceManifestRef"):
-                    path_to_service_package = os.path.join(app_dir, inner_child.attrib.get("ServiceManifestName"))
+                if inner_child.tag.endswith('ServiceManifestRef'):
+                    path_to_service_package = os.path.join(app_dir, inner_child.attrib.get('ServiceManifestName'))
                     service_packages.append(path_to_service_package)
 
     # Go through each service package folder and search for the service manifest
     # The service manifest defines which packages are the code, config, and data packages, which
     # needs to be compressed.
     for service_package_path in service_packages:
-        path_to_service_manifest = os.path.join(service_package_path, "ServiceManifest.xml")
+        path_to_service_manifest = os.path.join(service_package_path, 'ServiceManifest.xml')
 
-        if not os.path.isfile(path_to_service_manifest):  # Casing does not matter
+        # Raise exception is the expected service manifest file doesn't exist AND
+        # if the service package isn't already zipped
+        if not os.path.isfile(path_to_service_manifest) \
+                and not os.path.isfile(path_to_service_manifest+'.sfpkg'):  # Casing does not matter
             raise CLIError('Service package to be compressed is missing ServiceManifest.xml in ' + service_package_path)
 
         service_manifest_parsed = ET.parse(path_to_service_manifest).getroot()
 
         for child in service_manifest_parsed:
-            if child.tag.endswith("CodePackage") or \
-                    child.tag.endswith("ConfigPackage") or child.tag.endswith("DataPackage"):
+            if child.tag.endswith('CodePackage') or \
+                    child.tag.endswith('ConfigPackage') or child.tag.endswith('DataPackage'):
 
-                # TODO: we want to accept compressed packages.
-                # Check if the package is compressed (is there an API that tells you if it is? or is it looking
-                # for .zip? what about linux?)
-                # If it's already compressed, then mark a bool somewhere that says that this package is already
+                # If the app package already compressed,
+                # then mark a bool somewhere that says that this package is already
                 # compressed, and expect that we just upload the entire package without copying to any location
                 # In this case, we would not copy to output dir, and just upload. For partially compressed,
                 # we should compress just those and throw the compressed in the output folder
@@ -406,10 +414,6 @@ def _check_folder_structure_and_get_dirs(app_dir):
                                               folder_to_compress, path_to_service_manifest))
 
                 to_compress.append(_normalize_path(folder_to_compress))
-
-    if not to_compress:
-        raise CLIError('Only Service Fabric application packages may be compressed. '
-                       'Application package to be compressed is not a valid format. ')
 
     return to_compress
 
@@ -460,7 +464,8 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
 
         if os.path.exists(created_dir_path):
             if get_user_confirmation(str.format('Deleting previously generated compressed files at '
-                                                '{0}. Allow? ["y", "n"]: ', created_dir_path)):
+                                                '{0}. If this folder has anything else, those will be'
+                                                'deleted as well. Allow? ["y", "n"]: ', created_dir_path)):
                 shutil.rmtree(created_dir_path)
             else:
                 # We can consider adding an option to number the packages in the future.
@@ -516,6 +521,10 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
                        '"fabric:ImageStore", or start with "file:"')
 
     # If code has reached here, it means that upload was successful
+    # To reach here, user must have agreed to clear this folder or exist the API
+    # So we can safely delete the contents
+    # User is expected to not create a folder by the same name during the upload duration
+    # If needed, we can consider adding our content under a GUID in the future
     if compress and not keep_compressed:
         # Remove the generated files
         if show_progress:
