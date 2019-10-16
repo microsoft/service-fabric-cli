@@ -18,6 +18,7 @@ Change Log
 
 Unreleased
 ----------
+- Update Create and Update service with new parameter, ServicePlacementTimeLimit (#200)
 - Add min instance count/percentage configurations for stateless service update and create (#201)
 
 8.0.0
