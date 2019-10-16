@@ -232,7 +232,7 @@ def _normalize_path(path):
     path = os.path.abspath(path)
     return path
 
-# TODO: provide in place compress in the future
+# Note: provide in place compress in the future
 def compress_package(app_dir, output_dir):
     """
     Compress to the location passed in (output_dir). Note that it is not the entire package
@@ -351,8 +351,8 @@ def _check_folder_structure_and_get_dirs(app_dir):
              be compressed. Return a CLIError if the provided path is not a dir
     """
 
-    # TODO: Future optimization: doon't copy already compressed packages. Just let the user know
-    # TODO: and upload. This should be an uncommon case, and isn't worth the effort now
+    # Future optimization: don't copy already compressed packages. Just let the user know
+    # and upload. This should be an uncommon case, and isn't worth the effort now
 
     to_compress = []
 
