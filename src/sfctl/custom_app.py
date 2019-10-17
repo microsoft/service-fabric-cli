@@ -269,6 +269,9 @@ def compress_package(app_dir, output_dir):
     # This list may be empty in the case of an already compressed application package
     compress_copy.dirs_to_ignore = _check_folder_structure_and_get_dirs(app_dir)
 
+    if not compress_copy.dirs_to_ignore:
+        print("Nothing to copy")
+
     app_name = os.path.basename(app_dir)
     copy_output_path = os.path.join(output_dir, app_name)
 
@@ -465,7 +468,7 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
 
         if os.path.exists(created_dir_path):
             if get_user_confirmation(str.format('Deleting previously generated compressed files at '
-                                                '{0}. If this folder has anything else, those will be'
+                                                '{0}. If this folder has anything else, those will be '
                                                 'deleted as well. Allow? ["y", "n"]: ', created_dir_path)):
                 shutil.rmtree(created_dir_path)
             else:
