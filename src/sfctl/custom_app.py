@@ -183,7 +183,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-class IgnoreCopy():  # pylint: disable=too-few-public-methods
+class IgnoreCopy():  # pylint: disable=too-few-public-methods,C1001
     """
     A class which contains information and methods for the shutil.copytree method's
     callback parameter.
