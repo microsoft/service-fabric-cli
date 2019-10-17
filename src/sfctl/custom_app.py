@@ -1,3 +1,4 @@
+# coding=utf-8
 # -----------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for
@@ -12,9 +13,12 @@ import os
 from multiprocessing import Process
 from time import time
 import sys
+import zipfile
 import shutil
+import xml.etree.ElementTree as ET
 from knack.util import CLIError
 from sfctl.custom_exceptions import SFCTLInternalException
+from sfctl.util import get_user_confirmation
 
 def validate_app_path(app_path):
     """Validate and return application package as absolute path"""
@@ -179,11 +183,254 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     if show_progress:
         print('Complete', file=sys.stderr)
 
-def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=300):  # pylint: disable=too-many-locals,missing-docstring
+class IgnoreCopy():  # pylint: disable=too-few-public-methods,bad-option-value,C1001
+    """
+    A class which contains information and methods for the shutil.copytree method's
+    callback parameter.
+    """
+
+    def __init__(self):
+        # Directories which will be ignored as part of the ignore_copy function
+        # If used for compressing application package:
+        # A list of strings representing the abs path of the dirs in an application package
+        # which need to be compressed
+        # Paths in dirs_to_ignore should normalized using the _normalize_path function before setting
+        self.dirs_to_ignore = []
+
+    def ignore_copy(self, directory_being_visited, list_of_dirs):
+        """
+        The ignore function for shutil.copytree()
+
+        :param directory_being_visited: str
+        :param list_of_dirs: Example: ['t.txt']
+
+        :return: a subset of the items in its second argument (must be relative path).
+                 these names will then be ignored in the copy process
+        """
+
+        to_ignore = []
+
+        for directory in list_of_dirs:
+
+            full_path = os.path.join(directory_being_visited, directory)
+            full_path = _normalize_path(full_path)
+            if full_path in self.dirs_to_ignore:
+                to_ignore.append(directory)
+
+        return to_ignore
+
+def _normalize_path(path):
+    """
+    Standardize a path to a file/folder location so that they can be compared
+
+    :param path: (str) represents a path on a machine
+    :return: (str) the standardized path
+    """
+
+    path = os.path.realpath(path)  # This removes slashes at the end of the path
+    path = os.path.normpath(path)
+    path = os.path.normcase(path)
+    path = os.path.abspath(path)
+    return path
+
+# Note: provide in place compress in the future
+def compress_package(app_dir, output_dir):
+    """
+    Compress to the location passed in (output_dir). Note that it is not the entire package
+    which is compressed, but rather, only some inside parts of the app package folder.
+
+    Check if the folder has the correct structure for a service fabric application. If
+    not, raise an exception alerting user of bad folder structure.
+
+    ZIP64 functionality is present for Python
+    versions 3.4 and above.
+
+    For example, if app_dir = C:/SomeFolder/WordCountApp
+    and if output_dir = C:/SomeLocation,
+    then the following will be created: C:/SomeLocation/WordCountApp
+
+    :param app_dir: (str) An absolute path to an application package to be compressed
+
+    :param output_dir: (str) An absolute path to the location to output the zipped dir
+
+    :return: Nothing, or a CLIError exception
+    """
+
+    # Check if we're dealing with a dir in _check_folder_structure_and_get_dirs instead of
+    # in this function
+
+    # Normalize slashes, etc, in app_dir and output_dir
+    app_dir = _normalize_path(app_dir)
+    output_dir = _normalize_path(output_dir)
+
+    compress_copy = IgnoreCopy()
+
+    # Exception will be raised if the package isn't the correct structure
+    # This list may be empty in the case of an already compressed application package
+    compress_copy.dirs_to_ignore = _check_folder_structure_and_get_dirs(app_dir)
+
+    if not compress_copy.dirs_to_ignore:
+        print("Nothing to copy")
+
+    app_name = os.path.basename(app_dir)
+    copy_output_path = os.path.join(output_dir, app_name)
+
+    # Get the relative paths under app_name of dirs_to_copy so that we know
+    # where to place the new zipped file
+    relative_paths_to_compress = []
+    for directory in compress_copy.dirs_to_ignore:
+
+        rel_path = directory[len(app_dir):]
+        relative_paths_to_compress.append(rel_path.lstrip('\\').lstrip('/'))
+
+    try:
+        # Copy everything except the one we want to zip. Those we will do manually
+        shutil.copytree(app_dir, copy_output_path, ignore=compress_copy.ignore_copy)
+
+        i = 0
+        for directory in relative_paths_to_compress:
+
+            dir_to_compress = compress_copy.dirs_to_ignore[i]
+
+            # Example: shutil.make_archive('C:\\Users\\user\\Downloads\\Code', 'zip',
+            # root_dir='C:\\WordCountV1Original\\WordCountServicePkg\\Code')
+            # The above will copy the contents of root_dir into the path given as the first
+            # parameter, with a .zip extension, so that a Code.zip will be created in Downloads
+
+            # Note for python versions before 3.4, zipping of folders larger than 2GB isn't
+            # supported
+            # It is more work and code to support Python 2.7 for this, and since we do plan to
+            # deprecate support for Python 2.7 in the future, we will just not add it here.
+            shutil.make_archive(os.path.join(copy_output_path, directory), 'zip', dir_to_compress)
+
+            i += 1
+
+    except zipfile.LargeZipFile as ex:
+        raise CLIError('Compression failed due to file too large. If you have Python 2.7, '
+                       'upgrading to 3.5 or higher will fix the issue. Please clean up '
+                       'location ' + output_dir + '\n' + str(ex))
+
+    except Exception as ex:
+        raise CLIError(str.format('Compression failed due to {0}. Please clean up '
+                                  'location {1}', str(ex), output_dir))
+
+
+def _check_folder_structure_and_get_dirs(app_dir):
+    """
+    Check if the given path is a folder. If not, raise an exception indicating only
+    SF app package folders can be compressed.
+
+    Check if the folder given corresponds to a valid application structure. If the package
+    is valid, return a list of dirs (abs path, normalized using the
+    _normalize_path function) to be compressed.
+
+    If the folder is already compressed, then return empty list.
+
+    Example format:
+
+    WordCountApp (this is the last segment of the app_dir path)
+
+        o WordCountServicePkg
+              Code
+            •     WordCount.Service.exe
+            •     Other Files
+              Config
+            •     Settings.xml
+              ServiceManifest.xml
+
+        o WordCountWebServicePkg
+              Code
+            •     WordCount.WebService.exe
+            •     Other Files
+              Config
+            •     Settings.xml
+              ServiceManifest.xml
+
+        o    ApplicationManifest.xml
+
+    The Code and Config folders should be compressed. These will be listed in the Application and Service manifests.
+
+    :param app_dir: (str) An absolute path to an application package
+    :return: A list of strings representing the absolute paths to directories which should
+             be compressed. Return a CLIError if the provided path is not a dir
+    """
+
+    # Future optimization: don't copy already compressed packages. Just let the user know
+    # and upload. This should be an uncommon case, and isn't worth the effort now
+
+    to_compress = []
+
+    if not os.path.isdir(app_dir):
+        raise CLIError('Only Service Fabric application packages may be compressed. '
+                       'The following path is not a directory: ' + app_dir)
+
+    path_to_app_manifest = os.path.join(app_dir, 'ApplicationManifest.xml')
+
+    # An application manifest file should exist directly under the directory passed in
+    if not os.path.isfile(path_to_app_manifest):  # Casing does not matter
+        raise CLIError('Application package to be compressed is missing ApplicationManifest.xml')
+
+    # A list of the service packages. This should be the absolute path
+    service_packages = []
+
+    # Parse the application manifest to find which folders should have the service manifest.
+    app_manifest_parsed = ET.parse(path_to_app_manifest).getroot()
+    for child in app_manifest_parsed:
+        # Use ends with, because the tags start with the xmlns
+        if child.tag.endswith('ServiceManifestImport'):
+            # We expect a child element that looks like:
+            # <ServiceManifestRef ServiceManifestName="CalculatorServicePackage" ServiceManifestVersion="1.0"/>
+            for inner_child in child:
+                if inner_child.tag.endswith('ServiceManifestRef'):
+                    path_to_service_package = os.path.join(app_dir, inner_child.attrib.get('ServiceManifestName'))
+                    service_packages.append(path_to_service_package)
+
+    # Go through each service package folder and search for the service manifest
+    # The service manifest defines which packages are the code, config, and data packages, which
+    # needs to be compressed.
+    for service_package_path in service_packages:
+        path_to_service_manifest = os.path.join(service_package_path, 'ServiceManifest.xml')
+
+        # Raise exception is the expected service manifest file doesn't exist AND
+        # if the service package isn't already zipped
+        if not os.path.isfile(path_to_service_manifest) \
+                and not os.path.isfile(path_to_service_manifest+'.sfpkg'):  # Casing does not matter
+            raise CLIError('Service package to be compressed is missing ServiceManifest.xml in ' + service_package_path)
+
+        service_manifest_parsed = ET.parse(path_to_service_manifest).getroot()
+
+        for child in service_manifest_parsed:
+            if child.tag.endswith('CodePackage') or \
+                    child.tag.endswith('ConfigPackage') or child.tag.endswith('DataPackage'):
+
+                # If the app package already compressed,
+                # then mark a bool somewhere that says that this package is already
+                # compressed, and expect that we just upload the entire package without copying to any location
+                # In this case, we would not copy to output dir, and just upload. For partially compressed,
+                # we should compress just those and throw the compressed in the output folder
+                # For the case where there is no copy needed, we should print a statement letting the user know.
+
+                folder_name = child.attrib.get("Name")
+                folder_to_compress = os.path.join(service_package_path, folder_name)
+
+                if not os.path.isdir(folder_to_compress):  # Casing does not matter
+                    raise CLIError(str.format("{0} defined in {1} does not exist",
+                                              folder_to_compress, path_to_service_manifest))
+
+                to_compress.append(_normalize_path(folder_to_compress))
+
+    return to_compress
+
+def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, timeout=300,  # pylint: disable=too-many-locals,missing-docstring,too-many-arguments,too-many-branches,too-many-statements
+           compress=False, keep_compressed=False, compressed_location=None):
 
     from sfctl.config import (client_endpoint, no_verify_setting, ca_cert_info,
                               cert_info)
     import requests
+
+    path = _normalize_path(path)
+    if compressed_location is not None:
+        compressed_location = _normalize_path(compressed_location)
 
     abspath = validate_app_path(path)
     basename = os.path.basename(abspath)
@@ -198,6 +445,53 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
 
     if all([no_verify_setting(), ca_cert_info()]):
         raise CLIError('Cannot specify both CA cert info and no verify')
+
+    if not compress and (keep_compressed or compressed_location is not None):
+        raise CLIError('--keep-compressed and --compressed-location options are only applicable '
+                       'if the --compress option is set')
+
+    compressed_pkg_location = None
+    created_dir_path = None
+
+    if compress:
+
+        parent_folder = os.path.dirname(path)
+        file_or_folder_name = os.path.basename(path)
+
+        compressed_pkg_location = os.path.join(parent_folder, 'sfctl_compressed_temp')
+
+        if compressed_location is not None:
+            compressed_pkg_location = compressed_location
+
+        # Check if a zip file has already been created
+        created_dir_path = os.path.join(compressed_pkg_location, file_or_folder_name)
+
+        if os.path.exists(created_dir_path):
+            if get_user_confirmation(str.format('Deleting previously generated compressed files at '
+                                                '{0}. If this folder has anything else, those will be '
+                                                'deleted as well. Allow? ["y", "n"]: ', created_dir_path)):
+                shutil.rmtree(created_dir_path)
+            else:
+                # We can consider adding an option to number the packages in the future.
+                print('Stopping upload operation. Cannot compress to the following location '
+                      'because the path already exists: ' + created_dir_path)
+                return
+
+        # Let users know where to find the compressed app package before starting the
+        # copy / compression, in case the process crashes in the middle, so users
+        # will know where to clean up items from, or where to upload already compressed
+        # app packages from
+        if show_progress:
+            print('Starting package compression into location: ' + compressed_pkg_location)
+            print()  # New line for formatting purposes
+        compress_package(path, compressed_pkg_location)
+
+        # Change the path to the path with the compressed package
+        compressed_path = os.path.join(compressed_pkg_location, file_or_folder_name)
+
+        # re-do validation and reset the variables
+        abspath = validate_app_path(compressed_path)
+        basename = os.path.basename(abspath)
 
     # Note: pressing ctrl + C during upload does not end the current upload in progress, but only
     # stops the next one from occurring. This will be fixed in the future.
@@ -227,7 +521,19 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
             upload_to_native_imagestore(sesh, endpoint, abspath, basename, show_progress, timeout)
 
     else:
-        raise CLIError('Unsupported image store connection string')
+        raise CLIError('Unsupported image store connection string. Value should be either '
+                       '"fabric:ImageStore", or start with "file:"')
+
+    # If code has reached here, it means that upload was successful
+    # To reach here, user must have agreed to clear this folder or exist the API
+    # So we can safely delete the contents
+    # User is expected to not create a folder by the same name during the upload duration
+    # If needed, we can consider adding our content under a GUID in the future
+    if compress and not keep_compressed:
+        # Remove the generated files
+        if show_progress:
+            print('Removing generated folder ' + created_dir_path)
+        shutil.rmtree(created_dir_path)
 
 def parse_app_params(formatted_params):
     """Parse application parameters from string"""
