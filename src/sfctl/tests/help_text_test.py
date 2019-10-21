@@ -342,7 +342,9 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl node',
             commands=('disable', 'enable', 'health', 'info', 'list', 'load', 'remove-state',
-                      'report-health', 'restart', 'transition', 'transition-status'))
+                      'report-health', 'restart', 'transition', 'transition-status',
+                      'add-configuration-parameter-overrides', 'get-configuration-overrides',
+                      'remove-configuration-overrides'))
 
         self.validate_output(
             'sfctl partition',

@@ -120,6 +120,18 @@ class SFCommandLoader(CLICommandsLoader):
                 'transition-status',
                 'get_node_transition_progress'
             )
+            group.command(
+                'add-configuration-parameter-overrides',
+                'add_configuration_parameter_overrides'
+            )
+            group.command(
+                'get-configuration-overrides',
+                'get_configuration_overrides'
+            )
+            group.command(
+                'remove-configuration-overrides',
+                'remove_configuration_overrides'
+            )
 
         with CommandGroup(self, 'application', client_func_path,
                           client_factory=client_create) as group:
