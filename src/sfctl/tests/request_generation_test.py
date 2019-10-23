@@ -456,7 +456,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             'sfctl node remove-configuration-overrides --node-name=nodeName',
             'DELETE',
             '/Nodes/nodeName/$/RemoveConfigurationOverrides',
-            ['api-version=7.0'])            
+            ['api-version=7.0'])
         self.validate_command(  # get-configuration-overrides
             'sfctl node get-configuration-overrides --node-name=nodeName',
             'GET',
