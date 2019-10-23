@@ -446,28 +446,28 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
         self.validate_command(  # restart
-             'sfctl node restart --node-name=nodeName --node-instance-id=ID --create-fabric-dump=True',
-             'POST',
-             '/Nodes/nodeName/$/Restart',
-             ['api-version=6.0'],
-             '{"CreateFabricDump":"True", "NodeInstanceId":"ID"}',
-             validate_flat_dictionary)
+            'sfctl node restart --node-name=nodeName --node-instance-id=ID --create-fabric-dump=True',
+            'POST',
+            '/Nodes/nodeName/$/Restart',
+            ['api-version=6.0'],
+            '{"CreateFabricDump":"True", "NodeInstanceId":"ID"}',
+            validate_flat_dictionary)
         self.validate_command(  # remove-configuration-overrides
-             'sfctl node remove-configuration-overrides --node-name=nodeName',
-             'DELETE',
-             '/Nodes/nodeName/$/RemoveConfigurationOverrides',
-             ['api-version=7.0'])            
+            'sfctl node remove-configuration-overrides --node-name=nodeName',
+            'DELETE',
+            '/Nodes/nodeName/$/RemoveConfigurationOverrides',
+            ['api-version=7.0'])            
         self.validate_command(  # get-configuration-overrides
-             'sfctl node get-configuration-overrides --node-name=nodeName',
-             'GET',
-             '/Nodes/nodeName/$/GetConfigurationOverrides',
+            'sfctl node get-configuration-overrides --node-name=nodeName',
+            'GET',
+            '/Nodes/nodeName/$/GetConfigurationOverrides',
             ['api-version=7.0'])
         self.validate_command(  # add-configuration-parameter-overrides
-             'sfctl node add-configuration-parameter-overrides --node-name=nodeName --section-name=PlacementAndLoadBalancing ' +
-             '--parameter-name=DummyPLBEnabled --parameter_value=False --force=True',
-             'POST',
-             '/Nodes/nodeName/$/AddConfigurationParameterOverrides',
-             ['api-version=7.0'],
+            'sfctl node add-configuration-parameter-overrides --node-name=nodeName --section-name=PlacementAndLoadBalancing ' +
+            '--parameter-name=DummyPLBEnabled --parameter_value=False --force=True',
+            'POST',
+            '/Nodes/nodeName/$/AddConfigurationParameterOverrides',
+            ['api-version=7.0'],
             ('{"SectionName": "PlacementAndLoadBalancing", '
              '"ParameterName": "DummyPLBEnabled", '
              '"ParameterValue": "False", '
