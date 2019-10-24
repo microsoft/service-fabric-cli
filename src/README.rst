@@ -20,6 +20,7 @@ Unreleased
 ----------
 - Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#191)
 - Update Create and Update service with new parameter, ServicePlacementTimeLimit (#200)
+- Update knack version (#200)
 
 8.0.0
 ----------
