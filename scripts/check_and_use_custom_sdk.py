@@ -31,6 +31,7 @@ def check_if_should_use_custom_sdk(custom_sdk_path):
     """
     sdk_exists = path.isdir(custom_sdk_path)
     if not sdk_exists:
+        print('Custom service fabric SDK path does not exist at: ' + custom_sdk_path)
         return False
 
     path_to_readme = get_path_to_readme()
@@ -42,6 +43,8 @@ def check_if_should_use_custom_sdk(custom_sdk_path):
             if line.strip() == 'Unreleased':
                 return True
 
+    print('Readme file at "' + path_to_readme + '" does not contain line == "Unreleased". Using public SDK instead.')
+    print('We assume that the readme file exists')
     return False
 
 
@@ -98,9 +101,11 @@ def check_and_use_custom_sdk():
     """
 
     custom_sdk_path = get_custom_sdk_path()
+    print('Using custom SDK path: ' + custom_sdk_path)
 
     should_use_custom_sdk = check_if_should_use_custom_sdk(custom_sdk_path)
     if not should_use_custom_sdk:
+        print('Using public SDK instead of custom SDK')
         return
 
     print('Updating service fabric python SDK to a custom SDK.')
@@ -113,4 +118,5 @@ def check_and_use_custom_sdk():
 
 
 if __name__ == '__main__':
+    print('Starting check for customSDK usage')
     check_and_use_custom_sdk()
