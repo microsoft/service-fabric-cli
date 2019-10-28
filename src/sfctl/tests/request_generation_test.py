@@ -464,7 +464,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=7.0'])
         self.validate_command(  # add-configuration-parameter-overrides
             'sfctl node add-configuration-parameter-overrides --node-name=nodeName --config-parameter-override-list=' +
-            "[{\"SectionName\": \"PlacementAndLoadBalancing\", '\r\n'\"ParameterName\": \"DummyPLBEnabled\", '\r\n'\"ParameterValue\": \"False\"}]",
+            "\"[{\"SectionName\": \"PlacementAndLoadBalancing\", '\r\n'\"ParameterName\": \"DummyPLBEnabled\", '\r\n'\"ParameterValue\": \"False\"}]\"",
             'POST',
             '/Nodes/nodeName/$/AddConfigurationParameterOverrides',
             ['api-version=7.0'],
