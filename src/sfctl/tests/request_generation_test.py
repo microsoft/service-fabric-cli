@@ -23,7 +23,7 @@ from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.tests.request_generation_body_validation import validate_flat_dictionary, \
-    validate_create_application
+    validate_create_application, validate_list_of_objects
 # pylint: disable=import-error
 try:
     from urllib.parse import quote
@@ -471,7 +471,8 @@ class ServiceFabricRequestTests(ScenarioTest):
             ['api-version=7.0'],
             ('[{"SectionName": "PlacementAndLoadBalancing", '
              '"ParameterName": "DummyPLBEnabled", '
-             '"ParameterValue": "False"}]'))
+             '"ParameterValue": "False"}]'),
+            validate_list_of_objects)
 
         # container commands
         self.validate_command(  # get container logs
