@@ -462,10 +462,10 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Nodes/nodeName/$/GetConfigurationOverrides',
             ['api-version=7.0'])
+        configuration_override_parameters = path.join(sample_path_base, 'sample_config_override.txt').replace('/', '//').replace('\\', '\\\\')
         self.validate_command(  # add-configuration-parameter-overrides
-            'sfctl node add-configuration-parameter-overrides --node-name=nodeName --config-parameter-override-list=' +
-            "\\\"[{\\\"SectionName\\\": \\\"PlacementAndLoadBalancing\\\", \\\"ParameterName\\\": " +
-            "\\\"DummyPLBEnabled\\\", \\\"ParameterValue\\\": \\\"False\\\"}]\\\"",
+            ('sfctl node add-configuration-parameter-overrides --node-name=nodeName ' +
+             '--config-parameter-override-list={0}').format(configuration_override_parameters),
             'POST',
             '/Nodes/nodeName/$/AddConfigurationParameterOverrides',
             ['api-version=7.0'],
