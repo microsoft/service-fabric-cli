@@ -469,6 +469,9 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Nodes/nodeName/$/AddConfigurationParameterOverrides',
             ['api-version=7.0'],
+            ('[{"SectionName":"PlacementAndLoadBalancing", '
+             '"ParameterName":"DummyPLBEnabled", '
+             '"ParameterValue":"False"}]'),
             validate_flat_dictionary)
 
         # container commands
