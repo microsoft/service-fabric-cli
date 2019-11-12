@@ -53,7 +53,9 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
                                   'Upload will fail and return error after the upload timeout '
                                   'duration has passed. This timeout applies to '
                                   'the entire application package, and individual file timeouts '
-                                  'will equal the remaining timeout duration. ')
+                                  'will equal the remaining timeout duration. '
+                                  'Timeout does not include the time required to '
+                                  'compress the application package. ')
 
     with ArgumentsContext(self, 'application create') as arg_context:
         arg_context.argument('parameters', type=json_encoded)
@@ -181,6 +183,9 @@ def custom_arguments(self, _):  # pylint: disable=too-many-statements
         arg_context.argument('delta_unhealthy_nodes', type=int)
         arg_context.argument('upgrade_domain_delta_unhealthy_nodes', type=int)
         arg_context.argument('app_health_map', type=json_encoded)
+
+    with ArgumentsContext(self, 'node add-configuration-parameter-overrides') as arg_context:
+        arg_context.argument('config_parameter_override_list', type=json_encoded)
 
     with ArgumentsContext(self, 'sa-cluster config-upgrade') as arg_context:
         arg_context.argument('unhealthy_applications', type=int)

@@ -44,7 +44,7 @@ setup(
         'sfctl.tests'
     ],
     install_requires=[
-        'knack==0.5.2',
+        'knack==0.6.3',
         'msrest>=0.5.0',
         'msrestazure',
         'requests',
@@ -54,7 +54,8 @@ setup(
         'applicationinsights',
         'sfmergeutility==0.1.6',
         'psutil',
-        'portalocker'
+        'portalocker',
+        'six'
     ],
     extras_require={
         'test': [

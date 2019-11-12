@@ -88,7 +88,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
         # A list of strings containing abs paths to the SDK api file and model files
         # start off containing the SDK API file
         # List of strings
-        sdk_files_path = [join(sdk_path, '_service_fabric_client_ap_is.py')]
+        sdk_files_path = [join(sdk_path, 'service_fabric_client_ap_is.py')]
 
         # Add all the models files
         models_path = join(sdk_path, 'models')
@@ -224,7 +224,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             print()
             print(line)
 
-        allowable_lines_not_found = 142
+        allowable_lines_not_found = 85
 
         print()
         print('The total number of lines compared is ' + str(len(custom_help_lines)))

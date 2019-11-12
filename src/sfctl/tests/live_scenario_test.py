@@ -43,7 +43,7 @@ class ServiceFabricLiveTests(ScenarioTest):
         - Package delete, application package is removed from image store
         """
 
-        # Upload application
+        # Upload application with compress
         if not os.path.isdir(APP_PATH):
             raise ValueError(
                 'Invalid path to application specified (must be dir): {0}'.format(APP_PATH)
@@ -52,7 +52,7 @@ class ServiceFabricLiveTests(ScenarioTest):
         app_manifest = os.path.join(APP_PATH, 'ApplicationManifest.xml')
         app_ver = parse_app_version(app_manifest)
         app_type = parse_app_type(app_manifest)
-        upload_cmd = 'application upload --path {0} --show-progress'
+        upload_cmd = 'application upload --path {0} --show-progress --compress'
         self.cmd(upload_cmd.format(APP_PATH), checks=[NoneCheck()])
 
         # Validate folder exists by stating the path

@@ -6,6 +6,8 @@
 
 """Some misc util methods related to the CLI"""
 
+from six.moves import input as compat_input
+
 def is_help_command(command):
     """
     Checks that the user inputted command is a help command, which will not go over the wire.
@@ -22,3 +24,20 @@ def is_help_command(command):
             return True
 
     return False
+
+def get_user_confirmation(prompt):
+    """
+    Prompt user for confirmation. Return True if user confirms. False otherwise.
+    Keep prompting until user gives either yes or no
+
+    :param prompt: (str) The prompt for users. For example: about to delete, confirm?
+
+    :return: bool. True is user confirms, False otherwise
+    """
+
+    confirmed = compat_input(prompt)
+
+    while confirmed.lower() not in ['y', 'yes', 'n', 'no']:
+        confirmed = compat_input(prompt)
+
+    return confirmed.lower() in ['y', 'yes']

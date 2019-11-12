@@ -1,0 +1,7 @@
+[
+    {
+        "SectionName":"PlacementAndLoadBalancing",
+        "ParameterName":"DummyPLBEnabled",
+        "ParameterValue":"False"
+    }
+ ]
