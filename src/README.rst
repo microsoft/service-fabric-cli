@@ -18,6 +18,9 @@ Change Log
 
 Unreleased
 ----------
+
+9.0.0
+----------
 - Added configuration overrides node commands. These commands will be available in the Service fabric runtime 7.0 version (#206)
 - Provide option to compress packages on application upload. By default, the newly generated compressed package is deleted after successful upload. (#191)
 - Update Create and Update service with new parameter, ServicePlacementTimeLimit (#200)
