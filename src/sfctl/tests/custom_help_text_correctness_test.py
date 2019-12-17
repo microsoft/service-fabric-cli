@@ -103,7 +103,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             try:
                 lines = [line.strip() for line in open(python_file_path)]
                 doc_strings.append(' '.join(lines).lower())
-            except:
+            except FileNotFoundError:
                 print("missing - {0}".format(python_file_path))
 
         return doc_strings
