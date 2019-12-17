@@ -241,5 +241,4 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
 
         # Assert if there are any lines which do not match.
         self.assertTrue(len(lines_not_found) in allowable_lines_not_found,
-                         msg='The allowable mismatched documentation lines does not match '
-                             'the actual number.')
+                        msg='The allowable mismatched documentation lines does not match the actual number.')
