@@ -16,9 +16,6 @@ To get started, after installation run the following:
 Change Log
 ==========
 
-Unreleased
-----------
-
 9.0.0
 ----------
 - Added configuration overrides node commands. These commands will be available in the Service fabric runtime 7.0 version (#206)
