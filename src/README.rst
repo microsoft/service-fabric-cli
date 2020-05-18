@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+10.0.0
+----------
+- Update imports for Service fabric runtime version 7.1 (#218)
+
 9.0.0
 ----------
 - Added configuration overrides node commands. These commands will be available in the Service fabric runtime 7.0 version (#206)
