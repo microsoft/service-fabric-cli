@@ -8,6 +8,7 @@
 
 import unittest
 import os
+import json
 
 try:
     from urllib import parse
@@ -16,7 +17,6 @@ except ImportError:
 from mock import patch, MagicMock
 import requests
 import vcr
-import json
 import sfctl.custom_app as sf_c
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.custom_exceptions import SFCTLInternalException
