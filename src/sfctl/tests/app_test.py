@@ -220,7 +220,7 @@ class AppTests(unittest.TestCase):
 
         with open(generated_file_path, 'r') as http_recording_file:
             json_str = http_recording_file.read()
-            vcr_recording = json.dumps(json_str)
+            vcr_recording = json.loads(json_str)
 
             requests_list = vcr_recording['interactions']
             self.assertEqual(len(requests_list), 8, msg='Application upload test: '
