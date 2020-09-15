@@ -1,9 +1,8 @@
 language: python
 python:
-  - 2.7
   - 3.5
   - 3.6
-
+  - 3.8
 # The below lines are a workaround to get python 3.7 support to work.
 # Remove when Travis officially supports 3.7
 matrix:
