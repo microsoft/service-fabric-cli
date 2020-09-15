@@ -65,7 +65,6 @@ setup(
             'vcrpy',
             'mock',
             'contextlib2',
-            'jsonpickle'
         ]
     },
     entry_points={
