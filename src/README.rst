@@ -18,6 +18,7 @@ Change Log
 
 Unreleased
 ----------
+- Added move replica partition commands. Move primary and secondary replica commands will be available in the Service fabric runtime 6.5 version. Move instance command will be available in the Service fabric runtime 8.0 version. (#207)
 - Updating 'application upload' native imagestore application upload to parallelize uploads, greatly reducing overall upload time for applications with many smaller files. Also improving progress log shown by flag '--show-progress'. (#223)
 
 11.0.0

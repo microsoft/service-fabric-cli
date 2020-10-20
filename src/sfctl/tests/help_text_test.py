@@ -349,8 +349,8 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl partition',
             commands=('data-loss', 'data-loss-status',
-                      'health', 'info', 'list', 'load', 'load-reset', 'quorum-loss',
-                      'quorum-loss-status', 'recover', 'recover-all', 'report-health', 'restart',
+                      'health', 'info', 'list', 'load', 'load-reset', 'move-instance', 'move-primary-replica', 'move-secondary-replica',
+                      'quorum-loss', 'quorum-loss-status', 'recover', 'recover-all', 'report-health', 'restart',
                       'restart-status', 'svc-name'))
 
         self.validate_output(

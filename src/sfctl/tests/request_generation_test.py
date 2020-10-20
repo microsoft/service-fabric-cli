@@ -748,7 +748,22 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"SequenceNumber": "10", '
              '"RemoveWhenExpired": true}'),
             validate_flat_dictionary)
-
+        self.validate_command(  # move-primary-replica
+            'partition move-primary-replica --partition-id=id --node-name=nodeName --ignore-constraints',
+            'POST',
+            '/Partitions/id/$/MovePrimaryReplica',
+            ['api-version=6.5', 'IgnoreConstraints=true', 'timeout=60'])
+        self.validate_command(  # move-secondary-replica
+            'partition move-secondary-replica --partition-id=id --current-node-name=nodeName --new-node-name=nodeName --ignore-constraints',
+            'POST',
+            '/Partitions/id/$/MoveSecondaryReplica',
+            ['api-version=6.5', 'IgnoreConstraints=true', 'timeout=60'])
+        self.validate_command(  # move-instance
+            'partition move-instance --partition-id=id --current-node-name=nodeName --new-node-name=nodeName --ignore-constraints',
+            'POST',
+            '/Partitions/id/$/MoveInstance',
+            ['api-version=8.0', 'IgnoreConstraints=true', 'timeout=60'])
+        
         # Property
         value = '"{\\"Kind\\": \\"String\\", \\"Data\\": \\"data\\"}"'
         self.validate_command(  # put
