@@ -16,8 +16,8 @@ import sys
 import zipfile
 import shutil
 import xml.etree.ElementTree as ET
-from knack.util import CLIError
 import contextlib
+from knack.util import CLIError
 import joblib
 from joblib import Parallel, delayed
 from tqdm import tqdm
@@ -27,6 +27,7 @@ from sfctl.util import get_user_confirmation
 @contextlib.contextmanager
 def tqdm_joblib(tqdm_object):
     """Context manager to patch joblib to report into tqdm progress bar given as argument"""
+    #pylint: disable=useless-super-delegation
     class TqdmBatchCompletionCallback(joblib.parallel.BatchCompletionCallBack):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -124,8 +125,14 @@ def get_lesser(num_a, num_b):
 
     return max(0, min(num_a, num_b))
 
-def upload_single_file_native_imagestore(sesh, endpoint, basename, show_progress, #pylint: disable=too-many-locals,too-many-arguments
+def upload_single_file_native_imagestore(sesh, endpoint, basename, #pylint: disable=too-many-locals,too-many-arguments
                                          rel_path, single_file, root, target_timeout):
+    """
+    Used by upload_to_native_imagestore to upload individual files
+    of the application package to cluster
+
+    :param sesh: A requests (module) session object.
+    """
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
     except ImportError:
@@ -178,7 +185,8 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
 
     target_timeout = int(time()) + timeout
     jobcount = cpu_count()
-    if jobcount == None: jobcount = 2
+    if jobcount is None:
+        jobcount = 2
 
     # Note: while we are raising some exceptions regarding upload timeout, we are leaving the
     # timeouts raised by the requests library as is since it contains enough information
@@ -191,12 +199,12 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
             with tqdm_joblib(tqdm(desc=progressdescription, total=filecount)):
                 Parallel(n_jobs=jobcount)(
                     delayed(upload_single_file_native_imagestore)(
-                        sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
+                        sesh, endpoint, basename, rel_path, single_file, root, target_timeout)
                         for single_file in files)
         else:
             Parallel(n_jobs=jobcount)(
                 delayed(upload_single_file_native_imagestore)(
-                    sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
+                    sesh, endpoint, basename, rel_path, single_file, root, target_timeout)
                     for single_file in files)
 
         current_time_left = get_timeout_left(target_timeout)
