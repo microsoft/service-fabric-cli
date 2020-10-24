@@ -178,7 +178,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     # timeouts raised by the requests library as is since it contains enough information
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
-        filecount = files.count()
+        filecount = count(files)
 
         if show_progress:
             progressdescription = 'Uploading path: {}'.format(rel_path)
