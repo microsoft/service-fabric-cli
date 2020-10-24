@@ -126,6 +126,12 @@ def get_lesser(num_a, num_b):
 
 def upload_single_file_native_imagestore(sesh, endpoint, basename, show_progress, #pylint: disable=too-many-locals,too-many-arguments
                                          rel_path, single_file, root, target_timeout):
+    try:
+        from urllib.parse import urlparse, urlencode, urlunparse
+    except ImportError:
+        from urllib import urlencode
+        from urlparse import urlparse, urlunparse  # pylint: disable=import-error
+
     current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
 
     if current_time_left == 0:
@@ -178,7 +184,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     # timeouts raised by the requests library as is since it contains enough information
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
-        filecount = count(files)
+        filecount = len(files)
 
         if show_progress:
             progressdescription = 'Uploading path: {}'.format(rel_path)
