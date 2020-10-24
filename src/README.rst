@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Updated 'application upload' native imagestore application upload to parallelize uploads, greatly reducing overall upload time for applications with many smaller files. Also improved progress log shown by flag '--show-progress'.
+
 9.0.0
 ----------
 - Added configuration overrides node commands. These commands will be available in the Service fabric runtime 7.0 version (#206)

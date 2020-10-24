@@ -10,7 +10,9 @@
 from __future__ import print_function
 
 import os
-from multiprocessing import Process
+from multiprocessing import Process, cpu_count
+from joblib import Parallel, delayed
+from tqdm import tqdm
 from time import time
 import sys
 import zipfile
@@ -19,6 +21,25 @@ import xml.etree.ElementTree as ET
 from knack.util import CLIError
 from sfctl.custom_exceptions import SFCTLInternalException
 from sfctl.util import get_user_confirmation
+
+@contextlib.contextmanager
+def tqdm_joblib(tqdm_object):
+    """Context manager to patch joblib to report into tqdm progress bar given as argument"""
+    class TqdmBatchCompletionCallback(joblib.parallel.BatchCompletionCallBack):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def __call__(self, *args, **kwargs):
+            tqdm_object.update(n=self.batch_size)
+            return super().__call__(*args, **kwargs)
+
+    old_batch_callback = joblib.parallel.BatchCompletionCallBack
+    joblib.parallel.BatchCompletionCallBack = TqdmBatchCompletionCallback
+    try:
+        yield tqdm_object
+    finally:
+        joblib.parallel.BatchCompletionCallBack = old_batch_callback
+        tqdm_object.close()
 
 def validate_app_path(app_path):
     """Validate and return application package as absolute path"""
@@ -101,6 +122,33 @@ def get_lesser(num_a, num_b):
 
     return max(0, min(num_a, num_b))
 
+def upload_single_file_native_imagestore(sesh, endpoint, basename, show_progress, #pylint: disable=too-many-locals,too-many-arguments
+                                         rel_path, single_file, root, target_timeout)
+    current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
+
+    if current_time_left == 0:
+        raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                        'timeout duration.')
+
+    url_path = (
+        os.path.normpath(os.path.join('ImageStore', basename,
+                                        rel_path, single_file))
+    ).replace('\\', '/')
+    fp_norm = os.path.normpath(os.path.join(root, single_file))
+    with open(fp_norm, 'rb') as file_opened:
+        url_parsed = list(urlparse(endpoint))
+        url_parsed[2] = url_path
+        url_parsed[4] = urlencode(
+            {'api-version': '6.1',
+                'timeout': current_time_left})
+        url = urlunparse(url_parsed)
+
+        # timeout is (connect_timeout, read_timeout)
+        res = sesh.put(url, data=file_opened,
+                        timeout=(get_lesser(60, current_time_left), current_time_left))
+
+        res.raise_for_status()
+
 def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
                                 show_progress, timeout):
     """
@@ -121,41 +169,27 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         total_files_count += (len(files) + 1)
 
     target_timeout = int(time()) + timeout
+    jobcount = cpu_count()
+    if jobcount == None: jobcount = 2
 
     # Note: while we are raising some exceptions regarding upload timeout, we are leaving the
     # timeouts raised by the requests library as is since it contains enough information
     for root, _, files in os.walk(abspath):
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
-        for single_file in files:
+        filecount = files.count()
 
-            current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
-
-            if current_time_left == 0:
-                raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
-                                             'timeout duration.')
-
-            url_path = (
-                os.path.normpath(os.path.join('ImageStore', basename,
-                                              rel_path, single_file))
-            ).replace('\\', '/')
-            fp_norm = os.path.normpath(os.path.join(root, single_file))
-            with open(fp_norm, 'rb') as file_opened:
-                url_parsed = list(urlparse(endpoint))
-                url_parsed[2] = url_path
-                url_parsed[4] = urlencode(
-                    {'api-version': '6.1',
-                     'timeout': current_time_left})
-                url = urlunparse(url_parsed)
-
-                # timeout is (connect_timeout, read_timeout)
-                res = sesh.put(url, data=file_opened,
-                               timeout=(get_lesser(60, current_time_left), current_time_left))
-
-                res.raise_for_status()
-                current_files_count += 1
-                print_progress(current_files_count, total_files_count,
-                               os.path.normpath(os.path.join(rel_path, single_file)),
-                               show_progress, get_timeout_left(target_timeout))
+        if show_progress:
+            progressdescription = 'Uploading path: {}'.format(rel_path)
+            with tqdm_joblib(tqdm(desc=progressdescription, total=filecount)):
+                Parallel(n_jobs=jobcount)(
+                    delayed(upload_single_file_native_imagestore)(
+                        sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
+                        for single_file in files)
+        else
+            Parallel(n_jobs=jobcount)(
+                delayed(upload_single_file_native_imagestore)(
+                    sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
+                    for single_file in files)
 
         current_time_left = get_timeout_left(target_timeout)
 
@@ -176,12 +210,95 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         res = sesh.put(url,
                        timeout=(get_lesser(60, current_time_left), current_time_left))
         res.raise_for_status()
-        current_files_count += 1
+        current_files_count += filecount
         print_progress(current_files_count, total_files_count,
                        os.path.normpath(os.path.join(rel_path, '_.dir')),
                        show_progress, get_timeout_left(target_timeout))
     if show_progress:
         print('Complete', file=sys.stderr)
+
+# TODO: REMOVE BACKUP
+# def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disable=too-many-locals,too-many-arguments
+#                                 show_progress, timeout):
+#     """
+#     Upload the application package to cluster
+
+#     :param sesh: A requests (module) session object.
+#     """
+
+#     try:
+#         from urllib.parse import urlparse, urlencode, urlunparse
+#     except ImportError:
+#         from urllib import urlencode
+#         from urlparse import urlparse, urlunparse  # pylint: disable=import-error
+#     total_files_count = 0
+#     current_files_count = 0
+#     for root, _, files in os.walk(abspath):
+#         # Number of uploads is number of files plus number of directories
+#         total_files_count += (len(files) + 1)
+
+#     target_timeout = int(time()) + timeout
+
+#     # Note: while we are raising some exceptions regarding upload timeout, we are leaving the
+#     # timeouts raised by the requests library as is since it contains enough information
+#     for root, _, files in os.walk(abspath):
+#         rel_path = os.path.normpath(os.path.relpath(root, abspath))
+#         for single_file in files:
+
+#             current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
+
+#             if current_time_left == 0:
+#                 raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+#                                              'timeout duration.')
+
+#             url_path = (
+#                 os.path.normpath(os.path.join('ImageStore', basename,
+#                                               rel_path, single_file))
+#             ).replace('\\', '/')
+#             fp_norm = os.path.normpath(os.path.join(root, single_file))
+#             with open(fp_norm, 'rb') as file_opened:
+#                 url_parsed = list(urlparse(endpoint))
+#                 url_parsed[2] = url_path
+#                 url_parsed[4] = urlencode(
+#                     {'api-version': '6.1',
+#                      'timeout': current_time_left})
+#                 url = urlunparse(url_parsed)
+
+#                 # timeout is (connect_timeout, read_timeout)
+#                 res = sesh.put(url, data=file_opened,
+#                                timeout=(get_lesser(60, current_time_left), current_time_left))
+
+#                 res.raise_for_status()
+#                 current_files_count += 1
+#                 print_progress(current_files_count, total_files_count,
+#                                os.path.normpath(os.path.join(rel_path, single_file)),
+#                                show_progress, get_timeout_left(target_timeout))
+
+#         current_time_left = get_timeout_left(target_timeout)
+
+#         if current_time_left == 0:
+#             raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+#                                          'timeout duration.')
+
+#         url_path = (
+#             os.path.normpath(os.path.join('ImageStore', basename,
+#                                           rel_path, '_.dir'))
+#         ).replace('\\', '/')
+#         url_parsed = list(urlparse(endpoint))
+#         url_parsed[2] = url_path
+#         url_parsed[4] = urlencode({'api-version': '6.1',
+#                                    'timeout': current_time_left})
+#         url = urlunparse(url_parsed)
+
+#         res = sesh.put(url,
+#                        timeout=(get_lesser(60, current_time_left), current_time_left))
+#         res.raise_for_status()
+#         current_files_count += 1
+#         print_progress(current_files_count, total_files_count,
+#                        os.path.normpath(os.path.join(rel_path, '_.dir')),
+#                        show_progress, get_timeout_left(target_timeout))
+#     if show_progress:
+#         print('Complete', file=sys.stderr)
 
 class IgnoreCopy():  # pylint: disable=too-few-public-methods,bad-option-value,C1001
     """
