@@ -6,3 +6,5 @@ vcrpy
 contextlib2
 mock
 jsonpickle
+joblib
+tqdm
