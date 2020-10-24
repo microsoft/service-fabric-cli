@@ -11,14 +11,16 @@ from __future__ import print_function
 
 import os
 from multiprocessing import Process, cpu_count
-from joblib import Parallel, delayed
-from tqdm import tqdm
 from time import time
 import sys
 import zipfile
 import shutil
 import xml.etree.ElementTree as ET
 from knack.util import CLIError
+import contextlib
+import joblib
+from joblib import Parallel, delayed
+from tqdm import tqdm
 from sfctl.custom_exceptions import SFCTLInternalException
 from sfctl.util import get_user_confirmation
 
