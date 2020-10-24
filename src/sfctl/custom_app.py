@@ -123,7 +123,7 @@ def get_lesser(num_a, num_b):
     return max(0, min(num_a, num_b))
 
 def upload_single_file_native_imagestore(sesh, endpoint, basename, show_progress, #pylint: disable=too-many-locals,too-many-arguments
-                                         rel_path, single_file, root, target_timeout)
+                                         rel_path, single_file, root, target_timeout):
     current_time_left = get_timeout_left(target_timeout)   # an int representing seconds
 
     if current_time_left == 0:
