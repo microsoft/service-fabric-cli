@@ -185,7 +185,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
                     delayed(upload_single_file_native_imagestore)(
                         sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
                         for single_file in files)
-        else
+        else:
             Parallel(n_jobs=jobcount)(
                 delayed(upload_single_file_native_imagestore)(
                     sesh, endpoint, basename, show_progress, rel_path, single_file, root, target_timeout)
