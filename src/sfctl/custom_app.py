@@ -27,8 +27,11 @@ from sfctl.util import get_user_confirmation
 @contextlib.contextmanager
 def tqdm_joblib(tqdm_object):
     """Context manager to patch joblib to report into tqdm progress bar given as argument"""
-    #pylint: disable=useless-super-delegation
+    #pylint: disable=useless-super-delegation,too-few-public-methods
     class TqdmBatchCompletionCallback(joblib.parallel.BatchCompletionCallBack):
+        """
+        tqdm class callback overrides to enable usage with Parallel loop
+        """
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
