@@ -74,6 +74,15 @@ def path_from_imagestore_string(imagestore_connstr):
         return conn_str_list[1]
     return False
 
+def get_job_count():
+    """
+    Test-mockable wrapper for returning cpu count.
+    """
+    jobcount = cpu_count()
+    if jobcount is None:
+        jobcount = 2
+    return jobcount
+
 def upload_to_fileshare(source, dest, show_progress):
     """
     Copies the package from source folder to dest folder
@@ -184,9 +193,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         total_files_count += (len(files) + 1)
 
     target_timeout = int(time()) + timeout
-    jobcount = cpu_count()
-    if jobcount is None:
-        jobcount = 2
+    jobcount = get_job_count()
 
     # Note: while we are raising some exceptions regarding upload timeout, we are leaving the
     # timeouts raised by the requests library as is since it contains enough information

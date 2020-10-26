@@ -210,8 +210,10 @@ class AppTests(unittest.TestCase):
 
             timeout = 65  # upload should complete
             with vcr.use_cassette(generated_file_path, record_mode='all',
-                                  serializer='json'):
+                                  serializer='json'), \
+                 patch('sfctl.custom_app.get_job_count') as get_job_count_mock:
 
+                get_job_count_mock.return_value = 1
                 sf_c.upload_to_native_imagestore(sesh, endpoint, path_to_upload_file, basename,
                                                  show_progress=False, timeout=timeout)
 
