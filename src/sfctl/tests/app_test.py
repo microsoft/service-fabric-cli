@@ -8,6 +8,7 @@
 
 import unittest
 import os
+import json
 
 try:
     from urllib import parse
@@ -16,7 +17,6 @@ except ImportError:
 from mock import patch, MagicMock
 import requests
 import vcr
-from jsonpickle import decode
 import sfctl.custom_app as sf_c
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
 from sfctl.custom_exceptions import SFCTLInternalException
@@ -220,7 +220,7 @@ class AppTests(unittest.TestCase):
 
         with open(generated_file_path, 'r') as http_recording_file:
             json_str = http_recording_file.read()
-            vcr_recording = decode(json_str)
+            vcr_recording = json.loads(json_str)
 
             requests_list = vcr_recording['interactions']
             self.assertEqual(len(requests_list), 8, msg='Application upload test: '
