@@ -236,7 +236,7 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         res = sesh.put(url,
                        timeout=(get_lesser(60, current_time_left), current_time_left))
         res.raise_for_status()
-        current_files_count += filecount
+        current_files_count += filecount + 1
         print_progress(current_files_count, total_files_count,
                        os.path.normpath(os.path.join(rel_path, '_.dir')),
                        show_progress, get_timeout_left(target_timeout))
