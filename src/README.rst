@@ -18,6 +18,7 @@ Change Log
 
 Unreleased
 ----------
+- Added get top/least loaded partitions command.
 - Updating 'application upload' native imagestore application upload to parallelize uploads, greatly reducing overall upload time for applications with many smaller files. Also improving progress log shown by flag '--show-progress'. (#223)
 
 11.0.0
