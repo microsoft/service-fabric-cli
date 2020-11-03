@@ -713,6 +713,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             'GET',
             '/Partitions/id/$/GetLoadInformation',
             ['api-version=6.0'])
+        self.validate_command(  # loaded partitions
+            'partition get-loaded-partition-info-list --metric-name=Count',
+            'GET',
+            '/$/GetLoadedPartitionInfoList',
+            ['api-version=7.3', 'MetricName=Count'])
         self.validate_command(  # load-reset
             'partition load-reset --partition-id=id',
             'POST',

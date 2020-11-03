@@ -220,6 +220,10 @@ class SFCommandLoader(CLICommandsLoader):
                 'restart-status',
                 'get_partition_restart_progress'
             )
+            group.command(
+                'get-loaded-partition-info-list',
+                'get_loaded_partition_info_list'
+            )
 
         with CommandGroup(self, 'replica', client_func_path,
                           client_factory=client_create) as group:
