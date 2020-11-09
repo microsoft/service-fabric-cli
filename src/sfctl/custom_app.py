@@ -81,7 +81,13 @@ def get_job_count():
     """
     Test-mockable wrapper for returning cpu count.
     """
-    jobcount = cpu_count()
+    jobcount = None
+    try:
+        jobcount = cpu_count()
+    except Exception as ex: #pylint: disable=broad-except
+        print('Warning: cpu_count hit exception {}. Defaulting to 1.'.format(ex))
+        jobcount = 1
+
     if jobcount is None:
         jobcount = 2
     return jobcount
@@ -144,6 +150,12 @@ def upload_single_file_native_imagestore(sesh, endpoint, basename, #pylint: disa
     of the application package to cluster
 
     :param sesh: A requests (module) session object.
+    :param endpoint: Connection url endpoint for upload requests.
+    :param basename: Image store base path.
+    :param rel_path: Image store relative directory path.
+    :param single_file: Filename.
+    :param root: Source directory path.
+    :param target_timeout: Time at which timeout would be reached.
     """
     try:
         from urllib.parse import urlparse, urlencode, urlunparse
@@ -182,6 +194,11 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
     Upload the application package to cluster
 
     :param sesh: A requests (module) session object.
+    :param endpoint: Connection url endpoint for upload requests.
+    :param abspath: Application source path.
+    :param basename: Image store destination path.
+    :param show_progress: boolean to determine whether to log upload progress.
+    :param timeout: Total upload timeout in seconds.
     """
 
     try:
