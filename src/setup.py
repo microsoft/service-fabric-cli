@@ -17,7 +17,7 @@ def read(fname):
 
 setup(
     name='sfctl',
-    version='10.0.0',
+    version='11.0.0',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
     url='https://github.com/Azure/service-fabric-cli',
@@ -47,7 +47,7 @@ setup(
         'msrest>=0.5.0',
         'msrestazure',
         'requests',
-        'azure-servicefabric==7.1.0.45',
+        'azure-servicefabric==7.2.0.46',
         'adal',
         'future',
         'applicationinsights',
