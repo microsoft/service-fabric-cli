@@ -16,6 +16,10 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+----------
+- Updating 'application upload' native imagestore application upload to parallelize uploads, greatly reducing overall upload time for applications with many smaller files. Also improving progress log shown by flag '--show-progress'. (#223)
+
 11.0.0
 ----------
 - Update imports for Service fabric runtime version 7.2 (#225)
