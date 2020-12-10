@@ -24,8 +24,4 @@ jobs:
         pip install --force-reinstall -r requirements.txt
     - name: test
       run: |
-        scripts/verify.sh test
-        scripts/verify.sh lint
-    - name: coveralls
-      run: |
-        coveralls
+        scripts/verify.sh local
