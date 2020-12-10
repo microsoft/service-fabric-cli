@@ -24,6 +24,11 @@ Unreleased
 ----------
 - Update imports for Service fabric runtime version 7.2 (#225)
 
+10.1.0
+----------
+(back port of 11.0.0 for Linux 7.2)
+
+
 10.0.0
 ----------
 - Update imports for Service fabric runtime version 7.1 (#218)

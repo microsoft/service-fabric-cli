@@ -17,7 +17,7 @@ def read(fname):
 
 setup(
     name='sfctl',
-    version='11.0.0',
+    version='10.1.0',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
     url='https://github.com/Azure/service-fabric-cli',
@@ -54,7 +54,9 @@ setup(
         'sfmergeutility==0.1.6',
         'psutil',
         'portalocker',
-        'six'
+        'six',
+        'joblib',
+        'tqdm'
     ],
     extras_require={
         'test': [
