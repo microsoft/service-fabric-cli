@@ -54,7 +54,9 @@ setup(
         'sfmergeutility==0.1.6',
         'psutil',
         'portalocker',
-        'six'
+        'six',
+        "joblib",
+        "tqdm"
     ],
     extras_require={
         'test': [

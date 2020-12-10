@@ -5,5 +5,3 @@ pylint
 vcrpy
 contextlib2
 mock
-joblib
-tqdm
