@@ -13551,7 +13551,7 @@ class ServiceFabricClientAPIs(SDKClient):
     cancel_operation.metadata = {'url': '/Faults/$/Cancel'}
 
     def create_backup_policy(
-            self, backup_policy_description, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, backup_policy_description, timeout=60, validate_connection=False, custom_headers=None, raw=False, **operation_config):
         """Creates a backup policy.
 
         Creates a backup policy which can be associated later with a Service
@@ -13565,6 +13565,10 @@ class ServiceFabricClientAPIs(SDKClient):
          willing to wait for the requested operation to complete. The default
          value for this parameter is 60 seconds.
         :type timeout: long
+        :param validate_connection: Specifies whether to validate the storage
+         connection and credentials before creating or updating the backup
+         policies.
+        :type validate_connection: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -13585,6 +13589,8 @@ class ServiceFabricClientAPIs(SDKClient):
         query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
         if timeout is not None:
             query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        if validate_connection is not None:
+            query_parameters['ValidateConnection'] = self._serialize.query("validate_connection", validate_connection, 'bool')
 
         # Construct headers
         header_parameters = {}
@@ -13914,7 +13920,7 @@ class ServiceFabricClientAPIs(SDKClient):
     get_all_entities_backed_up_by_policy.metadata = {'url': '/BackupRestore/BackupPolicies/{backupPolicyName}/$/GetBackupEnabledEntities'}
 
     def update_backup_policy(
-            self, backup_policy_description, backup_policy_name, timeout=60, custom_headers=None, raw=False, **operation_config):
+            self, backup_policy_description, backup_policy_name, timeout=60, validate_connection=False, custom_headers=None, raw=False, **operation_config):
         """Updates the backup policy.
 
         Updates the backup policy identified by {backupPolicyName}.
@@ -13929,6 +13935,10 @@ class ServiceFabricClientAPIs(SDKClient):
          willing to wait for the requested operation to complete. The default
          value for this parameter is 60 seconds.
         :type timeout: long
+        :param validate_connection: Specifies whether to validate the storage
+         connection and credentials before creating or updating the backup
+         policies.
+        :type validate_connection: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -13953,6 +13963,8 @@ class ServiceFabricClientAPIs(SDKClient):
         query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
         if timeout is not None:
             query_parameters['timeout'] = self._serialize.query("timeout", timeout, 'long', maximum=4294967295, minimum=1)
+        if validate_connection is not None:
+            query_parameters['ValidateConnection'] = self._serialize.query("validate_connection", validate_connection, 'bool')
 
         # Construct headers
         header_parameters = {}

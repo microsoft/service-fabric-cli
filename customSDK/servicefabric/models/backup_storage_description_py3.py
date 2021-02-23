@@ -17,7 +17,8 @@ class BackupStorageDescription(Model):
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: AzureBlobBackupStorageDescription,
-    FileShareBackupStorageDescription, DsmsAzureBlobBackupStorageDescription
+    FileShareBackupStorageDescription, DsmsAzureBlobBackupStorageDescription,
+    ManagedIdentityAzureBlobBackupStorageDescription
 
     All required parameters must be populated in order to send to Azure.
 
@@ -37,7 +38,7 @@ class BackupStorageDescription(Model):
     }
 
     _subtype_map = {
-        'storage_kind': {'AzureBlobStore': 'AzureBlobBackupStorageDescription', 'FileShare': 'FileShareBackupStorageDescription', 'DsmsAzureBlobStore': 'DsmsAzureBlobBackupStorageDescription'}
+        'storage_kind': {'AzureBlobStore': 'AzureBlobBackupStorageDescription', 'FileShare': 'FileShareBackupStorageDescription', 'DsmsAzureBlobStore': 'DsmsAzureBlobBackupStorageDescription', 'ManagedIdentityAzureBlobStore': 'ManagedIdentityAzureBlobBackupStorageDescription'}
     }
 
     def __init__(self, *, friendly_name: str=None, **kwargs) -> None:
