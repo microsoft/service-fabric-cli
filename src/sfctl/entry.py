@@ -58,7 +58,7 @@ def launch():
         return invocation_return_value
 
     try:
-        if invocation_return_value != 0 or ('cluster' and 'select' in sys.argv[1:]):
+        if invocation_return_value != 0 or 'select' in sys.argv[1:]:
             # invocation_return_value is 0 on success
             check_cluster_version(on_failure_or_connection=True)
         else:

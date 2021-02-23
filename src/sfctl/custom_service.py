@@ -283,11 +283,14 @@ def parse_scaling_trigger(scaling_trigger):
             p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
             p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
             p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
+            p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
+            p_use_only_primary_load  = scaling_trigger.get('use_only_primary_load', False)
             return AverageServiceLoadScalingTrigger(
                 metric_name=p_metricname,
                 lower_load_threshold=p_lower_load_threshold,
                 upper_load_threshold=p_upper_load_threshold,
-                scale_interval_in_seconds=p_scale_interval
+                scale_interval_in_seconds=p_scale_interval,
+                use_only_primary_load=p_use_only_primary_load
             )
 
     return None
