@@ -220,6 +220,18 @@ class SFCommandLoader(CLICommandsLoader):
                 'restart-status',
                 'get_partition_restart_progress'
             )
+            group.command(
+                'move-primary-replica',
+                'move_primary_replica',
+            )
+            group.command(
+                'move-secondary-replica',
+                'move_secondary_replica',
+            )
+            group.command(
+                'move-instance',
+                'move_instance',
+            )
 
         with CommandGroup(self, 'replica', client_func_path,
                           client_factory=client_create) as group:

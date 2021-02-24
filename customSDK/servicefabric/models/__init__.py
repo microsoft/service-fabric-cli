@@ -354,6 +354,7 @@ try:
     from .azure_blob_backup_storage_description_py3 import AzureBlobBackupStorageDescription
     from .file_share_backup_storage_description_py3 import FileShareBackupStorageDescription
     from .dsms_azure_blob_backup_storage_description_py3 import DsmsAzureBlobBackupStorageDescription
+    from .managed_identity_azure_blob_backup_storage_description_py3 import ManagedIdentityAzureBlobBackupStorageDescription
     from .frequency_based_backup_schedule_description_py3 import FrequencyBasedBackupScheduleDescription
     from .time_based_backup_schedule_description_py3 import TimeBasedBackupScheduleDescription
     from .backup_progress_info_py3 import BackupProgressInfo
@@ -867,6 +868,7 @@ except (SyntaxError, ImportError):
     from .azure_blob_backup_storage_description import AzureBlobBackupStorageDescription
     from .file_share_backup_storage_description import FileShareBackupStorageDescription
     from .dsms_azure_blob_backup_storage_description import DsmsAzureBlobBackupStorageDescription
+    from .managed_identity_azure_blob_backup_storage_description import ManagedIdentityAzureBlobBackupStorageDescription
     from .frequency_based_backup_schedule_description import FrequencyBasedBackupScheduleDescription
     from .time_based_backup_schedule_description import TimeBasedBackupScheduleDescription
     from .backup_progress_info import BackupProgressInfo
@@ -1108,6 +1110,7 @@ from .service_fabric_client_ap_is_enums import (
     BackupSuspensionScope,
     RestoreState,
     BackupType,
+    ManagedIdentityType,
     BackupScheduleFrequencyType,
     DayOfWeek,
     BackupState,
@@ -1494,6 +1497,7 @@ __all__ = [
     'AzureBlobBackupStorageDescription',
     'FileShareBackupStorageDescription',
     'DsmsAzureBlobBackupStorageDescription',
+    'ManagedIdentityAzureBlobBackupStorageDescription',
     'FrequencyBasedBackupScheduleDescription',
     'TimeBasedBackupScheduleDescription',
     'BackupProgressInfo',
@@ -1734,6 +1738,7 @@ __all__ = [
     'BackupSuspensionScope',
     'RestoreState',
     'BackupType',
+    'ManagedIdentityType',
     'BackupScheduleFrequencyType',
     'DayOfWeek',
     'BackupState',

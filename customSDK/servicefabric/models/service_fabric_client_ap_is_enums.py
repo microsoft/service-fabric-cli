@@ -758,6 +758,7 @@ class BackupStorageKind(str, Enum):
     file_share = "FileShare"  #: Indicates file/ SMB share to be used as backup storage.
     azure_blob_store = "AzureBlobStore"  #: Indicates Azure blob store to be used as backup storage.
     dsms_azure_blob_store = "DsmsAzureBlobStore"  #: Indicates Dsms Azure blob store to be used as backup storage.
+    managed_identity_azure_blob_store = "ManagedIdentityAzureBlobStore"  #: Indicates Azure blob store to be used as backup storage using managed identity.
 
 
 class BackupScheduleKind(str, Enum):
@@ -798,6 +799,13 @@ class BackupType(str, Enum):
     invalid = "Invalid"  #: Indicates an invalid backup type. All Service Fabric enumerations have the invalid type.
     full = "Full"  #: Indicates a full backup.
     incremental = "Incremental"  #: Indicates an incremental backup. A backup chain is comprised of a full backup followed by 0 or more incremental backups.
+
+
+class ManagedIdentityType(str, Enum):
+
+    invalid = "Invalid"  #: Indicates an invalid managed identity type. All Service Fabric enumerations have the invalid type.
+    vmss = "VMSS"  #: Indicates VMSS managed identity should be used to connect to Azure blob store.
+    cluster = "Cluster"  #: Indicates cluster managed identity should be used to connect to Azure blob store.
 
 
 class BackupScheduleFrequencyType(str, Enum):
