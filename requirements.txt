@@ -5,4 +5,3 @@ pylint
 vcrpy
 contextlib2
 mock
-jsonpickle
