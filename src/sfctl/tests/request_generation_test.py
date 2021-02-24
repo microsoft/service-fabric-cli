@@ -763,7 +763,6 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Services/fabric:/app/id/$/GetPartitions/id/$/MoveInstance',
             ['api-version=8.0', 'IgnoreConstraints=true', 'timeout=60'])
-        
         # Property
         value = '"{\\"Kind\\": \\"String\\", \\"Data\\": \\"data\\"}"'
         self.validate_command(  # put
