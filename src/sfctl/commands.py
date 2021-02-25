@@ -232,6 +232,10 @@ class SFCommandLoader(CLICommandsLoader):
                 'move-instance',
                 'move_instance',
             )
+            group.command(
+                'get-loaded-partition-info-list',
+                'get_loaded_partition_info_list',
+            )
 
         with CommandGroup(self, 'replica', client_func_path,
                           client_factory=client_create) as group:
