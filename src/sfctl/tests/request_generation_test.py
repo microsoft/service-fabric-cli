@@ -758,6 +758,11 @@ class ServiceFabricRequestTests(ScenarioTest):
             'POST',
             '/Partitions/id/$/MoveSecondaryReplica',
             ['api-version=6.5', 'IgnoreConstraints=true', 'timeout=60'])
+        self.validate_command( # loaded-partitions
+           'partition get-loaded-partition-info-list --metric-name=Count',
+           'GET',
+           '/$/GetLoadedPartitionInfoList',
+           ['api-version=8.0', 'MetricName=Count'])
         self.validate_command(  # move-instance
             'partition move-instance --service-id=fabric:/app/id --partition-id=id --current-node-name=nodeName --new-node-name=nodeName --ignore-constraints',
             'POST',
