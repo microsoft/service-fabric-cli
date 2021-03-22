@@ -31,7 +31,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
 
     from azure.servicefabric.models import (ProvisionApplicationTypeDescription,
                                             ExternalStoreProvisionApplicationTypeDescription,
-                                            FabricErrorException)
+                                            FabricError)
 
     provision_description = None
 
@@ -114,4 +114,4 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
         request, header_parameters, body_content_sorted)
 
     if response.status_code not in [200, 202]:
-        raise FabricErrorException(client._deserialize, response)
+        raise FabricError(client._deserialize, response)
