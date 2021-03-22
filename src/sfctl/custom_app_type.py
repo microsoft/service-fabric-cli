@@ -110,7 +110,7 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
 
     # Construct and send request
     request = client._client.post(url, query_parameters)
-    response = client._client.send(
+    response = client._client.run(
         request, header_parameters, body_content_sorted)
 
     if response.status_code not in [200, 202]:
