@@ -8,9 +8,3 @@
 
 from ._service_fabric_client_apis import ServiceFabricClientAPIs
 __all__ = ['ServiceFabricClientAPIs']
-
-try:
-    from ._patch import patch_sdk  # type: ignore
-    patch_sdk()
-except ImportError:
-    pass
