@@ -110,8 +110,8 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
 
     # Construct and send request
     request = client._client.post(url, query_parameters)
-    response = client._client.run(
+    pipeline_response = client._client._pipeline.run(
         request, header_parameters, body_content_sorted)
-
+    response = pipeline_response.http_response
     if response.status_code not in [200, 202]:
         raise FabricError(client._deserialize, response)
