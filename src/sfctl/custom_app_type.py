@@ -109,9 +109,10 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
             'provision_application_type: Kind must be the first item to be serialized.')
 
     # Construct and send request
-    request = client._client.post(url, query_parameters)
-    pipeline_response = client._client._pipeline.run(
-        request, header_parameters, body_content_sorted)
+    body_content_kwargs = {}
+    body_content_kwargs['content'] = body_content_sorted
+    request = client._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+    pipeline_response = client._client._pipeline.run(request, stream=False)
     response = pipeline_response.http_response
     if response.status_code not in [200, 202]:
         raise FabricError(client._deserialize, response)
