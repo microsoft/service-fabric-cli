@@ -58,6 +58,15 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(res[1].scaling_trigger.lower_load_threshold, 10.0)
         self.assertEqual(res[1].scaling_mechanism.scale_increment, 2)
 
+    def test_parse_service_tags(self):
+        """Parse service tags"""
+        service_tags = ["tagX", "tagY", "tagZ"]
+        res = sf_c.parse_service_tags(service_tags)
+        self.assertEqual(len(service_tags), res.count)
+        self.assertEqual(res.tags[0], service_tags[0])
+        self.assertEqual(res.tags[1], service_tags[1])
+        self.assertEqual(res.tags[2], service_tags[2])
+
     def test_parse_incomplete_load_metrics(self):
         """Parse single incomplete load metrics definition"""
 
