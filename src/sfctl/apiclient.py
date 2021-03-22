@@ -37,7 +37,7 @@ def create(_):
     client = ServiceFabricClientAPIs(auth, base_url=endpoint)
 
     # client.config.retry_policy has type msrest.pipeline.ClientRetryPolicy
-    client._config.no_retries()
+    client._config.retry_policy.no_retries()
 
     # msrest defines ClientRetryPolicy in pipline.py.
     # ClientRetryPolicy.__init__ defines values for status_forcelist
