@@ -21,6 +21,8 @@ Unreleased
 - Added get top/least loaded partitions command. It will be available in the Service fabric runtime 8.0 version.
 - Added move replica partition commands. Move primary and secondary replica commands will be available in the Service fabric runtime 6.5 version. Move instance command will be available in the Service fabric runtime 8.0 version. (#227)
 - Updating 'application upload' native imagestore application upload to parallelize uploads, greatly reducing overall upload time for applications with many smaller files. Also improving progress log shown by flag '--show-progress'. (#223)
+- Added add/remove node tags commands. They will be available in the Service fabric runtime 8.0 version. (#232)
+- Update Create and Update service with new parameters, TagsRequiredToPlace and TagsRequiredToRun (#232)
 
 11.0.0
 ----------

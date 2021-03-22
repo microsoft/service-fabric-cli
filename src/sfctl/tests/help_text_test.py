@@ -341,9 +341,9 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl node',
-            commands=('add-configuration-parameter-overrides', 'disable', 'enable',
+            commands=('add-configuration-parameter-overrides', 'add-node-tags', 'disable', 'enable',
                       'get-configuration-overrides', 'health', 'info', 'list', 'load',
-                      'remove-configuration-overrides', 'remove-state', 'report-health',
+                      'remove-configuration-overrides', 'remove-node-tags', 'remove-state', 'report-health',
                       'restart', 'transition', 'transition-status'))
 
         self.validate_output(

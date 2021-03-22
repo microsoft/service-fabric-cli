@@ -132,6 +132,14 @@ class SFCommandLoader(CLICommandsLoader):
                 'remove-configuration-overrides',
                 'remove_configuration_overrides'
             )
+            group.command(
+                'add-node-tags',
+                'add_node_tags'
+            )
+            group.command(
+                'remove-node-tags',
+                'remove_node_tags'
+            )
 
         with CommandGroup(self, 'application', client_func_path,
                           client_factory=client_create) as group:

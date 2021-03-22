@@ -152,7 +152,9 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
                                                    correlation='',
                                                    metrics='',
                                                    move_cost='high',
-                                                   service_placement_time=10), 3071)
+                                                   service_placement_time=10,
+                                                   tags_required_to_place=['tagA', 'tagB'],
+                                                   tags_required_to_run=['tagX', 'tagY']), 3148799)
 
     def test_service_create_missing_service_state(self):
         """Service create must specify exactly stateful or stateless"""
