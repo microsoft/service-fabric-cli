@@ -472,21 +472,21 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"ParameterName": "DummyPLBEnabled", '
              '"ParameterValue": "False"}]'),
             validate_list_of_objects)
-        node_tags = path.join(sample_path_base, 'sample_node_tags.txt').replace('/', '//').replace('\\', '\\\\')
-        tags = '"[\\"tagA\\", \\"tagB\\", \\"tagC\\"]"'
+
+        tags = "tagA,tagB,tagC"
         self.validate_command(  # add-node-tags
-            'sfctl node add-node-tags --node-name=nodeName --node-tags=' + tags,
+            'sfctl node add-node-tags --node-name=nodeName --tags=' + tags,
             'POST',
             '/Nodes/nodeName/$/AddNodeTags',
             ['api-version=8.0'],
-            ('{"NodeTagsList":["tagA", "tagB", "tagC"]}'),
+            ('["tagA", "tagB", "tagC"]'),
             validate_list_of_objects)
         self.validate_command(  # remove-node-tags
-            'sfctl node remove-node-tags --node-name=nodeName --node-tags=' + tags,
+            'sfctl node remove-node-tags --node-name=nodeName --tags=' + tags,
             'POST',
             '/Nodes/nodeName/$/RemoveNodeTags',
             ['api-version=8.0'],
-            ('{"NodeTagsList":["tagA", "tagB", "tagC"]}'),
+            ('["tagA", "tagB", "tagC"]'),
             validate_list_of_objects)
 
         # container commands
