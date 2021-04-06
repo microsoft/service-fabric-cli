@@ -474,18 +474,18 @@ class ServiceFabricRequestTests(ScenarioTest):
             validate_list_of_objects)
         node_tags = path.join(sample_path_base, 'sample_node_tags.txt').replace('/', '//').replace('\\', '\\\\')
         self.validate_command(  # add-node-tags
-            'sfctl node add-node-tags --node-name=nodeName --node-tags=[ "tagA", "tagB", "tagC" ]',
+            'sfctl node add-node-tags --node-name=nodeName --node-tags=["tagA", "tagB", "tagC"]',
             'POST',
             '/Nodes/nodeName/$/AddNodeTags',
             ['api-version=8.0'],
-            ('{"NodeTagsList":[ "tagA", "tagB", "tagC" ]}'),
+            ('{"NodeTagsList":["tagA", "tagB", "tagC"]}'),
             validate_list_of_objects)
         self.validate_command(  # remove-node-tags
-            'sfctl node remove-node-tags --node-name=nodeName --node-tags=[ "tagA", "tagB", "tagC" ]',
+            'sfctl node remove-node-tags --node-name=nodeName --node-tags=["tagA", "tagB", "tagC"]',
             'POST',
             '/Nodes/nodeName/$/RemoveNodeTags',
             ['api-version=8.0'],
-            ('{"NodeTagsList":[ "tagA", "tagB", "tagC" ]}'),
+            ('{"NodeTagsList":["tagA", "tagB", "tagC"]}'),
             validate_list_of_objects)
 
         # container commands
