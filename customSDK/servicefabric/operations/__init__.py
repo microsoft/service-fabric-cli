@@ -9,16 +9,15 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._mesh_secret_operations import MeshSecretOperations
-from ._mesh_secret_value_operations import MeshSecretValueOperations
-from ._mesh_volume_operations import MeshVolumeOperations
-from ._mesh_network_operations import MeshNetworkOperations
-from ._mesh_application_operations import MeshApplicationOperations
-from ._mesh_service_operations import MeshServiceOperations
-from ._mesh_code_package_operations import MeshCodePackageOperations
-from ._mesh_service_replica_operations import MeshServiceReplicaOperations
-from ._mesh_gateway_operations import MeshGatewayOperations
-from ._service_fabric_client_ap_is_operations import ServiceFabricClientAPIsOperationsMixin
+from .mesh_secret_operations import MeshSecretOperations
+from .mesh_secret_value_operations import MeshSecretValueOperations
+from .mesh_volume_operations import MeshVolumeOperations
+from .mesh_network_operations import MeshNetworkOperations
+from .mesh_application_operations import MeshApplicationOperations
+from .mesh_service_operations import MeshServiceOperations
+from .mesh_code_package_operations import MeshCodePackageOperations
+from .mesh_service_replica_operations import MeshServiceReplicaOperations
+from .mesh_gateway_operations import MeshGatewayOperations
 
 __all__ = [
     'MeshSecretOperations',
@@ -30,5 +29,4 @@ __all__ = [
     'MeshCodePackageOperations',
     'MeshServiceReplicaOperations',
     'MeshGatewayOperations',
-    'ServiceFabricClientAPIsOperationsMixin',
 ]
