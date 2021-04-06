@@ -478,14 +478,14 @@ class ServiceFabricRequestTests(ScenarioTest):
             'sfctl node add-node-tags --node-name=nodeName --tags=' + tags,
             'POST',
             '/Nodes/nodeName/$/AddNodeTags',
-            ['api-version=8.0'],
+            ['api-version=7.2'],
             ('["tagA", "tagB", "tagC"]'),
             validate_list_of_objects)
         self.validate_command(  # remove-node-tags
             'sfctl node remove-node-tags --node-name=nodeName --tags=' + tags,
             'POST',
             '/Nodes/nodeName/$/RemoveNodeTags',
-            ['api-version=8.0'],
+            ['api-version=7.0'],
             ('["tagA", "tagB", "tagC"]'),
             validate_list_of_objects)
 
