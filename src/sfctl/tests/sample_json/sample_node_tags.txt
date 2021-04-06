@@ -1,3 +1,1 @@
-{
-    "NodeTagsList":[ "tagA", "tagB", "tagC" ]
- }
+[ "tagA", "tagB", "tagC" ]
