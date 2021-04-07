@@ -122,7 +122,7 @@ def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
     return flag_sum
 
 
-def service_update_flags(  # pylint: disable=too-many-arguments
+def service_update_flags(  # pylint: disable=too-many-arguments, too-many-branches
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,

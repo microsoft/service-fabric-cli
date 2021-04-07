@@ -230,7 +230,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             print()
             print(line)
 
-        allowable_lines_not_found = [148, 85]
+        allowable_lines_not_found = [148, 89]
 
         print()
         print('The total number of lines compared is ' + str(len(custom_help_lines)))

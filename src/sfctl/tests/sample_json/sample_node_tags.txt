@@ -1,1 +1,0 @@
-[ "tagA", "tagB", "tagC" ]
