@@ -122,11 +122,12 @@ def stateful_flags(rep_restart_wait=None, quorum_loss_wait=None,
     return flag_sum
 
 
-def service_update_flags(  # pylint: disable=too-many-arguments
+def service_update_flags(  # pylint: disable=too-many-arguments, too-many-branches
         target_rep_size=None, instance_count=None, rep_restart_wait=None,
         quorum_loss_wait=None, standby_rep_keep=None, min_rep_size=None,
         placement_constraints=None, placement_policy=None, correlation=None,
-        metrics=None, move_cost=None, scaling_policy=None, service_placement_time=None):
+        metrics=None, move_cost=None, scaling_policy=None, service_placement_time=None,
+        tags_required_to_place=None, tags_required_to_run=None):
     """Calculate an integer representation of flag arguments for updating
     stateful services"""
 
@@ -155,6 +156,10 @@ def service_update_flags(  # pylint: disable=too-many-arguments
         flag_sum += 1024
     if service_placement_time is not None:
         flag_sum += 2048
+    if tags_required_to_place is not None:
+        flag_sum += 1048576
+    if tags_required_to_run is not None:
+        flag_sum += 2097152
     return flag_sum
 
 
@@ -317,6 +322,14 @@ def parse_scaling_policy(formatted_scaling_policy):
 
     return scaling_list
 
+def parse_service_tags(service_tags):
+    """Parse service tags from string"""
+    from azure.servicefabric.models import NodeTagsDescription
+    if service_tags:
+        return NodeTagsDescription(count=len(service_tags),
+                                    tags=service_tags)
+    return None
+
 
 def create(  # pylint: disable=too-many-arguments, too-many-locals
         client, app_id, name, service_type, stateful=False, stateless=False,
@@ -328,7 +341,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
         target_replica_set_size=None, min_replica_set_size=None,
         replica_restart_wait=None, quorum_loss_wait=None,
         stand_by_replica_keep=None, no_persisted_state=False,
-        instance_count=None, timeout=60, scaling_policies=None, service_placement_time=None):
+        instance_count=None, timeout=60, scaling_policies=None,
+        service_placement_time=None, tags_required_to_place=None, tags_required_to_run=None):
     """
     Creates the specified Service Fabric service.
     :param str app_id: The identity of the application. This is
@@ -399,6 +413,10 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     :param int instance_count: The instance count. This applies to stateless
     services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param list of str tags_required_to_place: JSON encoded list of tags to
+    require to place the service, if using node tagging feature
+    :param list of str tags_required_to_run: JSON encoded list of tags to
+    require to run the service, if using node tagging feature
     :param int service_placement_time: The duration for which replicas can stay
     InBuild before reporting that build is stuck. This
     applies to stateful services only.
@@ -419,6 +437,8 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     validate_move_cost(move_cost)
     validate_activation_mode(activation_mode)
     scaling_policy_description = parse_scaling_policy(scaling_policies)
+    tags_required_to_place_description = parse_service_tags(tags_required_to_place)
+    tags_required_to_run_description = parse_service_tags(tags_required_to_run)
 
     if stateless:
         svc_desc = StatelessServiceDescription(service_name=name,
@@ -435,7 +455,9 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
                                                is_default_move_cost_specified=bool(move_cost),
                                                service_package_activation_mode=activation_mode,
                                                service_dns_name=dns_name,
-                                               scaling_policies=scaling_policy_description)
+                                               scaling_policies=scaling_policy_description,
+                                               tags_required_to_place=tags_required_to_place_description,
+                                               tags_required_to_run=tags_required_to_run_description)
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
@@ -462,7 +484,9 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
             stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
-            service_placement_time_limit_seconds=service_placement_time)
+            service_placement_time_limit_seconds=service_placement_time,
+            tags_required_to_place=tags_required_to_place_description,
+            tags_required_to_run=tags_required_to_run_description)
 
     client.create_service(app_id, svc_desc, timeout)
 
@@ -507,7 +531,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
            move_cost=None, instance_count=None, target_replica_set_size=None,
            min_replica_set_size=None, replica_restart_wait=None,
            quorum_loss_wait=None, stand_by_replica_keep=None, timeout=60,
-           scaling_policies=None, service_placement_time=None):
+           scaling_policies=None, service_placement_time=None,
+           tags_required_to_place=None, tags_required_to_run=None):
     """
     Updates the specified service using the given update description.
     :param str service_id: The identity of the service. This is typically the
@@ -552,6 +577,10 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     which StandBy replicas will be maintained before being removed. This
     applies to stateful services only.
     :param str scaling_policies: JSON encoded list of scaling policies for this service.
+    :param list of str tags_required_to_place: JSON encoded list of tags to
+    require to place the service, if using node tagging feature
+    :param list of str tags_required_to_run: JSON encoded list of tags to
+    require to run the service, if using node tagging feature
     :param int service_placement_time: The duration for which replicas can stay
     InBuild before reporting that build is stuck. This
     applies to stateful services only.
@@ -570,6 +599,8 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     place_desc = parse_placement_policies(placement_policy_list)
     validate_move_cost(move_cost)
     scaling_policy_description = parse_scaling_policy(scaling_policies)
+    tags_required_to_place_description = parse_service_tags(tags_required_to_place)
+    tags_required_to_run_description = parse_service_tags(tags_required_to_run)
 
     flags = service_update_flags(target_replica_set_size, instance_count,
                                  replica_restart_wait, quorum_loss_wait,
@@ -593,7 +624,9 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
             replica_restart_wait_duration_seconds=replica_restart_wait,
             quorum_loss_wait_duration_seconds=quorum_loss_wait,
             stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
-            service_placement_time_limit_seconds=service_placement_time)
+            service_placement_time_limit_seconds=service_placement_time,
+            tags_required_to_place=tags_required_to_place_description,
+            tags_required_to_run=tags_required_to_run_description)
 
     if stateless:
         update_desc = StatelessServiceUpdateDescription(flags=flags,
@@ -603,7 +636,9 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                                         service_placement_policies=place_desc,
                                                         default_move_cost=move_cost,
                                                         scaling_policies=scaling_policy_description,
-                                                        instance_count=instance_count)
+                                                        instance_count=instance_count,
+                                                        tags_required_to_place=tags_required_to_place_description,
+                                                        tags_required_to_run=tags_required_to_run_description)
 
     client.update_service(service_id, update_desc, timeout)
 

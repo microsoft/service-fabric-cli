@@ -32,6 +32,7 @@ import sfctl.helps.chaos  # pylint: disable=unused-import
 import sfctl.helps.infrastructure  # pylint: disable=unused-import
 import sfctl.helps.secretvalue  # pylint: disable=unused-import
 import sfctl.helps.deployment # pylint: disable=unused-import
+import sfctl.helps.node # pylint: disable=unused-import
 
 EXCLUDED_PARAMS = ['self', 'raw', 'custom_headers', 'operation_config',
                    'content_version', 'kwargs', 'client']
@@ -437,6 +438,11 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandGroup(self, 'cluster', client_func_path_health,
                           client_factory=client_create) as group:
             group.command('report-health', 'report_cluster_health')
+
+        with CommandGroup(self, 'node', 'sfctl.custom_node#{}',
+                          client_factory=client_create) as group:
+            group.command('add-node-tags', 'add_node_tags')
+            group.command('remove-node-tags', 'remove_node_tags')
 
         # ---------------
         # Mesh custom commands

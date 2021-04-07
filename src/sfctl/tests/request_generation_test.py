@@ -473,6 +473,22 @@ class ServiceFabricRequestTests(ScenarioTest):
              '"ParameterValue": "False"}]'),
             validate_list_of_objects)
 
+        tags = "tagA,tagB,tagC"
+        self.validate_command(  # add-node-tags
+            'sfctl node add-node-tags --node-name=nodeName --tags=' + tags,
+            'POST',
+            '/Nodes/nodeName/$/AddNodeTags',
+            ['api-version=7.2'],
+            ('["tagA", "tagB", "tagC"]'),
+            validate_list_of_objects)
+        self.validate_command(  # remove-node-tags
+            'sfctl node remove-node-tags --node-name=nodeName --tags=' + tags,
+            'POST',
+            '/Nodes/nodeName/$/RemoveNodeTags',
+            ['api-version=7.0'],
+            ('["tagA", "tagB", "tagC"]'),
+            validate_list_of_objects)
+
         # container commands
         self.validate_command(  # get container logs
             'sfctl container invoke-api --node-name Node01 --application-id samples/winnodejs '

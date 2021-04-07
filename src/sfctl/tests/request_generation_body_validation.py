@@ -54,6 +54,11 @@ def validate_list_of_objects(command, actual_body, expected_body):
         print('Expected body: {0}'.format(expected_body), file=stderr)
         print('Actual body: {0}'.format(actual_body), file=stderr)
         return False
+
+    if isinstance(expected_body, list):
+        return _check_and_print_matching_error(command, expected_body, expected_body, actual_body)
+
+
     for index, _ in enumerate(expected_body):
         actual_body_dictionary = actual_body[index]
         for key in expected_body[index]:
