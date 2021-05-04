@@ -124,7 +124,7 @@ class AppTests(unittest.TestCase):
         progress"""
         import shutil
         import tempfile
-        # pylint: disable R1732
+        # pylint: disable=consider-using-with
         temp_file = tempfile.NamedTemporaryFile(dir=tempfile.mkdtemp())
         temp_src_dir = os.path.dirname(temp_file.name)
         temp_dst_dir = tempfile.mkdtemp()
