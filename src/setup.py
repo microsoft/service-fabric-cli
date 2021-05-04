@@ -47,7 +47,7 @@ setup(
         'msrest>=0.5.0',
         'msrestazure',
         'requests',
-        'azure-servicefabric==7.2.0.46',
+        'azure-servicefabric==8.0.0.0',
         'adal',
         'future',
         'applicationinsights',

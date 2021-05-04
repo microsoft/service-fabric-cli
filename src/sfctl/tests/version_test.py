@@ -18,6 +18,7 @@ class VersionTests(unittest.TestCase):
         """
         sfctl_version = '11.0.0'
 
+        # pylint: disable=consider-using-with
         pipe = Popen('sfctl --version', shell=True, stdout=PIPE, stderr=PIPE)
         # returned_string and err are returned as bytes
         (returned_string, err) = pipe.communicate()
