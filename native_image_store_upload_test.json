@@ -1,0 +1,333 @@
+{
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/empty_file.txt?api-version=6.1&timeout=65",
+                "body": "0\r\n\r\n",
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Transfer-Encoding": [
+                        "chunked"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:11:48 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/_.dir?api-version=6.1&timeout=60",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:11:54 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/empty_file.txt?api-version=6.1&timeout=54",
+                "body": "0\r\n\r\n",
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Transfer-Encoding": [
+                        "chunked"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:11:59 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/empty_file2.txt?api-version=6.1&timeout=49",
+                "body": "0\r\n\r\n",
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Transfer-Encoding": [
+                        "chunked"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:12:04 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/_.dir?api-version=6.1&timeout=44",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:12:09 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/layer2/_.dir?api-version=6.1&timeout=39",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:12:14 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/layer2/layer%203/empty_file.txt?api-version=6.1&timeout=34",
+                "body": "0\r\n\r\n",
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Transfer-Encoding": [
+                        "chunked"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:12:19 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "PUT",
+                "uri": "http://localhost:46093/ImageStore/sample_nested_folders/layer1/layer2/layer%203/_.dir?api-version=6.1&timeout=29",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.25.0"
+                    ],
+                    "Accept-Encoding": [
+                        "gzip, deflate"
+                    ],
+                    "Accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "Date": [
+                        "Tue, 04 May 2021 00:12:24 GMT"
+                    ],
+                    "Server": [
+                        "BaseHTTP/0.6 Python/3.6.5"
+                    ]
+                },
+                "body": {
+                    "string": ""
+                }
+            }
+        }
+    ]
+}
