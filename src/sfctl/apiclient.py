@@ -46,4 +46,3 @@ def create(_):
     client.config.retry_policy.policy.status_forcelist = None
 
     return client
-

@@ -237,7 +237,6 @@ class ServiceFabricRequestTests(ScenarioTest):
         and sent to the cluster."""
 
         sample_path_base = '@' + path.join(path.dirname(__file__), 'sample_json')
-        sample_yaml_base = '@' + path.join(path.dirname(__file__), 'sample_yaml')
 
         # Get current directory
         dir_path = path.dirname(path.realpath(__file__))
