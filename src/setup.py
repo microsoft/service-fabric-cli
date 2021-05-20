@@ -62,7 +62,7 @@ setup(
         'test': [
             'coverage',
             'nose2',
-            'pylint',
+            'pylint==2.7.2',
             'vcrpy',
             'mock',
             'contextlib2',
