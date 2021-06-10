@@ -6,5 +6,3 @@ vcrpy
 contextlib2
 mock
 astroid==2.5.6
-
-
