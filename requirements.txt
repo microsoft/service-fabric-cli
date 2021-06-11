@@ -5,3 +5,4 @@ pylint==2.7.2
 vcrpy
 contextlib2
 mock
+astroid==2.5.6
