@@ -184,7 +184,7 @@ class HelpTextTests(unittest.TestCase):
             # Call the provided command in command line
             # Do not split the help_command, as that breaks behavior:
             # Linux ignores the splits and takes only the first.
-            # pylint: disable=consider-using-with
+
             pipe = Popen(help_command, shell=True, stdout=PIPE, stderr=PIPE)
             # returned_string and err are returned as bytes
             (returned_string, err) = pipe.communicate()
@@ -277,7 +277,7 @@ class HelpTextTests(unittest.TestCase):
 
         self.validate_output(
             'sfctl',
-            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'mesh', 'node',
+            subgroups=('application', 'chaos', 'cluster', 'compose', 'is', 'node',
                        'partition', 'property', 'replica', 'rpm', 'sa-cluster',
                        'service', 'settings', 'store'))
 
@@ -321,26 +321,6 @@ class HelpTextTests(unittest.TestCase):
             commands=('command', 'query'))
 
         self.validate_output(
-            'sfctl mesh app',
-            commands=('delete', 'list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh deployment',
-            commands=('create',))
-
-        self.validate_output(
-            'sfctl mesh service',
-            commands=('list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh service-replica',
-            commands=('list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh volume',
-            commands=('delete', 'list', 'show'))
-
-        self.validate_output(
             'sfctl node',
             commands=('add-configuration-parameter-overrides', 'add-node-tags', 'disable', 'enable',
                       'get-configuration-overrides', 'health', 'info', 'list', 'load',
@@ -382,26 +362,6 @@ class HelpTextTests(unittest.TestCase):
         self.validate_output(
             'sfctl store',
             commands=('delete', 'root-info', 'stat'))
-
-        self.validate_output(
-            'sfctl mesh gateway',
-            commands=('delete', 'list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh network',
-            commands=('delete', 'list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh code-package-log',
-            commands=('get',))
-
-        self.validate_output(
-            'sfctl mesh secret',
-            commands=('delete', 'list', 'show'))
-
-        self.validate_output(
-            'sfctl mesh secretvalue',
-            commands=('delete', 'list', 'show'))
 
         self.validate_output(
             'sfctl events',
