@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: build wheel
     runs-on: ubuntu-latest
     strategy:
       matrix:
