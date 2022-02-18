@@ -29,8 +29,9 @@ jobs:
         pip install wheel==0.37.1
 
     - name: Build Wheel
-      run: |
-        python src/setup.py bdist_wheel --universal
+      run: | 
+        cd src
+        python setup.py bdist_wheel --universal
 
     - name: upload wheel
       uses: actions/upload-artifact@v2-preview
