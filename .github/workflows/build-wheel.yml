@@ -38,4 +38,4 @@ jobs:
       if: always()
       with:
         name: wheel
-        path:  /dist*
+        path:  /*
