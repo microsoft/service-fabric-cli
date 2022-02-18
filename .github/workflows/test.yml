@@ -6,8 +6,6 @@ on:
   pull_request:
   schedule:
     - cron: 0 0 * * * # daily
-
-
 jobs:
   test:
     runs-on: ubuntu-latest
