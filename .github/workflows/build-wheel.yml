@@ -38,4 +38,4 @@ jobs:
       if: always()
       with:
         name: wheel
-        path:  dist*
+        path:  /home/runner/work/service-fabric-cli/service-fabric-cli/src/*
