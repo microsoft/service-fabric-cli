@@ -46,6 +46,16 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Get versions
+      run: |
+        echo "pip version:"
+        pip -V
+        echo "python version:"
+        python -V
+        echo "git version:"
+        git --version
+        echo "bash version:"
+        bash --version
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
