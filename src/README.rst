@@ -16,6 +16,9 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+Unreleased
+---------
+
 11.1.0
 ----------
 - Added get top/least loaded partitions command. It will be available in the Service fabric runtime 8.0 version.
