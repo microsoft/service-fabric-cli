@@ -48,6 +48,7 @@ setup(
         'msrestazure',
         'requests',
         'azure-servicefabric==8.0.0.0',
+        'azure-mgmt-core',
         'adal',
         'future',
         'applicationinsights',
