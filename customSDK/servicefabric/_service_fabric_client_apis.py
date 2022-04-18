@@ -50,7 +50,7 @@ class ServiceFabricClientAPIs(ServiceFabricClientAPIsOperationsMixin):    # pyli
     :type credential: ~azure.core.credentials.TokenCredential
     :param base_url: Service URL. Default value is "http://localhost:19080/".
     :type base_url: str
-    :keyword api_version: Api Version. Default value is "8.2.0.46". Note that overriding this
+    :keyword api_version: Api Version. Default value is "9.0.0.46". Note that overriding this
      default value may result in unsupported behavior.
     :paramtype api_version: str
     """

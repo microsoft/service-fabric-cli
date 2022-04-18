@@ -35,7 +35,7 @@ def build_create_or_update_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -71,7 +71,7 @@ def build_get_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
     accept = "application/json"
     # Construct URL
@@ -104,7 +104,7 @@ def build_delete_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
     accept = "application/json"
     # Construct URL
@@ -136,7 +136,7 @@ def build_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
     accept = "application/json"
     # Construct URL
@@ -211,7 +211,7 @@ class MeshSecretOperations(object):
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _secret_resource_description = _models.SecretResourceDescription(properties=properties, name=name)
@@ -279,7 +279,7 @@ class MeshSecretOperations(object):
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_request(
@@ -336,7 +336,7 @@ class MeshSecretOperations(object):
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_request(
@@ -387,7 +387,7 @@ class MeshSecretOperations(object):
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_list_request(

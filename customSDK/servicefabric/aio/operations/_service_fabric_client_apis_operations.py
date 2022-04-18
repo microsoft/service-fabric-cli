@@ -59,7 +59,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_manifest_request(
@@ -205,7 +205,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_health_request(
@@ -372,7 +372,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _cluster_health_policies = _models.ClusterHealthPolicies(application_health_policy_map=application_health_policy_map, cluster_health_policy=cluster_health_policy)
@@ -446,7 +446,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_health_chunk_request(
@@ -535,7 +535,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if cluster_health_chunk_query_description is not None:
@@ -628,7 +628,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -692,7 +692,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_provisioned_fabric_code_version_info_list_request(
@@ -756,7 +756,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_provisioned_fabric_config_version_info_list_request(
@@ -816,7 +816,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_upgrade_progress_request(
@@ -879,7 +879,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_configuration_request(
@@ -938,7 +938,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_configuration_upgrade_status_request(
@@ -997,7 +997,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_upgrade_orchestration_service_state_request(
@@ -1060,7 +1060,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _upgrade_orchestration_service_state = _models.UpgradeOrchestrationServiceState(service_state=service_state)
@@ -1129,7 +1129,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _provision_fabric_description = _models.ProvisionFabricDescription(code_file_path=code_file_path, cluster_manifest_file_path=cluster_manifest_file_path)
@@ -1194,7 +1194,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _unprovision_fabric_description = _models.UnprovisionFabricDescription(code_version=code_version, config_version=config_version)
@@ -1253,7 +1253,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_rollback_cluster_upgrade_request(
@@ -1311,7 +1311,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _resume_cluster_upgrade_description = _models.ResumeClusterUpgradeDescription(upgrade_domain=upgrade_domain)
@@ -1376,7 +1376,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(start_cluster_upgrade_description, 'StartClusterUpgradeDescription')
@@ -1440,7 +1440,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(cluster_configuration_upgrade_description, 'ClusterConfigurationUpgradeDescription')
@@ -1502,7 +1502,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(update_cluster_upgrade_description, 'UpdateClusterUpgradeDescription')
@@ -1562,7 +1562,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_aad_metadata_request(
@@ -1621,7 +1621,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_version_request(
@@ -1680,7 +1680,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_load_request(
@@ -1744,7 +1744,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_toggle_verbose_service_placement_health_reporting_request(
@@ -1806,7 +1806,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(start_cluster_upgrade_description, 'StartClusterUpgradeDescription')
@@ -1889,7 +1889,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_info_list_request(
@@ -1953,7 +1953,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_info_request(
@@ -2041,7 +2041,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_health_request(
@@ -2134,7 +2134,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if cluster_health_policy is not None:
@@ -2232,7 +2232,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -2296,7 +2296,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_load_info_request(
@@ -2368,7 +2368,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _deactivation_intent_description = _models.DeactivationIntentDescription(deactivation_intent=deactivation_intent)
@@ -2433,7 +2433,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_enable_node_request(
@@ -2505,7 +2505,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_node_state_request(
@@ -2573,7 +2573,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _restart_node_description = _models.RestartNodeDescription(node_instance_id=node_instance_id, create_fabric_dump=create_fabric_dump)
@@ -2636,7 +2636,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_configuration_overrides_request(
@@ -2694,7 +2694,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_configuration_overrides_request(
@@ -2762,7 +2762,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(config_parameter_override_list, '[ConfigParameterOverride]')
@@ -2823,7 +2823,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(node_tags, '[str]')
@@ -2882,7 +2882,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(node_tags, '[str]')
@@ -2983,7 +2983,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_type_info_list_request(
@@ -3083,7 +3083,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_type_info_list_by_name_request(
@@ -3156,7 +3156,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(provision_application_type_description_base_required_body_param, 'ProvisionApplicationTypeDescriptionBase')
@@ -3230,7 +3230,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _unprovision_application_type_description_info = _models.UnprovisionApplicationTypeDescriptionInfo(application_type_version=application_type_version, async_property=async_parameter)
@@ -3304,7 +3304,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _application_type_arm_metadata_update_description = _models.ArmMetadata(arm_resource_id=arm_resource_id)
@@ -3375,7 +3375,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_type_info_list_request(
@@ -3448,7 +3448,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_type_info_by_name_request(
@@ -3522,7 +3522,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_manifest_request(
@@ -3602,7 +3602,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_type_info_list_request(
@@ -3686,7 +3686,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_type_info_by_name_request(
@@ -3753,7 +3753,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_description, 'ApplicationDescription')
@@ -3829,7 +3829,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_application_request(
@@ -3896,7 +3896,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_load_info_request(
@@ -4001,7 +4001,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_info_list_request(
@@ -4078,7 +4078,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_info_request(
@@ -4222,7 +4222,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_health_request(
@@ -4373,7 +4373,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -4478,7 +4478,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -4556,7 +4556,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_upgrade_description, 'ApplicationUpgradeDescription')
@@ -4623,7 +4623,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_upgrade_request(
@@ -4696,7 +4696,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_upgrade_update_description, 'ApplicationUpgradeUpdateDescription')
@@ -4767,7 +4767,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_update_description, 'ApplicationUpdateDescription')
@@ -4838,7 +4838,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _resume_application_upgrade_description = _models.ResumeApplicationUpgradeDescription(upgrade_domain_name=upgrade_domain_name)
@@ -4909,7 +4909,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_rollback_application_upgrade_request(
@@ -4994,7 +4994,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_info_list_request(
@@ -5077,7 +5077,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_info_request(
@@ -5205,7 +5205,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_health_request(
@@ -5344,7 +5344,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -5453,7 +5453,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -5520,7 +5520,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_manifest_request(
@@ -5595,7 +5595,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _application_arm_metadata_update_description = _models.ArmMetadata(arm_resource_id=arm_resource_id)
@@ -5677,7 +5677,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_info_list_request(
@@ -5753,7 +5753,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_info_request(
@@ -5824,7 +5824,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_name_info_request(
@@ -5896,7 +5896,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_description, 'ServiceDescription')
@@ -5970,7 +5970,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_from_template_description, 'ServiceFromTemplateDescription')
@@ -6046,7 +6046,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_service_request(
@@ -6118,7 +6118,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_update_description, 'ServiceUpdateDescription')
@@ -6185,7 +6185,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_description_request(
@@ -6306,7 +6306,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_health_request(
@@ -6441,7 +6441,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -6545,7 +6545,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -6641,7 +6641,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resolve_service_request(
@@ -6723,7 +6723,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_unplaced_replica_information_request(
@@ -6804,7 +6804,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_loaded_partition_info_list_request(
@@ -6882,7 +6882,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_info_list_request(
@@ -6947,7 +6947,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_info_request(
@@ -7012,7 +7012,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_name_info_request(
@@ -7128,7 +7128,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_health_request(
@@ -7261,7 +7261,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -7361,7 +7361,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -7426,7 +7426,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_load_information_request(
@@ -7488,7 +7488,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_reset_partition_load_request(
@@ -7548,7 +7548,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_partition_request(
@@ -7614,7 +7614,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_service_partitions_request(
@@ -7673,7 +7673,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_system_partitions_request(
@@ -7729,7 +7729,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_all_partitions_request(
@@ -7800,7 +7800,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_primary_replica_request(
@@ -7877,7 +7877,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_secondary_replica_request(
@@ -7957,7 +7957,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(partition_metric_load_description_list, '[PartitionMetricLoadDescription]')
@@ -8050,7 +8050,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_instance_request(
@@ -8136,7 +8136,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_auxiliary_replica_request(
@@ -8204,7 +8204,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task, 'RepairTask')
@@ -8264,7 +8264,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task_cancel_description, 'RepairTaskCancelDescription')
@@ -8329,7 +8329,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _repair_task_delete_description = _models.RepairTaskDeleteDescription(task_id=task_id, version=version)
@@ -8403,7 +8403,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_repair_task_list_request(
@@ -8467,7 +8467,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _repair_task_approve_description = _models.RepairTaskApproveDescription(task_id=task_id, version=version)
@@ -8530,7 +8530,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task_update_health_policy_description, 'RepairTaskUpdateHealthPolicyDescription')
@@ -8590,7 +8590,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task, 'RepairTask')
@@ -8664,7 +8664,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_info_list_request(
@@ -8731,7 +8731,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_info_request(
@@ -8823,7 +8823,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_health_request(
@@ -8924,7 +8924,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -9030,7 +9030,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -9113,7 +9113,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_info_list_request(
@@ -9188,7 +9188,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_detail_info_request(
@@ -9257,7 +9257,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_detail_info_by_partition_id_request(
@@ -9328,7 +9328,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_restart_replica_request(
@@ -9406,7 +9406,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_replica_request(
@@ -9475,7 +9475,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_info_list_request(
@@ -9551,7 +9551,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_info_list_by_name_request(
@@ -9652,7 +9652,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_health_request(
@@ -9762,7 +9762,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -9873,7 +9873,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -9948,7 +9948,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(deploy_service_package_to_node_description, 'DeployServicePackageToNodeDescription')
@@ -10025,7 +10025,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_code_package_info_list_request(
@@ -10103,7 +10103,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(restart_deployed_code_package_description, 'RestartDeployedCodePackageDescription')
@@ -10190,7 +10190,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_container_logs_deployed_on_node_request(
@@ -10280,7 +10280,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(container_api_request_body, 'ContainerApiRequestBody')
@@ -10354,7 +10354,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(create_compose_deployment_description, 'CreateComposeDeploymentDescription')
@@ -10417,7 +10417,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_status_request(
@@ -10496,7 +10496,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_status_list_request(
@@ -10560,7 +10560,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_upgrade_progress_request(
@@ -10622,7 +10622,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_compose_deployment_request(
@@ -10685,7 +10685,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(compose_deployment_upgrade_description, 'ComposeDeploymentUpgradeDescription')
@@ -10747,7 +10747,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_rollback_compose_deployment_upgrade_request(
@@ -10803,7 +10803,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_request(
@@ -10870,7 +10870,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(chaos_parameters, 'ChaosParameters')
@@ -10931,7 +10931,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_stop_chaos_request(
@@ -11019,7 +11019,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_events_request(
@@ -11082,7 +11082,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_schedule_request(
@@ -11150,7 +11150,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _chaos_schedule = _models.ChaosScheduleDescription(version=version, schedule=schedule)
@@ -11219,7 +11219,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_upload_file_request(
@@ -11278,7 +11278,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_content_request(
@@ -11341,7 +11341,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_image_store_content_request(
@@ -11396,7 +11396,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_root_content_request(
@@ -11458,7 +11458,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(image_store_copy_description, 'ImageStoreCopyDescription')
@@ -11521,7 +11521,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_image_store_upload_session_request(
@@ -11582,7 +11582,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_commit_image_store_upload_session_request(
@@ -11642,7 +11642,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_upload_session_by_id_request(
@@ -11705,7 +11705,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_upload_session_by_path_request(
@@ -11786,7 +11786,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_upload_file_chunk_request(
@@ -11843,7 +11843,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_root_folder_size_request(
@@ -11905,7 +11905,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_folder_size_request(
@@ -11965,7 +11965,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_info_request(
@@ -12041,7 +12041,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_invoke_infrastructure_command_request(
@@ -12119,7 +12119,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_invoke_infrastructure_query_request(
@@ -12216,7 +12216,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_data_loss_request(
@@ -12288,7 +12288,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_data_loss_progress_request(
@@ -12377,7 +12377,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_quorum_loss_request(
@@ -12452,7 +12452,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_quorum_loss_progress_request(
@@ -12535,7 +12535,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_partition_restart_request(
@@ -12608,7 +12608,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_restart_progress_request(
@@ -12694,7 +12694,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_node_transition_request(
@@ -12761,7 +12761,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_transition_progress_request(
@@ -12843,7 +12843,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_fault_operation_list_request(
@@ -12927,7 +12927,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_cancel_operation_request(
@@ -12991,7 +12991,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(backup_policy_description, 'BackupPolicyDescription')
@@ -13055,7 +13055,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_backup_policy_request(
@@ -13126,7 +13126,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_backup_policy_list_request(
@@ -13189,7 +13189,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_backup_policy_by_name_request(
@@ -13268,7 +13268,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_all_entities_backed_up_by_policy_request(
@@ -13339,7 +13339,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(backup_policy_description, 'BackupPolicyDescription')
@@ -13413,7 +13413,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -13484,7 +13484,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -13571,7 +13571,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_backup_configuration_info_request(
@@ -13674,7 +13674,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_backup_list_request(
@@ -13747,7 +13747,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_application_backup_request(
@@ -13810,7 +13810,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_application_backup_request(
@@ -13881,7 +13881,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -13956,7 +13956,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -14043,7 +14043,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_backup_configuration_info_request(
@@ -14146,7 +14146,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_backup_list_request(
@@ -14219,7 +14219,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_service_backup_request(
@@ -14282,7 +14282,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_service_backup_request(
@@ -14348,7 +14348,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -14419,7 +14419,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -14485,7 +14485,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_configuration_info_request(
@@ -14566,7 +14566,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_list_request(
@@ -14632,7 +14632,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_partition_backup_request(
@@ -14691,7 +14691,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_partition_backup_request(
@@ -14767,7 +14767,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _backup_partition_description = _models.BackupPartitionDescription(backup_storage=backup_storage)
@@ -14835,7 +14835,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_progress_request(
@@ -14916,7 +14916,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(restore_partition_description, 'RestorePartitionDescription')
@@ -14980,7 +14980,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_restore_progress_request(
@@ -15062,7 +15062,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(get_backup_by_storage_query_description, 'GetBackupByStorageQueryDescription')
@@ -15129,7 +15129,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _name_description = _models.NameDescription(name=name)
@@ -15191,7 +15191,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_name_exists_info_request(
@@ -15250,7 +15250,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_name_request(
@@ -15322,7 +15322,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_sub_name_info_list_request(
@@ -15401,7 +15401,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_property_info_list_request(
@@ -15468,7 +15468,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(property_description, 'PropertyDescription')
@@ -15534,7 +15534,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_property_info_request(
@@ -15601,7 +15601,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_property_request(
@@ -15665,7 +15665,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _property_batch_description_list = _models.PropertyBatchDescriptionList(operations=operations)
@@ -15752,7 +15752,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_event_list_request(
@@ -15834,7 +15834,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_containers_event_list_request(
@@ -15919,7 +15919,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_event_list_request(
@@ -16002,7 +16002,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_nodes_event_list_request(
@@ -16091,7 +16091,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_event_list_request(
@@ -16174,7 +16174,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_applications_event_list_request(
@@ -16263,7 +16263,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_event_list_request(
@@ -16346,7 +16346,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_services_event_list_request(
@@ -16431,7 +16431,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_event_list_request(
@@ -16514,7 +16514,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partitions_event_list_request(
@@ -16602,7 +16602,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_replica_event_list_request(
@@ -16689,7 +16689,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_replicas_event_list_request(
@@ -16756,7 +16756,7 @@ class ServiceFabricClientAPIsOperationsMixin:  # pylint: disable=too-many-public
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_correlated_event_list_request(

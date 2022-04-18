@@ -29,3 +29,28 @@
 # https://github.com/Azure/azure-sdk-for-python/blob/main/doc/dev/customize_code/how-to-patch-sdk-code.md
 def patch_sdk():
     pass
+
+# from ._service_fabric_client_apis import ServiceFabricClientAPIs as ServiceClientGenerated
+# from azure.core.pipeline import PipelineRequest
+# from azure.core.pipeline.policies import SansIOHTTPPolicy
+
+# class MyAuthenticationPolicy(SansIOHTTPPolicy):
+
+#     def __init__(self, key: str):
+#         self.key = key
+
+#     def on_request(self, request: PipelineRequest):
+#         # request.http_request.headers["Authorization"] = f"My key is {self.key}"
+#         return super().on_request(request)
+
+# class ServiceClient(ServiceClientGenerated):
+
+#     def __init__(self, endpoint: str, credential: str, **kwargs):
+#         super().__init__(
+#             endpoint=endpoint,
+#             credential=credential,
+#             authentication_policy=kwargs.pop("authentication_policy", MyAuthenticationPolicy(credential)),
+#             **kwargs
+#         )
+
+# __all__ = ["ServiceClient"]

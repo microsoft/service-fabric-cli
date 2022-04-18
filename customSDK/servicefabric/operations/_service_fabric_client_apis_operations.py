@@ -35,7 +35,7 @@ def build_get_cluster_manifest_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -65,7 +65,7 @@ def build_get_cluster_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     nodes_health_state_filter = kwargs.pop('nodes_health_state_filter', 0)  # type: Optional[int]
     applications_health_state_filter = kwargs.pop('applications_health_state_filter', 0)  # type: Optional[int]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
@@ -110,7 +110,7 @@ def build_get_cluster_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     nodes_health_state_filter = kwargs.pop('nodes_health_state_filter', 0)  # type: Optional[int]
     applications_health_state_filter = kwargs.pop('applications_health_state_filter', 0)  # type: Optional[int]
@@ -158,7 +158,7 @@ def build_get_cluster_health_chunk_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -188,7 +188,7 @@ def build_get_cluster_health_chunk_using_policy_and_advanced_filters_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -221,7 +221,7 @@ def build_report_cluster_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -257,7 +257,7 @@ def build_get_provisioned_fabric_code_version_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     code_version = kwargs.pop('code_version', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -290,7 +290,7 @@ def build_get_provisioned_fabric_config_version_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     config_version = kwargs.pop('config_version', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -323,7 +323,7 @@ def build_get_cluster_upgrade_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -353,7 +353,7 @@ def build_get_cluster_configuration_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     configuration_api_version = kwargs.pop('configuration_api_version')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -385,7 +385,7 @@ def build_get_cluster_configuration_upgrade_status_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -415,7 +415,7 @@ def build_get_upgrade_orchestration_service_state_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -445,7 +445,7 @@ def build_set_upgrade_orchestration_service_state_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -478,7 +478,7 @@ def build_provision_cluster_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -511,7 +511,7 @@ def build_unprovision_cluster_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -544,7 +544,7 @@ def build_rollback_cluster_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -574,7 +574,7 @@ def build_resume_cluster_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -607,7 +607,7 @@ def build_start_cluster_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -640,7 +640,7 @@ def build_start_cluster_configuration_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -673,7 +673,7 @@ def build_update_cluster_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -706,7 +706,7 @@ def build_get_aad_metadata_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "6.0")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -736,7 +736,7 @@ def build_get_cluster_version_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -766,7 +766,7 @@ def build_get_cluster_load_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -796,7 +796,7 @@ def build_toggle_verbose_service_placement_health_reporting_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     enabled = kwargs.pop('enabled')  # type: bool
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -828,7 +828,7 @@ def build_validate_cluster_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -861,7 +861,7 @@ def build_get_node_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     node_status_filter = kwargs.pop('node_status_filter', "default")  # type: Optional[Union[str, "_models.NodeStatusFilter"]]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
@@ -901,7 +901,7 @@ def build_get_node_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -937,7 +937,7 @@ def build_get_node_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -976,7 +976,7 @@ def build_get_node_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -1018,7 +1018,7 @@ def build_report_node_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -1060,7 +1060,7 @@ def build_get_node_load_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1096,7 +1096,7 @@ def build_disable_node_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1135,7 +1135,7 @@ def build_enable_node_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1171,7 +1171,7 @@ def build_remove_node_state_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1207,7 +1207,7 @@ def build_restart_node_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1246,7 +1246,7 @@ def build_remove_configuration_overrides_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1282,7 +1282,7 @@ def build_get_configuration_overrides_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1318,7 +1318,7 @@ def build_add_configuration_parameter_overrides_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     force = kwargs.pop('force', None)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -1360,7 +1360,7 @@ def build_remove_node_tags_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -1396,7 +1396,7 @@ def build_add_node_tags_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -1431,7 +1431,7 @@ def build_get_application_type_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_definition_kind_filter = kwargs.pop('application_type_definition_kind_filter', 0)  # type: Optional[int]
     exclude_application_parameters = kwargs.pop('exclude_application_parameters', False)  # type: Optional[bool]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
@@ -1474,7 +1474,7 @@ def build_get_application_type_info_list_by_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_version = kwargs.pop('application_type_version', None)  # type: Optional[str]
     exclude_application_parameters = kwargs.pop('exclude_application_parameters', False)  # type: Optional[bool]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
@@ -1521,7 +1521,7 @@ def build_provision_application_type_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1555,7 +1555,7 @@ def build_unprovision_application_type_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1594,7 +1594,7 @@ def build_update_application_type_arm_metadata_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     application_type_version = kwargs.pop('application_type_version')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -1638,7 +1638,7 @@ def build_get_service_type_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_version = kwargs.pop('application_type_version')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1677,7 +1677,7 @@ def build_get_service_type_info_by_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_version = kwargs.pop('application_type_version')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1716,7 +1716,7 @@ def build_get_service_manifest_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_version = kwargs.pop('application_type_version')  # type: str
     service_manifest_name = kwargs.pop('service_manifest_name')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -1757,7 +1757,7 @@ def build_get_deployed_service_type_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     service_manifest_name = kwargs.pop('service_manifest_name', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1799,7 +1799,7 @@ def build_get_deployed_service_type_info_by_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     service_manifest_name = kwargs.pop('service_manifest_name', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1839,7 +1839,7 @@ def build_create_application_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1873,7 +1873,7 @@ def build_delete_application_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     force_remove = kwargs.pop('force_remove', None)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -1912,7 +1912,7 @@ def build_get_application_load_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -1947,7 +1947,7 @@ def build_get_application_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_definition_kind_filter = kwargs.pop('application_definition_kind_filter', 0)  # type: Optional[int]
     application_type_name = kwargs.pop('application_type_name', None)  # type: Optional[str]
     exclude_application_parameters = kwargs.pop('exclude_application_parameters', False)  # type: Optional[bool]
@@ -1993,7 +1993,7 @@ def build_get_application_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     exclude_application_parameters = kwargs.pop('exclude_application_parameters', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2032,7 +2032,7 @@ def build_get_application_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     deployed_applications_health_state_filter = kwargs.pop('deployed_applications_health_state_filter', 0)  # type: Optional[int]
     services_health_state_filter = kwargs.pop('services_health_state_filter', 0)  # type: Optional[int]
@@ -2080,7 +2080,7 @@ def build_get_application_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     deployed_applications_health_state_filter = kwargs.pop('deployed_applications_health_state_filter', 0)  # type: Optional[int]
@@ -2131,7 +2131,7 @@ def build_report_application_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -2173,7 +2173,7 @@ def build_start_application_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2212,7 +2212,7 @@ def build_get_application_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -2248,7 +2248,7 @@ def build_update_application_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2287,7 +2287,7 @@ def build_update_application_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2326,7 +2326,7 @@ def build_resume_application_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2365,7 +2365,7 @@ def build_rollback_application_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -2401,7 +2401,7 @@ def build_get_deployed_application_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     include_health_state = kwargs.pop('include_health_state', False)  # type: Optional[bool]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
@@ -2447,7 +2447,7 @@ def build_get_deployed_application_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     include_health_state = kwargs.pop('include_health_state', False)  # type: Optional[bool]
 
@@ -2488,7 +2488,7 @@ def build_get_deployed_application_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     deployed_service_packages_health_state_filter = kwargs.pop('deployed_service_packages_health_state_filter', 0)  # type: Optional[int]
     exclude_health_statistics = kwargs.pop('exclude_health_statistics', False)  # type: Optional[bool]
@@ -2535,7 +2535,7 @@ def build_get_deployed_application_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     deployed_service_packages_health_state_filter = kwargs.pop('deployed_service_packages_health_state_filter', 0)  # type: Optional[int]
@@ -2585,7 +2585,7 @@ def build_report_deployed_application_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -2628,7 +2628,7 @@ def build_get_application_manifest_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     application_type_version = kwargs.pop('application_type_version')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2666,7 +2666,7 @@ def build_update_application_arm_metadata_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     force = kwargs.pop('force', None)  # type: Optional[bool]
@@ -2708,7 +2708,7 @@ def build_get_service_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     service_type_name = kwargs.pop('service_type_name', None)  # type: Optional[str]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -2751,7 +2751,7 @@ def build_get_service_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -2788,7 +2788,7 @@ def build_get_application_name_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -2824,7 +2824,7 @@ def build_create_service_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2863,7 +2863,7 @@ def build_create_service_from_template_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2902,7 +2902,7 @@ def build_delete_service_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     force_remove = kwargs.pop('force_remove', None)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2941,7 +2941,7 @@ def build_update_service_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -2980,7 +2980,7 @@ def build_get_service_description_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3016,7 +3016,7 @@ def build_get_service_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     partitions_health_state_filter = kwargs.pop('partitions_health_state_filter', 0)  # type: Optional[int]
     exclude_health_statistics = kwargs.pop('exclude_health_statistics', False)  # type: Optional[bool]
@@ -3061,7 +3061,7 @@ def build_get_service_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     partitions_health_state_filter = kwargs.pop('partitions_health_state_filter', 0)  # type: Optional[int]
@@ -3109,7 +3109,7 @@ def build_report_service_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -3151,7 +3151,7 @@ def build_resolve_service_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     partition_key_type = kwargs.pop('partition_key_type', None)  # type: Optional[int]
     partition_key_value = kwargs.pop('partition_key_value', None)  # type: Optional[str]
     previous_rsp_version = kwargs.pop('previous_rsp_version', None)  # type: Optional[str]
@@ -3196,7 +3196,7 @@ def build_get_unplaced_replica_information_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     partition_id = kwargs.pop('partition_id', None)  # type: Optional[str]
     only_query_primaries = kwargs.pop('only_query_primaries', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -3237,7 +3237,7 @@ def build_get_loaded_partition_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     metric_name = kwargs.pop('metric_name')  # type: str
     service_name = kwargs.pop('service_name', None)  # type: Optional[str]
     ordering = kwargs.pop('ordering', None)  # type: Optional[Union[str, "_models.Ordering"]]
@@ -3279,7 +3279,7 @@ def build_get_partition_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -3318,7 +3318,7 @@ def build_get_partition_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3354,7 +3354,7 @@ def build_get_service_name_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3390,7 +3390,7 @@ def build_get_partition_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     replicas_health_state_filter = kwargs.pop('replicas_health_state_filter', 0)  # type: Optional[int]
     exclude_health_statistics = kwargs.pop('exclude_health_statistics', False)  # type: Optional[bool]
@@ -3435,7 +3435,7 @@ def build_get_partition_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     replicas_health_state_filter = kwargs.pop('replicas_health_state_filter', 0)  # type: Optional[int]
@@ -3483,7 +3483,7 @@ def build_report_partition_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -3525,7 +3525,7 @@ def build_get_partition_load_information_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3561,7 +3561,7 @@ def build_reset_partition_load_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3597,7 +3597,7 @@ def build_recover_partition_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3633,7 +3633,7 @@ def build_recover_service_partitions_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3668,7 +3668,7 @@ def build_recover_system_partitions_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3698,7 +3698,7 @@ def build_recover_all_partitions_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -3729,7 +3729,7 @@ def build_move_primary_replica_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     node_name = kwargs.pop('node_name', None)  # type: Optional[str]
     ignore_constraints = kwargs.pop('ignore_constraints', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -3771,7 +3771,7 @@ def build_move_secondary_replica_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     current_node_name = kwargs.pop('current_node_name')  # type: str
     new_node_name = kwargs.pop('new_node_name', None)  # type: Optional[str]
     ignore_constraints = kwargs.pop('ignore_constraints', False)  # type: Optional[bool]
@@ -3814,7 +3814,7 @@ def build_update_partition_load_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
@@ -3855,7 +3855,7 @@ def build_move_instance_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     current_node_name = kwargs.pop('current_node_name', None)  # type: Optional[str]
     new_node_name = kwargs.pop('new_node_name', None)  # type: Optional[str]
     ignore_constraints = kwargs.pop('ignore_constraints', False)  # type: Optional[bool]
@@ -3902,7 +3902,7 @@ def build_move_auxiliary_replica_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     current_node_name = kwargs.pop('current_node_name', None)  # type: Optional[str]
     new_node_name = kwargs.pop('new_node_name', None)  # type: Optional[str]
     ignore_constraints = kwargs.pop('ignore_constraints', False)  # type: Optional[bool]
@@ -3947,7 +3947,7 @@ def build_create_repair_task_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -3977,7 +3977,7 @@ def build_cancel_repair_task_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -4007,7 +4007,7 @@ def build_delete_repair_task_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -4037,7 +4037,7 @@ def build_get_repair_task_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     task_id_filter = kwargs.pop('task_id_filter', None)  # type: Optional[str]
     state_filter = kwargs.pop('state_filter', None)  # type: Optional[int]
     executor_filter = kwargs.pop('executor_filter', None)  # type: Optional[str]
@@ -4073,7 +4073,7 @@ def build_force_approve_repair_task_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -4103,7 +4103,7 @@ def build_update_repair_task_health_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -4133,7 +4133,7 @@ def build_update_repair_execution_state_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
 
     accept = "application/json"
@@ -4164,7 +4164,7 @@ def build_get_replica_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4204,7 +4204,7 @@ def build_get_replica_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4242,7 +4242,7 @@ def build_get_replica_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4283,7 +4283,7 @@ def build_get_replica_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -4327,7 +4327,7 @@ def build_report_replica_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     service_kind = kwargs.pop('service_kind', "Stateful")  # type: Union[str, "_models.ReplicaHealthReportServiceKind"]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
@@ -4373,7 +4373,7 @@ def build_get_deployed_service_replica_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     partition_id = kwargs.pop('partition_id', None)  # type: Optional[str]
     service_manifest_name = kwargs.pop('service_manifest_name', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -4418,7 +4418,7 @@ def build_get_deployed_service_replica_detail_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4457,7 +4457,7 @@ def build_get_deployed_service_replica_detail_info_by_partition_id_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4496,7 +4496,7 @@ def build_restart_replica_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4536,7 +4536,7 @@ def build_remove_replica_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     force_remove = kwargs.pop('force_remove', None)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4578,7 +4578,7 @@ def build_get_deployed_service_package_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4617,7 +4617,7 @@ def build_get_deployed_service_package_info_list_by_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -4657,7 +4657,7 @@ def build_get_deployed_service_package_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4700,7 +4700,7 @@ def build_get_deployed_service_package_health_using_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     events_health_state_filter = kwargs.pop('events_health_state_filter', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -4746,7 +4746,7 @@ def build_report_deployed_service_package_health_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     immediate = kwargs.pop('immediate', False)  # type: Optional[bool]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -4790,7 +4790,7 @@ def build_deploy_service_package_to_node_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4830,7 +4830,7 @@ def build_get_deployed_code_package_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     service_manifest_name = kwargs.pop('service_manifest_name', None)  # type: Optional[str]
     code_package_name = kwargs.pop('code_package_name', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -4874,7 +4874,7 @@ def build_restart_deployed_code_package_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -4915,7 +4915,7 @@ def build_get_container_logs_deployed_on_node_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     service_manifest_name = kwargs.pop('service_manifest_name')  # type: str
     code_package_name = kwargs.pop('code_package_name')  # type: str
     tail = kwargs.pop('tail', None)  # type: Optional[str]
@@ -4963,7 +4963,7 @@ def build_invoke_container_api_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     service_manifest_name = kwargs.pop('service_manifest_name')  # type: str
     code_package_name = kwargs.pop('code_package_name')  # type: str
@@ -5008,7 +5008,7 @@ def build_create_compose_deployment_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5042,7 +5042,7 @@ def build_get_compose_deployment_status_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5077,7 +5077,7 @@ def build_get_compose_deployment_status_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -5114,7 +5114,7 @@ def build_get_compose_deployment_upgrade_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5150,7 +5150,7 @@ def build_remove_compose_deployment_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5186,7 +5186,7 @@ def build_start_compose_deployment_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5225,7 +5225,7 @@ def build_start_rollback_compose_deployment_upgrade_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5260,7 +5260,7 @@ def build_get_chaos_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5290,7 +5290,7 @@ def build_start_chaos_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5323,7 +5323,7 @@ def build_stop_chaos_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5353,7 +5353,7 @@ def build_get_chaos_events_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     start_time_utc = kwargs.pop('start_time_utc', None)  # type: Optional[str]
     end_time_utc = kwargs.pop('end_time_utc', None)  # type: Optional[str]
@@ -5395,7 +5395,7 @@ def build_get_chaos_schedule_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5425,7 +5425,7 @@ def build_post_chaos_schedule_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5459,7 +5459,7 @@ def build_upload_file_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5495,7 +5495,7 @@ def build_get_image_store_content_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5531,7 +5531,7 @@ def build_delete_image_store_content_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5566,7 +5566,7 @@ def build_get_image_store_root_content_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5596,7 +5596,7 @@ def build_copy_image_store_content_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5629,7 +5629,7 @@ def build_delete_image_store_upload_session_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     session_id = kwargs.pop('session_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5661,7 +5661,7 @@ def build_commit_image_store_upload_session_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     session_id = kwargs.pop('session_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5693,7 +5693,7 @@ def build_get_image_store_upload_session_by_id_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     session_id = kwargs.pop('session_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -5726,7 +5726,7 @@ def build_get_image_store_upload_session_by_path_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5762,7 +5762,7 @@ def build_upload_file_chunk_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     session_id = kwargs.pop('session_id')  # type: str
     content_range = kwargs.pop('content_range')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -5801,7 +5801,7 @@ def build_get_image_store_root_folder_size_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5832,7 +5832,7 @@ def build_get_image_store_folder_size_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5867,7 +5867,7 @@ def build_get_image_store_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -5897,7 +5897,7 @@ def build_invoke_infrastructure_command_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     command = kwargs.pop('command')  # type: str
     service_id = kwargs.pop('service_id', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -5932,7 +5932,7 @@ def build_invoke_infrastructure_query_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     command = kwargs.pop('command')  # type: str
     service_id = kwargs.pop('service_id', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -5969,7 +5969,7 @@ def build_start_data_loss_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     data_loss_mode = kwargs.pop('data_loss_mode')  # type: Union[str, "_models.DataLossMode"]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6011,7 +6011,7 @@ def build_get_data_loss_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6051,7 +6051,7 @@ def build_start_quorum_loss_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     quorum_loss_mode = kwargs.pop('quorum_loss_mode')  # type: Union[str, "_models.QuorumLossMode"]
     quorum_loss_duration = kwargs.pop('quorum_loss_duration')  # type: int
@@ -6095,7 +6095,7 @@ def build_get_quorum_loss_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6135,7 +6135,7 @@ def build_start_partition_restart_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     restart_partition_mode = kwargs.pop('restart_partition_mode')  # type: Union[str, "_models.RestartPartitionMode"]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6177,7 +6177,7 @@ def build_get_partition_restart_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6216,7 +6216,7 @@ def build_start_node_transition_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     node_transition_type = kwargs.pop('node_transition_type')  # type: Union[str, "_models.NodeTransitionType"]
     node_instance_id = kwargs.pop('node_instance_id')  # type: str
@@ -6260,7 +6260,7 @@ def build_get_node_transition_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6297,7 +6297,7 @@ def build_get_fault_operation_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     type_filter = kwargs.pop('type_filter', 65535)  # type: int
     state_filter = kwargs.pop('state_filter', 65535)  # type: int
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6331,7 +6331,7 @@ def build_cancel_operation_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     operation_id = kwargs.pop('operation_id')  # type: str
     force = kwargs.pop('force', False)  # type: bool
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6365,7 +6365,7 @@ def build_create_backup_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     validate_connection = kwargs.pop('validate_connection', False)  # type: Optional[bool]
@@ -6402,7 +6402,7 @@ def build_delete_backup_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -6437,7 +6437,7 @@ def build_get_backup_policy_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6474,7 +6474,7 @@ def build_get_backup_policy_by_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -6510,7 +6510,7 @@ def build_get_all_entities_backed_up_by_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6552,7 +6552,7 @@ def build_update_backup_policy_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     validate_connection = kwargs.pop('validate_connection', False)  # type: Optional[bool]
@@ -6594,7 +6594,7 @@ def build_enable_application_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6633,7 +6633,7 @@ def build_disable_application_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6672,7 +6672,7 @@ def build_get_application_backup_configuration_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6714,7 +6714,7 @@ def build_get_application_backup_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     latest = kwargs.pop('latest', False)  # type: Optional[bool]
     start_date_time_filter = kwargs.pop('start_date_time_filter', None)  # type: Optional[datetime.datetime]
@@ -6765,7 +6765,7 @@ def build_suspend_application_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -6801,7 +6801,7 @@ def build_resume_application_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -6837,7 +6837,7 @@ def build_enable_service_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6876,7 +6876,7 @@ def build_disable_service_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -6915,7 +6915,7 @@ def build_get_service_backup_configuration_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     max_results = kwargs.pop('max_results', 0)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -6957,7 +6957,7 @@ def build_get_service_backup_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     latest = kwargs.pop('latest', False)  # type: Optional[bool]
     start_date_time_filter = kwargs.pop('start_date_time_filter', None)  # type: Optional[datetime.datetime]
@@ -7008,7 +7008,7 @@ def build_suspend_service_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7044,7 +7044,7 @@ def build_resume_service_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7080,7 +7080,7 @@ def build_enable_partition_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7119,7 +7119,7 @@ def build_disable_partition_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7158,7 +7158,7 @@ def build_get_partition_backup_configuration_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7194,7 +7194,7 @@ def build_get_partition_backup_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     latest = kwargs.pop('latest', False)  # type: Optional[bool]
     start_date_time_filter = kwargs.pop('start_date_time_filter', None)  # type: Optional[datetime.datetime]
@@ -7239,7 +7239,7 @@ def build_suspend_partition_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7275,7 +7275,7 @@ def build_resume_partition_backup_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7311,7 +7311,7 @@ def build_backup_partition_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     backup_timeout = kwargs.pop('backup_timeout', 10)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7353,7 +7353,7 @@ def build_get_partition_backup_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7389,7 +7389,7 @@ def build_restore_partition_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     restore_timeout = kwargs.pop('restore_timeout', 10)  # type: Optional[int]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7431,7 +7431,7 @@ def build_get_partition_restore_progress_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7466,7 +7466,7 @@ def build_get_backups_from_backup_location_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
@@ -7505,7 +7505,7 @@ def build_create_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7539,7 +7539,7 @@ def build_get_name_exists_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7575,7 +7575,7 @@ def build_delete_name_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -7611,7 +7611,7 @@ def build_get_sub_name_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     recursive = kwargs.pop('recursive', False)  # type: Optional[bool]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7653,7 +7653,7 @@ def build_get_property_info_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     include_values = kwargs.pop('include_values', False)  # type: Optional[bool]
     continuation_token_parameter = kwargs.pop('continuation_token_parameter', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7695,7 +7695,7 @@ def build_put_property_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7734,7 +7734,7 @@ def build_get_property_info_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     property_name = kwargs.pop('property_name')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7772,7 +7772,7 @@ def build_delete_property_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     property_name = kwargs.pop('property_name')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7810,7 +7810,7 @@ def build_submit_property_batch_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     content_type = kwargs.pop('content_type', None)  # type: Optional[str]
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
@@ -7848,7 +7848,7 @@ def build_get_cluster_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7891,7 +7891,7 @@ def build_get_containers_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7935,7 +7935,7 @@ def build_get_node_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -7983,7 +7983,7 @@ def build_get_nodes_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8027,7 +8027,7 @@ def build_get_application_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8075,7 +8075,7 @@ def build_get_applications_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8119,7 +8119,7 @@ def build_get_service_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8167,7 +8167,7 @@ def build_get_services_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8211,7 +8211,7 @@ def build_get_partition_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8259,7 +8259,7 @@ def build_get_partitions_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8304,7 +8304,7 @@ def build_get_partition_replica_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8354,7 +8354,7 @@ def build_get_partition_replicas_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     start_time_utc = kwargs.pop('start_time_utc')  # type: str
     end_time_utc = kwargs.pop('end_time_utc')  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
@@ -8403,7 +8403,7 @@ def build_get_correlated_event_list_request(
     **kwargs  # type: Any
 ):
     # type: (...) -> HttpRequest
-    api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+    api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
     timeout = kwargs.pop('timeout', 60)  # type: Optional[int]
 
     accept = "application/json"
@@ -8472,7 +8472,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_manifest_request(
@@ -8619,7 +8619,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "8.2")  # type: str
 
         
         request = build_get_cluster_health_request(
@@ -8787,7 +8787,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _cluster_health_policies = _models.ClusterHealthPolicies(application_health_policy_map=application_health_policy_map, cluster_health_policy=cluster_health_policy)
@@ -8862,7 +8862,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_health_chunk_request(
@@ -8952,7 +8952,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if cluster_health_chunk_query_description is not None:
@@ -9046,7 +9046,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -9111,7 +9111,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_provisioned_fabric_code_version_info_list_request(
@@ -9176,7 +9176,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_provisioned_fabric_config_version_info_list_request(
@@ -9237,7 +9237,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_upgrade_progress_request(
@@ -9301,7 +9301,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_configuration_request(
@@ -9361,7 +9361,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_configuration_upgrade_status_request(
@@ -9421,7 +9421,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_upgrade_orchestration_service_state_request(
@@ -9485,7 +9485,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _upgrade_orchestration_service_state = _models.UpgradeOrchestrationServiceState(service_state=service_state)
@@ -9555,7 +9555,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _provision_fabric_description = _models.ProvisionFabricDescription(code_file_path=code_file_path, cluster_manifest_file_path=cluster_manifest_file_path)
@@ -9621,7 +9621,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _unprovision_fabric_description = _models.UnprovisionFabricDescription(code_version=code_version, config_version=config_version)
@@ -9681,7 +9681,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_rollback_cluster_upgrade_request(
@@ -9740,7 +9740,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _resume_cluster_upgrade_description = _models.ResumeClusterUpgradeDescription(upgrade_domain=upgrade_domain)
@@ -9806,7 +9806,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(start_cluster_upgrade_description, 'StartClusterUpgradeDescription')
@@ -9871,7 +9871,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(cluster_configuration_upgrade_description, 'ClusterConfigurationUpgradeDescription')
@@ -9934,7 +9934,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(update_cluster_upgrade_description, 'UpdateClusterUpgradeDescription')
@@ -9995,7 +9995,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "6.0")  # type: str
 
         
         request = build_get_aad_metadata_request(
@@ -10055,7 +10055,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_version_request(
@@ -10115,7 +10115,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_load_request(
@@ -10180,7 +10180,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_toggle_verbose_service_placement_health_reporting_request(
@@ -10243,7 +10243,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(start_cluster_upgrade_description, 'StartClusterUpgradeDescription')
@@ -10327,7 +10327,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_info_list_request(
@@ -10392,7 +10392,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_info_request(
@@ -10481,7 +10481,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_health_request(
@@ -10575,7 +10575,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if cluster_health_policy is not None:
@@ -10674,7 +10674,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -10739,7 +10739,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_load_info_request(
@@ -10812,7 +10812,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _deactivation_intent_description = _models.DeactivationIntentDescription(deactivation_intent=deactivation_intent)
@@ -10878,7 +10878,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_enable_node_request(
@@ -10951,7 +10951,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_node_state_request(
@@ -11020,7 +11020,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _restart_node_description = _models.RestartNodeDescription(node_instance_id=node_instance_id, create_fabric_dump=create_fabric_dump)
@@ -11084,7 +11084,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_configuration_overrides_request(
@@ -11143,7 +11143,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_configuration_overrides_request(
@@ -11212,7 +11212,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(config_parameter_override_list, '[ConfigParameterOverride]')
@@ -11274,7 +11274,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(node_tags, '[str]')
@@ -11334,7 +11334,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(node_tags, '[str]')
@@ -11436,7 +11436,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_type_info_list_request(
@@ -11537,7 +11537,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_type_info_list_by_name_request(
@@ -11611,7 +11611,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(provision_application_type_description_base_required_body_param, 'ProvisionApplicationTypeDescriptionBase')
@@ -11686,7 +11686,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _unprovision_application_type_description_info = _models.UnprovisionApplicationTypeDescriptionInfo(application_type_version=application_type_version, async_property=async_parameter)
@@ -11761,7 +11761,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _application_type_arm_metadata_update_description = _models.ArmMetadata(arm_resource_id=arm_resource_id)
@@ -11833,7 +11833,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_type_info_list_request(
@@ -11907,7 +11907,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_type_info_by_name_request(
@@ -11982,7 +11982,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_manifest_request(
@@ -12063,7 +12063,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_type_info_list_request(
@@ -12148,7 +12148,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_type_info_by_name_request(
@@ -12216,7 +12216,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_description, 'ApplicationDescription')
@@ -12293,7 +12293,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_application_request(
@@ -12361,7 +12361,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_load_info_request(
@@ -12467,7 +12467,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_info_list_request(
@@ -12545,7 +12545,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_info_request(
@@ -12690,7 +12690,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_health_request(
@@ -12842,7 +12842,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -12948,7 +12948,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -13027,7 +13027,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_upgrade_description, 'ApplicationUpgradeDescription')
@@ -13095,7 +13095,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_upgrade_request(
@@ -13169,7 +13169,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_upgrade_update_description, 'ApplicationUpgradeUpdateDescription')
@@ -13241,7 +13241,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(application_update_description, 'ApplicationUpdateDescription')
@@ -13313,7 +13313,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _resume_application_upgrade_description = _models.ResumeApplicationUpgradeDescription(upgrade_domain_name=upgrade_domain_name)
@@ -13385,7 +13385,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_rollback_application_upgrade_request(
@@ -13471,7 +13471,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_info_list_request(
@@ -13555,7 +13555,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_info_request(
@@ -13684,7 +13684,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_application_health_request(
@@ -13824,7 +13824,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -13934,7 +13934,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -14002,7 +14002,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_manifest_request(
@@ -14078,7 +14078,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _application_arm_metadata_update_description = _models.ArmMetadata(arm_resource_id=arm_resource_id)
@@ -14161,7 +14161,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_info_list_request(
@@ -14238,7 +14238,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_info_request(
@@ -14310,7 +14310,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_name_info_request(
@@ -14383,7 +14383,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_description, 'ServiceDescription')
@@ -14458,7 +14458,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_from_template_description, 'ServiceFromTemplateDescription')
@@ -14535,7 +14535,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_service_request(
@@ -14608,7 +14608,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(service_update_description, 'ServiceUpdateDescription')
@@ -14676,7 +14676,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_description_request(
@@ -14798,7 +14798,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_health_request(
@@ -14934,7 +14934,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -15039,7 +15039,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -15136,7 +15136,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resolve_service_request(
@@ -15219,7 +15219,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_unplaced_replica_information_request(
@@ -15301,7 +15301,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_loaded_partition_info_list_request(
@@ -15380,7 +15380,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_info_list_request(
@@ -15446,7 +15446,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_info_request(
@@ -15512,7 +15512,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_name_info_request(
@@ -15629,7 +15629,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_health_request(
@@ -15763,7 +15763,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -15864,7 +15864,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -15930,7 +15930,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_load_information_request(
@@ -15993,7 +15993,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_reset_partition_load_request(
@@ -16054,7 +16054,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_partition_request(
@@ -16121,7 +16121,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_service_partitions_request(
@@ -16181,7 +16181,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_system_partitions_request(
@@ -16238,7 +16238,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_recover_all_partitions_request(
@@ -16310,7 +16310,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_primary_replica_request(
@@ -16388,7 +16388,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_secondary_replica_request(
@@ -16469,7 +16469,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(partition_metric_load_description_list, '[PartitionMetricLoadDescription]')
@@ -16563,7 +16563,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_instance_request(
@@ -16650,7 +16650,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_move_auxiliary_replica_request(
@@ -16719,7 +16719,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task, 'RepairTask')
@@ -16780,7 +16780,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task_cancel_description, 'RepairTaskCancelDescription')
@@ -16846,7 +16846,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _repair_task_delete_description = _models.RepairTaskDeleteDescription(task_id=task_id, version=version)
@@ -16921,7 +16921,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_repair_task_list_request(
@@ -16986,7 +16986,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _repair_task_approve_description = _models.RepairTaskApproveDescription(task_id=task_id, version=version)
@@ -17050,7 +17050,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task_update_health_policy_description, 'RepairTaskUpdateHealthPolicyDescription')
@@ -17111,7 +17111,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(repair_task, 'RepairTask')
@@ -17186,7 +17186,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_info_list_request(
@@ -17254,7 +17254,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_info_request(
@@ -17347,7 +17347,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_replica_health_request(
@@ -17449,7 +17449,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -17556,7 +17556,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -17640,7 +17640,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_info_list_request(
@@ -17716,7 +17716,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_detail_info_request(
@@ -17786,7 +17786,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_replica_detail_info_by_partition_id_request(
@@ -17858,7 +17858,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_restart_replica_request(
@@ -17937,7 +17937,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_replica_request(
@@ -18007,7 +18007,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_info_list_request(
@@ -18084,7 +18084,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_info_list_by_name_request(
@@ -18186,7 +18186,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_service_package_health_request(
@@ -18297,7 +18297,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         if application_health_policy is not None:
@@ -18409,7 +18409,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(health_information, 'HealthInformation')
@@ -18485,7 +18485,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(deploy_service_package_to_node_description, 'DeployServicePackageToNodeDescription')
@@ -18563,7 +18563,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_deployed_code_package_info_list_request(
@@ -18642,7 +18642,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(restart_deployed_code_package_description, 'RestartDeployedCodePackageDescription')
@@ -18730,7 +18730,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_container_logs_deployed_on_node_request(
@@ -18821,7 +18821,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(container_api_request_body, 'ContainerApiRequestBody')
@@ -18896,7 +18896,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(create_compose_deployment_description, 'CreateComposeDeploymentDescription')
@@ -18960,7 +18960,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_status_request(
@@ -19040,7 +19040,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_status_list_request(
@@ -19105,7 +19105,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_compose_deployment_upgrade_progress_request(
@@ -19168,7 +19168,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_remove_compose_deployment_request(
@@ -19232,7 +19232,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(compose_deployment_upgrade_description, 'ComposeDeploymentUpgradeDescription')
@@ -19295,7 +19295,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_rollback_compose_deployment_upgrade_request(
@@ -19352,7 +19352,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_request(
@@ -19420,7 +19420,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(chaos_parameters, 'ChaosParameters')
@@ -19482,7 +19482,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_stop_chaos_request(
@@ -19571,7 +19571,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_events_request(
@@ -19635,7 +19635,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_chaos_schedule_request(
@@ -19704,7 +19704,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _chaos_schedule = _models.ChaosScheduleDescription(version=version, schedule=schedule)
@@ -19774,7 +19774,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_upload_file_request(
@@ -19834,7 +19834,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_content_request(
@@ -19898,7 +19898,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_image_store_content_request(
@@ -19954,7 +19954,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_root_content_request(
@@ -20017,7 +20017,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(image_store_copy_description, 'ImageStoreCopyDescription')
@@ -20081,7 +20081,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_image_store_upload_session_request(
@@ -20143,7 +20143,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_commit_image_store_upload_session_request(
@@ -20204,7 +20204,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_upload_session_by_id_request(
@@ -20268,7 +20268,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_upload_session_by_path_request(
@@ -20350,7 +20350,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_upload_file_chunk_request(
@@ -20408,7 +20408,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_root_folder_size_request(
@@ -20471,7 +20471,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_folder_size_request(
@@ -20532,7 +20532,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_image_store_info_request(
@@ -20609,7 +20609,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_invoke_infrastructure_command_request(
@@ -20688,7 +20688,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_invoke_infrastructure_query_request(
@@ -20786,7 +20786,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_data_loss_request(
@@ -20859,7 +20859,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_data_loss_progress_request(
@@ -20949,7 +20949,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_quorum_loss_request(
@@ -21025,7 +21025,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_quorum_loss_progress_request(
@@ -21109,7 +21109,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_partition_restart_request(
@@ -21183,7 +21183,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_restart_progress_request(
@@ -21270,7 +21270,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_start_node_transition_request(
@@ -21338,7 +21338,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_transition_progress_request(
@@ -21421,7 +21421,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_fault_operation_list_request(
@@ -21506,7 +21506,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_cancel_operation_request(
@@ -21571,7 +21571,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(backup_policy_description, 'BackupPolicyDescription')
@@ -21636,7 +21636,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_backup_policy_request(
@@ -21708,7 +21708,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_backup_policy_list_request(
@@ -21772,7 +21772,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_backup_policy_by_name_request(
@@ -21852,7 +21852,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_all_entities_backed_up_by_policy_request(
@@ -21924,7 +21924,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(backup_policy_description, 'BackupPolicyDescription')
@@ -21999,7 +21999,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -22071,7 +22071,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -22159,7 +22159,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_backup_configuration_info_request(
@@ -22263,7 +22263,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_backup_list_request(
@@ -22337,7 +22337,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_application_backup_request(
@@ -22401,7 +22401,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_application_backup_request(
@@ -22473,7 +22473,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -22549,7 +22549,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -22637,7 +22637,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_backup_configuration_info_request(
@@ -22741,7 +22741,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_backup_list_request(
@@ -22815,7 +22815,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_service_backup_request(
@@ -22879,7 +22879,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_service_backup_request(
@@ -22946,7 +22946,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _enable_backup_description = _models.EnableBackupDescription(backup_policy_name=backup_policy_name)
@@ -23018,7 +23018,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _disable_backup_description = _models.DisableBackupDescription(clean_backup=clean_backup)
@@ -23085,7 +23085,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_configuration_info_request(
@@ -23167,7 +23167,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_list_request(
@@ -23234,7 +23234,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_suspend_partition_backup_request(
@@ -23294,7 +23294,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_resume_partition_backup_request(
@@ -23371,7 +23371,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _backup_partition_description = _models.BackupPartitionDescription(backup_storage=backup_storage)
@@ -23440,7 +23440,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_backup_progress_request(
@@ -23522,7 +23522,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(restore_partition_description, 'RestorePartitionDescription')
@@ -23587,7 +23587,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_restore_progress_request(
@@ -23670,7 +23670,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(get_backup_by_storage_query_description, 'GetBackupByStorageQueryDescription')
@@ -23738,7 +23738,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _name_description = _models.NameDescription(name=name)
@@ -23801,7 +23801,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_name_exists_info_request(
@@ -23861,7 +23861,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_name_request(
@@ -23934,7 +23934,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_sub_name_info_list_request(
@@ -24014,7 +24014,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_property_info_list_request(
@@ -24082,7 +24082,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _json = self._serialize.body(property_description, 'PropertyDescription')
@@ -24149,7 +24149,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_property_info_request(
@@ -24217,7 +24217,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_delete_property_request(
@@ -24282,7 +24282,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
         content_type = kwargs.pop('content_type', "application/json")  # type: Optional[str]
 
         _property_batch_description_list = _models.PropertyBatchDescriptionList(operations=operations)
@@ -24370,7 +24370,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_cluster_event_list_request(
@@ -24453,7 +24453,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_containers_event_list_request(
@@ -24539,7 +24539,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_node_event_list_request(
@@ -24623,7 +24623,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_nodes_event_list_request(
@@ -24713,7 +24713,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_application_event_list_request(
@@ -24797,7 +24797,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_applications_event_list_request(
@@ -24887,7 +24887,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_service_event_list_request(
@@ -24971,7 +24971,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_services_event_list_request(
@@ -25057,7 +25057,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_event_list_request(
@@ -25141,7 +25141,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partitions_event_list_request(
@@ -25230,7 +25230,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_replica_event_list_request(
@@ -25318,7 +25318,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_partition_replicas_event_list_request(
@@ -25386,7 +25386,7 @@ class ServiceFabricClientAPIsOperationsMixin(object):  # pylint: disable=too-man
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_correlated_event_list_request(

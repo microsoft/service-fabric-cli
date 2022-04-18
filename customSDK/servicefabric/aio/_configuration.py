@@ -26,7 +26,7 @@ class ServiceFabricClientAPIsConfiguration(Configuration):  # pylint: disable=to
 
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials_async.AsyncTokenCredential
-    :keyword api_version: Api Version. Default value is "8.2.0.46". Note that overriding this
+    :keyword api_version: Api Version. Default value is "9.0.0.46". Note that overriding this
      default value may result in unsupported behavior.
     :paramtype api_version: str
     """
@@ -37,7 +37,7 @@ class ServiceFabricClientAPIsConfiguration(Configuration):  # pylint: disable=to
         **kwargs: Any
     ) -> None:
         super(ServiceFabricClientAPIsConfiguration, self).__init__(**kwargs)
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         if credential is None:
             raise ValueError("Parameter 'credential' must not be None.")

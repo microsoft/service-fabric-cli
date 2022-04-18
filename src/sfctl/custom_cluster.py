@@ -14,6 +14,7 @@ from knack.util import CLIError
 from knack.log import get_logger
 from azure.servicefabric import ServiceFabricClientAPIs
 from msrest import ServiceClient, Configuration
+from sfctl.apiclient import dummmy_protocol
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
@@ -288,9 +289,11 @@ def get_aad_token(endpoint, no_verify):
     #pylint: disable-msg=too-many-locals
     """Get AAD token"""
 
-    auth = ClientCertAuthentication(None, None, no_verify)
+    # auth = ClientCertAuthentication(None, None, no_verify)
+    dummy_credential = dummmy_protocol()
 
-    client = ServiceFabricClientAPIs(auth, base_url=endpoint)
+
+    client = ServiceFabricClientAPIs(dummy_credential, base_url=endpoint, connection_verify=False)
     aad_metadata = client.get_aad_metadata()
 
     if aad_metadata.type != "aad":

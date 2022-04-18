@@ -68,7 +68,7 @@ class MeshServiceOperations:
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_get_request(
@@ -126,7 +126,7 @@ class MeshServiceOperations:
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        api_version = kwargs.pop('api_version', "8.2.0.46")  # type: str
+        api_version = kwargs.pop('api_version', "9.0.0.46")  # type: str
 
         
         request = build_list_request(
