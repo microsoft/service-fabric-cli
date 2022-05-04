@@ -25,7 +25,7 @@ jobs:
         pip install --force-reinstall -r requirements.txt
     - name: Build Wheel
       run: |
-        python sfctl/setup.py bdist_wheel --universal
+        python src/setup.py bdist_wheel --universal
 
     - name: upload wheel
       uses: actions/upload-artifact@v2-preview
