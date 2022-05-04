@@ -61,9 +61,7 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandGroup(self, 'rpm', client_func_path,
                           client_factory=client_create) as group:
-            group.command('delete', 'delete_repair_task')
             group.command('list', 'get_repair_task_list')
-            group.command('approve-force', 'force_approve_repair_task')
 
         with CommandGroup(self, 'sa-cluster', client_func_path,
                           client_factory=client_create) as group:
@@ -87,10 +85,7 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('recover-system', 'recover_system_partitions')
             group.command('operation-list', 'get_fault_operation_list')
             group.command('operation-cancel', 'cancel_operation')
-            group.command('provision', 'provision_cluster')
-            group.command('unprovision', 'unprovision_cluster')
             group.command('upgrade-rollback', 'rollback_cluster_upgrade')
-            group.command('upgrade-resume', 'resume_cluster_upgrade')
 
         with CommandGroup(self, 'node', client_func_path,
                           client_factory=client_create) as group:
@@ -98,10 +93,8 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('info', 'get_node_info')
             group.command('health', 'get_node_health')
             group.command('load', 'get_node_load_info')
-            group.command('disable', 'disable_node')
             group.command('enable', 'enable_node')
             group.command('remove-state', 'remove_node_state')
-            group.command('restart', 'restart_node')
             group.command('transition', 'start_node_transition')
             group.command(
                 'transition-status',
@@ -125,12 +118,10 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('type-list', 'get_application_type_info_list')
             group.command('type', 'get_application_type_info_list_by_name')
             group.command('unprovision', 'unprovision_application_type')
-            group.command('delete', 'delete_application')
             group.command('list', 'get_application_info_list')
             group.command('info', 'get_application_info')
             group.command('health', 'get_application_health')
             group.command('upgrade-status', 'get_application_upgrade')
-            group.command('upgrade-resume', 'resume_application_upgrade')
             group.command(
                 'upgrade-rollback',
                 'rollback_application_upgrade'
@@ -298,6 +289,9 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('upgrade', 'upgrade')
             group.command('upgrade-update', 'update_upgrade')
+            group.command('provision', 'provision')
+            group.command('unprovision', 'unprovision_cluster')
+            group.command('upgrade-resume', 'resume_cluster_upgrade')
 
         with CommandGroup(self, 'sa-cluster', 'sfctl.custom_cluster_upgrade#{}',
                           client_factory=client_create) as group:
@@ -312,6 +306,8 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('create', 'create')
             group.command('upgrade', 'upgrade')
+            group.command('delete', 'delete_application')
+            group.command('upgrade-resume', 'resume_application_upgrade')
 
         with CommandGroup(self, 'application', 'sfctl.custom_app#{}') as group:
             group.command('upload', 'upload')
@@ -339,6 +335,11 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('command', 'is_command')
             group.command('query', 'is_query')
+
+        with CommandGroup(self, 'rpm', 'sfctl.custom_is#{}',
+                    client_factory=client_create) as group:
+            group.command('approve-force', 'force_approve_repair_task')
+            group.command('delete', 'delete_repair_task')
 
         with CommandGroup(self, 'property', 'sfctl.custom_property#{}',
                           client_factory=client_create) as group:
@@ -378,6 +379,9 @@ class SFCommandLoader(CLICommandsLoader):
                           client_factory=client_create) as group:
             group.command('add-node-tags', 'add_node_tags')
             group.command('remove-node-tags', 'remove_node_tags')
+            group.command('disable', 'disable_node')
+            group.command('restart', 'restart_node')
+
 
         # ---------------
         # Settings

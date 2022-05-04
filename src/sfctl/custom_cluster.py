@@ -13,12 +13,12 @@ import adal
 from knack.util import CLIError
 from knack.log import get_logger
 from azure.servicefabric import ServiceFabricClientAPIs
-from msrest import ServiceClient, Configuration
-from sfctl.apiclient import dummmy_protocol
+from sfctl.apiclient import FakeAuthenticationPolicy, FakeCredentialProtocol
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
-from sfctl.auth import ClientCertAuthentication, AdalAuthentication
+from sfctl.auth import AdalAuthentication2, ClientCertAuthentication, AdalAuthentication
+from azure.core.rest import HttpRequest, HttpResponse
 
 
 logger = get_logger(__name__)  # pylint: disable=invalid-name
@@ -60,7 +60,7 @@ def show_connection():
 
     return endpoint
 
-def _get_client_cert_auth(pem, cert, key, ca, no_verify): # pylint: disable=invalid-name
+def _get_cert_based_client(endpoint, pem, cert, key, ca, no_verify): # pylint: disable=invalid-name
     """
     Return a ClientCertAuthentication based on given credentials
 
@@ -72,14 +72,27 @@ def _get_client_cert_auth(pem, cert, key, ca, no_verify): # pylint: disable=inva
 
     :return: ClientCertAuthentication
     """
+    if ca is not None:
+        no_verify = ca
+
     client_cert = None
     if pem:
         client_cert = pem
     elif cert:
         client_cert = (cert, key)
 
-    return ClientCertAuthentication(client_cert, ca, no_verify)
+    return ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
+                                     connection_verify=no_verify, enforce_https=False, 
+                                     connection_cert=client_cert, authentication_policy=FakeAuthenticationPolicy())
 
+
+def _get_aad_based_client(endpoint, no_verify):
+    headers = {}
+    auth = AdalAuthentication2()
+    headers['Authorization'] = auth.get_header()
+    return ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
+                                    connection_verify=no_verify, enforce_https=False,
+                                    authentication_policy=FakeAuthenticationPolicy())
 
 def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint: disable=invalid-name, too-many-arguments
                      aad=False, no_verify=False):
@@ -99,15 +112,12 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint
     if aad:
         new_token, new_cache = get_aad_token(endpoint, no_verify)
         set_aad_cache(new_token, new_cache)
-        return ServiceClient(AdalAuthentication(no_verify), Configuration(endpoint))
+        return _get_aad_based_client(endpoint, no_verify)
 
     # If the code reaches here, it is not AAD
 
-    return ServiceClient(
-        _get_client_cert_auth(pem, cert, key, ca, no_verify),
-        Configuration(endpoint)
-    )
-
+    return _get_cert_based_client(endpoint, pem, cert, key, ca, no_verify)
+ 
 
 def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):
@@ -160,7 +170,7 @@ def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=
 
     # Make sure basic GET request succeeds
     rest_client = _get_rest_client(endpoint, cert, key, pem, ca, aad, no_verify)
-    rest_client.send(rest_client.get('/')).raise_for_status()
+    rest_client.send_request(HttpRequest('GET', endpoint)).raise_for_status()
 
     set_cluster_endpoint(endpoint)
     set_no_verify(no_verify)
@@ -220,10 +230,8 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
 
     cluster_auth = get_cluster_auth()
 
-    auth = _get_client_cert_auth(cluster_auth['pem'], cluster_auth['cert'], cluster_auth['key'],
+    client = _get_cert_based_client(client_endpoint(), cluster_auth['pem'], cluster_auth['cert'], cluster_auth['key'],
                                  cluster_auth['ca'], cluster_auth['no_verify'])
-
-    client = ServiceFabricClientAPIs(auth, base_url=client_endpoint())
 
     sfctl_version = get_sfctl_version()
 
@@ -235,7 +243,7 @@ def check_cluster_version(on_failure_or_connection, dummy_cluster_version=None):
         # is that the corresponding get_cluster_version API on the cluster doesn't exist.
         try:
             logger.info('Performing cluster version check')
-            cluster_version = client.get_cluster_version().version
+            cluster_version = client.get_cluster_version().get('Version')
 
         except:  # pylint: disable=bare-except
             ex = exc_info()[0]
@@ -289,11 +297,7 @@ def get_aad_token(endpoint, no_verify):
     #pylint: disable-msg=too-many-locals
     """Get AAD token"""
 
-    # auth = ClientCertAuthentication(None, None, no_verify)
-    dummy_credential = dummmy_protocol()
-
-
-    client = ServiceFabricClientAPIs(dummy_credential, base_url=endpoint, connection_verify=False)
+    client = ServiceFabricClientAPIs(FakeCredentialProtocol(), base_url=endpoint, connection_verify=False)
     aad_metadata = client.get_aad_metadata()
 
     if aad_metadata.type != "aad":

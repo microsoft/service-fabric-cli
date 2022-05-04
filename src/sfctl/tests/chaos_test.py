@@ -20,7 +20,6 @@ class ChaosTests(unittest.TestCase):
 
     def test_parse_populated_context(self):
         """Parse context with contents"""
-        from azure.servicefabric.models import ChaosContext
 
         wrapper = sf_c.parse_chaos_context({
             'key1': 'value1',
@@ -28,8 +27,7 @@ class ChaosTests(unittest.TestCase):
             'key3': 'value3'
         })
 
-        self.assertIsInstance(wrapper, ChaosContext)
-        res = wrapper.map
+        res = wrapper['Map']
         self.assertIsInstance(res, dict)
         self.assertEqual(len(res), 3)
         self.assertEqual(res['key1'], 'value1')
@@ -48,12 +46,12 @@ class ChaosTests(unittest.TestCase):
                 'N0010Ref', 'N0020Ref', 'N0030Ref', 'N0070Ref']
         })
 
-        self.assertEqual(len(res.node_type_inclusion_list), 4)
-        self.assertEqual(res.application_inclusion_list, None)
-        self.assertEqual(res.node_type_inclusion_list[0], 'N0010Ref')
-        self.assertEqual(res.node_type_inclusion_list[1], 'N0020Ref')
-        self.assertEqual(res.node_type_inclusion_list[2], 'N0030Ref')
-        self.assertEqual(res.node_type_inclusion_list[3], 'N0070Ref')
+        self.assertEqual(len(res['NodeTypeInclusionList']), 4)
+        self.assertEqual(res['ApplicationInclusionList'], None)
+        self.assertEqual(res['NodeTypeInclusionList'][0], 'N0010Ref')
+        self.assertEqual(res['NodeTypeInclusionList'][1], 'N0020Ref')
+        self.assertEqual(res['NodeTypeInclusionList'][2], 'N0030Ref')
+        self.assertEqual(res['NodeTypeInclusionList'][3], 'N0070Ref')
 
     def test_parse_application_list(self):
         """Parse application inclusion list"""
@@ -62,7 +60,7 @@ class ChaosTests(unittest.TestCase):
             'ApplicationInclusionList': ['fabric:/TestApp1', 'fabric:/TestApp2']  # pylint: disable=line-too-long
         })
 
-        self.assertEqual(len(res.application_inclusion_list), 2)
-        self.assertEqual(res.node_type_inclusion_list, None)
-        self.assertEqual(res.application_inclusion_list[0], 'fabric:/TestApp1')
-        self.assertEqual(res.application_inclusion_list[1], 'fabric:/TestApp2')
+        self.assertEqual(len(res['ApplicationInclusionList']), 2)
+        self.assertEqual(res['NodeTypeInclusionList'], None)
+        self.assertEqual(res['ApplicationInclusionList'][0], 'fabric:/TestApp1')
+        self.assertEqual(res['ApplicationInclusionList'][1], 'fabric:/TestApp2')

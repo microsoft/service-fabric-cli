@@ -197,6 +197,9 @@ class HelpTextTests(unittest.TestCase):
                 self.fail('No help text in command: ' + help_command)
 
             returned_string = returned_string.decode('utf-8')
+            # remove global flag for verbose text because it too easily false triggers
+            returned_string = returned_string.replace("--debug for full debug logs.", "")
+
             lines = returned_string.splitlines()
 
             for line in lines:

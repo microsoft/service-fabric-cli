@@ -28,8 +28,8 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
     def test_parse_complete_correlation_desc(self):
         """Parse a single correlation description"""
         res = sf_c.correlation_desc('test', 'Affinity')
-        self.assertEqual(res.service_name, 'test')
-        self.assertEqual(res.scheme, 'Affinity')
+        self.assertEqual(res['ServiceName'], 'test')
+        self.assertEqual(res['Scheme'], 'Affinity')
 
     def test_parse_empty_load_metrics(self):
         """Parse empty load metrics returns None"""
@@ -49,23 +49,23 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
             'trigger':{'kind':'AverageServiceLoad', 'metric_name':'MetricB', 'upper_load_threshold':30.0, 'lower_load_threshold':10.0, 'scale_interval_in_seconds':1000} #pylint: disable=line-too-long
         }])
         self.assertEqual(len(res), 2)
-        self.assertEqual(res[0].scaling_trigger.metric_name, 'MetricA')
-        self.assertEqual(res[0].scaling_trigger.upper_load_threshold, 20.0)
-        self.assertEqual(res[0].scaling_trigger.lower_load_threshold, 10.0)
-        self.assertEqual(res[0].scaling_mechanism.max_instance_count, 4)
-        self.assertEqual(res[1].scaling_trigger.scale_interval_in_seconds, 1000)
-        self.assertEqual(res[1].scaling_trigger.upper_load_threshold, 30.0)
-        self.assertEqual(res[1].scaling_trigger.lower_load_threshold, 10.0)
-        self.assertEqual(res[1].scaling_mechanism.scale_increment, 2)
+        self.assertEqual(res[0]['ScalingTrigger']['MetricName'], 'MetricA')
+        self.assertEqual(res[0]['ScalingTrigger']['UpperLoadThreshold'], 20.0)
+        self.assertEqual(res[0]['ScalingTrigger']['LowerLoadThreshold'], 10.0)
+        self.assertEqual(res[0]['ScalingMechanism']['MaxInstanceCount'], 4)
+        self.assertEqual(res[1]['ScalingTrigger']['ScaleIntervalInSeconds'], 1000)
+        self.assertEqual(res[1]['ScalingTrigger']['UpperLoadThreshold'], 30.0)
+        self.assertEqual(res[1]['ScalingTrigger']['LowerLoadThreshold'], 10.0)
+        self.assertEqual(res[1]['ScalingMechanism']['ScaleIncrement'], 2)
 
     def test_parse_service_tags(self):
         """Parse service tags"""
         service_tags = ["tagX", "tagY", "tagZ"]
         res = sf_c.parse_service_tags(service_tags)
-        self.assertEqual(len(service_tags), res.count)
-        self.assertEqual(res.tags[0], service_tags[0])
-        self.assertEqual(res.tags[1], service_tags[1])
-        self.assertEqual(res.tags[2], service_tags[2])
+        self.assertEqual(len(service_tags), res['Count'])
+        self.assertEqual(res['Tags'][0], service_tags[0])
+        self.assertEqual(res['Tags'][1], service_tags[1])
+        self.assertEqual(res['Tags'][2], service_tags[2])
 
     def test_parse_incomplete_load_metrics(self):
         """Parse single incomplete load metrics definition"""
@@ -75,11 +75,11 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
 
         self.assertEqual(len(res), 1)
         res = res[0]
-        self.assertEqual(res.name, 'test_metric')
-        self.assertIsNone(res.weight)
-        self.assertIsNone(res.primary_default_load)
-        self.assertIsNone(res.secondary_default_load)
-        self.assertEqual(res.default_load, 10)
+        self.assertEqual(res['Name'], 'test_metric')
+        self.assertIsNone(res['Weight'])
+        self.assertIsNone(res['PrimaryDefaultLoad'])
+        self.assertIsNone(res['SecondaryDefaultLoad'])
+        self.assertEqual(res['DefaultLoad'], 10)
 
     def test_parse_invalid_placement_policy_type(self):
         """Parsing invalid placement policy type raises error"""
@@ -95,11 +95,6 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
     def test_parse_all_placement_policy_types(self):
         """Parse all placement policy types"""
 
-        from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription,  # pylint: disable=line-too-long
-                                                ServicePlacementPreferPrimaryDomainPolicyDescription, # pylint: disable=line-too-long
-                                                ServicePlacementRequiredDomainPolicyDescription,  # pylint: disable=line-too-long
-                                                ServicePlacementRequireDomainDistributionPolicyDescription)  # pylint: disable=line-too-long
-
         res = sf_c.parse_placement_policies([{
             'type': 'NonPartiallyPlaceService'
         }, {
@@ -112,25 +107,8 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
             'type': 'RequireDomainDistribution',
             'domain_name': 'test_3'
         }])
-        self.assertIsInstance(
-            res[0],
-            ServicePlacementNonPartiallyPlaceServicePolicyDescription
-        )
-        self.assertIsInstance(
-            res[1],
-            ServicePlacementPreferPrimaryDomainPolicyDescription
-        )
-        self.assertEqual(res[1].domain_name, 'test_1')
-        self.assertIsInstance(
-            res[2],
-            ServicePlacementRequiredDomainPolicyDescription
-        )
-        self.assertEqual(res[2].domain_name, 'test-22')
-        self.assertIsInstance(
-            res[3],
-            ServicePlacementRequireDomainDistributionPolicyDescription
-        )
-        self.assertEqual(res[3].domain_name, 'test_3')
+
+        self.assertEqual(res[3]['DomainName'], 'test_3')
 
     def test_invalid_move_cost(self):
         """Invalid move cost raises error"""
@@ -210,25 +188,20 @@ class ServiceTests(unittest.TestCase):  # pylint: disable=too-many-public-method
 
     def test_parse_valid_partition_policy(self):
         """Parsing valid partition polices returns correct policies"""
-        from azure.servicefabric.models import (NamedPartitionSchemeDescription,  # pylint: disable=line-too-long
-                                                SingletonPartitionSchemeDescription,  # pylint:disable=line-too-long
-                                                UniformInt64RangePartitionSchemeDescription)  # pylint:disable=line-too-long
 
         res = sf_c.parse_partition_policy(True, ['test'], False, None, None,
                                           None, False)
-        self.assertIsInstance(res, NamedPartitionSchemeDescription)
-        self.assertEqual(res.count, 1)
-        self.assertEqual(res.names, ['test'])
+        self.assertEqual(res['Count'], 1)
+        self.assertEqual(res['Names'], ['test'])
 
         res = sf_c.parse_partition_policy(False, None, True, 1, 5, 3, False)
-        self.assertIsInstance(res, UniformInt64RangePartitionSchemeDescription)
-        self.assertEqual(res.high_key, 5)
-        self.assertEqual(res.low_key, 1)
-        self.assertEqual(res.count, 3)
+
+        self.assertEqual(res['HighKey'], 5)
+        self.assertEqual(res['LowKey'], 1)
+        self.assertEqual(res['Count'], 3)
 
         res = sf_c.parse_partition_policy(False, None, False, None, None, None,
                                           True)
-        self.assertIsInstance(res, SingletonPartitionSchemeDescription)
 
     def test_activation_mode_invalid(self):
         """Invalid activation mode specified raises error"""

@@ -6,17 +6,20 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._service_fabric_client_apis_operations import ServiceFabricClientAPIsOperationsMixin
-from ._mesh_secret_operations import MeshSecretOperations
-from ._mesh_secret_value_operations import MeshSecretValueOperations
-from ._mesh_volume_operations import MeshVolumeOperations
-from ._mesh_network_operations import MeshNetworkOperations
-from ._mesh_application_operations import MeshApplicationOperations
-from ._mesh_service_operations import MeshServiceOperations
-from ._mesh_code_package_operations import MeshCodePackageOperations
-from ._mesh_service_replica_operations import MeshServiceReplicaOperations
-from ._mesh_gateway_operations import MeshGatewayOperations
+from ._operations import ServiceFabricClientAPIsOperationsMixin
+from ._operations import MeshSecretOperations
+from ._operations import MeshSecretValueOperations
+from ._operations import MeshVolumeOperations
+from ._operations import MeshNetworkOperations
+from ._operations import MeshApplicationOperations
+from ._operations import MeshServiceOperations
+from ._operations import MeshCodePackageOperations
+from ._operations import MeshServiceReplicaOperations
+from ._operations import MeshGatewayOperations
 
+from ._patch import __all__ as _patch_all
+from ._patch import *  # type: ignore # pylint: disable=unused-wildcard-import
+from ._patch import patch_sdk as _patch_sdk
 __all__ = [
     'ServiceFabricClientAPIsOperationsMixin',
     'MeshSecretOperations',
@@ -29,3 +32,5 @@ __all__ = [
     'MeshServiceReplicaOperations',
     'MeshGatewayOperations',
 ]
+__all__.extend([p for p in _patch_all if p not in __all__])
+_patch_sdk()

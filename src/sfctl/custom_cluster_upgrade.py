@@ -12,7 +12,6 @@ def create_monitoring_policy(failure_action, health_check_wait, #pylint: disable
                              health_check_stable, health_check_retry,
                              upgrade_timeout, upgrade_domain_timeout):
     """Create a monitoring policy description for an upgrade"""
-    from azure.servicefabric.models import MonitoringPolicyDescription
 
     if failure_action not in ['Invalid', 'Rollback', 'Manual', None]:
         raise CLIError('Invalid upgrade failure action specified')
@@ -20,80 +19,77 @@ def create_monitoring_policy(failure_action, health_check_wait, #pylint: disable
     if not any([failure_action, health_check_wait, health_check_stable,
                 health_check_retry, upgrade_timeout, upgrade_domain_timeout]):
         return None
-    return MonitoringPolicyDescription(
-        failure_action=failure_action,
-        health_check_wait_duration_in_milliseconds=health_check_wait,
-        health_check_stable_duration_in_milliseconds=health_check_stable,
-        health_check_retry_timeout_in_milliseconds=health_check_retry,
-        upgrade_timeout_in_milliseconds=upgrade_timeout,
-        upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout)
+    return {
+        "FailureAction": failure_action,
+        "HealthCheckWaitDurationInMilliseconds": health_check_wait,
+        "HealthCheckStableDurationInMilliseconds": health_check_stable,
+        "HealthCheckRetryTimeoutInMilliseconds": health_check_retry,
+        "UpgradeTimeoutInMilliseconds": upgrade_timeout,
+        "UpgradeDomainTimeoutInMilliseconds": upgrade_domain_timeout
+        }
 
 def create_upgrade_health_policy(delta_unhealthy_nodes,
                                  ud_delta_unhealthy_nodes):
     """Create an upgrade node health policy"""
-    from azure.servicefabric.models import ClusterUpgradeHealthPolicyObject
 
     if not any([delta_unhealthy_nodes, ud_delta_unhealthy_nodes]):
         return None
-    return ClusterUpgradeHealthPolicyObject(
-        max_percent_delta_unhealthy_nodes=delta_unhealthy_nodes,
-        max_percent_upgrade_domain_delta_unhealthy_nodes=ud_delta_unhealthy_nodes
-    )
+    return {
+        "MaxPercentDeltaUnhealthyNodes": delta_unhealthy_nodes,
+        "MaxPercentUpgradeDomainDeltaUnhealthyNodes":ud_delta_unhealthy_nodes
+    }
 
 def create_cluster_health_policy(warning_as_error, unhealthy_nodes,
                                  unhealthy_applications,
                                  application_type_health_map):
     """Create a cluster health policy for an upgrade"""
-    from azure.servicefabric.models import ClusterHealthPolicy, ApplicationTypeHealthPolicyMapItem
 
     app_type_list = None
     if application_type_health_map:
         app_type_list = []
         for app_type in application_type_health_map:
             allowed_unhealthy = application_type_health_map[app_type]
-            policy_item = ApplicationTypeHealthPolicyMapItem(key=app_type,
-                                                             value=allowed_unhealthy)
+            policy_item = {"Key": app_type,
+                           "Value": allowed_unhealthy}
             app_type_list.append(policy_item)
 
     if not any([warning_as_error, unhealthy_nodes, unhealthy_applications,
                 app_type_list]):
         return None
-    return ClusterHealthPolicy(consider_warning_as_error=warning_as_error,
-                               max_percent_unhealthy_nodes=unhealthy_nodes,
-                               max_percent_unhealthy_applications=unhealthy_applications,
-                               application_type_health_policy_map=app_type_list)
+    return {"ConsiderWarningAsError": warning_as_error,
+            "MaxPercentUnhealthyNodes": unhealthy_nodes,
+            "MaxPercentUnhealthyApplications": unhealthy_applications,
+            "ApplicationTypeHealthPolicyMap": app_type_list}
 
 def parse_app_health_policy(app_health_map):
     """From a complex object create a map of application health policies"""
-    from azure.servicefabric.models import ApplicationHealthPolicies, ApplicationHealthPolicyMapItem
 
     if not app_health_map:
         return None
     policy_list = []
     for app in app_health_map:
         allowed_unhealthy = app_health_map[app]
-        policy_item = ApplicationHealthPolicyMapItem(key=app, value=allowed_unhealthy)
+        policy_item = {"Key":app, "Value":allowed_unhealthy} 
         policy_list.append(policy_item)
 
-    return ApplicationHealthPolicies(application_health_policy_map=policy_list)
+    return { "ApplicationHealthPolicyMap":policy_list}
 
 def create_rolling_update_desc( #pylint: disable=too-many-arguments
         rolling_upgrade_mode, force_restart, replica_set_check_timeout,
         failure_action, health_check_wait, health_check_stable,
         health_check_retry, upgrade_timeout, upgrade_domain_timeout):
     """Create an update description for an upgrade rolling mode"""
-    from azure.servicefabric.models import RollingUpgradeUpdateDescription
 
-    return RollingUpgradeUpdateDescription(
-        rolling_upgrade_mode=rolling_upgrade_mode,
-        force_restart=force_restart,
-        replica_set_check_timeout_in_milliseconds=replica_set_check_timeout, #pylint: disable=line-too-long
-        failure_action=failure_action,
-        health_check_wait_duration_in_milliseconds=health_check_wait,
-        health_check_stable_duration_in_milliseconds=health_check_stable,
-        health_check_retry_timeout_in_milliseconds=health_check_retry,
-        upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout,
-        upgrade_timeout_in_milliseconds=upgrade_timeout)
+    return {
+        "RollingUpgradeMode": rolling_upgrade_mode,
+        "ForceRestart": force_restart,
+        "ReplicaSetCheckTimeoutInMilliseconds": replica_set_check_timeout, #pylint: disable=line-too-long
+        "FailureAction":failure_action,
+        "HealthCheckWaitDurationInMilliseconds": health_check_wait,
+        "HealthCheckStableDurationInMilliseconds":health_check_stable,
+        "HealthCheckRetryTimeoutInMilliseconds": health_check_retry,
+        "UpgradeDomainTimeoutInMilliseconds": upgrade_domain_timeout,
+        "UpgradeTimeoutInMilliseconds": upgrade_timeout}
 
 def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, code_version=None, config_version=None,
@@ -105,7 +101,6 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too
         app_type_health_map=None, delta_health_evaluation=False,
         delta_unhealthy_nodes=10, upgrade_domain_delta_unhealthy_nodes=15,
         app_health_map=None, timeout=60):
-    from azure.servicefabric.models import StartClusterUpgradeDescription
 
     mon_policy = create_monitoring_policy(failure_action, health_check_wait,
                                           health_check_stable,
@@ -119,44 +114,41 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too
         delta_unhealthy_nodes, upgrade_domain_delta_unhealthy_nodes)
     app_health_policy = parse_app_health_policy(app_health_map)
 
-    upgrade_desc = StartClusterUpgradeDescription(
-        code_version=code_version, config_version=config_version,
-        upgrade_kind='Rolling', rolling_upgrade_mode=rolling_upgrade_mode,
-        upgrade_replica_set_check_timeout_in_seconds=replica_set_check_timeout,
-        force_restart=force_restart, monitoring_policy=mon_policy,
-        cluster_health_policy=cluster_policy,
-        enable_delta_health_evaluation=delta_health_evaluation,
-        cluster_upgrade_health_policy=cluster_upgrade_policy,
-        application_health_policy_map=app_health_policy)
+    upgrade_desc = {
+        "CodeVersion": code_version, "ConfigVersion": config_version,
+        "UpgradeKind": 'Rolling', "RollingUpgradeMode": rolling_upgrade_mode,
+        "UpgradeReplicaSetCheckTimeoutInSeconds": replica_set_check_timeout,
+        "ForceRestart": force_restart, "MonitoringPolicy": mon_policy,
+        "ClusterHealthPolicy": cluster_policy,
+        "EnableDeltaHealthEvaluation": delta_health_evaluation,
+        "ClusterUpgradeHealthPolicy": cluster_upgrade_policy,
+        "ApplicationHealthPolicyMap":app_health_policy}
 
     client.start_cluster_upgrade(upgrade_desc, timeout=timeout)
 
 def sa_configuration_upgrade( #pylint: disable=missing-docstring,invalid-name,too-many-arguments,too-many-locals
-        client, cluster_config, health_check_retry='PT0H0M0S',
-        health_check_wait='PT0H0M0S', health_check_stable='PT0H0M0S',
-        upgrade_domain_timeout='PT0H0M0S', upgrade_timeout='PT0H0M0S',
+        client, cluster_config, health_check_retry='P0D',
+        health_check_wait='P0D', health_check_stable='P0D',
+        upgrade_domain_timeout='P0D', upgrade_timeout='P0D',
         unhealthy_applications=0, unhealthy_nodes=0, delta_unhealthy_nodes=0,
         upgrade_domain_delta_unhealthy_nodes=0, application_health_policies=None, timeout=60):
-    from azure.servicefabric.models import ClusterConfigurationUpgradeDescription
 
     app_health_policies = parse_app_health_policy(application_health_policies)
 
-    upgrade_desc = ClusterConfigurationUpgradeDescription(
-        cluster_config=cluster_config,
-        health_check_retry_timeout=health_check_retry,
-        health_check_wait_duration_in_seconds=health_check_wait,
-        health_check_stable_duration_in_seconds=health_check_stable,
-        upgrade_domain_timeout_in_seconds=upgrade_domain_timeout,
-        upgrade_timeout_in_seconds=upgrade_timeout,
-        max_percent_unhealthy_applications=unhealthy_applications,
-        max_percent_unhealthy_nodes=unhealthy_nodes,
-        max_percent_delta_unhealthy_nodes=delta_unhealthy_nodes,
-        max_percent_upgrade_domain_delta_unhealthy_nodes=upgrade_domain_delta_unhealthy_nodes, #pylint: disable=line-too-long
-        application_health_policies=app_health_policies)
+    upgrade_desc = {
+        "ClusterConfig": cluster_config,
+        "HealthCheckRetryTimeout": health_check_retry,
+        "HealthCheckWaitDurationInSeconds": health_check_wait,
+        "HealthCheckStableDurationInSeconds": health_check_stable,
+        "UpgradeDomainTimeoutInSeconds": upgrade_domain_timeout,
+        "UpgradeTimeoutInSeconds": upgrade_timeout,
+        "MaxPercentUnhealthyApplications": unhealthy_applications,
+        "MaxPercentUnhealthyNodes": unhealthy_nodes,
+        "MaxPercentDeltaUnhealthyNodes":delta_unhealthy_nodes,
+        "MaxPercentUpgradeDomainDeltaUnhealthyNodes": upgrade_domain_delta_unhealthy_nodes, #pylint: disable=line-too-long
+        "ApplicationHealthPolicies": app_health_policies}
 
-    client.start_cluster_configuration_upgrade(
-        cluster_configuration_upgrade_description=upgrade_desc,
-        timeout=timeout)
+    client.start_cluster_configuration_upgrade(upgrade_desc, timeout=timeout)
 
 def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too-many-arguments
         client, upgrade_kind='Rolling', rolling_upgrade_mode='UnmonitoredAuto',
@@ -168,7 +160,6 @@ def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-n
         delta_health_evaluation=False, delta_unhealthy_nodes=10,
         upgrade_domain_delta_unhealthy_nodes=15, app_health_map=None,
         timeout=60):
-    from azure.servicefabric.models import UpdateClusterUpgradeDescription
 
     rolling_desc = create_rolling_update_desc(
         rolling_upgrade_mode, force_restart, replica_set_check_timeout,
@@ -184,12 +175,48 @@ def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-n
     )
     app_policies = parse_app_health_policy(app_health_map)
 
-    update_desc = UpdateClusterUpgradeDescription(
-        upgrade_kind=upgrade_kind, update_description=rolling_desc,
-        cluster_health_policy=health_policy,
-        enable_delta_health_evaluation=delta_health_evaluation,
-        cluster_upgrade_health_policy=upgrade_health_policy,
-        application_health_policy_map=app_policies
-    )
+    update_desc = {
+        "UpgradeKind":upgrade_kind, "UpdateDescription":rolling_desc,
+        "ClusterHealthPolicy": health_policy,
+        "EnableDeltaHealthEvaluation": delta_health_evaluation,
+        "ClusterUpgradeHealthPolicy": upgrade_health_policy,
+        "ApplicationHealthPolicyMap": app_policies
+    }
 
     client.update_cluster_upgrade(update_desc, timeout=timeout)
+
+def provision(client, cluster_manifest_file_path, code_file_path, timeout=60):
+    """
+    Provision the code or configuration packages of a Service Fabric cluster.
+    :param cluster_manifest_file_path: The cluster manifest file path.
+    :param code_file_path: The cluster code package file path.
+
+    """
+    payload = {
+        "ClusterManifestFilePath": cluster_manifest_file_path,
+        "CodeFilePath": code_file_path
+    }
+    client.provision_cluster(payload, timeout=timeout)
+
+def unprovision_cluster(client, code_version, config_version, timeout=60):
+    """
+    Unprovision the code or configuration packages of a Service Fabric cluster.
+    :param code_version:  The cluster code package version.
+    :param config_version: The cluster manifest version.
+    """
+    payload = {
+        "CodeVersion": code_version,
+        "ConfigVersion": config_version
+    }
+    client.unprovision_cluster(payload, timeout=timeout)
+
+def resume_cluster_upgrade(client, upgrade_domain, timeout=60):
+    """
+    Make the cluster upgrade move on to the next upgrade domain.
+    :param upgrade_domain: The next upgrade domain for this cluster upgrade.
+
+    """
+    payload = {
+        "UpgradeDomain": upgrade_domain,
+    }
+    client.resume_cluster_upgrade(payload, timeout=timeout)

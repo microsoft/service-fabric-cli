@@ -21,27 +21,23 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_time_of_day(self):
         """Parse a valid TimeOfDay"""
-        from azure.servicefabric.models import TimeOfDay
 
         res = sf_c.parse_time_of_day({
             'Hour': 23,
             'Minute': 59
         })
 
-        self.assertIsInstance(res, TimeOfDay)
 
-        self.assertEqual(res.hour, 23)
-        self.assertEqual(res.minute, 59)
+        self.assertEqual(res['Hour'], 23)
+        self.assertEqual(res['Minute'], 59)
 
         res2 = sf_c.parse_time_of_day({
             'Hour': 0,
             'Minute': 0
         })
 
-        self.assertIsInstance(res2, TimeOfDay)
-
-        self.assertEqual(res2.hour, 0)
-        self.assertEqual(res2.minute, 0)
+        self.assertEqual(res2['Hour'], 0)
+        self.assertEqual(res2['Minute'], 0)
 
     def test_parse_none_time_range(self):
         """Parsing None TimeRange should return None"""
@@ -51,8 +47,6 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_time_range(self):
         """Parse a valid time range"""
-        from azure.servicefabric.models import TimeRange, TimeOfDay
-
         res = sf_c.parse_time_range({
             'StartTime': {
                 'Hour': 0,
@@ -64,15 +58,11 @@ class ChaosScheduleTests(unittest.TestCase):
             }
         })
 
-        self.assertIsInstance(res, TimeRange)
+        self.assertEqual(res['StartTime']['Hour'], 0)
+        self.assertEqual(res['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res.start_time, TimeOfDay)
-        self.assertEqual(res.start_time.hour, 0)
-        self.assertEqual(res.start_time.minute, 0)
-
-        self.assertIsInstance(res.end_time, TimeOfDay)
-        self.assertEqual(res.end_time.hour, 23)
-        self.assertEqual(res.end_time.minute, 59)
+        self.assertEqual(res['EndTime']['Hour'], 23)
+        self.assertEqual(res['EndTime']['Minute'], 59)
 
     def test_parse_none_active_time_ranges(self):
         """Parsing None ActiveTimeRanges should return an empty list"""
@@ -84,7 +74,6 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_time_ranges(self):
         """Parse a list of valid time ranges"""
-        from azure.servicefabric.models import TimeRange, TimeOfDay
 
         res = sf_c.parse_active_time_ranges(
             [
@@ -114,23 +103,17 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 2)
 
-        self.assertIsInstance(res[0], TimeRange)
-        self.assertIsInstance(res[0].start_time, TimeOfDay)
-        self.assertEqual(res[0].start_time.hour, 0)
-        self.assertEqual(res[0].start_time.minute, 0)
+        self.assertEqual(res[0]['StartTime']['Hour'], 0)
+        self.assertEqual(res[0]['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res[0].end_time, TimeOfDay)
-        self.assertEqual(res[0].end_time.hour, 12)
-        self.assertEqual(res[0].end_time.minute, 0)
+        self.assertEqual(res[0]['EndTime']['Hour'], 12)
+        self.assertEqual(res[0]['EndTime']['Minute'], 0)
 
-        self.assertIsInstance(res[1], TimeRange)
-        self.assertIsInstance(res[1].start_time, TimeOfDay)
-        self.assertEqual(res[1].start_time.hour, 12)
-        self.assertEqual(res[1].start_time.minute, 0)
+        self.assertEqual(res[1]['StartTime']['Hour'], 12)
+        self.assertEqual(res[1]['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res[1].end_time, TimeOfDay)
-        self.assertEqual(res[1].end_time.hour, 23)
-        self.assertEqual(res[1].end_time.minute, 59)
+        self.assertEqual(res[1]['EndTime']['Hour'], 23)
+        self.assertEqual(res[1]['EndTime']['Minute'], 59)
 
     def test_parse_none_active_days(self):
         """Parsing None ChaosScheduleActiveDays should return None"""
@@ -140,7 +123,6 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_active_days(self):
         """Parse a valid active days"""
-        from azure.servicefabric.models import ChaosScheduleJobActiveDaysOfWeek
 
         res = sf_c.parse_active_days({
             'Monday': True,
@@ -150,14 +132,13 @@ class ChaosScheduleTests(unittest.TestCase):
             'Friday': True
         })
 
-        self.assertIsInstance(res, ChaosScheduleJobActiveDaysOfWeek)
-        self.assertEqual(res.sunday, False)
-        self.assertEqual(res.monday, True)
-        self.assertEqual(res.tuesday, True)
-        self.assertEqual(res.wednesday, True)
-        self.assertEqual(res.thursday, True)
-        self.assertEqual(res.friday, True)
-        self.assertEqual(res.saturday, False)
+        self.assertEqual(res['Sunday'], False)
+        self.assertEqual(res['Monday'], True)
+        self.assertEqual(res['Tuesday'], True)
+        self.assertEqual(res['Wednesday'], True)
+        self.assertEqual(res['Thursday'], True)
+        self.assertEqual(res['Friday'], True)
+        self.assertEqual(res['Saturday'], False)
 
     def test_parse_none_job(self):
         """Parsing None ChaosScheduleJob should return None"""
@@ -167,10 +148,6 @@ class ChaosScheduleTests(unittest.TestCase):
 
     def test_parse_valid_job(self):
         """Parse a valid ChaosScheduleJob"""
-        from azure.servicefabric.models import (TimeRange,
-                                                ChaosScheduleJob,
-                                                TimeOfDay,
-                                                ChaosScheduleJobActiveDaysOfWeek)
 
         res = sf_c.parse_job({
             'ChaosParameters': 'myParametersName',
@@ -205,37 +182,32 @@ class ChaosScheduleTests(unittest.TestCase):
             ]
         })
 
-        self.assertIsInstance(res, ChaosScheduleJob)
 
-        self.assertEqual(res.chaos_parameters, 'myParametersName')
+        self.assertEqual(res['ChaosParameters'], 'myParametersName')
 
-        self.assertIsInstance(res.days, ChaosScheduleJobActiveDaysOfWeek)
-        self.assertEqual(res.days.sunday, False)
-        self.assertEqual(res.days.monday, True)
-        self.assertEqual(res.days.tuesday, True)
-        self.assertEqual(res.days.wednesday, True)
-        self.assertEqual(res.days.thursday, True)
-        self.assertEqual(res.days.friday, True)
-        self.assertEqual(res.days.saturday, False)
+        self.assertEqual(res['Days']['Sunday'], False)
+        self.assertEqual(res['Days']['Monday'], True)
+        self.assertEqual(res['Days']['Tuesday'], True)
+        self.assertEqual(res['Days']['Wednesday'], True)
+        self.assertEqual(res['Days']['Thursday'], True)
+        self.assertEqual(res['Days']['Friday'], True)
+        self.assertEqual(res['Days']['Saturday'], False)
 
-        self.assertIsInstance(res.times, list)
-        self.assertEqual(len(res.times), 2)
+        self.assertIsInstance(res['Times'], list)
+        self.assertEqual(len(res['Times']), 2)
 
-        self.assertIsInstance(res.times[0], TimeRange)
-        self.assertIsInstance(res.times[0].start_time, TimeOfDay)
-        self.assertEqual(res.times[0].start_time.hour, 0)
-        self.assertEqual(res.times[0].start_time.minute, 0)
-        self.assertIsInstance(res.times[0].end_time, TimeOfDay)
-        self.assertEqual(res.times[0].end_time.hour, 6)
-        self.assertEqual(res.times[0].end_time.minute, 0)
+        self.assertEqual(res['Times'][0]['StartTime']['Hour'], 0)
+        self.assertEqual(res['Times'][0]['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res.times[1], TimeRange)
-        self.assertIsInstance(res.times[1].start_time, TimeOfDay)
-        self.assertEqual(res.times[1].start_time.hour, 18)
-        self.assertEqual(res.times[1].start_time.minute, 0)
-        self.assertIsInstance(res.times[1].end_time, TimeOfDay)
-        self.assertEqual(res.times[1].end_time.hour, 23)
-        self.assertEqual(res.times[1].end_time.minute, 59)
+        self.assertEqual(res['Times'][0]['EndTime']['Hour'], 6)
+        self.assertEqual(res['Times'][0]['EndTime']['Minute'], 0)
+
+
+        self.assertEqual(res['Times'][1]['StartTime']['Hour'], 18)
+        self.assertEqual(res['Times'][1]['StartTime']['Minute'], 0)
+
+        self.assertEqual(res['Times'][1]['EndTime']['Hour'], 23)
+        self.assertEqual(res['Times'][1]['EndTime']['Minute'], 59)
 
     def test_parse_none_jobs(self):
         """Parsing None ChaosScheduleJobs should return an empty list"""
@@ -247,10 +219,6 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_jobs(self):
         #pylint: disable=too-many-statements
         """Parse a valid list of ChaosScheduleJobs"""
-        from azure.servicefabric.models import (TimeRange,
-                                                ChaosScheduleJobActiveDaysOfWeek,
-                                                TimeOfDay,
-                                                ChaosScheduleJob)
 
 
         res = sf_c.parse_jobs([
@@ -309,60 +277,51 @@ class ChaosScheduleTests(unittest.TestCase):
 
         self.assertIsInstance(res, list)
 
-        self.assertIsInstance(res[0], ChaosScheduleJob)
-        self.assertEqual(res[0].chaos_parameters, 'myParametersName')
 
-        self.assertIsInstance(res[0].days, ChaosScheduleJobActiveDaysOfWeek)
-        self.assertEqual(res[0].days.sunday, False)
-        self.assertEqual(res[0].days.monday, True)
-        self.assertEqual(res[0].days.tuesday, True)
-        self.assertEqual(res[0].days.wednesday, True)
-        self.assertEqual(res[0].days.thursday, True)
-        self.assertEqual(res[0].days.friday, True)
-        self.assertEqual(res[0].days.saturday, False)
+        self.assertEqual(res[0]['ChaosParameters'], 'myParametersName')
 
-        self.assertIsInstance(res[0].times, list)
-        self.assertEqual(len(res[0].times), 2)
+        self.assertEqual(res[0]['Days']['Sunday'], False)
+        self.assertEqual(res[0]['Days']['Monday'], True)
+        self.assertEqual(res[0]['Days']['Tuesday'], True)
+        self.assertEqual(res[0]['Days']['Wednesday'], True)
+        self.assertEqual(res[0]['Days']['Thursday'], True)
+        self.assertEqual(res[0]['Days']['Friday'], True)
+        self.assertEqual(res[0]['Days']['Saturday'], False)
 
-        self.assertIsInstance(res[0].times[0], TimeRange)
-        self.assertIsInstance(res[0].times[0].start_time, TimeOfDay)
-        self.assertEqual(res[0].times[0].start_time.hour, 0)
-        self.assertEqual(res[0].times[0].start_time.minute, 0)
-        self.assertIsInstance(res[0].times[0].end_time, TimeOfDay)
-        self.assertEqual(res[0].times[0].end_time.hour, 6)
-        self.assertEqual(res[0].times[0].end_time.minute, 0)
+        self.assertIsInstance(res[0]['Times'], list)
+        self.assertEqual(len(res[0]['Times']), 2)
 
-        self.assertIsInstance(res[0].times[1], TimeRange)
-        self.assertIsInstance(res[0].times[1].start_time, TimeOfDay)
-        self.assertEqual(res[0].times[1].start_time.hour, 18)
-        self.assertEqual(res[0].times[1].start_time.minute, 0)
-        self.assertIsInstance(res[0].times[1].end_time, TimeOfDay)
-        self.assertEqual(res[0].times[1].end_time.hour, 23)
-        self.assertEqual(res[0].times[1].end_time.minute, 59)
+        self.assertEqual(res[0]['Times'][0]['StartTime']['Hour'], 0)
+        self.assertEqual(res[0]['Times'][0]['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res[1], ChaosScheduleJob)
-        self.assertEqual(res[1].chaos_parameters, 'myOtherParametersName')
+        self.assertEqual(res[0]['Times'][0]['EndTime']['Hour'], 6)
+        self.assertEqual(res[0]['Times'][0]['EndTime']['Minute'], 0)
 
-        self.assertIsInstance(res[1].days, ChaosScheduleJobActiveDaysOfWeek)
-        self.assertEqual(res[1].days.sunday, True)
-        self.assertEqual(res[1].days.monday, False)
-        self.assertEqual(res[1].days.tuesday, False)
-        self.assertEqual(res[1].days.wednesday, False)
-        self.assertEqual(res[1].days.thursday, False)
-        self.assertEqual(res[1].days.friday, False)
-        self.assertEqual(res[1].days.saturday, True)
 
-        self.assertIsInstance(res[1].times, list)
-        self.assertEqual(len(res[1].times), 1)
+        self.assertEqual(res[0]['Times'][1]['StartTime']['Hour'], 18)
+        self.assertEqual(res[0]['Times'][1]['StartTime']['Minute'], 0)
 
-        self.assertIsInstance(res[1].times[0], TimeRange)
-        self.assertIsInstance(res[1].times[0].start_time, TimeOfDay)
-        self.assertEqual(res[1].times[0].start_time.hour, 12)
-        self.assertEqual(res[1].times[0].start_time.minute, 0)
-        self.assertIsInstance(res[1].times[0].end_time, TimeOfDay)
-        self.assertEqual(res[1].times[0].end_time.hour, 14)
-        self.assertEqual(res[1].times[0].end_time.minute, 0)
+        self.assertEqual(res[0]['Times'][1]['EndTime']['Hour'], 23)
+        self.assertEqual(res[0]['Times'][1]['EndTime']['Minute'], 59)
 
+
+        self.assertEqual(res[1]['ChaosParameters'], 'myOtherParametersName')
+        self.assertEqual(res[1]['Days']['Sunday'], True)
+        self.assertEqual(res[1]['Days']['Monday'], False)
+        self.assertEqual(res[1]['Days']['Tuesday'], False)
+        self.assertEqual(res[1]['Days']['Wednesday'], False)
+        self.assertEqual(res[1]['Days']['Thursday'], False)
+        self.assertEqual(res[1]['Days']['Friday'], False)
+        self.assertEqual(res[1]['Days']['Saturday'], True)
+
+        self.assertIsInstance(res[1]['Times'], list)
+        self.assertEqual(len(res[1]['Times']), 1)
+
+        self.assertEqual(res[1]['Times'][0]['StartTime']['Hour'], 12)
+        self.assertEqual(res[1]['Times'][0]['StartTime']['Minute'], 0)
+
+        self.assertEqual(res[1]['Times'][0]['EndTime']['Hour'], 14)
+        self.assertEqual(res[1]['Times'][0]['EndTime']['Minute'], 0)
     def test_parse_none_chaos_parameters_dictionary(self):
         """Parsing None parameters dictionary should return an empty list"""
 
@@ -374,11 +333,7 @@ class ChaosScheduleTests(unittest.TestCase):
     def test_parse_valid_chaos_parameters_dictionary(self):
         #pylint: disable=too-many-statements
         """Parse a valid ChaosParametersDictionary"""
-        from azure.servicefabric.models import (ChaosParametersDictionaryItem,
-                                                ChaosParameters,
-                                                ClusterHealthPolicy,
-                                                ChaosTargetFilter,
-                                                ChaosContext)
+
 
         res = sf_c.parse_chaos_params_dictionary([
             {
@@ -442,75 +397,70 @@ class ChaosScheduleTests(unittest.TestCase):
         self.assertIsInstance(res, list)
         self.assertEqual(len(res), 2)
 
-        self.assertIsInstance(res[0], ChaosParametersDictionaryItem)
-        self.assertEqual(res[0].key, 'myParametersName')
-        self.assertIsInstance(res[0].value, ChaosParameters)
-        self.assertEqual(res[0].value.time_to_run_in_seconds, '600')
-        self.assertEqual(
-            res[0].value.max_cluster_stabilization_timeout_in_seconds, 60)
-        self.assertEqual(res[0].value.max_concurrent_faults, 1)
-        self.assertEqual(res[0].value.enable_move_replica_faults, True)
-        self.assertEqual(res[0].value.wait_time_between_faults_in_seconds, 30)
-        self.assertEqual(
-            res[0].value.wait_time_between_iterations_in_seconds, 15)
+        self.assertEqual(res[0]['Key'], 'myParametersName')
 
-        cluster_health_policy = res[0].value.cluster_health_policy
-        self.assertIsInstance(cluster_health_policy, ClusterHealthPolicy)
-        self.assertEqual(cluster_health_policy.max_percent_unhealthy_nodes, 0)
-        self.assertEqual(cluster_health_policy.consider_warning_as_error, True)
+        self.assertEqual(res[0]['Value']['TimeToRunInSeconds'], '600')
         self.assertEqual(
-            cluster_health_policy.max_percent_unhealthy_applications, 0)
-
-        self.assertIsInstance(res[0].value.context, ChaosContext)
-        self.assertIsInstance(res[0].value.context.map, dict)
+            res[0]['Value']['MaxClusterStabilizationTimeoutInSeconds'], 60)
+        self.assertEqual(res[0]['Value']['MaxConcurrentFaults'], 1)
+        self.assertEqual(res[0]['Value']['EnableMoveReplicaFaults'], True)
+        self.assertEqual(res[0]['Value']['WaitTimeBetweenFaultsInSeconds'], 30)
         self.assertEqual(
-            res[0].value.context.map['myContextKey'], 'myContextValue')
+            res[0]['Value']['WaitTimeBetweenIterationsInSeconds'], 15)
 
-        chaos_target_filter = res[0].value.chaos_target_filter
-        self.assertIsInstance(chaos_target_filter, ChaosTargetFilter)
+        cluster_health_policy = res[0]['Value']['ClusterHealthPolicy']
+
+        self.assertEqual(cluster_health_policy['MaxPercentUnhealthyNodes'], 0)
+        self.assertEqual(cluster_health_policy['ConsiderWarningAsError'], True)
+        self.assertEqual(
+            cluster_health_policy['MaxPercentUnhealthyApplications'], 0)
+
+        self.assertIsInstance(res[0]['Value']['Context']['Map'], dict)
+        self.assertEqual(
+            res[0]['Value']['Context']['Map']['myContextKey'], 'myContextValue')
+
+        chaos_target_filter = res[0]['Value']['ChaosTargetFilter']
+
         self.assertIsInstance(
-            chaos_target_filter.node_type_inclusion_list, list)
-        self.assertEqual(len(chaos_target_filter.node_type_inclusion_list), 2)
+            chaos_target_filter['NodeTypeInclusionList'], list)
+        self.assertEqual(len(chaos_target_filter['NodeTypeInclusionList']), 2)
         self.assertEqual(
-            chaos_target_filter.node_type_inclusion_list[0], 'N0010Ref')
+            chaos_target_filter['NodeTypeInclusionList'][0], 'N0010Ref')
         self.assertEqual(
-            chaos_target_filter.node_type_inclusion_list[1], 'N0020Ref')
+            chaos_target_filter['NodeTypeInclusionList'][1], 'N0020Ref')
 
-        self.assertIsInstance(res[1], ChaosParametersDictionaryItem)
-        self.assertEqual(res[1].key, 'myOtherParametersName')
-        self.assertIsInstance(res[1].value, ChaosParameters)
-        self.assertEqual(res[1].value.time_to_run_in_seconds, '300')
-        self.assertEqual(
-            res[1].value.max_cluster_stabilization_timeout_in_seconds, 20)
-        self.assertEqual(res[1].value.max_concurrent_faults, 4)
-        self.assertEqual(res[1].value.enable_move_replica_faults, False)
-        self.assertEqual(res[1].value.wait_time_between_faults_in_seconds, 50)
-        self.assertEqual(
-            res[1].value.wait_time_between_iterations_in_seconds, 10)
+        self.assertEqual(res[1]['Key'], 'myOtherParametersName')
 
-        cluster_health_policy2 = res[1].value.cluster_health_policy
-        self.assertIsInstance(cluster_health_policy2, ClusterHealthPolicy)
-        self.assertEqual(cluster_health_policy2.max_percent_unhealthy_nodes, 2)
+        self.assertEqual(res[1]['Value']['TimeToRunInSeconds'], '300')
         self.assertEqual(
-            cluster_health_policy2.consider_warning_as_error, False)
+            res[1]['Value']['MaxClusterStabilizationTimeoutInSeconds'], 20)
+        self.assertEqual(res[1]['Value']['MaxConcurrentFaults'], 4)
+        self.assertEqual(res[1]['Value']['EnableMoveReplicaFaults'], False)
+        self.assertEqual(res[1]['Value']['WaitTimeBetweenFaultsInSeconds'], 50)
         self.assertEqual(
-            cluster_health_policy2.max_percent_unhealthy_applications, 5)
+            res[1]['Value']['WaitTimeBetweenIterationsInSeconds'], 10)
 
-        self.assertIsInstance(res[1].value.context, ChaosContext)
-        self.assertIsInstance(res[1].value.context.map, dict)
+        cluster_health_policy2 = res[1]['Value']['ClusterHealthPolicy']
+
+        self.assertEqual(cluster_health_policy2['MaxPercentUnhealthyNodes'], 2)
         self.assertEqual(
-            res[1].value.context.map['myOtherContextKey'],
+            cluster_health_policy2['ConsiderWarningAsError'], False)
+        self.assertEqual(
+            cluster_health_policy2['MaxPercentUnhealthyApplications'], 5)
+
+        self.assertIsInstance(res[1]['Value']['Context']['Map'], dict)
+        self.assertEqual(res[1]['Value']['Context']['Map']['myOtherContextKey'],
             'myOtherContextValue')
 
-        chaos_target_filter2 = res[1].value.chaos_target_filter
-        self.assertIsInstance(chaos_target_filter2, ChaosTargetFilter)
+        chaos_target_filter2 = res[1]['Value']['ChaosTargetFilter']
+
         self.assertIsInstance(
-            chaos_target_filter2.node_type_inclusion_list, list)
+            chaos_target_filter2['NodeTypeInclusionList'], list)
         self.assertEqual(
-            len(chaos_target_filter2.node_type_inclusion_list), 2)
+            len(chaos_target_filter2['NodeTypeInclusionList']), 2)
         self.assertEqual(
-            chaos_target_filter2.node_type_inclusion_list[0],
+            chaos_target_filter2['NodeTypeInclusionList'][0],
             'N0030Ref')
         self.assertEqual(
-            chaos_target_filter2.node_type_inclusion_list[1],
+            chaos_target_filter2['NodeTypeInclusionList'][1],
             'N0040Ref')

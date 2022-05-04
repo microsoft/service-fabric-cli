@@ -10,7 +10,6 @@ from knack.util import CLIError
 
 def parse_service_health_policy(policy):
     """Parse a health service policy from string"""
-    from azure.servicefabric.models import ServiceTypeHealthPolicy
 
     if policy is None:
         return None
@@ -18,14 +17,13 @@ def parse_service_health_policy(policy):
     uphp = policy.get('max_percent_unhealthy_partitions_per_service', 0)
     rhp = policy.get('max_percent_unhealthy_replicas_per_partition', 0)
     ushp = policy.get('max_percent_unhealthy_services', 0)
-    return ServiceTypeHealthPolicy(max_percent_unhealthy_partitions_per_service=uphp,
-                                   max_percent_unhealthy_replicas_per_partition=rhp,
-                                   max_percent_unhealthy_services=ushp)
+    return {"MaxPercentUnhealthyPartitionsPerService": uphp,
+            "MaxpercentUnhealthyReplicasPerPartition": rhp,
+            "MaxPercentUnhealthyServices": ushp}
+
 
 def parse_service_health_policy_map(formatted_policy):
     """Parse a service health policy map from a string"""
-
-    from azure.servicefabric.models import ServiceTypeHealthPolicyMapItem  #pylint: disable=line-too-long
 
     if formatted_policy is None:
         return None
@@ -42,15 +40,13 @@ def parse_service_health_policy_map(formatted_policy):
             raise CLIError('Could not find service type policy in service '
                            'health policy map')
         service_p = parse_service_health_policy(st_policy)
-        std_list_item = ServiceTypeHealthPolicyMapItem(key=st_name, value=service_p)
+        std_list_item = {"Key": st_name, "Value": service_p}
 
         map_shp.append(std_list_item)
     return map_shp
 
 def parse_app_health_map(formatted_map):
     """Parse application health map from string"""
-
-    from azure.servicefabric.models import ApplicationTypeHealthPolicyMapItem #pylint: disable=line-too-long
 
     if not formatted_map:
         return None
@@ -65,28 +61,34 @@ def parse_app_health_map(formatted_map):
         if percent_unhealthy is None:
             raise CLIError('Cannot find application type health policy map '
                            'unhealthy percent')
-        map_item = ApplicationTypeHealthPolicyMapItem(key=name, value=percent_unhealthy)
+        map_item = {"Key": name, "Value": percent_unhealthy}
         health_map.append(map_item)
     return health_map
 
-def create_health_information(source_id, health_property, health_state, ttl, #pylint: disable=too-many-arguments
+def create_health_information(source_id, health_property, health_state, ttl,  # pylint: disable=too-many-arguments
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
-    from azure.servicefabric.models import HealthInformation
-
+    import distutils
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Error', 'Unknown']:
         raise CLIError('Invalid health state specified')
 
-    return HealthInformation(source_id=source_id,
-                             property=health_property,
-                             health_state=health_state,
-                             time_to_live_in_milli_seconds=ttl,
-                             description=description,
-                             sequence_number=sequence_number,
-                             remove_when_expired=remove_when_expired)
+    if type(remove_when_expired) == bool:
+        rwe = remove_when_expired
+    else:
+        rwe = bool(distutils.util.strtobool(remove_when_expired))
 
-def report_cluster_health(client, source_id, health_property, health_state, #pylint: disable=missing-docstring,too-many-arguments
+
+    return {"SourceId": source_id,
+            "Property": health_property,
+            "HealthState": health_state,
+            "TimeToLiveInMilliSeconds": ttl,
+            "Description": description,
+            "SequenceNumber": sequence_number,
+            "RemoveWhenExpired": rwe}
+
+
+def report_cluster_health(client, source_id, health_property, health_state,  # pylint: disable=missing-docstring,too-many-arguments
                           ttl=None, description=None, sequence_number=None,
                           remove_when_expired=False, immediate=False,
                           timeout=60):
@@ -150,7 +152,7 @@ def report_replica_health(client, partition_id, replica_id, source_id, #pylint: 
                                      remove_when_expired)
 
     client.report_replica_health(partition_id, replica_id, info,
-                                 service_kind, timeout=timeout,
+                                 service_kind=service_kind, timeout=timeout,
                                  immediate=immediate)
 
 
@@ -162,4 +164,4 @@ def report_node_health(client, node_name, source_id, health_property, #pylint: d
     info = create_health_information(source_id, health_property, health_state,
                                      ttl, description, sequence_number,
                                      remove_when_expired)
-    client.report_node_health(node_name, info, immediate, timeout)
+    client.report_node_health(node_name, info, immediate=immediate, timeout=timeout)

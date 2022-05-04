@@ -17,16 +17,16 @@ import logging
 from azure.core.pipeline.policies import SansIOHTTPPolicy
 from azure.core.pipeline import PipelineRequest
 
-class MyAuthenticationPolicy(SansIOHTTPPolicy):
+class FakeAuthenticationPolicy(SansIOHTTPPolicy):
     def __init__(self):
         self
 
-class dummmy_protocol(TokenCredential):
+class FakeCredentialProtocol(TokenCredential):
     def __init__(self):
         self
 
     def get_token(self, scopes):
-        pass #return AccessToken(token="",expires_on=1111111111)
+        pass
 
 def create(_):
     """Create a client for Service Fabric APIs."""
@@ -40,7 +40,6 @@ def create(_):
                        'you may need to run the command with sudo.')
 
     no_verify = no_verify_setting()
-    logging.info(no_verify)
 
     headers = {}
 
@@ -51,11 +50,9 @@ def create(_):
         ca_cert = ca_cert_info()
         if ca_cert is not None:
             no_verify = ca_cert
-    
-    dummy_credential = dummmy_protocol()
 
-    client = ServiceFabricClientAPIs(dummy_credential, base_url=endpoint, retry_total=0,
+    client = ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
                                      connection_verify=False, enforce_https=False, 
-                                     connection_cert=cert_info(), authentication_policy=MyAuthenticationPolicy())
+                                     connection_cert=cert_info(), authentication_policy=FakeAuthenticationPolicy())
 
     return client

@@ -6,6 +6,7 @@
 
 """Custom commands for the Service Fabric chaos schedule test service"""
 
+
 def parse_time_of_day(time_of_day):
     """
     Parse a TimeOfDay from string.
@@ -13,7 +14,6 @@ def parse_time_of_day(time_of_day):
     "Hour": int
     "Minute": int
     """
-    from azure.servicefabric.models import TimeOfDay
 
     if not time_of_day:
         return None
@@ -24,7 +24,8 @@ def parse_time_of_day(time_of_day):
     if hour is None or minute is None:
         return None
 
-    return TimeOfDay(hour=hour, minute=minute)
+    return {"Hour": hour, "Minute": minute}
+
 
 def parse_time_range(time_range):
     """
@@ -33,8 +34,6 @@ def parse_time_range(time_range):
     "StartTime": dictionary like time_of_day
     "EndTime": dictionary like time_of_day
     """
-    from azure.servicefabric.models import TimeRange
-
     if time_range is None:
         return None
 
@@ -43,7 +42,7 @@ def parse_time_range(time_range):
 
     # if either start_time or end_time is None, the resulting API call will fail with an exception
 
-    return TimeRange(start_time=start_time, end_time=end_time)
+    return {"StartTime": start_time, "EndTime": end_time}
 
 def parse_active_time_ranges(time_ranges):
     """
@@ -69,7 +68,6 @@ def parse_active_days(active_days):
     ...
     "Saturday": bool
     """
-    from azure.servicefabric.models import ChaosScheduleJobActiveDaysOfWeek
 
     if active_days is None:
         return None
@@ -82,13 +80,14 @@ def parse_active_days(active_days):
     friday = active_days.get("Friday", False)
     saturday = active_days.get("Saturday", False)
 
-    return ChaosScheduleJobActiveDaysOfWeek(sunday=sunday,
-                                            monday=monday,
-                                            tuesday=tuesday,
-                                            wednesday=wednesday,
-                                            thursday=thursday,
-                                            friday=friday,
-                                            saturday=saturday)
+    return {"Sunday": sunday,
+            "Monday": monday,
+            "Tuesday": tuesday,
+            "Wednesday": wednesday,
+            "Thursday": thursday,
+            "Friday": friday,
+            "Saturday": saturday}
+
 
 def parse_job(job):
     """
@@ -98,7 +97,6 @@ def parse_job(job):
     "Days": a dictionary like active_days
     "Times": a list like time_ranges
     """
-    from azure.servicefabric.models import ChaosScheduleJob
 
     if job is None:
         return None
@@ -107,9 +105,9 @@ def parse_job(job):
     active_days = parse_active_days(job.get('Days'))
     times = parse_active_time_ranges(job.get('Times'))
 
-    return ChaosScheduleJob(chaos_parameters=chaos_parameters,
-                            days=active_days,
-                            times=times)
+    return {"ChaosParameters": chaos_parameters,
+            "Days": active_days,
+            "Times": times}
 
 def parse_jobs(jobs):
     """
@@ -134,8 +132,6 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
     "Key": string
     "Value": a dictionary of a chaos_parameters
     """
-
-    from azure.servicefabric.models import ChaosParametersDictionaryItem
     from sfctl.custom_chaos import parse_chaos_parameters
 
     if chaos_parameters_dictionary is None:
@@ -147,7 +143,7 @@ def parse_chaos_params_dictionary(chaos_parameters_dictionary):
         key = dictionary_entry.get("Key")
         value = parse_chaos_parameters(dictionary_entry.get("Value"))
 
-        parsed_dictionary.append(ChaosParametersDictionaryItem(key=key, value=value))
+        parsed_dictionary.append({"Key": key, "Value": value})
 
     return parsed_dictionary
 
@@ -162,7 +158,6 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
     Set the Chaos Schedule currently in use by Chaos.
     Chaos will automatically schedule runs based on the Chaos Schedule.
     """
-    from azure.servicefabric.models import ChaosSchedule
 
     if chaos_parameters_dictionary is None:
         chaos_parameters_dictionary = list()
@@ -174,9 +169,10 @@ def set_chaos_schedule( #pylint: disable=too-many-arguments,too-many-locals
         parse_chaos_params_dictionary(chaos_parameters_dictionary)
     parsed_jobs = parse_jobs(jobs)
 
-    schedule = ChaosSchedule(start_date=start_date_utc,
-                             expiry_date=expiry_date_utc,
-                             chaos_parameters_dictionary=parsed_chaos_params_dictionary,
-                             jobs=parsed_jobs)
+    schedule = {"StartDate": start_date_utc,
+                "ExpiryDate": expiry_date_utc,
+                "ChaosParametersDictionary": parsed_chaos_params_dictionary,
+                "Jobs": parsed_jobs,
+                "Version": version}
 
-    return client.post_chaos_schedule(timeout=timeout, version=version, schedule=schedule)
+    return client.post_chaos_schedule(schedule, timeout=timeout)

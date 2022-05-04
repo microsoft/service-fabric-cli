@@ -7,47 +7,48 @@
 # --------------------------------------------------------------------------
 
 from copy import deepcopy
-from typing import Any, Awaitable, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from msrest import Deserializer, Serializer
 
-from azure.core.rest import AsyncHttpResponse, HttpRequest
-from azure.mgmt.core import AsyncARMPipelineClient
+from azure.core.rest import HttpRequest, HttpResponse
+from azure.mgmt.core import ARMPipelineClient
 
-from .. import models
 from ._configuration import ServiceFabricClientAPIsConfiguration
 from .operations import MeshApplicationOperations, MeshCodePackageOperations, MeshGatewayOperations, MeshNetworkOperations, MeshSecretOperations, MeshSecretValueOperations, MeshServiceOperations, MeshServiceReplicaOperations, MeshVolumeOperations, ServiceFabricClientAPIsOperationsMixin
 
 if TYPE_CHECKING:
     # pylint: disable=unused-import,ungrouped-imports
-    from azure.core.credentials_async import AsyncTokenCredential
+    from typing import Dict
+
+    from azure.core.credentials import TokenCredential
 
 class ServiceFabricClientAPIs(ServiceFabricClientAPIsOperationsMixin):    # pylint: disable=too-many-instance-attributes
     """Service Fabric REST Client APIs allows management of Service Fabric clusters, applications and
     services.
 
     :ivar mesh_secret: MeshSecretOperations operations
-    :vartype mesh_secret: azure.servicefabric.aio.operations.MeshSecretOperations
+    :vartype mesh_secret: azure.servicefabric.operations.MeshSecretOperations
     :ivar mesh_secret_value: MeshSecretValueOperations operations
-    :vartype mesh_secret_value: azure.servicefabric.aio.operations.MeshSecretValueOperations
+    :vartype mesh_secret_value: azure.servicefabric.operations.MeshSecretValueOperations
     :ivar mesh_volume: MeshVolumeOperations operations
-    :vartype mesh_volume: azure.servicefabric.aio.operations.MeshVolumeOperations
+    :vartype mesh_volume: azure.servicefabric.operations.MeshVolumeOperations
     :ivar mesh_network: MeshNetworkOperations operations
-    :vartype mesh_network: azure.servicefabric.aio.operations.MeshNetworkOperations
+    :vartype mesh_network: azure.servicefabric.operations.MeshNetworkOperations
     :ivar mesh_application: MeshApplicationOperations operations
-    :vartype mesh_application: azure.servicefabric.aio.operations.MeshApplicationOperations
+    :vartype mesh_application: azure.servicefabric.operations.MeshApplicationOperations
     :ivar mesh_service: MeshServiceOperations operations
-    :vartype mesh_service: azure.servicefabric.aio.operations.MeshServiceOperations
+    :vartype mesh_service: azure.servicefabric.operations.MeshServiceOperations
     :ivar mesh_code_package: MeshCodePackageOperations operations
-    :vartype mesh_code_package: azure.servicefabric.aio.operations.MeshCodePackageOperations
+    :vartype mesh_code_package: azure.servicefabric.operations.MeshCodePackageOperations
     :ivar mesh_service_replica: MeshServiceReplicaOperations operations
-    :vartype mesh_service_replica: azure.servicefabric.aio.operations.MeshServiceReplicaOperations
+    :vartype mesh_service_replica: azure.servicefabric.operations.MeshServiceReplicaOperations
     :ivar mesh_gateway: MeshGatewayOperations operations
-    :vartype mesh_gateway: azure.servicefabric.aio.operations.MeshGatewayOperations
+    :vartype mesh_gateway: azure.servicefabric.operations.MeshGatewayOperations
     :param credential: Credential needed for the client to connect to Azure.
-    :type credential: ~azure.core.credentials_async.AsyncTokenCredential
-    :param base_url: Service URL. Default value is "http://localhost:19080/".
-    :type base_url: str
+    :type credential: ~azure.core.credentials.TokenCredential
+    :keyword endpoint: Service URL. Default value is "http://localhost:19080/".
+    :paramtype endpoint: str
     :keyword api_version: Api Version. Default value is "9.0.0.46". Note that overriding this
      default value may result in unsupported behavior.
     :paramtype api_version: str
@@ -55,40 +56,59 @@ class ServiceFabricClientAPIs(ServiceFabricClientAPIsOperationsMixin):    # pyli
 
     def __init__(
         self,
-        credential: "AsyncTokenCredential",
-        base_url: str = "http://localhost:19080/",
+        credential: "TokenCredential",
+        *,
+        endpoint: str = "http://localhost:19080/",
         **kwargs: Any
     ) -> None:
+        
         self._config = ServiceFabricClientAPIsConfiguration(credential=credential, **kwargs)
-        self._client = AsyncARMPipelineClient(base_url=base_url, config=self._config, **kwargs)
+        self._client = ARMPipelineClient(base_url=endpoint, config=self._config, **kwargs)
 
-        client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self._serialize = Serializer(client_models)
-        self._deserialize = Deserializer(client_models)
+        self._serialize = Serializer()
+        self._deserialize = Deserializer()
         self._serialize.client_side_validation = False
-        self.mesh_secret = MeshSecretOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_secret_value = MeshSecretValueOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_volume = MeshVolumeOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_network = MeshNetworkOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_application = MeshApplicationOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_service = MeshServiceOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_code_package = MeshCodePackageOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_service_replica = MeshServiceReplicaOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.mesh_gateway = MeshGatewayOperations(self._client, self._config, self._serialize, self._deserialize)
+        self.mesh_secret = MeshSecretOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_secret_value = MeshSecretValueOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_volume = MeshVolumeOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_network = MeshNetworkOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_application = MeshApplicationOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_service = MeshServiceOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_code_package = MeshCodePackageOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_service_replica = MeshServiceReplicaOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
+        self.mesh_gateway = MeshGatewayOperations(
+            self._client, self._config, self._serialize, self._deserialize
+        )
 
 
-    def _send_request(
+    def send_request(
         self,
         request: HttpRequest,
         **kwargs: Any
-    ) -> Awaitable[AsyncHttpResponse]:
+    ) -> HttpResponse:
         """Runs the network request through the client's chained policies.
 
         >>> from azure.core.rest import HttpRequest
         >>> request = HttpRequest("GET", "https://www.example.org/")
         <HttpRequest [GET], url: 'https://www.example.org/'>
-        >>> response = await client._send_request(request)
-        <AsyncHttpResponse: 200 OK>
+        >>> response = client.send_request(request)
+        <HttpResponse: 200 OK>
 
         For more information on this code flow, see https://aka.ms/azsdk/python/protocol/quickstart
 
@@ -96,19 +116,22 @@ class ServiceFabricClientAPIs(ServiceFabricClientAPIsOperationsMixin):    # pyli
         :type request: ~azure.core.rest.HttpRequest
         :keyword bool stream: Whether the response payload will be streamed. Defaults to False.
         :return: The response of your network call. Does not do error handling on your response.
-        :rtype: ~azure.core.rest.AsyncHttpResponse
+        :rtype: ~azure.core.rest.HttpResponse
         """
 
         request_copy = deepcopy(request)
         request_copy.url = self._client.format_url(request_copy.url)
         return self._client.send_request(request_copy, **kwargs)
 
-    async def close(self) -> None:
-        await self._client.close()
+    def close(self):
+        # type: () -> None
+        self._client.close()
 
-    async def __aenter__(self) -> "ServiceFabricClientAPIs":
-        await self._client.__aenter__()
+    def __enter__(self):
+        # type: () -> ServiceFabricClientAPIs
+        self._client.__enter__()
         return self
 
-    async def __aexit__(self, *exc_details) -> None:
-        await self._client.__aexit__(*exc_details)
+    def __exit__(self, *exc_details):
+        # type: (Any) -> None
+        self._client.__exit__(*exc_details)

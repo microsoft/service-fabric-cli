@@ -21,17 +21,15 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_svc_health_policy(self):
         """Parse single health policy item"""
-        from azure.servicefabric.models import ServiceTypeHealthPolicy
 
         res = sf_c.parse_service_health_policy({
             'max_percent_unhealthy_partitions_per_service': 10,
             'max_percent_unhealthy_replicas_per_partition': 20,
             'max_percent_unhealthy_services': 25
         })
-        self.assertIsInstance(res, ServiceTypeHealthPolicy)
-        self.assertEqual(res.max_percent_unhealthy_partitions_per_service, 10)
-        self.assertEqual(res.max_percent_unhealthy_replicas_per_partition, 20)
-        self.assertEqual(res.max_percent_unhealthy_services, 25)
+        self.assertEqual(res['MaxPercentUnhealthyPartitionsPerService'], 10)
+        self.assertEqual(res['MaxpercentUnhealthyReplicasPerPartition'], 20)
+        self.assertEqual(res['MaxPercentUnhealthyServices'], 25)
 
     def test_parse_none_svc_health_policy_map(self):
         """Parse None service health policy map returns None"""
@@ -43,7 +41,6 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_svc_health_policy_map_item(self):
         """Parse single item service health policy map"""
-        from azure.servicefabric.models import ServiceTypeHealthPolicyMapItem  # pylint: disable=line-too-long
 
         res = sf_c.parse_service_health_policy_map([{
             'Key': 'test_svc',
@@ -55,11 +52,10 @@ class HealthTests(unittest.TestCase):
         }])
 
         self.assertEqual(len(res), 1)
-        self.assertIsInstance(res[0], ServiceTypeHealthPolicyMapItem)
-        res = res[0].value
-        self.assertEqual(res.max_percent_unhealthy_partitions_per_service, 10)
-        self.assertEqual(res.max_percent_unhealthy_replicas_per_partition, 20)
-        self.assertEqual(res.max_percent_unhealthy_services, 25)
+        res = res[0]['Value']
+        self.assertEqual(res['MaxPercentUnhealthyPartitionsPerService'], 10)
+        self.assertEqual(res['MaxpercentUnhealthyReplicasPerPartition'], 20)
+        self.assertEqual(res['MaxPercentUnhealthyServices'], 25)
 
     def test_parse_none_app_health_map(self):
         """Parse None application health policy map returns None"""
@@ -71,11 +67,9 @@ class HealthTests(unittest.TestCase):
 
     def test_parse_single_app_health_map_item(self):
         """Parse single item application health policy map"""
-        from azure.servicefabric.models import ApplicationTypeHealthPolicyMapItem  # pylint: disable=line-too-long
 
         res = sf_c.parse_app_health_map([{'key': 'test_app', 'value': '30'}])
         self.assertEqual(len(res), 1)
         res = res[0]
-        self.assertIsInstance(res, ApplicationTypeHealthPolicyMapItem)
-        self.assertEqual(res.key, 'test_app')
-        self.assertEqual(res.value, '30')
+        self.assertEqual(res['Key'], 'test_app')
+        self.assertEqual(res['Value'], '30')

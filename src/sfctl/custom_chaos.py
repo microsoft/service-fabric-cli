@@ -8,8 +8,6 @@
 
 def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
     """Parse ChaosParameters from string"""
-    from azure.servicefabric.models import ChaosParameters, ChaosContext, ChaosTargetFilter
-
     from sfctl.custom_cluster_upgrade import create_cluster_health_policy
 
     time_to_run = chaos_parameters.get("TimeToRunInSeconds")
@@ -31,46 +29,47 @@ def parse_chaos_parameters(chaos_parameters): #pylint: disable=too-many-locals
     chaos_context = chaos_parameters.get("Context")
     context = None
     if chaos_context is not None:
-        context = ChaosContext(map=chaos_context.get("Map"))
+        context = {"Map": chaos_context.get("Map")}
 
     chaos_target_filter = chaos_parameters.get("ChaosTargetFilter")
     target_filter = None
     if chaos_target_filter is not None:
-        target_filter = ChaosTargetFilter(
-            node_type_inclusion_list=chaos_target_filter.get("NodeTypeInclusionList"),
-            application_inclusion_list=chaos_target_filter.get("ApplicationTypeInclusionList"))
+        target_filter = {
+            "NodeTypeInclusionList": chaos_target_filter.get("NodeTypeInclusionList"),
+            "ApplicationInclusionList": chaos_target_filter.get("ApplicationTypeInclusionList")
+        }
 
-    return ChaosParameters(time_to_run_in_seconds=time_to_run,
-                           max_cluster_stabilization_timeout_in_seconds=max_cluster_stabilization,
-                           max_concurrent_faults=max_concurrent_faults,
-                           enable_move_replica_faults=enable_move_replica_faults,
-                           wait_time_between_faults_in_seconds=wait_time_between_faults,
-                           wait_time_between_iterations_in_seconds=wait_time_between_iterations,
-                           cluster_health_policy=health_policy,
-                           context=context,
-                           chaos_target_filter=target_filter)
+    return {"TimeToRunInSeconds": time_to_run,
+            "MaxClusterStabilizationTimeoutInSeconds": max_cluster_stabilization,
+            "MaxConcurrentFaults": max_concurrent_faults,
+            "EnableMoveReplicaFaults": enable_move_replica_faults,
+            "WaitTimeBetweenFaultsInSeconds": wait_time_between_faults,
+            "WaitTimeBetweenIterationsInSeconds": wait_time_between_iterations,
+            "ClusterHealthPolicy": health_policy,
+            "Context": context,
+            "ChaosTargetFilter": target_filter}
+
 
 def parse_chaos_context(formatted_chaos_context):
     """"Parse a chaos context from a formatted context"""
-    from azure.servicefabric.models import ChaosContext
 
     if formatted_chaos_context is None:
         return None
 
-    return ChaosContext(map=formatted_chaos_context)
+    return {"Map": formatted_chaos_context}
 
 def parse_chaos_target_filter(formatted_chaos_target_filter):
     """"Parse a chaos target filter from a formatted filter"""
-    from azure.servicefabric.models import ChaosTargetFilter
 
     if formatted_chaos_target_filter is None:
         return None
 
-    nodetype_inclusion_list = formatted_chaos_target_filter.get('NodeTypeInclusionList', None) # pylint: disable=line-too-long
-    application_inclusion_list = formatted_chaos_target_filter.get('ApplicationInclusionList', None) # pylint: disable=line-too-long
+    nodetype_inclusion_list = formatted_chaos_target_filter.get('NodeTypeInclusionList', None)  # pylint: disable=line-too-long
+    application_inclusion_list = formatted_chaos_target_filter.get('ApplicationInclusionList', None)  # pylint: disable=line-too-long
 
-    return ChaosTargetFilter(node_type_inclusion_list=nodetype_inclusion_list,
-                             application_inclusion_list=application_inclusion_list)
+    return {"NodeTypeInclusionList": nodetype_inclusion_list,
+            "ApplicationInclusionList": application_inclusion_list}
+
 
 def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylint: disable=too-many-arguments,too-many-locals,missing-docstring
           max_concurrent_faults=1, disable_move_replica_faults=False,
@@ -84,33 +83,30 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
           chaos_target_filter=None,
           timeout=60):
 
-    from azure.servicefabric.models import ChaosParameters, ClusterHealthPolicy
-
     from sfctl.custom_health import parse_app_health_map
 
     context = parse_chaos_context(context)
 
     health_map = parse_app_health_map(app_type_health_policy_map)
 
-    health_policy = ClusterHealthPolicy(
-        consider_warning_as_error=warning_as_error,
-        max_percent_unhealthy_nodes=max_percent_unhealthy_nodes,
-        max_percent_unhealthy_applications=max_percent_unhealthy_apps,
-        application_type_health_policy_map=health_map)
+    health_policy = {
+        "ConsiderWarningAsError": warning_as_error,
+        "MaxPercentUnhealthyNodes": max_percent_unhealthy_nodes,
+        "MaxPercentUnhealthyApplications": max_percent_unhealthy_apps,
+        "ApplicationTypeHealthPolicyMap": health_map}
 
     target_filter = parse_chaos_target_filter(chaos_target_filter)
 
     #pylint: disable=too-many-arguments
-    chaos_params = ChaosParameters(
-        time_to_run_in_seconds=time_to_run,
-        max_cluster_stabilization_timeout_in_seconds=max_cluster_stabilization,
-        max_concurrent_faults=max_concurrent_faults,
-        enable_move_replica_faults=not disable_move_replica_faults,
-        wait_time_between_faults_in_seconds=wait_time_between_faults,
-        wait_time_between_iterations_in_seconds=wait_time_between_iterations,
-        cluster_health_policy=health_policy,
-        context=context,
-        chaos_target_filter=target_filter)
+    chaos_params = {"TimeToRunInSeconds": time_to_run,
+                    "MaxClusterStabilizationTimeoutInSeconds": max_cluster_stabilization,
+                    "MaxConcurrentFaults": max_concurrent_faults,
+                    "EnableMoveReplicaFaults": not disable_move_replica_faults,
+                    "WaitTimeBetweenFaultsInSeconds": wait_time_between_faults,
+                    "WaitTimeBetweenIterationsInSeconds": wait_time_between_iterations,
+                    "ClusterHealthPolicy": health_policy,
+                    "Context": context,
+                    "ChaosTargetFilter": target_filter}
     #pylint: enable=too-many-arguments
 
-    client.start_chaos(chaos_params, timeout)
+    client.start_chaos(chaos_params, timeout=timeout)

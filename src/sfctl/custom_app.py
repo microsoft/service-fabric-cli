@@ -614,21 +614,18 @@ def upload(path, imagestore_string='fabric:ImageStore', show_progress=False, tim
 
 def parse_app_params(formatted_params):
     """Parse application parameters from string"""
-    from azure.servicefabric.models import ApplicationParameter
-
     if formatted_params is None:
         return None
 
     res = []
     for k in formatted_params:
-        param = ApplicationParameter(key=k, value=formatted_params[k])
+        param = {"Key": k, "Value": formatted_params[k]}
         res.append(param)
 
     return res
 
 def parse_app_metrics(formatted_metrics):
     """Parse application metrics description from string"""
-    from azure.servicefabric.models import ApplicationMetricDescription
 
     if formatted_metrics is None:
         return None
@@ -645,11 +642,11 @@ def parse_app_metrics(formatted_metrics):
         reservation_capacity = metric.get('reservation_capacity', None)
         total_application_capacity = metric.get('total_application_capacity', None)
 
-        res.append(ApplicationMetricDescription(
-            name=metric_name,
-            maximum_capacity=maximum_capacity,
-            reservation_capacity=reservation_capacity,
-            total_application_capacity=total_application_capacity))
+        res.append({
+            "Name": metric_name,
+            "MaximumCapacity": maximum_capacity,
+            "ReservationCapacity": reservation_capacity,
+            "TotalApplicationCapacity": total_application_capacity})
 
     return res
 
@@ -679,7 +676,6 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
     descriptions. A metric is defined as a name, associated with a set of
     capacities for each node that the application exists on.
     """
-    from azure.servicefabric.models import  ApplicationDescription, ApplicationCapacityDescription
 
     if (any([min_node_count, max_node_count]) and
             not all([min_node_count, max_node_count])):
@@ -694,17 +690,17 @@ def create(client,  # pylint: disable=too-many-locals,too-many-arguments
 
     app_metrics = parse_app_metrics(metrics)
 
-    app_cap_desc = ApplicationCapacityDescription(minimum_nodes=min_node_count,
-                                                  maximum_nodes=max_node_count,
-                                                  application_metrics=app_metrics)
+    app_cap_desc = {"MinimumNodes": min_node_count,
+                    "MaximumNodes": max_node_count,
+                    "ApplicationMetrics": app_metrics}
 
-    app_desc = ApplicationDescription(name=app_name,
-                                      type_name=app_type,
-                                      type_version=app_version,
-                                      parameter_list=app_params,
-                                      application_capacity=app_cap_desc)
+    app_desc = {"Name": app_name,
+                "TypeName": app_type,
+                "TypeVersion": app_version,
+                "ParameterList": app_params,
+                "ApplicationCapacity": app_cap_desc}
 
-    client.create_application(app_desc, timeout)
+    client.create_application(app_desc, timeout=timeout)
 
 def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docstring
         client, application_id, application_version, parameters,
@@ -718,21 +714,18 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
         warning_as_error=False,
         max_unhealthy_apps=0, default_service_health_policy=None,
         service_health_policy=None, timeout=60):
-    from azure.servicefabric.models import (ApplicationUpgradeDescription,
-                                            MonitoringPolicyDescription,
-                                            ApplicationHealthPolicy)
 
     from sfctl.custom_health import (parse_service_health_policy_map,
                                      parse_service_health_policy)
 
-    monitoring_policy = MonitoringPolicyDescription(
-        failure_action=failure_action,
-        health_check_wait_duration_in_milliseconds=health_check_wait_duration,
-        health_check_stable_duration_in_milliseconds=health_check_stable_duration,
-        health_check_retry_timeout_in_milliseconds=health_check_retry_timeout,
-        upgrade_timeout_in_milliseconds=upgrade_timeout,
-        upgrade_domain_timeout_in_milliseconds=upgrade_domain_timeout
-    )
+    monitoring_policy = {
+        "FailureAction": failure_action,
+        "HealthCheckWaitDurationInMilliseconds": health_check_wait_duration,
+        "HealthCheckStableDurationInMilliseconds": health_check_stable_duration,
+        "healthCheckRetryTimeoutInMilliseconds": health_check_retry_timeout,
+        "UpgradeTimeoutInMilliseconds": upgrade_timeout,
+        "UpgradeDomainTimeoutInMilliseconds": upgrade_domain_timeout
+    }
 
     # Must always have empty list
     app_params = parse_app_params(parameters)
@@ -743,21 +736,59 @@ def upgrade(  # pylint: disable=too-many-arguments,too-many-locals,missing-docst
 
     map_shp = parse_service_health_policy_map(service_health_policy)
 
-    app_health_policy = ApplicationHealthPolicy(
-        consider_warning_as_error=warning_as_error,
-        max_percent_unhealthy_deployed_applications=max_unhealthy_apps,
-        default_service_type_health_policy=def_shp,
-        service_type_health_policy_map=map_shp)
+    app_health_policy = {
+        "ConsiderWarningAsError": warning_as_error,
+        "MaxPercentUnhealthyDeployedApplications": max_unhealthy_apps,
+        "DefaultServiceTypeHealthPolicy": def_shp,
+        "ServiceTypeHealthPolicyMap": map_shp
+    }
 
-    desc = ApplicationUpgradeDescription(
-        name='fabric:/' + application_id,
-        target_application_type_version=application_version,
-        parameters=app_params,
-        upgrade_kind='Rolling',
-        rolling_upgrade_mode=mode,
-        upgrade_replica_set_check_timeout_in_seconds=replica_set_check_timeout,
-        force_restart=force_restart,
-        monitoring_policy=monitoring_policy,
-        application_health_policy=app_health_policy)
+    desc = {
+        "Name": 'fabric:/' + application_id,
+        "TargetApplicationTypeVersion": application_version,
+        "Parameters": app_params,
+        "UpgradeKind": 'Rolling',
+        "RollingUpgradeMode": mode,
+        "UpgradeReplicaSetCheckTimeoutInSeconds": replica_set_check_timeout,
+        "ForceRestart": force_restart,
+        "MonitoringPolicy": monitoring_policy,
+        "ApplicationHealthPolicy": app_health_policy}
 
-    client.start_application_upgrade(application_id, desc, timeout)
+    client.start_application_upgrade(application_id, desc, timeout=timeout)
+
+
+def resume_application_upgrade(client, application_id, upgrade_domain_name, timeout=60):
+    """Resumes upgrading an application in the Service Fabric cluster.
+    :param str application_id: The identity of the application. This is typically the full name
+    of the application without the 'fabric:' URI scheme. Starting from
+    version 6.0, hierarchical names are delimited with the "~"
+    character. For example, if the application name is
+    "fabric:/myapp/app1", the application identity would be
+    "myapp~app1" in 6.0+ and "myapp/app1" in previous versions
+
+    :param str upgrade_domain_name: The name of the upgrade domain in which to resume the
+                                       upgrade.
+    """
+    payload = {
+        "UpgradeDomainName": upgrade_domain_name
+    }
+
+    client.resume_application_upgrade(application_id, payload, timeout=timeout)
+
+
+def delete_application(client, application_id, force_remove, timeout=60):
+    """Deletes an existing Service Fabric application.
+
+    :param str application_id: The identity of the application. This is typically the full name
+    of the application without the 'fabric:' URI scheme. Starting from
+    version 6.0, hierarchical names are delimited with the "~"
+    character. For example, if the application name is
+    "fabric:/myapp/app1", the application identity would be
+    "myapp~app1" in 6.0+ and "myapp/app1" in previous versions
+    :param bool force_remove: Remove a Service Fabric application or service forcefully without
+    going through the graceful shutdown sequence. This parameter can
+    be used to forcefully delete an application or service for which
+    delete is timing out due to issues in the service code that
+    prevents graceful close of replicas.
+    """
+    client.delete_application(application_id, force_remove=force_remove, timeout=timeout)
