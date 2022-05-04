@@ -30,7 +30,7 @@ def disable_node(client, node_name, deactivation_intent, timeout=60):
     client.disable_node(node_name, payload, timeout=timeout)
 
 
-def restart_node(client, node_name, node_instance_id=0, create_fabric_dump=False,  timeout=60):
+def restart_node(client, node_name, node_instance_id=0, create_fabric_dump="False",  timeout=60):
     """Restarts a Service Fabric cluster node.
 
     :param str node_name: The name of the node
