@@ -130,7 +130,6 @@ class SFCommandLoader(CLICommandsLoader):
                 'deployed-list',
                 'get_deployed_application_info_list'
             )
-            group.command('deployed', 'get_deployed_application_info')
             group.command(
                 'deployed-health',
                 'get_deployed_application_health'
@@ -308,6 +307,7 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('upgrade', 'upgrade')
             group.command('delete', 'delete_application')
             group.command('upgrade-resume', 'resume_application_upgrade')
+            group.command('deployed', 'get_deployed_application_info')
 
         with CommandGroup(self, 'application', 'sfctl.custom_app#{}') as group:
             group.command('upload', 'upload')

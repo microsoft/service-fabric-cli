@@ -792,3 +792,34 @@ def delete_application(client, application_id, force_remove, timeout=60):
     prevents graceful close of replicas.
     """
     client.delete_application(application_id, force_remove=force_remove, timeout=timeout)
+
+def get_deployed_application_info(client, application_id, node_name, include_health_state, timeout):
+    """Gets the information about an application deployed on a Service Fabric node.
+
+    This query returns system application information if the application ID provided is for system
+    application. Results encompass deployed applications in active, activating, and downloading
+    states. This query requires that the node name corresponds to a node on the cluster. The query
+    fails if the provided node name does not point to any active Service Fabric nodes on the
+    cluster.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param timeout: The server timeout for performing the operation in seconds. This timeout
+        specifies the time duration that the client is willing to wait for the requested operation to
+        complete. The default value for this parameter is 60 seconds. Default value is 60.
+    :paramtype timeout: long
+    :param include_health_state: Include the health state of an entity.
+        If this parameter is false or not specified, then the health state returned is "Unknown".
+        When set to true, the query goes in parallel to the node and the health system service before
+        the results are merged.
+        As a result, the query is more expensive and may take a longer time. Default value is False.
+    :paramtype include_health_state: bool
+    """
+
+    client.get_deployed_application_info(application_id, node_name, include_health_state=include_health_state, timeout=timeout)
