@@ -65,19 +65,21 @@ def parse_app_health_map(formatted_map):
         health_map.append(map_item)
     return health_map
 
-def create_health_information(source_id, health_property, health_state, ttl,  # pylint: disable=too-many-arguments
+def create_health_information(source_id, health_property, health_state, ttl,  #pylint: disable=too-many-arguments
                               description, sequence_number,
                               remove_when_expired):
     """Validates and creates a health information object"""
-    import distutils
+    # import distutils
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Error', 'Unknown']:
         raise CLIError('Invalid health state specified')
 
     if type(remove_when_expired) == bool:
         rwe = remove_when_expired
-    else:
-        rwe = bool(distutils.util.strtobool(remove_when_expired))
-
+    elif type(remove_when_expired) == str:
+        if remove_when_expired  == "True" or remove_when_expired == "true":
+            rwe = True
+        else:
+            rwe = False
 
     return {"SourceId": source_id,
             "Property": health_property,
@@ -88,7 +90,7 @@ def create_health_information(source_id, health_property, health_state, ttl,  # 
             "RemoveWhenExpired": rwe}
 
 
-def report_cluster_health(client, source_id, health_property, health_state,  # pylint: disable=missing-docstring,too-many-arguments
+def report_cluster_health(client, source_id, health_property, health_state,  #pylint: disable=missing-docstring,too-many-arguments
                           ttl=None, description=None, sequence_number=None,
                           remove_when_expired=False, immediate=False,
                           timeout=60):

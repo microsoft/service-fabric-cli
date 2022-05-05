@@ -793,7 +793,7 @@ def delete_application(client, application_id, force_remove, timeout=60):
     """
     client.delete_application(application_id, force_remove=force_remove, timeout=timeout)
 
-def get_deployed_application_info(client, application_id, node_name, include_health_state, timeout):
+def get_deployed_application_info(client, application_id, node_name, include_health_state=False, timeout=60):
     """Gets the information about an application deployed on a Service Fabric node.
 
     This query returns system application information if the application ID provided is for system
@@ -822,4 +822,43 @@ def get_deployed_application_info(client, application_id, node_name, include_hea
     :paramtype include_health_state: bool
     """
 
-    client.get_deployed_application_info(application_id, node_name, include_health_state=include_health_state, timeout=timeout)
+    client.get_deployed_application_info(node_name, application_id, include_health_state=include_health_state, timeout=timeout)
+
+
+def get_deployed_application_info_list(client, node_name, include_health_state=False, continuation_token="", max_results=0, timeout=60):
+    """Gets the list of applications deployed on a Service Fabric node.
+
+    Gets the list of applications deployed on a Service Fabric node. The results do not include
+    information about deployed system applications unless explicitly queried for by ID. Results
+    encompass deployed applications in active, activating, and downloading states. This query
+    requires that the node name corresponds to a node on the cluster. The query fails if the
+    provided node name does not point to any active Service Fabric nodes on the cluster.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :keyword timeout: The server timeout for performing the operation in seconds. This timeout
+        specifies the time duration that the client is willing to wait for the requested operation to
+        complete. The default value for this parameter is 60 seconds. Default value is 60.
+    :paramtype timeout: long
+    :param include_health_state: Include the health state of an entity.
+        If this parameter is false or not specified, then the health state returned is "Unknown".
+        When set to true, the query goes in parallel to the node and the health system service before
+        the results are merged.
+        As a result, the query is more expensive and may take a longer time. Default value is False.
+    :paramtype include_health_state: bool
+    :param continuation_token_parameter: The continuation token parameter is used to obtain next
+        set of results. A continuation token with a non-empty value is included in the response of the
+        API when the results from the system do not fit in a single response. When this value is passed
+        to the next API call, the API returns next set of results. If there are no further results,
+        then the continuation token does not contain a value. The value of this parameter should not be
+        URL encoded. Default value is None.
+    :paramtype continuation_token_parameter: str
+    :param max_results: The maximum number of results to be returned as part of the paged
+        queries. This parameter defines the upper bound on the number of results returned. The results
+        returned can be less than the specified maximum results if they do not fit in the message as
+        per the max message size restrictions defined in the configuration. If this parameter is zero
+        or not specified, the paged query includes as many results as possible that fit in the return
+        """
+
+    client.get_deployed_application_info_list(node_name, include_health_state=include_health_state, continuation_token_parameter=continuation_token,
+                                                    max_results=max_results, timeout=timeout)
