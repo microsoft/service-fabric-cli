@@ -8,22 +8,21 @@
 
 from knack.util import CLIError
 from azure.servicefabric import ServiceFabricClientAPIs
-from azure.core.credentials import TokenCredential, AccessToken
-
-from sfctl.auth import (AdalAuthentication2, ClientCertAuthentication, AdalAuthentication)
+from azure.core.credentials import TokenCredential
+from azure.core.pipeline.policies import SansIOHTTPPolicy
+from sfctl.auth import AdalAuthentication2
 from sfctl.config import (security_type, ca_cert_info, cert_info,
                           client_endpoint, no_verify_setting)
-import logging
-from azure.core.pipeline.policies import SansIOHTTPPolicy
-from azure.core.pipeline import PipelineRequest
-
 class FakeAuthenticationPolicy(SansIOHTTPPolicy):
+    """Fake authentication policy to avoid issues with token credentials being thrown in some scenaros"""
+
     def __init__(self):
-        self
+        pass
 
 class FakeCredentialProtocol(TokenCredential):
+    """Fake credential used to pass in a credential for the API Client"""
     def __init__(self):
-        self
+        pass
 
     def get_token(self, scopes):
         pass
@@ -52,7 +51,7 @@ def create(_):
             no_verify = ca_cert
 
     client = ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
-                                     connection_verify=False, enforce_https=False, 
+                                     connection_verify=no_verify, enforce_https=False,
                                      connection_cert=cert_info(), authentication_policy=FakeAuthenticationPolicy())
 
     return client

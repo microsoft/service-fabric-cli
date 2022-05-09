@@ -632,7 +632,8 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
             "PackageSharingPolicy": list_psps}
     client.deployed_service_package_to_node(node_name, desc, timeout)
 
-def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None, code_package_name=None, timeout=60):
+def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None,
+                                        code_package_name=None, timeout=60): # pylint: disable=too-many-arguments
     """Gets the list of code packages deployed on a Service Fabric node.
 
     Gets the list of code packages deployed on a Service Fabric node for the given application.
@@ -652,7 +653,9 @@ def get_deployed_code_package_info_list(client, node_name, application_id, servi
         as part of an application type in a Service Fabric cluster. Default value is None.
         """
 
-    return client.get_deployed_code_package_info_list(node_name, application_id, service_manifest_name=service_manifest_name, code_package_name=code_package_name, timeout=timeout)
+    return client.get_deployed_code_package_info_list(node_name, application_id,
+                                                      service_manifest_name=service_manifest_name,
+                                                      code_package_name=code_package_name, timeout=timeout)
 
 def delete_service(client, service_id, force_remove=None, timeout=60):
     """Deletes an existing Service Fabric service.
@@ -677,7 +680,8 @@ def delete_service(client, service_id, force_remove=None, timeout=60):
     """
     client.delete_service(service_id, force_remove=force_remove, timeout=timeout)
 
-def get_deployed_service_type_info_by_name(client, node_name, application_id, service_type_name, service_manifest_name=None, timeout=60):
+def get_deployed_service_type_info_by_name(client, node_name, application_id,
+                                           service_type_name, service_manifest_name=None, timeout=60): # pylint: disable=too-many-arguments
     """Gets the information about a specified service type of the application deployed on a node in a
     Service Fabric cluster.
 
@@ -702,7 +706,7 @@ def get_deployed_service_type_info_by_name(client, node_name, application_id, se
         service types that are defined in this service manifest. Default value is None.
     :paramtype service_manifest_name: str
     """
-    return client.get_deployed_service_type_info_by_name(node_name, application_id, service_type_name, 
+    return client.get_deployed_service_type_info_by_name(node_name, application_id, service_type_name,
                                                          service_manifest_name=service_manifest_name, timeout=timeout)
 
 def get_deployed_service_type_info_list(client, node_name, application_id, service_manifest_name=None, timeout=60):
@@ -728,11 +732,12 @@ def get_deployed_service_type_info_list(client, node_name, application_id, servi
     :paramtype service_manifest_name: str
     """
 
-    return client.get_deployed_service_type_info_list(node_name, application_id, service_manifest_name=service_manifest_name, timeout=timeout)
+    return client.get_deployed_service_type_info_list(node_name, application_id,
+                                                      service_manifest_name=service_manifest_name, timeout=timeout)
 
 
 def get_container_logs_deployed_on_node(client, node_name, application_id, service_manifest_name, code_package_name,
-                                        tail=None, previous=False, timeout=60):
+                                        tail=None, previous=False, timeout=60): # pylint: disable=too-many-arguments
     """Gets the container logs for container deployed on a Service Fabric node.
 
     Gets the container logs for container deployed on a Service Fabric node for the given code
@@ -759,11 +764,14 @@ def get_container_logs_deployed_on_node(client, node_name, application_id, servi
         code package instance. Default value is False.
     :paramtype previous: bool
     """
-    return client.get_container_logs_deployed_on_node(node_name, application_id, service_manifest_name=service_manifest_name,
-                                                      code_package_name=code_package_name, tail=tail, previous=previous, timeout=timeout)
+    return client.get_container_logs_deployed_on_node(node_name, application_id,
+                                                     service_manifest_name=service_manifest_name,
+                                                     code_package_name=code_package_name, tail=tail,
+                                                     previous=previous, timeout=timeout)
 
 
-def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0, exclude_health_statistics=False, timeout=60):
+def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0,
+                        exclude_health_statistics=False, timeout=60): # pylint: disable=too-many-arguments
     """Gets the health of the specified Service Fabric service.
 
     Gets the health information of the specified service.
@@ -827,7 +835,8 @@ def get_service_health(client, service_id, events_health_state_filter=0, partiti
         Default value is False.
     :paramtype exclude_health_statistics: bool
     """
-    return client.get_service_health(service_id, events_health_state_filter=events_health_state_filter, partitions_health_state_filter=partitions_health_state_filter,
+    return client.get_service_health(service_id, events_health_state_filter=events_health_state_filter,
+                                     partitions_health_state_filter=partitions_health_state_filter,
                                      exclude_health_statistics=exclude_health_statistics, timeout=timeout)
 
 def get_service_info_list(client, application_id, service_type_name=None, continuation_token=None, timeout=60):
@@ -854,7 +863,8 @@ def get_service_info_list(client, application_id, service_type_name=None, contin
         URL encoded. Default value is None.
     :paramtype continuation_token: str
     """
-    return client.get_service_info_list(application_id, service_type_name=service_type_name, continuation_token_parameter=continuation_token, timeout=timeout)
+    return client.get_service_info_list(application_id, service_type_name=service_type_name,
+                                        continuation_token_parameter=continuation_token, timeout=timeout)
 
 def get_service_manifest(client, application_type_name, application_type_version, service_manifest_name, timeout=60):
     """Gets the manifest describing a service type.
@@ -870,9 +880,11 @@ def get_service_manifest(client, application_type_name, application_type_version
         application type in a Service Fabric cluster.
     :paramtype service_manifest_name: str
     """
-    return client.get_service_manifest(application_type_name, application_type_version=application_type_version, service_manifest_name=service_manifest_name, timeout=timeout)
+    return client.get_service_manifest(application_type_name, application_type_version=application_type_version,
+                                       service_manifest_name=service_manifest_name, timeout=timeout)
 
-def get_deployed_service_package_health(client, node_name, application_id, service_package_name, events_health_state_filter=0, timeout=60):
+def get_deployed_service_package_health(client, node_name, application_id, service_package_name,
+                                        events_health_state_filter=0, timeout=60): # pylint: disable=too-many-arguments
     """Gets the information about health of a service package for a specific application deployed for
         a Service Fabric node and application.
 
@@ -912,9 +924,11 @@ def get_deployed_service_package_health(client, node_name, application_id, servi
          value is 0.
         :paramtype events_health_state_filter: int
         """
-    return client.get_deployed_service_package_health(node_name, application_id, service_package_name, events_health_state_filter=events_health_state_filter, timeout=timeout)
+    return client.get_deployed_service_package_health(node_name, application_id, service_package_name,
+                                            events_health_state_filter=events_health_state_filter, timeout=timeout)
 
-def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None, previous_rsp_version=None, timeout=60):
+def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None,
+                    previous_rsp_version=None, timeout=60):  # pylint: disable=too-many-arguments
     """Resolve a Service Fabric partition.
 
     Resolve a Service Fabric service partition to get the endpoints of the service replicas.
@@ -952,7 +966,9 @@ def resolve_service(client, service_id, partition_key_type=None, partition_key_v
         stale. Default value is None.
     :paramtype previous_rsp_version: str
     """
-    return client.resolve_service(service_id, partition_key_type=partition_key_type, partition_key_value=partition_key_value, previous_rsp_version=previous_rsp_version, timeout=timeout)
+    return client.resolve_service(service_id, partition_key_type=partition_key_type,
+                                  partition_key_value=partition_key_value,
+                                  previous_rsp_version=previous_rsp_version, timeout=timeout)
 
 def get_service_type_info_list(client, application_type_name, application_type_version, timeout=60):
     """Gets the list containing the information about service types that are supported by a
@@ -967,4 +983,5 @@ def get_service_type_info_list(client, application_type_name, application_type_v
     :param application_type_version: The version of the application type.
     :paramtype application_type_version: str
     """
-    return client.get_service_type_info_list(application_type_name, application_type_version=application_type_version, timeout=timeout)
+    return client.get_service_type_info_list(application_type_name,
+                                             application_type_version=application_type_version, timeout=timeout)

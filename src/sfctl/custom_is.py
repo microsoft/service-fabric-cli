@@ -73,4 +73,5 @@ def get_repair_task_list(client, task_id_filter=None, state_filter=None, executo
         included in the list. Default value is None.
         """
 
-    return client.get_repair_task_list(task_id_filter=task_id_filter, state_filter=state_filter, executor_filter=executor_filter)
+    return client.get_repair_task_list(task_id_filter=task_id_filter, state_filter=state_filter,
+                                       executor_filter=executor_filter)

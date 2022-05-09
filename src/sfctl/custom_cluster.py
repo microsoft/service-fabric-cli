@@ -10,15 +10,15 @@ from __future__ import print_function
 from sys import exc_info
 from datetime import datetime, timedelta
 import adal
+from azure.core.rest import HttpRequest
+from azure.servicefabric import ServiceFabricClientAPIs
 from knack.util import CLIError
 from knack.log import get_logger
-from azure.servicefabric import ServiceFabricClientAPIs
 from sfctl.apiclient import FakeAuthenticationPolicy, FakeCredentialProtocol
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
-from sfctl.auth import AdalAuthentication2, ClientCertAuthentication, AdalAuthentication
-from azure.core.rest import HttpRequest, HttpResponse
+from sfctl.auth import AdalAuthentication2
 
 
 logger = get_logger(__name__)  # pylint: disable=invalid-name
@@ -82,7 +82,7 @@ def _get_cert_based_client(endpoint, pem, cert, key, ca, no_verify): # pylint: d
         client_cert = (cert, key)
 
     return ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
-                                     connection_verify=no_verify, enforce_https=False, 
+                                     connection_verify=no_verify, enforce_https=False,
                                      connection_cert=client_cert, authentication_policy=FakeAuthenticationPolicy())
 
 
@@ -110,14 +110,13 @@ def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint
     """
 
     if aad:
-        new_token, new_cache = get_aad_token(endpoint, no_verify)
+        new_token, new_cache = get_aad_token(endpoint)
         set_aad_cache(new_token, new_cache)
         return _get_aad_based_client(endpoint, no_verify)
 
     # If the code reaches here, it is not AAD
 
     return _get_cert_based_client(endpoint, pem, cert, key, ca, no_verify)
- 
 
 def select(endpoint='http://localhost:19080', cert=None, key=None, pem=None, ca=None, #pylint: disable=invalid-name, too-many-arguments
            aad=False, no_verify=False):
@@ -293,7 +292,7 @@ def sfctl_cluster_version_matches(cluster_version, sfctl_version):
         cluster_version))
 
 
-def get_aad_token(endpoint, no_verify):
+def get_aad_token(endpoint):
     #pylint: disable-msg=too-many-locals
     """Get AAD token"""
 

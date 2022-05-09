@@ -4,8 +4,12 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+"""Custom Event store for Service Fabric CLI"""
+
+def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+                           exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all CLuster-related events.
+
 
     The response is list of ClusterEvent objects.
 
@@ -27,11 +31,14 @@ def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_fi
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_cluster_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_cluster_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                         events_types_filter=events_types_filter,
+                                         exclude_analysis_events=exclude_analysis_events,
+                                         skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+                         exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Nodes-related events.
 
     The response is list of NodeEvent objects.
@@ -54,11 +61,14 @@ def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filt
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_nodes_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_nodes_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                       events_types_filter=events_types_filter,
+                                       exclude_analysis_events=exclude_analysis_events,
+                                       skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_types_filter=None,
+                        exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Node-related events for a specific node.
 
     The response is list of NodeEvent objects.
@@ -83,11 +93,14 @@ def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_node_event_list(node_name, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_node_event_list(node_name, start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                      events_types_filter=events_types_filter,
+                                      exclude_analysis_events=exclude_analysis_events,
+                                      skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_applications_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_applications_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+                                exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Applications-related events.
 
     The response is list of ApplicationEvent objects.
@@ -110,11 +123,15 @@ def get_applications_event_list(client, start_time_utc, end_time_utc, events_typ
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_applications_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
+    return client.get_applications_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                              events_types_filter=events_types_filter,
+                                              exclude_analysis_events=exclude_analysis_events,
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_application_event_list(client, application_id, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_application_event_list(client, application_id, start_time_utc, end_time_utc,
+                               events_types_filter=None, exclude_analysis_events=None,
+                               skip_correlation_lookup=None, timeout=60):
     """Gets all Applications-related events for a specific application.
 
     The response is list of ApplicationEvent objects.
@@ -143,11 +160,14 @@ def get_application_event_list(client, application_id, start_time_utc, end_time_
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_application_event_list(application_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_application_event_list(application_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                             events_types_filter=events_types_filter,
+                                             exclude_analysis_events=exclude_analysis_events,
+                                             skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_services_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_services_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+                            exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Service-related events.
 
     The response is list of Service event objects.
@@ -170,11 +190,14 @@ def get_services_event_list(client, start_time_utc, end_time_utc, events_types_f
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_services_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_services_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                          events_types_filter=events_types_filter,
+                                          exclude_analysis_events=exclude_analysis_events,
+                                          skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_service_event_list(client, service_id, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_service_event_list(client, service_id, start_time_utc, end_time_utc, events_types_filter=None,
+                           exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Service-related events for a specific node.
 
     The response is list of Service event objects.
@@ -203,11 +226,14 @@ def get_service_event_list(client, service_id, start_time_utc, end_time_utc, eve
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_service_event_list(service_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
-                                              
-def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+    return client.get_service_event_list(service_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                         events_types_filter=events_types_filter,
+                                         exclude_analysis_events=exclude_analysis_events,
+                                         skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+
+
+def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+                              exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition-related events.
 
     The response is list of Partition event objects.
@@ -230,11 +256,14 @@ def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_partitions_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
-                                              
-def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+    return client.get_partitions_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                            events_types_filter=events_types_filter,
+                                            exclude_analysis_events=exclude_analysis_events,
+                                            skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+
+
+def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None,
+                             exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition-related events for a specific partition.
 
     The response is list of Partition event objects.
@@ -259,11 +288,14 @@ def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc,
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_partition_event_list(partition_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_partition_event_list(partition_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc,
+                                           events_types_filter=events_types_filter,
+                                           exclude_analysis_events=exclude_analysis_events,
+                                           skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
-def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+
+def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None,
+                                      exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition Replica-related events for a specific replica.
 
     The response is list of Partition Replica-related event objects.
@@ -288,11 +320,15 @@ def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_partition_replicas_event_list(partition_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
-                                              
-def get_partition_replica_event_list(client, partition_id, replica_id, start_time_utc, end_time_utc, events_types_filter=None, exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
+    return client.get_partition_replicas_event_list(partition_id, start_time_utc=start_time_utc,
+                                                    end_time_utc=end_time_utc, events_types_filter=events_types_filter,
+                                                    exclude_analysis_events=exclude_analysis_events,
+                                                    skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+
+
+def get_partition_replica_event_list(client, partition_id, replica_id, start_time_utc, end_time_utc,
+                                     events_types_filter=None, exclude_analysis_events=None,
+                                     skip_correlation_lookup=None, timeout=60):
     """Gets all Partition Replica-related events.
 
     The response is list of Partition Replica-related objects.
@@ -319,6 +355,7 @@ def get_partition_replica_event_list(client, partition_id, replica_id, start_tim
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_partition_replica_event_list(partition_id, replica_id, start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
-                                              exclude_analysis_events=exclude_analysis_events, 
-                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
+    return client.get_partition_replica_event_list(partition_id, replica_id, start_time_utc=start_time_utc,
+                                                   end_time_utc=end_time_utc, events_types_filter=events_types_filter,
+                                                   exclude_analysis_events=exclude_analysis_events,
+                                                   skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
