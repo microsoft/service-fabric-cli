@@ -302,7 +302,7 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/$/GetClusterVersion',
             ['api-version=6.4'],
             command_as_func=True,
-            command_args=ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=get_mock_endpoint(), connection_verify=False, enforce_https=False, authentication_policy=FakeAuthenticationPolicy()))
+            command_args=ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=get_mock_endpoint(), connection_verify=False, retry_total=0, enforce_https=False, authentication_policy=FakeAuthenticationPolicy()))
         self.validate_command(   # config-versions
             'sfctl cluster config-versions --config-version=version',
             'GET',

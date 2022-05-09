@@ -27,7 +27,7 @@ def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_fi
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_cluster_event_list(start_time_utc, end_time_utc, events_types_filter=events_types_filter, 
+    return client.get_cluster_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
                                               exclude_analysis_events=exclude_analysis_events, 
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
@@ -54,7 +54,7 @@ def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filt
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_nodes_event_list(start_time_utc, end_time_utc, events_types_filter=events_types_filter, 
+    return client.get_nodes_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
                                               exclude_analysis_events=exclude_analysis_events, 
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
@@ -110,7 +110,7 @@ def get_applications_event_list(client, start_time_utc, end_time_utc, events_typ
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_applications_event_list(start_time_utc, end_time_utc, events_types_filter=events_types_filter, 
+    return client.get_applications_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
                                               exclude_analysis_events=exclude_analysis_events, 
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
@@ -170,7 +170,7 @@ def get_services_event_list(client, start_time_utc, end_time_utc, events_types_f
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_services_event_list(start_time_utc, end_time_utc, events_types_filter=events_types_filter, 
+    return client.get_services_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
                                               exclude_analysis_events=exclude_analysis_events, 
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
@@ -230,7 +230,7 @@ def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types
         information if true is passed. otherwise the CorrelationEvents get processed and
         HasCorrelatedEvents field in every FabricEvent gets populated. Default value is None.
         """
-    return client.get_partitions_event_list(start_time_utc, end_time_utc, events_types_filter=events_types_filter, 
+    return client.get_partitions_event_list(start_time_utc=start_time_utc, end_time_utc=end_time_utc, events_types_filter=events_types_filter, 
                                               exclude_analysis_events=exclude_analysis_events, 
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
                                               
