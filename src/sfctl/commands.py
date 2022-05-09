@@ -59,51 +59,25 @@ class SFCommandLoader(CLICommandsLoader):
 
         client_func_path = 'azure.servicefabric#ServiceFabricClientAPIs.{}'
 
-        with CommandGroup(self, 'rpm', client_func_path,
-                          client_factory=client_create) as group:
-            group.command('list', 'get_repair_task_list')
-
         with CommandGroup(self, 'sa-cluster', client_func_path,
                           client_factory=client_create) as group:
-            group.command('config', 'get_cluster_configuration')
             group.command('upgrade-status',
                           'get_cluster_configuration_upgrade_status')
 
         with CommandGroup(self, 'cluster', client_func_path,
                           client_factory=client_create) as group:
-            group.command('health', 'get_cluster_health')
             group.command('manifest', 'get_cluster_manifest')
-            group.command(
-                'code-versions',
-                'get_provisioned_fabric_code_version_info_list'
-            )
-            group.command(
-                'config-versions',
-                'get_provisioned_fabric_config_version_info_list'
-            )
             group.command('upgrade-status', 'get_cluster_upgrade_progress')
             group.command('recover-system', 'recover_system_partitions')
             group.command('operation-list', 'get_fault_operation_list')
-            group.command('operation-cancel', 'cancel_operation')
             group.command('upgrade-rollback', 'rollback_cluster_upgrade')
 
         with CommandGroup(self, 'node', client_func_path,
                           client_factory=client_create) as group:
-            group.command('list', 'get_node_info_list')
             group.command('info', 'get_node_info')
-            group.command('health', 'get_node_health')
             group.command('load', 'get_node_load_info')
             group.command('enable', 'enable_node')
             group.command('remove-state', 'remove_node_state')
-            group.command('transition', 'start_node_transition')
-            group.command(
-                'transition-status',
-                'get_node_transition_progress'
-            )
-            group.command(
-                'add-configuration-parameter-overrides',
-                'add_configuration_parameter_overrides'
-            )
             group.command(
                 'get-configuration-overrides',
                 'get_configuration_overrides'
@@ -115,44 +89,19 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandGroup(self, 'application', client_func_path,
                           client_factory=client_create) as group:
-            group.command('type-list', 'get_application_type_info_list')
-            group.command('type', 'get_application_type_info_list_by_name')
             group.command('unprovision', 'unprovision_application_type')
-            group.command('list', 'get_application_info_list')
-            group.command('info', 'get_application_info')
-            group.command('health', 'get_application_health')
             group.command('upgrade-status', 'get_application_upgrade')
             group.command(
                 'upgrade-rollback',
                 'rollback_application_upgrade'
             )
-
-            group.command(
-                'deployed-health',
-                'get_deployed_application_health'
-            )
-            group.command('manifest', 'get_application_manifest')
             group.command('load', 'get_application_load_info')
 
         with CommandGroup(self, 'service', client_func_path,
                           client_factory=client_create) as group:
-            group.command('type-list', 'get_service_type_info_list')
-            group.command('manifest', 'get_service_manifest')
-            group.command(
-                'deployed-type-list',
-                'get_deployed_service_type_info_list'
-            )
-            group.command(
-                'deployed-type',
-                'get_deployed_service_type_info_by_name'
-            )
-            group.command('list', 'get_service_info_list')
             group.command('info', 'get_service_info')
             group.command('app-name', 'get_application_name_info')
-            group.command('delete', 'delete_service')
             group.command('description', 'get_service_description')
-            group.command('health', 'get_service_health')
-            group.command('resolve', 'resolve_service')
             group.command('recover', 'recover_service_partitions')
             group.command(
                 'package-list',
@@ -162,75 +111,28 @@ class SFCommandLoader(CLICommandsLoader):
                 'package-info',
                 'get_deployed_service_package_info_list_by_name'
             )
-            group.command(
-                'package-health',
-                'get_deployed_service_package_health'
-            )
-            group.command(
-                'code-package-list',
-                'get_deployed_code_package_info_list'
-            )
-            group.command(
-                'get-container-logs',
-                'get_container_logs_deployed_on_node'
-            )
 
         with CommandGroup(self, 'partition', client_func_path,
                           client_factory=client_create) as group:
-            group.command('list', 'get_partition_info_list')
             group.command('info', 'get_partition_info')
             group.command('svc-name', 'get_service_name_info')
-            group.command('health', 'get_partition_health')
             group.command('load', 'get_partition_load_information')
             group.command('load-reset', 'reset_partition_load')
             group.command('recover', 'recover_partition')
             group.command('recover-all', 'recover_all_partitions')
-            group.command('data-loss', 'start_data_loss')
-            group.command('data-loss-status', 'get_data_loss_progress')
-            group.command('quorum-loss', 'start_quorum_loss')
-            group.command('quorum-loss-status', 'get_quorum_loss_progress')
-            group.command('restart', 'start_partition_restart')
-            group.command(
-                'restart-status',
-                'get_partition_restart_progress'
-            )
-            group.command(
-                'move-primary-replica',
-                'move_primary_replica',
-            )
-            group.command(
-                'move-secondary-replica',
-                'move_secondary_replica',
-            )
-            group.command(
-                'move-instance',
-                'move_instance',
-            )
-            group.command(
-                'get-loaded-partition-info-list',
-                'get_loaded_partition_info_list',
-            )
 
         with CommandGroup(self, 'replica', client_func_path,
                           client_factory=client_create) as group:
-            group.command('list', 'get_replica_info_list')
             group.command('info', 'get_replica_info')
-            group.command('health', 'get_replica_health')
-            group.command(
-                'deployed-list',
-                'get_deployed_service_replica_info_list'
-            )
             group.command(
                 'deployed',
                 'get_deployed_service_replica_detail_info'
             )
             group.command('restart', 'restart_replica')
-            group.command('remove', 'remove_replica')
 
         with CommandGroup(self, 'compose', client_func_path,
                           client_factory=client_create) as group:
             group.command('status', 'get_compose_deployment_status')
-            group.command('list', 'get_compose_deployment_status_list')
             group.command('remove', 'remove_compose_deployment')
             group.command('upgrade-status',
                           'get_compose_deployment_upgrade_progress')
@@ -252,26 +154,6 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('delete', 'delete_image_store_content')
             group.command('root-info', 'get_image_store_root_content')
 
-        with CommandGroup(self, 'property', client_func_path,
-                          client_factory=client_create) as group:
-            group.command('list', 'get_property_info_list')
-            group.command('get', 'get_property_info')
-            group.command('delete', 'delete_property')
-
-        with CommandGroup(self, 'events', client_func_path,
-                          client_factory=client_create) as group:
-            group.command('cluster-list', 'get_cluster_event_list')
-            group.command('all-nodes-list', 'get_nodes_event_list')
-            group.command('node-list', 'get_node_event_list')
-            group.command('all-applications-list', 'get_applications_event_list')
-            group.command('application-list', 'get_application_event_list')
-            group.command('all-services-list', 'get_services_event_list')
-            group.command('service-list', 'get_service_event_list')
-            group.command('all-partitions-list', 'get_partitions_event_list')
-            group.command('partition-list', 'get_partition_event_list')
-            group.command('partition-all-replicas-list', 'get_partition_replicas_event_list')
-            group.command('partition-replica-list', 'get_partition_replica_event_list')
-
         # ---------------
         # Custom commands
         # ---------------
@@ -288,15 +170,25 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('provision', 'provision')
             group.command('unprovision', 'unprovision_cluster')
             group.command('upgrade-resume', 'resume_cluster_upgrade')
+            group.command('code-versions', 'get_provisioned_fabric_code_version_info_list')
+            group.command('config-versions', 'get_provisioned_fabric_config_version_info_list')
+            group.command('health', 'get_cluster_health')
+            group.command('operation-cancel', 'cancel_operation')
 
         with CommandGroup(self, 'sa-cluster', 'sfctl.custom_cluster_upgrade#{}',
                           client_factory=client_create) as group:
             group.command('config-upgrade', 'sa_configuration_upgrade')
 
+        with CommandGroup(self, 'sa-cluster', 'sfctl.custom_sa_cluster#{}',
+                          client_factory=client_create) as group:
+            group.command('config', 'get_cluster_configuration')
+
+
         with CommandGroup(self, 'compose', 'sfctl.custom_compose#{}',
                           client_factory=client_create) as group:
             group.command('upgrade', 'upgrade')
             group.command('create', 'create')
+            group.command('list', 'get_compose_deployment_status_list')
 
         with CommandGroup(self, 'application', 'sfctl.custom_app#{}',
                           client_factory=client_create) as group:
@@ -306,6 +198,13 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('upgrade-resume', 'resume_application_upgrade')
             group.command('deployed', 'get_deployed_application_info')
             group.command('deployed-list', 'get_deployed_application_info_list')
+            group.command('deployed-health', 'get_deployed_application_health')
+            group.command('info', 'get_application_info')
+            group.command('list', 'get_application_info_list')
+            group.command('type', 'get_application_type_info_list_by_name')
+            group.command('type-list', 'get_application_type_info_list')
+            group.command('health', 'get_application_health')
+            group.command('manifest', 'get_application_manifest')
 
         with CommandGroup(self, 'application', 'sfctl.custom_app#{}') as group:
             group.command('upload', 'upload')
@@ -318,6 +217,7 @@ class SFCommandLoader(CLICommandsLoader):
         with CommandGroup(self, 'chaos', 'sfctl.custom_chaos#{}',
                           client_factory=client_create) as group:
             group.command('start', 'start')
+            group.command('events', 'get_chaos_events')
 
         with CommandGroup(self, 'chaos schedule', 'sfctl.custom_chaos_schedule#{}',
                           client_factory=client_create) as group:
@@ -328,6 +228,32 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('create', 'create')
             group.command('update', 'update')
             group.command('package-deploy', 'package_upload')
+            group.command(
+                'code-package-list',
+                'get_deployed_code_package_info_list'
+            )
+            group.command('delete', 'delete_service')
+            group.command(
+                'deployed-type',
+                'get_deployed_service_type_info_by_name'
+            )
+            group.command(
+                'deployed-type-list',
+                'get_deployed_service_type_info_list'
+            )
+            group.command(
+                'get-container-logs',
+                'get_container_logs_deployed_on_node'
+            )
+            group.command('health', 'get_service_health')
+            group.command('list', 'get_service_info_list')
+            group.command('manifest', 'get_service_manifest')
+            group.command(
+                'package-health',
+                'get_deployed_service_package_health'
+            )
+            group.command('resolve', 'resolve_service')
+            group.command('type-list', 'get_service_type_info_list')
 
         with CommandGroup(self, 'is', 'sfctl.custom_is#{}',
                           client_factory=client_create) as group:
@@ -338,10 +264,14 @@ class SFCommandLoader(CLICommandsLoader):
                     client_factory=client_create) as group:
             group.command('approve-force', 'force_approve_repair_task')
             group.command('delete', 'delete_repair_task')
+            group.command('list', 'get_repair_task_list')
 
         with CommandGroup(self, 'property', 'sfctl.custom_property#{}',
                           client_factory=client_create) as group:
             group.command('put', 'naming_property_put')
+            group.command('delete', 'delete_property')
+            group.command('list', 'get_property_info_list')
+            group.command('get', 'get_property_info')
 
         with CommandGroup(self, 'application', 'sfctl.custom_app_type#{}',
                           client_factory=client_create) as group:
@@ -379,7 +309,59 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('remove-node-tags', 'remove_node_tags')
             group.command('disable', 'disable_node')
             group.command('restart', 'restart_node')
+            group.command(
+                'add-configuration-parameter-overrides',
+                'add_configuration_parameter_overrides'
+            )
+            group.command('health', 'get_node_health')
+            group.command('list', 'get_node_info_list')
+            group.command('transition', 'start_node_transition')
+            group.command(
+                'transition-status',
+                'get_node_transition_progress'
+            )
 
+        with CommandGroup(self, 'partition', 'sfctl.custom_partition#{}',
+                            client_factory=client_create) as group:
+            group.command('data-loss', 'start_data_loss')
+            group.command('data-loss-status', 'get_data_loss_progress')
+            group.command(
+                'get-loaded-partition-info-list',
+                'get_loaded_partition_info_list',
+            )
+            group.command('health', 'get_partition_health')
+            group.command('list', 'get_partition_info_list')
+            group.command('move-instance', 'move_instance')
+            group.command('move-primary-replica', 'move_primary_replica')
+            group.command('move-secondary-replica', 'move_secondary_replica')
+            group.command('quorum-loss', 'start_quorum_loss')
+            group.command('quorum-loss-status', 'get_quorum_loss_progress')
+            group.command('restart', 'start_partition_restart')
+            group.command('restart-status', 'get_partition_restart_progress')
+        
+        with CommandGroup(self, 'replica', 'sfctl.custom_replica#{}',
+                    client_factory=client_create) as group:
+            group.command('list', 'get_replica_info_list')
+            group.command(
+                'deployed-list',
+                'get_deployed_service_replica_info_list'
+            )
+            group.command('health', 'get_replica_health')
+            group.command('remove', 'remove_replica')
+
+        with CommandGroup(self, 'events', 'sfctl.custom_events#{}',
+                          client_factory=client_create) as group:
+            group.command('cluster-list', 'get_cluster_event_list')
+            group.command('all-nodes-list', 'get_nodes_event_list')
+            group.command('node-list', 'get_node_event_list')
+            group.command('all-applications-list', 'get_applications_event_list')
+            group.command('application-list', 'get_application_event_list')
+            group.command('all-services-list', 'get_services_event_list')
+            group.command('service-list', 'get_service_event_list')
+            group.command('all-partitions-list', 'get_partitions_event_list')
+            group.command('partition-list', 'get_partition_event_list')
+            group.command('partition-all-replicas-list', 'get_partition_replicas_event_list')
+            group.command('partition-replica-list', 'get_partition_replica_event_list')
 
         # ---------------
         # Settings

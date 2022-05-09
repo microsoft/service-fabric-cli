@@ -183,7 +183,7 @@ def update_upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-n
         "ApplicationHealthPolicyMap": app_policies
     }
 
-    client.update_cluster_upgrade(update_desc, timeout=timeout)
+    return client.update_cluster_upgrade(update_desc, timeout=timeout)
 
 def provision(client, cluster_manifest_file_path, code_file_path, timeout=60):
     """
@@ -196,7 +196,7 @@ def provision(client, cluster_manifest_file_path, code_file_path, timeout=60):
         "ClusterManifestFilePath": cluster_manifest_file_path,
         "CodeFilePath": code_file_path
     }
-    client.provision_cluster(payload, timeout=timeout)
+    return client.provision_cluster(payload, timeout=timeout)
 
 def unprovision_cluster(client, code_version, config_version, timeout=60):
     """
@@ -208,7 +208,7 @@ def unprovision_cluster(client, code_version, config_version, timeout=60):
         "CodeVersion": code_version,
         "ConfigVersion": config_version
     }
-    client.unprovision_cluster(payload, timeout=timeout)
+    return client.unprovision_cluster(payload, timeout=timeout)
 
 def resume_cluster_upgrade(client, upgrade_domain, timeout=60):
     """
@@ -219,4 +219,154 @@ def resume_cluster_upgrade(client, upgrade_domain, timeout=60):
     payload = {
         "UpgradeDomain": upgrade_domain,
     }
-    client.resume_cluster_upgrade(payload, timeout=timeout)
+    return client.resume_cluster_upgrade(payload, timeout=timeout)
+
+def get_provisioned_fabric_code_version_info_list(client, code_version=None, timeout=60):
+    """Gets a list of fabric config versions that are provisioned in a Service Fabric cluster.
+
+    Gets a list of information about fabric config versions that are provisioned in the cluster.
+    The parameter ConfigVersion can be used to optionally filter the output to only that particular
+    version.
+
+    :param code_version: The code version of Service Fabric. Default value is None.
+    :paramtype config_version: str
+    """
+    return client.get_provisioned_fabric_config_version_info_list(code_version=code_version, timeout=timeout)
+
+def get_provisioned_fabric_config_version_info_list(client, config_version=None, timeout=60):
+    """Gets a list of fabric config versions that are provisioned in a Service Fabric cluster.
+
+    Gets a list of information about fabric config versions that are provisioned in the cluster.
+    The parameter ConfigVersion can be used to optionally filter the output to only that particular
+    version.
+
+    :param config_version: The config version of Service Fabric. Default value is None.
+    :paramtype config_version: str
+    """
+    return client.get_provisioned_fabric_config_version_info_list(config_version=config_version, timeout=timeout)
+
+
+def get_cluster_health(client, nodes_health_state_filter=0, applications_health_state_filter=0,
+                       events_health_state_filter=0, exclude_health_statistics=False,
+                       include_system_application_health_statistics=False, timeout=60):
+    """Gets the health of a Service Fabric cluster.
+
+    Use EventsHealthStateFilter to filter the collection of health events reported on the cluster
+    based on the health state.
+    Similarly, use NodesHealthStateFilter and ApplicationsHealthStateFilter to filter the
+    collection of nodes and applications returned based on their aggregated health state.
+
+    :param nodes_health_state_filter: Allows filtering of the node health state objects returned
+        in the result of cluster health query
+        based on their health state. The possible values for this parameter include integer value of
+        one of the
+        following health states. Only nodes that match the filter are returned. All nodes are used to
+        evaluate the aggregated health state.
+        If not specified, all entries are returned.
+        The state values are flag-based enumeration, so the value could be a combination of these
+        values obtained using bitwise 'OR' operator.
+        For example, if the provided value is 6 then health state of nodes with HealthState value of
+        OK (2) and Warning (4) are returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype nodes_health_state_filter: int
+    :param applications_health_state_filter: Allows filtering of the application health state
+        objects returned in the result of cluster health
+        query based on their health state.
+        The possible values for this parameter include integer value obtained from members or bitwise
+        operations
+        on members of HealthStateFilter enumeration. Only applications that match the filter are
+        returned.
+        All applications are used to evaluate the aggregated health state. If not specified, all
+        entries are returned.
+        The state values are flag-based enumeration, so the value could be a combination of these
+        values obtained using bitwise 'OR' operator.
+        For example, if the provided value is 6 then health state of applications with HealthState
+        value of OK (2) and Warning (4) are returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype applications_health_state_filter: int
+    :param events_health_state_filter: Allows filtering the collection of HealthEvent objects
+        returned based on health state.
+        The possible values for this parameter include integer value of one of the following health
+        states.
+        Only events that match the filter are returned. All events are used to evaluate the aggregated
+        health state.
+        If not specified, all entries are returned. The state values are flag-based enumeration, so
+        the value could be a combination of these values, obtained using the bitwise 'OR' operator. For
+        example, If the provided value is 6 then all of the events with HealthState value of OK (2) and
+        Warning (4) are returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype events_health_state_filter: int
+    :param exclude_health_statistics: Indicates whether the health statistics should be returned
+        as part of the query result. False by default.
+        The statistics show the number of children entities in health state Ok, Warning, and Error.
+        Default value is False.
+    :paramtype exclude_health_statistics: bool
+    :param include_system_application_health_statistics: Indicates whether the health statistics
+        should include the fabric:/System application health statistics. False by default.
+        If IncludeSystemApplicationHealthStatistics is set to true, the health statistics include the
+        entities that belong to the fabric:/System application.
+        Otherwise, the query result includes health statistics only for user applications.
+        The health statistics must be included in the query result for this parameter to be applied.
+        Default value is False.
+    :paramtype include_system_application_health_statistics: bool
+    """
+    return client.get_cluster_health(nodes_health_state_filter=nodes_health_state_filter, applications_health_state_filter=applications_health_state_filter,
+                              events_health_state_filter=events_health_state_filter, exclude_health_statistics=exclude_health_statistics,
+                              include_system_application_health_statistics=include_system_application_health_statistics, timeout=timeout)
+
+def cancel_operation(client, operation_id, force=False, timeout=60):
+    """Cancels a user-induced fault operation.
+
+    The following APIs start fault operations that may be cancelled by using CancelOperation:
+    StartDataLoss, StartQuorumLoss, StartPartitionRestart, StartNodeTransition.
+
+    If force is false, then the specified user-induced operation will be gracefully stopped and
+    cleaned up.  If force is true, the command will be aborted, and some internal state
+    may be left behind.  Specifying force as true should be used with care.  Calling this API with
+    force set to true is not allowed until this API has already
+    been called on the same test command with force set to false first, or unless the test command
+    already has an OperationState of OperationState.RollingBack.
+    Clarification: OperationState.RollingBack means that the system will be/is cleaning up internal
+    system state caused by executing the command.  It will not restore data if the
+    test command was to cause data loss.  For example, if you call StartDataLoss then call this
+    API, the system will only clean up internal state from running the command.
+    It will not restore the target partition's data, if the command progressed far enough to cause
+    data loss.
+
+    Important note:  if this API is invoked with force==true, internal state may be left behind.
+
+    :param operation_id: A GUID that identifies a call of this API.  This is passed into the
+        corresponding GetProgress API.
+    :paramtype operation_id: str
+    :param force: Indicates whether to gracefully roll back and clean up internal system state
+        modified by executing the user-induced operation. Default value is False.
+    :paramtype force: bool
+    """
+    client.cancel_operation(operation_id, force=force, timeout=timeout)

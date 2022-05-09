@@ -48,3 +48,29 @@ def delete_repair_task(client, task_id, version, timeout=60):
         "Version": version
     }
     client.delete_repair_task(payload, timeout=timeout)
+
+def get_repair_task_list(client, task_id_filter=None, state_filter=None, executor_filter=None):
+    """Gets a list of repair tasks matching the given filters.
+
+    This API supports the Service Fabric platform; it is not meant to be used directly from your
+    code.
+
+    :param task_id_filter: The repair task ID prefix to be matched. Default value is None.
+    :paramtype task_id_filter: str
+    :param state_filter: A bitwise-OR of the following values, specifying which task states
+        should be included in the result list.
+
+
+        * 1 - Created
+        * 2 - Claimed
+        * 4 - Preparing
+        * 8 - Approved
+        * 16 - Executing
+        * 32 - Restoring
+        * 64 - Completed. Default value is None.
+    :paramtype state_filter: int
+    :param executor_filter: The name of the repair executor whose claimed tasks should be
+        included in the list. Default value is None.
+        """
+
+    return client.get_repair_task_list(task_id_filter=task_id_filter, state_filter=state_filter, executor_filter=executor_filter)

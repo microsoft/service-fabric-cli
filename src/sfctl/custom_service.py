@@ -631,3 +631,340 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
             "NodeName": node_name,
             "PackageSharingPolicy": list_psps}
     client.deployed_service_package_to_node(node_name, desc, timeout)
+
+def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None, code_package_name=None, timeout=60):
+    """Gets the list of code packages deployed on a Service Fabric node.
+
+    Gets the list of code packages deployed on a Service Fabric node for the given application.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster. Default value is None.
+    :paramtype service_manifest_name: str
+    :param code_package_name: The name of code package specified in service manifest registered
+        as part of an application type in a Service Fabric cluster. Default value is None.
+        """
+
+    return client.get_deployed_code_package_info_list(node_name, application_id, service_manifest_name=service_manifest_name, code_package_name=code_package_name, timeout=timeout)
+
+def delete_service(client, service_id, force_remove=None, timeout=60):
+    """Deletes an existing Service Fabric service.
+
+    A service must be created before it can be deleted. By default, Service Fabric will try to
+    close service replicas in a graceful manner and then delete the service. However, if the
+    service is having issues closing the replica gracefully, the delete operation may take a long
+    time or get stuck. Use the optional ForceRemove flag to skip the graceful close sequence and
+    forcefully delete the service.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param force_remove: Remove a Service Fabric application or service forcefully without going
+        through the graceful shutdown sequence. This parameter can be used to forcefully delete an
+        application or service for which delete is timing out due to issues in the service code that
+        prevents graceful close of replicas. Default value is None.
+    :paramtype force_remove: bool
+    """
+    client.delete_service(service_id, force_remove=force_remove, timeout=timeout)
+
+def get_deployed_service_type_info_by_name(client, node_name, application_id, service_type_name, service_manifest_name=None, timeout=60):
+    """Gets the information about a specified service type of the application deployed on a node in a
+    Service Fabric cluster.
+
+    Gets the list containing the information about a specific service type from the applications
+    deployed on a node in a Service Fabric cluster. The response includes the name of the service
+    type, its registration status, the code package that registered it and activation ID of the
+    service package. Each entry represents one activation of a service type, differentiated by the
+    activation ID.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_type_name: Specifies the name of a Service Fabric service type.
+    :type service_type_name: str
+    :param service_manifest_name: The name of the service manifest to filter the list of deployed
+        service type information. If specified, the response will only contain the information about
+        service types that are defined in this service manifest. Default value is None.
+    :paramtype service_manifest_name: str
+    """
+    return client.get_deployed_service_type_info_by_name(node_name, application_id, service_type_name, 
+                                                         service_manifest_name=service_manifest_name, timeout=timeout)
+
+def get_deployed_service_type_info_list(client, node_name, application_id, service_manifest_name=None, timeout=60):
+    """Gets the list containing the information about service types from the applications deployed on
+    a node in a Service Fabric cluster.
+
+    Gets the list containing the information about service types from the applications deployed on
+    a node in a Service Fabric cluster. The response includes the name of the service type, its
+    registration status, the code package that registered it and activation ID of the service
+    package.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of the service manifest to filter the list of deployed
+        service type information. If specified, the response will only contain the information about
+        service types that are defined in this service manifest. Default value is None.
+    :paramtype service_manifest_name: str
+    """
+
+    return client.get_deployed_service_type_info_list(node_name, application_id, service_manifest_name=service_manifest_name, timeout=timeout)
+
+
+def get_container_logs_deployed_on_node(client, node_name, application_id, service_manifest_name, code_package_name,
+                                        tail=None, previous=False, timeout=60):
+    """Gets the container logs for container deployed on a Service Fabric node.
+
+    Gets the container logs for container deployed on a Service Fabric node for the given code
+    package.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster.
+    :paramtype service_manifest_name: str
+    :param code_package_name: The name of code package specified in service manifest registered
+        as part of an application type in a Service Fabric cluster.
+    :paramtype code_package_name: str
+    :param tail: Number of lines to show from the end of the logs. Default is 100. 'all' to show
+        the complete logs.
+    :paramtype tail: str
+    :param previous: Specifies whether to get container logs from exited/dead containers of the
+        code package instance. Default value is False.
+    :paramtype previous: bool
+    """
+    return client.get_container_logs_deployed_on_node(node_name, application_id, service_manifest_name=service_manifest_name,
+                                                      code_package_name=code_package_name, tail=tail, previous=previous, timeout=timeout)
+
+
+def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0, exclude_health_statistics=False, timeout=60):
+    """Gets the health of the specified Service Fabric service.
+
+    Gets the health information of the specified service.
+    Use EventsHealthStateFilter to filter the collection of health events reported on the service
+    based on the health state.
+    Use PartitionsHealthStateFilter to filter the collection of partitions returned.
+    If you specify a service that does not exist in the health store, this request returns an
+    error.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param events_health_state_filter: Allows filtering the collection of HealthEvent objects
+        returned based on health state.
+        The possible values for this parameter include integer value of one of the following health
+        states.
+        Only events that match the filter are returned. All events are used to evaluate the aggregated
+        health state.
+        If not specified, all entries are returned. The state values are flag-based enumeration, so
+        the value could be a combination of these values, obtained using the bitwise 'OR' operator. For
+        example, If the provided value is 6 then all of the events with HealthState value of OK (2) and
+        Warning (4) are returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype events_health_state_filter: int
+    :param partitions_health_state_filter: Allows filtering of the partitions health state
+        objects returned in the result of service health query based on their health state.
+        The possible values for this parameter include integer value of one of the following health
+        states.
+        Only partitions that match the filter are returned. All partitions are used to evaluate the
+        aggregated health state.
+        If not specified, all entries are returned. The state values are flag-based enumeration, so
+        the value could be a combination of these value
+        obtained using bitwise 'OR' operator. For example, if the provided value is 6 then health
+        state of partitions with HealthState value of OK (2) and Warning (4) will be returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype partitions_health_state_filter: int
+    :param exclude_health_statistics: Indicates whether the health statistics should be returned
+        as part of the query result. False by default.
+        The statistics show the number of children entities in health state Ok, Warning, and Error.
+        Default value is False.
+    :paramtype exclude_health_statistics: bool
+    """
+    return client.get_service_health(service_id, events_health_state_filter=events_health_state_filter, partitions_health_state_filter=partitions_health_state_filter,
+                                     exclude_health_statistics=exclude_health_statistics, timeout=timeout)
+
+def get_service_info_list(client, application_id, service_type_name=None, continuation_token=None, timeout=60):
+    """Gets the information about all services belonging to the application specified by the
+    application ID.
+
+    Returns the information about all services belonging to the application specified by the
+    application ID.
+
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_type_name: The service type name used to filter the services to query for.
+        Default value is None.
+    :paramtype service_type_name: str
+    :param continuation_token: The continuation token parameter is used to obtain next
+        set of results. A continuation token with a non-empty value is included in the response of the
+        API when the results from the system do not fit in a single response. When this value is passed
+        to the next API call, the API returns next set of results. If there are no further results,
+        then the continuation token does not contain a value. The value of this parameter should not be
+        URL encoded. Default value is None.
+    :paramtype continuation_token: str
+    """
+    return client.get_service_info_list(application_id, service_type_name=service_type_name, continuation_token_parameter=continuation_token, timeout=timeout)
+
+def get_service_manifest(client, application_type_name, application_type_version, service_manifest_name, timeout=60):
+    """Gets the manifest describing a service type.
+
+    Gets the manifest describing a service type. The response contains the service manifest XML as
+    a string.
+
+    :param application_type_name: The name of the application type.
+    :type application_type_name: str
+    :param application_type_version: The version of the application type.
+    :paramtype application_type_version: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster.
+    :paramtype service_manifest_name: str
+    """
+    return client.get_service_manifest(application_type_name, application_type_version=application_type_version, service_manifest_name=service_manifest_name, timeout=timeout)
+
+def get_deployed_service_package_health(client, node_name, application_id, service_package_name, events_health_state_filter=0, timeout=60):
+    """Gets the information about health of a service package for a specific application deployed for
+        a Service Fabric node and application.
+
+        Gets the information about health of a service package for a specific application deployed on a
+        Service Fabric node. Use EventsHealthStateFilter to optionally filter for the collection of
+        HealthEvent objects reported on the deployed service package based on health state.
+
+        :param node_name: The name of the node.
+        :type node_name: str
+        :param application_id: The identity of the application. This is typically the full name of the
+         application without the 'fabric:' URI scheme.
+         Starting from version 6.0, hierarchical names are delimited with the "~" character.
+         For example, if the application name is "fabric:/myapp/app1", the application identity would
+         be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+        :type application_id: str
+        :param service_package_name: The name of the service package.
+        :type service_package_name: str
+        :param events_health_state_filter: Allows filtering the collection of HealthEvent objects
+         returned based on health state.
+         The possible values for this parameter include integer value of one of the following health
+         states.
+         Only events that match the filter are returned. All events are used to evaluate the aggregated
+         health state.
+         If not specified, all entries are returned. The state values are flag-based enumeration, so
+         the value could be a combination of these values, obtained using the bitwise 'OR' operator. For
+         example, If the provided value is 6 then all of the events with HealthState value of OK (2) and
+         Warning (4) are returned.
+
+
+         * Default - Default value. Matches any HealthState. The value is zero.
+         * None - Filter that doesn't match any HealthState value. Used in order to return no results
+         on a given collection of states. The value is 1.
+         * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+         * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+         * Error - Filter that matches input with HealthState value Error. The value is 8.
+         * All - Filter that matches input with any HealthState value. The value is 65535. Default
+         value is 0.
+        :paramtype events_health_state_filter: int
+        """
+    return client.get_deployed_service_package_health(node_name, application_id, service_package_name, events_health_state_filter=events_health_state_filter, timeout=timeout)
+
+def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None, previous_rsp_version=None, timeout=60):
+    """Resolve a Service Fabric partition.
+
+    Resolve a Service Fabric service partition to get the endpoints of the service replicas.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param partition_key_type: Key type for the partition. This parameter is required if the
+        partition scheme for the service is Int64Range or Named. The possible values are following.
+
+
+        * None (1) - Indicates that the PartitionKeyValue parameter is not specified. This is valid
+        for the partitions with partitioning scheme as Singleton. This is the default value. The value
+        is 1.
+        * Int64Range (2) - Indicates that the PartitionKeyValue parameter is an int64 partition key.
+        This is valid for the partitions with partitioning scheme as Int64Range. The value is 2.
+        * Named (3) - Indicates that the PartitionKeyValue parameter is a name of the partition. This
+        is valid for the partitions with partitioning scheme as Named. The value is 3. Default value is
+        None.
+    :paramtype partition_key_type: int
+    :param partition_key_value: Partition key. This is required if the partition scheme for the
+        service is Int64Range or Named.
+        This is not the partition ID, but rather, either the integer key value, or the name of the
+        partition ID.
+        For example, if your service is using ranged partitions from 0 to 10, then they
+        PartitionKeyValue would be an
+        integer in that range. Query service description to see the range or name. Default value is
+        None.
+    :paramtype partition_key_value: str
+    :param previous_rsp_version: The value in the Version field of the response that was received
+        previously. This is required if the user knows that the result that was gotten previously is
+        stale. Default value is None.
+    :paramtype previous_rsp_version: str
+    """
+    return client.resolve_service(service_id, partition_key_type=partition_key_type, partition_key_value=partition_key_value, previous_rsp_version=previous_rsp_version, timeout=timeout)
+
+def get_service_type_info_list(client, application_type_name, application_type_version, timeout=60):
+    """Gets the list containing the information about service types that are supported by a
+    provisioned application type in a Service Fabric cluster.
+
+    Gets the list containing the information about service types that are supported by a
+    provisioned application type in a Service Fabric cluster. The provided application type must
+    exist. Otherwise, a 404 status is returned.
+
+    :param application_type_name: The name of the application type.
+    :type application_type_name: str
+    :param application_type_version: The version of the application type.
+    :paramtype application_type_version: str
+    """
+    return client.get_service_type_info_list(application_type_name, application_type_version=application_type_version, timeout=timeout)
