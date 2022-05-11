@@ -73,9 +73,9 @@ def create_health_information(source_id, health_property, health_state, ttl,  #p
     if health_state not in ['Invalid', 'Ok', 'Warning', 'Error', 'Unknown']:
         raise CLIError('Invalid health state specified')
 
-    if isinstance(remove_when_expired) == bool:
+    if isinstance(remove_when_expired, bool):
         rwe = remove_when_expired
-    elif isinstance(remove_when_expired) == str:
+    elif isinstance(remove_when_expired, str):
         rwe = remove_when_expired in ("True" , "true") #pylint: disable=simplifiable-if-statement
 
     return {"SourceId": source_id,
