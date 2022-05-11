@@ -338,7 +338,7 @@ class SFCommandLoader(CLICommandsLoader):
             group.command('quorum-loss-status', 'get_quorum_loss_progress')
             group.command('restart', 'start_partition_restart')
             group.command('restart-status', 'get_partition_restart_progress')
-        
+
         with CommandGroup(self, 'replica', 'sfctl.custom_replica#{}',
                     client_factory=client_create) as group:
             group.command('list', 'get_replica_info_list')

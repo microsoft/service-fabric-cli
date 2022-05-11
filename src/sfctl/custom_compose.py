@@ -147,4 +147,5 @@ def get_compose_deployment_status_list(client, continuation_token=None, max_resu
     :paramtype max_results: long
     """
 
-    return client.get_compose_deployment_status_list(continuation_token_parameter=continuation_token, max_results=max_results, timeout=60)
+    return client.get_compose_deployment_status_list(continuation_token_parameter=continuation_token,
+                                                     max_results=max_results, timeout=timeout)

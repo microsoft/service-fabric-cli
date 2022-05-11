@@ -111,7 +111,8 @@ def start(client, time_to_run="4294967295", max_cluster_stabilization=60, #pylin
 
     client.start_chaos(chaos_params, timeout=timeout)
 
-def get_chaos_events(client, continuation_token=None, start_time_utc=None, end_time_utc=None, max_results=0, timeout=60):
+def get_chaos_events(client, continuation_token=None, start_time_utc=None, end_time_utc=None, max_results=0, # pylint: disable=too-many-arguments
+                     timeout=60):
     """Gets the next segment of the Chaos events based on the continuation token or the time range.
 
     To get the next segment of the Chaos events, you can specify the ContinuationToken. To get the

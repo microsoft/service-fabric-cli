@@ -30,7 +30,7 @@ def disable_node(client, node_name, deactivation_intent, timeout=60):
     client.disable_node(node_name, payload, timeout=timeout)
 
 
-def restart_node(client, node_name, node_instance_id=0, create_fabric_dump="False",  timeout=60):
+def restart_node(client, node_name, node_instance_id=0, create_fabric_dump="False",  timeout=60): # pylint: disable=too-many-arguments
     """Restarts a Service Fabric cluster node.
 
     :param str node_name: The name of the node
@@ -38,7 +38,8 @@ def restart_node(client, node_name, node_instance_id=0, create_fabric_dump="Fals
                              node is restarted only if it matches with the current instance of the
                              node. A default value of "0" would match any instance ID. The instance
                              ID can be obtained using get node query
-    :param str create_fabric_dump: Specify True to create a dump of the fabric node process. This is case sensitive. Default: False
+    :param str create_fabric_dump: Specify True to create a dump of the fabric node process.
+                                    This is case sensitive. Default: False
     """
     payload = {
         "CreateFabricDump": create_fabric_dump,
@@ -47,7 +48,7 @@ def restart_node(client, node_name, node_instance_id=0, create_fabric_dump="Fals
 
     client.restart_node(node_name, payload, timeout=timeout)
 
-def add_configuration_parameter_overrides(client, config_parameter_override_list, node_name, force=False, timeout=60):
+def add_configuration_parameter_overrides(client, config_parameter_override_list, node_name, force=False, timeout=60): # pylint: disable=too-many-arguments
     """Adds the list of configuration overrides on the specified node.
 
     This api allows adding all existing configuration overrides on the specified node.
@@ -60,7 +61,8 @@ def add_configuration_parameter_overrides(client, config_parameter_override_list
     :paramtype force: bool
     """
 
-    return client.add_configuration_parameter_overrides(node_name, config_parameter_override_list, force=force, timeout=timeout)
+    return client.add_configuration_parameter_overrides(node_name, config_parameter_override_list,
+                                                        force=force, timeout=timeout)
 
 def get_node_health(client, node_name, events_health_state_filter=0, timeout=60):
     """Gets the health of a Service Fabric node.
@@ -96,7 +98,7 @@ def get_node_health(client, node_name, events_health_state_filter=0, timeout=60)
     return client.get_node_health(node_name, events_health_state_filter=events_health_state_filter, timeout=timeout)
 
 
-def get_node_info_list(client, continuation_token=None, max_results=0, node_status_filter="default", timeout=60):
+def get_node_info_list(client, continuation_token=None, max_results=0, node_status_filter="default", timeout=60): # pylint: disable=too-many-arguments
     """Gets the list of nodes in the Service Fabric cluster.
 
     The response includes the name, status, ID, health, uptime, and other details about the nodes.
@@ -120,11 +122,13 @@ def get_node_info_list(client, continuation_token=None, max_results=0, node_stat
         or not specified, the paged query includes as many results as possible that fit in the return
         message. Default value is 0.
         """
-    return client.get_node_info_list(continuation_token_parameter=continuation_token, node_status_filter=node_status_filter,
-                              max_results=max_results, timeout=timeout)
+    return client.get_node_info_list(continuation_token_parameter=continuation_token,
+                                    node_status_filter=node_status_filter,
+                                    max_results=max_results, timeout=timeout)
 
 
-def start_node_transition(client, node_name, node_instance_id, node_transition_type, operation_id, stop_duration_in_seconds, timeout=60):
+def start_node_transition(client, node_name, node_instance_id, node_transition_type, operation_id, # pylint: disable=too-many-arguments
+                          stop_duration_in_seconds, timeout=60):
     """Starts or stops a cluster node.
 
         Starts or stops a cluster node.  A cluster node is a process, not the OS instance itself.  To
@@ -150,8 +154,11 @@ def start_node_transition(client, node_name, node_instance_id, node_transition_t
             automatically come back up.
         :paramtype stop_duration_in_seconds: int
         """
-    return client.start_node_transition(node_name, node_instance_id=node_instance_id, node_transition_type=node_transition_type,
-                                        operation_id=operation_id, stop_duration_in_seconds=stop_duration_in_seconds, timeout=timeout)
+    return client.start_node_transition(node_name, node_instance_id=node_instance_id,
+                                        node_transition_type=node_transition_type,
+                                        operation_id=operation_id,
+                                        stop_duration_in_seconds=stop_duration_in_seconds,
+                                        timeout=timeout)
 
 
 def get_node_transition_progress(client, node_name, operation_id, timeout=60):
@@ -166,6 +173,4 @@ def get_node_transition_progress(client, node_name, operation_id, timeout=60):
     corresponding GetProgress API.
     :paramtype operation_id: str
     """
-
-
     return client.get_node_transition_progress(node_name, operation_id=operation_id, timeout=timeout)

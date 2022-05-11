@@ -6,7 +6,7 @@
 
 """Custom commands for the Service Fabric partition support"""
 
-def start_data_loss(client, service_id, partition_id, operation_id, data_loss_mode, timeout=60):
+def start_data_loss(client, service_id, partition_id, operation_id, data_loss_mode, timeout=60): # pylint: disable=too-many-arguments
     """This API will induce data loss for the specified partition. It will trigger a call to the
     OnDataLossAsync API of the partition.
 
@@ -46,7 +46,8 @@ def start_data_loss(client, service_id, partition_id, operation_id, data_loss_mo
     :paramtype data_loss_mode: str
     """
 
-    return client.start_data_loss(service_id, partition_id, operation_id=operation_id, data_loss_mode=data_loss_mode, timeout=timeout)
+    return client.start_data_loss(service_id, partition_id, operation_id=operation_id,
+                                  data_loss_mode=data_loss_mode, timeout=timeout)
 
 def get_data_loss_progress(client, service_id, partition_id, operation_id, timeout=60):
     """Gets the progress of a partition data loss operation started using the StartDataLoss API.
@@ -68,7 +69,8 @@ def get_data_loss_progress(client, service_id, partition_id, operation_id, timeo
 
     return client.get_data_loss_progress(service_id, partition_id, operation_id=operation_id, timeout=timeout)
 
-def get_loaded_partition_info_list(client, metric_name, service_name=None, ordering=None, max_results=0, continuation_token=None, timeout=60):
+def get_loaded_partition_info_list(client, metric_name, service_name=None, ordering=None, # pylint: disable=too-many-arguments
+                                   max_results=0, continuation_token=None, timeout=60):
     """Gets ordered list of partitions.
 
     Retrieves partitions which are most/least loaded according to specified metric.
@@ -95,10 +97,13 @@ def get_loaded_partition_info_list(client, metric_name, service_name=None, order
         URL encoded. Default value is None.
         """
 
-    return client.get_loaded_partition_info_list(metric_name=metric_name, continuation_token_parameter=continuation_token,
-                                         service_name=service_name, ordering=ordering, max_results=max_results, timeout=60)
+    return client.get_loaded_partition_info_list(metric_name=metric_name, max_results=max_results, timeout=timeout,
+                                                 continuation_token_parameter=continuation_token,
+                                                 service_name=service_name, ordering=ordering)
 
-def get_partition_health(client, partition_id, events_health_state_filter=0, replicas_health_state_filter=0, exclude_health_statistics=False, timeout=60):
+
+def get_partition_health(client, partition_id, events_health_state_filter=0, replicas_health_state_filter=0, # pylint: disable=too-many-arguments
+                         exclude_health_statistics=False, timeout=60):
     """Gets the health of the specified Service Fabric partition.
 
     Use EventsHealthStateFilter to filter the collection of health events reported on the service
@@ -158,8 +163,9 @@ def get_partition_health(client, partition_id, events_health_state_filter=0, rep
     :paramtype exclude_health_statistics: bool
     """
 
-    return client.get_partition_health(partition_id, events_health_state_filter=events_health_state_filter, replicas_health_state_filter=replicas_health_state_filter,
-                                exclude_health_statistics=exclude_health_statistics, timeout=timeout)
+    return client.get_partition_health(partition_id, events_health_state_filter=events_health_state_filter,
+                                       replicas_health_state_filter=replicas_health_state_filter,
+                                       exclude_health_statistics=exclude_health_statistics, timeout=timeout)
 
 
 def get_partition_info_list(client, service_id, continuation_token=None, timeout=60):
@@ -184,7 +190,8 @@ def get_partition_info_list(client, service_id, continuation_token=None, timeout
     """
     return client.get_partition_info_list(service_id, continuation_token_parameter=continuation_token, timeout=timeout)
 
-def move_instance(client, service_id, partition_id, current_node_name=None, new_node_name=None, ignore_constraints=False, timeout=60):
+def move_instance(client, service_id, partition_id, current_node_name=None, new_node_name=None, # pylint: disable=too-many-arguments
+                  ignore_constraints=False, timeout=60):
     """Moves the instance of a partition of a stateless service.
 
     This command moves the instance of a partition of a stateless service, respecting all
@@ -214,8 +221,9 @@ def move_instance(client, service_id, partition_id, current_node_name=None, new_
         parameter is not specified, all constraints are honored. Default value is False.
     :paramtype ignore_constraints: bool
     """
-    return client.move_instance(service_id, partition_id, current_node_name=current_node_name, new_node_name=new_node_name,
-                         ignore_constraints=ignore_constraints, timeout=timeout)
+    return client.move_instance(service_id, partition_id, current_node_name=current_node_name,
+                                new_node_name=new_node_name,
+                                ignore_constraints=ignore_constraints, timeout=timeout)
 
 def move_primary_replica(client, partition_id, node_name=None, ignore_constraints=False, timeout=60):
     """Moves the primary replica of a partition of a stateful service.
@@ -237,9 +245,12 @@ def move_primary_replica(client, partition_id, node_name=None, ignore_constraint
         parameter is not specified, all constraints are honored. Default value is False.
     :paramtype ignore_constraints: bool
     """
-    return client.move_primary_replica(partition_id, node_name=node_name, ignore_constraints=ignore_constraints, timeout=timeout)
+    return client.move_primary_replica(partition_id, node_name=node_name,
+                                       ignore_constraints=ignore_constraints, timeout=timeout)
 
-def move_secondary_replica(client, partition_id, current_node_name, new_node_name=None, ignore_constraints=False, timeout=60):
+
+def move_secondary_replica(client, partition_id, current_node_name, new_node_name=None, # pylint: disable=too-many-arguments
+                           ignore_constraints=False, timeout=60):
     """Moves the secondary replica of a partition of a stateful service.
 
     This command moves the secondary replica of a partition of a stateful service, respecting all
@@ -264,10 +275,13 @@ def move_secondary_replica(client, partition_id, current_node_name, new_node_nam
         specifies the time duration that the client is willing to wait for the requested operation to
         complete. The default value for this parameter is 60 seconds. Default value is 60.
         """
-    return client.move_secondary_replica(partition_id, current_node_name=current_node_name, new_node_name=new_node_name,
-                                  ignore_constraints=ignore_constraints, timeout=timeout)
+    return client.move_secondary_replica(partition_id, current_node_name=current_node_name,
+                                         new_node_name=new_node_name,
+                                         ignore_constraints=ignore_constraints, timeout=timeout)
 
-def start_quorum_loss(client, service_id, partition_id, operation_id, quorum_loss_mode, quorum_loss_duration, timeout=60):
+
+def start_quorum_loss(client, service_id, partition_id, operation_id, quorum_loss_mode, quorum_loss_duration, # pylint: disable=too-many-arguments
+                      timeout=60):
     """Induces quorum loss for a given stateful service partition.
 
     This API is useful for a temporary quorum loss situation on your service.
@@ -296,7 +310,7 @@ def start_quorum_loss(client, service_id, partition_id, operation_id, quorum_los
         quorum loss.  This must be specified in seconds.
     :paramtype quorum_loss_duration: int
     """
-    client.start_quorum_loss(service_id, partition_id, operation_id=operation_id, 
+    client.start_quorum_loss(service_id, partition_id, operation_id=operation_id,
     quorum_loss_mode=quorum_loss_mode, quorum_loss_duration=quorum_loss_duration, timeout=timeout)
 
 def get_quorum_loss_progress(client, service_id, partition_id, operation_id, timeout=60):
@@ -320,7 +334,7 @@ def get_quorum_loss_progress(client, service_id, partition_id, operation_id, tim
     """
     return client.get_quorum_loss_progress(service_id, partition_id, operation_id=operation_id, timeout=timeout)
 
-def start_partition_restart(client, service_id, partition_id, operation_id, restart_partition_mode, timeout=60):
+def start_partition_restart(client, service_id, partition_id, operation_id, restart_partition_mode, timeout=60): # pylint: disable=too-many-arguments
     """This API will restart some or all replicas or instances of the specified partition.
 
     This API is useful for testing failover.
@@ -345,7 +359,7 @@ def start_partition_restart(client, service_id, partition_id, operation_id, rest
         "Invalid", "AllReplicasOrInstances", and "OnlyActiveSecondaries".
     :paramtype restart_partition_mode: str
     """
-    client.start_partition_restart(service_id, partition_id, operation_id=operation_id, 
+    client.start_partition_restart(service_id, partition_id, operation_id=operation_id,
                                    restart_partition_mode=restart_partition_mode, timeout=timeout)
 
 def get_partition_restart_progress(client, service_id, partition_id, operation_id, timeout=60):

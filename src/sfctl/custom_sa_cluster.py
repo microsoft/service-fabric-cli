@@ -4,6 +4,8 @@
 # license information.
 # -----------------------------------------------------------
 
+"""Custom commands for stand alone clusters"""
+
 def get_cluster_configuration(client, configuration_api_version, timeout=60):
     """Get the Service Fabric standalone cluster configuration.
 

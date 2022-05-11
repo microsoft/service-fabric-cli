@@ -64,5 +64,4 @@ def provision_application_type(client, #pylint: disable=too-many-locals,invalid-
             'ApplicationTypeBuildPath': application_type_build_path
         }
 
-    return client.provision_application_type(provision_description)
-
+    return client.provision_application_type(provision_description, timeout=timeout)

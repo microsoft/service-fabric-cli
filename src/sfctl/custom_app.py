@@ -4,6 +4,7 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 # -----------------------------------------------------------------------------
+#pylint: disable = too-many-lines
 
 """Custom application related commands"""
 
@@ -822,10 +823,12 @@ def get_deployed_application_info(client, application_id, node_name, include_hea
     :paramtype include_health_state: bool
     """
 
-    return client.get_deployed_application_info(node_name, application_id, include_health_state=include_health_state, timeout=timeout)
+    return client.get_deployed_application_info(node_name, application_id, include_health_state=include_health_state,
+                                                timeout=timeout)
 
 
-def get_deployed_application_info_list(client, node_name, include_health_state=False, continuation_token=None, max_results=0, timeout=60):
+def get_deployed_application_info_list(client, node_name, include_health_state=False, continuation_token=None, # pylint: disable=too-many-arguments
+                                       max_results=0, timeout=60):
     """Gets the list of applications deployed on a Service Fabric node.
 
     Gets the list of applications deployed on a Service Fabric node. The results do not include
@@ -859,11 +862,11 @@ def get_deployed_application_info_list(client, node_name, include_health_state=F
         or not specified, the paged query includes as many results as possible that fit in the return
         """
 
-    return client.get_deployed_application_info_list(node_name, include_health_state=include_health_state, continuation_token_parameter=continuation_token,
+    return client.get_deployed_application_info_list(node_name, include_health_state=include_health_state,
+                                                    continuation_token_parameter=continuation_token,
                                                     max_results=max_results, timeout=timeout)
 
-
-def get_deployed_application_health(client, application_id, node_name, deployed_service_packages_health_state_filter=0,
+def get_deployed_application_health(client, application_id, node_name, deployed_service_packages_health_state_filter=0, # pylint: disable=too-many-arguments
                                     events_health_state_filter=0, exclude_health_statistics=False, timeout=60):
     """Gets the information about health of an application deployed on a Service Fabric node.
 
@@ -930,9 +933,10 @@ def get_deployed_application_health(client, application_id, node_name, deployed_
          complete. The default value for this parameter is 60 seconds. Default value is 60.
         """
 
-    return client.get_deployed_application_health(node_name, application_id, events_health_state_filter=events_health_state_filter, 
-                                            deployed_service_packages_health_state_filter=deployed_service_packages_health_state_filter,
-                                            exclude_health_statistics=exclude_health_statistics, timeout=timeout)
+    return client.get_deployed_application_health(node_name, application_id,
+                                                  events_health_state_filter=events_health_state_filter,
+                                                  deployed_service_packages_health_state_filter=deployed_service_packages_health_state_filter, # pylint: disable=line-too-long
+                                                  exclude_health_statistics=exclude_health_statistics, timeout=timeout)
 
 def get_application_info(client, application_id, exclude_application_parameters=False, timeout=60):
     """Gets information about a Service Fabric application.
@@ -952,10 +956,11 @@ def get_application_info(client, application_id, exclude_application_parameters=
             will be excluded from the result. Default value is False.
         :paramtype exclude_application_parameters: bool
         """
-    return client.get_application_info(application_id, exclude_application_parameters=exclude_application_parameters, timeout=timeout)
+    return client.get_application_info(application_id, exclude_application_parameters=exclude_application_parameters, timeout=timeout) # pylint: disable=line-too-long
 
-def get_application_info_list(client, application_definition_kind_filter=0, application_type_name=None, exclude_application_parameters=False,
-                              continuation_token = None, max_results=0, timeout=60):
+def get_application_info_list(client, application_definition_kind_filter=0, application_type_name=None,  # pylint: disable=too-many-arguments
+                              exclude_application_parameters=False, continuation_token = None, max_results=0,
+                              timeout=60):
     """Gets the list of applications created in the Service Fabric cluster that match the specified
     filters.
 
@@ -1002,10 +1007,12 @@ def get_application_info_list(client, application_definition_kind_filter=0, appl
     return client.get_application_info_list(application_definition_kind_filter=application_definition_kind_filter,
                                             application_type_name=application_type_name,
                                             exclude_application_parameters=exclude_application_parameters,
-                                            continuation_token_parameter=continuation_token, max_results=max_results, timeout=timeout)
+                                            continuation_token_parameter=continuation_token, max_results=max_results,
+                                            timeout=timeout)
 
-def get_application_type_info_list_by_name(client, application_type_name, application_type_version=None, 
-                                            exclude_application_parameters=False, continuation_token=None, max_results=0, timeout=60):
+def get_application_type_info_list_by_name(client, application_type_name, application_type_version=None, # pylint: disable=too-many-arguments
+                                            exclude_application_parameters=False, continuation_token=None,
+                                            max_results=0, timeout=60):
     """Gets the list of application types in the Service Fabric cluster matching exactly the specified
         name.
 
@@ -1044,12 +1051,16 @@ def get_application_type_info_list_by_name(client, application_type_name, applic
          message. Default value is 0.
         :paramtype max_results: long
         """
-    return client.get_application_type_info_list_by_name(application_type_name, application_type_version=application_type_version,
-                                                  exclude_application_parameters=exclude_application_parameters, continuation_token_paramater=continuation_token,
-                                                  max_results=max_results, timeout=timeout)
+    return client.get_application_type_info_list_by_name(application_type_name,
+                                                        application_type_version=application_type_version,
+                                                        exclude_application_parameters=exclude_application_parameters,
+                                                        continuation_token_paramater=continuation_token,
+                                                        max_results=max_results, timeout=timeout)
 
-def get_application_type_info_list(client, application_type_definition_kind_filter=0, exclude_application_parameters=False,
-                                    continuation_token=None, max_results=0, timeout=60):
+
+def get_application_type_info_list(client, application_type_definition_kind_filter=0,  # pylint: disable=too-many-arguments
+                                   exclude_application_parameters=False,
+                                   continuation_token=None, max_results=0, timeout=60):
     """Gets the list of application types in the Service Fabric cluster.
 
     Returns the information about the application types that are provisioned or in the process of
@@ -1094,13 +1105,15 @@ def get_application_type_info_list(client, application_type_definition_kind_filt
         or not specified, the paged query includes as many results as possible that fit in the return
         message. Default value is 0.
         """
-    return client.get_application_type_info_list(application_type_definition_kind_filter=application_type_definition_kind_filter,
-                                          exclude_application_parameters=exclude_application_parameters, continuation_token_paramater=continuation_token,
-                                          max_results=max_results, timeout=timeout)
+    return client.get_application_type_info_list(application_type_definition_kind_filter=application_type_definition_kind_filter, # pylint: disable=line-too-long
+                                                 exclude_application_parameters=exclude_application_parameters,
+                                                 continuation_token_paramater=continuation_token,
+                                                 max_results=max_results, timeout=timeout)
 
 
-def get_application_health(client, application_id, events_health_state_filter=0,  services_health_state_filter=0,
-                            deployed_applications_health_state_filter=0, exclude_health_statistics=False, timeout=60):
+def get_application_health(client, application_id, events_health_state_filter=0,  services_health_state_filter=0, # pylint: disable=too-many-arguments
+                            deployed_applications_health_state_filter=0, exclude_health_statistics=False,
+                            timeout=60):
     """Gets the health of the service fabric application.
 
     Returns the heath state of the service fabric application. The response reports either Ok,
@@ -1183,8 +1196,10 @@ def get_application_health(client, application_id, events_health_state_filter=0,
         Default value is False.
     :paramtype exclude_health_statistics: bool
     """
-    return client.get_application_health(application_id, events_health_state_filter=events_health_state_filter, services_health_state_filter=services_health_state_filter,
-                                         deployed_applications_health_state_filter=deployed_applications_health_state_filter, exclude_health_statistics=exclude_health_statistics, timeout=timeout)
+    return client.get_application_health(application_id, events_health_state_filter=events_health_state_filter,
+                                         services_health_state_filter=services_health_state_filter,
+                                         deployed_applications_health_state_filter=deployed_applications_health_state_filter, # pylint: disable=line-too-long
+                                         exclude_health_statistics=exclude_health_statistics, timeout=timeout)
 
 def get_application_manifest(client, application_type_name, application_type_version, timeout=60):
     """Gets the manifest describing an application type.
@@ -1195,4 +1210,5 @@ def get_application_manifest(client, application_type_name, application_type_ver
     :param application_type_version: The version of the application type.
     :paramtype application_type_version: str
     """
-    return client.get_application_manifest(application_type_name, application_type_version=application_type_version, timeout=timeout)
+    return client.get_application_manifest(application_type_name, application_type_version=application_type_version,
+                                           timeout=timeout)

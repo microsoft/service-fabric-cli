@@ -62,7 +62,7 @@ def logs( # pylint: disable=too-many-arguments
     if tail:
         uri_path += '&tail={}'.format(tail)
 
-    request_body = { "UriPath": uri_path} 
+    request_body = { "UriPath": uri_path}
 
     response = client.invoke_container_api(
         node_name,

@@ -6,7 +6,7 @@
 
 """Custom Event store for Service Fabric CLI"""
 
-def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                            exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all CLuster-related events.
 
@@ -37,7 +37,7 @@ def get_cluster_event_list(client, start_time_utc, end_time_utc, events_types_fi
                                          skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                          exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Nodes-related events.
 
@@ -67,7 +67,7 @@ def get_nodes_event_list(client, start_time_utc, end_time_utc, events_types_filt
                                        skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_types_filter=None,
+def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                         exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Node-related events for a specific node.
 
@@ -99,7 +99,7 @@ def get_node_event_list(client, node_name, start_time_utc, end_time_utc, events_
                                       skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_applications_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+def get_applications_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                                 exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Applications-related events.
 
@@ -129,7 +129,7 @@ def get_applications_event_list(client, start_time_utc, end_time_utc, events_typ
                                               skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_application_event_list(client, application_id, start_time_utc, end_time_utc,
+def get_application_event_list(client, application_id, start_time_utc, end_time_utc, # pylint: disable=too-many-arguments
                                events_types_filter=None, exclude_analysis_events=None,
                                skip_correlation_lookup=None, timeout=60):
     """Gets all Applications-related events for a specific application.
@@ -166,7 +166,7 @@ def get_application_event_list(client, application_id, start_time_utc, end_time_
                                              skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_services_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+def get_services_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                             exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Service-related events.
 
@@ -196,7 +196,7 @@ def get_services_event_list(client, start_time_utc, end_time_utc, events_types_f
                                           skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_service_event_list(client, service_id, start_time_utc, end_time_utc, events_types_filter=None,
+def get_service_event_list(client, service_id, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                            exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Service-related events for a specific node.
 
@@ -232,7 +232,7 @@ def get_service_event_list(client, service_id, start_time_utc, end_time_utc, eve
                                          skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types_filter=None,
+def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                               exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition-related events.
 
@@ -262,7 +262,7 @@ def get_partitions_event_list(client, start_time_utc, end_time_utc, events_types
                                             skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None,
+def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                              exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition-related events for a specific partition.
 
@@ -294,7 +294,7 @@ def get_partition_event_list(client, partition_id, start_time_utc, end_time_utc,
                                            skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None,
+def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_time_utc, events_types_filter=None, # pylint: disable=too-many-arguments
                                       exclude_analysis_events=None, skip_correlation_lookup=None, timeout=60):
     """Gets all Partition Replica-related events for a specific replica.
 
@@ -326,7 +326,7 @@ def get_partition_replicas_event_list(client, partition_id, start_time_utc, end_
                                                     skip_correlation_lookup=skip_correlation_lookup, timeout=timeout)
 
 
-def get_partition_replica_event_list(client, partition_id, replica_id, start_time_utc, end_time_utc,
+def get_partition_replica_event_list(client, partition_id, replica_id, start_time_utc, end_time_utc, # pylint: disable=too-many-arguments
                                      events_types_filter=None, exclude_analysis_events=None,
                                      skip_correlation_lookup=None, timeout=60):
     """Gets all Partition Replica-related events.

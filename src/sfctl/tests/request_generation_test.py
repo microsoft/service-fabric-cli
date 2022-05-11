@@ -17,7 +17,7 @@ import vcr
 from mock import patch
 from knack.testsdk import ScenarioTest
 from azure.servicefabric import ServiceFabricClientAPIs
-from sfctl.apiclient import FakeAuthenticationPolicy, FakeCredentialProtocol
+from sfctl.auth import FakeAuthenticationPolicy, FakeCredentialProtocol
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)

@@ -69,7 +69,7 @@ def parse_app_health_policy(app_health_map):
     policy_list = []
     for app in app_health_map:
         allowed_unhealthy = app_health_map[app]
-        policy_item = {"Key":app, "Value":allowed_unhealthy} 
+        policy_item = {"Key": app, "Value": allowed_unhealthy}
         policy_list.append(policy_item)
 
     return { "ApplicationHealthPolicyMap":policy_list}
@@ -83,10 +83,10 @@ def create_rolling_update_desc( #pylint: disable=too-many-arguments
     return {
         "RollingUpgradeMode": rolling_upgrade_mode,
         "ForceRestart": force_restart,
-        "ReplicaSetCheckTimeoutInMilliseconds": replica_set_check_timeout, #pylint: disable=line-too-long
-        "FailureAction":failure_action,
+        "ReplicaSetCheckTimeoutInMilliseconds": replica_set_check_timeout,  # pylint: disable=line-too-long
+        "FailureAction": failure_action,
         "HealthCheckWaitDurationInMilliseconds": health_check_wait,
-        "HealthCheckStableDurationInMilliseconds":health_check_stable,
+        "HealthCheckStableDurationInMilliseconds": health_check_stable,
         "HealthCheckRetryTimeoutInMilliseconds": health_check_retry,
         "UpgradeDomainTimeoutInMilliseconds": upgrade_domain_timeout,
         "UpgradeTimeoutInMilliseconds": upgrade_timeout}
@@ -122,7 +122,7 @@ def upgrade( #pylint: disable=too-many-locals,missing-docstring,invalid-name,too
         "ClusterHealthPolicy": cluster_policy,
         "EnableDeltaHealthEvaluation": delta_health_evaluation,
         "ClusterUpgradeHealthPolicy": cluster_upgrade_policy,
-        "ApplicationHealthPolicyMap":app_health_policy}
+        "ApplicationHealthPolicyMap": app_health_policy}
 
     client.start_cluster_upgrade(upgrade_desc, timeout=timeout)
 
@@ -246,7 +246,7 @@ def get_provisioned_fabric_config_version_info_list(client, config_version=None,
     return client.get_provisioned_fabric_config_version_info_list(config_version=config_version, timeout=timeout)
 
 
-def get_cluster_health(client, nodes_health_state_filter=0, applications_health_state_filter=0,
+def get_cluster_health(client, nodes_health_state_filter=0, applications_health_state_filter=0, #pylint: disable=too-many-arguments
                        events_health_state_filter=0, exclude_health_statistics=False,
                        include_system_application_health_statistics=False, timeout=60):
     """Gets the health of a Service Fabric cluster.
@@ -337,9 +337,12 @@ def get_cluster_health(client, nodes_health_state_filter=0, applications_health_
         Default value is False.
     :paramtype include_system_application_health_statistics: bool
     """
-    return client.get_cluster_health(nodes_health_state_filter=nodes_health_state_filter, applications_health_state_filter=applications_health_state_filter,
-                              events_health_state_filter=events_health_state_filter, exclude_health_statistics=exclude_health_statistics,
-                              include_system_application_health_statistics=include_system_application_health_statistics, timeout=timeout)
+    return client.get_cluster_health(nodes_health_state_filter=nodes_health_state_filter,
+                                     applications_health_state_filter=applications_health_state_filter,
+                                     events_health_state_filter=events_health_state_filter,
+                                     exclude_health_statistics=exclude_health_statistics,
+                            include_system_application_health_statistics=include_system_application_health_statistics,
+                                     timeout=timeout)
 
 def cancel_operation(client, operation_id, force=False, timeout=60):
     """Cancels a user-induced fault operation.

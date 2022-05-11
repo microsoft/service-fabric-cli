@@ -632,8 +632,8 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
             "PackageSharingPolicy": list_psps}
     client.deployed_service_package_to_node(node_name, desc, timeout)
 
-def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None,
-                                        code_package_name=None, timeout=60): # pylint: disable=too-many-arguments
+def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None, # pylint: disable=too-many-arguments
+                                        code_package_name=None, timeout=60):
     """Gets the list of code packages deployed on a Service Fabric node.
 
     Gets the list of code packages deployed on a Service Fabric node for the given application.
@@ -680,8 +680,8 @@ def delete_service(client, service_id, force_remove=None, timeout=60):
     """
     client.delete_service(service_id, force_remove=force_remove, timeout=timeout)
 
-def get_deployed_service_type_info_by_name(client, node_name, application_id,
-                                           service_type_name, service_manifest_name=None, timeout=60): # pylint: disable=too-many-arguments
+def get_deployed_service_type_info_by_name(client, node_name, application_id, # pylint: disable=too-many-arguments
+                                           service_type_name, service_manifest_name=None, timeout=60):
     """Gets the information about a specified service type of the application deployed on a node in a
     Service Fabric cluster.
 
@@ -736,8 +736,8 @@ def get_deployed_service_type_info_list(client, node_name, application_id, servi
                                                       service_manifest_name=service_manifest_name, timeout=timeout)
 
 
-def get_container_logs_deployed_on_node(client, node_name, application_id, service_manifest_name, code_package_name,
-                                        tail=None, previous=False, timeout=60): # pylint: disable=too-many-arguments
+def get_container_logs_deployed_on_node(client, node_name, application_id, service_manifest_name, code_package_name, # pylint: disable=too-many-arguments
+                                        tail=None, previous=False, timeout=60):
     """Gets the container logs for container deployed on a Service Fabric node.
 
     Gets the container logs for container deployed on a Service Fabric node for the given code
@@ -770,8 +770,8 @@ def get_container_logs_deployed_on_node(client, node_name, application_id, servi
                                                      previous=previous, timeout=timeout)
 
 
-def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0,
-                        exclude_health_statistics=False, timeout=60): # pylint: disable=too-many-arguments
+def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0, # pylint: disable=too-many-arguments
+                        exclude_health_statistics=False, timeout=60):
     """Gets the health of the specified Service Fabric service.
 
     Gets the health information of the specified service.
@@ -883,8 +883,8 @@ def get_service_manifest(client, application_type_name, application_type_version
     return client.get_service_manifest(application_type_name, application_type_version=application_type_version,
                                        service_manifest_name=service_manifest_name, timeout=timeout)
 
-def get_deployed_service_package_health(client, node_name, application_id, service_package_name,
-                                        events_health_state_filter=0, timeout=60): # pylint: disable=too-many-arguments
+def get_deployed_service_package_health(client, node_name, application_id, service_package_name, # pylint: disable=too-many-arguments
+                                        events_health_state_filter=0, timeout=60):
     """Gets the information about health of a service package for a specific application deployed for
         a Service Fabric node and application.
 
@@ -927,8 +927,8 @@ def get_deployed_service_package_health(client, node_name, application_id, servi
     return client.get_deployed_service_package_health(node_name, application_id, service_package_name,
                                             events_health_state_filter=events_health_state_filter, timeout=timeout)
 
-def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None,
-                    previous_rsp_version=None, timeout=60):  # pylint: disable=too-many-arguments
+def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None, # pylint: disable=too-many-arguments
+                    previous_rsp_version=None, timeout=60):
     """Resolve a Service Fabric partition.
 
     Resolve a Service Fabric service partition to get the endpoints of the service replicas.

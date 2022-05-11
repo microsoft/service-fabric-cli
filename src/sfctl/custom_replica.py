@@ -4,6 +4,8 @@
 # license information.
 # -----------------------------------------------------------
 
+"""Custom commands for the Service Fabric Replica operations"""
+
 def get_replica_info_list(client, partition_id, continuation_token=None, timeout=60):
     """Gets the information about replicas of a Service Fabric service partition.
 
@@ -23,7 +25,8 @@ def get_replica_info_list(client, partition_id, continuation_token=None, timeout
     """
     return client.get_replica_info_list(partition_id, continuation_token_parameter=continuation_token, timeout=timeout)
 
-def get_deployed_service_replica_info_list(client, node_name, application_id, partition_id=None, service_manifest_name=None, timeout=60):
+def get_deployed_service_replica_info_list(client, node_name, application_id, partition_id=None, # pylint: disable=too-many-arguments
+                                           service_manifest_name=None, timeout=60):
     """Gets the list of replicas deployed on a Service Fabric node.
     Gets the list containing the information about replicas deployed on a Service Fabric node. The
     information include partition ID, replica ID, status of the replica, name of the service, name
@@ -85,9 +88,10 @@ def get_replica_health(client, partition_id, replica_id, events_health_state_fil
         value is 0.
     :paramtype events_health_state_filter: int
     """
-    return client.get_replica_health(partition_id, replica_id, events_health_state_filter=events_health_state_filter, timeout=timeout)
+    return client.get_replica_health(partition_id, replica_id, events_health_state_filter=events_health_state_filter,
+                                     timeout=timeout)
 
-def remove_replica(client, node_name, partition_id, replica_id, force_remove=None, timeout=60):
+def remove_replica(client, node_name, partition_id, replica_id, force_remove=None, timeout=60): # pylint: disable=too-many-arguments
     """Removes a service replica running on a node.
 
     This API simulates a Service Fabric replica failure by removing a replica from a Service Fabric

@@ -60,4 +60,5 @@ def get_property_info_list(client, name_id, include_values=False, continuation_t
                 URL encoded. Default value is None.
         :paramtype continuation_token: str
         """
-    return client.get_property_info_list(name_id, include_values=include_values, continuation_token_parameter=continuation_token, timeout=timeout)
+    return client.get_property_info_list(name_id, include_values=include_values, timeout=timeout,
+                                         continuation_token_parameter=continuation_token)
