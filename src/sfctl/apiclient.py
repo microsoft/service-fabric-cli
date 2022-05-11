@@ -8,8 +8,7 @@
 
 from knack.util import CLIError
 from azure.servicefabric import ServiceFabricClientAPIs
-
-from sfctl.auth import (ClientCertAuthentication, AdalAuthentication)
+from sfctl.auth import FakeAuthenticationPolicy, FakeCredentialProtocol, get_aad_header
 from sfctl.config import (security_type, ca_cert_info, cert_info,
                           client_endpoint, no_verify_setting)
 
@@ -17,7 +16,6 @@ def create(_):
     """Create a client for Service Fabric APIs."""
 
     endpoint = client_endpoint()
-
     if not endpoint:
         raise CLIError('Connection endpoint not found. '
                        'Before running sfctl commands, connect to a cluster using '
@@ -27,22 +25,17 @@ def create(_):
 
     no_verify = no_verify_setting()
 
+    headers = {}
+
     if security_type() == 'aad':
-        auth = AdalAuthentication(no_verify)
+        headers['Authorization'] = get_aad_header()
     else:
-        cert = cert_info()
         ca_cert = ca_cert_info()
-        auth = ClientCertAuthentication(cert, ca_cert, no_verify)
+        if ca_cert is not None:
+            no_verify = ca_cert
 
-    client = ServiceFabricClientAPIs(auth, base_url=endpoint)
-
-    # client.config.retry_policy has type msrest.pipeline.ClientRetryPolicy
-    client.config.retry_policy.total = False
-    client.config.retry_policy.policy.total = False
-
-    # msrest defines ClientRetryPolicy in pipline.py.
-    # ClientRetryPolicy.__init__ defines values for status_forcelist
-    # which is passed to urllib3.util.retry.Retry
-    client.config.retry_policy.policy.status_forcelist = None
+    client = ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
+                                     connection_verify=no_verify, enforce_https=False,
+                                     connection_cert=cert_info(), authentication_policy=FakeAuthenticationPolicy())
 
     return client

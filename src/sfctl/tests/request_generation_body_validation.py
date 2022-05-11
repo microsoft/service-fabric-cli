@@ -39,9 +39,10 @@ def validate_dictionary_value(command, dict_key, actual_body, expected_body):
         This function expects that actual_body and expected_body are
         dictionaries. The command parameter is a string that identifies
         which command this is validating. """
+    actual_value = actual_body[dict_key]
+    expected_value = expected_body[dict_key]
 
-    return _check_and_print_matching_error(command, dict_key,
-                                           actual_body[dict_key], expected_body[dict_key])
+    return _check_and_print_matching_error(command, dict_key, actual_value, expected_value)
 
 def validate_list_of_objects(command, actual_body, expected_body):
     """ Validate that two dictionaries, actual_body and expected_body,
@@ -81,8 +82,7 @@ def validate_flat_dictionary(command, actual_body, expected_body):
         return False
 
     for key in expected_body:
-        if not validate_dictionary_value(command, key,
-                                         actual_body, expected_body):
+        if not validate_dictionary_value(command, key, actual_body, expected_body):
             return False
     return True
 

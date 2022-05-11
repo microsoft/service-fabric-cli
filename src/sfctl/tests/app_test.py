@@ -78,14 +78,13 @@ class AppTests(unittest.TestCase):
 
     def test_parse_single_app_param(self):
         """Parse app params returns a single parameter successfully"""
-        from azure.servicefabric.models import ApplicationParameter
 
         res = sf_c.parse_app_params({'test': 'test2'})
         self.assertEqual(len(res), 1)
         res = res[0]
-        self.assertIsInstance(res, ApplicationParameter)
-        self.assertEqual(res.key, 'test')
-        self.assertEqual(res.value, 'test2')
+
+        self.assertEqual(res['Key'], 'test')
+        self.assertEqual(res['Value'], 'test2')
 
     def test_parse_app_metrics_none(self):
         """Parse app metrics returns None with None args"""
@@ -97,7 +96,6 @@ class AppTests(unittest.TestCase):
 
     def test_parse_app_metrics_single(self):
         """Parse app metrics returns a single metric successfully"""
-        from azure.servicefabric.models import ApplicationMetricDescription
 
         res = sf_c.parse_app_metrics([{'name': 'test',
                                        'maximum_capacity': '3',
@@ -106,11 +104,11 @@ class AppTests(unittest.TestCase):
 
         self.assertEqual(len(res), 1)
         res = res[0]
-        self.assertIsInstance(res, ApplicationMetricDescription)
-        self.assertEqual(res.name, 'test')
-        self.assertEqual(res.maximum_capacity, '3')
-        self.assertEqual(res.reservation_capacity, '2')
-        self.assertEqual(res.total_application_capacity, '2')
+
+        self.assertEqual(res['Name'], 'test')
+        self.assertEqual(res['MaximumCapacity'], '3')
+        self.assertEqual(res['ReservationCapacity'], '2')
+        self.assertEqual(res['TotalApplicationCapacity'], '2')
 
     def test_parse_fileshare_path(self):
         """Parse fileshare path from the image store connection string"""
@@ -241,6 +239,6 @@ class AppTests(unittest.TestCase):
                 # however, the mock server can be a bit slow, taking an extra second from receiving
                 # the request to start processing it. Linux does not seem to have this problem.
                 # Issue seen on Windows only. If testing on windows, change the 3 seconds to 4.
-                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=2)
+                self.assertAlmostEqual(int(query_timeout[0]), timeout-iteration*3, delta=4)
 
                 iteration += 1

@@ -14,10 +14,10 @@ import json
 import logging
 from shutil import rmtree
 import vcr
-from msrest.authentication import Authentication
 from mock import patch
 from knack.testsdk import ScenarioTest
 from azure.servicefabric import ServiceFabricClientAPIs
+from sfctl.auth import FakeAuthenticationPolicy, FakeCredentialProtocol
 from sfctl.entry import cli
 from sfctl.tests.helpers import (MOCK_CONFIG, get_mock_endpoint, set_mock_endpoint)
 from sfctl.tests.mock_server import (find_localhost_free_port, start_mock_server)
@@ -302,8 +302,9 @@ class ServiceFabricRequestTests(ScenarioTest):
             '/$/GetClusterVersion',
             ['api-version=6.4'],
             command_as_func=True,
-            command_args=ServiceFabricClientAPIs(credentials=Authentication(),
-                                                 base_url=get_mock_endpoint()))
+            command_args=ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=get_mock_endpoint(),
+                                                 connection_verify=False, retry_total=0,
+                                                 enforce_https=False, authentication_policy=FakeAuthenticationPolicy()))
         self.validate_command(   # config-versions
             'sfctl cluster config-versions --config-version=version',
             'GET',

@@ -90,14 +90,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
         # List of strings
         # Only one service_fabric_client_ap_is.py should exist but can appear differently depending on if its custom sdk
         # or if its the official release.
-        sdk_files_path = [join(sdk_path, '_service_fabric_client_ap_is.py'),
-                          join(sdk_path, 'service_fabric_client_ap_is.py')]
-
-        # Add all the models files
-        models_path = join(sdk_path, 'models')
-        for file_name in listdir(models_path):
-            if file_name.endswith('.py'):
-                sdk_files_path.append(join(models_path, file_name))
+        sdk_files_path = [join(sdk_path, 'operations', '_operations.py')]
 
         for python_file_path in sdk_files_path:
             try:
@@ -230,7 +223,7 @@ class CustomHelpTextCorrectnessTests(unittest.TestCase):
             print()
             print(line)
 
-        allowable_lines_not_found = [148, 89]
+        allowable_lines_not_found = [120, 89]
 
         print()
         print('The total number of lines compared is ' + str(len(custom_help_lines)))

@@ -8,7 +8,6 @@
 
 from __future__ import print_function
 import json
-from azure.servicefabric.models import ContainerApiRequestBody
 
 def invoke_api( # pylint: disable=too-many-arguments
         client,
@@ -24,20 +23,27 @@ def invoke_api( # pylint: disable=too-many-arguments
         timeout=60):
     """Invoke container API on a cluster node"""
 
-    request_body = ContainerApiRequestBody(
-        uri_path=container_api_uri_path,
-        http_verb=container_api_http_verb,
-        content_type=container_api_content_type,
-        body=container_api_body)
+    request_body = {
+        "UriPath": container_api_uri_path
+        }
+
+    if container_api_http_verb:
+        request_body["HttpVerb"] = container_api_http_verb
+
+    if container_api_body:
+        request_body["Body"] = container_api_body
+
+    if container_api_content_type:
+        request_body["ContentType"] = container_api_content_type
 
     response = client.invoke_container_api(
         node_name,
         application_id,
-        service_manifest_name,
-        code_package_name,
-        code_package_instance_id,
         request_body,
-        timeout)
+        service_manifest_name=service_manifest_name,
+        code_package_name=code_package_name,
+        code_package_instance_id=code_package_instance_id,
+        timeout=timeout)
 
     print(format_response(response))
 
@@ -56,16 +62,16 @@ def logs( # pylint: disable=too-many-arguments
     if tail:
         uri_path += '&tail={}'.format(tail)
 
-    request_body = ContainerApiRequestBody(uri_path=uri_path)
+    request_body = { "UriPath": uri_path}
 
     response = client.invoke_container_api(
         node_name,
         application_id,
-        service_manifest_name,
-        code_package_name,
-        code_package_instance_id,
         request_body,
-        timeout)
+        service_manifest_name=service_manifest_name,
+        code_package_name=code_package_name,
+        code_package_instance_id=code_package_instance_id,
+        timeout=timeout)
 
     if response:
         if response.container_api_result.status == 200:

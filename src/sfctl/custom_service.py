@@ -11,7 +11,6 @@ from knack.util import CLIError
 
 def correlation_desc(correlated_service, correlation):
     """Get a service correlation description"""
-    from azure.servicefabric.models import ServiceCorrelationDescription
 
     if not any([correlated_service, correlation]):
         return None
@@ -21,13 +20,11 @@ def correlation_desc(correlated_service, correlation):
         raise CLIError('Must specify both a correlation service and '
                        'correlation scheme')
 
-    return ServiceCorrelationDescription(scheme=correlation, service_name=correlated_service)
+    return {"Scheme": correlation, "ServiceName": correlated_service}
 
 
 def parse_load_metrics(formatted_metrics):
     """Parse a service load metric description from a string"""
-    from azure.servicefabric.models import ServiceLoadMetricDescription
-
     s_load_list = None
     if formatted_metrics:
         s_load_list = []
@@ -39,11 +36,11 @@ def parse_load_metrics(formatted_metrics):
             l_primary = item.get('primary_default_load', None)
             l_secondary = item.get('secondary_default_load', None)
             l_default = item.get('default_load', None)
-            l_desc = ServiceLoadMetricDescription(name=l_name,
-                                                  weight=l_weight,
-                                                  primary_default_load=l_primary,
-                                                  secondary_default_load=l_secondary,
-                                                  default_load=l_default)
+            l_desc = {"Name": l_name,
+                      "Weight": l_weight,
+                      "PrimaryDefaultLoad": l_primary,
+                      "SecondaryDefaultLoad": l_secondary,
+                      "DefaultLoad": l_default}
             s_load_list.append(l_desc)
 
     return s_load_list
@@ -52,10 +49,6 @@ def parse_load_metrics(formatted_metrics):
 def parse_placement_policies(formatted_placement_policies):
     """"Parse a placement policy description from a formatted policy"""
 
-    from azure.servicefabric.models import (ServicePlacementNonPartiallyPlaceServicePolicyDescription, # pylint: disable=line-too-long
-                                            ServicePlacementPreferPrimaryDomainPolicyDescription,
-                                            ServicePlacementRequiredDomainPolicyDescription,
-                                            ServicePlacementRequireDomainDistributionPolicyDescription) # pylint: disable=line-too-long
 
     if formatted_placement_policies:
         policy_list = []
@@ -77,23 +70,13 @@ def parse_placement_policies(formatted_placement_policies):
                     'Placement policy type requires target domain name'
                 )
             if p_type == 'NonPartiallyPlaceService':
-                policy_list.append(
-                    ServicePlacementNonPartiallyPlaceServicePolicyDescription()
-                )
+                policy_list.append({})
             elif p_type == 'PreferPrimaryDomain':
-                policy_list.append(
-                    ServicePlacementPreferPrimaryDomainPolicyDescription(domain_name=p_domain_name)
-                )
+                policy_list.append({"DomainName": p_domain_name})
             elif p_type == 'RequireDomain':
-                policy_list.append(
-                    ServicePlacementRequiredDomainPolicyDescription(domain_name=p_domain_name)
-                )
+                policy_list.append({"DomainName": p_domain_name})
             elif p_type == 'RequireDomainDistribution':
-                policy_list.append(
-                    ServicePlacementRequireDomainDistributionPolicyDescription(
-                        domain_name=p_domain_name
-                    )
-                )
+                policy_list.append({"DomainName": p_domain_name})
         return policy_list
     return None
 
@@ -192,9 +175,6 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,  # pylin
                            int_scheme_low, int_scheme_high, int_scheme_count,
                            singleton_scheme):
     """Create a partition scheme"""
-    from azure.servicefabric.models import (NamedPartitionSchemeDescription,
-                                            SingletonPartitionSchemeDescription,
-                                            UniformInt64RangePartitionSchemeDescription)
 
     if named_scheme and not named_scheme_list:
         raise CLIError('When specifying named partition scheme, must include '
@@ -209,14 +189,14 @@ def parse_partition_policy(named_scheme, named_scheme_list, int_scheme,  # pylin
                        '--named-scheme, or --int-scheme')
 
     if named_scheme:
-        return NamedPartitionSchemeDescription(count=len(named_scheme_list),
-                                               names=named_scheme_list)
+        return {"Count": len(named_scheme_list),
+                "Names": named_scheme_list}
     if int_scheme:
-        return UniformInt64RangePartitionSchemeDescription(count=int_scheme_count,
-                                                           low_key=int_scheme_low,
-                                                           high_key=int_scheme_high)
+        return {"Count": int_scheme_count,
+                "LowKey": int_scheme_low,
+                "HighKey": int_scheme_high}
     if singleton_scheme:
-        return SingletonPartitionSchemeDescription()
+        return {}
 
     return None
 
@@ -229,8 +209,6 @@ def validate_activation_mode(activation_mode):
 
 def parse_scaling_mechanism(scaling_mechanism):
     """"Parse a scaling mechanism description"""
-    from azure.servicefabric.models import (AddRemoveIncrementalNamedPartitionScalingMechanism,
-                                            PartitionInstanceCountScaleMechanism)
 
     if scaling_mechanism:
         p_kind = scaling_mechanism.get('kind')
@@ -242,28 +220,25 @@ def parse_scaling_mechanism(scaling_mechanism):
             p_min_count = scaling_mechanism.get('min_instance_count', None)
             p_max_count = scaling_mechanism.get('max_instance_count', None)
             p_scale_increment = scaling_mechanism.get('scale_increment', None)
-            return PartitionInstanceCountScaleMechanism(
-                min_instance_count=p_min_count,
-                max_instance_count=p_max_count,
-                scale_increment=p_scale_increment
-            )
+            return {
+                "MinInstanceCount": p_min_count,
+                "MaxInstanceCount": p_max_count,
+                "ScaleIncrement": p_scale_increment
+            }
         if p_kind == 'AddRemoveIncrementalNamedPartition':
-            p_min_count = scaling_mechanism.get('min_partition_count', None)
-            p_max_count = scaling_mechanism.get('max_partition_count', None)
+            p_min_count = scaling_mechanism.get('min_instance_count', None)
+            p_max_count = scaling_mechanism.get('max_instance_count', None)
             p_scale_increment = scaling_mechanism.get('scale_increment', None)
-            return AddRemoveIncrementalNamedPartitionScalingMechanism(
-                min_partition_count=p_min_count,
-                max_partition_count=p_max_count,
-                scale_increment=p_scale_increment
-            )
-
+            return {
+                "MinPartitionCount": p_min_count,
+                "MaxPartitionCount": p_max_count,
+                "ScaleIncrement": p_scale_increment
+            }
     return None
 
 
 def parse_scaling_trigger(scaling_trigger):
     """"Parse a scaling trigger description"""
-    from azure.servicefabric.models import (AveragePartitionLoadScalingTrigger,
-                                            AverageServiceLoadScalingTrigger)
 
     if scaling_trigger:
         p_kind = scaling_trigger.get('kind')
@@ -271,39 +246,32 @@ def parse_scaling_trigger(scaling_trigger):
             raise CLIError('Invalid scaling trigger specified')
         if p_kind not in ['AveragePartitionLoad', 'AverageServiceLoad']:
             raise CLIError('Invalid scaling trigger specified')
+
+        p_metricname = scaling_trigger.get('metric_name', None)
+        p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
+        p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
+        p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
+
+        triggers = {
+            "MetricName": p_metricname,
+            "LowerLoadThreshold": p_lower_load_threshold,
+            "UpperLoadThreshold": p_upper_load_threshold,
+            "ScaleIntervalInSeconds": p_scale_interval
+        }
+
         if p_kind == 'AveragePartitionLoad':
-            p_metricname = scaling_trigger.get('metric_name', None)
-            p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
-            p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
-            p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
-            return AveragePartitionLoadScalingTrigger(
-                metric_name=p_metricname,
-                lower_load_threshold=p_lower_load_threshold,
-                upper_load_threshold=p_upper_load_threshold,
-                scale_interval_in_seconds=p_scale_interval
-            )
+            return triggers
 
         if p_kind == 'AverageServiceLoad':
-            p_metricname = scaling_trigger.get('metric_name', None)
-            p_upper_load_threshold = scaling_trigger.get('upper_load_threshold', None)
-            p_lower_load_threshold = scaling_trigger.get('lower_load_threshold', None)
-            p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
-            p_scale_interval = scaling_trigger.get('scale_interval_in_seconds', None)
-            p_use_only_primary_load  = scaling_trigger.get('use_only_primary_load', False)
-            return AverageServiceLoadScalingTrigger(
-                metric_name=p_metricname,
-                lower_load_threshold=p_lower_load_threshold,
-                upper_load_threshold=p_upper_load_threshold,
-                scale_interval_in_seconds=p_scale_interval,
-                use_only_primary_load=p_use_only_primary_load
-            )
+            p_use_only_primary_load = scaling_trigger.get('use_only_primary_load', False)
+            triggers['UseOnlyPrimaryLoad'] = p_use_only_primary_load
+            return triggers
 
     return None
 
 
 def parse_scaling_policy(formatted_scaling_policy):
     """"Parse a scaling policy description from a formatted policy"""
-    from azure.servicefabric.models import ScalingPolicyDescription
     scaling_list = None
     if formatted_scaling_policy:
         scaling_list = []
@@ -316,18 +284,17 @@ def parse_scaling_policy(formatted_scaling_policy):
             if scaling_mechanism_string is None:
                 raise CLIError('No scaling mechanism specified')
             scaling_mechanism = parse_scaling_mechanism(scaling_mechanism_string)
-            scaling_policy = ScalingPolicyDescription(scaling_trigger=scaling_trigger,
-                                                      scaling_mechanism=scaling_mechanism)
+            scaling_policy = {"ScalingTrigger": scaling_trigger,
+                              "ScalingMechanism": scaling_mechanism}
             scaling_list.append(scaling_policy)
 
     return scaling_list
 
 def parse_service_tags(service_tags):
     """Parse service tags from string"""
-    from azure.servicefabric.models import NodeTagsDescription
     if service_tags:
-        return NodeTagsDescription(count=len(service_tags),
-                                    tags=service_tags)
+        return {"Count": len(service_tags),
+                "Tags": service_tags}
     return None
 
 
@@ -421,7 +388,6 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     InBuild before reporting that build is stuck. This
     applies to stateful services only.
     """
-    from azure.servicefabric.models import StatelessServiceDescription, StatefulServiceDescription
 
     validate_service_create_params(stateful, stateless, singleton_scheme,
                                    int_scheme, named_scheme, instance_count,
@@ -440,53 +406,39 @@ def create(  # pylint: disable=too-many-arguments, too-many-locals
     tags_required_to_place_description = parse_service_tags(tags_required_to_place)
     tags_required_to_run_description = parse_service_tags(tags_required_to_run)
 
+    svc_desc = {
+                "ServiceName": name,
+                "ServiceTypeName": service_type,
+                "PartitionDescription": partition_desc,
+                "ApplicationName": "fabric:/" + app_id,
+                "InitializationData": None,
+                "PlacementConstraints": constraints,
+                "CorrelationScheme": cor_desc,
+                "ServiceLoadMetrics": load_list,
+                "ServicePlacementPolicies": place_policy,
+                "DefaultMoveCost": move_cost,
+                "IsDefaultMoveCostSpecified": bool(move_cost),
+                "ServicePackageActivationMode": activation_mode,
+                "ServiceDnsName": dns_name,
+                "ScalingPolicies": scaling_policy_description,
+                "TagsRequiredToPlace": tags_required_to_place_description,
+                "TagsRequiredToRun": tags_required_to_run_description}
+
     if stateless:
-        svc_desc = StatelessServiceDescription(service_name=name,
-                                               service_type_name=service_type,
-                                               partition_description=partition_desc,
-                                               instance_count=instance_count,
-                                               application_name="fabric:/" + app_id,
-                                               initialization_data=None,
-                                               placement_constraints=constraints,
-                                               correlation_scheme=cor_desc,
-                                               service_load_metrics=load_list,
-                                               service_placement_policies=place_policy,
-                                               default_move_cost=move_cost,
-                                               is_default_move_cost_specified=bool(move_cost),
-                                               service_package_activation_mode=activation_mode,
-                                               service_dns_name=dns_name,
-                                               scaling_policies=scaling_policy_description,
-                                               tags_required_to_place=tags_required_to_place_description,
-                                               tags_required_to_run=tags_required_to_run_description)
+        svc_desc["InstanceCount"] = instance_count
 
     if stateful:
         flags = stateful_flags(replica_restart_wait, quorum_loss_wait,
                                stand_by_replica_keep, service_placement_time)
-        svc_desc = StatefulServiceDescription(
-            service_name=name,
-            service_type_name=service_type,
-            partition_description=partition_desc,
-            target_replica_set_size=target_replica_set_size,
-            min_replica_set_size=min_replica_set_size,
-            has_persisted_state=not no_persisted_state,
-            application_name="fabric:/" + app_id,
-            initialization_data=None,
-            placement_constraints=constraints,
-            correlation_scheme=cor_desc,
-            service_load_metrics=load_list,
-            service_placement_policies=place_policy,
-            default_move_cost=move_cost,
-            is_default_move_cost_specified=bool(move_cost),
-            service_package_activation_mode=activation_mode,
-            service_dns_name=dns_name,
-            scaling_policies=scaling_policy_description,
-            flags=flags,
-            replica_restart_wait_duration_seconds=replica_restart_wait,
-            quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
-            service_placement_time_limit_seconds=service_placement_time,
-            tags_required_to_place=tags_required_to_place_description,
-            tags_required_to_run=tags_required_to_run_description)
+        svc_desc["TargetReplicaSetSize"] = target_replica_set_size
+        svc_desc["MinReplicaSetSize"] = min_replica_set_size
+        svc_desc["HasPersistedState"] = not no_persisted_state
+        svc_desc["Flags"] = flags
+        svc_desc["ReplicaRestartWaitDurationSeconds"] = replica_restart_wait
+        svc_desc["QuorumLossWaitDurationSeconds"] = quorum_loss_wait
+        svc_desc["StandByReplicaKeepDurationSeconds"] = stand_by_replica_keep
+        svc_desc["ServicePlacementTimeLimitSeconds"] = service_placement_time
+
 
     client.create_service(app_id, svc_desc, timeout)
 
@@ -585,8 +537,6 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
     InBuild before reporting that build is stuck. This
     applies to stateful services only.
     """
-    from azure.servicefabric.models import (StatefulServiceUpdateDescription,
-                                            StatelessServiceUpdateDescription)
 
     validate_update_service_params(stateless, stateful,
                                    target_replica_set_size,
@@ -609,36 +559,28 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
                                  metric_desc, move_cost, scaling_policy_description,
                                  service_placement_time)
 
-    update_desc = None
+    update_desc = {"Flags": flags,
+                    "PlacementConstraints": constraints,
+                    "CorrelationScheme": cor_desc,
+                    "LoadMetrics": metric_desc,
+                    "ServicePlacementPolicies": place_desc,
+                    "DefaultMoveCost": move_cost,
+                    "ScalingPolicies": scaling_policy_description,
+                    "InstanceCount": instance_count,
+                    "TagsRequiredToPlace": tags_required_to_place_description,
+                    "TagsRequiredToRun": tags_required_to_run_description}
+
     if stateful:
-        update_desc = StatefulServiceUpdateDescription(
-            flags=flags,
-            placement_constraints=constraints,
-            correlation_scheme=cor_desc,
-            load_metrics=metric_desc,
-            service_placement_policies=place_desc,
-            default_move_cost=move_cost,
-            scaling_policies=scaling_policy_description,
-            target_replica_set_size=target_replica_set_size,
-            min_replica_set_size=min_replica_set_size,
-            replica_restart_wait_duration_seconds=replica_restart_wait,
-            quorum_loss_wait_duration_seconds=quorum_loss_wait,
-            stand_by_replica_keep_duration_seconds=stand_by_replica_keep,
-            service_placement_time_limit_seconds=service_placement_time,
-            tags_required_to_place=tags_required_to_place_description,
-            tags_required_to_run=tags_required_to_run_description)
+        update_desc["TargetReplicaSetSize"] = target_replica_set_size
+        update_desc["MinReplicaSetSize"] = min_replica_set_size
+        update_desc["ReplicaRestartWaitDurationSeconds"] = replica_restart_wait
+        update_desc["QuorumLossWaitDurationSeconds"] = quorum_loss_wait
+        update_desc["StandByReplicaKeepDurationSeconds"] = stand_by_replica_keep
+        update_desc["ServicePlacementTimeLimitSeconds"] = service_placement_time
 
     if stateless:
-        update_desc = StatelessServiceUpdateDescription(flags=flags,
-                                                        placement_constraints=constraints,
-                                                        correlation_scheme=cor_desc,
-                                                        load_metrics=metric_desc,
-                                                        service_placement_policies=place_desc,
-                                                        default_move_cost=move_cost,
-                                                        scaling_policies=scaling_policy_description,
-                                                        instance_count=instance_count,
-                                                        tags_required_to_place=tags_required_to_place_description,
-                                                        tags_required_to_run=tags_required_to_run_description)
+        update_desc["InstanceCount"] = instance_count
+
 
     client.update_service(service_id, update_desc, timeout)
 
@@ -646,7 +588,6 @@ def update(client, service_id, stateless=False, stateful=False,  # pylint: disab
 def parse_package_sharing_policies(formatted_policies):
     """Parse package sharing policy description from a JSON encoded set of
     policies"""
-    from azure.servicefabric.models import PackageSharingPolicyInfo
     if not formatted_policies:
         return None
 
@@ -658,8 +599,8 @@ def parse_package_sharing_policies(formatted_policies):
         policy_scope = policy.get("scope", None)
         if policy_scope not in [None, 'All', 'Code', 'Config', 'Data']:
             raise CLIError('Invalid policy scope specified')
-        list_psps.append(PackageSharingPolicyInfo(shared_package_name=policy_name,
-                                                  package_sharing_scope=policy_scope))
+        list_psps.append({"SharedPackageName": policy_name,
+                          "PackageSharingScope": policy_scope})
     return list_psps
 
 
@@ -681,13 +622,366 @@ def package_upload(client, node_name, service_manifest_name, app_type_name,  # p
     is to be shared. The scope can be either 'None', 'All', 'Code', 'Config' or
     'Data'.
     """
-    from azure.servicefabric.models import DeployServicePackageToNodeDescription
 
     list_psps = parse_package_sharing_policies(share_policy)
 
-    desc = DeployServicePackageToNodeDescription(service_manifest_name=service_manifest_name,
-                                                 application_type_name=app_type_name,
-                                                 application_type_version=app_type_version,
-                                                 node_name=node_name,
-                                                 package_sharing_policy=list_psps)
+    desc = {"ServiceManifestName": service_manifest_name,
+            "ApplicationTypeName": app_type_name,
+            "ApplicationTypeVersion": app_type_version,
+            "NodeName": node_name,
+            "PackageSharingPolicy": list_psps}
     client.deployed_service_package_to_node(node_name, desc, timeout)
+
+def get_deployed_code_package_info_list(client, node_name, application_id, service_manifest_name=None, # pylint: disable=too-many-arguments
+                                        code_package_name=None, timeout=60):
+    """Gets the list of code packages deployed on a Service Fabric node.
+
+    Gets the list of code packages deployed on a Service Fabric node for the given application.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster. Default value is None.
+    :paramtype service_manifest_name: str
+    :param code_package_name: The name of code package specified in service manifest registered
+        as part of an application type in a Service Fabric cluster. Default value is None.
+        """
+
+    return client.get_deployed_code_package_info_list(node_name, application_id,
+                                                      service_manifest_name=service_manifest_name,
+                                                      code_package_name=code_package_name, timeout=timeout)
+
+def delete_service(client, service_id, force_remove=None, timeout=60):
+    """Deletes an existing Service Fabric service.
+
+    A service must be created before it can be deleted. By default, Service Fabric will try to
+    close service replicas in a graceful manner and then delete the service. However, if the
+    service is having issues closing the replica gracefully, the delete operation may take a long
+    time or get stuck. Use the optional ForceRemove flag to skip the graceful close sequence and
+    forcefully delete the service.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param force_remove: Remove a Service Fabric application or service forcefully without going
+        through the graceful shutdown sequence. This parameter can be used to forcefully delete an
+        application or service for which delete is timing out due to issues in the service code that
+        prevents graceful close of replicas. Default value is None.
+    :paramtype force_remove: bool
+    """
+    client.delete_service(service_id, force_remove=force_remove, timeout=timeout)
+
+def get_deployed_service_type_info_by_name(client, node_name, application_id, # pylint: disable=too-many-arguments
+                                           service_type_name, service_manifest_name=None, timeout=60):
+    """Gets the information about a specified service type of the application deployed on a node in a
+    Service Fabric cluster.
+
+    Gets the list containing the information about a specific service type from the applications
+    deployed on a node in a Service Fabric cluster. The response includes the name of the service
+    type, its registration status, the code package that registered it and activation ID of the
+    service package. Each entry represents one activation of a service type, differentiated by the
+    activation ID.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_type_name: Specifies the name of a Service Fabric service type.
+    :type service_type_name: str
+    :param service_manifest_name: The name of the service manifest to filter the list of deployed
+        service type information. If specified, the response will only contain the information about
+        service types that are defined in this service manifest. Default value is None.
+    :paramtype service_manifest_name: str
+    """
+    return client.get_deployed_service_type_info_by_name(node_name, application_id, service_type_name,
+                                                         service_manifest_name=service_manifest_name, timeout=timeout)
+
+def get_deployed_service_type_info_list(client, node_name, application_id, service_manifest_name=None, timeout=60):
+    """Gets the list containing the information about service types from the applications deployed on
+    a node in a Service Fabric cluster.
+
+    Gets the list containing the information about service types from the applications deployed on
+    a node in a Service Fabric cluster. The response includes the name of the service type, its
+    registration status, the code package that registered it and activation ID of the service
+    package.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of the service manifest to filter the list of deployed
+        service type information. If specified, the response will only contain the information about
+        service types that are defined in this service manifest. Default value is None.
+    :paramtype service_manifest_name: str
+    """
+
+    return client.get_deployed_service_type_info_list(node_name, application_id,
+                                                      service_manifest_name=service_manifest_name, timeout=timeout)
+
+
+def get_container_logs_deployed_on_node(client, node_name, application_id, service_manifest_name, code_package_name, # pylint: disable=too-many-arguments
+                                        tail=None, previous=False, timeout=60):
+    """Gets the container logs for container deployed on a Service Fabric node.
+
+    Gets the container logs for container deployed on a Service Fabric node for the given code
+    package.
+
+    :param node_name: The name of the node.
+    :type node_name: str
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster.
+    :paramtype service_manifest_name: str
+    :param code_package_name: The name of code package specified in service manifest registered
+        as part of an application type in a Service Fabric cluster.
+    :paramtype code_package_name: str
+    :param tail: Number of lines to show from the end of the logs. Default is 100. 'all' to show
+        the complete logs.
+    :paramtype tail: str
+    :param previous: Specifies whether to get container logs from exited/dead containers of the
+        code package instance. Default value is False.
+    :paramtype previous: bool
+    """
+    return client.get_container_logs_deployed_on_node(node_name, application_id,
+                                                     service_manifest_name=service_manifest_name,
+                                                     code_package_name=code_package_name, tail=tail,
+                                                     previous=previous, timeout=timeout)
+
+
+def get_service_health(client, service_id, events_health_state_filter=0, partitions_health_state_filter=0, # pylint: disable=too-many-arguments
+                        exclude_health_statistics=False, timeout=60):
+    """Gets the health of the specified Service Fabric service.
+
+    Gets the health information of the specified service.
+    Use EventsHealthStateFilter to filter the collection of health events reported on the service
+    based on the health state.
+    Use PartitionsHealthStateFilter to filter the collection of partitions returned.
+    If you specify a service that does not exist in the health store, this request returns an
+    error.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param events_health_state_filter: Allows filtering the collection of HealthEvent objects
+        returned based on health state.
+        The possible values for this parameter include integer value of one of the following health
+        states.
+        Only events that match the filter are returned. All events are used to evaluate the aggregated
+        health state.
+        If not specified, all entries are returned. The state values are flag-based enumeration, so
+        the value could be a combination of these values, obtained using the bitwise 'OR' operator. For
+        example, If the provided value is 6 then all of the events with HealthState value of OK (2) and
+        Warning (4) are returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype events_health_state_filter: int
+    :param partitions_health_state_filter: Allows filtering of the partitions health state
+        objects returned in the result of service health query based on their health state.
+        The possible values for this parameter include integer value of one of the following health
+        states.
+        Only partitions that match the filter are returned. All partitions are used to evaluate the
+        aggregated health state.
+        If not specified, all entries are returned. The state values are flag-based enumeration, so
+        the value could be a combination of these value
+        obtained using bitwise 'OR' operator. For example, if the provided value is 6 then health
+        state of partitions with HealthState value of OK (2) and Warning (4) will be returned.
+
+
+        * Default - Default value. Matches any HealthState. The value is zero.
+        * None - Filter that doesn't match any HealthState value. Used in order to return no results
+        on a given collection of states. The value is 1.
+        * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+        * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+        * Error - Filter that matches input with HealthState value Error. The value is 8.
+        * All - Filter that matches input with any HealthState value. The value is 65535. Default
+        value is 0.
+    :paramtype partitions_health_state_filter: int
+    :param exclude_health_statistics: Indicates whether the health statistics should be returned
+        as part of the query result. False by default.
+        The statistics show the number of children entities in health state Ok, Warning, and Error.
+        Default value is False.
+    :paramtype exclude_health_statistics: bool
+    """
+    return client.get_service_health(service_id, events_health_state_filter=events_health_state_filter,
+                                     partitions_health_state_filter=partitions_health_state_filter,
+                                     exclude_health_statistics=exclude_health_statistics, timeout=timeout)
+
+def get_service_info_list(client, application_id, service_type_name=None, continuation_token=None, timeout=60):
+    """Gets the information about all services belonging to the application specified by the
+    application ID.
+
+    Returns the information about all services belonging to the application specified by the
+    application ID.
+
+    :param application_id: The identity of the application. This is typically the full name of the
+        application without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the application name is "fabric:/myapp/app1", the application identity would
+        be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+    :type application_id: str
+    :param service_type_name: The service type name used to filter the services to query for.
+        Default value is None.
+    :paramtype service_type_name: str
+    :param continuation_token: The continuation token parameter is used to obtain next
+        set of results. A continuation token with a non-empty value is included in the response of the
+        API when the results from the system do not fit in a single response. When this value is passed
+        to the next API call, the API returns next set of results. If there are no further results,
+        then the continuation token does not contain a value. The value of this parameter should not be
+        URL encoded. Default value is None.
+    :paramtype continuation_token: str
+    """
+    return client.get_service_info_list(application_id, service_type_name=service_type_name,
+                                        continuation_token_parameter=continuation_token, timeout=timeout)
+
+def get_service_manifest(client, application_type_name, application_type_version, service_manifest_name, timeout=60):
+    """Gets the manifest describing a service type.
+
+    Gets the manifest describing a service type. The response contains the service manifest XML as
+    a string.
+
+    :param application_type_name: The name of the application type.
+    :type application_type_name: str
+    :param application_type_version: The version of the application type.
+    :paramtype application_type_version: str
+    :param service_manifest_name: The name of a service manifest registered as part of an
+        application type in a Service Fabric cluster.
+    :paramtype service_manifest_name: str
+    """
+    return client.get_service_manifest(application_type_name, application_type_version=application_type_version,
+                                       service_manifest_name=service_manifest_name, timeout=timeout)
+
+def get_deployed_service_package_health(client, node_name, application_id, service_package_name, # pylint: disable=too-many-arguments
+                                        events_health_state_filter=0, timeout=60):
+    """Gets the information about health of a service package for a specific application deployed for
+        a Service Fabric node and application.
+
+        Gets the information about health of a service package for a specific application deployed on a
+        Service Fabric node. Use EventsHealthStateFilter to optionally filter for the collection of
+        HealthEvent objects reported on the deployed service package based on health state.
+
+        :param node_name: The name of the node.
+        :type node_name: str
+        :param application_id: The identity of the application. This is typically the full name of the
+         application without the 'fabric:' URI scheme.
+         Starting from version 6.0, hierarchical names are delimited with the "~" character.
+         For example, if the application name is "fabric:/myapp/app1", the application identity would
+         be "myapp~app1" in 6.0+ and "myapp/app1" in previous versions.
+        :type application_id: str
+        :param service_package_name: The name of the service package.
+        :type service_package_name: str
+        :param events_health_state_filter: Allows filtering the collection of HealthEvent objects
+         returned based on health state.
+         The possible values for this parameter include integer value of one of the following health
+         states.
+         Only events that match the filter are returned. All events are used to evaluate the aggregated
+         health state.
+         If not specified, all entries are returned. The state values are flag-based enumeration, so
+         the value could be a combination of these values, obtained using the bitwise 'OR' operator. For
+         example, If the provided value is 6 then all of the events with HealthState value of OK (2) and
+         Warning (4) are returned.
+
+
+         * Default - Default value. Matches any HealthState. The value is zero.
+         * None - Filter that doesn't match any HealthState value. Used in order to return no results
+         on a given collection of states. The value is 1.
+         * Ok - Filter that matches input with HealthState value Ok. The value is 2.
+         * Warning - Filter that matches input with HealthState value Warning. The value is 4.
+         * Error - Filter that matches input with HealthState value Error. The value is 8.
+         * All - Filter that matches input with any HealthState value. The value is 65535. Default
+         value is 0.
+        :paramtype events_health_state_filter: int
+        """
+    return client.get_deployed_service_package_health(node_name, application_id, service_package_name,
+                                            events_health_state_filter=events_health_state_filter, timeout=timeout)
+
+def resolve_service(client, service_id, partition_key_type=None, partition_key_value=None, # pylint: disable=too-many-arguments
+                    previous_rsp_version=None, timeout=60):
+    """Resolve a Service Fabric partition.
+
+    Resolve a Service Fabric service partition to get the endpoints of the service replicas.
+
+    :param service_id: The identity of the service. This ID is typically the full name of the
+        service without the 'fabric:' URI scheme.
+        Starting from version 6.0, hierarchical names are delimited with the "~" character.
+        For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be
+        "myapp~app1~svc1" in 6.0+ and "myapp/app1/svc1" in previous versions.
+    :type service_id: str
+    :param partition_key_type: Key type for the partition. This parameter is required if the
+        partition scheme for the service is Int64Range or Named. The possible values are following.
+
+
+        * None (1) - Indicates that the PartitionKeyValue parameter is not specified. This is valid
+        for the partitions with partitioning scheme as Singleton. This is the default value. The value
+        is 1.
+        * Int64Range (2) - Indicates that the PartitionKeyValue parameter is an int64 partition key.
+        This is valid for the partitions with partitioning scheme as Int64Range. The value is 2.
+        * Named (3) - Indicates that the PartitionKeyValue parameter is a name of the partition. This
+        is valid for the partitions with partitioning scheme as Named. The value is 3. Default value is
+        None.
+    :paramtype partition_key_type: int
+    :param partition_key_value: Partition key. This is required if the partition scheme for the
+        service is Int64Range or Named.
+        This is not the partition ID, but rather, either the integer key value, or the name of the
+        partition ID.
+        For example, if your service is using ranged partitions from 0 to 10, then they
+        PartitionKeyValue would be an
+        integer in that range. Query service description to see the range or name. Default value is
+        None.
+    :paramtype partition_key_value: str
+    :param previous_rsp_version: The value in the Version field of the response that was received
+        previously. This is required if the user knows that the result that was gotten previously is
+        stale. Default value is None.
+    :paramtype previous_rsp_version: str
+    """
+    return client.resolve_service(service_id, partition_key_type=partition_key_type,
+                                  partition_key_value=partition_key_value,
+                                  previous_rsp_version=previous_rsp_version, timeout=timeout)
+
+def get_service_type_info_list(client, application_type_name, application_type_version, timeout=60):
+    """Gets the list containing the information about service types that are supported by a
+    provisioned application type in a Service Fabric cluster.
+
+    Gets the list containing the information about service types that are supported by a
+    provisioned application type in a Service Fabric cluster. The provided application type must
+    exist. Otherwise, a 404 status is returned.
+
+    :param application_type_name: The name of the application type.
+    :type application_type_name: str
+    :param application_type_version: The version of the application type.
+    :paramtype application_type_version: str
+    """
+    return client.get_service_type_info_list(application_type_name,
+                                             application_type_version=application_type_version, timeout=timeout)

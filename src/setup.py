@@ -31,12 +31,13 @@ setup(
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10'
     ],
     keywords='servicefabric azure',
-    python_requires='>3.5, <4',
+    python_requires='>3.6, <4',
     packages=[
         'sfctl',
         'sfctl.helps',
@@ -48,6 +49,7 @@ setup(
         'msrestazure',
         'requests',
         'azure-servicefabric==8.0.0.0',
+        'azure-mgmt-core',
         'adal',
         'future',
         'applicationinsights',
