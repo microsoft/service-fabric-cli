@@ -1,15 +1,14 @@
 
-name: SFCTL
+name: SFCTL-test
 
 on:
   push:
   pull_request:
   schedule:
     - cron: 0 0 * * * # daily
-
-
 jobs:
-  build:
+  test:
+    name: run tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -33,3 +32,50 @@ jobs:
     - name: test
       run: |
         scripts/verify.sh local
+
+  build_wheel:
+    name: build wheel
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Get versions
+      run: |
+        echo "pip version:"
+        pip -V
+        echo "python version:"
+        python -V
+        echo "git version:"
+        git --version
+        echo "bash version:"
+        bash --version
+        echo "os version:"
+        cat /proc/version
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install --force-reinstall -e ./src
+        pip install --force-reinstall -r requirements.txt
+
+    - name: install wheel
+      run: |
+        pip install wheel==0.37.1
+
+    - name: Build Wheel
+      run: | 
+        cd src
+        python setup.py bdist_wheel --universal
+
+    - name: upload wheel
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: wheel
+        path:  /home/runner/work/service-fabric-cli/service-fabric-cli/src/dist*
