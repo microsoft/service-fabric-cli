@@ -6,7 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build_wheel:
+    name: build wheel
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,19 +19,33 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Get versions
+      run: |
+        echo "pip version:"
+        pip -V
+        echo "python version:"
+        python -V
+        echo "git version:"
+        git --version
+        echo "bash version:"
+        bash --version
+        echo "os version:"
+        cat /proc/version
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install --force-reinstall -e ./src
         pip install --force-reinstall -r requirements.txt
-        pip install wheel
-    - name: Build Wheel
+    - name: install wheel
       run: |
-        python src/setup.py bdist_wheel --universal
-
+        pip install wheel==0.37.1
+    - name: Build Wheel
+      run: | 
+        cd src
+        python setup.py bdist_wheel --universal
     - name: upload wheel
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v2
       if: always()
       with:
         name: wheel
-        path:  /home/runner/work/service-fabric-cli/src/dist*
+        path:  /home/runner/work/service-fabric-cli/service-fabric-cli/src/dist*
