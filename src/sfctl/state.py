@@ -123,6 +123,7 @@ def increment_telemetry_send_retry_count():  # pylint: disable=invalid-name
     set_telemetry_send_retry_count(current_retry_count + 1)
     return current_retry_count + 1
 
+
 def get_sfctl_version():
     """
     Get the version of the sfctl. For example, 6.0.0
