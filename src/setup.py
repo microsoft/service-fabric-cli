@@ -46,7 +46,7 @@ setup(
         'knack==0.6.3',
         'msrest>=0.5.0',
         'msrestazure',
-        'requests=2.27.0',
+        'requests==2.27.0',
         'azure-servicefabric==8.0.0.0',
         'adal',
         'future',
