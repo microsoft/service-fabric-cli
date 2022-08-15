@@ -139,7 +139,7 @@ def get_sfctl_version():
     try:
         from importlib.metadata import version
         return version('sfctl')
-    except:
+    except: # pylint: disable=W0702
         from pkg_resources import get_distribution
         pkg = get_distribution("sfctl")
         return pkg.version
