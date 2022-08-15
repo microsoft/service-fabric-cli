@@ -9,7 +9,6 @@
 import os
 from datetime import datetime
 from knack.config import CLIConfig
-from pkg_resources import get_distribution
 
 # knack CLIConfig has all the functionality needed to keep track of state, so we are using that
 # here to prevent code duplication. We are using CLIConfig to create a file called 'state' to
@@ -137,5 +136,10 @@ def get_sfctl_version():
     Get the version of the sfctl. For example, 6.0.0
     :return: str
     """
-    pkg = get_distribution("sfctl")
-    return pkg.version
+    try:
+        from importlib.metadata import version
+        return version('sfctl')
+    except:
+        from pkg_resources import get_distribution
+        pkg = get_distribution("sfctl")
+        return pkg.version
