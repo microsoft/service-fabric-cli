@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+11.2.0
+----------
+- Updated to use 8.2 Service fabric SDK
+- pinned version of requests to 2.27.0
+
 11.1.0
 ----------
 - Added get top/least loaded partitions command. It will be available in the Service fabric runtime 8.0 version.
