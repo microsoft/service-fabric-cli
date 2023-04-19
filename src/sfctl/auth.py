@@ -29,14 +29,14 @@ def get_aad_header():
 
     return header
 
-class FakeAuthenticationPolicy(SansIOHTTPPolicy):
-    """Fake authentication policy to avoid issues with token credentials being thrown in some scenaros"""
+class AuthenticationPolicy(SansIOHTTPPolicy):
+    """Authentication policy to avoid issues with token credentials being thrown in some scenarios"""
 
     def __init__(self):
         pass
 
-class FakeCredentialProtocol(TokenCredential): # pylint: disable=R0903
-    """Fake credential used to pass in a credential for the API Client"""
+class CredentialProtocol(TokenCredential): # pylint: disable=R0903
+    """Credential used to pass in a credential for the API Client"""
     def __init__(self): # pylint: disable=super-init-not-called
         pass
 

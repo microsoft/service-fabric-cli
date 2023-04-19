@@ -8,7 +8,7 @@
 
 from knack.util import CLIError
 from azure.servicefabric import ServiceFabricClientAPIs
-from sfctl.auth import FakeAuthenticationPolicy, FakeCredentialProtocol, get_aad_header
+from sfctl.auth import AuthenticationPolicy, CredentialProtocol, get_aad_header
 from sfctl.config import (security_type, ca_cert_info, cert_info,
                           client_endpoint, no_verify_setting)
 
@@ -31,11 +31,11 @@ def create(_):
         headers['Authorization'] = get_aad_header()
     else:
         ca_cert = ca_cert_info()
-        if ca_cert is not None:
+        if ca_cert:
             no_verify = ca_cert
 
-    client = ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
-                                     connection_verify=no_verify, enforce_https=False,
-                                     connection_cert=cert_info(), authentication_policy=FakeAuthenticationPolicy())
+    client = ServiceFabricClientAPIs(CredentialProtocol(), endpoint=endpoint, retry_total=0,
+                                     connection_verify=no_verify, enforce_https=False, headers=headers,
+                                     connection_cert=cert_info(), authentication_policy=AuthenticationPolicy())
 
     return client

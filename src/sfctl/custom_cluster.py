@@ -14,7 +14,7 @@ from azure.core.rest import HttpRequest
 from azure.servicefabric import ServiceFabricClientAPIs
 from knack.util import CLIError
 from knack.log import get_logger
-from sfctl.auth import FakeAuthenticationPolicy, FakeCredentialProtocol, get_aad_header
+from sfctl.auth import AuthenticationPolicy, CredentialProtocol, get_aad_header
 from sfctl.config import client_endpoint, SF_CLI_VERSION_CHECK_INTERVAL, get_cluster_auth, set_aad_cache, set_aad_metadata # pylint: disable=line-too-long
 from sfctl.state import get_sfctl_version
 from sfctl.custom_exceptions import SFCTLInternalException
@@ -79,17 +79,17 @@ def _get_cert_based_client(endpoint, pem, cert, key, ca, no_verify): # pylint: d
     elif cert:
         client_cert = (cert, key)
 
-    return ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
+    return ServiceFabricClientAPIs(CredentialProtocol(), endpoint=endpoint, retry_total=0,
                                      connection_verify=no_verify, enforce_https=False,
-                                     connection_cert=client_cert, authentication_policy=FakeAuthenticationPolicy())
+                                     connection_cert=client_cert, authentication_policy=AuthenticationPolicy())
 
 
 def _get_aad_based_client(endpoint, no_verify):
     headers = {}
     headers['Authorization'] = get_aad_header()
-    return ServiceFabricClientAPIs(FakeCredentialProtocol(), endpoint=endpoint, retry_total=0,
-                                    connection_verify=no_verify, enforce_https=False,
-                                    authentication_policy=FakeAuthenticationPolicy())
+    return ServiceFabricClientAPIs(CredentialProtocol(), endpoint=endpoint, retry_total=0,
+                                    connection_verify=no_verify, enforce_https=False, headers=headers,
+                                    authentication_policy=AuthenticationPolicy())
 
 def _get_rest_client(endpoint, cert=None, key=None, pem=None, ca=None,  # pylint: disable=invalid-name, too-many-arguments
                      aad=False, no_verify=False):
