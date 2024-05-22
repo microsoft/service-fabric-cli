@@ -16,6 +16,11 @@ To get started, after installation run the following:
 Change Log
 ==========
 
+11.2.1
+----------
+- Updated versions of dependency libraries
+
+
 11.2.0
 ----------
 - Updated to use 8.2 Service fabric SDK
