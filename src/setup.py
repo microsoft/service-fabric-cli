@@ -17,7 +17,7 @@ def read(fname):
 
 setup(
     name='sfctl',
-    version='11.2.0',
+    version='11.2.1',
     description='Azure Service Fabric command line',
     long_description=read('README.rst'),
     url='https://github.com/Azure/service-fabric-cli',
@@ -31,12 +31,12 @@ setup(
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10'
     ],
     keywords='servicefabric azure',
-    python_requires='>3.5, <4',
+    python_requires='>3.8, <4',
     packages=[
         'sfctl',
         'sfctl.helps',
