@@ -15,7 +15,7 @@ from applicationinsights import TelemetryClient
 from sfctl.telemetry import TELEMETRY_FILE_PATH
 from sfctl.state import set_telemetry_send_retry_count
 
-INSTRUMENTATION = '482faeea-c22b-4c75-a1af-5bfe79f36cb7'
+INSTRUMENTATION = 'bcc8168f-be0f-4622-8fe7-b930d173b8a9'
 SINGLE_UPLOAD_TIMEOUT = 30
 
 def read_telemetry_entries():
