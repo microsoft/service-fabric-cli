@@ -44,7 +44,7 @@ setup(
     ],
     install_requires=[
         'knack==0.6.3',
-        'requests==2.32.0',
+        'requests==2.32.3',
         'msrest>=0.5.0',
         'msrestazure',
         'azure-servicefabric==8.2.0.0',
