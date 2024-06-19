@@ -165,7 +165,7 @@ class AppTests(unittest.TestCase):
             try:
                 timeout = 2
                 sf_c.upload(path_to_upload_file, timeout=timeout)
-            except Exception as ex:
+            except SFCTLInternalException as ex:
                 self.assertIn(
                     'Upload has timed out. Consider passing a longer timeout duration.',
                     ex.message,
