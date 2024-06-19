@@ -54,7 +54,7 @@ setup(
         'psutil',
         'portalocker',
         'six',
-        "joblib",
+        "joblib==1.4.2",
         "tqdm"
     ],
     extras_require={
