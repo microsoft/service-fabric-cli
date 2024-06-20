@@ -221,19 +221,23 @@ def upload_to_native_imagestore(sesh, endpoint, abspath, basename, #pylint: disa
         rel_path = os.path.normpath(os.path.relpath(root, abspath))
         filecount = len(files)
 
-        if show_progress:
-            progressdescription = 'Uploading path: {}'.format(rel_path)
-            with tqdm_joblib(tqdm(desc=progressdescription, total=filecount)):
+        try:
+            if show_progress:
+                progressdescription = 'Uploading path: {}'.format(rel_path)
+                with tqdm_joblib(tqdm(desc=progressdescription, total=filecount)):
+                    Parallel(n_jobs=jobcount)(
+                        delayed(upload_single_file_native_imagestore)(
+                            sesh, endpoint, basename, rel_path, single_file, root, target_timeout)
+                            for single_file in files)
+            else:
                 Parallel(n_jobs=jobcount)(
                     delayed(upload_single_file_native_imagestore)(
                         sesh, endpoint, basename, rel_path, single_file, root, target_timeout)
                         for single_file in files)
-        else:
-            Parallel(n_jobs=jobcount)(
-                delayed(upload_single_file_native_imagestore)(
-                    sesh, endpoint, basename, rel_path, single_file, root, target_timeout)
-                    for single_file in files)
-
+        except Exception as e:
+            print(e)
+            raise SFCTLInternalException('Upload has timed out. Consider passing a longer '
+                                         'timeout duration.')
         current_time_left = get_timeout_left(target_timeout)
 
         if current_time_left == 0:

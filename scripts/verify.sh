@@ -4,6 +4,7 @@
 
 function launch_pylint()
 {
+  echo "linting"  $1
     $(which pylint) $1 --msg-template='{path}({line}): [{msg_id}{obj}] {msg}' --load-plugins=checkers
 }
 
