@@ -45,7 +45,7 @@ setup(
     install_requires=[
         'knack==0.6.3',
         'requests==2.32.3',
-        'urllib3>=2.6.0',
+        'urllib3>=2.7.0',
         'msrest>=0.5.0',
         'msrestazure',
         'azure-servicefabric==8.2.0.0',
