@@ -28,7 +28,7 @@ jobs:
     - name: Pre Test configuration
       run: |
         python scripts/check_and_use_custom_sdk.py
-        sfctl settings telemetry set-telemetry --off
+#        sfctl settings telemetry set-telemetry --off
     - name: test
       run: |
         scripts/verify.sh local
